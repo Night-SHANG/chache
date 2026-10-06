@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.7.2-dev",
-  "status": "VERIFIED_LOCAL_OUTBOUND_PACING_AND_SAFE_SHORTCUTS",
+  "appVersion": "0.7.3-dev",
+  "status": "VERIFIED_LOCAL_OUTBOUND_WHOLE_GROUP_LOAD",
   "rulesets": [
     1,
     2,
@@ -53,25 +53,26 @@
       "continueOnly": true
     }
   },
-  "testsPassed": 947,
+  "testsPassed": 952,
   "pythonTestsPassed": 22,
-  "sourceSha256": "d10965dc0eb5770658f5547b3e034f0356df5cb35fd2c84111ab31c36e554233",
-  "gameJsSha256": "400a5deeb989f8169b5f7311ef3b76664e7ccad146aa455eade8410a9bede84a",
+  "sourceSha256": "3211f409f90eab513d96d941c3185f5767a34e2599ef31f39b2d2b08a1bde71f",
+  "gameJsSha256": "042da34c6e977bc21ed9e6470b129de95406989b1c8d448712f000673d38eaa4",
   "hostGroups": 12,
   "measuredScreens": 17,
-  "screenshots": 82,
+  "screenshots": 79,
   "pairedStrategyRuns": 400,
   "runtimeStatus": "Offline native Canvas/wx-host and local gates PASS; real browser/Windows GUI/WeChat devices and human balance NOT VERIFIED",
-  "deliveryNotes": "docs/v072-playtest.md",
+  "deliveryNotes": "docs/v073-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "recordedV6Prefixes": 400,
   "developerDiagnosticsDefault": false,
   "outboundPresentation": {
-    "sequentialPickups": true,
-    "abstractLoad": true,
+    "wholeGroupCollect": true,
+    "collectMs": 140,
+    "contactHoldMs": 100,
+    "loadedPath": "shortest cells then fewest turns on current-event-cleared snapshot",
     "moveMsPerCell": 150,
-    "pickupMs": 140,
     "quarterTurnMs": 180,
     "gateHoldMs": 180,
     "exitMs": 240,
@@ -80,7 +81,8 @@
     "totalDurationCap": null
   },
   "rulesChangedFromV070": false,
-  "continuousVideoCases": 5,
-  "actualVideoFrames": 1474,
-  "rulesChangedFromV071": false
+  "continuousVideoCases": 8,
+  "actualVideoFrames": 733,
+  "rulesChangedFromV071": false,
+  "rulesChangedFromV072": false
 }

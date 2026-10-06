@@ -1,5 +1,5 @@
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
-import {outboundPickupCargoPose} from './outbound-transport-view.ts';
+import {outboundGroupCargoPose} from './outbound-transport-view.ts';
 import {boardGeometry} from './board-geometry.ts';
 import { ACHIEVEMENTS, FORKLIFTS, getColorExitProfile, getEndlessProfile, getOutboundProfile } from '../application/profile.ts';
 import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
@@ -198,7 +198,7 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   const drawCargo = (cargo: CargoId, index: number): void => {
     const source = { x: x + index % dimension * cell + cell/2, y: y + Math.floor(index / dimension) * cell + cell/2-scale };
     const isShipment = shipment?.cells.includes(index), extra = shipment?.extraClearedCells?.includes(index);
-    const flowPose = conveyor && isShipment && shipment && frame ? outboundFrame?outboundPickupCargoPose(shipment,index,outboundFrame):reduced?colorExitCargoPose(shipment,index,frame):{...source,scale:1,alpha:1} : null;
+    const flowPose = conveyor && isShipment && shipment && frame ? outboundFrame?outboundGroupCargoPose(shipment,index,outboundFrame):reduced?colorExitCargoPose(shipment,index,frame):{...source,scale:1,alpha:1} : null;
     const pose = flowPose ?? (collecting && isShipment && transport ? collectPose(source, transport.cargo, frame!.collect, false) : { ...source, scale: 1 });
     const placed = view.placementFx?.cells.includes(index) ? placementPose(view.placementFx.progress, reduced) : { x: 1, y: 1 };
     const failure = view.noticeFx?.kind === 'fail' ? placementPose(view.noticeFx.progress, reduced) : { x: 1, y: 1 };

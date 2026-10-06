@@ -1,9 +1,9 @@
-import {selectOutboundRoute} from './outbound-route.ts';
+import {findLoadedExitRoute} from './outbound-route.ts';
 import type { Cell, Point, Shipment } from '../domain/types.ts';
 import { boardGeometry } from './board-geometry.ts';
 
 export interface OutboundTransportStep {
-  kind: 'route' | 'move' | 'turn' | 'pickup' | 'exit' | 'hold';
+  kind: 'route' | 'move' | 'turn' | 'collect' | 'exit' | 'hold';
   from: Point;
   to: Point;
   fromAngle: number;
@@ -11,21 +11,20 @@ export interface OutboundTransportStep {
   startMs: number;
   endMs: number;
   loadedCount: number;
-  pickupCell?: number;
 }
 export interface OutboundTransportPlan {
   steps: OutboundTransportStep[];
-  pickupOrder: number[];
+  cargoCells: number[];
   durationMs: number;
   moveAtMs: number;
   deliveryAtMs: number;
   dimension: 7 | 9;
   exit: Point;
-  route?:{strategy:'tree'|'frontier';moves:number;turnQuarters:number;baselineMoves:number;baselineTurnQuarters:number};
+  route?:{moves:number;turnQuarters:number};
 }
 /** These clocks and weights affect presentation only, never the shipment or its capacity. */
 export const OUTBOUND_TRANSPORT_TIMING = {
-  routeMs: 100, moveMs: 150, pickupMs: 140, turnQuarterMs: 180, gateHoldMs: 180, exitMs: 240, holdMs: 180,
+  routeMs: 100, moveMs: 150, contactHoldMs:100, collectMs:140, turnQuarterMs: 180, gateHoldMs: 180, exitMs: 240, holdMs: 180,
 } as const;
 
 const same = (a: Point, b: Point): boolean => a.x === b.x && a.y === b.y;
@@ -85,16 +84,16 @@ export function buildOutboundTransport(shipment: Shipment, board: Cell[]): Outbo
   const endpoint = approach[approach.length - 1];
   if(![...group].some(cell=>distance(endpoint,toPoint(cell,dimension))===1))return null;
 
-  const timing = OUTBOUND_TRANSPORT_TIMING, steps: OutboundTransportStep[] = [], pickupOrder: number[] = [];
+  const timing = OUTBOUND_TRANSPORT_TIMING, steps: OutboundTransportStep[] = [], cargoCells=[...shipment.cells];
   const outside: Point = { x: Math.floor(dimension / 2), y: dimension };
   const exit = dock.side === 'north' ? { x: dock.entry.x, y: -1 }
     : { x: dock.side === 'east' ? dimension : -1, y: dock.entry.y };
   let position = outside, angle = -Math.PI / 2;
-  const picked = new Set<number>();
+  let loadedCount=0;
   // Each step owns an actual duration; long routes never compress movement, turns or pickup time.
-  const append = (kind: OutboundTransportStep['kind'], to: Point, toAngle: number, weight: number, pickupCell?: number): void => {
+  const append = (kind: OutboundTransportStep['kind'], to: Point, toAngle: number, weight: number): void => {
     steps.push({ kind, from: { ...position }, to: { ...to }, fromAngle: angle, toAngle, startMs: 0, endMs: weight,
-      loadedCount: picked.size, ...(pickupCell === undefined ? {} : { pickupCell }) });
+      loadedCount });
     position = { ...to }; angle = toAngle;
   };
   const turn = (to: Point): void => {
@@ -106,17 +105,16 @@ export function buildOutboundTransport(shipment: Shipment, board: Cell[]): Outbo
     turn(to);
     append('move', to, angle, timing.moveMs);
   };
-  const pickupAndEnter = (cell: number): void => {
-    const target = toPoint(cell, dimension); turn(target);
-    if (!picked.has(cell)) {
-      append('pickup', position, angle, timing.pickupMs, cell); picked.add(cell); pickupOrder.push(cell);
-    }
-    move(target);
-  };
   append('route', position, angle, timing.routeMs);
   for (const point of approach) move(point);
-  const route=selectOutboundRoute({dimension,board,group:[...group],parents,approach,exit,moveMs:timing.moveMs,turnQuarterMs:timing.turnQuarterMs});
-  for(const cell of route.walk){if(group.has(cell)&&!picked.has(cell))pickupAndEnter(cell);else move(toPoint(cell,dimension));}
+  const contact=Math.min(...cargoCells.filter(cell=>distance(endpoint,toPoint(cell,dimension))===1));
+  turn(toPoint(contact,dimension));
+  append('hold',position,angle,timing.contactHoldMs);
+  append('collect',position,angle,timing.collectMs);
+  loadedCount=cargoCells.length;
+  const route=findLoadedExitRoute({dimension,board,clearedCells:cargoCells,start:position,exit,initialAngle:angle});
+  if(!route)return null;
+  for(const point of route.path)move(point);
   turn(exit);
   append('hold',position,angle,timing.gateHoldMs);
   let time=0;
@@ -126,16 +124,16 @@ export function buildOutboundTransport(shipment: Shipment, board: Cell[]): Outbo
   append('hold', exit, angle, timing.holdMs);
   const hold = steps[steps.length - 1]; hold.startMs = time; hold.endMs = time+timing.holdMs;
   const durationMs=hold.endMs;
-  return { steps, pickupOrder, durationMs, moveAtMs: timing.routeMs, deliveryAtMs: time, dimension, exit: { ...exit },route:{strategy:route.strategy,moves:route.moves,turnQuarters:route.turnQuarters,baselineMoves:route.baselineMoves,baselineTurnQuarters:route.baselineTurnQuarters} };
+  return { steps, cargoCells, durationMs, moveAtMs: timing.routeMs, deliveryAtMs: time, dimension, exit: { ...exit },route:{moves:route.moves,turnQuarters:route.turnQuarters} };
 }
 
-/** Stateless sampling supports skipped frames, backward scrubbing, and exact completed-pickup counts. */
+/** Stateless sampling supports skipped frames, backward scrubbing, and one atomic completed group load. */
 export function sampleOutboundTransport(plan: OutboundTransportPlan, progress: number): {
   position: Point; angle: number; loadedCount: number; pickedCells: number[];
-  pickup?: { cell: number; progress: number }; stage: OutboundTransportStep['kind']; alpha: number; finished: boolean;
+  collect?: { progress: number }; stage: OutboundTransportStep['kind']; alpha: number; finished: boolean;
 } {
   const amount = unit(progress), time = amount * plan.durationMs;
-  // A normalized boundary can round a fraction of an ULP below its original millisecond value.
+  // Retain exact group-load boundaries even after normalized-progress rounding.
   const boundaryTime = time + plan.durationMs * Number.EPSILON * 4;
   const step = plan.steps.find(step => boundaryTime < step.endMs) ?? plan.steps[plan.steps.length - 1];
   const linear = unit((time - step.startMs) / (step.endMs - step.startMs));
@@ -150,11 +148,12 @@ export function sampleOutboundTransport(plan: OutboundTransportPlan, progress: n
     from=plan.steps[first].from;to=plan.steps[last].to;
     movementFraction=smooth(unit((time-plan.steps[first].startMs)/(plan.steps[last].endMs-plan.steps[first].startMs)));
   }
-  const pickedCells = plan.steps.filter(step => step.kind === 'pickup' && step.endMs <= boundaryTime).map(step => step.pickupCell!);
+  const collection=plan.steps.find(step=>step.kind==='collect');
+  const pickedCells=collection&&collection.endMs<=boundaryTime?[...plan.cargoCells]:[];
   return {
     position: { x: from.x + (to.x - from.x) * movementFraction, y: from.y + (to.y - from.y) * movementFraction },
     angle: step.fromAngle + (step.toAngle - step.fromAngle) * fraction, loadedCount: pickedCells.length, pickedCells,
-    ...(step.kind === 'pickup' ? { pickup: { cell: step.pickupCell!, progress: fraction } } : {}),
+    ...(step.kind === 'collect' ? {collect:{progress:linear}} : {}),
     stage: step.kind, alpha: step.kind === 'hold' && time >= plan.deliveryAtMs ? 1 - fraction : 1, finished: amount === 1,
   };
 }

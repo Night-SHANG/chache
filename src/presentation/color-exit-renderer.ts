@@ -104,7 +104,7 @@ export function drawMixedRemainder(ctx: Context, state: RunState, view: ViewStat
   ctx.restore();
 }
 
-/** Each displayed crate is picked once, then stays on the compact counted load until the colored exit. */
+/** One brief whole-group gather loads the compact counted pallet before driving to the colored exit. */
 export function drawColorExitShipment(ctx: Context, shipment: Shipment, progress: number, view: ViewState): void {
   const geometry = boardGeometry(shipment), scale = geometry.scale;
   const reduced = !!view.profile?.settings.reducedMotion;

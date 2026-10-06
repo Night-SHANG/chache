@@ -53,141 +53,25 @@ const forkPoints = [{ x: 4, y: 0 }, { x: 4, y: 1 }, { x: 4, y: 2 }, { x: 3, y: 2
 function planFor(event: ReturnType<typeof fixture>): OutboundTransportPlan {
   const plan = buildOutboundTransport(event.shipment, event.board); assert.ok(plan); return plan;
 }
-function assertSafeTour(event: ReturnType<typeof fixture>, plan: OutboundTransportPlan): void {
-  const { shipment, board } = event, dimension = plan.dimension, picked = new Set<number>();
-  let previous = plan.steps[0];
-  for (const step of plan.steps) {
-    assert.deepEqual(step.from, previous.to); near(step.startMs, previous === step ? 0 : previous.endMs);
-    assert.ok(step.endMs > step.startMs); assert.equal(step.loadedCount, picked.size);
-    angleNear(step.fromAngle, previous === step ? -Math.PI / 2 : previous.toAngle);
-    if (step.kind === 'pickup') {
-      assert.deepEqual(step.from, step.to); assert.ok(step.pickupCell !== undefined); assert.ok(!picked.has(step.pickupCell));
-      assert.equal(board[step.pickupCell], shipment.cargo); assert.equal(distance(step.from, pointAt(step.pickupCell, dimension)), 1);
-      angleNear(step.fromAngle, Math.atan2(Math.floor(step.pickupCell / dimension) - step.from.y, step.pickupCell % dimension - step.from.x));
-      picked.add(step.pickupCell);
-    } else if (step.kind === 'move' || step.kind === 'exit') {
-      assert.equal(distance(step.from, step.to), 1); angleNear(step.fromAngle, step.toAngle);
-      angleNear(step.fromAngle, Math.atan2(step.to.y - step.from.y, step.to.x - step.from.x));
-      const destination = cellAt(step.to, dimension);
-      if (step.to.x >= 0 && step.to.x < dimension && step.to.y >= 0 && step.to.y < dimension) {
-        assert.ok(board[destination] === null || picked.has(destination), 'entry requires a completed pickup');
-      }
-      if (step.kind === 'exit') assert.equal(picked.size, shipment.cells.length, 'last box is aboard before leaving');
-    } else assert.deepEqual(step.from, step.to, 'route, turns and hold are stationary');
-    previous = step;
-  }
-  assert.deepEqual([...picked].sort((a, b) => a - b), [...shipment.cells].sort((a, b) => a - b));
-  assert.deepEqual(plan.pickupOrder, [...picked]); near(previous.endMs, plan.durationMs);
+function assertSafePlan(event:ReturnType<typeof fixture>,plan:OutboundTransportPlan):void {
+ const {shipment,board}=event,group=new Set(shipment.cells);let loaded=false,collects=0;let previous=plan.steps[0];
+ for(const step of plan.steps){assert.deepEqual(step.from,previous.to);near(step.startMs,previous===step?0:previous.endMs);assert.ok(step.endMs>step.startMs);assert.equal(step.loadedCount,loaded?group.size:0);
+  if(step.kind==='collect'){collects++;assert.deepEqual(step.from,step.to);assert.deepEqual(step.from,shipment.path[shipment.path.length-1]);assert.ok(shipment.cells.some(cell=>distance(step.from,pointAt(cell,plan.dimension))===1));loaded=true;}
+  else if(step.kind==='move'||step.kind==='exit'){assert.equal(distance(step.from,step.to),1);angleNear(step.fromAngle,step.toAngle);angleNear(step.fromAngle,Math.atan2(step.to.y-step.from.y,step.to.x-step.from.x));if(step.kind==='exit')assert.ok(loaded);else {const cell=cellAt(step.to,plan.dimension);assert.ok(board[cell]===null||loaded&&group.has(cell),'drive only through empty cells or the already collected group');}}
+  else assert.deepEqual(step.from,step.to);previous=step;
+ }
+ assert.equal(collects,1);assert.deepEqual(new Set(plan.cargoCells),group);near(previous.endMs,plan.durationMs);
 }
-
-for (const dimension of [7, 9] as const) for (const side of ['north', 'east', 'west'] as const) test(`${dimension}×${dimension} ${side} pickup carries every box out the matching exit`, () => {
-  const middle = Math.floor(dimension / 2), north = [{ x: middle, y: 0 }, { x: middle, y: 1 }, { x: middle + 1, y: 1 }, { x: middle + 1, y: 2 }];
-  const points = north.map(p => side === 'north' ? p : side === 'east' ? { x: dimension - 1 - p.y, y: p.x } : { x: p.y, y: dimension - 1 - p.x });
-  const event = fixture(dimension, points, side), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.dimension, dimension); assert.ok(plan.durationMs >= 2000);
-  const start = sampleOutboundTransport(plan, 0), final = sampleOutboundTransport(plan, 1);
-  assert.deepEqual(start.position, { x: middle, y: dimension }); angleNear(start.angle, -Math.PI / 2);
-  assert.equal(start.loadedCount, 0); assert.equal(start.finished, false);
-  assert.deepEqual(final.position, side === 'north' ? { x: middle, y: -1 } : { x: side === 'east' ? dimension : -1, y: middle });
-  angleNear(final.angle, side === 'north' ? -Math.PI / 2 : side === 'east' ? 0 : Math.PI);
-  assert.equal(final.loadedCount, 4); assert.equal(final.alpha, 0); assert.equal(final.finished, true);
-  const exit = plan.steps.find(step => step.kind === 'exit')!;
-  near(plan.deliveryAtMs, exit.endMs); assert.deepEqual(plan.exit, final.position);
-  assert.equal(plan.steps[0].kind, 'route'); near(plan.steps[0].endMs, OUTBOUND_TRANSPORT_TIMING.routeMs);
-  near(plan.moveAtMs, plan.steps[0].endMs);
+for(const dimension of [7,9] as const)for(const side of ['north','east','west'] as const)test(`${dimension}×${dimension} ${side} loads once and carries the whole group through the correct exit`,()=>{
+ const mid=Math.floor(dimension/2),north=[{x:mid,y:0},{x:mid,y:1},{x:mid+1,y:1},{x:mid+1,y:2}],points=north.map(p=>side==='north'?p:side==='east'?{x:dimension-1-p.y,y:p.x}:{x:p.y,y:dimension-1-p.x}),event=fixture(dimension,points,side),plan=planFor(event);assertSafePlan(event,plan);
+ const collect=plan.steps.find(s=>s.kind==='collect')!,before=sampleOutboundTransport(plan,(collect.endMs-.001)/plan.durationMs),after=sampleOutboundTransport(plan,collect.endMs/plan.durationMs);assert.equal(before.loadedCount,0);assert.equal(after.loadedCount,4);const final=sampleOutboundTransport(plan,1);assert.deepEqual(final.position,plan.exit);assert.equal(final.alpha,0);assert.equal(final.loadedCount,4);angleNear(final.angle,side==='north'?-Math.PI/2:side==='east'?0:Math.PI);assert.equal(plan.moveAtMs,OUTBOUND_TRANSPORT_TIMING.routeMs);assert.equal(plan.deliveryAtMs,plan.steps.find(s=>s.kind==='exit')!.endMs);
 });
-
-test('a fork visits each side branch and returns before reserving the path toward the exit for last', () => {
-  const event = fixture(9, forkPoints), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.pickupOrder[0], 31); assert.equal(plan.pickupOrder[plan.pickupOrder.length - 1], 4);
-  const returns = plan.steps.filter(step => step.kind === 'move' && cellAt(step.to, 9) === 22);
-  assert.equal(returns.length, 3, 'enter the junction and return from both side branches');
-});
-
-test('a loop follows safe adjacent cells and picks each box once', () => {
-  const event = fixture(9, [{ x: 4, y: 0 }, { x: 4, y: 1 }, { x: 4, y: 2 }, { x: 5, y: 2 }, { x: 5, y: 1 }]);
-  assertSafeTour(event, planFor(event));
-});
-
-test('the exit can be picked first when required but the loaded vehicle leaves only after both branches', () => {
-  const points = [2, 3, 4, 5, 6].map(x => ({ x, y: 0 })), path = Array.from({ length: 8 }, (_, i) => ({ x: 4, y: 8 - i }));
-  const event = fixture(9, points, 'north', path), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.pickupOrder[0], 4); assert.equal(plan.steps[plan.steps.length - 2].kind, 'exit');
-  assert.equal(plan.steps[plan.steps.length - 2].loadedCount, 5);
-});
-
-test('when access touches the exit and another tree cell, start farther from the gate so the exit is picked last', () => {
-  const points = [{ x: 4, y: 0 }, { x: 5, y: 0 }, { x: 5, y: 1 }, { x: 6, y: 1 }];
-  const path = Array.from({ length: 8 }, (_, i) => ({ x: 4, y: 8 - i })), event = fixture(9, points, 'north', path), plan = planFor(event);
-  assertSafeTour(event, plan); assert.equal(plan.pickupOrder[0], 14); assert.equal(plan.pickupOrder[plan.pickupOrder.length - 1], 4);
-});
-
-test('exact pickup boundaries include the newly loaded box immediately even after progress normalization', () => {
-  const plan = planFor(fixture(9, forkPoints));
-  let count = 0;
-  for (const step of plan.steps) if (step.kind === 'pickup') {
-    count++; const frame = sampleOutboundTransport(plan, step.endMs / plan.durationMs);
-    assert.equal(frame.loadedCount, count); assert.ok(frame.pickedCells.includes(step.pickupCell!));
-    assert.equal(frame.pickup, undefined);
-  }
-});
-
-test('a long single-cell corridor is entered only after each adjacent pickup finishes', () => {
-  const event = fixture(9, Array.from({ length: 8 }, (_, y) => ({ x: 4, y }))), plan = planFor(event); assertSafeTour(event, plan);
-  assert.deepEqual(plan.pickupOrder, [67, 58, 49, 40, 31, 22, 13, 4]);
-});
-
-test('residual cargo of another color stays outside the route and the pickup order', () => {
-  const event = fixture(9, forkPoints); event.board[30] = 'cargo.chem'; event.board[32] = 'cargo.machine';
-  const before = JSON.stringify(event), plan = planFor(event); assertSafeTour(event, plan);
-  assert.ok(!plan.pickupOrder.includes(30)); assert.ok(!plan.pickupOrder.includes(32)); assert.equal(JSON.stringify(event), before);
-});
-
-test('an eighty-box group has no carrying limit and retains per-step pacing at its ending', () => {
-  const points = Array.from({ length: 81 }, (_, cell) => pointAt(cell, 9)).filter(p => p.x !== 4 || p.y !== 8);
-  const event = fixture(9, points), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.pickupOrder.length, 80); assert.ok(plan.durationMs > 20000);
-  assert.deepEqual(planFor(event), plan);
-  const exit = plan.steps[plan.steps.length - 2], hold = plan.steps[plan.steps.length - 1];
-  near(exit.endMs - exit.startMs, OUTBOUND_TRANSPORT_TIMING.exitMs); near(hold.endMs - hold.startMs, OUTBOUND_TRANSPORT_TIMING.holdMs);
-  const final = sampleOutboundTransport(plan, 1); assert.equal(final.loadedCount, 80); assert.equal(final.pickedCells.length, 80);
-});
-
-test('sampling retains a box until its individual pickup completes and never cuts a corner', () => {
-  const event = fixture(9, forkPoints), plan = planFor(event);
-  for (const step of plan.steps) {
-    const time = (step.startMs + step.endMs) / 2, frame = sampleOutboundTransport(plan, time / plan.durationMs);
-    assert.equal(frame.stage, step.kind); assert.equal(frame.loadedCount, step.loadedCount);
-    if (step.kind === 'pickup') { assert.ok(frame.pickup); assert.equal(frame.pickup.cell, step.pickupCell); near(frame.pickup.progress, .5); assert.ok(!frame.pickedCells.includes(step.pickupCell!)); }
-    else assert.equal(frame.pickup, undefined);
-    if (step.kind === 'turn') assert.deepEqual(frame.position, step.from);
-    if (step.kind === 'move' || step.kind === 'exit') {
-      angleNear(frame.angle, step.fromAngle);
-      if(step.kind==='exit'){near(frame.position.x,(step.from.x+step.to.x)/2);near(frame.position.y,(step.from.y+step.to.y)/2);}
-      else {const cell=cellAt({x:Math.round(frame.position.x),y:Math.round(frame.position.y)},plan.dimension);if(cell>=0&&cell<event.board.length)assert.ok(event.board[cell]===null||frame.pickedCells.includes(cell),'sampled vehicle enters only empty or picked space');
-        if(step.from.x===step.to.x)near(frame.position.x,step.from.x);else near(frame.position.y,step.from.y);}
-    }
-  }
-  assert.ok(plan.steps.some(step => step.kind === 'turn'));
-  for (const progress of [0, .82, .1, .99, .32, 1, .4]) {
-    const frame = sampleOutboundTransport(plan, progress), expected = plan.steps.filter(step => step.kind === 'pickup' && step.endMs <= progress * plan.durationMs).map(step => step.pickupCell!);
-    assert.deepEqual(frame.pickedCells, expected); assert.equal(frame.loadedCount, expected.length);
-  }
-});
-
-test('fading begins outside with vehicle and the full load together', () => {
-  const plan = planFor(fixture(9, forkPoints));
-  const before = sampleOutboundTransport(plan, (plan.deliveryAtMs - 1) / plan.durationMs), during = sampleOutboundTransport(plan, (plan.deliveryAtMs + OUTBOUND_TRANSPORT_TIMING.holdMs / 2) / plan.durationMs);
-  assert.equal(before.alpha, 1); near(during.alpha, .5); assert.deepEqual(during.position, plan.exit); assert.equal(during.loadedCount, 8);
-});
-
-test('sampling clamps jumps, negative values, NaN and infinities without mutable cached state', () => {
-  const plan = planFor(fixture(9, forkPoints)), before = JSON.stringify(plan), start = sampleOutboundTransport(plan, 0), end = sampleOutboundTransport(plan, 1);
-  assert.deepEqual(sampleOutboundTransport(plan, -2), start); assert.deepEqual(sampleOutboundTransport(plan, NaN), start);
-  assert.deepEqual(sampleOutboundTransport(plan, Infinity), start); assert.deepEqual(sampleOutboundTransport(plan, -Infinity), start);
-  assert.deepEqual(sampleOutboundTransport(plan, 2), end); assert.equal(JSON.stringify(plan), before);
-  end.position.x = 999; end.pickedCells.push(999); assert.equal(JSON.stringify(plan), before);
-});
+test('branches and rings do not create per-box pickups or collection detours',()=>{for(const points of [forkPoints,[{x:4,y:0},{x:4,y:1},{x:5,y:1},{x:4,y:2},{x:5,y:2}]]){const event=fixture(9,points),plan=planFor(event);assertSafePlan(event,plan);assert.equal(plan.steps.filter(s=>s.kind==='collect').length,1);const q=event.shipment.path[event.shipment.path.length-1];assert.equal(plan.route!.moves,Math.abs(q.x-4)+q.y);assert.ok(plan.durationMs<5000);}});
+test('collection is stationary with contact pause and a simultaneous exact load boundary',()=>{const event=fixture(9,forkPoints),plan=planFor(event),i=plan.steps.findIndex(s=>s.kind==='collect'),step=plan.steps[i];assert.equal(plan.steps[i-1].kind,'hold');near(plan.steps[i-1].endMs-plan.steps[i-1].startMs,100);near(step.endMs-step.startMs,140);const middle=sampleOutboundTransport(plan,(step.startMs+70)/plan.durationMs);assert.deepEqual(middle.position,step.from);near(middle.collect!.progress,.5);assert.equal(middle.loadedCount,0);assert.deepEqual(middle.pickedCells,[]);const complete=sampleOutboundTransport(plan,step.endMs/plan.durationMs);assert.equal(complete.loadedCount,event.shipment.cells.length);assert.deepEqual(new Set(complete.pickedCells),new Set(event.shipment.cells));});
+test('large load count does not add a pickup tour or capacity limit',()=>{const event=fixture(9,Array.from({length:81},(_,cell)=>pointAt(cell,9)).filter(p=>p.x!==4||p.y!==8)),plan=planFor(event);assertSafePlan(event,plan);assert.equal(plan.cargoCells.length,80);assert.equal(plan.route!.moves,8);assert.ok(plan.durationMs<3000);assert.deepEqual(planFor(event),plan);});
+test('residual color stays occupied during the carried path and before the next chain',()=>{const event=fixture(9,forkPoints);event.board[30]='cargo.chem';event.board[32]='cargo.machine';const before=JSON.stringify(event),plan=planFor(event);assertSafePlan(event,plan);assert.ok(plan.steps.filter(s=>s.kind==='move').every(s=>![30,32].includes(cellAt(s.to,9))));assert.equal(JSON.stringify(event),before);});
+test('gate dwell stays opaque and the full loaded vehicle fades only after leaving',()=>{const plan=planFor(fixture(9,forkPoints)),gateHold=plan.steps[plan.steps.length-3];assert.equal(gateHold.kind,'hold');const middle=sampleOutboundTransport(plan,(gateHold.startMs+gateHold.endMs)/2/plan.durationMs);assert.equal(middle.alpha,1);const outside=sampleOutboundTransport(plan,(plan.deliveryAtMs+OUTBOUND_TRANSPORT_TIMING.holdMs/2)/plan.durationMs);near(outside.alpha,.5);assert.deepEqual(outside.position,plan.exit);assert.equal(outside.loadedCount,8);});
+test('sampling across jumps and reverse scrubbing preserves atomic loading without mutable state',()=>{const plan=planFor(fixture(9,forkPoints)),before=JSON.stringify(plan),end=plan.steps.find(s=>s.kind==='collect')!.endMs;for(const p of [0,.8,.1,1,.3]){const f=sampleOutboundTransport(plan,p);assert.equal(f.loadedCount,p*plan.durationMs>=end?8:0);}assert.deepEqual(sampleOutboundTransport(plan,NaN),sampleOutboundTransport(plan,0));assert.deepEqual(sampleOutboundTransport(plan,-1),sampleOutboundTransport(plan,0));assert.deepEqual(sampleOutboundTransport(plan,2),sampleOutboundTransport(plan,1));assert.equal(JSON.stringify(plan),before);});
 
 test('frozen input events and board snapshots remain unchanged', () => {
   const event = fixture(9, forkPoints), before = JSON.stringify(event);

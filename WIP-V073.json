@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETED_LOCAL_VERIFICATION",
+  "stableBaseline": "aa42b4c51e341ab81d92c68948a2e3eb7a8b43ed",
+  "version": "0.7.3-dev",
+  "completedUtc": "2026-10-06T09:35:00Z",
+  "testsPassed": 952,
+  "hostGroups": 12,
+  "actualVideoFrames": 733,
+  "rulesChanged": false,
+  "details": "docs/v073-validation.md",
+  "pendingExternal": "Real browser/Windows GUI/WeChat devices and human feel"
+}

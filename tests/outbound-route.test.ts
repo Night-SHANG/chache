@@ -1,159 +1,208 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import type { Cell, Point } from '../src/domain/types.ts';
-import { selectOutboundRoute as selectRoute } from '../src/presentation/outbound-route.ts';
+import { findLoadedExitRoute } from '../src/presentation/outbound-route.ts';
 
 type Input = {
-  dimension: 7 | 9; board: readonly Cell[]; group: readonly number[]; parents: ReadonlyMap<number, number>;
-  approach: readonly Point[]; exit: Point; moveMs: number; turnQuarterMs: number;
+  dimension: 7 | 9;
+  board: readonly Cell[];
+  clearedCells: readonly number[];
+  start: Point;
+  exit: Point;
+  initialAngle: number;
 };
+type Route = { path: Point[]; moves: number; turnQuarters: number };
+const directions = [{ x: 0, y: -1 }, { x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 0 }];
+const turn = (from: number, to: number): number => Math.min(Math.abs(from - to), 4 - Math.abs(from - to));
 const pointAt = (cell: number, dimension: number): Point => ({ x: cell % dimension, y: Math.floor(cell / dimension) });
-const neighbors = (cell: number, dimension: number): number[] => {
-  const { x, y } = pointAt(cell, dimension);
-  return [y > 0 ? cell - dimension : -1, x + 1 < dimension ? cell + 1 : -1,
-    y + 1 < dimension ? cell + dimension : -1, x > 0 ? cell - 1 : -1].filter(next => next !== -1);
-};
-function fixture(dimension: 7 | 9, group: number[], approach?: Point[]): Input {
-  const root = Math.floor(dimension / 2), member = new Set(group), board: Cell[] = Array(dimension ** 2).fill(null);
-  for (const cell of group) board[cell] = 'cargo.food';
-  const queue = [root], seen = new Set(queue), parents = new Map<number, number>();
-  for (let cursor = 0; cursor < queue.length; cursor++) for (const next of neighbors(queue[cursor], dimension)) {
-    if (member.has(next) && !seen.has(next)) { seen.add(next); parents.set(next, queue[cursor]); queue.push(next); }
+const cellAt = (point: Point, dimension: number): number => point.y * dimension + point.x;
+const heading = (angle: number): number => ((Math.round(angle / (Math.PI / 2)) + 1) % 4 + 4) % 4;
+const gateAt = (input: Input): Point => ({ x: Math.max(0, Math.min(input.dimension - 1, input.exit.x)),
+  y: Math.max(0, Math.min(input.dimension - 1, input.exit.y)) });
+function fixture(dimension: 7 | 9 = 9): Input {
+  const middle = Math.floor(dimension / 2);
+  return { dimension, board: Array<Cell>(dimension ** 2).fill(null), clearedCells: [],
+    start: { x: middle, y: dimension - 1 }, exit: { x: middle, y: -1 }, initialAngle: -Math.PI / 2 };
+}
+function safeRoute(input: Input, route: Route | null): asserts route is Route {
+  assert.ok(route);
+  const cleared = new Set(input.clearedCells);
+  let previous = input.start, previousHeading = heading(input.initialAngle), turns = 0;
+  for (const point of route.path) {
+    assert.ok(Number.isInteger(point.x) && Number.isInteger(point.y));
+    assert.ok(point.x >= 0 && point.y >= 0 && point.x < input.dimension && point.y < input.dimension);
+    assert.equal(Math.abs(point.x - previous.x) + Math.abs(point.y - previous.y), 1);
+    assert.ok(input.board[cellAt(point, input.dimension)] === null || cleared.has(cellAt(point, input.dimension)),
+      'only empty cells and this shipment’s cleared cells are traversable');
+    const nextHeading = heading(Math.atan2(point.y - previous.y, point.x - previous.x));
+    turns += turn(previousHeading, nextHeading); previousHeading = nextHeading; previous = point;
   }
-  assert.equal(seen.size, group.length, 'fixture group is connected to the gate');
-  if (!approach) {
-    const entrance = dimension * (dimension - 1) + root, access = [entrance], accessParents = new Map([[entrance, -1]]);
-    assert.equal(board[entrance], null);
-    for (let cursor = 0; cursor < access.length; cursor++) {
-      const current = access[cursor];
-      if (neighbors(current, dimension).some(next => member.has(next))) {
-        approach = [];
-        for (let cell = current; cell !== -1; cell = accessParents.get(cell)!) approach.push(pointAt(cell, dimension));
-        approach.reverse(); break;
-      }
-      for (const next of neighbors(current, dimension)) if (board[next] === null && !accessParents.has(next)) {
-        accessParents.set(next, current); access.push(next);
-      }
+  assert.deepEqual(previous, gateAt(input));
+  turns += turn(previousHeading, heading(Math.atan2(input.exit.y - previous.y, input.exit.x - previous.x)));
+  assert.equal(route.moves, route.path.length);
+  assert.equal(route.turnQuarters, turns);
+}
+
+for (const dimension of [7, 9] as const) for (const side of ['north', 'east', 'west'] as const) {
+  test(`${dimension}×${dimension} loaded cargo goes straight to its ${side} gate`, () => {
+    const input = fixture(dimension), middle = Math.floor(dimension / 2);
+    if (side !== 'north') {
+      input.start = { x: side === 'east' ? 0 : dimension - 1, y: middle };
+      input.exit = { x: side === 'east' ? dimension : -1, y: middle };
+      input.initialAngle = side === 'east' ? 0 : Math.PI;
     }
-  }
-  assert.ok(approach);
-  return { dimension, board, group, parents, approach, exit: { x: root, y: -1 }, moveMs: 150, turnQuarterMs: 180 };
-}
-function measure(input: Input, walk: readonly number[]): { moves: number; turnQuarters: number } {
-  const { dimension, approach, exit } = input;
-  let previous = approach[approach.length - 1];
-  const before = approach.length > 1 ? approach[approach.length - 2] : { x: Math.floor(dimension / 2), y: dimension };
-  const heading = (from: Point, to: Point): number => Math.atan2(to.y - from.y, to.x - from.x);
-  let angle = heading(before, previous), turns = 0;
-  for (const point of [...walk.map(cell => pointAt(cell, dimension)), exit]) {
-    const next = heading(previous, point), delta = Math.atan2(Math.sin(next - angle), Math.cos(next - angle));
-    turns += Math.round(Math.abs(delta) / (Math.PI / 2)); angle = next; previous = point;
-  }
-  return { moves: walk.length, turnQuarters: turns };
-}
-function safeRoute(input: Input, result: ReturnType<typeof selectRoute>): void {
-  const { dimension, board, group, approach, parents } = input, members = new Set(group), picked = new Set<number>();
-  let previous = approach[approach.length - 1];
-  for (const cell of result.walk) {
-    assert.ok(Number.isInteger(cell) && cell >= 0 && cell < dimension ** 2);
-    const point = pointAt(cell, dimension);
-    assert.equal(Math.abs(point.x - previous.x) + Math.abs(point.y - previous.y), 1, 'every move is exactly one orthogonal cell');
-    if (!picked.has(cell) && members.has(cell)) picked.add(cell); // The caller completes this pickup before entry.
-    assert.ok(board[cell] === null || picked.has(cell), 'entry requires empty space or a completed group pickup');
-    previous = point;
-  }
-  assert.deepEqual([...picked].sort((a, b) => a - b), [...group].sort((a, b) => a - b), 'every group box is picked once');
-  assert.equal(result.walk[result.walk.length - 1], group.find(cell => !parents.has(cell)), 'the final cell is the colored gate');
-  assert.deepEqual({ moves: result.moves, turnQuarters: result.turnQuarters }, measure(input, result.walk));
-  assert.ok(result.moves * input.moveMs + result.turnQuarters * input.turnQuarterMs
-    <= result.baselineMoves * input.moveMs + result.baselineTurnQuarters * input.turnQuarterMs, 'presentation cost never exceeds the certified tree tour');
+    const route = findLoadedExitRoute(input); safeRoute(input, route);
+    assert.equal(route.moves, dimension - 1);
+    assert.equal(route.turnQuarters, 0);
+    assert.notDeepEqual(route.path[0], input.start);
+    assert.deepEqual(route.path[route.path.length - 1], gateAt(input));
+  });
 }
 
-test('a five-box loop uses its adjacent cycle edge instead of retracing the cargo tree', () => {
-  const input = fixture(9, [4, 13, 14, 22, 23]), result = selectRoute(input);
-  safeRoute(input, result);
-  assert.equal(result.strategy, 'frontier');
-  assert.equal(result.baselineMoves + input.approach.length, 13);
-  assert.equal(result.moves + input.approach.length, 11);
-  assert.equal(result.baselineTurnQuarters, 6, 'the tree has five turn actions, including one half-turn');
-  assert.equal(result.turnQuarters, 4);
+test('an eighty-box load takes eight northbound moves instead of touring its former cells', () => {
+  const input = fixture(), startCell = cellAt(input.start, input.dimension);
+  input.board = Array<Cell>(81).fill('cargo.food');
+  (input.board as Cell[])[startCell] = null;
+  input.clearedCells = Array.from({ length: 81 }, (_, cell) => cell).filter(cell => cell !== startCell);
+  const route = findLoadedExitRoute(input); safeRoute(input, route);
+  assert.deepEqual(route, { path: Array.from({ length: 8 }, (_, index) => ({ x: 4, y: 7 - index })),
+    moves: 8, turnQuarters: 0 });
 });
 
-test('the host north-loop cuts both travel and turning', () => {
-  const input = fixture(9, [4, 13, 14, 23, 22, 21, 12]), result = selectRoute(input);
-  safeRoute(input, result);
-  assert.ok(result.moves < result.baselineMoves);
-  assert.ok(result.turnQuarters < result.baselineTurnQuarters);
-});
-
-for (const dimension of [7, 9] as const) test(`${dimension}×${dimension} dense cargo avoids the tree tour's repeated crossings`, () => {
-  const entrance = dimension * (dimension - 1) + Math.floor(dimension / 2);
-  const input = fixture(dimension, Array.from({ length: dimension ** 2 }, (_, cell) => cell).filter(cell => cell !== entrance));
-  let boardReads = 0;
-  input.board = new Proxy(input.board, { get(target, key, receiver) {
-    if (typeof key === 'string' && /^\d+$/.test(key)) boardReads++;
-    return Reflect.get(target, key, receiver);
-  } });
-  const result = selectRoute(input), readsDuringSelection = boardReads;
-  safeRoute(input, result);
-  assert.ok(result.moves < result.baselineMoves * .7, 'dense cargo has materially less retracing');
-  assert.ok(result.moves <= input.group.length + 5);
-  assert.ok(readsDuringSelection <= 4 * input.group.length * dimension ** 2 * 4 + 4 * dimension ** 2 * 4,
-    'four sweeps visit at most one grid per pickup round, plus their final returns');
-});
-
-test('forks, a narrow corridor, and a gate-first group are no worse than the original tree route', () => {
-  const cases = [fixture(9, [4, 13, 22, 21, 20, 23, 24, 31]),
-    fixture(9, Array.from({ length: 8 }, (_, y) => y * 9 + 4)),
-    fixture(9, [2, 3, 4, 5, 6], Array.from({ length: 8 }, (_, i) => ({ x: 4, y: 8 - i })))];
-  for (const input of cases) safeRoute(input, selectRoute(input));
-  assert.equal(selectRoute(cases[1]).strategy, 'tree', 'an identical candidate retains the stable tree fallback');
-  assert.equal(selectRoute(cases[2]).walk[0], 4, 'a required gate-first pickup is allowed');
-});
-
-test('cost inherits the final approach heading and includes a quarter-turn toward the exterior', () => {
-  const approach = [{ x: 4, y: 8 }, { x: 3, y: 8 }, { x: 2, y: 8 },
-    ...Array.from({ length: 6 }, (_, i) => ({ x: 2, y: 7 - i })), { x: 3, y: 2 }];
-  const input = fixture(9, [4, 13, 22], approach), result = selectRoute(input);
-  safeRoute(input, result);
-  assert.deepEqual(result.walk, [22, 13, 4]);
-  assert.equal(result.turnQuarters, 1, 'the first move continues the eastward approach heading');
-
-  const sideInput = fixture(9, [4, 5], Array.from({ length: 9 }, (_, i) => ({ x: 3, y: 8 - i })));
-  const sideResult = selectRoute(sideInput); safeRoute(sideInput, sideResult);
-  assert.deepEqual(sideResult.walk, [4, 5, 4]);
-  assert.equal(sideResult.turnQuarters, 4, 'east, west, then north include the final exit turn');
-});
-
-test('the route cannot use foreign cargo or cargo belonging to a future chain', () => {
-  const input = fixture(9, [4, 13, 14, 22, 23]), board = [...input.board];
-  for (const cell of [3, 5, 12, 15, 21, 24]) board[cell] = cell % 2 ? 'cargo.food' : 'cargo.chem';
+test('far branches of a gathered group do not add loaded travel', () => {
+  const input = fixture(), board = [...input.board];
+  input.clearedCells = [4, 13, 22, 21, 20, 19, 18, 23, 24, 25, 26, 35, 44, 53, 62, 71, 80];
+  for (const cell of input.clearedCells) board[cell] = 'cargo.food';
   input.board = board;
-  const result = selectRoute(input); safeRoute(input, result);
-  for (const cell of [3, 5, 12, 15, 21, 24]) assert.ok(!result.walk.includes(cell));
+  const route = findLoadedExitRoute(input); safeRoute(input, route);
+  assert.equal(route.moves, 8);
+  assert.ok(route.path.every(point => point.x === 4));
 });
 
-test('approach, board, group, and parent metadata remain immutable and route selection is deterministic', () => {
-  const input = fixture(9, [4, 13, 14, 23, 22, 21, 12]);
-  const before = JSON.stringify({ ...input, parents: [...input.parents] });
-  input.approach.forEach(Object.freeze); Object.freeze(input.approach); Object.freeze(input.board); Object.freeze(input.group); Object.freeze(input);
-  const first = selectRoute(input), second = selectRoute(input);
-  assert.deepEqual(first, second);
-  assert.equal(JSON.stringify({ ...input, parents: [...input.parents] }), before);
-  first.walk.push(999); assert.deepEqual(selectRoute(input), second, 'result arrays are not shared');
+test('a load cannot escape through residual cargo of another color', () => {
+  const input = fixture(7), board = [...input.board];
+  input.start = { x: 3, y: 3 };
+  for (const cell of [17, 23, 25, 31]) board[cell] = 'cargo.chem';
+  input.board = board;
+  assert.equal(findLoadedExitRoute(input), null);
 });
 
-test('seeded connected groups retain safe adjacency and the tree cost bound across turn prices', () => {
-  let seed = 72341;
-  const random = (): number => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed; };
-  for (const dimension of [7, 9] as const) for (let sample = 0; sample < 45; sample++) {
-    const root = Math.floor(dimension / 2), entrance = (dimension - 1) * dimension + root, group = [root], member = new Set(group);
-    const target = 1 + random() % (dimension ** 2 - 1);
-    while (group.length < target) {
-      const boundary = group.flatMap(cell => neighbors(cell, dimension)).filter(cell => cell !== entrance && !member.has(cell));
-      const next = boundary[random() % boundary.length]; member.add(next); group.push(next);
+test('cargo in a future shipment stays blocked even when it has the same color', () => {
+  const input = fixture(7), board = [...input.board];
+  for (let x = 0; x < 7; x++) board[3 * 7 + x] = 'cargo.food';
+  input.clearedCells = [3]; board[3] = 'cargo.food'; input.board = board;
+  assert.equal(findLoadedExitRoute(input), null);
+  input.clearedCells = [3, 24];
+  const route = findLoadedExitRoute(input); safeRoute(input, route);
+  assert.equal(route.moves, 6);
+});
+
+test('equally short routes minimize turns inherited from the approach', () => {
+  const input = fixture(7);
+  input.start = { x: 1, y: 3 }; input.initialAngle = 0;
+  const route = findLoadedExitRoute(input); safeRoute(input, route);
+  assert.deepEqual(route.path, [{ x: 2, y: 3 }, { x: 3, y: 3 }, { x: 3, y: 2 }, { x: 3, y: 1 }, { x: 3, y: 0 }]);
+  assert.equal(route.turnQuarters, 1);
+});
+
+test('a stable north/east/south/west order breaks equal distance and turn ties', () => {
+  const input = fixture(7), board = [...input.board];
+  input.start = { x: 3, y: 3 }; board[17] = 'cargo.chem'; input.board = board;
+  const route = findLoadedExitRoute(input); safeRoute(input, route);
+  assert.deepEqual(route.path, [{ x: 4, y: 3 }, { x: 4, y: 2 }, { x: 4, y: 1 }, { x: 4, y: 0 }, { x: 3, y: 0 }]);
+  assert.equal(route.turnQuarters, 4, 'the last quarter turn faces the outside exit');
+});
+
+test('a load already at the gate has no moves and still faces outward', () => {
+  const input = fixture(); input.start = { x: 4, y: 0 }; input.initialAngle = Math.PI / 2;
+  assert.deepEqual(findLoadedExitRoute(input), { path: [], moves: 0, turnQuarters: 2 });
+  input.initialAngle = 7 * Math.PI / 2;
+  assert.deepEqual(findLoadedExitRoute(input), { path: [], moves: 0, turnQuarters: 0 });
+});
+
+test('invalid dimensions, board lengths, coordinates, exits, and headings are rejected', () => {
+  const invalid: Partial<Input>[] = [
+    { dimension: 8 as 7 }, { board: Array<Cell>(80).fill(null) }, { board: Array<Cell>(82).fill(null) },
+    { start: { x: -1, y: 0 } }, { start: { x: 9, y: 0 } }, { start: { x: 4, y: 9 } },
+    { start: { x: 4.5, y: 3 } }, { start: { x: NaN, y: 0 } },
+    { clearedCells: [-1] }, { clearedCells: [81] }, { clearedCells: [1.5] }, { clearedCells: [NaN] },
+    { exit: { x: 4, y: 9 } }, { exit: { x: 3, y: -1 } }, { exit: { x: 4, y: -2 } },
+    { exit: { x: 4, y: 0 } }, { exit: { x: 9, y: 3 } }, { exit: { x: -1, y: 3 } },
+    { exit: { x: Infinity, y: 4 } }, { initialAngle: NaN }, { initialAngle: Infinity }, { initialAngle: .1 },
+  ];
+  for (const patch of invalid) assert.equal(findLoadedExitRoute({ ...fixture(), ...patch }), null, JSON.stringify(patch));
+});
+
+test('occupied start or gate must belong to this cleared group', () => {
+  const input = fixture(), board = [...input.board]; input.board = board;
+  board[76] = 'cargo.food'; assert.equal(findLoadedExitRoute(input), null);
+  input.clearedCells = [76]; board[4] = 'cargo.chem'; assert.equal(findLoadedExitRoute(input), null);
+  input.clearedCells = [76, 4]; safeRoute(input, findLoadedExitRoute(input));
+});
+
+test('readonly inputs stay intact and repeated calls own deterministic result points', () => {
+  const input = fixture(7); input.start = { x: 1, y: 3 }; input.clearedCells = [3, 10, 17];
+  const before = JSON.stringify(input);
+  Object.freeze(input.start); Object.freeze(input.exit); Object.freeze(input.board); Object.freeze(input.clearedCells); Object.freeze(input);
+  const first = findLoadedExitRoute(input), second = findLoadedExitRoute(input); safeRoute(input, first);
+  assert.deepEqual(first, second); assert.equal(JSON.stringify(input), before);
+  first.path[0].x = 999; first.path.push({ x: 999, y: 999 });
+  assert.deepEqual(findLoadedExitRoute(input), second);
+  assert.equal(JSON.stringify(input), before);
+});
+
+/** Independent forward lexicographic Dijkstra oracle, including heading as part of the state. */
+function oracle(input: Input): { moves: number; turnQuarters: number } | null {
+  const gate = gateAt(input), outward = heading(Math.atan2(input.exit.y - gate.y, input.exit.x - gate.x));
+  const cleared = new Set(input.clearedCells), start = cellAt(input.start, input.dimension);
+  const queue = [{ cell: start, direction: heading(input.initialAngle), moves: 0, turns: 0 }];
+  const best = new Map<string, [number, number]>();
+  let result: { moves: number; turnQuarters: number } | null = null;
+  while (queue.length) {
+    queue.sort((a, b) => a.moves - b.moves || a.turns - b.turns);
+    const current = queue.shift()!, key = `${current.cell}:${current.direction}`, known = best.get(key);
+    if (known && (known[0] < current.moves || known[0] === current.moves && known[1] <= current.turns)) continue;
+    best.set(key, [current.moves, current.turns]);
+    if (result && current.moves > result.moves) break;
+    const point = pointAt(current.cell, input.dimension);
+    if (point.x === gate.x && point.y === gate.y) {
+      const total = current.turns + turn(current.direction, outward);
+      if (!result || total < result.turnQuarters) result = { moves: current.moves, turnQuarters: total };
+      continue;
     }
-    const input = fixture(dimension, group); input.turnQuarterMs = [0, 30, 120, 600][sample % 4];
-    const result = selectRoute(input); safeRoute(input, result); assert.deepEqual(selectRoute(input), result);
+    for (let direction = 0; direction < directions.length; direction++) {
+      const next = { x: point.x + directions[direction].x, y: point.y + directions[direction].y };
+      if (next.x < 0 || next.y < 0 || next.x >= input.dimension || next.y >= input.dimension) continue;
+      const cell = cellAt(next, input.dimension);
+      if (input.board[cell] !== null && !cleared.has(cell)) continue;
+      queue.push({ cell, direction, moves: current.moves + 1, turns: current.turns + turn(current.direction, direction) });
+    }
+  }
+  return result;
+}
+
+test('seeded maps match an independent shortest-distance and turn oracle', () => {
+  let seed = 981237;
+  const random = (): number => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed; };
+  for (const dimension of [7, 9] as const) for (let sample = 0; sample < 100; sample++) {
+    const input = fixture(dimension), middle = Math.floor(dimension / 2), cleared: number[] = [];
+    const board = Array.from({ length: dimension ** 2 }, (_, cell): Cell => {
+      if (random() % 5 > 1) return null;
+      if (random() % 3 === 0) cleared.push(cell);
+      return random() % 2 ? 'cargo.food' : 'cargo.chem';
+    });
+    input.start = pointAt(random() % board.length, dimension);
+    input.exit = sample % 3 === 0 ? { x: middle, y: -1 } : { x: sample % 3 === 1 ? dimension : -1, y: middle };
+    input.initialAngle = (random() % 4 - 1) * Math.PI / 2;
+    board[cellAt(input.start, dimension)] = null; board[cellAt(gateAt(input), dimension)] = null;
+    input.board = board; input.clearedCells = cleared;
+    const expected = oracle(input), actual = findLoadedExitRoute(input);
+    if (!expected) assert.equal(actual, null);
+    else {
+      safeRoute(input, actual);
+      assert.deepEqual({ moves: actual.moves, turnQuarters: actual.turnQuarters }, expected,
+        `dimension ${dimension}, sample ${sample}`);
+      assert.deepEqual(findLoadedExitRoute(input), actual);
+    }
   }
 });

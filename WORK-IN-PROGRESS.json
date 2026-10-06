@@ -1,6 +1,6 @@
 {
-  "status": "VERIFIED_LOCAL_V072_READY_FOR_PLAYTEST",
-  "stablePrevious": "55b48e3f4d4c32c77581437cad8b92020941cc3a",
-  "current": "CHECKPOINT.json and docs/v072-playtest.md",
+  "status": "VERIFIED_LOCAL_V073_READY_FOR_PLAYTEST",
+  "stablePrevious": "aa42b4c51e341ab81d92c68948a2e3eb7a8b43ed",
+  "current": "CHECKPOINT.json and docs/v073-playtest.md",
   "pending": "Real browser/Windows GUI/WeChat devices and human pacing judgment; inbound upgrade proposal not implemented"
 }
