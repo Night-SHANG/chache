@@ -22,8 +22,8 @@ function weightRows(label: string, weights: [string, number][]): string[] {
  * historical inference, or command simulation occurs here. Tests replay the displayed
  * weighted pools against the real v2/v3 generators to catch formula or draw-order drift. */
 function generationRows(state: RunState, occupancy: number): string[] {
-  if(state.rulesetVersion===4||state.rulesetVersion===5||state.rulesetVersion===6){
-    const config=state.rulesetVersion===6?RULES_V6_CONFIG:RULES_V4_CONFIG,bonus=Math.floor(occupancy*config.generation.occupancySmallPercent/state.board.length);
+  if(state.rulesetVersion===4||state.rulesetVersion===5||state.rulesetVersion===6||state.rulesetVersion===8){
+    const config=(state.rulesetVersion===6||state.rulesetVersion===8)?RULES_V6_CONFIG:RULES_V4_CONFIG,bonus=Math.floor(occupancy*config.generation.occupancySmallPercent/state.board.length);
     const rows=[`generation color_exit fixed3; target_batches ${config.targetBatches}; min_batch ${config.minBatch}`,'special/upgrade disabled; freight follows event-owned four-neighbor cargoPaths',`shape occupancy_bonus ${bonus}%; repeat_divisor ${config.generation.recentShapeDivisor}`];
     const weights:[string,number][]=SHAPES.filter(shape=>shape.minShift<=state.shift).map(shape=>{
       let weight=shape.weight*100;if(shape.cells.length<=2)weight=Math.floor(weight*(100+bonus)/100);
@@ -31,7 +31,7 @@ function generationRows(state: RunState, occupancy: number): string[] {
       return [shape.id,Math.max(1,weight)];
     });
     if(state.rulesetVersion===5&&state.colorTier)rows.push(`color_tier ${state.colorTier}; mixed_probability ${MIXED_COLOR_PERCENT[state.colorTier]}%; independent_per_piece; no_fallback`,'four_draws type[1,100],shape[0,2147483647],cargo[0,2147483647],pattern[0,11]','mixed shape.square; 12 equal 2+2 bands; shape/cargo weights below apply only to pure branch');
-    if(state.rulesetVersion===6&&state.difficultyId)rows.push(`difficulty ${state.difficultyId}; board_size 9; mixed_probability ${MIXED_COLOR_PERCENT_V6[state.difficultyId]}%; no_fallback`,'six_draws type, pureShapeRaw, pureCargoRaw, mixedShape[0,7], split[0,5], pair[0,5]','mixed shapes uniform8; connected2+2 or2+3; pure branch weights below');
+    if((state.rulesetVersion===6||state.rulesetVersion===8)&&state.difficultyId)rows.push(`difficulty ${state.difficultyId}; board_size 9; mixed_probability ${MIXED_COLOR_PERCENT_V6[state.difficultyId]}%; no_fallback`,'six_draws type, pureShapeRaw, pureCargoRaw, mixedShape[0,7], split[0,5], pair[0,5]','mixed shapes uniform8; connected2+2 or2+3; pure branch weights below');
     rows.push(...weightRows('shape_weight',weights));
     rows.push(...weightRows('cargo_weight',COLOR_EXIT_CARGO.map(cargo=>[cargo,config.generation.cargoBaseWeight+state.board.filter(cell=>cell===cargo).length*config.generation.cargoPresenceWeight])));
     return rows;
@@ -96,7 +96,7 @@ export function buildDebugRows(state: RunState, view: ViewState): string[] {
     rows.push(`canonical_route ${order.id} ${route(status.path)}`);
   }
   if (!state.orders.length) rows.push('active_orders none');
-  const limit = ([4,5,6].includes(state.rulesetVersion)) ? 3 : state.rulesetVersion===7?RULES_V7_CONFIG.resolutionLimit:state.rulesetVersion === 3 ? RULES_V3_CONFIG.resolutionLimit : state.rulesetVersion === 2 ? RULES_V2_CONFIG.resolutionLimit : P0_CONFIG.resolutionLimit;
+  const limit = ([4,5,6,8].includes(state.rulesetVersion)) ? 3 : state.rulesetVersion===7?RULES_V7_CONFIG.resolutionLimit:state.rulesetVersion === 3 ? RULES_V3_CONFIG.resolutionLimit : state.rulesetVersion === 2 ? RULES_V2_CONFIG.resolutionLimit : P0_CONFIG.resolutionLimit;
   if (view.animation) {
     const shipment = view.animation.shipment;
     rows.push(`resolution_step ${shipment.chain}/${limit} animation | last_chain ${state.lastChain}`);

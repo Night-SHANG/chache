@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { closeRun, closedSerialFloor, loadPlayableRun, runLifecycleKeysFor } from '../src/application/run-lifecycle.ts';
 import { encodeRun, loadRun, saveKeysFor, saveRun, type StoragePort } from '../src/application/save.ts';
-import { RUN_SLOTS, difficultyForSlot, tierForSlot, type RunSlot } from '../src/application/run-slots.ts';
+import { RUN_SLOTS, outboundRulesForSlot, difficultyForSlot, tierForSlot, type RunSlot } from '../src/application/run-slots.ts';
 import { createRun } from '../src/domain/engine.ts';
 import type { RunState } from '../src/domain/types.ts';
 
@@ -12,7 +12,7 @@ function storage() {
 }
 function run(slot:RunSlot='orders',serial=10):RunState {
  const difficulty=difficultyForSlot(slot),tier=tierForSlot(slot);
- const state=difficulty?createRun(19,'color_exit',6,difficulty):tier?createRun(19,'color_exit',5,tier):slot==='color_exit'?createRun(19,'color_exit',4):slot==='inbound_endless'?createRun(19,'endless',7):createRun(19,'standard',3);
+ const state=difficulty?createRun(19,'color_exit',outboundRulesForSlot(slot)!,difficulty):tier?createRun(19,'color_exit',5,tier):slot==='color_exit'?createRun(19,'color_exit',4):slot==='inbound_endless'?createRun(19,'endless',7):createRun(19,'standard',3);
  return {...state,runSerial:serial};
 }
 function assertClosed(s:StoragePort,slot:RunSlot='orders'):void {
@@ -40,8 +40,8 @@ test('explicit close persists two versioned digested copies without changing run
  assertClosed(s);assert.equal(loadRun(s).state?.runSerial,10);assert.equal(s.get(keys.main),previous.get(keys.main));
 });
 
-test('all ten slot cutoffs are isolated and the global floor is their maximum',()=>{
- assert.equal(new Set(RUN_SLOTS.flatMap(slot=>Object.values(runLifecycleKeysFor(slot)))).size,30);
+test('all fourteen slot cutoffs are isolated and the global floor is their maximum',()=>{
+ assert.equal(new Set(RUN_SLOTS.flatMap(slot=>Object.values(runLifecycleKeysFor(slot)))).size,42);
  for(const [index,closedSlot] of RUN_SLOTS.entries()){
   const s=storage();for(const slot of RUN_SLOTS)assert.equal(saveRun(s,run(slot,index+1)).ok,true);
   assert.equal(closeRun(s,closedSlot,run(closedSlot,index+1)).ok,true);
@@ -49,7 +49,7 @@ test('all ten slot cutoffs are isolated and the global floor is their maximum',(
   assert.equal(closedSerialFloor(s).floor,index+1);
  }
  const s=storage();for(const [index,slot] of RUN_SLOTS.entries())assert.equal(closeRun(s,slot,run(slot,index+20)).ok,true);
- assert.equal(closedSerialFloor(s).floor,29);
+ assert.equal(closedSerialFloor(s).floor,33);
 });
 
 test('either surviving stable lifecycle copy prevents resurrection after a reboot',()=>{
@@ -147,7 +147,7 @@ test('abandoned staging bytes never close a run or block reading stable lifecycl
  s.set(keys.temp,'broken staging');assert.equal(loadPlayableRun(s,'orders').state?.runSerial,10);assert.equal(closedSerialFloor(s).ok,true);
 });
 
-test('every single operation failure either commits or preserves the playable board in all ten slots',()=>{
+test('every single operation failure either commits or preserves the playable board in all fourteen slots',()=>{
  for(const slot of RUN_SLOTS)for(const previousSerial of [0,10]){
   const operations:string[]=[],baseline=storage(),state=run(slot,11);
   if(previousSerial)assert.equal(closeRun(baseline,slot,run(slot,previousSerial)).ok,true);
@@ -179,7 +179,7 @@ test('verified first stable marker is a commit even if every remaining mirror wr
  }
 });
 
-test('corrupt dropped and stale-read writes produce an honest outcome in all ten slots',()=>{
+test('corrupt dropped and stale-read writes produce an honest outcome in all fourteen slots',()=>{
  for(const slot of RUN_SLOTS)for(const previousSerial of [0,10])for(const pointer of ['temp','backup','main'] as const)for(const mode of ['corrupt','drop','stale-read'] as const){
   const s=storage(),keys=runLifecycleKeysFor(slot),state=run(slot,11);
   if(previousSerial)assert.equal(closeRun(s,slot,run(slot,previousSerial)).ok,true);

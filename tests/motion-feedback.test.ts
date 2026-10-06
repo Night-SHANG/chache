@@ -213,7 +213,7 @@ test('rendered particle counts and single edge pulse remain capped at chain four
 });
 
 test('single south Dock score does not overlap the bottom instruction line', () => {
-  const state = run(), current = view({ animation: { shipment: shipment({ dockId: 'dock.south' }), progress: .9, board: state.board } });
+  const state = run(), current = view({ message:'订单完成！', animation: { shipment: shipment({ dockId: 'dock.south' }), progress: .9, board: state.board } });
   const output = surface(); render(output.ctx, state, current);
   const score = output.labels.find(label => label.value === '+450');
   const hint = output.labels.find(label => label.y === 1467);

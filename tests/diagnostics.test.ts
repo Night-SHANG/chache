@@ -10,7 +10,7 @@ import {nextRandom} from '../src/domain/random.ts';
 import type {RunState} from '../src/domain/types.ts';
 import type {ViewState} from '../src/presentation/view-types.ts';
 
-const view = (): ViewState => ({selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '', elapsed: 0, animation: null, debug: true, needsResume: false});
+const view = (): ViewState => ({selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '', elapsed: 0, animation: null, debug: true, developerMode:true, needsResume: false});
 const rowsOf = (state: RunState, current = view()) => buildDebugRows(state, current).join('\n');
 function freeze(value: unknown): void {
   if (value && typeof value === 'object') {Object.freeze(value); for (const child of Object.values(value)) freeze(child);}

@@ -1,0 +1,9 @@
+{
+  "status": "WORK_IN_PROGRESS_NOT_RELEASED",
+  "stableBaseline": "d937569dafc37f187410cb67ff6f1be915caeacc",
+  "intendedVersion": "0.7.0-dev",
+  "checkpointUtc": "2026-10-06T05:31:00Z",
+  "verifiedSubsets": ["v8 occupied-entry proof and recoverable counterexamples", "domain/storage independent review", "player copy and 38 integration tests"],
+  "unfinished": ["recorded-input prefix evidence", "whole-tree final gates", "actual normal-build game.js screenshots and developer flag QA", "packaging and private backup"],
+  "warning": "Unfinished recovery checkpoint. Verified player Library package remains v0.6.0."
+}

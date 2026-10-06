@@ -8,7 +8,7 @@ import type {UiAction} from '../presentation/ui-types.ts';
 import {createRun,applyCommand,previewPlacement} from '../domain/engine.ts';
 import {loadRun,saveRun,preserveCorrupt} from './save.ts';
 import {closeRun,loadPlayableRun,closedSerialFloor} from './run-lifecycle.ts';
-import {RUN_SLOTS,isRunSlot,slotForTier,tierForSlot,slotForDifficulty,difficultyForSlot} from './run-slots.ts';
+import {RUN_SLOTS,isRunSlot,slotForTier,tierForSlot,slotForDifficulty,difficultyForSlot,outboundRulesForSlot} from './run-slots.ts';
 import type {RunSlot} from './run-slots.ts';
 import {pieceCellCargo} from '../domain/pieces.ts';
 import {isColorTier} from '../domain/v5/content.ts';
@@ -17,7 +17,7 @@ export const ACTIVE_SLOT_KEY='warehouse.active-mode.v1';
 export const COMPARISON_SEED_KEY='warehouse.color_exit.compare_seed.v1';
 function createForSlot(seed:number,slot:RunSlot,orderMode:'standard'|'daily'|'tutorial'='standard'):RunState{
  const difficulty=difficultyForSlot(slot),tier=tierForSlot(slot);
- if(difficulty)return createRun(seed,'color_exit',6,difficulty);
+ if(difficulty)return createRun(seed,'color_exit',outboundRulesForSlot(slot)!,difficulty);
  if(slot==='inbound_endless')return createRun(seed,'endless',7);
  return createRun(seed,slot==='orders'?orderMode:'color_exit',tier?5:slot==='color_exit'?COLOR_EXIT_RULESET:CURRENT_RULESET,tier);
 }
@@ -37,6 +37,8 @@ export class GameSession {
  private closureUncertain=false;
  private profileReadBlocked=false;
  private profileDirty=false;
+ private helpPaused=false;
+ private messageExpiresAt=0;
  private animationQueue:{shipment:Shipment;board:Cell[];cellTraits?:(CellTrait|null)[]}[]=[];
  private animationStarted=0;
  private animationCues={move:false,delivery:false};
@@ -49,7 +51,7 @@ export class GameSession {
  private canResume=false;
  private hasRun=false;
  private settingsReturn:'game'|'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'='menu';
- constructor(platform:Platform,options:{seed:number;mode:RunState['mode']}){
+ constructor(platform:Platform,options:{seed:number;mode:RunState['mode'];developerMode?:boolean}){
   this.platform=platform;this.lastTick=platform.now();
   const profile=loadProfile(platform.storage);this.profile=profile.profile;this.profileReadBlocked=profile.source==='unavailable';
   try{const remembered=platform.storage.get(ACTIVE_SLOT_KEY);this.slot=isRunSlot(remembered)?remembered:options.mode==='color_exit'?'color_exit':'orders';}catch{/* Default to the original slot without erasing an inaccessible selector. */}
@@ -58,7 +60,7 @@ export class GameSession {
   this.state=saved.state??{...createForSlot(options.seed,this.slot,firstLesson?'tutorial':'standard'),maxOccupancy:0};
   this.hasRun=!!saved.state||firstLesson&&saved.source==='empty'&&!saved.closed;
   this.canResume=!!saved.state;
-  this.view={selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:saved.source==='corrupt'?saved.message:'同类凑够 + 叉车能过去 = 自动出库',saveStatus:saved.source==='unavailable'?saved.message:'每次操作自动保存',elapsed:saved.state?.elapsedMs??0,animation:null,debug:false,needsResume:!!saved.state&&(saved.state.phase!=='result'||saved.source==='backup')||saved.source==='corrupt'||saved.source==='unavailable',recoveryError:saved.source==='corrupt'||saved.source==='unavailable'?saved.message:undefined,screen:this.hasRun||saved.source==='corrupt'?'game':'menu',profile:this.profile,profileStatus:profile.message,profileNeedsRecovery:profile.source==='backup'||profile.source==='corrupt'||profile.source==='unavailable',dailyLabel:this.daily().day,canContinue:this.hasRun&&this.state.phase!=='result',confirmation:null,variant:this.slot};
+  this.view={developerMode:options.developerMode===true,selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:saved.source==='unavailable'?saved.message:'每次操作自动保存',elapsed:saved.state?.elapsedMs??0,animation:null,debug:false,needsResume:!!saved.state&&(saved.state.phase!=='result'||saved.source==='backup')||saved.source==='corrupt'||saved.source==='unavailable',recoveryError:saved.source==='corrupt'||saved.source==='unavailable'?saved.message:undefined,screen:this.hasRun||saved.source==='corrupt'?'game':'menu',profile:this.profile,profileStatus:profile.message,profileNeedsRecovery:profile.source==='backup'||profile.source==='corrupt'||profile.source==='unavailable',dailyLabel:this.daily().day,canContinue:this.hasRun&&this.state.phase!=='result',confirmation:null,variant:this.slot};
   this.view.comparisonSeed=options.seed>>>0;try{const raw=platform.storage.get(COMPARISON_SEED_KEY);if(raw!==null&&/^\d+$/.test(raw)){const seed=Number(raw);if(Number.isSafeInteger(seed)&&seed>=0&&seed<=0xffffffff)this.view.comparisonSeed=seed;}}catch{/* A missing preference never changes run saves. */}
   this.refreshSlots();
   this.input=new InputController({getState:()=>this.state,getView:()=>this.view,patchView:patch=>Object.assign(this.view,patch),preview:(pieceId,origin)=>previewPlacement(this.state,pieceId,origin),risk:(pieceId,origin)=>placementRisk(this.state,pieceId,origin),dispatch:command=>this.dispatch(command),togglePause:()=>this.togglePause(),restart:()=>this.restart(),resume:()=>this.resume(),toggleDebug:()=>{this.input.cancel();this.view.debug=!this.view.debug;this.view.debugPage=0;},action:action=>this.action(action),feedback:(kind,pieceId)=>this.feedback(kind,pieceId)});
@@ -97,14 +99,14 @@ export class GameSession {
  private routeCue():void{const now=this.platform.now();if(now-this.lastRouteReady>=200){this.sound('route_ready');this.lastRouteReady=now;}}
  private feedback(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void{
   if(kind==='routeReady'){this.routeCue();return;}
-  this.sound(kind);if(kind==='pick')this.view.invalidFx=null;
-  if(kind==='invalid'){this.invalidStarted=this.platform.now();this.view.invalidFx=pieceId&&!this.profile.settings.reducedMotion?{pieceId,progress:0}:null;}
+  this.sound(kind);if(kind==='pick'){this.view.invalidFx=null;this.view.message='';this.messageExpiresAt=0;}
+  if(kind==='invalid'){this.messageExpiresAt=this.platform.now()+1800;this.invalidStarted=this.platform.now();this.view.invalidFx=pieceId&&!this.profile.settings.reducedMotion?{pieceId,progress:0}:null;}
  }
- private clearFeedback():void{this.animationQueue=[];this.view.animation=null;this.view.placementFx=null;this.view.invalidFx=null;this.view.noticeFx=null;this.pendingNotice=null;this.platform.stopSounds?.();}
+ private clearFeedback():void{this.animationQueue=[];this.view.animation=null;this.view.placementFx=null;this.view.invalidFx=null;this.view.noticeFx=null;this.pendingNotice=null;this.view.message='';this.messageExpiresAt=0;this.platform.stopSounds?.();}
  private startNotice(now:number):void{const notice=this.pendingNotice;this.pendingNotice=null;if(!notice)return;this.sound(notice.kind);this.noticeStarted=now;const duration=notice.kind==='fail'?(this.profile.settings.reducedMotion?MOTION.reduced.failMs:MOTION.failMs):(this.profile.settings.reducedMotion?MOTION.reduced.noticeMs:MOTION.noticeMs);this.view.noticeFx=duration?{...notice,progress:0}:null;}
 
  dispatch(command:Command):void{
-  if(this.recoveryPending||this.view.debug||this.view.paused||this.view.needsResume||this.view.animation||this.view.confirmation||this.view.screen!=='game')return;
+  if(this.recoveryPending||this.view.developerMode&&this.view.debug||this.view.paused||this.view.needsResume||this.view.animation||this.view.confirmation||this.view.screen!=='game')return;
   const before=this.state,resolved=applyCommand(before,command);
   if(resolved.error){this.view.message=resolved.error;this.feedback('invalid',command.type==='place'?command.pieceId:undefined);return;}
   this.state=resolved.state;
@@ -113,9 +115,9 @@ export class GameSession {
   if(this.persist())this.recordFinal();
   const placed=resolved.events.find(event=>event.type==='placed');
   if(placed){this.placementStarted=this.platform.now();this.view.placementFx=this.profile.settings.reducedMotion?null:{cells:placed.cells.slice(),progress:0};this.sound('place');}
-  if(resolved.events.some(event=>event.type==='result'&&event.result==='failed'))this.pendingNotice={kind:'fail',label:'暂时放不下了，下一班再来'};
-  else if(resolved.events.some(event=>event.type==='shift'))this.pendingNotice={kind:'shift',label:this.state.mode==='color_exit'?`出货 ${this.state.completedOrders}/30 批 · 进入第 ${this.state.shift} 档`:`第 ${before.shift} 班完成 · 进入第 ${this.state.shift} 班`};
-  else if(this.state.phase==='result'&&this.state.result==='won'&&this.state.mode!=='tutorial'&&this.state.mode!=='endless'&&!this.state.overtime)this.pendingNotice={kind:'shift',label:this.state.mode==='color_exit'?'30批出货完成，辛苦了！':'五班完成，辛苦了！'};
+  if(resolved.events.some(event=>event.type==='result'&&event.result==='failed'))this.pendingNotice={kind:'fail',label:this.state.rulesetVersion===8&&this.state.board[76]!==null?'入口堵塞':'放不下了'};
+  else if(this.state.mode!=='color_exit'&&resolved.events.some(event=>event.type==='shift'))this.pendingNotice={kind:'shift',label:`第 ${this.state.shift} 班`};
+  else if(this.state.phase==='result'&&this.state.result==='won'&&this.state.mode!=='tutorial'&&this.state.mode!=='endless'&&!this.state.overtime)this.pendingNotice={kind:'shift',label:this.state.mode==='color_exit'?'目标完成':'五班完成'};
   const board=before.board.slice(),cellTraits=before.cellTraits?.map(trait=>trait?{...trait}:null);
   for(const event of resolved.events){
    if(event.type==='placed'){
@@ -129,15 +131,15 @@ export class GameSession {
   }
   if(this.animationQueue.length)this.nextAnimation(this.platform.now());else this.startNotice(this.platform.now());
   if(command.type==='upgrade')this.sound('upgrade');
-  this.view.message=this.state.mode==='color_exit'?(resolved.events.some(event=>event.type==='shipment')?'货物沿同色货线出库，继续给南入口留路':'连同色出口、至少4件，还要留叉车空路'):this.state.phase==='upgrade'?'选择一个升级，继续当前仓库':this.state.lastChain>1?`${this.state.lastChain} 连锁！清出的通路让叉车继续深入`:resolved.events.some(event=>event.type==='shipment')?'订单完成！记得给叉车留条路':'货物已入库，给同类货箱留出连接位置';
-  if(resolved.events.some(event=>event.type==='rushExpired'))this.view.message='加急货件已过期变废弃物，可用危险品或扫路清理';
+  this.view.message=resolved.events.some(event=>event.type==='rushExpired')?'加急过期':'';this.messageExpiresAt=this.view.message?this.platform.now()+1800:0;
  }
  private persist():boolean{if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.state.elapsedMs!==elapsedMs)this.state={...this.state,elapsedMs};const result=saveRun(this.platform.storage,this.state,this.slot);this.view.saveStatus=result.message;return result.ok;}
  private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0}:null;if(next)this.routeCue();else this.startNotice(now);}
  tick(now:number):void{
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
-  if(this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;return;}
+  if(this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
   if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result')this.view.elapsed+=delta;
+  if(this.messageExpiresAt&&now>=this.messageExpiresAt){this.view.message='';this.messageExpiresAt=0;}
   const reduced=this.profile.settings.reducedMotion;
   if(this.view.placementFx){this.view.placementFx.progress=Math.max(0,Math.min(1,(now-this.placementStarted)/MOTION.placeMs));if(reduced||this.view.placementFx.progress>=1)this.view.placementFx=null;}
   if(this.view.invalidFx){this.view.invalidFx.progress=Math.max(0,Math.min(1,(now-this.invalidStarted)/MOTION.invalidMs));if(reduced||this.view.invalidFx.progress>=1)this.view.invalidFx=null;}
@@ -150,7 +152,7 @@ export class GameSession {
 
  }
  hide():void{this.input.cancel();this.clearFeedback();this.lastTick=this.platform.now();this.view.paused=!this.view.needsResume&&this.hasRun&&this.state.phase!=='result';if(this.hasRun&&!this.view.needsResume&&this.persist())this.recordFinal();}
- show():void{this.lastTick=this.platform.now();this.view.dailyLabel=this.daily().day;this.view.message='已恢复稳定存档，点继续值班';}
+ show():void{this.lastTick=this.platform.now();this.view.dailyLabel=this.daily().day;this.view.message='';}
  togglePause():void{this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();if(this.view.paused&&this.persist())this.recordFinal();}
  resume():void{
   if(this.closureUncertain||this.view.needsResume&&(!this.hasRun||!this.canResume||!!this.view.recoveryError)){
@@ -162,12 +164,12 @@ export class GameSession {
   if(!this.canResume&&!this.hasRun){this.view.message='旧档无法读取。请选择新开值班，损坏原文会另存保留';return;}
   const preserved=preserveCorrupt(this.platform.storage,this.slot);if(!preserved.ok){this.view.saveStatus=preserved.message;return;}
   this.recoveryPending=false;
-  if(!this.ensureSerial())return;this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.lastTick=this.platform.now();this.hasRun=true;this.canResume=true;this.view.canContinue=this.state.phase!=='result';if(this.persist())this.recordFinal();this.view.message='继续上次值班，仓库状态已恢复';
+  if(!this.ensureSerial())return;this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.lastTick=this.platform.now();this.hasRun=true;this.canResume=true;this.view.canContinue=this.state.phase!=='result';if(this.persist())this.recordFinal();this.view.message='';
  }
- restart():void{if(this.state.mode==='color_exit'&&this.state.rulesetVersion<6){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
+ restart():void{if(this.state.mode==='color_exit'&&this.state.rulesetVersion<8){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
  private activate(next:RunState,slot:RunSlot,source:'new'|'saved'|'backup'|'corrupt'|'unavailable'):void{
   this.input.cancel();this.clearFeedback();this.recoveryPending=source==='backup'||source==='corrupt'||source==='unavailable';this.slot=slot;this.state=next;this.hasRun=source==='new'||source==='saved'||source==='backup';this.canResume=source==='saved'||source==='new'||source==='backup';this.lastTick=this.platform.now();
-  Object.assign(this.view,{screen:source==='new'&&colorSlot(slot)?'colorIntro':'game',needsResume:source==='backup'||source==='corrupt'||source==='unavailable',paused:false,animation:null,elapsed:next.elapsedMs??0,recoveryError:source==='corrupt'?'此模式存档无法读取，原文已保留':source==='unavailable'?'无法访问此模式存储':undefined,confirmation:null,canContinue:this.hasRun&&next.phase!=='result',message:colorSlot(slot)?'颜色出口：连同色口、至少4件、留南入口空路':'订单模式：按当前订单凑货并留路'});
+  Object.assign(this.view,{screen:source==='new'&&colorSlot(slot)&&next.rulesetVersion<8?'colorIntro':'game',needsResume:source==='backup'||source==='corrupt'||source==='unavailable',paused:false,animation:null,elapsed:next.elapsedMs??0,recoveryError:source==='corrupt'?'此模式存档无法读取，原文已保留':source==='unavailable'?'无法访问此模式存储':undefined,confirmation:null,canContinue:this.hasRun&&next.phase!=='result',message:''});
   this.refreshSlots();
  }
  private switchMode(slot:RunSlot):void{
@@ -177,7 +179,7 @@ export class GameSession {
   if(target.state){
    if(!this.setActiveSlot(slot))return;
    this.activate(target.state,slot,target.source==='backup'?'backup':'saved');if(target.source==='backup'||!this.ensureSerial())return;if(this.persist())this.recordFinal();
-   if(colorSlot(slot)&&this.state.commandIndex===0&&this.state.phase==='input')this.view.screen='colorIntro';
+   if(colorSlot(slot)&&this.state.rulesetVersion<8&&this.state.commandIndex===0&&this.state.phase==='input')this.view.screen='colorIntro';
    return;
   }
   if(target.source==='corrupt'){
@@ -187,7 +189,7 @@ export class GameSession {
   this.start(colorSlot(slot)?'color_exit':slot==='inbound_endless'?'endless':this.profile.tutorialComplete?'standard':'tutorial',tierForSlot(slot),undefined,difficultyForSlot(slot));
  }
  private start(mode:'standard'|'daily'|'tutorial'|'color_exit'|'endless',colorTier?:ColorTier,seed?:number,difficultyId?:OutboundDifficulty):void{
-  const target:RunSlot=mode==='color_exit'?(difficultyId?slotForDifficulty(difficultyId):colorTier?slotForTier(colorTier):'color_exit'):mode==='endless'?'inbound_endless':'orders';
+  const target:RunSlot=mode==='color_exit'?(difficultyId?slotForDifficulty(difficultyId,8):colorTier?slotForTier(colorTier):'color_exit'):mode==='endless'?'inbound_endless':'orders';
   if(target!==this.slot&&this.hasRun&&!this.recoveryPending&&!this.view.needsResume&&!this.persist())return;
   const previousLoad=loadPlayableRun(this.platform.storage,target);
   if(previousLoad.source==='unavailable'){this.view.saveStatus=previousLoad.message;return;}
@@ -211,7 +213,7 @@ export class GameSession {
   const saved=saveRun(this.platform.storage,next,target);
   if(!saved.ok){restorePointer();this.view.saveStatus=old?'旧局已结束；新局保存失败，请重试':saved.message;return;}
   this.updateProfile(allocated.profile);this.activate(next,target,'new');this.view.saveStatus=saved.message;
-  if(daily)this.view.message=`本地每日挑战 ${daily.day} · 北京时间`;
+  if(daily)this.view.message='';
  }
 
  private openSelection(screen:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'):void{
@@ -253,6 +255,13 @@ export class GameSession {
   if(action.type==='chooseColorTier'){this.navigateSelection('colorTiers');return;}
   if(action.type==='chooseInbound'){this.navigateSelection('inboundMenu');return;}
   if(action.type==='chooseLegacy'){this.navigateSelection('legacyRuns');return;}
+  if(action.type==='help'||action.type==='colorHelp'){
+   if(this.view.screen!=='helpDetails'&&this.view.screen!=='colorIntro')this.helpPaused=this.view.paused;
+   this.input.cancel();this.clearFeedback();this.view.paused=true;this.view.screen='colorIntro';return;
+  }
+  if(action.type==='helpDetails'){if(this.view.screen==='colorIntro'&&this.state.mode!=='color_exit')this.view.screen='helpDetails';return;}
+  if(action.type==='helpBack'){if(this.view.screen==='colorIntro'||this.view.screen==='helpDetails'){this.view.screen='game';this.view.paused=this.helpPaused;this.lastTick=this.platform.now();}return;}
+  if(action.type==='skipTutorial'){if(this.state.mode==='tutorial'&&this.state.phase==='input'&&!this.view.needsResume&&!this.recoveryPending)this.start('standard');return;}
   if(action.type==='comparisonSeedNext'){
    const next=((this.view.comparisonSeed??this.state.seed)+1)>>>0;let previous:string|null=null,changed=false;
    try{previous=this.platform.storage.get(COMPARISON_SEED_KEY);this.platform.storage.set(COMPARISON_SEED_KEY,String(next));changed=true;if(this.platform.storage.get(COMPARISON_SEED_KEY)!==String(next))throw Error('readback');this.view.comparisonSeed=next;this.view.saveStatus='新局对比种子已更新，已有进度不变';}
@@ -260,11 +269,11 @@ export class GameSession {
   }
   if(action.type==='switchMode'){if(!isRunSlot(action.variant))return;this.view.confirmation={kind:'switchMode',variant:action.variant};return;}
   if(action.type==='introStart'){if(this.state.mode==='color_exit'&&!this.recoveryPending&&!this.view.needsResume){this.view.screen='game';this.view.paused=false;this.lastTick=this.platform.now();}return;}
-  if(action.type==='colorHelp'){if(this.state.mode==='color_exit'){this.input.cancel();this.clearFeedback();this.view.screen='colorIntro';this.view.paused=true;}return;}
+
   if(action.type==='newRun'){
    if(action.colorTier!==undefined&&(action.mode!=='color_exit'||!isColorTier(action.colorTier)))return;
    if(action.difficultyId!==undefined&&(action.mode!=='color_exit'||!isOutboundDifficulty(action.difficultyId)||action.colorTier!==undefined))return;
-   const target:RunSlot=action.mode==='color_exit'?(action.difficultyId?slotForDifficulty(action.difficultyId):action.colorTier?slotForTier(action.colorTier):'color_exit'):action.mode==='endless'?'inbound_endless':'orders',loaded=loadPlayableRun(this.platform.storage,target);
+   const target:RunSlot=action.mode==='color_exit'?(action.difficultyId?slotForDifficulty(action.difficultyId,8):action.colorTier?slotForTier(action.colorTier):'color_exit'):action.mode==='endless'?'inbound_endless':'orders',loaded=loadPlayableRun(this.platform.storage,target);
    if(loaded.source==='unavailable'){this.view.saveStatus='无法读取目标模式，未开始新局';return;}
    const existing=loaded.state;
    if(target===this.slot&&this.hasRun&&this.state.phase!=='result'||!!existing&&existing.phase!=='result'){this.view.confirmation={kind:'newRun',mode:action.mode,colorTier:action.colorTier,difficultyId:action.difficultyId,seed:action.colorTier||action.difficultyId?this.view.comparisonSeed:undefined};return;}

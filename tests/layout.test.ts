@@ -74,10 +74,10 @@ test('renderer uses base Canvas2D APIs across gameplay and each blocking overlay
     if (phase === 'result') { state.phase = phase; state.result = 'failed'; }
     if (phase === 'pause') view.paused = true;
     if (phase === 'resume') view.needsResume = true;
-    if (phase === 'debug') view.debug = true;
+    if (phase === 'debug') {view.debug = true; view.developerMode = true;}
     render(ctx, state, view);
     // Active rule version now identifies debug builds; the rest of the v1 overlay contract stays intact.
-    const expected = { input: '待入库', upgrade: '选择一项升级', result: '爆仓了！', pause: '休息一下', resume: '仓库还在等你', debug: '规则 v1 · 开发版' }[phase];
+    const expected = { input: '待入库', upgrade: '选择一项升级', result: '爆仓了！', pause: '已暂停', resume: '继续上次游戏？', debug: '规则 v1 · 开发版' }[phase];
     assert.ok(labels.includes(expected), `${phase} label is rendered`);
   }
 });
@@ -87,7 +87,7 @@ test('chain announcement owns the status row without regular status text painted
   view.message = '普通落子提示';
   view.animation = { board: state.board, progress: .8, shipment: { type: 'shipment', dockId: 'dock.north', orderId: 'order.test', cargo: 'cargo.food', cells: [20], path: [{ x: 3, y: 0 }, { x: 3, y: 1 }], score: 125, chain: 2 } };
   render(ctx, state, view);
-  assert.ok(labels.includes('2 连锁出库！'));
+  assert.ok(labels.includes('2连出货'));
   assert.equal(labels.includes(view.message), false);
 });
 
@@ -114,7 +114,7 @@ test('corrupt-save recovery never claims that a readable previous run was found'
   view.needsResume = true;
   view.recoveryError = '主档与备份均无法读取';
   render(ctx, state, view);
-  assert.ok(labels.includes('存档需要处理'));
+  assert.ok(labels.includes('暂时无法读取进度'));
   assert.equal(labels.includes('已找到本机保存的进度'), false);
   assert.equal(labels.includes('继续上次班次'), false);
 });
@@ -130,11 +130,11 @@ test('first two tutorial placements have visible actionable instructions', async
   const { applyCommand } = await import('../src/domain/engine.ts');
   const initial = createRun(10, 'tutorial');
   const first = canvasSurface(); render(first.ctx, initial, baseView());
-  assert.ok(first.labels.includes('第1步：把左侧食品拖进虚线框'));
+  assert.ok(first.labels.includes('把食品拖进虚线框。'));
   assert.ok(first.labels.includes('食品 ×2'));
   const placed = applyCommand(initial, { type: 'place', pieceId: initial.candidates[0].id, origin: { x: 1, y: 1 } }).state;
   const second = canvasSurface(); render(second.ctx, placed, baseView());
-  assert.ok(second.labels.includes('第2步：把中间食品接在右侧，凑成3格'));
+  assert.ok(second.labels.includes('再接上1件食品，凑够订单。'));
   assert.ok(second.labels.includes('食品 ×1'));
 });
 

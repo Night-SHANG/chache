@@ -1,0 +1,564 @@
+{
+  "baseline": "d937569",
+  "description": "Natural seeded command prefixes; v8 alone adds entry-blocked termination after frozen v6 settlement.",
+  "cases": [
+    {
+      "seed": 17,
+      "difficulty": "easy",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 7,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 8,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 6,
+            "y": 7
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 0,
+            "y": 8
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 4,
+            "y": 7
+          }
+        }
+      ],
+      "trace": [
+        "5eec06d3bd4d6b4735a6c3e1eae8566e9576c58b89911ae135872c7523d54236",
+        "7c025bcde2e237613ce8d6a4436378c5e42eee3d480b7ff763920e855cd48f5b",
+        "9a610d3ca138d1308e025746e5cd9a3f92d67f0318cafffaaad838b6c95630dd",
+        "f775190b9bc57069450d3b0b102fd23671c53cc57cdf516fc129d900292845e0",
+        "c55e2c4529dccdfc9c6472bb070ae12ca6229a134e1669f5dd9339019657f279",
+        "8ca34f7b9b54e67b73d528dd57098aa432f19aeed5ca37a280562539095c752e",
+        "a991699d953a361596e483770f539a6428d452b56002f7b3bfaaf1ee920ce9c5",
+        "ad5d48f5e95582fe174c97b99d337abd68d5beae63f97ebc4bff63a022875cd5",
+        "44780bf3be461429e3a5391584f0932e51c64083019aaab29f4d8175bf83876a",
+        "5b80e2129d73bcde4e482a6c07036e132c11f65828ff9c81d7cd68827a56934d",
+        "db6ce555a4101c859b4f2a3fb63c81332ce62f80b4c2965f5fa336c14f16ff03",
+        "9a07432d584cf43614cf05caaa58b6b77189e6e3e12d66ed0919ba122b0ba04a",
+        "fdb506cf6898646bf5c761d39d69e3cc24d7a05fcbb21ecfcb0993d8bc69422a",
+        "2fe72d61868efcf45ddedd2a52393e181a5393a36b7a37a8d79947ad18ae1798",
+        "0ba3c27b4c1a42c483d102b01d8825dace1ca71c3d0cdf1d4fa562fa650ebc60",
+        "e3331df1b7beea37418d3ececceab1fb79e8836257dc3eaac73908c848513488",
+        "ea4f71ca660ed2804615f215bfdcdc1983eaafae681ddf1a12dcac771748f25e",
+        "e9b737818478209646da1f24534d3fbfb2db53e82b43f52100d5481b441efdd4",
+        "80231122e969280f4b7b1a7b5c5b6f9a0f57314ab9878cf104aa246a46cb39d6",
+        "28cf697fd8f0390ab392f47816ba887474182aaf4afded29d249068e8841fe8e",
+        "06df8b10daf00e6c2bc1e54480951039ee375fd4918e17384fb78b9f5ce9cf54",
+        "99c5863185a7aff461159527e48758f34587a194ee0127f68c11a556e5bf2d3b"
+      ]
+    },
+    {
+      "seed": 17,
+      "difficulty": "normal",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 7,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 7
+          }
+        }
+      ],
+      "trace": [
+        "94a36ca88fb3df0b9d9bba3abaf4d26ff699517a9e3449ff9746bd752bd5f50c",
+        "aebd16557f9413f4f9c648c9549347b1e13a071a5a991a83545df78dc6fb4332",
+        "7bea16e5999df73a82f8a335f7e044adb71861420ff13b1c95beba0858c4f6ed",
+        "3d95dd96f0a501a55489a189b2e69c33e099270a9064f7a5a5906dc1d0c80c61",
+        "12e3c13ab0dbde0beb88ab5c28018d7fa0b6d6f44e815c391ce99a1e71aea9ab",
+        "a694afc0a03a005fbb37501a2267bab77e8d2dcf948a1fce8306cd6defdf2eea",
+        "923c5236493346e6aeab3adef9d4af58edd8a718988dba7309601a1c478aee6c",
+        "b29d6f9d55d290cf8a99ed988b772bb1b9e433f78b497fb574e7da20227ad2be",
+        "fa7a8d42b7e03a4b8c41ba4099c4210aeb084f9b34165da37200108ffa4529ac",
+        "d4c6af2a71b4dff8719a42b1d29f58d142dfb6d0924735a12b396189b34629aa",
+        "46b88d292df8ac33f94a2260691bc12f0c7a63ba7c004c390666044fc8f7873c",
+        "8079d8f70aea0ec9f039edbab1466070909dced73be2e94134a73a76cb879d6b",
+        "ac0b3606fa3d3e40e62a3112d833ef46a47b9cb89eb8df58ce4c9915214b31d3",
+        "96ee65fb78afba7f63ce76777d370d4779d028a09ca5d698db5e462652120150",
+        "fdc45781b8758a10c5059fe42291d3b8f8344838c0b734bb658056a61e973600",
+        "e26a100a61578774048c619e7046d7ce468874684f841b9ac1fa6de0ef904b8a"
+      ]
+    },
+    {
+      "seed": 17,
+      "difficulty": "hard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 7,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 8
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 7,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 8,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 7,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "9bfbf3f95b2026ab5a5641b517617aace6a1446a566cfc79ac26ce3d583e4491",
+        "33e612294409041bbdcb0b204dc290a01847c39c5534248afa157cf93f2b63b7",
+        "db6e950577d7fe8614743d46c22d83fd76e68a5e39c26004cfec363c533cbf0c",
+        "a4e0097c839dcc74484ef0a3fbea9125fb81bce1a855eff51f7c186facc66994",
+        "204a10d92c017c344087462780ba13bee262a0d627873e0c246e4d77e74e3067",
+        "58c474cbdf1a3b9e0be40488100bc77ab0934e2fdd4f646dc13d635137fb7f12",
+        "486d376dce74579acd179528c16e24b42b28ab933277cd15d856eaecd9aaeeb3",
+        "a99cf02caf23b0cd08dbf8332997471a545f12379d3502e39f2626de45983e6b",
+        "8d5f12abdec3d2eea0308eb5ffca85d169ee96d91a397a308c5c2eb12fa87c24",
+        "ed15c7424e1037e43b9ffd133b331b31876103a3ee0c7d66c296a973e2816c34",
+        "d3b5e905365126c06942e8a256b94b990989d7f047ec2df28f1df2e580fe4c55",
+        "ed7c8fc37d3b22bda736599416603ab4df615427279b65b7f93ba2cc3cd18878",
+        "ae1ae522b1776e6ae89303acbc234d4a6533a7cc5ab28766e8c8ee105d9b8e68"
+      ]
+    },
+    {
+      "seed": 0,
+      "difficulty": "expert",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 8,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "41ca826479614908bef658a0d058a3f536cc76539972f7d6ae03e5bf365e0e1d",
+        "640d5be1dcf70f09c6e9eb45a5de899154f2a11839fe431c9b3dc0562fa62e44",
+        "44b419e790fc55176981cb847158baa20252e91c146cc78cdd5a2fd302bb700a",
+        "1715aea555ae53817dbbe81bf87cb832b6ae4f842ad42598c1cacb9d0939844e",
+        "a19a6aada5222bab52c07be86fb53fd87952e85f398a55a74d17de4cec18efe7",
+        "e5975406a97d58be8c10e18f505d3f66e6ff8c01c5783dc09c213a4dbcfabce6",
+        "001e1c7c70b139c0c02d2b58292a6a57ae46f88ff17300d0c4ff7cbfb2649924",
+        "4d8b224ebb04bca18a5f789dd4ddc66927322f8131a01069aedc425d402b3f00",
+        "89ec52ed27cf154b22ae85c21fb040e51653006c49ab9ee44c877bdcfa43b69a",
+        "54bbdbb5359cda03259c143d28668c5d112209240fb4377b734841badd8cab32",
+        "2205952eee0582bd08a4df37f980f2c90a3f0124995678c1a21587c2e39144c1"
+      ]
+    }
+  ]
+}

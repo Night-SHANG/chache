@@ -9,6 +9,7 @@
     "lint": "eslint src tests scripts",
     "preflight": "node scripts/preflight.mjs",
     "build": "node scripts/build.mjs",
+    "build:debug": "node scripts/build.mjs --diagnostics",
     "serve": "node scripts/serve.mjs",
     "smoke": "node scripts/browser-smoke.mjs",
     "check": "npm run lint && npm run typecheck && npm test && npm run preflight && npm run build",

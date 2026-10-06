@@ -15,16 +15,16 @@ test('legacy active state still opens the two new mode selectors without a legac
  const out=surface();render(out.ctx,s,v);assert.match(out.words(),/入库模式/);assert.match(out.words(),/出库模式/);assert.doesNotMatch(out.words(),/旧纯色最高分/);
 });
 
-test('first color introduction explains all three conditions and has no new-run side effect control',()=>{
+test('optional color help explains all three conditions and returns without a new-run side effect',()=>{
  const s=createRun(1,'color_exit',4),v=view({screen:'colorIntro'}),out=surface();render(out.ctx,s,v);
  assert.match(out.words(),/至少4件/);assert.match(out.words(),/同色出口/);assert.match(out.words(),/南入口/);assert.match(out.words(),/30批/);
- assert.deepEqual(getUiControls(s,v).map(c=>c.action.type),['introStart','home']);
+ assert.deepEqual(getUiControls(s,v).map(c=>c.action.type),['helpBack']);
 });
 
-test('color gameplay and pause describe fixed gates and batches without order-mode special rules',()=>{
+test('color gameplay and pause show gate identities and batches with optional mode-specific help',()=>{
  const s=createRun(1,'color_exit',4);
- for(const paused of [false,true]){const out=surface();render(out.ctx,s,view({paused}));assert.match(out.words(),/颜色出口|固定出口/);assert.match(out.words(),/30批|30 批/);assert.doesNotMatch(out.words(),/每班6单|新单等下一次|托盘1格|加急到期/);}
- const controls=getUiControls(s,view({paused:true}));assert.ok(controls.some(c=>c.action.type==='colorHelp'));assert.equal(controls.some(c=>c.action.type==='continueOvertime'||c.action.type==='finishOvertime'),false);
+ for(const paused of [false,true]){const out=surface();render(out.ctx,s,view({paused}));assert.match(out.words(),/北·食品/);assert.match(out.words(),/东·化工/);assert.match(out.words(),/西·机械/);assert.match(out.words(),/30批|30 批/);assert.doesNotMatch(out.words(),/每班6单|新单等下一次|托盘1格|加急到期/);}
+ const controls=getUiControls(s,view({paused:true}));assert.ok(controls.some(c=>c.action.type==='help'));assert.equal(controls.some(c=>c.action.type==='continueOvertime'||c.action.type==='finishOvertime'),false);
 });
 
 test('switch confirmation explicitly preserves both mode saves and has a real cancel',()=>{
@@ -39,12 +39,12 @@ test('color result cannot offer overtime or restart an order run',()=>{
  const out=surface();render(out.ctx,s,view());assert.match(out.words(),/旧版.*7×7|出库/);assert.match(out.words(),/出货批次/);assert.match(out.words(),/累计出货.*149件/);assert.doesNotMatch(out.words(),/五个班次全部完成|当前成绩进入订单/);
 });
 
-test('recovery screen for color mode explains its own rules and offers a non-destructive mode menu',()=>{
+test('recovery screen for color mode identifies the save and offers continue restart and home',()=>{
  const out=surface();render(out.ctx,createRun(1,'color_exit',4),view({needsResume:true}));
- assert.match(out.words(),/旧版.*7×7|出库/);assert.match(out.words(),/同色出口/);assert.match(out.words(),/返回主页.*确认结束/);assert.doesNotMatch(out.words(),/托盘占1格|加急.*废弃物/);
+ assert.match(out.words(),/继续上次游戏？/);assert.match(out.words(),/出库模式/);assert.match(out.words(),/继续游戏/);assert.match(out.words(),/重新开始/);assert.match(out.words(),/返回主页/);assert.doesNotMatch(out.words(),/同色出口|旧版|7×7|托盘占1格|加急.*废弃物/);
 });
 
 test('mode menu surfaces run-save failure even if the shared Profile is healthy',()=>{
  const out=surface();render(out.ctx,createRun(1,'standard',3),view({screen:'menu',saveStatus:'模式切换保存失败，当前进度仍保留',profileStatus:'长期记录已保存'}));
- assert.match(out.words(),/模式切换保存失败/);
+ assert.match(out.words(),/模式切换保存失败/);assert.doesNotMatch(out.words(),/长期记录已保存/);
 });

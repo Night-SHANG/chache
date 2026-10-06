@@ -108,11 +108,11 @@ function surface() {
 test('fixed gate overlay identifies all cargo doors and reserves the southern entrance with text', () => {
   const canvas = surface(), run = state(), before = JSON.stringify(run);
   drawColorExitGates(canvas.ctx, run, view());
-  assert.match(canvas.words(), /北.*食品/); assert.match(canvas.words(), /东.*化工/); assert.match(canvas.words(), /西.*机械/); assert.match(canvas.words(), /叉车入口.*留空/);
+  assert.match(canvas.words(), /北.*食品/); assert.match(canvas.words(), /东.*化工/); assert.match(canvas.words(), /西.*机械/); assert.match(canvas.words(), /叉车入口/);
   const north = canvas.labels.find(label => /北.*食品/.test(label.value))!, west = canvas.labels.find(label => /西.*机械/.test(label.value))!, east = canvas.labels.find(label => /东.*化工/.test(label.value))!;
   assert.ok(north.y < 560); assert.ok(west.x < 120); assert.ok(east.x > 960);
   assert.equal(JSON.stringify(run), before);
-  run.board[45] = 'cargo.machine'; const blocked = surface(); drawColorExitGates(blocked.ctx, run, view()); assert.match(blocked.words(), /入口被堵/);
+  run.board[45] = 'cargo.machine'; const blocked = surface(); drawColorExitGates(blocked.ctx, run, view()); assert.match(blocked.words(), /入口堵塞/);
 });
 
 test('preview renders differently colored dashed forklift access and solid cargo lines', () => {
@@ -120,7 +120,7 @@ test('preview renders differently colored dashed forklift access and solid cargo
   drawColorExitRoutes(canvas.ctx, view({ preview: { valid: true, cells: [], shipments: [event] } }));
   const dashed = canvas.strokes.filter(s => s.dash.length), solid = canvas.strokes.filter(s => !s.dash.length);
   assert.ok(dashed.length, 'forklift empty access is dashed'); assert.ok(solid.some(s => dashed.every(d => d.style !== s.style)), 'cargo lines have a different solid color');
-  assert.match(canvas.words(), /虚线.*叉车空路/); assert.match(canvas.words(), /实线.*货箱/);
+  assert.doesNotMatch(canvas.words(), /虚线|实线/, 'route legends belong in optional help');
 });
 
 test('reduced shipment renders static group counts without a turning forklift or moving effects', () => {
@@ -133,8 +133,8 @@ test('reduced shipment renders static group counts without a turning forklift or
 
 test('help diagram explains linked cargo quantity, the matching exit, and the single empty access route', () => {
   const canvas = surface(); drawColorExitHelpDiagram(canvas.ctx, { x: 100, y: 400, w: 880, h: 450 });
-  assert.match(canvas.words(), /至少.*4.*件/); assert.match(canvas.words(), /同色.*出口/); assert.match(canvas.words(), /叉车.*空路/);
-  assert.match(canvas.words(), /叉车入口.*留空/); assert.doesNotMatch(canvas.words(), /订单|旧单|升级|加班/);
+  assert.match(canvas.words(), /食品4件出货/); assert.match(canvas.words(), /北.*食品/); assert.match(canvas.words(), /虚线.*叉车通路/); assert.match(canvas.words(), /实线.*出货路线/);
+  assert.match(canvas.words(), /叉车入口/); assert.doesNotMatch(canvas.words(), /订单|旧单|升级|加班/);
 });
 
 import { createRun, previewPlacement } from '../src/domain/engine.ts';
@@ -149,14 +149,14 @@ test('fixed exit cards distinguish insufficient quantity from a large group disc
   const short = foodState([3, 10]), unconnected = foodState([8, 9, 15, 16]);
   const lack = colorExitFeedback(short, short.orders[0], view()), disconnected = colorExitFeedback(unconnected, unconnected.orders[0], view());
   assert.equal(lack.status.reason, 'insufficient'); assert.equal(lack.status.count, 2); assert.match(lack.label, /(?:差|需|连).*2.*件/);
-  assert.equal(disconnected.status.reason, 'exit-unconnected'); assert.equal(disconnected.status.count, 0); assert.match(disconnected.label, /未接.*同色/);
+  assert.equal(disconnected.status.reason, 'exit-unconnected'); assert.equal(disconnected.status.count, 0); assert.match(disconnected.label, /未连出口/);
 });
 
 test('fixed exit feedback distinguishes a blocked southern entrance from inaccessible stock', () => {
   const blocked = foodState([3, 10, 11, 18]), inaccessible = structuredClone(blocked);
   blocked.board[45] = 'cargo.machine'; for (const cell of [38, 44, 46]) inaccessible.board[cell] = 'cargo.machine';
   assert.equal(colorExitFeedback(blocked, blocked.orders[0], view()).status.reason, 'entry-blocked');
-  assert.match(colorExitFeedback(blocked, blocked.orders[0], view()).label, /南入口.*堵/);
+  assert.match(colorExitFeedback(blocked, blocked.orders[0], view()).label, /入口堵塞/);
   assert.equal(colorExitFeedback(inaccessible, inaccessible.orders[0], view()).status.reason, 'route-blocked');
   assert.match(colorExitFeedback(inaccessible, inaccessible.orders[0], view()).label, /(?:无|没有).*空路/);
 });
@@ -165,18 +165,18 @@ test('only the engine preview marks a fixed exit as expected to ship after this 
   const run = foodState([3, 10, 11]), preview = previewPlacement(run, 'piece.food', { x: 4, y: 2 });
   assert.equal(preview.shipments.length, 1);
   const v = view({ selectedPieceId: 'piece.food', preview }), feedback = colorExitFeedback(run, run.orders[0], v);
-  assert.match(feedback.label, /预计.*出货/); assert.equal(feedback.previewShipment, preview.shipments[0]);
+  assert.match(feedback.label, /可出货/); assert.equal(feedback.previewShipment, preview.shipments[0]);
   assert.equal(colorExitFeedback(run, run.orders[1], v).previewShipment, undefined);
   assert.match(colorExitBoardHint(run, v), /预计.*食品/);
-  const ready = foodState([3, 10, 11, 18]); assert.match(colorExitFeedback(ready, ready.orders[0], view()).label, /落子.*检查/);
+  const ready = foodState([3, 10, 11, 18]); assert.match(colorExitFeedback(ready, ready.orders[0], view()).label, /已就绪.*等待放置/);
 });
 
 test('fixed cards and entrance-blocking preview explain the color-exit mode without old-order copy', () => {
   const run = foodState([3, 10]), canvas = surface(), before = JSON.stringify(run);
   drawColorExitCards(canvas.ctx, run, view());
-  assert.match(canvas.words(), /固定出口/); assert.match(canvas.words(), /至少.*4.*件/);
+  assert.match(canvas.words(), /出货口/); assert.match(canvas.words(), /已连接 2\/4件/);
   for (const cargo of ['食品', '化工', '机械']) assert.match(canvas.words(), new RegExp(cargo));
   assert.doesNotMatch(canvas.words(), /订单|旧单|升级|加班/); assert.equal(JSON.stringify(run), before);
   const preview = previewPlacement(run, 'piece.food', { x: 3, y: 6 }); assert.equal(preview.valid, true);
-  assert.match(colorExitBoardHint(run, view({ selectedPieceId: 'piece.food', preview })), /南入口.*堵/);
+  assert.match(colorExitBoardHint(run, view({ selectedPieceId: 'piece.food', preview })), /入口堵塞/);
 });
