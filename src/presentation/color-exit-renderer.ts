@@ -1,3 +1,5 @@
+import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
+import {outboundVehicleDisplay} from './outbound-transport-view.ts';
 import { CARGO, COLOR_EXIT_TARGETS } from '../domain/content.ts';
 import { orderStatus } from '../domain/board.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
@@ -8,9 +10,9 @@ import { cellCenter } from './layout.ts';
 import { boardGeometry } from './board-geometry.ts';
 import type { GeometrySource } from './board-geometry.ts';
 import type { Rect } from './layout.ts';
-import { CREAM, PALETTE, cargoBox, forklift, icon, panel, text } from './assets.ts';
+import { CREAM, PALETTE, cargoBox, forklift, icon, panel, roundedPath, text } from './assets.ts';
 import { dockPosition, shipmentFrame } from './motion.ts';
-import { colorExitCargoPose, colorExitVehiclePose } from './color-exit-motion.ts';
+import { colorExitCargoPose } from './color-exit-motion.ts';
 import { mixedPiecePreview, mixedRemainderCaption } from './mixed-piece-feedback.ts';
 
 type Context = CanvasRenderingContext2D;
@@ -95,19 +97,30 @@ export function drawMixedRemainder(ctx: Context, state: RunState, view: ViewStat
   ctx.restore();
 }
 
-/** The forklift carries no pack; all cargo rendering stays attached to each event cargoPath. */
+/** Each displayed crate is picked once, then stays on the compact counted load until the colored exit. */
 export function drawColorExitShipment(ctx: Context, shipment: Shipment, progress: number, view: ViewState): void {
   const geometry = boardGeometry(shipment), scale = geometry.scale;
-  const reduced = !!view.profile?.settings.reducedMotion, frame = shipmentFrame(progress, reduced), pose = colorExitVehiclePose(shipment, frame);
-  if (pose && frame.stage !== 'route') {
-    ctx.save(); ctx.beginPath(); ctx.rect(geometry.x - 30 * scale, geometry.y - 30 * scale, geometry.size + 60 * scale, geometry.size + 60 * scale); ctx.clip();
-    ctx.globalAlpha *= pose.alpha; forklift(ctx, pose.x, pose.y, 99 * scale, pose.angle, view.profile?.cosmetics.forklift); ctx.restore();
+  const reduced = !!view.profile?.settings.reducedMotion;
+  const plan=!reduced?(view.animation?.transportPlan??(view.animation?buildOutboundTransport(shipment,view.animation.board):null)):null;
+  const frame=plan?sampleOutboundTransport(plan,progress):null;
+  if(frame&&frame.stage!=='route'){
+    const pose=outboundVehicleDisplay(shipment,frame);
+    ctx.save();ctx.beginPath();ctx.rect(geometry.x-30*scale,geometry.y-30*scale,geometry.size+60*scale,geometry.size+60*scale);ctx.clip();ctx.globalAlpha*=pose.alpha;
+    forklift(ctx,pose.x,pose.y,pose.vehicleSize,pose.angle,view.profile?.cosmetics.forklift);
+    if(pose.loadedCount>0){
+      const size=pose.cargoSize,stack=Math.min(3,pose.loadedCount),x=pose.cargo.x,y=pose.cargo.y;
+      panel(ctx,{x:x-size*.55,y:y+size*.2,w:size*1.1,h:size*.3},'#b48c55','#59442c',3*scale);
+      for(let level=0;level<stack;level++)cargoBox(ctx,shipment.cargo,x-size/2-level*2*scale,y-size/2-level*3*scale,size,1,undefined,view.profile?.cosmetics.cargo);
+      ctx.fillStyle='#18382e';ctx.strokeStyle='#b9dda9';ctx.lineWidth=2*scale;
+      roundedPath(ctx,x-24*scale,y+6*scale,48*scale,20*scale,4*scale);ctx.fill();ctx.stroke();
+      text(ctx,`${pose.loadedCount}件`,x,y+16*scale,17*scale,'#f4ffe5','center');
+    }
+    ctx.restore();
   }
-  if (!reduced && frame.stage !== 'carry' && frame.stage !== 'exit') return;
-  const dock = geometry.colorExits.find(d => d.id === shipment.dockId); if (!dock) return;
-  const x = dock.side === 'north' ? 874 : dock.side === 'west' ? 51 : 1029, y = dock.side === 'north' ? 538 : 1061;
-  text(ctx, `${shipment.cells.length}件`, x, y, 24, PALETTE[shipment.cargo].light, 'center');
-  text(ctx, `+${shipment.score}`, x, y + 28, 22, '#ffe48a', 'center');
+  if(!reduced&&(!frame||progress*(plan?.durationMs??0)<(plan?.deliveryAtMs??Infinity)))return;
+  const dock=geometry.colorExits.find(d=>d.id===shipment.dockId);if(!dock)return;
+  const x=dock.side==='north'?874:dock.side==='west'?51:1029,y=dock.side==='north'?538:1061;
+  text(ctx,`${shipment.cells.length}件`,x,y,24,PALETTE[shipment.cargo].light,'center');text(ctx,`+${shipment.score}`,x,y+28,22,'#ffe48a','center');
 }
 
 /** A static, state-free explanation which can be reused on the first-entry or pause card. */

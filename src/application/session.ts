@@ -1,3 +1,4 @@
+import {buildOutboundTransport} from '../presentation/outbound-transport.ts';
 import {placementRisk} from '../presentation/placement-risk.ts';
 import {MOTION,shipmentTiming} from '../presentation/motion.ts';
 import type {Platform,SoundName} from '../platform/types.ts';
@@ -135,7 +136,7 @@ export class GameSession {
   this.view.message=resolved.events.some(event=>event.type==='rushExpired')?'加急过期':'';this.messageExpiresAt=this.view.message?this.platform.now()+1800:0;
  }
  private persist():boolean{if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.state.elapsedMs!==elapsedMs)this.state={...this.state,elapsedMs};const result=saveRun(this.platform.storage,this.state,this.slot);this.view.saveStatus=result.message;return result.ok;}
- private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0}:null;if(next)this.routeCue();else this.startNotice(now);}
+ private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0,...(next.shipment.transport==='conveyor'?{transportPlan:buildOutboundTransport(next.shipment,next.board)??undefined}:{})}:null;if(next)this.routeCue();else this.startNotice(now);}
  tick(now:number):void{
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
   if(this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
@@ -145,9 +146,10 @@ export class GameSession {
   if(this.view.placementFx){this.view.placementFx.progress=Math.max(0,Math.min(1,(now-this.placementStarted)/MOTION.placeMs));if(reduced||this.view.placementFx.progress>=1)this.view.placementFx=null;}
   if(this.view.invalidFx){this.view.invalidFx.progress=Math.max(0,Math.min(1,(now-this.invalidStarted)/MOTION.invalidMs));if(reduced||this.view.invalidFx.progress>=1)this.view.invalidFx=null;}
   if(this.view.noticeFx){const duration=this.view.noticeFx.kind==='fail'?(reduced?MOTION.reduced.failMs:MOTION.failMs):(reduced?MOTION.reduced.noticeMs:MOTION.noticeMs);this.view.noticeFx.progress=duration?Math.max(0,Math.min(1,(now-this.noticeStarted)/duration)):1;if(this.view.noticeFx.progress>=1)this.view.noticeFx=null;}
-  if(this.view.animation){const timing=shipmentTiming(reduced),elapsed=Math.max(0,now-this.animationStarted),progress=Math.min(1,elapsed/timing.totalMs);this.view.animation.progress=progress;
-   if(!this.animationCues.move&&timing.moveMs>0&&elapsed>=timing.routeMs&&elapsed<timing.routeMs+timing.moveMs){this.animationCues.move=true;this.sound('forklift');}
-   if(!this.animationCues.delivery&&elapsed>=(reduced?0:timing.routeMs+timing.moveMs+timing.collectMs+timing.carryMs)){this.animationCues.delivery=true;const chain=this.view.animation.shipment.chain;this.sound(chain>=4?'chain4':chain===3?'chain3':chain===2?'chain2':'ship');}
+  if(this.view.animation){const timing=shipmentTiming(reduced),plan=reduced?undefined:this.view.animation.transportPlan,elapsed=Math.max(0,now-this.animationStarted),duration=plan?.durationMs??timing.totalMs,progress=Math.min(1,elapsed/duration);this.view.animation.progress=progress;
+   const moveAt=plan?.moveAtMs??timing.routeMs,deliveryAt=plan?.deliveryAtMs??(reduced?0:timing.routeMs+timing.moveMs+timing.collectMs+timing.carryMs);
+   if(!this.animationCues.move&&timing.moveMs>0&&elapsed>=moveAt&&elapsed<(plan?deliveryAt:timing.routeMs+timing.moveMs)){this.animationCues.move=true;this.sound('forklift');}
+   if(!this.animationCues.delivery&&elapsed>=deliveryAt){this.animationCues.delivery=true;const chain=this.view.animation.shipment.chain;this.sound(chain>=4?'chain4':chain===3?'chain3':chain===2?'chain2':'ship');}
    if(progress>=1)this.nextAnimation(now);
   }
 

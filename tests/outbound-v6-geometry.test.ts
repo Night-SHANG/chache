@@ -112,8 +112,8 @@ test('v6 gate blocking, freight preview outlines, and vehicle clipping all use s
   const routes=surface(); drawColorExitRoutes(routes.ctx,view({preview:{valid:true,cells:[],shipments:[event]}}));
   assert.ok(routes.vertices.some(p => Math.abs(p.x-center9({x:4,y:0}).x)<.001 && Math.abs(p.y-center9({x:4,y:0}).y)<.001));
   assert.equal(routes.borders.length,event.cells.length); assert.ok(routes.borders.every(b => Math.abs(b.w-110*7/9)<.001));
-  const vehicle=surface(); drawColorExitShipment(vehicle.ctx,event,.4,current); assert.ok(vehicle.clips.some(c => Math.abs(c[0]-(120-30*7/9))<.001));
-  assert.ok(vehicle.scales.some(s => Math.abs(s[0]-99*7/9/110)<.001));
+  const vehicle=surface(),board=Array(81).fill(null);for(const cell of event.cells)board[cell]=event.cargo;drawColorExitShipment(vehicle.ctx,event,.4,view({animation:{shipment:event,progress:.4,board}})); assert.ok(vehicle.clips.some(c => Math.abs(c[0]-(120-30*7/9))<.001));
+  assert.ok(vehicle.scales.some(s => Math.abs(s[0]-pitch*.6/110)<.001));
 });
 
 // A seven-wide help board would teach new outbound users the wrong landing coordinates.

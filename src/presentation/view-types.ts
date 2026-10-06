@@ -1,3 +1,4 @@
+import type {OutboundTransportPlan} from './outbound-transport.ts';
 import type {PlacementRisk} from './placement-risk.ts';
 import type { Cell, CellTrait, ColorTier, OutboundDifficulty, PlacementPreview, Point, Shipment } from '../domain/types.ts';
 import type { RunSlot } from '../application/run-slots.ts';
@@ -14,7 +15,7 @@ export interface ViewState {
   message: string;
   saveStatus: string;
   elapsed: number;
-  animation: { shipment: Shipment; progress: number; board: Cell[]; cellTraits?: (CellTrait | null)[] } | null;
+  animation: { shipment: Shipment; progress: number; transportPlan?: OutboundTransportPlan; board: Cell[]; cellTraits?: (CellTrait | null)[] } | null;
   placementFx?: { cells: number[]; progress: number } | null;
   invalidFx?: { pieceId: string; progress: number } | null;
   noticeFx?: { kind: 'shift' | 'fail'; label: string; progress: number } | null;

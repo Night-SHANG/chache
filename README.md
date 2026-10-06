@@ -1,10 +1,10 @@
-# 爆仓：最后一格 · v0.7.0 试玩版
+# 爆仓：最后一格 · v0.7.1 试玩版
 
 入库按订单配货，出库把同色货物连到出口；两个模式都需要给叉车留路。入库保留普通五班、无限和每日挑战；出库为9×9四档。
 
-本版精简界面说明，移除普通玩家的种子、比例、旧档目录和诊断入口。新出库在完整结算后确认入口已被占住且不可能恢复时及时结束。暂时堵路不自动判负。已有旧档继续按旧规则运行。
+本版将出库演出改为叉车逐格取货，沿清出的格子前进和折返，最后载货从对应色口离场。托盘和件数是紧凑的视觉表达，不增加承载容量规则。其他颜色原地保留，入库演出与计分不变。v0.7已有的简洁界面、保守入口终局判定与旧档兼容继续保留。
 
-操作见[试玩说明](docs/v070-playtest.md)，本地验收与平台边界见[验证记录](docs/v070-validation.md)。
+操作见[试玩说明](docs/v071-playtest.md)，本地验收与平台边界见[验证记录](docs/v071-validation.md)。
 
 ## 打开试玩
 
@@ -23,7 +23,7 @@ build/browser/index.html可直接打开，但文件模式的存储与音频支�
 - src/domain：独立TS规则、连通组、BFS、确定性生成、连锁与Replay。
 - src/application：会话、14个兼容存档槽、关闭标记、Profile、异常保护。
 - src/presentation和src/platform：共享Canvas2D、触控、生命周期、声音。
-- scripts/host-v070.mjs：实际game.js在离屏Canvas/wx宿主中的当前验收。
+- scripts/host-v071.mjs：实际game.js在离屏Canvas/wx宿主中的当前验收。
 - qa/v8-prefix-verify.mjs：读取400条已记录v6输入，验证旧状态及新增终局的前缀行为。
 - docs/v8-prefix-verification.md：核对方法与结果，不能当作新机器人平衡实验。
 - docs/project-scope-audit.md及历史版本记录：母文档范围和历史完成情况。
