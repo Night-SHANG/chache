@@ -1,6 +1,6 @@
 import type { RunState } from '../domain/types.ts';
-import { isRunSlot, slotForRun, tierForSlot, difficultyForSlot, type RunSlot } from './run-slots.ts';
-export { RUN_SLOTS, isRunSlot, slotForRun, slotForTier, tierForSlot, slotForDifficulty, difficultyForSlot, type RunSlot } from './run-slots.ts';
+import { isRunSlot, slotForRun, tierForSlot, difficultyForSlot, outboundRulesForSlot, type RunSlot } from './run-slots.ts';
+export { RUN_SLOTS, isRunSlot, slotForRun, slotForTier, tierForSlot, slotForDifficulty, difficultyForSlot, outboundRulesForSlot, type RunSlot } from './run-slots.ts';
 import { isValidOutboundPieceV6 } from '../domain/v6/content.ts';
 import { isValidColorExitPiece } from '../domain/pieces.ts';
 import { P0_CONFIG, SHAPES, UPGRADES } from '../domain/content.ts';
@@ -12,7 +12,7 @@ export const COLOR_EXIT_SAVE_KEYS={main:'warehouse.color_exit.run.v4',backup:'wa
 export function saveKeysFor(slot:RunSlot):typeof SAVE_KEYS {
   requireValue(isRunSlot(slot),'存档槽无效');
   const difficulty=difficultyForSlot(slot);
-  if(difficulty)return {main:`warehouse.outbound9.${difficulty}.run.v6`,backup:`warehouse.outbound9.${difficulty}.run.backup.v6`,temp:`warehouse.outbound9.${difficulty}.run.temp.v6`};
+  if(difficulty){const version=outboundRulesForSlot(slot);return {main:`warehouse.outbound9.${difficulty}.run.v${version}`,backup:`warehouse.outbound9.${difficulty}.run.backup.v${version}`,temp:`warehouse.outbound9.${difficulty}.run.temp.v${version}`};}
   if(slot==='inbound_endless')return {main:'warehouse.endless.run.v7',backup:'warehouse.endless.run.backup.v7',temp:'warehouse.endless.run.temp.v7'};
   const tier=tierForSlot(slot);
   if(tier)return {main:`warehouse.color_exit.${tier}.run.v5`,backup:`warehouse.color_exit.${tier}.run.backup.v5`,temp:`warehouse.color_exit.${tier}.run.temp.v5`};
@@ -22,7 +22,7 @@ export const SAVE_KEYS={main:'warehouse.run.v1',backup:'warehouse.run.backup.v1'
 const CARGO=['cargo.food','cargo.machine','cargo.chem','cargo.electronic','cargo.cold'];
 const DOCKS=['dock.north','dock.east','dock.south','dock.west'];
 // Envelope schema and gameplay rules have separate meanings; this is the supported mapping.
-const schemaFor=(rules:number)=>rules===1?1:rules===2?2:rules===3?3:rules===4?4:rules===5?5:rules===6?6:rules===7?7:0;
+const schemaFor=(rules:number)=>rules===1?1:rules===2?2:rules===3?3:rules===4?4:rules===5?5:rules===6?6:rules===7?7:rules===8?8:0;
 type RecordValue=Record<string,unknown>;
 const object=(v:unknown):v is RecordValue=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const integer=(v:unknown,min=0,max=Number.MAX_SAFE_INTEGER):v is number=>Number.isSafeInteger(v)&&Number(v)>=min&&Number(v)<=max;
@@ -33,7 +33,7 @@ function requireValue(ok:unknown,message:string):asserts ok { if(!ok)throw Error
 
 /** Old color bytes retain schema four; mixed runs require an exact schema-five tier identity. */
 function assertColorExitRun(value:RecordValue):void {
- const outbound=value.rulesetVersion===6,mixed=value.rulesetVersion===5,size=outbound?81:49;
+ const outbound=value.rulesetVersion===6||value.rulesetVersion===8,mixed=value.rulesetVersion===5,size=outbound?81:49;
  if(outbound)slotForRun(value as unknown as RunState);
  requireValue(value.mode==='color_exit'&&(outbound|| (mixed
   ?(value.colorTier==='entry'||value.colorTier==='middle'||value.colorTier==='late')&&value.runConfigId===`run.color_exit_mix_v5.${value.colorTier}`
@@ -61,8 +61,8 @@ function assertColorExitRun(value:RecordValue):void {
 /** Untrusted JSON is checked before it can reach gameplay or rendering. */
 export function assertRun(value:unknown):asserts value is RunState {
   requireValue(object(value),'存档结构无效');
-  if(value.rulesetVersion!==6)requireValue(!Object.prototype.hasOwnProperty.call(value,'boardSize')&&!Object.prototype.hasOwnProperty.call(value,'difficultyId'),'旧规则不允许出库尺寸或难度');
-  if(value.rulesetVersion===4||value.rulesetVersion===5||value.rulesetVersion===6||value.mode==='color_exit'){assertColorExitRun(value);return;}
+  if(value.rulesetVersion!==6&&value.rulesetVersion!==8)requireValue(!Object.prototype.hasOwnProperty.call(value,'boardSize')&&!Object.prototype.hasOwnProperty.call(value,'difficultyId'),'旧规则不允许出库尺寸或难度');
+  if(value.rulesetVersion===4||value.rulesetVersion===5||value.rulesetVersion===6||value.rulesetVersion===8||value.mode==='color_exit'){assertColorExitRun(value);return;}
   requireValue(!Object.prototype.hasOwnProperty.call(value,'colorTier'),'旧规则不允许颜色比较档');
   const endless=value.rulesetVersion===7;
   if(endless)slotForRun(value as unknown as RunState);
@@ -127,7 +127,7 @@ export function decodeRun(raw:string):RunState {
   requireValue(raw.length<=950000,'存档超出大小限制');
   const value:unknown=JSON.parse(raw);
   requireValue(object(value),'存档结构无效');
-  requireValue(value.schemaVersion===1||value.schemaVersion===2||value.schemaVersion===3||value.schemaVersion===4||value.schemaVersion===5||value.schemaVersion===6||value.schemaVersion===7,'存档版本不兼容');
+  requireValue(value.schemaVersion===1||value.schemaVersion===2||value.schemaVersion===3||value.schemaVersion===4||value.schemaVersion===5||value.schemaVersion===6||value.schemaVersion===7||value.schemaVersion===8,'存档版本不兼容');
   requireValue(typeof value.digest==='string'&&value.digest===digest(JSON.stringify(value.state)),'存档校验失败');
   assertRun(value.state);
   requireValue(value.schemaVersion===schemaFor(value.state.rulesetVersion),'存档版本与规则不兼容');

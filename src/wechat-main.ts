@@ -1,10 +1,11 @@
+declare const __DEV_DIAGNOSTICS__:boolean;
 import { createWechatPlatform } from './platform/wechat.ts';
 import type { WechatHost } from './platform/wechat.ts';
 import { GameSession } from './application/session.ts';
 import { render } from './presentation/renderer.ts';
 declare const wx:WechatHost;
 const platform=createWechatPlatform(wx,{requestAnimationFrame:callback=>requestAnimationFrame(callback),now:()=>Date.now()});
-const session=new GameSession(platform,{seed:20261005,mode:'tutorial'});
+const session=new GameSession(platform,{seed:20261005,mode:'tutorial',developerMode:__DEV_DIAGNOSTICS__});
 platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else session.input[event.type](event.point,event.id);});
 platform.onHide(()=>session.hide());platform.onShow(()=>session.show());
 function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view);platform.frame(frame);}platform.frame(frame);

@@ -20,9 +20,9 @@ function envelope(state:RunState,schemaVersion=state.rulesetVersion):string {con
 function originalFields(profile:profiles.Profile){return {stats:profile.stats,bestScores:profile.bestScores,dailyHistory:profile.dailyHistory,achievements:profile.achievements,tutorialComplete:profile.tutorialComplete,lastRecordedRun:profile.lastRecordedRun,colorExit:profile.colorExit,colorComparisons:profile.colorComparisons};}
 function allRuns(){return [createRun(19,'standard',3),createRun(19,'color_exit',4),...(['entry','middle','late'] as const).map(tier=>createRun(19,'color_exit',5,tier)),...difficulties.map((difficulty,index)=>outbound(difficulty,index+6)),endless(10)];}
 
-test('ten explicit slot identities retain all five old keys and add independent v6 v7 keys',()=>{
- assert.deepEqual(saves.RUN_SLOTS,[...oldSlots,'outbound_easy','outbound_normal','outbound_hard','outbound_expert','inbound_endless']);
- assert.equal(new Set(saves.RUN_SLOTS.flatMap(slot=>Object.values(saves.saveKeysFor(slot)))).size,30);
+test('fourteen explicit slot identities retain all five old keys and add independent v6 v7 keys',()=>{
+ assert.deepEqual(saves.RUN_SLOTS,[...oldSlots,'outbound_easy','outbound_normal','outbound_hard','outbound_expert','inbound_endless','outbound8_easy','outbound8_normal','outbound8_hard','outbound8_expert']);
+ assert.equal(new Set(saves.RUN_SLOTS.flatMap(slot=>Object.values(saves.saveKeysFor(slot)))).size,42);
  assert.deepEqual(saves.saveKeysFor('orders'),saves.SAVE_KEYS);assert.deepEqual(saves.saveKeysFor('color_exit'),saves.COLOR_EXIT_SAVE_KEYS);
  for(const difficulty of difficulties){const slot=saves.slotForRun(outbound(difficulty));assert.equal(slot,`outbound_${difficulty}`);assert.equal(saves.saveKeysFor(slot).main,`warehouse.outbound9.${difficulty}.run.v6`);}
  assert.equal(saves.slotForRun(endless()),'inbound_endless');assert.equal(saves.saveKeysFor(saves.slotForRun(endless())).main,'warehouse.endless.run.v7');

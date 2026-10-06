@@ -4,7 +4,7 @@ import { createCanvas } from '@napi-rs/canvas';
 import { createRun, previewPlacement } from '../src/domain/engine.ts';
 import { createProfile } from '../src/application/profile.ts';
 import { slotForTier } from '../src/application/run-slots.ts';
-import { COLOR_TIERS, MIXED_COLOR_PERCENT } from '../src/domain/v5/content.ts';
+import { COLOR_TIERS } from '../src/domain/v5/content.ts';
 import { getUiControls } from '../src/presentation/ui.ts';
 import { InputController } from '../src/presentation/input.ts';
 import { render } from '../src/presentation/renderer.ts';
@@ -27,7 +27,7 @@ function surface() {
 }
 const tierNames = { entry: '入门', middle: '中段', late: '后段' } as const;
 
-// Old saves remain readable, but all new outbound games start at the v6 selector.
+// Old saves remain readable, but all new outbound games start at the current selector.
 test('legacy state uses the new home selectors', () => {
   const controls = getUiControls(run(), view({ screen: 'menu' }));
   assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','settings']);
@@ -41,7 +41,7 @@ test('legacy screen offers only existing saved result and corrupt slots', () => 
   assert.equal(controls.some(control=>control.action.type==='newRun'),false);
   assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit_entry')!.label, /继续/);
   assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit_middle')!.label, /结算/);
-  assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit')!.label, /纯色.*\n存档待处理/);
+  assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit')!.label, /出库模式\n存档待处理/);
   assert.match(out.words(), /旧版出库.*7×7/);assert.match(out.words(), /9×9难度选择/);
 });
 
@@ -55,7 +55,7 @@ test('empty and unavailable legacy slots do not create compatibility controls', 
 test('tier controls are nonoverlapping, in bounds, and each responds to a real tap', () => {
   const state = run(), v = view({ screen: 'colorTiers', modeSlots: { color_exit: 'saved' } }), actions: UiAction[] = [];
   const input = new InputController({ getState: () => state, getView: () => v, patchView: patch => Object.assign(v, patch), preview: () => ({ valid: false, cells: [], shipments: [] }), dispatch: () => assert.fail('selector cannot place'), togglePause: () => {}, restart: () => {}, resume: () => {}, toggleDebug: () => {}, action: action => actions.push(action) });
-  const controls = getUiControls(state, v); assert.equal(controls.length, 7);
+  const controls = getUiControls(state, v); assert.equal(controls.length, 5);
   for (const [index, control] of controls.entries()) {
     const r = control.rect; assert.ok(r.x >= 0 && r.y >= 0 && r.x + r.w <= L.width && r.y + r.h <= L.height);
     for (const other of controls.slice(index + 1)) assert.ok(!(r.x < other.rect.x + other.rect.w && r.x + r.w > other.rect.x && r.y < other.rect.y + other.rect.h && r.y + r.h > other.rect.y));
@@ -79,24 +79,25 @@ test('legacy switches identify target save and restart asks before leaving for n
     render(switched.ctx, state, view({ confirmation: { kind: 'switchMode', variant: slotForTier(tier) } }));
     assert.match(switched.words(), new RegExp(`切换到.*${tierNames[tier]}`)); assert.match(switched.words(), /保留/); assert.match(switched.words(), /取消/);
     render(restarted.ctx, state, view({ confirmation: { kind: 'leaveRun', nextScreen:'colorTiers' } }));
-    assert.match(restarted.words(), /结束本局并选择新难度？/);assert.match(restarted.words(), /当前棋盘进度不会保留/);assert.match(restarted.words(), /历史成绩和设置不受影响/);
+    assert.match(restarted.words(), /结束本局并选择难度？/);assert.match(restarted.words(), /本局进度将丢失/);assert.match(restarted.words(), /历史成绩和设置会保留/);
   }
 });
 
-test('v5 header, footer, pause, result and recovery retain tier identity without pretending shape stages change mixed ratio', () => {
+test('legacy gameplay, pause, result and recovery retain tier and stage without probabilities or versions', () => {
   for (const tier of COLOR_TIERS) for (const shift of [1, 5]) for (const patch of [{}, { paused: true }, { needsResume: true }, { result: true }]) {
     const state = { ...run(tier), shift }, v = view(patch); if ('result' in patch) Object.assign(state, { phase: 'result', result: 'won', completedOrders: 30 });
     const out = surface(); render(out.ctx, state, v);
-    assert.match(out.words(), new RegExp(`${tierNames[tier]}.*${MIXED_COLOR_PERCENT[tier]}%`));
-    assert.match(out.words(), new RegExp(`形状.*${shift}|形状开放.*${shift}`));
-    assert.doesNotMatch(out.words(), /第 [15] 档|托盘占1格|加急.*废弃物/);
-    if ('result' in patch) assert.match(out.words(), /本档.*成绩|各档.*独立/);
+    assert.match(out.words(), new RegExp(tierNames[tier]));
+    assert.match(out.words(), new RegExp(`阶段 ${shift}/5`));
+    assert.doesNotMatch(out.words(), /%|概率|形状等级|v5|第 [15] 档|托盘占1格|加急.*废弃物/);
+    if ('result' in patch) assert.match(out.words(), /出货批次 30.*目标30批/);
   }
 });
 
-test('v5 first help explicitly shows two-plus-two is not four of one color and the other half stays', () => {
+test('legacy mixed-cargo help shows same-color shipment and the surviving other half', () => {
   const out = surface(); render(out.ctx, run('middle'), view({ screen: 'colorIntro' }));
-  assert.match(out.words(), /中段.*30%/); assert.match(out.words(), /2.*\+.*2.*不等于.*同色4件/); assert.match(out.words(), /机械2件留原格/); assert.match(out.words(), /逐件概率/);
+  assert.match(out.words(), /同类货物上下左右相连，至少4件/);assert.match(out.words(), /食品4件出货/);assert.match(out.words(), /机械2件留下/);assert.match(out.words(), /放置后[\s\S]*出货后/);assert.doesNotMatch(out.words(), /%|逐件概率|中段/);
+  assert.deepEqual(getUiControls(run('middle'),view({screen:'colorIntro'})).map(control=>control.action),[{type:'helpBack'}]);
 });
 
 // With the same board and shape, each mixed tile must match the corresponding pure-cargo tile artwork.
@@ -106,7 +107,7 @@ test('tray, hover and drag draw each mixed cell with its own cargo artwork', () 
     const v = view(presentation === 'tray' ? {} : presentation === 'hover'
       ? { selectedPieceId: 'mixed', hoverOrigin: { x: 1, y: 2 }, preview: { valid: true, cells: [15, 16, 22, 23], shipments: [] } }
       : { selectedPieceId: 'mixed', dragPoint: { x: 520, y: 940 } });
-    const output = surface(); render(output.ctx, state, v); assert.match(output.words(), /双色·食品\/化工/);
+    const output = surface(); render(output.ctx, state, v); assert.match(output.words(), /食品 \/ 化工/);
     for (const [index, cargo] of mixed.cellCargos!.entries()) {
       const pure = surface(), pureState = { ...state, candidates: [{ id: 'mixed', shapeId: 'shape.square', cargo }] };
       render(pure.ctx, pureState, v);

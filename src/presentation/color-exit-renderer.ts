@@ -1,4 +1,4 @@
-import { CARGO, COLOR_EXIT_TARGETS, RULES_V4_CONFIG } from '../domain/content.ts';
+import { CARGO, COLOR_EXIT_TARGETS } from '../domain/content.ts';
 import { orderStatus } from '../domain/board.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
 import type { Order, Point, RunState, Shipment } from '../domain/types.ts';
@@ -52,7 +52,7 @@ export function drawColorExitGates(ctx: Context, state: RunState, view: ViewStat
   const south = dockPosition(geometry.entry, geometry), blocked = entryBlocked(state, view);
   panel(ctx, { x: south.x - 42 * scale, y: south.y - 15 * scale, w: 84 * scale, h: 30 * scale }, blocked ? '#65342f' : '#1c4962', blocked ? '#ffac83' : ACCESS_COLOR, 6);
   arrowhead(ctx, { x: south.x, y: south.y + 27 * scale }, { x: south.x, y: south.y - 27 * scale }, blocked ? '#ffb293' : ACCESS_COLOR, 12 * scale);
-  text(ctx, blocked ? '南入口被堵 · 请留空' : '叉车入口·留空', 540, 1443, 21, blocked ? '#ffc0a3' : ACCESS_COLOR, 'center');
+  text(ctx, blocked ? '入口堵塞' : '叉车入口', 540, 1443, 21, blocked ? '#ffc0a3' : ACCESS_COLOR, 'center');
   ctx.restore();
 }
 
@@ -80,8 +80,6 @@ export function drawColorExitRoutes(ctx: Context, view: ViewState): void {
       for (const cell of event.cells) ctx.strokeRect(geometry.x + cell % geometry.dimension * geometry.cell + 5 * scale, geometry.y + Math.floor(cell / geometry.dimension) * geometry.cell + 5 * scale, geometry.boxSize, geometry.boxSize);
     }
   }
-  text(ctx, '蓝色虚线：叉车空路', 150, 484, 16, ACCESS_COLOR);
-  text(ctx, '彩色实线：货箱沿线出货', 620, 484, 16, CREAM);
   ctx.restore();
 }
 
@@ -129,10 +127,10 @@ export function drawColorExitHelpDiagram(ctx: Context, rect: Rect, mixed = false
   icon(ctx, 'cargo.food', 194, 42, 27, PALETTE['cargo.food'].light); text(ctx, '北·食品', 244, 42, 17, CREAM, 'center');
   icon(ctx, 'cargo.machine', 45, 166, 28, PALETTE['cargo.machine'].light); text(ctx, '机械', 44, 196, 16, CREAM, 'center');
   icon(ctx, 'cargo.chem', 343, 166, 28, PALETTE['cargo.chem'].light); text(ctx, '化工', 343, 196, 16, CREAM, 'center');
-  text(ctx, '叉车入口·留空', 194, 335, 21, ACCESS_COLOR, 'center');
-  const lessons = [`① 同类相连，至少${RULES_V4_CONFIG.minBatch}件`, '② 货组连到同色出口', '③ 南入口到货旁，留叉车空路'];
-  lessons.forEach((lesson, i) => text(ctx, lesson, 395, 116 + i * 76, 23, CREAM));
-  text(ctx, '货箱沿彩线出货，叉车空载原路返回', 400, 385, 22, '#c7d8df', 'center', 500);
+  text(ctx, '叉车入口', 194, 335, 21, ACCESS_COLOR, 'center');
+  text(ctx,'食品4件出货',395,146,25,PALETTE['cargo.food'].light);
+  text(ctx,'虚线：叉车通路',395,222,23,ACCESS_COLOR);
+  text(ctx,'实线：出货路线',395,298,23,CREAM);
   ctx.restore();
 }
 
@@ -142,11 +140,11 @@ function drawMixedHelpDiagram(ctx: Context, rect: Rect, source?: GeometrySource)
   const scale = Math.min(rect.w / 800, rect.h / 430), cell = 224 / dimension;
   ctx.save(); ctx.translate(rect.x + (rect.w - 800 * scale) / 2, rect.y + (rect.h - 430 * scale) / 2); ctx.scale(scale, scale);
   panel(ctx, { x: 0, y: 0, w: 800, h: 430 }, '#20394b', '#587586', 14);
-  text(ctx, '双色示例：食品2件 + 机械2件', 400, 29, 25, CREAM, 'center');
+
   const foodCells = [[middle, 0], [middle + 1, 0], [middle, 1], [middle + 1, 1]], machineCells = [[middle, 2], [middle + 1, 2]];
   for (const [stage, x] of [38, 332].entries()) {
     const origin = { x, y: 105 }, center = (cx: number, cy: number): Point => ({ x: origin.x + (cx + .5) * cell, y: origin.y + (cy + .5) * cell });
-    text(ctx, stage === 0 ? '旧食品2件 + 新食品2件' : '食品4件出货', x + 112, 64, 20, stage === 0 ? CREAM : PALETTE['cargo.food'].light, 'center');
+    text(ctx, stage === 0 ? '放置后' : '出货后', x + 112, 64, 20, stage === 0 ? CREAM : PALETTE['cargo.food'].light, 'center');
     for (let row = 0; row < dimension; row++) for (let column = 0; column < dimension; column++) {
       ctx.fillStyle = '#56636a'; ctx.fillRect(x + column * cell + 1, origin.y + row * cell + 1, cell - 2, cell - 2);
     }
@@ -161,13 +159,13 @@ function drawMixedHelpDiagram(ctx: Context, rect: Rect, source?: GeometrySource)
     }
     line(ctx, [center(middle, dimension - 1), center(middle, 3), center(middle - 1, 3), center(middle - 1, 1)], ACCESS_COLOR, true, 3);
     text(ctx, '北·食品口', center(middle, 0).x, 90, 15, PALETTE['cargo.food'].light, 'center');
-    text(ctx, '南入口 · 留空路', x + 112, 351, 18, ACCESS_COLOR, 'center');
+    text(ctx, '叉车入口', x + 112, 351, 18, ACCESS_COLOR, 'center');
   }
   line(ctx, [{ x: 275, y: 207 }, { x: 314, y: 207 }], CREAM, false, 3);
-  for (const [index, lesson] of ['每色仍需至少4件', '食品接北口后出货', '机械2件留原格', '仍会占格、影响空路'].entries()) {
-    text(ctx, lesson, 582, 125 + index * 54, index === 3 ? 18 : 21, index > 1 ? PALETTE['cargo.machine'].light : CREAM);
-  }
-  text(ctx, '2 + 2 不等于同色4件；两色各自检查出口和空路', 400, 399, 23, CREAM, 'center');
+  text(ctx,'食品4件出货',582,156,22,PALETTE['cargo.food'].light);
+  text(ctx,'机械2件留下',582,220,22,PALETTE['cargo.machine'].light);
+  text(ctx,'虚线：叉车通路',214,399,22,ACCESS_COLOR,'center');
+  text(ctx,'实线：出货路线',585,399,22,CREAM,'center');
   ctx.restore();
 }
 
@@ -181,39 +179,38 @@ export function colorExitFeedback(state: RunState, order: Order, view: ViewState
   }
   const status = orderStatus(visible, order);
   const shipping = view.animation?.shipment.dockId === order.dockId ? view.animation.shipment : undefined;
-  if (shipping) return { status, label: `逐箱出货中 · ${shipping.cells.length}件`, shipping };
+  if (shipping) return { status, label: `出货中 · ${shipping.cells.length}件`, shipping };
   const previewShipment = !view.animation && view.preview?.valid
     ? view.preview.shipments.find(event => event.orderId === order.id && event.dockId === order.dockId) : undefined;
-  if (previewShipment) return { status, label: '此落点预计出货', previewShipment };
-  const label = status.reason === 'entry-blocked' ? '南入口被堵 · 请留空'
-    : status.reason === 'route-blocked' ? '叉车无空路'
-    : status.reason === 'exit-unconnected' ? `${status.largestGroupCount ?? 0}件未接同色口`
-    : status.status === 'ready' ? view.preview ? view.preview.valid ? '此落点暂不出货' : '落点无效 · 未结算' : '已满足 · 落子后检查'
-    : `还差${Math.max(0, order.amount - status.count)}件${status.exitConnected ? '' : ' · 需接同色口'}`;
+  if (previewShipment) return { status, label: '可出货', previewShipment };
+  const label = status.reason === 'entry-blocked' ? '入口堵塞'
+    : status.reason === 'route-blocked' ? '无空路'
+    : status.reason === 'exit-unconnected' ? '未连出口'
+    : status.status === 'ready' ? view.preview ? view.preview.valid ? '暂不出货' : '这里放不下' : '已就绪 · 等待放置'
+    : `还差${Math.max(0, order.amount - status.count)}件`;
   return { status, label };
 }
 
 export function colorExitBoardHint(state: RunState, view: ViewState): string {
-  if (view.animation) return `${cargoName(view.animation.shipment.cargo)}逐箱出货 · 叉车空载返回南口`;
-  if (view.preview && !view.preview.valid) return '落点无效，请换一个空位置';
+  if (view.animation) return `${cargoName(view.animation.shipment.cargo)}出货中`;
+  if (view.preview && !view.preview.valid) return '这里放不下，换个位置';
   const mixed = mixedPiecePreview(state, view);
   if (mixed) {
     const shipment = view.preview!.shipments.length
       ? `预计出货：${view.preview!.shipments.map(event => `${cargoName(event.cargo)}${event.cells.length}件`).join('、')}`
-      : entryBlocked(state, view) ? '南入口被堵，暂不出货' : '暂不出货';
-    return `${shipment}；${mixedRemainderCaption(mixed)}`;
+      : entryBlocked(state, view) ? '入口堵塞，暂不出货' : '暂不出货';
+    return mixed.remaining.length ? `${shipment}；${mixedRemainderCaption(mixed).replace('本件留下：','留下')}` : shipment;
   }
-  if (entryBlocked(state, view)) return '南入口被堵 · 叉车入口格必须留空才能出货';
+  if (entryBlocked(state, view)) return '入口堵塞，暂不能出货';
   if (view.preview?.valid && view.preview.shipments.length) {
     return `预计出货：${view.preview.shipments.map(event => `${cargoName(event.cargo)}${event.cells.length}件`).join('、')}`;
   }
-  if (state.orders.some(order => orderStatus(state, order).status === 'ready')) return '同色口已接通 · 合法落子后检查出货';
-  return '货连同色出口，给叉车留空路';
+  if (state.orders.some(order => orderStatus(state, order).status === 'ready')) return '已就绪 · 等待放置';
+  return '';
 }
 
 export function drawColorExitCards(ctx: Context, state: RunState, view: ViewState): void {
-  text(ctx, '固定出口', 56, 330, 26, CREAM);
-  text(ctx, `每批至少${RULES_V4_CONFIG.minBatch}件 · 留叉车空路`, 1027, 330, 21, '#b4c4ca', 'right', 500);
+  text(ctx, '出货口', 56, 330, 26, CREAM);
   COLOR_EXIT_TARGETS.forEach((target, index) => {
     const order = state.orders.find(item => item.id === target.id) ?? target, feedback = colorExitFeedback(state, order, view);
     const exit = colorExits(state).find(item => item.id === order.dockId)!, color = PALETTE[order.cargo], x = 54 + index * (988 / 3), y = 357, w = 940 / 3;
@@ -221,7 +218,7 @@ export function drawColorExitCards(ctx: Context, state: RunState, view: ViewStat
     panel(ctx, { x, y, w, h: 111 }, active ? '#345244' : '#26394e', active ? '#cff8b8' : color.mid, 12);
     icon(ctx, order.cargo, x + 37, y + 31, 41, color.light);
     text(ctx, exit.label, x + 74, y + 29, 27, color.light);
-    text(ctx, `连口 ${feedback.status.count}/${order.amount}件`, x + 20, y + 64, 23, CREAM);
+    text(ctx, `已连接 ${feedback.status.count}/${order.amount}件`, x + 20, y + 64, 23, CREAM);
     text(ctx, feedback.label, x + 20, y + 93, 19, active ? '#d9ffc1' : feedback.status.status === 'blocked' ? '#ffc3a3' : '#c0d0d6', 'left', 600);
   });
 }

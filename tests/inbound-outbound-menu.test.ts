@@ -10,7 +10,7 @@ import type {RunState} from '../src/domain/types.ts';
 import type {Rect} from '../src/presentation/layout.ts';
 
 const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,screen:'game',profile:createProfile(),...patch});
-const inbound=()=>createRun(97,'standard',3),outbound=()=>createRun(97,'color_exit',6,'expert'),endless=()=>createRun(97,'endless',7);
+const inbound=()=>createRun(97,'standard',3),outbound=()=>createRun(97,'color_exit',8,'expert'),endless=()=>createRun(97,'endless',7);
 function surface(){
  const ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D;
  const labels:{text:string;x:number;y:number;font:string}[]=[],fills:{style:unknown}[]=[];
@@ -34,20 +34,23 @@ test('home has two clear mode entries and settings regardless of existing saves'
 test('inbound submenu starts five shifts endless or daily without per-save continue controls',()=>{
  const current=view({screen:'inboundMenu',modeSlots:{orders:'saved',inbound_endless:'saved'}}),controls=getUiControls(inbound(),current);
  assert.deepEqual(controls.map(control=>control.action),[{type:'newRun',mode:'standard'},{type:'newRun',mode:'endless'},{type:'newRun',mode:'daily'},{type:'home'}]);
- assert.match(controls[0].label,/普通五班/);assert.match(controls[1].label,/直接无限/);assert.match(controls[2].label,/本地每日/);
+ assert.equal(controls[0].label,'开始五班');assert.equal(controls[1].label,'开始无限');assert.equal(controls[2].label,'开始挑战');
+ const out=surface();render(out.ctx,inbound(),current);assert.match(out.words(),/普通五班/);assert.match(out.words(),/无限入库/);assert.match(out.words(),/每日挑战/);
  assert.ok(controls.slice(0,3).every(control=>/开始/.test(control.label)));
 });
-test('outbound selector starts four explicit new 9x9 difficulties and shows complementary probabilities',()=>{
+test('outbound selector starts four difficulties without probability seed or version details',()=>{
  const current=view({screen:'colorTiers',comparisonSeed:12345,modeSlots:{outbound_easy:'saved',outbound_expert:'result'}}),controls=getUiControls(outbound(),current),out=surface();render(out.ctx,outbound(),current);
  assert.deepEqual(controls.filter(control=>control.action.type==='newRun').map(control=>control.action),['easy','normal','hard','expert'].map(difficultyId=>({type:'newRun',mode:'color_exit',difficultyId})));
  assert.equal(controls.some(control=>control.action.type==='switchMode'),false);
- for(const [name,mixed] of [['简单',20],['中等',30],['困难',40],['专业',50]] as const)assert.match(out.words(),new RegExp(`${name}.*纯色${100-mixed}%.*双色${mixed}%`));
- assert.match(out.words(),/9×9/);assert.match(out.words(),/12345/);assert.match(out.words(),/形状等级/);assert.doesNotMatch(out.words(),/继续进度|自动.*升档/);
+ for(const name of ['简单','中等','困难','专业'])assert.ok(out.labels.some(label=>label.text===name));
+ assert.equal(out.labels.filter(label=>label.text==='最高分 0').length,4);
+ assert.doesNotMatch(out.words(),/9×9|12345|种子|概率|%|形状等级|继续进度|自动.*升档|旧版/);
+ assert.deepEqual(controls.slice(4).map(control=>control.action),[{type:'home'}]);
 });
-test('only saved result or corrupt legacy slots produce a separate compatibility entry',()=>{
+test('legacy saves stay hidden from the new selector while direct compatibility screens remain readable',()=>{
  for(const status of ['empty','unavailable','saved','result','corrupt'] as const){
   const controls=getUiControls(outbound(),view({screen:'colorTiers',modeSlots:{color_exit:status}}));
-  assert.equal(controls.some(control=>control.action.type==='chooseLegacy'),['saved','result','corrupt'].includes(status));
+  assert.equal(controls.some(control=>control.action.type==='chooseLegacy'),false);
  }
  const current=view({screen:'legacyRuns',modeSlots:{color_exit:'corrupt',color_exit_entry:'saved',color_exit_middle:'result',color_exit_late:'empty'}}),controls=getUiControls(outbound(),current),out=surface();render(out.ctx,outbound(),current);
  assert.deepEqual(controls.filter(control=>control.action.type==='switchMode').map(control=>control.action),[{type:'switchMode',variant:'color_exit'},{type:'switchMode',variant:'color_exit_entry'},{type:'switchMode',variant:'color_exit_middle'}]);
@@ -65,7 +68,7 @@ test('endless settlement cannot skip a pending upgrade',()=>{
 });
 test('leave confirmation clearly discards only current board with safe continue first',()=>{
  const current=view({confirmation:{kind:'leaveRun'}}),out=surface();render(out.ctx,endless(),current);
- assert.match(out.words(),/结束本局并返回主页？/);assert.match(out.words(),/当前棋盘进度不会保留/);assert.match(out.words(),/已获得的历史成绩和设置不受影响/);
+ assert.match(out.words(),/结束本局并返回主页？/);assert.match(out.words(),/本局进度将丢失/);assert.match(out.words(),/历史成绩和设置会保留/);
  assert.deepEqual(getUiControls(endless(),current).map(control=>[control.label,control.action.type]),[['继续游戏','cancel'],['结束本局','confirm']]);
 });
 test('destructive dialogs visually emphasize the safe continue control',()=>{
@@ -79,34 +82,34 @@ test('destructive dialogs visually emphasize the safe continue control',()=>{
  }
 });
 test('legacy pause restart redirects through the new difficulty chooser and never creates another legacy run',()=>{
- for(const state of [createRun(97,'color_exit',4),createRun(97,'color_exit',5,'middle')]){
+ for(const state of [createRun(97,'color_exit',4),createRun(97,'color_exit',5,'middle'),createRun(97,'color_exit',6,'expert')]){
   const controls=getUiControls(state,view({paused:true}));
   assert.deepEqual(controls.find(control=>control.label==='重新开始')?.action,{type:'chooseColorTier'});
   assert.equal(controls.some(control=>control.action.type==='newRun'),false);
   const current=view({confirmation:{kind:'leaveRun',nextScreen:'colorTiers'}}),out=surface();render(out.ctx,state,current);
-  assert.match(out.words(),/结束本局并选择新难度？/);
+  assert.match(out.words(),/结束本局并选择难度？/);
   assert.deepEqual(getUiControls(state,current).map(control=>control.action.type),['cancel','confirm']);
  }
 });
 test('new run confirmation states current board loss and keeps history and settings safe',()=>{
  const current=view({confirmation:{kind:'newRun',mode:'color_exit',difficultyId:'hard',seed:777}}),out=surface();render(out.ctx,outbound(),current);
- assert.match(out.words(),/当前棋盘进度不会保留/);assert.match(out.words(),/历史成绩和设置不受影响/);assert.match(out.words(),/困难.*9×9|9×9.*困难/);assert.match(out.words(),/777/);
+ assert.match(out.words(),/重新开始？/);assert.match(out.words(),/本局进度将丢失/);assert.match(out.words(),/历史成绩和设置会保留/);assert.doesNotMatch(out.words(),/9×9|777|种子/);
  assert.equal(getUiControls(outbound(),current)[0].action.type,'cancel');
 });
 test('endless settlement is an explicit score recording action and retired never means victory',()=>{
- const current=view({confirmation:{kind:'finishEndless'}}),dialog=surface();render(dialog.ctx,endless(),current);assert.match(dialog.words(),/按当前分数结算/);assert.match(dialog.words(),/结算不是弃局/);
+ const current=view({confirmation:{kind:'finishEndless'}}),dialog=surface();render(dialog.ctx,endless(),current);assert.match(dialog.words(),/将记录当前分数/);assert.match(dialog.words(),/结束后不能继续本局/);
  const state={...endless(),phase:'result',result:'won',endReason:'retired',completedOrders:42,score:900,shift:5,maxOccupancy:35} as RunState;
- const out=surface();render(out.ctx,state,view());assert.match(out.words(),/无限入库.*结算|无限入库结算/);assert.match(out.words(),/主动结束/);assert.match(out.words(),/完成订单.*42/);assert.match(out.words(),/最高占用/);assert.match(out.words(),/关键升级/);assert.doesNotMatch(out.words(),/完美收工|五个班次全部完成|通关|30批目标/);
+ const out=surface();render(out.ctx,state,view());assert.match(out.words(),/无限入库.*结算|无限入库结算/);assert.match(out.words(),/已按当前分数结算/);assert.match(out.words(),/完成订单.*42/);assert.match(out.words(),/最高占用/);assert.match(out.words(),/关键升级/);assert.doesNotMatch(out.words(),/完美收工|五个班次全部完成|通关|30批目标/);
  assert.deepEqual(getUiControls(state,view()).find(control=>control.action.type==='newRun')?.action,{type:'newRun',mode:'endless'});
 });
-test('endless pause and recovery explain progression from stage one to five with no order limit',()=>{
- for(const patch of [{paused:true},{needsResume:true}]){const out=surface();render(out.ctx,endless(),view(patch));assert.match(out.words(),/阶段1.*5|阶段 1.*5|1–5/);assert.match(out.words(),/无订单上限|持续接单/);assert.doesNotMatch(out.words(),/30批|30单.*通关|五班.*过关/);}
+test('endless pause and recovery retain mode score and stage without a finite victory target',()=>{
+ for(const patch of [{paused:true},{needsResume:true}]){const out=surface();render(out.ctx,endless(),view(patch));assert.match(out.words(),/阶段 1\/5/);assert.match(out.words(),/无限入库/);assert.match(out.words(),/得分 0/);assert.doesNotMatch(out.words(),/30批|30单.*通关|五班.*过关/);}
 });
 test('new mode profiles never display legacy or another-difficulty high scores',()=>{
  const profile=createProfile();profile.bestScores['standard.v3']={score:101,chain:1};profile.colorExit={stats:{runs:1,batches:1,wins:0,maxChain:1},bestScores:{v4:{score:9999,chain:1}},lastRecordedRun:null};
- profile.outboundDifficulties={};for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){const p=getOutboundProfile(profile,id);p.bestScores.v6={score:222+index*111,chain:1};profile.outboundDifficulties[id]=p;}
+ profile.outboundV8={};profile.outboundDifficulties={};for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){const p=getOutboundProfile(profile,id,8);p.bestScores.v8={score:222+index*111,chain:1};profile.outboundV8[id]=p;const old=getOutboundProfile(profile,id,6);old.bestScores.v6={score:6666+index,chain:1};profile.outboundDifficulties[id]=old;}
  profile.endless=getEndlessProfile(profile);profile.endless.bestScores.v7={score:777,chain:1,orders:10};
- const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile}));for(const score of [222,333,444,555])assert.match(outboundOut.words(),new RegExp(`本档最高分 ${score}`));assert.doesNotMatch(outboundOut.words(),/9,999|777|101/);
+ const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile}));for(const [index,score] of [222,333,444,555].entries())assert.ok(outboundOut.labels.some(label=>label.text===`最高分 ${score}`&&label.y===546+index*244));assert.doesNotMatch(outboundOut.words(),/9,999|6,66[6-9]|777|101/);
  const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/无限最高分.*777/);assert.match(inboundOut.words(),/五班最高分.*101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
 });
 test('all new controls fit mobile and landscape viewport with readable labels and no overlaps',()=>{
@@ -117,6 +120,6 @@ test('all new controls fit mobile and landscape viewport with readable labels an
  }
 });
 test('resume overlay stays the only recovery flow above all menus',()=>{
- for(const screen of ['menu','inboundMenu','colorTiers','legacyRuns'] as const){const current=view({screen,needsResume:true}),out=surface();assert.deepEqual(getUiControls(outbound(),current),[]);render(out.ctx,outbound(),current);assert.match(out.words(),/已找到本机保存的进度/);assert.match(out.words(),/9×9/);assert.match(out.words(),/专业/);}
+ for(const screen of ['menu','inboundMenu','colorTiers','legacyRuns'] as const){const current=view({screen,needsResume:true}),out=surface();assert.deepEqual(getUiControls(outbound(),current),[]);render(out.ctx,outbound(),current);assert.match(out.words(),/继续上次游戏？/);assert.match(out.words(),/出库 · 专业/);assert.match(out.words(),/继续游戏/);assert.doesNotMatch(out.words(),/9×9|选择难度|旧版/);}
 });
-test('slot labels keep legacy seven and new nine sizes visibly distinct',()=>{assert.match(runSlotLabel('color_exit_middle'),/旧版.*7×7|7×7.*旧版/);assert.match(runSlotLabel('outbound_expert'),/9×9.*专业|专业.*9×9/);assert.match(runSlotLabel('inbound_endless'),/无限/);});
+test('slot labels retain mode and difficulty names without technical details',()=>{assert.equal(runSlotLabel('color_exit_middle'),'出库 · 中段');assert.equal(runSlotLabel('outbound_expert'),'出库 · 专业');assert.equal(runSlotLabel('inbound_endless'),'无限入库');});

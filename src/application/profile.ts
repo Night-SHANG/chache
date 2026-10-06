@@ -1,6 +1,6 @@
 import type { ColorTier, OutboundDifficulty, RunState } from '../domain/types.ts';
 import { assertRun, loadRun, type StoragePort } from './save.ts';
-import { RUN_SLOTS, isRunSlot, slotForRun, tierForSlot, difficultyForSlot, type RunSlot } from './run-slots.ts';
+import { RUN_SLOTS, isRunSlot, slotForRun, tierForSlot, difficultyForSlot, outboundRulesForSlot, type RunSlot } from './run-slots.ts';
 import { RULES_V4_CONFIG } from '../domain/v4/content.ts';
 
 /** Purely local preferences, cosmetics and results, independent of Run snapshots. */
@@ -15,7 +15,7 @@ export interface ColorExitProfile {
 }
 export interface OutboundProfile {
  stats:{runs:number;batches:number;wins:number;maxChain:number};
- bestScores:Partial<Record<'v6',{score:number;chain:number}>>;
+ bestScores:Partial<Record<'v6'|'v8',{score:number;chain:number}>>;
  lastRecordedRun:{serial:number;batches:number;score:number;ignored?:boolean}|null;
  resetCursor?:{serial:number;commandIndex:number};
 }
@@ -40,6 +40,7 @@ export interface Profile {
  colorExit?:ColorExitProfile;
  colorComparisons?:Partial<Record<ColorTier,ColorExitProfile>>;
  outboundDifficulties?:Partial<Record<OutboundDifficulty,OutboundProfile>>;
+ outboundV8?:Partial<Record<OutboundDifficulty,OutboundProfile>>;
  endless?:EndlessProfile;
 }
 export function createProfile():Profile {
@@ -52,9 +53,10 @@ export function getColorExitProfile(profile:Profile,tier?:ColorTier):ColorExitPr
 
 function createOutboundProfile():OutboundProfile {return {stats:{runs:0,batches:0,wins:0,maxChain:0},bestScores:{},lastRecordedRun:null};}
 function createEndlessProfile():EndlessProfile {return {stats:{runs:0,orders:0,score:0,maxChain:0,retirements:0},bestScores:{},lastRecordedRun:null};}
-export function getOutboundProfile(profile:Profile,difficulty:OutboundDifficulty):OutboundProfile {
+export function getOutboundProfile(profile:Profile,difficulty:OutboundDifficulty,version:6|8=6):OutboundProfile {
  requireValue(['easy','normal','hard','expert'].includes(difficulty),'出库难度无效');
- return profile.outboundDifficulties?.[difficulty]??createOutboundProfile();
+ requireValue(version===6||version===8,'出库规则版本无效');
+ return (version===8?profile.outboundV8:profile.outboundDifficulties)?.[difficulty]??createOutboundProfile();
 }
 export function getEndlessProfile(profile:Profile):EndlessProfile {return profile.endless??createEndlessProfile();}
 
@@ -93,7 +95,7 @@ export function localDailyChallenge(epochMs:number,rulesetVersion:number):Return
 export function assertProfile(value:unknown):asserts value is Profile {
  requireValue(object(value),'长期记录结构无效');
  requireValue(value.schemaVersion===1,'长期记录版本不兼容');
- requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit']),...(value.colorComparisons===undefined?[]:['colorComparisons']),...(value.outboundDifficulties===undefined?[]:['outboundDifficulties']),...(value.endless===undefined?[]:['endless'])]),'长期记录字段无效');
+ requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit']),...(value.colorComparisons===undefined?[]:['colorComparisons']),...(value.outboundDifficulties===undefined?[]:['outboundDifficulties']),...(value.outboundV8===undefined?[]:['outboundV8']),...(value.endless===undefined?[]:['endless'])]),'长期记录字段无效');
  const settings=value.settings,cosmetics=value.cosmetics,stats=value.stats;
  requireValue(object(settings)&&keys(settings,['sound','reducedMotion'])&&typeof settings.sound==='boolean'&&typeof settings.reducedMotion==='boolean','设置无效');
  requireValue(object(cosmetics)&&keys(cosmetics,['theme','forklift','cargo'])&&known(THEMES,cosmetics.theme)&&known(FORKLIFTS,cosmetics.forklift)&&known(CARGO_STYLES,cosmetics.cargo),'外观无效');
@@ -129,9 +131,13 @@ export function assertProfile(value:unknown):asserts value is Profile {
   requireValue(object(value.outboundDifficulties)&&Object.keys(value.outboundDifficulties).every(difficulty=>['easy','normal','hard','expert'].includes(difficulty)),'出库难度记录字段无效');
   for(const record of Object.values(value.outboundDifficulties))assertColorExitProfile(record,value.nextRunSerial,'v6');
  }
+ if(value.outboundV8!==undefined){
+  requireValue(object(value.outboundV8)&&Object.keys(value.outboundV8).every(difficulty=>['easy','normal','hard','expert'].includes(difficulty)),'出库难度记录字段无效');
+  for(const record of Object.values(value.outboundV8))assertColorExitProfile(record,value.nextRunSerial,'v8');
+ }
  if(value.endless!==undefined)assertEndlessProfile(value.endless,value.nextRunSerial);
 }
-function assertColorExitProfile(value:unknown,nextRunSerial:number,version:'v4'|'v5'|'v6'):void {
+function assertColorExitProfile(value:unknown,nextRunSerial:number,version:'v4'|'v5'|'v6'|'v8'):void {
  requireValue(object(value)&&keys(value,['stats','bestScores','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor'])]),'颜色出口记录字段无效');
  const stats=value.stats;
  requireValue(object(stats)&&keys(stats,['runs','batches','wins','maxChain'])&&integer(stats.runs)&&integer(stats.batches)&&integer(stats.wins,0,stats.runs)&&integer(stats.maxChain,0,3),'颜色出口统计无效');
@@ -184,7 +190,7 @@ export function recordResult(profile:Profile,run:RunState):Profile {
  assertProfile(profile);
  const owns=(key:string)=>Object.prototype.hasOwnProperty.call(run,key);
  if(run.rulesetVersion===7||run.mode==='endless'||run.runConfigId==='run.endless_v7')return recordEndlessResult(profile,run);
- if(run.rulesetVersion===6||owns('boardSize')||owns('difficultyId')||run.runConfigId.startsWith('run.outbound9_v6.'))return recordOutboundResult(profile,run);
+ if(run.rulesetVersion===6||run.rulesetVersion===8||owns('boardSize')||owns('difficultyId')||run.runConfigId.startsWith('run.outbound9_v6.')||run.runConfigId.startsWith('run.outbound9_v8.'))return recordOutboundResult(profile,run);
  if(run.mode==='color_exit'||run.rulesetVersion===4||run.rulesetVersion===5||run.colorTier!==undefined)return recordColorExitResult(profile,run);
  if(run.phase!=='result'||!['won','failed'].includes(String(run.result))||!integer(run.runSerial,1,MAX-1)||!integer(run.completedOrders)||!integer(run.score)||!integer(run.maxChain,0,64)||!integer(run.rulesetVersion,1,MAX_RULESET)||!['standard','daily','tutorial'].includes(run.mode))return profile;
  const cutoff=profile.resetCursor;
@@ -233,13 +239,14 @@ function recordColorExitResult(profile:Profile,run:RunState):Profile {
 }
 
 function recordOutboundResult(profile:Profile,run:RunState):Profile {
- try{assertRun(run);if(run.rulesetVersion!==6||difficultyForSlot(slotForRun(run))!==run.difficultyId)return profile;}catch{return profile;}
+ try{assertRun(run);if(run.rulesetVersion!==6&&run.rulesetVersion!==8||difficultyForSlot(slotForRun(run))!==run.difficultyId)return profile;}catch{return profile;}
  if(run.phase!=='result'||!integer(run.runSerial,1,MAX-1)||run.difficultyId===undefined)return profile;
- const current=getOutboundProfile(profile,run.difficultyId),cutoff=current.resetCursor,previous=current.lastRecordedRun;
+ const rules=run.rulesetVersion===8?8:6,version=rules===8?'v8':'v6',namespace=rules===8?'outboundV8':'outboundDifficulties';
+ const current=getOutboundProfile(profile,run.difficultyId,rules),cutoff=current.resetCursor,previous=current.lastRecordedRun;
  if(cutoff&&(run.runSerial<cutoff.serial||run.runSerial===cutoff.serial&&run.commandIndex<=cutoff.commandIndex)||previous&&run.runSerial<=previous.serial)return profile;
- const best=current.bestScores.v6;
- const record:OutboundProfile={...current,stats:{runs:add(current.stats.runs,1),batches:add(current.stats.batches,run.completedOrders),wins:add(current.stats.wins,run.result==='won'?1:0),maxChain:Math.max(current.stats.maxChain,run.maxChain)},bestScores:{v6:{score:Math.max(best?.score??0,run.score),chain:Math.max(best?.chain??0,run.maxChain)}},lastRecordedRun:{serial:run.runSerial,batches:run.completedOrders,score:run.score}};
- return {...profile,outboundDifficulties:{...profile.outboundDifficulties,[run.difficultyId]:record},nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
+ const best=current.bestScores[version];
+ const record:OutboundProfile={...current,stats:{runs:add(current.stats.runs,1),batches:add(current.stats.batches,run.completedOrders),wins:add(current.stats.wins,run.result==='won'?1:0),maxChain:Math.max(current.stats.maxChain,run.maxChain)},bestScores:{[version]:{score:Math.max(best?.score??0,run.score),chain:Math.max(best?.chain??0,run.maxChain)}},lastRecordedRun:{serial:run.runSerial,batches:run.completedOrders,score:run.score}};
+ return {...profile,[namespace]:{...profile[namespace],[run.difficultyId]:record},nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
 }
 function recordEndlessResult(profile:Profile,run:RunState):Profile {
  try{assertRun(run);if(slotForRun(run)!=='inbound_endless')return profile;}catch{return profile;}
@@ -334,11 +341,12 @@ export function resetProfile(storage:StoragePort,minimumNextSerial=1,...runs:Res
    const difficulty=difficultyForSlot(slot),candidateNew=snapshots.get(slot);
    const newRun=candidateNew&&integer(candidateNew.runSerial,1,MAX-1)&&integer(candidateNew.commandIndex)?candidateNew:null;
    if(difficulty!==undefined){
-    const old=loaded.profile.outboundDifficulties?.[difficulty];if(!old&&!newRun)continue;
+    const namespace=outboundRulesForSlot(slot)===8?'outboundV8':'outboundDifficulties';
+    const old=loaded.profile[namespace]?.[difficulty];if(!old&&!newRun)continue;
     const record=createOutboundProfile(),prior=old?.lastRecordedRun;
     if(newRun){record.resetCursor={serial:newRun.runSerial!,commandIndex:newRun.commandIndex};if(newRun.phase==='result')record.lastRecordedRun={serial:newRun.runSerial!,batches:newRun.completedOrders,score:newRun.score,ignored:true};else if(prior)record.lastRecordedRun={...prior,ignored:true};}
     else if(prior){record.resetCursor={serial:prior.serial,commandIndex:MAX};record.lastRecordedRun={...prior,ignored:true};}
-    retainResetCursor(record,old?.resetCursor);profile.outboundDifficulties={...profile.outboundDifficulties,[difficulty]:record};continue;
+    retainResetCursor(record,old?.resetCursor);profile[namespace]={...profile[namespace],[difficulty]:record};continue;
    }
    if(slot==='inbound_endless'){
     const old=loaded.profile.endless;if(!old&&!newRun)continue;

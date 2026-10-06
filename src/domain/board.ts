@@ -10,7 +10,7 @@ export type {CargoGroup,ReachableGroup} from './rulesets/v1/board.ts';
 export interface OrderStatus {count:number;status:'ready'|'blocked'|'need';path:Point[];reason?:'insufficient'|'exit-unconnected'|'entry-blocked'|'route-blocked'|'ready';largestGroupCount?:number;exitConnected?:boolean}
 export function orderStatus(state:RunState,order:Order):OrderStatus {
  assertRulesIdentity(state);
- if(state.rulesetVersion===6)return orderStatusV6(state,order);
+ if(state.rulesetVersion===6||state.rulesetVersion===8)return orderStatusV6(state,order);
  if(state.rulesetVersion===5)return orderStatusV4(state,order);
  if(state.rulesetVersion===4)return orderStatusV4(state,order);
  if(state.rulesetVersion===2||state.rulesetVersion===3||state.rulesetVersion===7)return orderStatusV2(state,order);

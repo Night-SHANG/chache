@@ -1,0 +1,10 @@
+{
+  "status": "COMPLETED_LOCAL_VERIFICATION",
+  "stableBaseline": "d937569dafc37f187410cb67ff6f1be915caeacc",
+  "version": "0.7.0-dev",
+  "completedUtc": "2026-10-06T05:44:00Z",
+  "testsPassed": 906,
+  "hostGroups": 11,
+  "details": "docs/v070-validation.md",
+  "pendingExternal": "Real browser/Windows GUI/WeChat devices and human playtesting"
+}

@@ -131,16 +131,16 @@ test('preview preserves exact selected cells and marks extra clear separately wi
   view.preview = { valid: true, cells: [30], shipments: [shipment({ cells: [8, 9], units: 3, usedPalletPass: true, extraClearedCells: [15] })] };
   render(surface.ctx, state, view);
   assert.deepEqual(surface.outlines.filter(rect => rect.w === 112 && rect.h === 112), [8, 9].map(index => ({ x: layout.L.board.x + index % 7 * 120 + 4, y: layout.L.board.y + Math.floor(index / 7) * 120 + 4, w: 112, h: 112 })));
-  assert.ok(labelsOf(surface).some(value => value.includes('穿托盘')));
+  assert.ok(labelsOf(surface).some(value => value.includes('托盘保留')));
   assert.ok(labelsOf(surface).some(value => value.includes('额外清理1格')));
   assert.ok(surface.outlines.some(rect => rect.x === layout.L.board.x + 120 + 9 && rect.y === layout.L.board.y + 240 + 9 && rect.w === 102));
 });
 
-test('failure describes all four choices and pause explains expiry and cleanup costs', () => {
+test('failure explains placement exhaustion while optional details retain expiry and cleanup costs', () => {
   const state = v2State(), view = baseView(); state.candidates = Array.from({ length: 4 }, (_, i) => ({ id: `p.${i}`, cargo: 'cargo.food', shapeId: 'shape.single' })); state.phase = 'result'; state.result = 'failed';
   const failed = canvasSurface(); render(failed.ctx, state, view);
-  assert.ok(labelsOf(failed).includes('四个候选货件都没有合法落点'));
-  state.phase = 'input'; view.paused = true; const paused = canvasSurface(); render(paused.ctx, state, view);
+  assert.ok(labelsOf(failed).includes('所有货件都放不下了'));
+  state.phase = 'input'; view.paused = true; view.screen = 'helpDetails'; const paused = canvasSurface(); render(paused.ctx, state, view);
   assert.ok(labelsOf(paused).some(value => value.includes('有效放置') && value.includes('废弃物')));
   assert.ok(labelsOf(paused).some(value => value.includes('不计分')));
 });
@@ -151,7 +151,7 @@ test('upgrade visuals communicate effect semantics instead of candidate-index ca
   for (const upgrade of UPGRADES) {
     state.upgradeChoices = [upgrade.id]; const surface = canvasSurface(); render(surface.ctx, state, baseView());
     assert.ok(labelsOf(surface).includes(upgrade.title));
-    assert.ok(labelsOf(surface).includes(upgrade.behavior ? '规则变化' : '计分 / 补给'), `${upgrade.id} has a meaningful category`);
+    assert.equal(labelsOf(surface).some(label=>label==='规则变化'||label==='计分 / 补给'),false, 'the actual effect replaces a redundant category');
     const effectLabel = surface.labels.find(label => label.y === layout.L.upgradeRects[0].y + 284);
     assert.ok(effectLabel && effectLabel.value.length > 1, `${upgrade.id} has its own plain-language modifier`);
   }
@@ -165,7 +165,7 @@ test('three-tray compatibility alias stays identical and invalid counts do not i
 });
 
 test('v2 order cards use Domain units and distinguish blocked entry from an unreachable aisle', () => {
-  for (const [reason, expected] of [['ready', '已满足 · 落子后检查'], ['entry', '入口被堵 · 请留空'], ['route', '数量已够 · 无空路']] as const) {
+  for (const [reason, expected] of [['ready', '已就绪 · 等待放置'], ['entry', '入口堵塞'], ['route', '无空路']] as const) {
     const state = v2State(), surface = canvasSurface();
     state.orders = [{ id: 'order.food', dockId: 'dock.north', cargo: 'cargo.food', amount: 3, baseScore: 100 }];
     const indices = reason === 'route' ? [28, 29] : [8, 9];
@@ -189,11 +189,11 @@ test('order status during animation uses the same prior traits as its board', ()
   assert.equal(labelsOf(surface).includes('1/3'), false);
 });
 
-test('footer and debug identify the active rules version as a development build', () => {
+test('explicit developer diagnostics identify the active rules version without a permanent footer', () => {
   for (const version of [1, 2]) {
-    const state = v2State(), surface = canvasSurface(), view = baseView(); state.rulesetVersion = version; view.debug = true;
+    const state = v2State(), surface = canvasSurface(), view = baseView(); state.rulesetVersion = version; view.debug = true; view.developerMode = true;
     render(surface.ctx, state, view);
-    assert.equal(labelsOf(surface).filter(label => label.includes(`规则 v${version} · 开发版`)).length, 2);
+    assert.equal(labelsOf(surface).filter(label => label.includes(`规则 v${version} · 开发版`)).length, 1);
     assert.equal(labelsOf(surface).some(label => label.startsWith('P0')), false);
   }
 });

@@ -39,7 +39,7 @@ test('mixed preview counts each actual cell cargo without combining a 2+2 square
   assert.equal(food.status.count, 2); assert.equal(food.status.largestGroupCount, 2); assert.equal(food.status.reason, 'insufficient');
   assert.equal(chem.status.largestGroupCount, 2); assert.equal(food.previewShipment, undefined);
   const drawn = surface(); drawColorExitCards(drawn.ctx, state, v);
-  assert.match(drawn.words(), /连口 2\/4件/); assert.doesNotMatch(drawn.words(), /连口 4\/4件/);
+  assert.match(drawn.words(), /已连接 2\/4件/); assert.doesNotMatch(drawn.words(), /已连接 4\/4件/);
   assert.equal(JSON.stringify([state, v]), before, 'read-only preview must not mutate saved or view state');
 });
 
@@ -55,31 +55,31 @@ function previewView(shipments: Shipment[] = []): ViewState {
 test('mixed hint separates a four-food shipment with old stock from the two new chemical crates left in place', () => {
   const state = run(); state.board[3] = FOOD; state.board[4] = FOOD;
   const hint = colorExitBoardHint(state, previewView([event(FOOD, [3, 4, 10, 11])]));
-  assert.match(hint, /预计出货：食品4件/); assert.match(hint, /本件留下：化工2件/);
+  assert.match(hint, /预计出货：食品4件/); assert.match(hint, /留下化工2件/);
   assert.doesNotMatch(hint, /食品2件.*留下|全部出货/);
 });
 
 test('mixed hint with no shipment lists both retained colors and never implies that 2+2 reaches a batch', () => {
   const hint = colorExitBoardHint(run(), previewView());
-  assert.match(hint, /暂不出货/); assert.match(hint, /本件留下：食品2件、化工2件/);
+  assert.match(hint, /暂不出货/); assert.match(hint, /留下食品2件、化工2件/);
   assert.doesNotMatch(hint, /预计出货|全部出货/);
 });
 
 test('mixed hint confirms all four new cells leave only when both colors appear in actual preview shipments', () => {
   const hint = colorExitBoardHint(run(), previewView([event(FOOD, [3, 4, 10, 11]), event(CHEM, [17, 18, 19, 20])]));
-  assert.match(hint, /预计出货：食品4件、化工4件/); assert.match(hint, /本件4格全部出货/);
+  assert.match(hint, /预计出货：食品4件、化工4件/); assert.doesNotMatch(hint, /留下|本件4格全部出货/);
   assert.doesNotMatch(hint, /本件留下/);
 });
 
 test('unrelated old-stock shipment does not clear or miscount any new mixed-piece cell', () => {
   const hint = colorExitBoardHint(run(), previewView([event(FOOD, [0, 1, 2, 3])]));
-  assert.match(hint, /预计出货：食品4件/); assert.match(hint, /本件留下：食品2件、化工2件/);
+  assert.match(hint, /预计出货：食品4件/); assert.match(hint, /留下食品2件、化工2件/);
   assert.doesNotMatch(hint, /全部出货/);
 });
 
 test('mixed landing which blocks the southern entrance still names every retained crate', () => {
   const hint = colorExitBoardHint(run(), view({ preview: { valid: true, cells: [38, 39, 45, 46], shipments: [] } }));
-  assert.match(hint, /南入口被堵/); assert.match(hint, /本件留下：食品2件、化工2件/);
+  assert.match(hint, /入口堵塞/); assert.match(hint, /留下食品2件、化工2件/);
 });
 
 test('mixed remainder overlay marks only the two retained new cells with cargo-colored small dashed borders', () => {
@@ -117,8 +117,8 @@ test('mixed remainder overlay does not mark shipped cells, old inventory, animat
 test('mixed help shows a retained machine half and explicitly keeps the minimum separate for each color', () => {
   const rect = { x: 100, y: 400, w: 880, h: 450 }, mixed = surface(), legacy = surface(), explicitLegacy = surface();
   drawColorExitHelpDiagram(mixed.ctx, rect, true); drawColorExitHelpDiagram(legacy.ctx, rect); drawColorExitHelpDiagram(explicitLegacy.ctx, rect, false);
-  assert.match(mixed.words(), /每色.*至少4件/); assert.match(mixed.words(), /2.*\+.*2.*不等于.*同色4件/);
-  assert.match(mixed.words(), /食品4件出货/); assert.match(mixed.words(), /机械2件留原格/); assert.match(mixed.words(), /占格.*空路/);
+  assert.match(mixed.words(), /虚线.*叉车通路/); assert.match(mixed.words(), /实线.*出货路线/);
+  assert.match(mixed.words(), /食品4件出货/); assert.match(mixed.words(), /机械2件留下/); assert.doesNotMatch(mixed.words(), /概率|2.*\+.*2.*不等于/);
   assert.doesNotMatch(mixed.words(), /整块.*消失|双色.*自动.*清/);
   assert.notDeepEqual(mixed.pixels(), legacy.pixels()); assert.deepEqual(legacy.pixels(), explicitLegacy.pixels());
 });
@@ -139,7 +139,7 @@ test('actual v5 preview and committed half-shipment agree with the per-cell rema
   assert.deepEqual(feedback.remaining, [{ cell: 17, cargo: CHEM }, { cell: 18, cargo: CHEM }]);
   const next = applyCommand(state, { type: 'place', pieceId: 'piece.mixed', origin: { x: 3, y: 1 } });
   for (const item of feedback.placed) assert.equal(next.state.board[item.cell], feedback.remaining.some(cell => cell.cell === item.cell) ? item.cargo : null);
-  assert.match(colorExitBoardHint(state, v), /食品4件.*本件留下：化工2件/);
+  assert.match(colorExitBoardHint(state, v), /食品4件.*留下化工2件/);
   const normal = surface(), reduced = surface(); drawMixedRemainder(normal.ctx, state, v);
   v.profile!.settings.reducedMotion = true; drawMixedRemainder(reduced.ctx, state, v);
   assert.deepEqual(normal.pixels(), reduced.pixels()); assert.equal(checksum(state), before);
@@ -151,7 +151,7 @@ test('actual v5 route-opening chain consumes both bands and the preview does not
   const preview = previewPlacement(state, 'piece.mixed', { x: 3, y: 1 }), v = view({ preview });
   assert.deepEqual(preview.shipments.map(item => item.cargo), [CHEM, FOOD]);
   assert.deepEqual(mixedPiecePreview(state, v)?.remaining, []);
-  assert.match(colorExitBoardHint(state, v), /化工8件、食品4件.*本件4格全部出货/);
+  assert.match(colorExitBoardHint(state, v), /预计出货：化工8件、食品4件$/);
   const drawn = surface(); drawMixedRemainder(drawn.ctx, state, v); assert.equal(drawn.borders.length, 0);
 });
 

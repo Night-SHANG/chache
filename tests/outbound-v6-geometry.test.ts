@@ -107,8 +107,8 @@ test('v6 mixed p5 remainder uses actual cell colors and nine-wide indices above 
 
 test('v6 gate blocking, freight preview outlines, and vehicle clipping all use scaled geometry', () => {
   const state=state9(), current=view(), event=event9(); state.board[76]='cargo.machine';
-  const gates=surface(); drawColorExitGates(gates.ctx,state,current); assert.match(gates.labels.join(' '),/入口被堵/);
-  state.board[76]=null; state.board[45]='cargo.machine'; const open=surface(); drawColorExitGates(open.ctx,state,current); assert.doesNotMatch(open.labels.join(' '),/入口被堵/);
+  const gates=surface(); drawColorExitGates(gates.ctx,state,current); assert.match(gates.labels.join(' '),/入口堵塞/);
+  state.board[76]=null; state.board[45]='cargo.machine'; const open=surface(); drawColorExitGates(open.ctx,state,current); assert.doesNotMatch(open.labels.join(' '),/入口堵塞/);
   const routes=surface(); drawColorExitRoutes(routes.ctx,view({preview:{valid:true,cells:[],shipments:[event]}}));
   assert.ok(routes.vertices.some(p => Math.abs(p.x-center9({x:4,y:0}).x)<.001 && Math.abs(p.y-center9({x:4,y:0}).y)<.001));
   assert.equal(routes.borders.length,event.cells.length); assert.ok(routes.borders.every(b => Math.abs(b.w-110*7/9)<.001));

@@ -4,7 +4,7 @@ import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
 import { LEGACY_SLOTS, OUTBOUND_DIFFICULTY_NAMES, colorTierLabel, outboundDifficultyLabel, getUiControls, hasLegacyRun, runSlotLabel } from './ui.ts';
 import type { UiControl } from './ui.ts';
-import { OUTBOUND_DIFFICULTIES, MIXED_COLOR_PERCENT_V6 } from '../domain/v6/content.ts';
+import { OUTBOUND_DIFFICULTIES } from '../domain/v6/content.ts';
 import { tierForSlot } from '../application/run-slots.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
 import { pieceCaption } from './mixed-piece-feedback.ts';
@@ -24,7 +24,11 @@ const cargoName = (id: CargoId): string => CARGO.find(c => c.id === id)?.name ??
 const number = (n: number): string => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const traitName = { pallet: '托盘', rush: '加急', hazard: '危险', wildcard: '万能' } as const;
 const pieceTrait = (piece: Piece): CellTrait | undefined => piece.trait ? { kind: piece.trait, remaining: piece.rushTurns } : undefined;
-const outboundLabel = (state:RunState):string => state.difficultyId ? `出库 9×9 · ${outboundDifficultyLabel(state.difficultyId)}` : `旧版出库 7×7 · ${state.colorTier ? colorTierLabel(state.colorTier) : '纯色 v4'}`;
+const outboundLabel = (state:RunState):string => state.difficultyId ? `出库 · ${outboundDifficultyLabel(state.difficultyId)}` : state.colorTier ? `出库 · ${colorTierLabel(state.colorTier)}` : '出库模式';
+const persistenceWarnings = (view:ViewState):string[] => [...new Set([view.saveStatus,view.profileStatus].filter((value):value is string=>!!value&&/失败|无法|不可用|未写入|未保存|尚未|异常|损坏|请先|需先|已保护/.test(value)))];
+function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width=880):void {
+  persistenceWarnings(view).forEach((warning,index)=>wrap(ctx,warning,x-width/2,y+index*55,width,22,28));
+}
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
 export function render(ctx: Context, state: RunState, view: ViewState): void {
@@ -37,7 +41,8 @@ export function render(ctx: Context, state: RunState, view: ViewState): void {
   if (!view.needsResume && view.screen === 'colorTiers') { drawColorTierSelection(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'legacyRuns') { drawLegacyRuns(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'settings') { drawSettings(ctx, state, view); ctx.restore(); return; }
-  if (!view.needsResume && view.screen === 'colorIntro') { drawColorExitIntro(ctx,state,view); ctx.restore(); return; }
+  if (!view.needsResume && view.screen === 'colorIntro') { drawHelp(ctx,state,view); ctx.restore(); return; }
+  if (!view.needsResume && view.screen === 'helpDetails') { drawHelpDetails(ctx,state,view); ctx.restore(); return; }
   drawHeader(ctx, state, view);
   const board = view.animation?.board ?? state.board;
   // Never mix an intermediate board with already-expired or cleared final traits.
@@ -46,12 +51,13 @@ export function render(ctx: Context, state: RunState, view: ViewState): void {
   drawBoard(ctx, state, view, board, cellTraits);
   drawTrays(ctx, state, view);
   drawFooter(ctx, state, view);
-  if (view.debug) drawDebug(ctx, state, view);
+  if (view.developerMode === true && view.debug) drawDebug(ctx, state, view);
   if (view.needsResume) drawRecovery(ctx,state,view);
-  else if (view.paused) drawActivePause(ctx, state, view);
+  else if (view.paused && state.phase!=='result') drawActivePause(ctx, state, view);
   else if (state.phase === 'upgrade' && !view.animation) drawUpgrades(ctx, state);
   else if (state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
   if (!view.paused && !view.needsResume && view.noticeFx) drawNotice(ctx, view);
+  if (!view.paused && !view.needsResume && state.phase==='input' && !view.animation) drawControls(ctx,state,view);
   ctx.restore();
 }
 
@@ -97,7 +103,7 @@ function drawHeader(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, '连锁', L.chain.x, L.chain.y + 21, 20, MUTED);
   text(ctx, `×${state.lastChain}`, L.chain.x + L.chain.w, L.chain.y + 21, 28, '#f7cc67', 'right');
   panel(ctx, { x: 548, y: 226, w: 486, h: 70 }, '#25394c', '#53687a', 13);
-  text(ctx, state.mode==='color_exit'?`形状 ${state.shift}/5`:state.mode==='endless'?`阶段 ${state.shift}/5`:state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
+  text(ctx, state.mode==='color_exit'?`阶段 ${state.shift}/5`:state.mode==='endless'?`阶段 ${state.shift}/5`:state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
   const progress = Math.min(6, state.completedOrders - (state.shift - 1) * 6);
   for (let i = 0; i < 5; i++) {
     const x = 735 + i * 57;
@@ -108,12 +114,11 @@ function drawHeader(ctx: Context, state: RunState, view: ViewState): void {
   }
   text(ctx, state.mode==='color_exit'?'出货批次':state.mode==='endless'?'完成订单':'本班订单', 57, 291, 22, MUTED);
   for (let i = 0; state.mode!=='endless' && i < 6; i++) { roundedPath(ctx, 180 + i * 43, 281, 35, 16, 4); ctx.fillStyle = i < progress ? '#ffc74d' : '#111c27'; ctx.fill(); }
-  text(ctx, state.mode==='color_exit'?`${state.completedOrders}/30 批`:state.mode==='endless'?`${state.completedOrders} 单 · 无上限`:`${Math.max(0, progress)} / 6`, 474, 289, 23, CREAM, 'right');
+  text(ctx, state.mode==='color_exit'?`${state.completedOrders}/30 批`:state.mode==='endless'?`${state.completedOrders} 单`:`${Math.max(0, progress)} / 6`, 474, 289, 23, CREAM, 'right');
 }
 
 function drawOrders(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, '出库订单', 56, 330, 26, CREAM);
-  text(ctx, '数量达标 · 通路畅通', 1027, 330, 22, MUTED, 'right', 500);
   const w = (972 - (state.orders.length - 1) * 16) / Math.max(1, state.orders.length);
   state.orders.forEach((order, i) => {
     const x = 54 + i * (w + 16), y = 357;
@@ -140,8 +145,9 @@ function drawOrders(ctx: Context, state: RunState, view: ViewState): void {
 function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[], cellTraits?: (CellTrait | null)[]): void {
   const geometry=boardGeometry(state), {x,y,size,cell,dimension,scale,boxSize}=geometry;
   const lesson = tutorialStep(state), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
-  const lessonHint = !view.animation && state.rulesetVersion === 3 && lesson !== null ? ['看上方订单：北门要3件食品，先放2件', '食品还差1件；上下左右连起来，再留空路', '食品够3件，北门被机械挡住：南门清机械→北门出食品'][lesson] : null;
-  if (!delivery) text(ctx, view.placementRisk?.message??(state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
+  const lessonHint = !view.animation && lesson !== null ? ['把食品拖进虚线框。', '再接上1件食品，凑够订单。', '补上机械，清路后继续出货。'][lesson] : null;
+  if(view.animation&&state.mode==='color_exit'&&view.animation.shipment.chain>1)text(ctx,`${view.animation.shipment.chain}连出货`,540,L.boardHint.y+L.boardHint.h/2,28,'#ffdf75','center',900);
+  else if (!delivery) text(ctx, (view.placementRisk?(view.developerMode===true?view.placementRisk.message:view.placementRisk.kind==='entry-blocked'?'入口堵塞':'通路将被切断'):undefined)??(state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
   panel(ctx, { x: x - 26, y: y - 24, w: size + 52, h: size + 54 }, '#56616a', '#829098', 12);
   hazard(ctx, { x: x - 13, y: y - 13, w: size + 26, h: 14 });
   hazard(ctx, { x: x - 13, y: y + size - 1, w: size + 26, h: 14 });
@@ -212,7 +218,7 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   drawPlacementFeedback(ctx, view,state);
   drawPlacement(ctx, state, view);
   if(view.placementRisk&&!view.animation){ctx.save();ctx.strokeStyle='#ff7959';ctx.lineWidth=4;for(const index of view.placementRisk.cells){if(index>=0&&index<dimension*dimension)ctx.strokeRect(x+index%dimension*cell+4*scale,y+Math.floor(index/dimension)*cell+4*scale,cell-8*scale,cell-8*scale);}ctx.restore();}
-  if(state.rulesetVersion===5||state.rulesetVersion===6)drawMixedRemainder(ctx,state,view);
+  if(state.rulesetVersion===5||state.rulesetVersion===6||state.rulesetVersion===8)drawMixedRemainder(ctx,state,view);
   if (view.animation) {if(conveyor)drawColorExitShipment(ctx,view.animation.shipment,view.animation.progress,view);else drawShipment(ctx, view.animation.shipment, view.animation.progress, view);}
 }
 
@@ -307,7 +313,7 @@ function drawPlacement(ctx: Context, state: RunState, view: ViewState): void {
       const valid = view.preview?.valid&&!view.placementRisk;
       ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112*scale, 112*scale);
       ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2*scale, y + 2*scale, 108*scale, 108*scale);
-      if (state.rulesetVersion===5 || state.rulesetVersion===6 || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
+      if (state.rulesetVersion===5 || state.rulesetVersion===6 || state.rulesetVersion===8 || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
     });
   }
   if (view.dragPoint) {
@@ -373,7 +379,7 @@ function drawShipment(ctx: Context, shipment: Shipment, progress: number, view: 
   }
   if (shipment.chain > 1) {
     panel(ctx, { x: 370, y: 1432, w: 340, h: 57 }, '#5a3f26', '#b98d40', 12);
-    text(ctx, `${shipment.chain} 连锁出库！`, 540, 1460, Math.min(36, feedback.fontSize - 8), '#ffdf75', 'center', 900);
+    text(ctx, `${shipment.chain}连出货`, 540, 1460, Math.min(36, feedback.fontSize - 8), '#ffdf75', 'center', 900);
   }
 }
 
@@ -396,16 +402,13 @@ function drawNotice(ctx: Context, view: ViewState): void {
 function drawTrays(ctx: Context, state: RunState, view: ViewState): void {
   const shipments = view.animation ? [view.animation.shipment] : view.preview?.valid ? view.preview.shipments : [];
   const extra = new Set(shipments.flatMap(shipping => shipping.extraClearedCells ?? [])).size;
-  const detail = [shipments.some(shipping => shipping.usedPalletPass) ? '穿托盘1次 · 托盘保留' : '', extra ? `额外清理${extra}格 · 不计分` : ''].filter(Boolean).join(' / ');
+  const detail = [shipments.some(shipping => shipping.usedPalletPass) ? '托盘保留' : '', extra ? `额外清理${extra}格` : ''].filter(Boolean).join(' / ');
   if (!view.noticeFx && (!view.animation || view.animation.shipment.chain < 2)) {
-    const step = tutorialStep(state);
-    const hint = state.rulesetVersion === 3 && step !== null
-      ? ['第1步：把食品横2拖进虚线框', '第2步：把食品接在右侧，凑成3件出货', '第3步：补上机械，先清路，再连锁出货'][step]
-      : step === 0 ? '第1步：把左侧食品拖进虚线框' : step === 1 ? '第2步：把中间食品接在右侧，凑成3格' : detail || view.message || '拖入货件，或点选后点击落点';
-    text(ctx, hint, 540, 1467, detail ? 24 : 27, '#efe3c9', 'center', 600);
+    const hint = detail || (tutorialStep(state) === null ? view.message : '');
+    if(hint)text(ctx, hint, 540, 1467, 24, '#efe3c9', 'center', 600);
   }
   text(ctx, '待入库', 58, 1502, 22, '#b8c3cd');
-  text(ctx, detail && view.animation && view.animation.shipment.chain > 1 ? detail : '固定朝向 · 不可旋转', 1027, 1502, detail ? 18 : 20, '#b2c1ca', 'right', 500);
+  text(ctx, `空位 ${state.board.filter(cell=>cell===null).length}`, 1027, 1502, 22, '#b2c1ca', 'right', 500);
   const trays = getTrayRects(state.candidates.length);
   state.candidates.forEach((piece, index) => {
     const r = trays[index]; if (!r) return;
@@ -423,7 +426,7 @@ function drawTrays(ctx: Context, state: RunState, view: ViewState): void {
       drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo); ctx.restore();
     } else drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo);
     if (invalid) { ctx.save(); ctx.strokeStyle = '#ffb28b'; ctx.lineWidth = 3; roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.stroke(); ctx.restore(); }
-    const label = piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece)}` : pieceCaption(piece);
+    const label = piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ');
     text(ctx, label, r.x + r.w / 2, r.y + r.h - 27, piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
 }
@@ -438,54 +441,27 @@ function drawPieceInTray(ctx: Context, piece: Piece, r: Rect, selected: boolean,
 }
 
 function drawFooter(ctx: Context, state: RunState, view: ViewState): void {
-  if(state.mode==='color_exit')text(ctx,`${outboundLabel(state)} · 每色4件 · 同色口 · 空路`,540,1840,22,'#bfbaa8','center',500);
-  else if (state.mode === 'daily') text(ctx, `本地每日 ${state.challengeDay ?? view.dailyLabel ?? '日期待确认'} · 北京时间`, 54, 1840, 21, '#bfbaa8', 'left', 500);
-  else if (state.rulesetVersion >= 2 && state.shift >= 3) text(ctx, '托盘1格计2件 · 加急到期变废物 · 规则见暂停', 54, 1840, 21, '#bfbaa8', 'left', 500);
-  else text(ctx, '凑够订单 → 空格通路 → 自动出库', 540, 1840, 24, '#bfbaa8', 'center', 500);
-  text(ctx, view.saveStatus || '本机存档', 54, 1888, 19, '#8297a6', 'left', 500);
-  text(ctx, `规则 v${state.rulesetVersion} · 开发版 / ${state.mode==='color_exit'?(state.difficultyId ? '出库9×9' : '旧版出库7×7'):state.mode==='endless'?'无限入库':state.mode === 'daily' ? '本地每日挑战' : state.mode === 'tutorial' ? '初次入库' : state.overtime ? '加班挑战' : '普通五班'}`, 1027, 1888, 18, '#8297a6', 'right', 500);
-  roundedPath(ctx, L.debug.x, L.debug.y, L.debug.w, L.debug.h, 6); ctx.fillStyle = 'rgba(13,23,31,.86)'; ctx.fill();
-  text(ctx, '状态', L.debug.x + L.debug.w / 2, L.debug.y + 23, 20, '#9cabaf', 'center');
+  if(state.mode==='daily'&&!persistenceWarnings(view).length)text(ctx,`每日挑战 · ${state.challengeDay??view.dailyLabel??'日期待确认'}`,54,1840,23,'#bfbaa8');
+  drawPersistenceWarnings(ctx,view,1830,427,746);
+  if(view.developerMode===true){
+    roundedPath(ctx,L.debug.x,L.debug.y,L.debug.w,L.debug.h,6);ctx.fillStyle='rgba(13,23,31,.86)';ctx.fill();
+    text(ctx,'状态',L.debug.x+L.debug.w/2,L.debug.y+23,20,'#9cabaf','center');
+  }
 }
 
 function shade(ctx: Context): void { ctx.fillStyle = 'rgba(5,11,18,.84)'; ctx.fillRect(0, 0, 1080, 1920); }
 
 function drawRecovery(ctx: Context, state:RunState, view:ViewState): void {
   const error=view.recoveryError;
-  shade(ctx); panel(ctx, { x: 173, y: 582, w: 734, h: 839 }, '#30455a', '#9aabaf', 28);
-  hazard(ctx, { x: 201, y: 610, w: 678, h: 19 });
-  forklift(ctx, 540, 744, 140, -.12);
-  outlinedText(ctx, error ? '存档需要处理' : '仓库还在等你', 540, 868, 62, CREAM, 'center');
-  text(ctx, error ? '现有存档无法安全继续' : '已找到本机保存的进度', 540, 954, 31, '#c6d1d6', 'center', 500);
-  const identity=state.mode==='color_exit'?outboundLabel(state):state.mode==='endless'?'无限入库 7×7':state.mode==='daily'?`本地每日 ${state.challengeDay??'日期待确认'}`:'入库模式 · 普通五班';
-  text(ctx, identity, 540, 1009, 26, '#c6d1d6', 'center', 500);
-  if(error){
-    text(ctx,'读取未完成；可重试，原数据仍保留',540,1057,22,'#ffc9a3','center',500);
-    button(ctx,L.resume,'重试读取并恢复');
-    wrap(ctx,error,246,1558,588,23,34);
-    button(ctx,L.restart,state.mode==='color_exit'&&!state.difficultyId?'保留旧档并选择新难度':'保留旧档并重新开始');
-  }else{
-    button(ctx,L.resume,'继续游戏');
-    button(ctx,L.restart,state.mode==='color_exit'&&!state.difficultyId?'选择新出库难度':'重新开始',false);
-  }
-  button(ctx,L.recoveryMenu,'返回主页 · 先确认结束本局',false);
-  const rules=state.mode==='color_exit' ? [
-    '同色至少4件相连，并接上对应同色出口',
-    '从南入口到货物旁边，必须留出叉车空路',
-    '累计出货30批；全部候选放不下就失败',
-    state.colorTier||state.difficultyId?'双色分开出货；未出货的异色留在原格':'逐箱沿货线出门；仅继续旧版7×7存档',
-  ] : state.mode==='endless' ? [
-    '阶段1–5逐步开放，之后持续接单，无订单上限',
-    '同类相邻成组、按订单配货，并留出叉车空路',
-    '全部候选放不下就结算，也可主动结束并结算',
-    '返回主页会结束本局；历史成绩和设置保留',
-  ] : state.rulesetVersion>=2 ? [
-    '托盘占1格计2件；万能可连接当前订单货类',
-    '加急：后续有效放置倒数归零，变废弃物',
-    '废物占格不出库；危险品出货时清相邻废物',
-    '穿托盘不搬走托盘；额外清理不计分',
-  ] : [];
-  if(!error)rules.forEach((line,index)=>text(ctx,line,540,1558+index*43,24,'#d5ddda','center',500));
+  shade(ctx);panel(ctx,{x:173,y:582,w:734,h:839},'#30455a','#9aabaf',28);
+  hazard(ctx,{x:201,y:610,w:678,h:19});forklift(ctx,540,744,140,-.12);
+  outlinedText(ctx,error?'暂时无法读取进度':'继续上次游戏？',540,868,error?49:62,CREAM,'center');
+  const identity=state.mode==='color_exit'?outboundLabel(state):state.mode==='endless'?'无限入库':state.mode==='daily'?`每日挑战 · ${state.challengeDay??'日期待确认'}`:state.mode==='tutorial'?'入库教学':'入库模式';
+  text(ctx,identity,540,954,29,'#c6d1d6','center',500);
+  text(ctx,error?'已有进度仍保留，请重试。':`得分 ${number(state.score)}`,540,1015,27,error?'#ffc9a3':'#ffe5a1','center');
+  button(ctx,L.resume,error?'重试':'继续游戏');
+  button(ctx,L.restart,'重新开始',false);button(ctx,L.recoveryMenu,'返回主页',false);
+  if(error)wrap(ctx,error,246,1558,588,23,34);
 }
 
 function wrap(ctx: Context, value: string, x: number, y: number, width: number, fontSize = 27, lineHeight = 43): void {
@@ -501,7 +477,6 @@ function wrap(ctx: Context, value: string, x: number, y: number, width: number, 
 function drawUpgrades(ctx: Context, state: RunState): void {
   shade(ctx); text(ctx, `第 ${state.shift} 班 · 已完成 ${state.completedOrders} 单`, 540, 419, 29, '#b8c9d6', 'center');
   outlinedText(ctx, '选择一项升级', 540, 520, 75, '#ffe5a1', 'center');
-  text(ctx, '改变搬运方式，让下一次出库更从容', 540, 593, 29, '#d7dedc', 'center', 500);
   state.upgradeChoices.forEach((id, index) => {
     const upgrade = UPGRADES.find(u => u.id === id), r = L.upgradeRects[index]; if (!upgrade || !r) return;
     const colors = ['#6dbde1', '#b091df', '#efbb5d'];
@@ -511,13 +486,11 @@ function drawUpgrades(ctx: Context, state: RunState): void {
     text(ctx, upgrade.title, r.x + r.w / 2, r.y + 87, 34, CREAM, 'center', 900);
     ctx.fillStyle = 'rgba(9,21,30,.35)'; roundedPath(ctx, r.x + 29, r.y + 137, r.w - 58, 180, 15); ctx.fill();
     drawUpgradeModifier(ctx, upgrade, r, colors[index]);
-    text(ctx, upgrade.behavior ? '规则变化' : '计分 / 补给', r.x + r.w / 2, r.y + 341, 21, colors[index], 'center', 600);
     const description = upgrade.description.replace(/Dock/g, '出货口').replace(/Shift(\d+)/g, '第$1班');
     wrap(ctx, description, r.x + 30, r.y + 377, r.w - 60, 24, 32);
     roundedPath(ctx, r.x + 27, r.y + r.h - 75, r.w - 54, 47, 10); ctx.fillStyle = colors[index]; ctx.fill();
     text(ctx, '选择此项', r.x + r.w / 2, r.y + r.h - 51, 25, '#172737', 'center');
   });
-  text(ctx, '选择后立即生效 · 原棋盘继续', 540, 1310, 26, '#aabcc9', 'center', 500);
 }
 
 /** Stable effect identity replaces unrelated cargo icons tied to card position. */
@@ -540,22 +513,22 @@ function drawUpgradeModifier(ctx: Context, upgrade: Upgrade, r: Rect, color: str
 function drawResult(ctx: Context, state: RunState, view: ViewState): void {
   shade(ctx);
   if(state.mode==='color_exit'){
-    outlinedText(ctx,state.result==='won'?'出库完成！':'出库 · 仓库满了',540,430,62,CREAM,'center');
-    text(ctx,state.result==='won'?'已达到30批目标，可以继续比较实际体验':'所有候选都放不下了，可以再试一次',540,520,27,'#d9d9cf','center',500);
+    const blocked=state.rulesetVersion===8&&state.result==='failed'&&state.board[76]!==null;
+    outlinedText(ctx,state.result==='won'?'出库完成！':blocked?'入口堵塞':'空间不足',540,430,62,CREAM,'center');
+    text(ctx,state.result==='won'?'已完成30批出货':blocked?'无法继续出货':'所有货件都放不下了',540,520,27,'#d9d9cf','center',500);
     panel(ctx,{x:174,y:600,w:732,h:455},'#415263','#b2a888',26);
-    text(ctx,`${outboundLabel(state)} · 本档分数`,540,670,28,CREAM,'center');outlinedText(ctx,number(state.score),540,774,90,'#ffce5b','center');
+    text(ctx,outboundLabel(state),540,670,28,CREAM,'center');outlinedText(ctx,number(state.score),540,774,90,'#ffce5b','center');
     text(ctx,`出货批次 ${state.completedOrders} · 目标30批`,540,897,30,CREAM,'center');
     text(ctx,`累计出货 ${state.score/RULES_V4_CONFIG.pointsPerCell}件`,540,945,27,CREAM,'center');
-    text(ctx,`最高连锁 ×${state.maxChain} · 最高占用 ${state.maxOccupancy??'未记录'}/${state.board.length}`,540,1001,26,'#d4dcdd','center');
-    text(ctx,state.difficultyId?'仅计本难度成绩；四档各自独立':'仅计旧版本档成绩；各档与新版独立',540,1130,25,'#c1d1d6','center');
-    drawControls(ctx,state,view);text(ctx,view.profileStatus||'本地记录',540,1590,23,'#91a4b3','center');return;
+    text(ctx,`最高连锁 ×${state.maxChain}`,540,1001,26,'#d4dcdd','center');
+    drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1590);return;
   }
   const endless=state.mode==='endless';
   const won = state.result === 'won', tutorial = state.mode === 'tutorial', daily = state.mode === 'daily';
   const retired = (state.overtime||endless) && state.endReason === 'retired';
   const title = endless ? '无限入库结算' : tutorial ? won ? '教学完成！' : '爆仓了！' : retired ? '加班结算' : state.overtime ? '加班结束' : daily ? won ? '今日挑战完成' : '今日挑战结算' : won ? '完美收工！' : '爆仓了！';
   outlinedText(ctx, title, 540, 414, 88, won || retired ? '#fff0bb' : '#ffbd86', 'center');
-  const subtitle = endless ? retired ? '已主动结束，按当前分数结算' : '所有候选都放不下了，本局到此结束' : tutorial ? '相邻成组、留出通路，清墙还能带来连锁' : retired ? '已主动结束加班，本轮到此结束' : state.overtime ? '这次加班已结束，下次再挑战新纪录' : daily ? `本地每日挑战 · ${state.challengeDay ?? view.dailyLabel ?? '日期待确认'}` : won ? '五个班次全部完成，仓库交给下一班' : `${state.candidates.length === 4 ? '四' : state.candidates.length === 1 ? '一个' : '三'}${state.candidates.length === 1 ? '' : '个'}候选货件都没有合法落点`;
+  const subtitle = endless ? retired ? '已按当前分数结算' : '所有货件都放不下了' : tutorial ? '可以开始正式值班了' : retired ? '已按当前分数结算' : state.overtime ? '所有货件都放不下了' : daily ? `每日挑战 · ${state.challengeDay ?? view.dailyLabel ?? '日期待确认'}` : won ? '五个班次全部完成' : '所有货件都放不下了';
   text(ctx, subtitle, 540, 507, 28, '#d9d9cf', 'center', 500);
   panel(ctx, { x: 174, y: 581, w: 732, h: 496 }, '#415263', '#b2a888', 26);
   roundedPath(ctx, 203, 610, 674, 269, 16); ctx.fillStyle = gradient(ctx, 203, 610, 269, '#f8e9c7', '#decaa4'); ctx.fill();
@@ -565,20 +538,14 @@ function drawResult(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, `完成订单  ${state.completedOrders}`, 840, 830, 27, '#534332', 'right');
   const seconds = Math.floor(view.elapsed / 1000), time = `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
   text(ctx, tutorial ? '已掌握入库与清路' : endless ? `到达阶段 ${state.shift} · 持续接单` : state.overtime ? '加班挑战' : `到达第 ${state.shift} 班`, 242, 939, 29, '#e7e4d4'); text(ctx, time, 838, 939, 29, '#e7e4d4', 'right');
-  const peak=state.maxOccupancy===undefined?'未记录（旧档）':`${Math.round(state.maxOccupancy/state.board.length*100)}%（${state.maxOccupancy}/${state.board.length}）`;
+  const peak=state.maxOccupancy===undefined?'未记录':`${state.maxOccupancy}/${state.board.length}格`;
   text(ctx, `最高占用  ${peak}`, 240, 992, 25, '#e7e4d4');
   const selected=[...new Set(state.upgrades)].map(id=>UPGRADES.find(upgrade=>upgrade.id===id)?.title??id);
   const keyUpgrades=selected.length?selected.slice(0,3).join(' / ')+(selected.length>3?` 等${selected.length}项`:''):'无';
   text(ctx, `关键升级  ${keyUpgrades}`, 240, 1041, 23, '#d4dcdd', 'left', 500);
-  if (tutorial) {
-    text(ctx, '正式目标：每班6单，共5班；候选全放不下就失败', 540, 1118, 25, '#e7e8cf', 'center', 600);
-    text(ctx, '本次练习不计入正式成绩', 540, 1161, 23, '#c1d1d6', 'center', 500);
-  }
-  else if (daily) text(ctx, '同日同规则固定种子 · 每日挑战不进入加班', 540, 1118, 25, '#c1d1d6', 'center', 500);
-  else if (!getUiControls(state, view).some(control => control.action.type === 'continueOvertime')) text(ctx, '下一次，给叉车留一条路', 540, 1118, 29, '#c1d1d6', 'center', 500);
-  drawControls(ctx, state, view);
-  text(ctx, view.profileStatus || '本地记录', 540, 1588, 24, '#bbcad0', 'center', 500);
-  text(ctx, daily ? '北京时间（UTC+08:00）· 客户端日期 · 无在线排行' : '本地记录模式 · 无在线排行', 540, 1643, 23, '#91a4b3', 'center', 500);
+  if(tutorial)text(ctx,'正式值班：每班6单，共5班',540,1118,25,'#e7e8cf','center',600);
+  drawControls(ctx,state,view);
+  drawPersistenceWarnings(ctx,view,1588);
 }
 
 function drawDebug(ctx: Context, state: RunState, view: ViewState): void {
@@ -624,24 +591,19 @@ function drawMenu(ctx: Context, state: RunState, view: ViewState): void {
   hazard(ctx, { x: 314, y: 448, w: 452, h: 14 });
   ctx.fillStyle = 'rgba(255,230,159,.07)'; ctx.beginPath(); ctx.ellipse(540, 601, 180, 33, 0, 0, Math.PI * 2); ctx.fill();
   forklift(ctx, 540, 565, 160, -.12, view.profile?.cosmetics.forklift);
-  text(ctx, '选一种方式，整理你的仓库', 540, 665, 29, '#c5d6db', 'center', 500);
   drawControls(ctx, state, view);
   const unlocked = ACHIEVEMENTS.filter(item => view.profile?.achievements.includes(item.id));
-  text(ctx, `成就 ${unlocked.length} / ${ACHIEVEMENTS.length}`, 540, 1480, 26, '#ecc778', 'center', 600);
-  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '首次正式出货，解锁蓝色叉车', 540, 1534, 26, '#c4d2d6', 'center', 500);
-  text(ctx,view.saveStatus||'中断后可继续上次进度',540,1660,24,'#ffc7a6','center',500);
-  text(ctx, view.profileStatus || '长期记录保存在本机', 540, 1710, 24, '#9db0bc', 'center', 500);
-  text(ctx, '纯外观 · 无永久战力 · 无在线排行', 540, 1804, 22, '#7f95a6', 'center', 500);
+  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '首次出货，解锁蓝色叉车', 540, 1534, 26, '#c4d2d6', 'center', 500);
+  drawPersistenceWarnings(ctx,view,1660);
 }
 
 function drawInboundMenu(ctx:Context,state:RunState,view:ViewState):void{
   outlinedText(ctx,'入库模式',540,200,79,CREAM,'center');
-  text(ctx,'按订单配货 · 同类相邻成组 · 留叉车空路',540,284,29,'#c5d6db','center',500);
   const best=view.profile?.bestScores['standard.v3']?.score??0;
   const endlessBest=view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
   text(ctx,`五班最高分 ${number(best)} · 无限最高分 ${number(endlessBest)}`,540,390,29,'#ffe3a3','center');
   text(ctx,`加班最高分 · ${number(view.profile?.bestScores['overtime.v3']?.score??0)}`,540,445,24,'#a9c0c9','center',500);
-  const cards=[['普通五班','每班6单，共5班；完成后可继续加班'],['直接无限','阶段1–5逐步开放，之后持续接单，无订单上限'],['本地每日挑战',`${view.dailyLabel??'日期待确认'} · 北京时间（UTC+08:00）`]];
+  const cards=[['普通五班','每班6单，共5班'],['无限入库','持续接单，挑战高分'],['每日挑战',view.dailyLabel??'日期待确认']];
   cards.forEach(([title,description],index)=>{
     const y=545+index*290;
     panel(ctx,{x:170,y,w:740,h:280},'#293f51','#718d98',20);
@@ -649,26 +611,20 @@ function drawInboundMenu(ctx:Context,state:RunState,view:ViewState):void{
     text(ctx,description,210,y+111,25,'#b8cdd5','left',500);
   });
   drawControls(ctx,state,view);
-  text(ctx,view.profileStatus||'入库成绩独立保存在本机',540,1775,24,'#9db0bc','center',500);
+  drawPersistenceWarnings(ctx,view,1775);
 }
 
-function drawColorTierSelection(ctx: Context, state: RunState, view: ViewState): void {
-  outlinedText(ctx, '出库模式 · 9×9', 540, 157, 70, CREAM, 'center');
-  text(ctx, '同色连出口 · 选一个难度开始新局', 540, 233, 29, '#c5d6db', 'center', 500);
-  panel(ctx, { x: 132, y: 285, w: 816, h: 139 }, '#304758', '#849792', 20);
-  text(ctx, '共同对比种子', 170, 324, 24, '#b8d1db');
-  text(ctx, String(view.comparisonSeed ?? '待确认'), 170, 378, 36, '#ffe29c');
-  OUTBOUND_DIFFICULTIES.forEach((difficulty, index) => {
-    const y = 452 + index * 244, percentage = MIXED_COLOR_PERCENT_V6[difficulty];
-    panel(ctx, { x: 132, y, w: 816, h: 242 }, '#293f51', '#718d98', 20);
-    text(ctx, `${OUTBOUND_DIFFICULTY_NAMES[difficulty]} · 纯色${100-percentage}% / 双色${percentage}%`, 170, y + 43, 33, '#ffe8b4');
-    const best = view.profile ? getOutboundProfile(view.profile,difficulty).bestScores.v6?.score??0 : 0;
-    text(ctx, `逐件概率 · 本局固定     本档最高分 ${number(best)}`, 170, y + 94, 25, '#b8cdd5', 'left', 500);
+function drawColorTierSelection(ctx:Context,state:RunState,view:ViewState):void {
+  outlinedText(ctx,'出库模式',540,157,70,CREAM,'center');
+  text(ctx,'选择难度',540,233,29,'#c5d6db','center',500);
+  OUTBOUND_DIFFICULTIES.forEach((difficulty,index)=>{
+    const y=452+index*244;
+    panel(ctx,{x:132,y,w:816,h:242},'#293f51','#718d98',20);
+    text(ctx,OUTBOUND_DIFFICULTY_NAMES[difficulty],170,y+43,33,'#ffe8b4');
+    const best=view.profile?getOutboundProfile(view.profile,difficulty,8).bestScores.v8?.score??0:0;
+    text(ctx,`最高分 ${number(best)}`,170,y+94,25,'#b8cdd5','left',500);
   });
-  drawControls(ctx,state,view);
-  text(ctx, '形状等级1–5只开放形状，本档双色比例固定', 540, 1779, 24, '#c7d8df', 'center', 500);
-  text(ctx, '每件独立抽取，不保证短局恰好达到显示比例', 540, 1822, 24, '#a9c2cb', 'center', 500);
-  text(ctx, view.profileStatus || '本地成绩 · 各难度独立', 540, 1867, 22, '#8fa9b9', 'center', 500);
+  drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1790);
 }
 
 function drawLegacyRuns(ctx:Context,state:RunState,view:ViewState):void{
@@ -688,9 +644,8 @@ function drawLegacyRuns(ctx:Context,state:RunState,view:ViewState):void{
 
 function drawSettings(ctx: Context, state: RunState, view: ViewState): void {
   outlinedText(ctx, '设置与外观', 540, 157, 71, CREAM, 'center');
-  text(ctx, '按自己的节奏值班', 540, 237, 28, '#b1c4cf', 'center', 500);
   text(ctx, '游玩设置', 133, 312, 25, '#e0c18a', 'left', 600);
-  text(ctx, '简化出库动画，仍保留结果与路径提示', 540, 638, 24, '#a6bdca', 'center', 500);
+  text(ctx, '减少动画，保留路径提示', 540, 638, 24, '#a6bdca', 'center', 500);
   text(ctx, '仓库主题', 133, 686, 27, '#e0c18a', 'left', 600);
   text(ctx, '叉车涂装', 133, 891, 27, '#e0c18a', 'left', 600);
   FORKLIFTS.forEach((item, index) => {
@@ -701,78 +656,80 @@ function drawSettings(ctx: Context, state: RunState, view: ViewState): void {
   cargoBox(ctx, 'cargo.food', 306, 1158, 55, 1, undefined, 'classic');
   cargoBox(ctx, 'cargo.food', 724, 1158, 55, 1, undefined, 'outline');
   drawControls(ctx, state, view);
-  text(ctx, '外观不改变订单、随机序列与得分规则', 540, 1374, 24, '#a8bbc6', 'center', 500);
-  wrap(ctx, view.profileStatus || '长期记录保存在本机', 153, 1431, 774, 23, 30);
+  drawPersistenceWarnings(ctx,view,1400,540,774);
 }
 
-function drawActivePause(ctx: Context, state: RunState, view: ViewState): void {
-  shade(ctx);
-  panel(ctx,{x:173,y:395,w:734,h:1370},'#30455a','#95a9b1',28);
-  if(state.mode==='color_exit'){
-    outlinedText(ctx,'出库模式 · 暂停',540,520,62,CREAM,'center');
-    text(ctx,outboundLabel(state),540,588,26,'#b8d5ce','center');
-    text(ctx,'目标：累计出货30批，全部候选放不下就失败',540,647,25,'#ffe3a1','center');
-    ['① 每色上下左右相连，至少4件','② 货组必须连到对应颜色的单个出口','③ 南入口沿空格能走到货物旁边',state.colorTier||state.difficultyId?'双色2+2不等于同色4件，异色留在原格':'叉车启动装卸，货箱逐箱沿货线出门','形状等级1–5只增加形状，本局比例固定'].forEach((line,i)=>text(ctx,line,540,730+i*57,25,'#d5e7df','center',500));
-    drawControls(ctx,state,view);return;
-  }
-  const overtime = !!state.overtime, endless=state.mode==='endless';
-  hazard(ctx, { x: 201, y: 423, w: 678, h: 18 });
-  outlinedText(ctx, endless ? '无限入库 · 暂停' : overtime ? '加班休息中' : '休息一下', 540, 520, 62, CREAM, 'center');
-  text(ctx, '货物与订单都已暂停', 540, 594, 29, '#c6d1d6', 'center', 500);
-  const goal = endless ? '阶段1–5逐步开放，之后持续接单，无订单上限'
-    : overtime ? '加班目标：继续接单追分，可主动结束'
-      : state.mode === 'tutorial' ? '练习目标：学会按订单凑货、给叉车留路'
-        : state.mode === 'daily' ? '今日目标：每班6单，共5班，同日固定种子'
-          : '目标：每班6单，共5班，完成订单就能过关';
-  text(ctx, goal, 540, 653, 26, '#ffe3a1', 'center', 700);
-  const basics = [
-    '看上方订单：只运匹配的货类，数量至少达标',
-    '同图标上下左右连成组；门口到货旁要有空路',
-    '有效落子后查全部旧单；新单等下一次落子',
-    '无订单先备货；候选全放不下就爆仓',
-  ];
-  basics.forEach((line,index)=>text(ctx,line,540,714+index*41,24,'#e4eddf','center',600));
-  const rules = state.rulesetVersion >= 2 ? [
-    '托盘占1格计2件；万能可连接当前订单货类',
-    '加急：后续有效放置倒数归零，变废弃物',
-    '废物占格不出库；危险品出货时清相邻废物',
-    '穿托盘不搬走托盘；额外清理不计分',
-  ] : ['货件固定朝向，不可旋转；相同货类不必同一货件'];
-  rules.forEach((line,index)=>text(ctx,line,540,913+index*35,22,'#b7cbd4','center',500));
-  drawControls(ctx, state, view);
-  text(ctx, view.saveStatus || '中断后可继续，返回主页将结束本局', 540, 1812, 24, '#a3bac8', 'center', 500);
+function drawActivePause(ctx:Context,state:RunState,view:ViewState):void {
+  shade(ctx);panel(ctx,{x:173,y:395,w:734,h:1464},'#30455a','#95a9b1',28);
+  hazard(ctx,{x:201,y:423,w:678,h:18});
+  outlinedText(ctx,'已暂停',540,520,62,CREAM,'center');
+  const goal=state.mode==='color_exit'?`出货 ${state.completedOrders}/30 批`
+    : state.mode==='endless'?`无限入库 · 得分 ${number(state.score)}`
+    : state.overtime?`加班挑战 · 得分 ${number(state.score)}`
+    : state.mode==='tutorial'?'入库教学'
+    : `第${state.shift}班 · 本班${Math.max(0,state.completedOrders-(state.shift-1)*6)}/6单`;
+  text(ctx,goal,540,653,29,'#ffe3a1','center',700);
+  drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,752,540,630);
 }
 
-function drawConfirmation(ctx: Context, state: RunState, view: ViewState): void {
-  shade(ctx);
-  panel(ctx, { x: 140, y: 595, w: 800, h: 765 }, '#344859', '#c5b98f', 28);
-  hazard(ctx, { x: 170, y: 627, w: 740, h: 16 });
+function drawConfirmation(ctx:Context,state:RunState,view:ViewState):void {
+  shade(ctx);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
   const confirmation=view.confirmation,kind=confirmation?.kind;
-  const title = kind === 'resetProfile' ? '重置长期记录？'
-    : kind === 'finishOvertime' ? '结束这次加班？'
-      : kind==='finishEndless'?'结束无限入库并结算？'
-        : kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择新难度？':'结束本局并返回主页？'
-          : kind==='switchMode'?'保留进度并切换？':'开始新一局？';
-  outlinedText(ctx, title, 540, 747, kind==='leaveRun'?51:56, CREAM, 'center');
-  const target = confirmation?.variant ? runSlotLabel(confirmation.variant) : '入库模式';
-  const newTarget = confirmation?.mode === 'color_exit' ? confirmation.difficultyId ? `出库 9×9 · ${outboundDifficultyLabel(confirmation.difficultyId)}` : '出库模式 · 新难度'
-    : confirmation?.mode==='endless'?'直接无限入库':confirmation?.mode==='daily'?'本地每日挑战':'入库模式 · 普通五班';
-  const lines = kind==='switchMode' ? ['当前进度会保留，各档独立保存。', `切换到${target}。`, '旧版存档沿用原来的规则和种子。', '取消不会改变任何存档。']
-    : kind === 'resetProfile' ? ['设置、外观和本地成绩将恢复初始状态。', '各模式当前值班仍会保留。', '当前局之后的结算会计入新记录。']
-    : kind === 'finishOvertime' ? ['将按当前分数结算这次加班。', '结算后不能继续本次加班。', '继续游戏可回到原来的仓库。']
-    : kind === 'finishEndless' ? ['将按当前分数结算无限入库。', '结算不是弃局，本局成绩会计入无限记录。', '结算后不能继续本局；这不代表通关。', '继续游戏可回到原来的仓库。']
-    : kind === 'leaveRun' ? ['当前棋盘进度不会保留，', '已获得的历史成绩和设置不受影响。']
-    : [`开始${newTarget}。`, confirmation?.mode==='color_exit'?`共同对比种子：${confirmation.seed??view.comparisonSeed??'待确认'}`:confirmation?.mode==='endless'?'从阶段1开始，持续接单，无订单上限。':confirmation?.mode==='daily'?'使用今日的本地固定种子。':'每班6单，共5班。', '当前棋盘进度不会保留，', '已获得的历史成绩和设置不受影响。'];
-  lines.forEach((line, index) => text(ctx, line, 540, 858 + index * 64, 27, '#d1dde1', 'center', 500));
-  drawControls(ctx, state, view);
+  const title=kind==='resetProfile'?'重置游戏记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
+  outlinedText(ctx,title,540,747,kind==='leaveRun'?51:56,CREAM,'center');
+  const target=confirmation?.variant?runSlotLabel(confirmation.variant):'入库模式';
+  const lines=kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
+    :kind==='resetProfile'?['成绩、外观和设置将恢复初始状态。','当前对局会保留，结束后重新记录成绩。']
+    :kind==='finishOvertime'||kind==='finishEndless'?['将记录当前分数。','结束后不能继续本局。']
+    :view.recoveryError?['本局进度将丢失。','原存档仅留作恢复备份。','历史成绩和设置会保留。']
+    :['本局进度将丢失。','历史成绩和设置会保留。'];
+  lines.forEach((line,index)=>text(ctx,line,540,858+index*64,27,'#d1dde1','center',500));
+  drawControls(ctx,state,view);
 }
 
-function drawColorExitIntro(ctx:Context,state:RunState,view:ViewState):void{
-  outlinedText(ctx,'出库模式 · 玩法图解',540,302,62,CREAM,'center');
-  text(ctx,'目标：出货30批；候选全放不下就失败',540,412,30,'#ffe3a1','center');
-  text(ctx,`${outboundLabel(state)} · 逐件概率，本局固定`,540,477,26,'#d2dce1','center',500);
-  drawColorExitHelpDiagram(ctx,{x:140,y:595,w:800,h:430},state.rulesetVersion===5||state.rulesetVersion===6,state);
-  text(ctx,'门固定不变：北食品、东化工、西机械；南边进叉车',540,1080,25,'#e4e4d7','center');
-  text(ctx,'形状等级1–5不改比例；各难度成绩独立',540,1135,24,'#9db5c3','center',500);
+function drawHelp(ctx:Context,state:RunState,view:ViewState):void {
+  outlinedText(ctx,'玩法说明',540,250,62,CREAM,'center');
+  const outbound=state.mode==='color_exit';
+  const basics=outbound?[
+    '同类货物上下左右相连，至少4件。',
+    '连到同色出口，南入口到货物旁留空路。',
+    state.rulesetVersion===8?'出货30批过关；入口堵塞或货件全放不下时结束。':'出货30批过关；货件全放不下时结束。',
+  ]:[
+    '按订单配货，同类货物上下左右相连。',
+    '数量达标，出货口到货物旁留出空路。',
+    '货件不能旋转；所有货件都放不下时结束。',
+  ];
+  basics.forEach((line,index)=>text(ctx,line,540,365+index*69,index===2&&outbound?25:28,'#e4e4d7','center',500));
+  if(outbound)drawColorExitHelpDiagram(ctx,{x:140,y:640,w:800,h:430},!!state.colorTier||!!state.difficultyId,state);
+  else drawInboundHelpDiagram(ctx);
+  drawControls(ctx,state,view);
+}
+
+function drawInboundHelpDiagram(ctx:Context):void {
+  panel(ctx,{x:140,y:640,w:800,h:430},'#20394b','#587586',14);
+  const origin={x:205,y:725},cell=66;
+  for(let row=0;row<4;row++)for(let col=0;col<4;col++){ctx.fillStyle='#56636a';ctx.fillRect(origin.x+col*cell+1,origin.y+row*cell+1,cell-2,cell-2);}
+  for(let col=0;col<3;col++)cargoBox(ctx,'cargo.food',origin.x+col*cell+3,origin.y+cell+3,cell-6);
+  ctx.strokeStyle='#9edfff';ctx.lineWidth=5;ctx.setLineDash([12,9]);ctx.beginPath();ctx.moveTo(370,685);ctx.lineTo(370,758);ctx.stroke();ctx.setLineDash([]);
+  arrow(ctx,370,725,20,Math.PI/2,'#9edfff');
+  icon(ctx,'cargo.food',570,756,44,PALETTE['cargo.food'].light);text(ctx,'食品 3/3件',610,756,29,CREAM);
+  text(ctx,'数量达标',570,837,28,'#d9ffc1');text(ctx,'留出空路即可出货',570,900,25,'#d9ffc1');
+  text(ctx,'虚线：叉车通路',340,1030,23,'#9edfff','center');
+}
+
+function drawHelpDetails(ctx:Context,state:RunState,view:ViewState):void {
+  outlinedText(ctx,'特殊货物与升级',540,250,58,CREAM,'center');
+  const rules=[
+    '托盘：占1格，计2件。',
+    '万能：可连接当前订单的货类。',
+    '加急：后续有效放置后倒数，归零变为废弃物。',
+    '废弃物：占格，不出货。',
+    '危险品：出货时清理相邻废弃物。',
+    '穿托盘：叉车通过后，托盘仍留在原格。',
+    '侧门：所有订单共用。',
+    '额外清理不计分；减量升级只影响后续新单。',
+    '每次放置检查原有订单，新单等下一次放置。',
+  ];
+  rules.forEach((line,index)=>text(ctx,line,150,415+index*103,27,'#d5e7df','left',500));
   drawControls(ctx,state,view);
 }

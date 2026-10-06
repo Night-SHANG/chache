@@ -13,3 +13,6 @@ export {RULES_V6_CONFIG,OUTBOUND_DIFFICULTIES,MIXED_COLOR_PERCENT_V6,isOutboundD
 export {RULES_V7_CONFIG} from './v7/content.ts';
 export const OUTBOUND_RULESET=6;
 export const ENDLESS_RULESET=7;
+
+export {RULES_V8_CONFIG,outboundRunConfigIdV8} from './v8/content.ts';
+export const CURRENT_OUTBOUND_RULESET=8;

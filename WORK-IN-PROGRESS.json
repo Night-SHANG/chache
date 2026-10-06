@@ -1,6 +1,6 @@
 {
-  "status": "VERIFIED_LOCAL_V060_READY_FOR_PLAYTEST",
-  "stablePrevious": "cc78c06d73c475eadf2457dbe199227209e02bcc",
-  "current": "CHECKPOINT.json and docs/v060-playtest.md",
-  "pending": "Human four-difficulty selection and browser/WeChat device verification; no final main mode chosen"
+  "status": "VERIFIED_LOCAL_V070_READY_FOR_PLAYTEST",
+  "stablePrevious": "d937569dafc37f187410cb67ff6f1be915caeacc",
+  "current": "CHECKPOINT.json and docs/v070-playtest.md",
+  "pending": "Real browser/Windows GUI/WeChat devices and human balance; no final main mode chosen"
 }

@@ -16,7 +16,7 @@ export class InputController {
  private routeReady=false;
  private button:{rect:Rect;act:()=>void}|null=null;
  constructor(port:InputPort){this.port=port;}
- private canPlace():boolean { const v=this.port.getView();return !v.debug&&!v.paused&&!v.needsResume&&!v.animation&&!v.confirmation&&(!v.screen||v.screen==='game')&&this.port.getState().phase==='input'; }
+ private canPlace():boolean { const v=this.port.getView();return !(v.developerMode&&v.debug)&&!v.paused&&!v.needsResume&&!v.animation&&!v.confirmation&&(!v.screen||v.screen==='game')&&this.port.getState().phase==='input'; }
  private captureButton(point:Point,rect:Rect,act:()=>void):boolean { if(!hitTestPoint(point,rect))return false;this.button={rect,act};return true; }
  down(point:Point,id=0):void {
   if(this.active!==null)return;
@@ -25,7 +25,7 @@ export class InputController {
   if(v.confirmation||!v.needsResume&&v.profile&&(v.screen!==undefined&&v.screen!=='game'||v.paused||s.phase==='result')){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}
   if(v.needsResume){if(!this.captureButton(point,L.resume,()=>this.port.resume())&&!this.captureButton(point,L.restart,()=>this.port.restart()))this.captureButton(point,L.recoveryMenu,()=>this.port.action?.({type:'home'}));return;}
   if(v.paused){if(!this.captureButton(point,L.resume,()=>this.port.togglePause())&&!this.captureButton(point,L.restart,()=>this.port.restart()))this.captureButton(point,L.pause,()=>this.port.togglePause());return;}
-  if(v.debug){
+  if(v.developerMode&&v.debug){
    if(!this.captureButton(point,L.debug,()=>this.port.toggleDebug())&&!this.captureButton(point,DEBUG_PREVIOUS,()=>this.port.patchView({debugPage:Math.max(0,(v.debugPage??0)-1)})))this.captureButton(point,DEBUG_NEXT,()=>this.port.patchView({debugPage:(v.debugPage??0)+1}));return;
   }
   if(v.animation)return;
@@ -34,7 +34,8 @@ export class InputController {
    const index=L.upgradeRects.findIndex(rect=>hitTestPoint(point,rect));
    if(index>=0&&s.upgradeChoices[index])this.button={rect:L.upgradeRects[index],act:()=>this.port.dispatch({type:'upgrade',upgradeId:s.upgradeChoices[index]})};return;
   }
-  if(this.captureButton(point,L.pause,()=>this.port.togglePause())||this.captureButton(point,L.debug,()=>this.port.toggleDebug()))return;
+  const activeControl=getUiControls(s,v).find(control=>!control.disabled&&hitTestPoint(point,control.rect));if(activeControl){this.button={rect:activeControl.rect,act:()=>this.port.action?.(activeControl.action)};return;}
+  if(this.captureButton(point,L.pause,()=>this.port.togglePause())||v.developerMode&&this.captureButton(point,L.debug,()=>this.port.toggleDebug()))return;
   const index=getTrayRects(s.candidates.length).findIndex(rect=>hitTestPoint(point,rect));
   if(index>=0&&s.candidates[index]){this.port.patchView({selectedPieceId:s.candidates[index].id,preview:null,hoverOrigin:null,placementRisk:null});this.port.feedback?.('pick',s.candidates[index].id);}
   else this.updatePreview(point,false);

@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.6.0-dev",
-  "status": "VERIFIED_LOCAL_INBOUND_OUTBOUND_COMPARISON",
+  "appVersion": "0.7.0-dev",
+  "status": "VERIFIED_LOCAL_PLAYER_CLEANUP_AND_OUTBOUND_ENDING",
   "rulesets": [
     1,
     2,
@@ -8,7 +8,8 @@
     4,
     5,
     6,
-    7
+    7,
+    8
   ],
   "modes": {
     "inbound_standard_daily": {
@@ -25,7 +26,7 @@
       "stageCap": 5
     },
     "outbound": {
-      "ruleset": 6,
+      "ruleset": 8,
       "boardSize": 9,
       "mixedPercent": {
         "easy": 20,
@@ -35,7 +36,8 @@
       },
       "minBatch": 4,
       "targetBatches": 30,
-      "balanced": false
+      "balanced": false,
+      "terminalCondition": "occupied south entry after complete settlement, victory first"
     },
     "legacy_outbound": {
       "rulesets": [
@@ -44,18 +46,25 @@
       ],
       "boardSize": 7,
       "continueOnly": true
+    },
+    "legacy_outbound9": {
+      "ruleset": 6,
+      "boardSize": 9,
+      "continueOnly": true
     }
   },
-  "testsPassed": 839,
+  "testsPassed": 906,
   "pythonTestsPassed": 22,
-  "sourceSha256": "5bb11e9558ca59e06eee092deb3546f654a8ce7287e039b9b355d10ac0394735",
-  "gameJsSha256": "a03e41481930f44c55fef277abdc487713834dd27ad9b8a816c70941df3b6c3f",
-  "hostGroups": 8,
-  "measuredScreens": 12,
-  "screenshots": 37,
+  "sourceSha256": "27b23401766113f1c45eef82b37e75fde842ac78715d346f6b4b9b7d6d7be2f7",
+  "gameJsSha256": "8a40f87f7d7dbcd4fb8a6f8cc4e737e421b1d945c9e259c22dbfd1f951a8be88",
+  "hostGroups": 11,
+  "measuredScreens": 17,
+  "screenshots": 41,
   "pairedStrategyRuns": 400,
   "runtimeStatus": "Offline native Canvas/wx-host and local gates PASS; real browser/Windows GUI/WeChat devices and human balance NOT VERIFIED",
-  "deliveryNotes": "docs/v060-playtest.md",
+  "deliveryNotes": "docs/v070-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
-  "mainModeUndecided": true
+  "mainModeUndecided": true,
+  "recordedV6Prefixes": 400,
+  "developerDiagnosticsDefault": false
 }

@@ -44,7 +44,7 @@ test('menu exposes two mode selectors regardless of saved state', () => {
 test('all screen controls are positive, nonoverlapping and inside the shared logical viewport', () => {
   const screens: ViewState[] = [view({ screen: 'menu' }), view({ screen: 'settings', profileStatus: '长期记录无法读取', profileNeedsRecovery: true }), view({ paused: true }), view(), ...(['newRun', 'resetProfile', 'finishOvertime'] as const).map(kind => view({ confirmation: { kind } }))];
   for (const current of screens) {
-    const controls = getUiControls(result({ overtime: true }), current);
+    const controls = getUiControls(current.paused ? { ...run(), overtime: true } : result({ overtime: true }), current);
     assert.ok(controls.length >= 2);
     for (const [index, control] of controls.entries()) {
       const r = control.rect;
@@ -65,6 +65,8 @@ test('confirmation is the only actionable layer even above settings, pause and a
 test('menu and settings controls take precedence over paused and terminal runs', () => {
   assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'chooseInbound');
   assert.equal(getUiControls(result(), view({ screen: 'settings', paused: true }))[0]?.action.type, 'toggleSound');
+  assert.deepEqual(getUiControls(result(), view({ paused: true })), getUiControls(result(), view()));
+  const output=surface();render(output.ctx,result(),view({paused:true}));assert.match(output.words(),/完美收工/);assert.doesNotMatch(output.words(),/已暂停|玩法说明/);
 });
 
 test('settings use Profile metadata, show real toggles, and disable only locked forklift skins', () => {
@@ -82,9 +84,9 @@ test('settings use Profile metadata, show real toggles, and disable only locked 
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);
 });
 
-test('pause offers safe continue, restart, home and settings with separate overtime settlement', () => {
-  assert.deepEqual(getUiControls(run(), view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings']);
-  assert.deepEqual(getUiControls({ ...run(), overtime: true }, view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings', 'finishOvertime']);
+test('pause offers safe continue, restart, home, settings and optional help with separate overtime settlement', () => {
+  assert.deepEqual(getUiControls(run(), view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings', 'help']);
+  assert.deepEqual(getUiControls({ ...run(), overtime: true }, view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings', 'help', 'finishOvertime']);
 });
 
 test('only v3 five-shift standard victory offers overtime; every terminal mode offers home', () => {
@@ -111,33 +113,33 @@ test('home shows achievements and real save status while inbound submenu owns sc
   const profile = createProfile(); profile.bestScores['standard.v3'] = { score: 7654, chain: 3 }; profile.bestScores['overtime.v3'] = { score: 19876, chain: 5 }; profile.achievements = ['first_shipment'];
   const current=view({screen:'menu',profile,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
   render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu'});
-  assert.match(home.words(), /首次出货/);assert.match(home.words(), /无在线排行/);
+  assert.match(home.words(), /首次出货/);assert.doesNotMatch(home.words(), /无在线排行|本地记录模式/);
   assert.match(inbound.words(), /7,654/);assert.match(inbound.words(), /加班最高分.*19,876/);assert.match(inbound.words(), /2031-04-07/);
-  assert.match(inbound.words(), /北京时间/);assert.match(inbound.words(), /本地每日挑战/);
+  assert.match(inbound.words(), /每日挑战/);assert.doesNotMatch(inbound.words(), /北京时间|本地每日/);
   for(const output of [home,inbound]){assert.match(output.words(), /保存失败，尚未持久化/);assert.doesNotMatch(output.words(), /云同步/);}
 });
 
 test('confirmation copy explains resets and retains two explicit cancel/confirm buttons', () => {
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', confirmation: { kind: 'resetProfile' } }));
-  assert.match(output.words(), /当前值班.*保留/); assert.match(output.words(), /之后.*结算.*新记录/);
+  assert.match(output.words(), /成绩、外观和设置将恢复初始状态/); assert.match(output.words(), /当前对局会保留，结束后重新记录成绩/);
   assert.match(output.words(), /取消/); assert.match(output.words(), /确认重置/);
 });
 
 test('v3 tutorial uses one shared tray, two food placements and the south-to-north route-clearing lesson', () => {
   let state = createRun(7, 'tutorial', 3);
-  const expected = [/第1步.*食品.*虚线/, /第2步.*食品.*3/, /第3步.*机械.*清路/];
+  const expected = [/把食品拖进虚线框/, /再接上1件食品，凑够订单/, /补上机械，清路后继续出货/];
   for (let step = 0; step < 3; step++) {
     const output = surface(); render(output.ctx, state, view());
     assert.match(output.words(), expected[step]); assert.equal(state.candidates.length, 1);
     const r = getTrayRects(1)[0];
     assert.ok(output.labels.some(label => label.value === (step === 2 ? '机械' : '食品') && label.x === r.x + r.w / 2));
-    if (step === 2) { assert.match(output.words(), /南门.*北门/); assert.ok(output.labels.some(label => label.value === '机械 ×1' && label.y > L.board.y + 4 * L.board.cell)); }
+    if (step === 2) assert.ok(output.labels.some(label => label.value === '机械 ×1' && label.y > L.board.y + 4 * L.board.cell));
     state = applyCommand(state, { type: 'place', pieceId: state.candidates[0].id, origin: step === 0 ? { x: 1, y: 1 } : step === 1 ? { x: 3, y: 1 } : { x: 3, y: 4 } }).state;
   }
 });
 
 test('terminal copy distinguishes tutorial, daily, standard and voluntary overtime without claiming five shifts for tutorial', () => {
-  for (const [patch, expected] of [[{ mode: 'tutorial' }, /教学完成/], [{ mode: 'daily' }, /本地每日挑战/], [{ mode: 'standard' }, /五个班次/], [{ overtime: true, endReason: 'retired' }, /加班结算/]] as const) {
+  for (const [patch, expected] of [[{ mode: 'tutorial' }, /教学完成/], [{ mode: 'daily' }, /每日挑战/], [{ mode: 'standard' }, /五个班次/], [{ overtime: true, endReason: 'retired' }, /加班结算/]] as const) {
     const output = surface(); render(output.ctx, result(patch), view({ dailyLabel: '2031-04-07' }));
     assert.match(output.words(), expected);
     if (patch.mode === 'tutorial') assert.doesNotMatch(output.words(), /五个班次全部完成/);
@@ -182,7 +184,7 @@ test('resumed daily gameplay labels its saved day instead of substituting the cu
   const state = { ...run(), mode: 'daily' as const, challengeDay: '2031-04-06', challengeId: 'daily.2031-04-06.v3' };
   for (const needsResume of [false, true]) {
     const output = surface(); render(output.ctx, state, view({ dailyLabel: '2031-04-07', needsResume }));
-    assert.match(output.words(), /本地每日.*2031-04-06/);
+    assert.match(output.words(), /每日挑战.*2031-04-06/);
     assert.doesNotMatch(output.words(), /2031-04-07/);
   }
 });
@@ -192,35 +194,43 @@ test('overtime result leaves persistence claims to the actual Profile save statu
     const output = surface();
     render(output.ctx, result({ overtime: true, endReason, result: endReason === 'retired' ? 'won' : 'failed' }), view({ profileStatus: '长期记录保存失败，旧记录已保护' }));
     assert.match(output.words(), /长期记录保存失败，旧记录已保护/);
-    assert.match(output.words(), /本地记录模式 · 无在线排行/);
-    assert.doesNotMatch(output.words(), /当前成绩进入本地记录|最高分留在本机|成绩仅保存在本机/);
+    assert.doesNotMatch(output.words(), /本地记录模式|无在线排行|当前成绩进入本地记录|最高分留在本机|成绩仅保存在本机/);
   }
 });
 test('result lists measured peak occupancy and key upgrades without inventing legacy history',()=>{
- const measured=surface();render(measured.ctx,result({maxOccupancy:35,upgrades:['upgrade.side_gate','upgrade.chain']}),view());assert.match(measured.words(),/最高占用.*71%/);assert.match(measured.words(),/关键升级/);assert.match(measured.words(),/侧门/);
+ const measured=surface();render(measured.ctx,result({maxOccupancy:35,upgrades:['upgrade.side_gate','upgrade.chain']}),view());assert.match(measured.words(),/最高占用.*35\/49格/);assert.match(measured.words(),/关键升级/);assert.match(measured.words(),/侧门/);
  const old=surface();render(old.ctx,result(),view());assert.match(old.words(),/最高占用.*未记录/);assert.match(old.words(),/关键升级.*无/);
 });
 test('debug overlay presents paginated formal fields without extending below its controls',()=>{
- const first=surface();render(first.ctx,run(),view({debug:true,debugPage:0}));assert.match(first.words(),/rng_state/);assert.match(first.words(),/last_checksum/);assert.match(first.words(),/下一页/);assert.ok(first.labels.filter(label=>label.value.startsWith('rng_state')).every(label=>label.y<1610));
- const second=surface();render(second.ctx,run(),view({debug:true,debugPage:1}));assert.match(second.words(),/generation|weight|shape/);assert.match(second.words(),/上一页/);
+ const first=surface();render(first.ctx,run(),view({developerMode:true,debug:true,debugPage:0}));assert.match(first.words(),/rng_state/);assert.match(first.words(),/last_checksum/);assert.match(first.words(),/下一页/);assert.ok(first.labels.filter(label=>label.value.startsWith('rng_state')).every(label=>label.y<1610));
+ const second=surface();render(second.ctx,run(),view({developerMode:true,debug:true,debugPage:1}));assert.match(second.words(),/generation|weight|shape/);assert.match(second.words(),/上一页/);
+ const player=surface();render(player.ctx,run(),view({debug:true}));assert.doesNotMatch(player.words(),/rng_state|last_checksum|下一页/);
 });
 
-test('three teaching steps explain the order requirement, matching icons and the blocked route', () => {
+test('each teaching step uses one short board instruction and offers a skip control', () => {
  let state=createRun(7,'tutorial',3);
- const expected=[/北门要3件食品/,/上下左右/,/北门被机械挡住/];
+ const expected=['把食品拖进虚线框。','再接上1件食品，凑够订单。','补上机械，清路后继续出货。'];
  for(let step=0;step<3;step++){
-  const output=surface();render(output.ctx,state,view());assert.match(output.words(),expected[step]);
+  const output=surface();render(output.ctx,state,view());
+  assert.deepEqual(output.labels.filter(label=>expected.includes(label.value)).map(label=>label.value),[expected[step]]);
+  assert.ok(output.labels.some(label=>label.value===expected[step]&&label.y===L.boardHint.y+L.boardHint.h/2));
+  assert.deepEqual(getUiControls(state,view()).map(control=>control.action),[{type:'skipTutorial'}]);
+  assert.doesNotMatch(output.words(),/第[123]步|北门要3件食品|北门被机械挡住/);
   state=applyCommand(state,{type:'place',pieceId:state.candidates[0].id,origin:[{x:1,y:1},{x:3,y:1},{x:3,y:4}][step]}).state;
  }
- const finished=surface();render(finished.ctx,state,view());assert.match(finished.words(),/每班6单.*5班/);assert.match(finished.words(),/候选全放不下.*失败/);
+ const finished=surface();render(finished.ctx,state,view());assert.match(finished.words(),/每班6单.*5班/);assert.doesNotMatch(finished.words(),/跳过教学/);
 });
 
-test('pause prioritizes basic rules and gives the correct standard daily overtime or tutorial goal', () => {
- for(const [patch,goal] of [[{},/目标：每班6单.*5班/],[{mode:'daily'},/今日目标：每班6单.*5班/],[{overtime:true},/加班目标：继续接单追分/],[{mode:'tutorial'},/练习目标：学会按订单凑货/]] as const){
+test('pause keeps the current goal concise and moves basic and special rules into optional help', () => {
+ for(const [patch,goal] of [[{},/第1班.*本班0\/6单/],[{mode:'daily'},/第1班.*本班0\/6单/],[{overtime:true},/加班挑战.*得分/],[{mode:'tutorial'},/入库教学/]] as const){
   const state={...run(),...patch} as RunState,output=surface();render(output.ctx,state,view({paused:true}));
-  assert.match(output.words(),goal);assert.match(output.words(),/匹配的货类/);assert.match(output.words(),/同图标上下左右/);assert.match(output.words(),/新单等下一次落子/);assert.match(output.words(),/无订单先备货/);assert.match(output.words(),/候选全放不下/);
-  if(state.overtime)assert.doesNotMatch(output.words(),/目标：每班6单/);
-  const basic=output.labels.find(label=>label.value.includes('同图标上下左右'))!,special=output.labels.find(label=>label.value.includes('托盘占1格'))!;
-  assert.ok(basic.y<special.y);assert.ok(output.labels.filter(label=>label.value.includes('新单等')).every(label=>label.y<L.resume.y-24));
+  assert.match(output.words(),goal);assert.match(output.words(),/玩法说明/);assert.doesNotMatch(output.words(),/同类货物上下左右|托盘：占1格|新单等下一次/);
+  const help=surface();render(help.ctx,state,view({screen:'colorIntro'}));
+  assert.match(help.words(),/按订单配货，同类货物上下左右相连/);assert.match(help.words(),/数量达标.*留出空路/);assert.match(help.words(),/货件不能旋转/);
+  assert.doesNotMatch(help.words(),/托盘：占1格|加急：/);
+  assert.deepEqual(getUiControls(state,view({screen:'colorIntro'})).map(control=>control.action.type),['helpBack','helpDetails']);
+  const details=surface();render(details.ctx,state,view({screen:'helpDetails'}));
+  assert.match(details.words(),/托盘：占1格，计2件/);assert.match(details.words(),/加急：.*废弃物/);assert.match(details.words(),/新单等下一次放置/);
+  assert.deepEqual(getUiControls(state,view({screen:'helpDetails'})).map(control=>control.action.type),['help']);
  }
 });

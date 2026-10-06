@@ -19,10 +19,11 @@ export interface ViewState {
   invalidFx?: { pieceId: string; progress: number } | null;
   noticeFx?: { kind: 'shift' | 'fail'; label: string; progress: number } | null;
   debug: boolean;
+  developerMode?: boolean;
   debugPage?: number;
   needsResume: boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns';
+  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails';
   variant?: RunSlot;
   modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
   comparisonSeed?: number;

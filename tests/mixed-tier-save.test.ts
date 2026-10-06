@@ -9,9 +9,9 @@ function storage(){const data=new Map<string,string>();return {data,get:(key:str
 function run(tier:ColorTier='entry'):RunState{return {...createRun(19,'color_exit',4),rulesetVersion:5,runConfigId:`run.color_exit_mix_v5.${tier}`,colorTier:tier,candidates:[{id:'piece.1',shapeId:'shape.square',cargo:'cargo.food',cellCargos:['cargo.food','cargo.food','cargo.chem','cargo.chem']},{id:'piece.2',shapeId:'shape.single',cargo:'cargo.machine'},{id:'piece.3',shapeId:'shape.domino_h',cargo:'cargo.chem'}]};}
 function envelope(state:RunState,schemaVersion=5):string {const body=JSON.stringify(state);let hash=2166136261;for(let i=0;i<body.length;i++){hash^=body.charCodeAt(i);hash=Math.imul(hash,16777619);}return JSON.stringify({schemaVersion,digest:(hash>>>0).toString(16).padStart(8,'0'),state});}
 
-test('ten slots preserve unique legacy keys and strict run tier identities',()=>{
- assert.deepEqual(saves.RUN_SLOTS,['orders','color_exit','color_exit_entry','color_exit_middle','color_exit_late','outbound_easy','outbound_normal','outbound_hard','outbound_expert','inbound_endless']);
- const keys=saves.RUN_SLOTS.flatMap(slot=>Object.values(saves.saveKeysFor(slot)));assert.equal(new Set(keys).size,30);
+test('fourteen slots preserve unique legacy keys and strict run tier identities',()=>{
+ assert.deepEqual(saves.RUN_SLOTS,['orders','color_exit','color_exit_entry','color_exit_middle','color_exit_late','outbound_easy','outbound_normal','outbound_hard','outbound_expert','inbound_endless','outbound8_easy','outbound8_normal','outbound8_hard','outbound8_expert']);
+ const keys=saves.RUN_SLOTS.flatMap(slot=>Object.values(saves.saveKeysFor(slot)));assert.equal(new Set(keys).size,42);
  for(const tier of tiers){const slot=saves.slotForTier(tier);assert.equal(slot,`color_exit_${tier}`);assert.equal(saves.tierForSlot(slot),tier);assert.equal(saves.slotForRun(run(tier)),slot);assert.equal(saves.saveKeysFor(slot).main,`warehouse.color_exit.${tier}.run.v5`);assert.equal(saves.isRunSlot(slot),true);}
  assert.equal(saves.slotForRun(createRun(19,'color_exit',4)),'color_exit');assert.equal(saves.slotForRun(createRun(19,'standard',3)),'orders');assert.equal(saves.tierForSlot('orders'),undefined);assert.equal(saves.tierForSlot('color_exit'),undefined);assert.equal(saves.isRunSlot('color_exit_unknown'),false);
  assert.throws(()=>saves.slotForTier('unknown' as ColorTier));assert.throws(()=>saves.slotForRun({...run(),colorTier:undefined}));assert.throws(()=>saves.slotForRun({...run(),runConfigId:'run.color_exit_mix_v5.middle'}));
