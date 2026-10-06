@@ -11,7 +11,7 @@ test('profile starts with independent local defaults and serial one',()=>{
 import type { Profile } from '../src/application/profile.ts';
 import type { RunState } from '../src/domain/types.ts';
 import type { StoragePort } from '../src/application/save.ts';
-import { SAVE_KEYS } from '../src/application/save.ts';
+import { SAVE_KEYS, encodeRun } from '../src/application/save.ts';
 import { createRun } from '../src/domain/engine.ts';
 const p=profileApi!;
 function storage(){const data=new Map<string,string>();return {data,get:(key:string)=>data.get(key)??null,set:(key:string,value:string)=>{data.set(key,value);},remove:(key:string)=>{data.delete(key);}};}
@@ -73,8 +73,8 @@ test('explicit recovery of two corrupt copies preserves both and creates valid d
  const s=storage();s.set(p.PROFILE_KEYS.main,'bad main');s.set(p.PROFILE_KEYS.backup,'bad backup');assert.equal(p.recoverProfile(s).ok,true);assert.deepEqual(p.loadProfile(s).profile,p.createProfile());for(const raw of ['bad main','bad backup'])assert.ok([...s.data.values()].includes(raw));
 });
 test('confirmed reset archives old values and leaves active Run keys untouched',()=>{
- const s=storage();const profile=p.recordResult(p.createProfile(),result());p.saveProfile(s,profile);s.set(SAVE_KEYS.main,'active run');s.set(SAVE_KEYS.backup,'run backup');const original=s.get(p.PROFILE_KEYS.main);const reset=p.resetProfile(s,40);
- assert.equal(reset.ok,true);assert.equal(reset.profile?.nextRunSerial,40);assert.equal(reset.profile?.stats.runs,0);assert.equal(s.get(SAVE_KEYS.main),'active run');assert.equal(s.get(SAVE_KEYS.backup),'run backup');assert.ok([...s.data.entries()].some(([key,raw])=>key.includes('.archive.')&&raw===original));
+ const s=storage();const profile=p.recordResult(p.createProfile(),result());p.saveProfile(s,profile);const active=encodeRun({...createRun(99,'standard',3),runSerial:2}),backup=encodeRun({...createRun(98,'standard',3),runSerial:1});s.set(SAVE_KEYS.main,active);s.set(SAVE_KEYS.backup,backup);const original=s.get(p.PROFILE_KEYS.main);const reset=p.resetProfile(s,40);
+ assert.equal(reset.ok,true);assert.equal(reset.profile?.nextRunSerial,40);assert.equal(reset.profile?.stats.runs,0);assert.equal(s.get(SAVE_KEYS.main),active);assert.equal(s.get(SAVE_KEYS.backup),backup);assert.ok([...s.data.entries()].some(([key,raw])=>key.includes('.archive.')&&raw===original));
 });
 test('reset preserves local serial high-water mark even when minimum is omitted',()=>{const s=storage();let profile=p.createProfile();profile=p.allocateRun(profile,90).profile;p.saveProfile(s,profile);assert.equal(p.resetProfile(s).profile?.nextRunSerial,91);});
 test('archive write failure cancels recovery and reset without changing old stable bytes',()=>{

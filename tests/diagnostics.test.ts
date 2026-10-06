@@ -142,3 +142,9 @@ test('reported weights reproduce the actual v2 and v3 next generator draws', () 
   }
   assert.deepEqual([...traits].sort(), ['hazard', 'normal', 'pallet', 'rush', 'wildcard']);
 });
+
+test('color-exit diagnostics identify three fixed cargo generators and the independent completion target',()=>{
+ const state=createRun(1,'color_exit',4),rows=buildDebugRows(state,view()).join('\n');
+ assert.match(rows,/color_exit/);assert.match(rows,/target_batches 30/);assert.match(rows,/min_batch 4/);assert.match(rows,/cargo\.food.*20/);assert.match(rows,/cargo\.machine.*20/);assert.match(rows,/cargo\.chem.*20/);
+ assert.doesNotMatch(rows,/cargo_weight.*cargo\.cold|cargo_weight.*cargo\.electronic|special next_generation/);
+});

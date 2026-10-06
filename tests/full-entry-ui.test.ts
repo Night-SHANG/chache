@@ -33,11 +33,11 @@ function surface() {
   return { ctx, labels, fills, strokes, gradients, words: () => labels.map(label => label.value).join('\n') };
 }
 
-test('menu exposes standard, daily, continue and settings with a disabled empty continue', () => {
-  const controls = getUiControls(run(), view({ screen: 'menu', canContinue: false }));
-  assert.deepEqual(controls.map(c => c.action), [{ type: 'newRun', mode: 'standard' }, { type: 'newRun', mode: 'daily' }, { type: 'continue' }, { type: 'settings' }]);
-  assert.equal(controls.find(c => c.action.type === 'continue')?.disabled, true);
-  assert.equal(getUiControls(run(), view({ screen: 'menu', canContinue: true })).find(c => c.action.type === 'continue')?.disabled, false);
+test('menu exposes both independent modes and the selected-mode new-run action', () => {
+  const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'empty',color_exit:'empty'}}));
+  assert.deepEqual(controls.map(c=>c.action),[{type:'switchMode',variant:'orders'},{type:'switchMode',variant:'color_exit'},{type:'newRun',mode:'standard'},{type:'newRun',mode:'daily'},{type:'settings'}]);
+  assert.match(controls[0].label,/开始/);
+  const saved=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'saved',color_exit:'result'}}));assert.match(saved[0].label,/继续进度/);assert.match(saved[1].label,/查看结算/);
 });
 
 test('all screen controls are positive, nonoverlapping and inside the shared logical viewport', () => {
@@ -62,7 +62,7 @@ test('confirmation is the only actionable layer even above settings, pause and a
 });
 
 test('menu and settings controls take precedence over paused and terminal runs', () => {
-  assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'newRun');
+  assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'switchMode');
   assert.equal(getUiControls(result(), view({ screen: 'settings', paused: true }))[0]?.action.type, 'toggleSound');
 });
 
@@ -101,7 +101,7 @@ test('only v3 five-shift standard victory offers overtime; every terminal mode o
 test('controls are pure geometry and their visible captions share hit-test centers', () => {
   const state = result(), current = view({ screen: 'menu', canContinue: true, dailyLabel: '2031-04-07' });
   const before = JSON.stringify({ state, current });
-  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 4); render(output.ctx, state, current);
+  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 5); render(output.ctx, state, current);
   assert.equal(JSON.stringify({ state, current }), before);
   for (const control of controls) assert.ok(output.labels.some(label => label.value === control.label && label.x === control.rect.x + control.rect.w / 2 && label.y === control.rect.y + control.rect.h / 2));
 });

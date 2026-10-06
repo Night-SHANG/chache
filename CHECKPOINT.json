@@ -1,14 +1,39 @@
 {
-  "appVersion": "0.3.1-dev",
-  "commit": "2f069901b69ecec8fcfbc0383c15fcf1ab7b7fc7",
+  "appVersion": "0.4.0-dev",
+  "status": "VERIFIED_LOCAL_DUAL_MODE_COMPARISON",
   "rulesets": [
     1,
     2,
-    3
+    3,
+    4
   ],
-  "testsPassed": 326,
-  "hostImages": 40,
-  "simulationRuns": 300,
-  "runtimeStatus": "Offline wx-host simulation passed; real browser/WeChat devices and human listening NOT RUN",
-  "sourceSha256": "2484123ae3c952156789c865f12c9108c9b9a1ee732db66088f47136325e8b3f"
+  "modes": {
+    "orders": {
+      "newRunsUse": 3,
+      "legacyRules": [
+        1,
+        2
+      ]
+    },
+    "color_exit": {
+      "ruleset": 4,
+      "balanced": false,
+      "minBatch": 4,
+      "targetBatches": 30
+    }
+  },
+  "testsPassed": 576,
+  "pythonTestsPassed": 22,
+  "sourceSha256": "68efe4b8f87a6612f7c39e66b1da8b347fef4769ce99c70373e9671c30a38b2c",
+  "gameJsSha256": "b143b0173fb9cc46caad91848f6f4ae5ba1fd963ef38ad3194ad70864a2e983d",
+  "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
+  "oldModeRouteFrames": 71,
+  "oldModeHelpScreens": 24,
+  "dualModeTransportFrames": 60,
+  "dualModeMeasuredScreens": 30,
+  "strategyRuns": 200,
+  "runtimeStatus": "Offline native Canvas/wx-host, replay/save and local build gates PASS. Real browser/WeChat devices and human understanding/balance NOT YET VERIFIED.",
+  "deliveryNotes": "docs/dual-mode-v040.md",
+  "preservesOldMode": true,
+  "mainModeUndecided": true
 }

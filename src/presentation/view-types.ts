@@ -19,11 +19,13 @@ export interface ViewState {
   debugPage?: number;
   needsResume: boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings';
+  screen?: 'game'|'menu'|'settings'|'colorIntro';
+  variant?: 'orders'|'color_exit';
+  modeSlots?: {orders:'empty'|'saved'|'result'|'corrupt'|'unavailable';color_exit:'empty'|'saved'|'result'|'corrupt'|'unavailable'};
   profile?: Profile;
   profileStatus?: string;
   profileNeedsRecovery?: boolean;
   dailyLabel?: string;
   canContinue?: boolean;
-  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime';mode?:'standard'|'daily'}|null;
+  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode';mode?:'standard'|'daily'|'color_exit';variant?:'orders'|'color_exit'}|null;
 }

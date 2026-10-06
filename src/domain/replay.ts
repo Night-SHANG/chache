@@ -4,10 +4,12 @@ import {createRun,applyCommand} from './engine.ts';
 import {checksum as legacyChecksum} from './rulesets/v1/replay.ts';
 /** V1's exact checksum is retained; v2 includes every future-affecting trait/counter. */
 export function checksum(state:RunState):string {
+ if((state.mode==='color_exit')!==(state.rulesetVersion===4))throw Error('模式与规则版本不匹配');
  if(state.rulesetVersion===1)return legacyChecksum(state as LegacyState);
- if(state.rulesetVersion!==2&&state.rulesetVersion!==3)throw Error(`不支持规则版本 ${state.rulesetVersion}`);
+ if(state.rulesetVersion!==2&&state.rulesetVersion!==3&&state.rulesetVersion!==4)throw Error(`不支持规则版本 ${state.rulesetVersion}`);
  const fields:unknown[]=[legacyChecksum(state as LegacyState),state.candidates.map(p=>[p.trait??null,p.rushTurns??null]),state.cellTraits?.map(t=>t?[t.kind,t.remaining??null,t.bornAtCommand??null]:null),state.generatedPieces];
  if(state.rulesetVersion===3)fields.push(state.tutorialStep,state.overtime,state.endReason);
+ if(state.rulesetVersion===4)fields.push(state.overtime,state.endReason);
  const data=JSON.stringify(fields);
  let hash=0x811c9dc5;for(let i=0;i<data.length;i++){hash^=data.charCodeAt(i);hash=Math.imul(hash,0x01000193);}return(hash>>>0).toString(16).padStart(8,'0');
 }

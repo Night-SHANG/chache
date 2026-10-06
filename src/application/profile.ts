@@ -1,10 +1,17 @@
 import type { RunState } from '../domain/types.ts';
-import type { StoragePort } from './save.ts';
+import { loadRun, type StoragePort } from './save.ts';
+import { RULES_V4_CONFIG } from '../domain/v4/content.ts';
 
 /** Purely local preferences, cosmetics and results, independent of Run snapshots. */
 export type ThemeId='day'|'night';
 export type ForkliftId='yellow'|'blue'|'red';
 export type CargoStyleId='classic'|'outline';
+export interface ColorExitProfile {
+ stats:{runs:number;batches:number;wins:number;maxChain:number};
+ bestScores:Partial<Record<'v4',{score:number;chain:number}>>;
+ lastRecordedRun:{serial:number;batches:number;score:number;ignored?:boolean}|null;
+ resetCursor?:{serial:number;commandIndex:number};
+}
 export interface Profile {
  schemaVersion:1;
  settings:{sound:boolean;reducedMotion:boolean};
@@ -17,10 +24,15 @@ export interface Profile {
  nextRunSerial:number;
  lastRecordedRun:{serial:number;orders:number;score:number;ignored?:boolean}|null;
  resetCursor?:{serial:number;commandIndex:number};
+ colorExit?:ColorExitProfile;
 }
 export function createProfile():Profile {
  return {schemaVersion:1,settings:{sound:true,reducedMotion:false},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null};
 }
+
+function createColorExitProfile():ColorExitProfile {return {stats:{runs:0,batches:0,wins:0,maxChain:0},bestScores:{},lastRecordedRun:null};}
+/** Reading old profiles does not migrate their serialized shape or share mutable defaults. */
+export function getColorExitProfile(profile:Profile):ColorExitProfile {return profile.colorExit??createColorExitProfile();}
 
 export interface CosmeticMetadata {id:string;name:string;description?:string;achievementId?:string}
 export const THEMES:readonly CosmeticMetadata[]=[{id:'day',name:'日班仓库',description:'明亮的日班色调，仅改变外观'},{id:'night',name:'夜班仓库',description:'深色夜班色调，仅改变外观'}];
@@ -57,7 +69,7 @@ export function localDailyChallenge(epochMs:number,rulesetVersion:number):Return
 export function assertProfile(value:unknown):asserts value is Profile {
  requireValue(object(value),'长期记录结构无效');
  requireValue(value.schemaVersion===1,'长期记录版本不兼容');
- requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor'])]),'长期记录字段无效');
+ requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit'])]),'长期记录字段无效');
  const settings=value.settings,cosmetics=value.cosmetics,stats=value.stats;
  requireValue(object(settings)&&keys(settings,['sound','reducedMotion'])&&typeof settings.sound==='boolean'&&typeof settings.reducedMotion==='boolean','设置无效');
  requireValue(object(cosmetics)&&keys(cosmetics,['theme','forklift','cargo'])&&known(THEMES,cosmetics.theme)&&known(FORKLIFTS,cosmetics.forklift)&&known(CARGO_STYLES,cosmetics.cargo),'外观无效');
@@ -84,6 +96,17 @@ export function assertProfile(value:unknown):asserts value is Profile {
   const identity=dailyIdentity(entry.day,entry.rulesetVersion);requireValue(key===identity.id&&entry.seed===identity.seed,'每日挑战标识无效');days.add(entry.day);
  }
  requireValue(days.size<=MAX_DAILY_DAYS,'每日记录日期过多');
+ if(value.colorExit!==undefined)assertColorExitProfile(value.colorExit,value.nextRunSerial);
+}
+function assertColorExitProfile(value:unknown,nextRunSerial:number):asserts value is ColorExitProfile {
+ requireValue(object(value)&&keys(value,['stats','bestScores','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor'])]),'颜色出口记录字段无效');
+ const stats=value.stats;
+ requireValue(object(stats)&&keys(stats,['runs','batches','wins','maxChain'])&&integer(stats.runs)&&integer(stats.batches)&&integer(stats.wins,0,stats.runs)&&integer(stats.maxChain,0,3),'颜色出口统计无效');
+ requireValue(object(value.bestScores)&&Object.keys(value.bestScores).length<=1,'颜色出口最好成绩数量无效');
+ for(const [key,best] of Object.entries(value.bestScores))requireValue(key==='v4'&&object(best)&&keys(best,['score','chain'])&&integer(best.score)&&best.score%RULES_V4_CONFIG.pointsPerCell===0&&integer(best.chain,0,3),'颜色出口最好成绩无效');
+ const last=value.lastRecordedRun;
+ requireValue(last===null||object(last)&&keys(last,last.ignored===undefined?['serial','batches','score']:['serial','batches','score','ignored'])&&(last.ignored===undefined||typeof last.ignored==='boolean')&&integer(last.serial,1,nextRunSerial-1)&&integer(last.batches,0,32)&&integer(last.score)&&last.score%RULES_V4_CONFIG.pointsPerCell===0,'颜色出口结算记录无效');
+ requireValue(value.resetCursor===undefined||object(value.resetCursor)&&keys(value.resetCursor,['serial','commandIndex'])&&integer(value.resetCursor.serial,1,nextRunSerial-1)&&integer(value.resetCursor.commandIndex),'颜色出口重置边界无效');
 }
 export function encodeProfile(profile:Profile):string {
  assertProfile(profile);const body=JSON.stringify(profile);const raw=JSON.stringify({schemaVersion:1,digest:digest(body),profile});requireValue(raw.length<=MAX_PROFILE_LENGTH,'长期记录超出大小限制');return raw;
@@ -116,6 +139,7 @@ function trimDaily(history:Profile['dailyHistory']):Profile['dailyHistory'] {
 /** Called only for stable terminal snapshots; the same run may later finish overtime. */
 export function recordResult(profile:Profile,run:RunState):Profile {
  assertProfile(profile);
+ if(run.mode==='color_exit'||run.rulesetVersion===4)return recordColorExitResult(profile,run);
  if(run.phase!=='result'||!['won','failed'].includes(String(run.result))||!integer(run.runSerial,1,MAX-1)||!integer(run.completedOrders)||!integer(run.score)||!integer(run.maxChain,0,64)||!integer(run.rulesetVersion,1,MAX_RULESET)||!['standard','daily','tutorial'].includes(run.mode))return profile;
  const cutoff=profile.resetCursor;
  if(cutoff&&(run.runSerial<cutoff.serial||run.runSerial===cutoff.serial&&run.commandIndex<=cutoff.commandIndex))return profile;
@@ -141,6 +165,22 @@ export function recordResult(profile:Profile,run:RunState):Profile {
  const achievements=[...profile.achievements];
  for(const [id,achieved] of [['first_shipment',stats.orders>=1],['chain_3',stats.maxChain>=3],['five_shifts',clearedStandard],['ship_100',stats.orders>=100]] as const)if(achieved&&!achievements.includes(id))achievements.push(id);
  return {...profile,stats,bestScores,dailyHistory,achievements,nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1),lastRecordedRun:{serial:run.runSerial,orders:Math.max(same?previous.orders:0,run.completedOrders),score:Math.max(same?previous.score:0,run.score)}};
+}
+
+function recordColorExitResult(profile:Profile,run:RunState):Profile {
+ if(run.mode!=='color_exit'||run.rulesetVersion!==4||run.runConfigId!==RULES_V4_CONFIG.runConfigId||run.phase!=='result'||!integer(run.runSerial,1,MAX-1)||!integer(run.commandIndex)||!integer(run.completedOrders,0,32)||!integer(run.score)||run.score%RULES_V4_CONFIG.pointsPerCell!==0||!integer(run.maxChain,0,3)||run.overtime!==false)return profile;
+ if(run.result==='won'?run.endReason!=='completed'||run.completedOrders<30:run.result!=='failed'||run.endReason!=='blocked'||run.completedOrders>=30)return profile;
+ const current=getColorExitProfile(profile),cutoff=current.resetCursor,previous=current.lastRecordedRun;
+ if(cutoff&&(run.runSerial<cutoff.serial||run.runSerial===cutoff.serial&&run.commandIndex<=cutoff.commandIndex))return profile;
+ // Color exits never continue after a terminal result; each serial is credited once.
+ if(previous&&run.runSerial<=previous.serial)return profile;
+ const best=current.bestScores.v4;
+ const colorExit:ColorExitProfile={...current,
+  stats:{runs:add(current.stats.runs,1),batches:add(current.stats.batches,run.completedOrders),wins:add(current.stats.wins,run.result==='won'?1:0),maxChain:Math.max(current.stats.maxChain,run.maxChain)},
+  bestScores:{v4:{score:Math.max(best?.score??0,run.score),chain:Math.max(best?.chain??0,run.maxChain)}},
+  lastRecordedRun:{serial:run.runSerial,batches:run.completedOrders,score:run.score},
+ };
+ return {...profile,colorExit,nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
 }
 
 export interface ProfileSaveResult {ok:boolean;message:string}
@@ -185,18 +225,47 @@ export function recoverProfile(storage:StoragePort):ProfileSaveResult {
  if(loaded.source==='main')return {ok:true,message:'长期记录有效，无需恢复'};
  const result=writeProfile(storage,loaded.profile,true);return result.ok?{ok:true,message:loaded.source==='backup'?'原始记录已归档，已恢复有效备份':'原始记录已归档，已建立新记录'}:result;
 }
+function retainResetCursor(target:{resetCursor?:{serial:number;commandIndex:number}},prior:{serial:number;commandIndex:number}|undefined):void {
+ const next=target.resetCursor;
+ if(prior&&(!next||prior.serial>next.serial||prior.serial===next.serial&&prior.commandIndex>next.commandIndex))target.resetCursor={...prior};
+}
 /** App must obtain explicit confirmation; active Run snapshots are never removed. */
-export function resetProfile(storage:StoragePort,minimumNextSerial=1,activeRun?:RunState):ProfileSaveResult&{profile?:Profile} {
+export function resetProfile(storage:StoragePort,minimumNextSerial=1,activeRun?:RunState|null,otherRun?:RunState|null):ProfileSaveResult&{profile?:Profile} {
  try {
   requireValue(integer(minimumNextSerial,1),'值班序号无效');const loaded=loadProfile(storage);if(loaded.source==='unavailable')return {ok:false,message:loaded.message};
+  const snapshots=[activeRun,otherRun].filter((run):run is RunState=>!!run);
+  // Older callers know only the foreground run. Read missing mode slots before committing a reset.
+  for(const slot of ['orders','color_exit'] as const){
+   if(snapshots.some(run=>(run.mode==='color_exit')===(slot==='color_exit')))continue;
+   const stored=loadRun(storage,slot);
+   if(stored.source==='unavailable'||stored.source==='corrupt')return {ok:false,message:'无法读取某个模式存档，未重置；请先恢复该模式'};
+   if(stored.state)snapshots.push(stored.state);
+  }
+  if(snapshots.some(run=>run.phase==='result'&&!integer(run.runSerial,1,MAX-1)))return {ok:false,message:'请先打开旧结算，再重置长期记录'};
   const profile=createProfile();profile.nextRunSerial=Math.max(minimumNextSerial,loaded.profile.nextRunSerial);
+  const active=snapshots.filter(run=>integer(run.runSerial,1,MAX-1)&&integer(run.commandIndex));
+  const ordersRun=active.find(run=>run.mode!=='color_exit');
+  const colorRun=active.find(run=>run.mode==='color_exit'&&run.rulesetVersion===4);
   const previous=loaded.profile.lastRecordedRun;
-  if(activeRun&&integer(activeRun.runSerial,1)&&integer(activeRun.commandIndex)){
-   profile.nextRunSerial=Math.max(profile.nextRunSerial,activeRun.runSerial+1);
-   profile.resetCursor={serial:activeRun.runSerial,commandIndex:activeRun.commandIndex};
-   if(activeRun.phase==='result')profile.lastRecordedRun={serial:activeRun.runSerial,orders:activeRun.completedOrders,score:activeRun.score,ignored:true};
+  if(ordersRun&&integer(ordersRun.runSerial,1)&&integer(ordersRun.commandIndex)){
+   profile.nextRunSerial=Math.max(profile.nextRunSerial,ordersRun.runSerial+1);
+   profile.resetCursor={serial:ordersRun.runSerial,commandIndex:ordersRun.commandIndex};
+   if(ordersRun.phase==='result')profile.lastRecordedRun={serial:ordersRun.runSerial,orders:ordersRun.completedOrders,score:ordersRun.score,ignored:true};
    else if(previous)profile.lastRecordedRun={...previous,ignored:true};
   }else if(previous){profile.resetCursor={serial:previous.serial,commandIndex:MAX};profile.lastRecordedRun={...previous,ignored:true};}
+  retainResetCursor(profile,loaded.profile.resetCursor);
+  const oldColor=loaded.profile.colorExit;
+  if(oldColor||colorRun){
+   const color=createColorExitProfile(),previousColor=oldColor?.lastRecordedRun;
+   if(colorRun){
+    profile.nextRunSerial=Math.max(profile.nextRunSerial,colorRun.runSerial!+1);
+    color.resetCursor={serial:colorRun.runSerial!,commandIndex:colorRun.commandIndex};
+    if(colorRun.phase==='result')color.lastRecordedRun={serial:colorRun.runSerial!,batches:colorRun.completedOrders,score:colorRun.score,ignored:true};
+    else if(previousColor)color.lastRecordedRun={...previousColor,ignored:true};
+   }else if(previousColor){color.resetCursor={serial:previousColor.serial,commandIndex:MAX};color.lastRecordedRun={...previousColor,ignored:true};}
+   retainResetCursor(color,oldColor?.resetCursor);
+   profile.colorExit=color;
+  }
   const result=writeProfile(storage,profile,true);return result.ok?{ok:true,message:'长期记录已重置；当前值班仍保留，之后结算会计入新记录',profile}:result;
  }catch{return {ok:false,message:'重置失败，旧长期记录已保护'};}
 }

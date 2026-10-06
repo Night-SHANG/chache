@@ -20,6 +20,7 @@ export const L = {
   boardHint: { x: 120, y: 496, w: 840, h: 27 },
   restart: { x: 246, y: 1240, w: 588, h: 114 },
   resume: { x: 246, y: 1090, w: 588, h: 114 },
+  recoveryMenu: {x:246,y:1424,w:588,h:72},
   upgradeRects: [
     { x: 54, y: 650, w: 312, h: 592 },
     { x: 384, y: 650, w: 312, h: 592 },

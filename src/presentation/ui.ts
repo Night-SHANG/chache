@@ -13,17 +13,22 @@ const control = (rect: Rect, label: string, action: UiAction): UiControl => ({ r
 /** Only the top actionable layer is returned. Geometry never changes either state object. */
 export function getUiControls(state: RunState, view: ViewState): UiControl[] {
   if (view.confirmation) {
-    const label = view.confirmation.kind === 'resetProfile' ? '确认重置' : view.confirmation.kind === 'finishOvertime' ? '结束并结算' : '开始新局';
+    const label = view.confirmation.kind === 'resetProfile' ? '确认重置' : view.confirmation.kind === 'finishOvertime' ? '结束并结算' : view.confirmation.kind === 'switchMode' ? '保留并切换' : '开始新局';
     return [control({ x: 186, y: 1160, w: 330, h: 118 }, '取消', { type: 'cancel' }), control({ x: 564, y: 1160, w: 330, h: 118 }, label, { type: 'confirm' })];
   }
   // The old-save recovery flow owns L.resume/L.restart, including its failure handling.
   if (view.needsResume) return [];
-  if (view.screen === 'menu') return [
-    control(wide(850), '开始标准值班', { type: 'newRun', mode: 'standard' }),
-    control(wide(994), '本地每日挑战', { type: 'newRun', mode: 'daily' }),
-    { ...control(wide(1138), '继续上次值班', { type: 'continue' }), disabled: !view.canContinue },
-    control(wide(1282), '设置与外观', { type: 'settings' }),
-  ];
+  if (view.screen === 'colorIntro') return [control(wide(1240),'开始试玩',{type:'introStart'}),control(wide(1390),'返回模式选择',{type:'home'})];
+  if (view.screen === 'menu') {
+    const modeLabel=(variant:'orders'|'color_exit')=>{const status=view.modeSlots?.[variant];return status==='saved'?'继续进度':status==='result'?'查看结算':status==='corrupt'?'存档待处理':'开始';};
+    return [
+      control(wide(792,104),`订单模式 · ${modeLabel('orders')}`,{type:'switchMode',variant:'orders'}),
+      control(wide(916,104),`颜色出口 · ${modeLabel('color_exit')}`,{type:'switchMode',variant:'color_exit'}),
+      control(wide(1040,104),state.mode==='color_exit'?'颜色出口 · 新开一局':'订单模式 · 新开标准局',{type:'newRun',mode:state.mode==='color_exit'?'color_exit':'standard'}),
+      control(wide(1164,104),'订单模式 · 本地每日挑战',{type:'newRun',mode:'daily'}),
+      control(wide(1288,104),'设置与外观',{type:'settings'}),
+    ];
+  }
   if (view.screen === 'settings') {
     const options = (catalogue: readonly CosmeticMetadata[], kind: 'theme' | 'forklift' | 'cargo', y: number): UiControl[] => {
       const gap = 18, w = (816 - gap * (catalogue.length - 1)) / catalogue.length;
@@ -44,8 +49,9 @@ export function getUiControls(state: RunState, view: ViewState): UiControl[] {
   }
   if (view.paused) return [
     control({ ...L.resume }, '继续工作', { type: 'continue' }),
-    control({ ...L.restart }, '返回主页 · 保留进度', { type: 'home' }),
+    control({ ...L.restart }, '切换模式 · 保留进度', { type: 'home' }),
     control({ ...L.restart, y: 1390 }, '设置与外观', { type: 'settings' }),
+    ...(state.mode==='color_exit'?[control({...L.restart,y:1540},'颜色出口玩法图解',{type:'colorHelp'})]:[]),
     ...(state.overtime ? [control({ ...L.restart, y: 1540 }, '结束加班并结算', { type: 'finishOvertime' })] : []),
   ];
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
@@ -53,7 +59,7 @@ export function getUiControls(state: RunState, view: ViewState): UiControl[] {
     const overtime = state.rulesetVersion === 3 && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
     return [
       ...(overtime ? [control({ ...L.resume }, '继续加班 · 挑战更高分', { type: 'continueOvertime' })] : []),
-      control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? '再试今日挑战' : '再来一局', { type: 'newRun', mode: state.mode === 'daily' ? 'daily' : 'standard' }),
+      control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? '再试今日挑战' : '再来一局', { type: 'newRun', mode: state.mode === 'color_exit' ? 'color_exit' : state.mode === 'daily' ? 'daily' : 'standard' }),
       control({ ...L.restart, y: 1390 }, '返回主页', { type: 'home' }),
     ];
   }
