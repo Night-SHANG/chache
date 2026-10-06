@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { L, getLayout, hitTestPoint, pointToCell, cellCenter, mapClientPoint } from '../src/presentation/layout.ts';
+import { L, getLayout, getTrayRects, hitTestPoint, pointToCell, cellCenter, mapClientPoint } from '../src/presentation/layout.ts';
 
 test('layout keeps a complete 7 by 7 board and three separated trays in the canvas', () => {
   const layout = getLayout();
@@ -151,4 +151,54 @@ test('equal-route order preview outlines only the canonical selected group', asy
   render(surface.ctx, state, view);
   const highlights = surface.outlines.filter(r => r.w === 112 && r.h === 112);
   assert.deepEqual(highlights, [{ x: L.board.x + 2 * L.board.cell + 4, y: L.board.y + 4, w: 112, h: 112 }]);
+});
+
+
+test('five candidates occupy two complete non-overlapping rows while three and four remain unchanged', () => {
+  assert.deepEqual(getTrayRects(3), L.trays3);
+  assert.deepEqual(getTrayRects(4), [
+    { x: 48, y: 1530, w: 232.5, h: 272 },
+    { x: 298.5, y: 1530, w: 232.5, h: 272 },
+    { x: 549, y: 1530, w: 232.5, h: 272 },
+    { x: 799.5, y: 1530, w: 232.5, h: 272 },
+  ]);
+  const slots = getTrayRects(5);
+  assert.equal(slots.length, 5);
+  assert.equal(new Set(slots.map(rect => rect.y)).size, 2);
+  assert.deepEqual([...new Set(slots.map(rect => rect.y))].map(y => slots.filter(rect => rect.y === y).length), [3, 2]);
+  for (const [index, rect] of slots.entries()) {
+    assert.ok(rect.w >= 232.5 && rect.h >= 120, 'each complete candidate has a usable touch region');
+    assert.ok(rect.x >= 48 && rect.x + rect.w <= 1032 && rect.y >= 1530 && rect.y + rect.h <= 1802);
+    for (const other of slots.slice(index + 1)) {
+      assert.ok(rect.x + rect.w <= other.x || other.x + other.w <= rect.x
+        || rect.y + rect.h <= other.y || other.y + other.h <= rect.y, 'touch regions must not overlap');
+    }
+    for (const point of [{ x: rect.x, y: rect.y }, { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 },
+      { x: rect.x + rect.w - .001, y: rect.y + rect.h - .001 }]) {
+      assert.equal(slots.findIndex(target => hitTestPoint(point, target)), index);
+    }
+  }
+  slots[4].x = -1;
+  assert.ok(getTrayRects(5)[4].x >= 48, 'callers cannot mutate the next five-slot layout');
+  for (const count of [0, -1, 1.5, 6, NaN]) assert.deepEqual(getTrayRects(count), []);
+});
+
+test('all five trays and expansion cells remain targetable after safe-area letterboxing', () => {
+  for (const viewport of [{ x: 0, y: 28, w: 360, h: 746 }, { x: 0, y: 0, w: 540, h: 960 }, { x: 0, y: 0, w: 1200, h: 900 }]) {
+    const scale = Math.min(viewport.w / L.width, viewport.h / L.height);
+    const offset = { x: viewport.x + (viewport.w - L.width * scale) / 2, y: viewport.y + (viewport.h - L.height * scale) / 2 };
+    const toClient = (point: { x: number; y: number }) => ({ x: offset.x + point.x * scale, y: offset.y + point.y * scale });
+    const slots = getTrayRects(5);
+    assert.equal(slots.length, 5);
+    for (const [index, rect] of slots.entries()) {
+      const mapped = mapClientPoint(toClient({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 }), viewport);
+      assert.ok(mapped);
+      assert.equal(slots.findIndex(target => hitTestPoint(mapped, target)), index);
+    }
+    for (const cell of [{ x: 7, y: 0 }, { x: 0, y: 7 }, { x: 7, y: 7 }]) {
+      const mapped = mapClientPoint(toClient(cellCenter(cell, { boardSize: 8 })), viewport);
+      assert.ok(mapped);
+      assert.deepEqual(pointToCell(mapped, { boardSize: 8 }), cell);
+    }
+  }
 });

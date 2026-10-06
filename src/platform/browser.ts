@@ -1,7 +1,8 @@
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
 import { L, mapClientPoint } from '../presentation/layout.ts';
-export function createBrowserPlatform(canvas:HTMLCanvasElement):Platform {
+import type {WriterLease} from './writer-lease.ts';
+export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:WriterLease={status:'unsupported',release(){}}):Platform {
  const ctx=canvas.getContext('2d');if(!ctx)throw Error('无法创建2D画布');
  let rect={x:0,y:0,w:1,h:1},scale=1,dpr=1;
  const resize=()=>{const r=canvas.getBoundingClientRect();rect={x:r.left,y:r.top,w:r.width,h:r.height};dpr=Math.min(window.devicePixelRatio||1,3);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);scale=Math.min(r.width/L.width,r.height/L.height);};
@@ -12,7 +13,10 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement):Platform {
   try{audio.currentTime=0;}catch{/* Some hosts cannot seek before decoding. */}
  }};
  return {
-  storage:{get:key=>window.localStorage.getItem(key),set:(key,value)=>window.localStorage.setItem(key,value),remove:key=>window.localStorage.removeItem(key)},
+  writerLease,
+  storage:{get:key=>window.localStorage.getItem(key),set:(key,value)=>window.localStorage.setItem(key,value),remove:key=>window.localStorage.removeItem(key),listKeys:prefix=>{
+   const store=window.localStorage,keys:string[]=[];for(let i=0;i<store.length;i++){const key=store.key(i);if(key!==null&&key.startsWith(prefix))keys.push(key);}return keys.sort();
+  }},
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,(rect.w-L.width*scale)*dpr/2,(rect.h-L.height*scale)*dpr/2);return ctx;},
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{

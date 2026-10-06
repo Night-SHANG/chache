@@ -1,5 +1,6 @@
 import { Easing } from '@tweenjs/tween.js';
-import type { Dock, Point, Shipment } from '../domain/types.ts';
+import type { GameShipment } from '../domain/playable.ts';
+import type { Dock, Point } from '../domain/types.ts';
 import { RULES_V2_CONFIG } from '../domain/v2/content.ts';
 import { cellCenter } from './layout.ts';
 import { boardGeometry } from './board-geometry.ts';
@@ -53,21 +54,24 @@ const heading = (from: Point, to: Point): number => Math.atan2(to.y - from.y, to
 const angleDelta = (from: number, to: number): number => Math.atan2(Math.sin(to - from), Math.cos(to - from));
 
 /** The path itself identifies the physical entrance, including the unlocked southwest gate. */
-function shipmentEntrance(shipment: Shipment): Dock | null {
-  if (shipment?.boardSize !== undefined && shipment.boardSize !== 9) return null;
+function shipmentEntrance(shipment: GameShipment): Dock | null {
+  if (!shipment) return null;
+  const growth = 'gateId' in shipment, gateId = growth ? shipment.gateId : undefined;
+  if (growth ? shipment.boardSize !== 7 && shipment.boardSize !== 8
+    : shipment.boardSize !== undefined && shipment.boardSize !== 9) return null;
   const geometry = boardGeometry(shipment);
   const entry = shipment && Array.isArray(shipment.path) ? shipment.path[0] : undefined;
   if (!entry || !gridPoint(entry, geometry.dimension)) return null;
   const dock = geometry.docks.find(candidate => candidate.entry.x === entry.x && candidate.entry.y === entry.y);
-  if (dock) return dock;
+  if (dock) return !growth || gateId === dock.id ? dock : null;
   if (geometry.dimension === 9) return null;
-  const side = RULES_V2_CONFIG.sideEntry;
-  return entry.x === side.x && entry.y === side.y
-    ? { id: 'gate.side', name: '西南侧门', entry, side: 'west', priority: 4 } : null;
+  const side = growth ? { x: 0, y: geometry.dimension - 1 } : RULES_V2_CONFIG.sideEntry;
+  return entry.x === side.x && entry.y === side.y && (!growth || gateId === 'dock.side')
+    ? { id: growth ? 'dock.side' : 'gate.side', name: '西南侧门', entry, side: 'west', priority: 4 } : null;
 }
 
 /** Doorway feedback belongs to the entrance actually used, independently of the order's score label. */
-export function shipmentGate(shipment: Shipment): Point | null {
+export function shipmentGate(shipment: GameShipment): Point | null {
   const dock = shipmentEntrance(shipment);
   return dock ? dockPosition(dock, shipment) : null;
 }
@@ -102,7 +106,7 @@ function journeyPose(points: Point[], progress: number, initialAngle: number, fi
 }
 
 /** Presentation-only pickup and reverse journey. It never derives a replacement gameplay path. */
-export function shipmentPose(shipment: Shipment, frame: ShipmentFrame): ShipmentPose | null {
+export function shipmentPose(shipment: GameShipment, frame: ShipmentFrame): ShipmentPose | null {
   const geometry = boardGeometry(shipment), boardCells = geometry.dimension;
   const dock = shipmentEntrance(shipment);
   if (!dock || !Array.isArray(shipment.cells) || Array.from(shipment.path).some((point, index, path) => !gridPoint(point, boardCells)

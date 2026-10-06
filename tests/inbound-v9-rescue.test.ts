@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {makeV9Fixture} from './helpers/v9-fixtures.ts';import {findRescuePlanV9} from '../src/domain/v9/tools.ts';import {applyCommandV9,findLegalMovesV9,settlePhaseV9} from '../src/domain/v9/engine.ts';
+function blocked(kind:'rotate'|'wildcard',index=0){const s=makeV9Fixture({phase:'rescue',shift:3,commandIndex:index,commandBaseIndex:index,toolCharges:{clear:1,rotate:kind==='rotate'?1:0,wildcard:kind==='wildcard'?1:0}});s.board.fill('cargo.machine');s.candidates=[{...s.candidates[0],shapeId:'shape.i4_h'}];if(kind==='rotate'){s.board[0]=null;s.board[21]=null;}return s;}
+test('two-tool rescue handles clear plus rotate and clear plus wildcard including index 127',()=>{
+ for(const kind of ['rotate','wildcard'] as const)for(const index of [0,127]){const s=blocked(kind,index),json=JSON.stringify(s),plan=findRescuePlanV9(s);assert.ok(plan);assert.equal(plan.length,2);let replay=s;for(const cmd of plan){const r=applyCommandV9(replay,cmd);assert.ok(!r.error,r.error);replay=r.state;}assert.ok(findLegalMovesV9(replay).length);assert.equal(replay.commandIndex,index+2);assert.equal(JSON.stringify(s),json);
+ for(const tool of ['clear',kind] as const){const n=structuredClone(s);n.toolCharges[tool]=0;assert.equal(findRescuePlanV9(n),null);}}
+});
+test('clear-only rescue offers a real witness and no charges cause automatic failure',()=>{
+ const s=makeV9Fixture({toolCharges:{rotate:0,clear:1,wildcard:0}});s.board.fill('cargo.machine');assert.equal(settlePhaseV9(s).phase,'rescue');const plan=findRescuePlanV9(s)!;assert.equal(plan.length,1);assert.ok(findLegalMovesV9(applyCommandV9({...s,phase:'rescue'},plan[0]).state).length);s.toolCharges.clear=0;const failed=settlePhaseV9(s);assert.equal(failed.result,'failed');assert.equal(failed.endReason,'blocked');
+});

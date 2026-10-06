@@ -1,0 +1,113 @@
+{
+  "base": "5b7c293",
+  "files": {
+    "src/domain/board.ts": "c22965bcd908f043fd7410f8114fccc3c68afed59d158fbe333501e813e5493c",
+    "src/domain/content.ts": "cb3d54296f35625a5af8c30001fc217f525e9f229ac414625fec9b8efcb3b051",
+    "src/domain/engine.ts": "72ee4c4c95bdc2f036e05db5bc8b44e09b3ca9bbe23d229f4183a24bda3fe0e6",
+    "src/domain/pieces.ts": "44767ca9714c525618b3b4fae73383eea0d17fba65a7ace8c9f3a0277dc9b86e",
+    "src/domain/random.ts": "ea76664c43348efe5b8d2bffa4751c2721f55f7ca6818009e6b7419afad4ac3e",
+    "src/domain/replay.ts": "6e6a9e355c8c34686485fbc14eddf759e5beb42ab6b86d4fb57a7d20ec1f9012",
+    "src/domain/rulesets/v1/board.ts": "fc6cd84ec924321a1995c79d3161e4f8b62cf7e6fbef896476134abb785e30ef",
+    "src/domain/rulesets/v1/content.ts": "0f559f1800272a5e91c8610f0f5a8c1ac5b901f4f84248cfd920d9b4fcd00cc5",
+    "src/domain/rulesets/v1/engine.ts": "7867827fed52961139adf86aff07da81b27d18c2fe62f9c6f13ebdbe5e9d997e",
+    "src/domain/rulesets/v1/random.ts": "ea76664c43348efe5b8d2bffa4751c2721f55f7ca6818009e6b7419afad4ac3e",
+    "src/domain/rulesets/v1/replay.ts": "cbad4ac49cd394a28a25c0e97bcc3ebb4cfb2e596e4e5e662aebd59f496a4a8b",
+    "src/domain/rulesets/v1/source-manifest.json": "4b3a1942dda6fedd9cb165aa33b5d90f7428d499440616f4ea28099486f630fd",
+    "src/domain/rulesets/v1/types.ts": "94ba2b0fd993616223782104d410758bd3cfced625906852a2ddfa3319b892fc",
+    "src/domain/rulesets/v2/source-manifest.json": "f88cf738fc292b51c029303b15947d34dafe78473e5b1c46d9af937885856407",
+    "src/domain/rulesets/v2/types.ts": "a771f9c33bae481ec4db5e372da0645e83bf46be440ee26bcaa700439938c58c",
+    "src/domain/types.ts": "6dab942f896cce4900bf6093e8d211228ac6b1a984ea1f738a5836743498f05a",
+    "src/domain/v2/board.ts": "d2c9273445e12acf6ba5ebd30ed59c4093e2718da738622430b090be8ac3546e",
+    "src/domain/v2/content.ts": "c306ac0a40c0e2d0f3382183cd1bc8b3abfe0e152d1ce18b57c9bcab54ef23fd",
+    "src/domain/v2/engine.ts": "ea8cb94c13e76199dc845c5fd24aad9b4044c79110c3a06bd6531229569193a6",
+    "src/domain/v3/content.ts": "333bee1d8d7783e39b37a00fbabd930cf0406972ebfee7d4003034e86fe80986",
+    "src/domain/v3/engine.ts": "889993d955664b7b0cd4239c89694d8b92beb4d3cde0b23357bd198fc30b93af",
+    "src/domain/v4/board.ts": "06a67e791c6a8de5a0701ed1974c40090184cbb39d2df4598df28bbe619bfd88",
+    "src/domain/v4/content.ts": "95f327b2a178ec67fd2247c517608ec4111568dc5c995b981cb9b11f429ab09d",
+    "src/domain/v4/engine.ts": "bfabe3076ade668c67a5a3b9e370c5c8521551ccf4e7b475560bf0a4131b7718",
+    "src/domain/v5/content.ts": "59dbc89320b157e8ac8a1d48174c6040eeeb000bce7991d3438155418db71a00",
+    "src/domain/v5/engine.ts": "e61e54b260b07f816dd7b15afb8f9e5100f530da7169ca4a4860681529937cc9",
+    "src/domain/v6/board.ts": "6dba2c773bff2219829fd9d66c86472f3ac4ec3c91085efeaf885d2f8b276f56",
+    "src/domain/v6/content.ts": "5b9ed0b89913b34beaf328a46487c2f5f6de76996be8ee48295c6aa50134afc6",
+    "src/domain/v6/engine.ts": "0d146a3825af9e2908b0664c6300321475d6b93a5454879937d8c858b0c383ec",
+    "src/domain/v7/content.ts": "47fbc77b92dccd984314d0490e38b20ccd54d2bb5f7c7563763a6bf5951636e8",
+    "src/domain/v7/engine.ts": "fa380bd8eefc57a0554256aba1e544e8042fefd4a6ec906dbf4036f4b8604414",
+    "src/domain/v8/content.ts": "e397cda234e0128b51fba5c6f19bf598a6db9313237ebf156ae16c56d794e139",
+    "src/domain/v8/engine.ts": "57dc775988a7316e2b4cbd0848ef1cc1eed2776a158f0529e1be9688a5c6ea9e"
+  },
+  "runs": [
+    {
+      "seed": 1,
+      "mode": "standard",
+      "rulesetVersion": 1,
+      "initial": "12676f48"
+    },
+    {
+      "seed": 1,
+      "mode": "standard",
+      "rulesetVersion": 2,
+      "initial": "f9790547"
+    },
+    {
+      "seed": 1,
+      "mode": "standard",
+      "rulesetVersion": 3,
+      "initial": "f88005c7"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 4,
+      "initial": "9c459e32"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 5,
+      "difficultyId": "entry",
+      "initial": "a4e5e981"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 6,
+      "difficultyId": "normal",
+      "initial": "8cd4e691"
+    },
+    {
+      "seed": 1,
+      "mode": "endless",
+      "rulesetVersion": 7,
+      "initial": "627136be",
+      "afterFinish": "a820cc2e"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 8,
+      "difficultyId": "easy",
+      "initial": "f6e6fedd"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 8,
+      "difficultyId": "normal",
+      "initial": "c4c490bf"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 8,
+      "difficultyId": "hard",
+      "initial": "f647f451"
+    },
+    {
+      "seed": 1,
+      "mode": "color_exit",
+      "rulesetVersion": 8,
+      "difficultyId": "expert",
+      "initial": "c69bbdbe"
+    }
+  ]
+}

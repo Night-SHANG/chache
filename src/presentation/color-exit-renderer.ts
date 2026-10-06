@@ -1,9 +1,10 @@
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
 import {outboundVehicleDisplay} from './outbound-transport-view.ts';
 import { CARGO, COLOR_EXIT_TARGETS } from '../domain/content.ts';
-import { orderStatus } from '../domain/board.ts';
+import {playableOrderStatus} from './order-feedback.ts';
+import type {GameRun} from '../domain/playable.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
-import type { Order, Point, RunState, Shipment } from '../domain/types.ts';
+import type { Order, Point, Shipment } from '../domain/types.ts';
 import type { ViewState } from './view-types.ts';
 import type { OrderFeedback } from './order-feedback.ts';
 import { cellCenter } from './layout.ts';
@@ -33,13 +34,13 @@ function line(ctx: Context, points: Point[], color: string, dashed: boolean, wid
   ctx.beginPath(); points.forEach((p, i) => { if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke(); ctx.setLineDash([]);
   points.slice(1).forEach((p, i) => arrowhead(ctx, points[i], p, color, 11 * scale));
 }
-function entryBlocked(state: RunState, view: ViewState): boolean {
+function entryBlocked(state: GameRun, view: ViewState): boolean {
   const geometry = boardGeometry(state), entry = geometry.entry.entry, index = entry.y * geometry.dimension + entry.x;
   return !!(view.animation?.board ?? state.board)[index] || !view.animation && !!view.preview?.valid && view.preview.cells.includes(index);
 }
 
 /** Fixed cargo doors remain distinct from the single forklift entrance. */
-export function drawColorExitGates(ctx: Context, state: RunState, view: ViewState): void {
+export function drawColorExitGates(ctx: Context, state: GameRun, view: ViewState): void {
   const geometry = boardGeometry(state), scale = geometry.scale;
   ctx.save();
   for (const exit of colorExits(geometry)) {
@@ -64,7 +65,7 @@ export function drawColorExitRoutes(ctx: Context, view: ViewState): void {
   if (!shipments.length) return;
   ctx.save();
   for (const event of shipments) {
-    if (event.transport !== 'conveyor') continue;
+    if (!('transport' in event)||event.transport !== 'conveyor') continue;
     const geometry = boardGeometry(event), scale = geometry.scale;
     line(ctx, event.path.map(point => cellCenter(point, geometry)), ACCESS_COLOR, true, 6, scale);
     const color = PALETTE[event.cargo].light, drawn = new Set<string>();
@@ -93,7 +94,7 @@ export function drawColorExitRoutes(ctx: Context, view: ViewState): void {
 }
 
 /** Small per-cell borders preserve the colors and icons of the half that stays on the board. */
-export function drawMixedRemainder(ctx: Context, state: RunState, view: ViewState): void {
+export function drawMixedRemainder(ctx: Context, state: GameRun, view: ViewState): void {
   const preview = mixedPiecePreview(state, view); if (!preview?.remaining.length) return;
   const geometry = boardGeometry(state), scale = geometry.scale;
   ctx.save(); ctx.setLineDash([8 * scale, 6 * scale]); ctx.lineWidth = 3 * scale;
@@ -190,14 +191,14 @@ function drawMixedHelpDiagram(ctx: Context, rect: Rect, source?: GeometrySource)
 }
 
 /** A prospective count is explanatory only; the Domain preview alone authorizes a shipping label. */
-export function colorExitFeedback(state: RunState, order: Order, view: ViewState): OrderFeedback {
+export function colorExitFeedback(state: GameRun, order: Order, view: ViewState): OrderFeedback {
   let visible = view.animation ? { ...state, board: view.animation.board, cellTraits: view.animation.cellTraits } : state;
   const selected = state.candidates.find(piece => piece.id === view.selectedPieceId);
   if (!view.animation && view.preview?.valid && selected) {
     const board = [...state.board]; view.preview.cells.forEach((cell, index) => { board[cell] = pieceCellCargo(selected, index); });
     visible = { ...state, board };
   }
-  const status = orderStatus(visible, order);
+  const status = playableOrderStatus(visible, order);
   const shipping = view.animation?.shipment.dockId === order.dockId ? view.animation.shipment : undefined;
   if (shipping) return { status, label: `出货中 · ${shipping.cells.length}件`, shipping };
   const previewShipment = !view.animation && view.preview?.valid
@@ -211,7 +212,7 @@ export function colorExitFeedback(state: RunState, order: Order, view: ViewState
   return { status, label };
 }
 
-export function colorExitBoardHint(state: RunState, view: ViewState): string {
+export function colorExitBoardHint(state: GameRun, view: ViewState): string {
   if (view.animation) return `${cargoName(view.animation.shipment.cargo)}出货中`;
   if (view.preview && !view.preview.valid) return '这里放不下，换个位置';
   const mixed = mixedPiecePreview(state, view);
@@ -225,11 +226,11 @@ export function colorExitBoardHint(state: RunState, view: ViewState): string {
   if (view.preview?.valid && view.preview.shipments.length) {
     return `预计出货：${view.preview.shipments.map(event => `${cargoName(event.cargo)}${event.cells.length}件`).join('、')}`;
   }
-  if (state.orders.some(order => orderStatus(state, order).status === 'ready')) return '已就绪 · 等待放置';
+  if (state.orders.some(order => playableOrderStatus(state, order).status === 'ready')) return '已就绪 · 等待放置';
   return '';
 }
 
-export function drawColorExitCards(ctx: Context, state: RunState, view: ViewState): void {
+export function drawColorExitCards(ctx: Context, state: GameRun, view: ViewState): void {
   text(ctx, '出货口', 56, 330, 26, CREAM);
   COLOR_EXIT_TARGETS.forEach((target, index) => {
     const order = state.orders.find(item => item.id === target.id) ?? target, feedback = colorExitFeedback(state, order, view);

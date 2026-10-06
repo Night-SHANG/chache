@@ -36,6 +36,11 @@ export function getLayout() { return L; }
 /** Candidate count changes layout, never the board or logical coordinate system. */
 export function getTrayRects(count: number): Rect[] {
   if (count === 3) return L.trays.map(rect => ({ ...rect }));
+  if (count === 5) {
+    const h = 125, secondRowY = 1677;
+    return [...L.trays.map(rect => ({ ...rect, h })),
+      { x: 215, y: secondRowY, w: 316, h }, { x: 549, y: secondRowY, w: 316, h }];
+  }
   if (!Number.isInteger(count) || count < 1 || count > 4) return [];
   const gap = 18, x = 48, width = 984;
   const w = (width - gap * (count - 1)) / count;

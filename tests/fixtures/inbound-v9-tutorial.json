@@ -1,0 +1,5721 @@
+{
+  "rulesetVersion": 9,
+  "seed": 6,
+  "mode": "standard",
+  "guided": true,
+  "firstChoices": [
+    "light_orders",
+    "small_parcels",
+    "candidate_slots"
+  ],
+  "prefix": [
+    {
+      "type": "place",
+      "pieceId": "piece.3",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.5",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.6",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.4",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.9",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.8",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.13",
+      "origin": {
+        "x": 2,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.12",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.11",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.16",
+      "origin": {
+        "x": 5,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.18",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    }
+  ],
+  "branches": {
+    "light_orders.placements": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "placements"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.39",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "293790bf",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "light_orders",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "8fb0e12b",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 112,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                19,
+                26,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 125,
+              "chain": 2,
+              "units": 3,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "a5805297",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "placements"
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "ef1b11df",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.24",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "53b02e5b",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.25",
+              "cells": [
+                10,
+                11,
+                12,
+                18
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.21",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                11,
+                12,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "bba7541f",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.26",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 137,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "small_parcels",
+                "cargo_supply",
+                "side_gate"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "26e70caa",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "small_parcels",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "592ce1e2",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                10,
+                11,
+                18
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "6fe99297",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.30",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "45fcadc6",
+          "completedOrders": 9,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                23,
+                30,
+                37,
+                38
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.23",
+              "cargo": "cargo.food",
+              "cells": [
+                23,
+                30,
+                37,
+                38
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 22,
+          "checksum": "e926e090",
+          "completedOrders": 10,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.33",
+              "cells": [
+                22,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.22",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                15,
+                22,
+                23
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                }
+              ],
+              "score": 152,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 23,
+          "checksum": "a8f4b5f5",
+          "completedOrders": 11,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.35",
+              "cells": [
+                16,
+                17
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.28",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                11,
+                16,
+                17,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 137,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 24,
+          "checksum": "341042fb",
+          "completedOrders": 12,
+          "shift": 3,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.37",
+              "cells": [
+                8,
+                9,
+                15,
+                16
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.32",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 2
+                }
+              ],
+              "score": 145,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 3
+            },
+            {
+              "type": "upgrade",
+              "threshold": 12,
+              "choices": [
+                "candidate_slots",
+                "warehouse_expand",
+                "small_parcels"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 25,
+          "checksum": "a04338b5",
+          "completedOrders": 12,
+          "shift": 3,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "candidate_slots",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 26,
+          "checksum": "5ca8cc16",
+          "completedOrders": 13,
+          "shift": 3,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.39",
+              "cells": [
+                9,
+                16,
+                22,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.38",
+              "cargo": "cargo.food",
+              "cells": [
+                9,
+                16,
+                22,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                }
+              ],
+              "score": 165,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 27,
+          "checksum": "b02100ef",
+          "completedOrders": 14,
+          "shift": 3,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.15",
+              "cells": [
+                8,
+                15,
+                22
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.41",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                15,
+                22
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 2,
+                  "y": 3
+                }
+              ],
+              "score": 170,
+              "chain": 1,
+              "units": 3,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 28,
+          "checksum": "b5e87341",
+          "completedOrders": 14,
+          "shift": 3,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.17",
+              "cells": [
+                8
+              ]
+            },
+            {
+              "type": "cleanup",
+              "branch": "placements",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            }
+          ]
+        }
+      ]
+    },
+    "light_orders.orders": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "293790bf",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "light_orders",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "8fb0e12b",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 112,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                19,
+                26,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 125,
+              "chain": 2,
+              "units": 3,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "68c2eef8",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "orders"
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "ece8cc37",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.24",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "11c014d5",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.25",
+              "cells": [
+                10,
+                11,
+                12,
+                18
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.21",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                11,
+                12,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "b3f3981d",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.26",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 137,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "small_parcels",
+                "cargo_supply",
+                "side_gate"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "a9b0758c",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "small_parcels",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "eb5f8789",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                10,
+                11,
+                18
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "7bc79f83",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.30",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "8aa31d6e",
+          "completedOrders": 9,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                23,
+                30,
+                37,
+                38
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.23",
+              "cargo": "cargo.food",
+              "cells": [
+                23,
+                30,
+                37,
+                38
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 22,
+          "checksum": "95a34d6c",
+          "completedOrders": 10,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.33",
+              "cells": [
+                22,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.22",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                15,
+                22,
+                23
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                }
+              ],
+              "score": 152,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 23,
+          "checksum": "d8b8763b",
+          "completedOrders": 11,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.35",
+              "cells": [
+                16,
+                17
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.28",
+              "cargo": "cargo.chem",
+              "cells": [
+                10,
+                11,
+                16,
+                17,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 137,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 24,
+          "checksum": "82e0a594",
+          "completedOrders": 12,
+          "shift": 3,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.37",
+              "cells": [
+                8,
+                9,
+                15,
+                16
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.32",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                },
+                {
+                  "x": 3,
+                  "y": 2
+                }
+              ],
+              "score": 145,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "cleanup",
+              "branch": "orders",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            },
+            {
+              "type": "shift",
+              "shift": 3
+            },
+            {
+              "type": "upgrade",
+              "threshold": 12,
+              "choices": [
+                "candidate_slots",
+                "warehouse_expand",
+                "small_parcels"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "small_parcels.placements": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "placements"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "88cd222b",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "small_parcels",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "f0ab489d",
+          "completedOrders": 5,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.15",
+              "cells": [
+                18,
+                25,
+                32
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                18,
+                19,
+                25,
+                26,
+                32,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 124,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "fb9359aa",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "754337d0",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "placements"
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "e069aeb9",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.25",
+              "cells": [
+                8,
+                15,
+                22,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "527fdf23",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.26",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "6e4c5989",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                30,
+                36,
+                37,
+                38
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.23",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                22,
+                29,
+                30,
+                36,
+                37,
+                38
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 0
+                }
+              ],
+              "score": 171,
+              "chain": 1,
+              "units": 8,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "31f83bde",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                1,
+                8,
+                15
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "4fe1571b",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.30",
+              "cells": [
+                10,
+                17,
+                18
+              ]
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "7e4e3b7a",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                11
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.24",
+              "cargo": "cargo.machine",
+              "cells": [
+                10,
+                11,
+                17,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                }
+              ],
+              "score": 140,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "cleanup",
+              "branch": "placements",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "candidate_slots",
+                "light_orders",
+                "overfill_bonus"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "small_parcels.orders": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "88cd222b",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "small_parcels",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "f0ab489d",
+          "completedOrders": 5,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.15",
+              "cells": [
+                18,
+                25,
+                32
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                18,
+                19,
+                25,
+                26,
+                32,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 124,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "fb9359aa",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "1389046f",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "orders"
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "6dfd9a35",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.25",
+              "cells": [
+                8,
+                15,
+                22,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "6f47203a",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.26",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "b725bc64",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                30,
+                36,
+                37,
+                38
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.23",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                22,
+                29,
+                30,
+                36,
+                37,
+                38
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 1,
+                  "y": 0
+                }
+              ],
+              "score": 171,
+              "chain": 1,
+              "units": 8,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "0e6210ce",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                1,
+                8,
+                15
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "54327ddc",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.30",
+              "cells": [
+                10,
+                17,
+                18
+              ]
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "c118b511",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                11
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.south",
+              "gateId": "dock.south",
+              "orderId": "order.24",
+              "cargo": "cargo.machine",
+              "cells": [
+                10,
+                11,
+                17,
+                18
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 5
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 3
+                }
+              ],
+              "score": 140,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "cleanup",
+              "branch": "orders",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "candidate_slots",
+                "light_orders",
+                "overfill_bonus"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "candidate_slots.placements": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "placements"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "8be685bd",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "candidate_slots",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "3785787b",
+          "completedOrders": 5,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.15",
+              "cells": [
+                18,
+                25,
+                32
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                18,
+                19,
+                25,
+                26,
+                32,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 124,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "4f1da437",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "3a5de7b5",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "placements"
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "f98f1f49",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.26",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "0af59bed",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.21",
+              "cells": [
+                1,
+                7,
+                8
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "98d6c0c8",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "39ed440b",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.24",
+              "cargo": "cargo.machine",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 1
+                },
+                {
+                  "x": 2,
+                  "y": 2
+                },
+                {
+                  "x": 1,
+                  "y": 2
+                }
+              ],
+              "score": 145,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "003ea43d",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                12
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "01d724d5",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.32",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.22",
+              "cargo": "cargo.food",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 2,
+                  "y": 4
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "cleanup",
+              "branch": "placements",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 12,
+                  "remaining": 2
+                }
+              ]
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "candidate_slots",
+                "small_parcels",
+                "chain_bonus"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "candidate_slots.orders": {
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "chooseCleanup",
+          "branch": "orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        }
+      ],
+      "rushCell": 0,
+      "trace": [
+        {
+          "commandIndex": 1,
+          "checksum": "2557d8ea",
+          "completedOrders": 0,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.3",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 2,
+          "checksum": "f7a4049e",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.5",
+              "cells": [
+                9,
+                16,
+                23
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.1",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                23
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                }
+              ],
+              "score": 117,
+              "chain": 1,
+              "units": 5,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 3,
+          "checksum": "0a2ca526",
+          "completedOrders": 1,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.6",
+              "cells": [
+                8,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 4,
+          "checksum": "397ae535",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.4",
+              "cells": [
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.7",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                9,
+                10,
+                15
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 5,
+          "checksum": "aa4ff862",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.9",
+              "cells": [
+                8,
+                9,
+                15
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 6,
+          "checksum": "d03b7a93",
+          "completedOrders": 2,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.8",
+              "cells": [
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 7,
+          "checksum": "863c46aa",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.13",
+              "cells": [
+                16,
+                17,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.2",
+              "cargo": "cargo.food",
+              "cells": [
+                8,
+                9,
+                15,
+                16,
+                17,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 134,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 8,
+          "checksum": "7b0e7db9",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.12",
+              "cells": [
+                8
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 9,
+          "checksum": "2ef3829d",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.11",
+              "cells": [
+                15,
+                16
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 10,
+          "checksum": "aea54247",
+          "completedOrders": 3,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.16",
+              "cells": [
+                19,
+                26,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 11,
+          "checksum": "6f661f96",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.18",
+              "cells": [
+                22,
+                23,
+                24
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.14",
+              "cargo": "cargo.chem",
+              "cells": [
+                8,
+                15,
+                16,
+                22,
+                23,
+                24
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 6,
+                  "y": 4
+                },
+                {
+                  "x": 6,
+                  "y": 5
+                },
+                {
+                  "x": 5,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 5
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 3
+                }
+              ],
+              "score": 154,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            },
+            {
+              "type": "upgrade",
+              "threshold": 4,
+              "choices": [
+                "light_orders",
+                "small_parcels",
+                "candidate_slots"
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 12,
+          "checksum": "8be685bd",
+          "completedOrders": 4,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "upgradeChosen",
+              "upgradeId": "candidate_slots",
+              "level": 1
+            }
+          ]
+        },
+        {
+          "commandIndex": 13,
+          "checksum": "3785787b",
+          "completedOrders": 5,
+          "shift": 1,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.15",
+              "cells": [
+                18,
+                25,
+                32
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.19",
+              "cargo": "cargo.food",
+              "cells": [
+                18,
+                19,
+                25,
+                26,
+                32,
+                33
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                }
+              ],
+              "score": 124,
+              "chain": 1,
+              "units": 6,
+              "extraClearedCells": []
+            }
+          ]
+        },
+        {
+          "commandIndex": 14,
+          "checksum": "4f1da437",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "cleanup",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.20",
+              "cells": [
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.10",
+              "cargo": "cargo.machine",
+              "cells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                }
+              ],
+              "score": 100,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "shift",
+              "shift": 2
+            }
+          ]
+        },
+        {
+          "commandIndex": 15,
+          "checksum": "3153e12a",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "cleanupChosen",
+              "branch": "orders"
+            }
+          ]
+        },
+        {
+          "commandIndex": 16,
+          "checksum": "df88de05",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.26",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 17,
+          "checksum": "8b137eb0",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.21",
+              "cells": [
+                1,
+                7,
+                8
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 18,
+          "checksum": "f5a6211a",
+          "completedOrders": 6,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.27",
+              "cells": [
+                10,
+                17,
+                24,
+                25
+              ]
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 0,
+                  "remaining": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 19,
+          "checksum": "9c93eecb",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.29",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.north",
+              "gateId": "dock.north",
+              "orderId": "order.24",
+              "cargo": "cargo.machine",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ],
+              "path": [
+                {
+                  "x": 3,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 1
+                },
+                {
+                  "x": 2,
+                  "y": 2
+                },
+                {
+                  "x": 1,
+                  "y": 2
+                }
+              ],
+              "score": 145,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "rushExpired",
+              "cells": [
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 20,
+          "checksum": "cd7ebb92",
+          "completedOrders": 7,
+          "shift": 2,
+          "phase": "input",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.31",
+              "cells": [
+                12
+              ]
+            }
+          ]
+        },
+        {
+          "commandIndex": 21,
+          "checksum": "c70c7e2e",
+          "completedOrders": 8,
+          "shift": 2,
+          "phase": "upgrade",
+          "events": [
+            {
+              "type": "placed",
+              "pieceId": "piece.32",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ]
+            },
+            {
+              "type": "shipment",
+              "boardSize": 7,
+              "dockId": "dock.east",
+              "gateId": "dock.east",
+              "orderId": "order.22",
+              "cargo": "cargo.food",
+              "cells": [
+                22,
+                29,
+                36,
+                37
+              ],
+              "path": [
+                {
+                  "x": 6,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 3
+                },
+                {
+                  "x": 5,
+                  "y": 4
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 3,
+                  "y": 4
+                },
+                {
+                  "x": 2,
+                  "y": 4
+                }
+              ],
+              "score": 125,
+              "chain": 1,
+              "units": 4,
+              "extraClearedCells": []
+            },
+            {
+              "type": "cleanup",
+              "branch": "orders",
+              "cells": [
+                0
+              ],
+              "triggers": 1,
+              "progress": 0
+            },
+            {
+              "type": "rushTick",
+              "cells": [
+                {
+                  "cell": 12,
+                  "remaining": 2
+                }
+              ]
+            },
+            {
+              "type": "upgrade",
+              "threshold": 8,
+              "choices": [
+                "candidate_slots",
+                "small_parcels",
+                "chain_bonus"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

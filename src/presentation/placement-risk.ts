@@ -1,6 +1,8 @@
-import { applyCommand } from '../domain/engine.ts';
+import {applyPlayableCommand,isInboundV9} from '../domain/playable.ts';
+import type {GameRun} from '../domain/playable.ts';
+import {docksV9} from '../domain/v9/board.ts';
 import { DOCKS, RULES_V2_CONFIG, upgradeStackV2 } from '../domain/v2/content.ts';
-import type { Cell, Point, RunState } from '../domain/types.ts';
+import type { Cell, Point } from '../domain/types.ts';
 
 export interface PlacementRisk {
   level: 'warning';
@@ -31,9 +33,10 @@ function reachable(board: Cell[], entrances: Entrance[], size: number): Set<numb
   return seen;
 }
 
-function activeAccess(state: RunState, size: number): Access[] {
+function activeAccess(state: GameRun, size: number): Access[] {
   if (state.mode === 'color_exit') return [{ dockId: 'dock.south', entrances: [{ cell: (size - 1) * size + Math.floor(size / 2), name: '南入口' }] }];
-  const side = state.rulesetVersion >= 2 && upgradeStackV2(state, 'side_gate') > 0;
+  if(isInboundV9(state))return docksV9(state).filter(d=>state.orders.some(o=>o.dockId===d.id)).map(d=>({dockId:d.id,entrances:[{cell:d.entry.y*size+d.entry.x,name:d.name},...(state.levels.side_gate?[{cell:(size-1)*size,name:'西南侧门'}]:[])]}));
+  const side = state.rulesetVersion >= 2 && upgradeStackV2(state as import('../domain/types.ts').RunState, 'side_gate') > 0;
   return DOCKS.filter(dock => state.orders.some(order => order.dockId === dock.id)).map(dock => ({
     dockId: dock.id,
     entrances: [{ cell: dock.entry.y * size + dock.entry.x, name: dock.name }, ...(side ? [{
@@ -45,8 +48,8 @@ function activeAccess(state: RunState, size: number): Access[] {
 /** Advisory only: the actual reducer owns placement validity and every settlement side effect.
  * Its cloned result is discarded, including generated candidates, RNG and command history.
  */
-export function placementRisk(state: RunState, pieceId: string, origin: Point): PlacementRisk | null {
-  const result = applyCommand(state, { type: 'place', pieceId, origin });
+export function placementRisk(state: GameRun, pieceId: string, origin: Point): PlacementRisk | null {
+  const result = applyPlayableCommand(state, { type: 'place', pieceId, origin });
   if (result.error) return null;
   const placed = result.events.find(event => event.type === 'placed');
   if (!placed || placed.type !== 'placed') return null;

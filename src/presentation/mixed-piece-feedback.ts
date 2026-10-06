@@ -1,6 +1,7 @@
 import { CARGO, SHAPES } from '../domain/content.ts';
 import { isMixedColorPiece, pieceCellCargo } from '../domain/pieces.ts';
-import type { CargoId, Piece, RunState } from '../domain/types.ts';
+import type { CargoId, Piece } from '../domain/types.ts';
+import type {GameRun} from '../domain/playable.ts';
 import type { ViewState } from './view-types.ts';
 
 export interface PreviewCargoCell { cell: number; cargo: CargoId }
@@ -18,7 +19,7 @@ export function pieceCaption(piece: Piece): string {
 }
 
 /** Shipment counts include old inventory. This summary intersects them with only the new piece. */
-export function mixedPiecePreview(state: RunState, view: ViewState): MixedPiecePreview | null {
+export function mixedPiecePreview(state: GameRun, view: ViewState): MixedPiecePreview | null {
   if (view.animation || !view.preview?.valid) return null;
   const piece = state.candidates.find(candidate => candidate.id === view.selectedPieceId);
   if (!piece || !isMixedColorPiece(piece)) return null;
