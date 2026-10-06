@@ -97,7 +97,7 @@ export class GameSession {
   if(this.view.noticeFx){const duration=this.view.noticeFx.kind==='fail'?(reduced?MOTION.reduced.failMs:MOTION.failMs):(reduced?MOTION.reduced.noticeMs:MOTION.noticeMs);this.view.noticeFx.progress=duration?Math.max(0,Math.min(1,(now-this.noticeStarted)/duration)):1;if(this.view.noticeFx.progress>=1)this.view.noticeFx=null;}
   if(this.view.animation){const timing=shipmentTiming(reduced),elapsed=Math.max(0,now-this.animationStarted),progress=Math.min(1,elapsed/timing.totalMs);this.view.animation.progress=progress;
    if(!this.animationCues.move&&timing.moveMs>0&&elapsed>=timing.routeMs&&elapsed<timing.routeMs+timing.moveMs){this.animationCues.move=true;this.sound('forklift');}
-   if(!this.animationCues.delivery&&elapsed>=timing.routeMs+timing.moveMs){this.animationCues.delivery=true;const chain=this.view.animation.shipment.chain;this.sound(chain>=4?'chain4':chain===3?'chain3':chain===2?'chain2':'ship');}
+   if(!this.animationCues.delivery&&elapsed>=(reduced?0:timing.routeMs+timing.moveMs+timing.collectMs+timing.carryMs)){this.animationCues.delivery=true;const chain=this.view.animation.shipment.chain;this.sound(chain>=4?'chain4':chain===3?'chain3':chain===2?'chain2':'ship');}
    if(progress>=1)this.nextAnimation(now);
   }
 

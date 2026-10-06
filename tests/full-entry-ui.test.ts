@@ -201,3 +201,23 @@ test('debug overlay presents paginated formal fields without extending below its
  const first=surface();render(first.ctx,run(),view({debug:true,debugPage:0}));assert.match(first.words(),/rng_state/);assert.match(first.words(),/last_checksum/);assert.match(first.words(),/下一页/);assert.ok(first.labels.filter(label=>label.value.startsWith('rng_state')).every(label=>label.y<1610));
  const second=surface();render(second.ctx,run(),view({debug:true,debugPage:1}));assert.match(second.words(),/generation|weight|shape/);assert.match(second.words(),/上一页/);
 });
+
+test('three teaching steps explain the order requirement, matching icons and the blocked route', () => {
+ let state=createRun(7,'tutorial',3);
+ const expected=[/北门要3件食品/,/上下左右/,/北门被机械挡住/];
+ for(let step=0;step<3;step++){
+  const output=surface();render(output.ctx,state,view());assert.match(output.words(),expected[step]);
+  state=applyCommand(state,{type:'place',pieceId:state.candidates[0].id,origin:[{x:1,y:1},{x:3,y:1},{x:3,y:4}][step]}).state;
+ }
+ const finished=surface();render(finished.ctx,state,view());assert.match(finished.words(),/每班6单.*5班/);assert.match(finished.words(),/候选全放不下.*失败/);
+});
+
+test('pause prioritizes basic rules and gives the correct standard daily overtime or tutorial goal', () => {
+ for(const [patch,goal] of [[{},/目标：每班6单.*5班/],[{mode:'daily'},/今日目标：每班6单.*5班/],[{overtime:true},/加班目标：继续接单追分/],[{mode:'tutorial'},/练习目标：学会按订单凑货/]] as const){
+  const state={...run(),...patch} as RunState,output=surface();render(output.ctx,state,view({paused:true}));
+  assert.match(output.words(),goal);assert.match(output.words(),/匹配的货类/);assert.match(output.words(),/同图标上下左右/);assert.match(output.words(),/新单等下一次落子/);assert.match(output.words(),/无订单先备货/);assert.match(output.words(),/候选全放不下/);
+  if(state.overtime)assert.doesNotMatch(output.words(),/目标：每班6单/);
+  const basic=output.labels.find(label=>label.value.includes('同图标上下左右'))!,special=output.labels.find(label=>label.value.includes('托盘占1格'))!;
+  assert.ok(basic.y<special.y);assert.ok(output.labels.filter(label=>label.value.includes('新单等')).every(label=>label.y<L.resume.y-24));
+ }
+});

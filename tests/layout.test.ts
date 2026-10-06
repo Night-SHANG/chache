@@ -98,7 +98,7 @@ test('animation Dock card describes the old shipment while authoritative orders 
   render(ctx, state, view);
   assert.ok(labels.includes('冷藏'));
   assert.ok(labels.includes('4格'));
-  assert.ok(labels.includes('出库中 · +125'));
+  assert.ok(labels.includes('叉车接货中 · +125'));
 });
 
 test('upgrade selection waits for the current shipment animation to finish', () => {

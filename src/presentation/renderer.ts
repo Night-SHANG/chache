@@ -4,10 +4,10 @@ import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
 import { getUiControls } from './ui.ts';
 import type { UiControl } from './ui.ts';
 import { CARGO, DOCKS, SHAPES, UPGRADES } from '../domain/content.ts';
-import { orderStatus } from '../domain/board.ts';
+import { boardHint, orderFeedback } from './order-feedback.ts';
 import type { CargoId, Cell, CellTrait, Dock, Piece, Point, RunState, Shipment, Upgrade } from '../domain/types.ts';
 import { L, cellCenter, getTrayRects } from './layout.ts';
-import { chainFeedback, collectPose, dockPosition, feedbackParticles, placementPose, reboundOffset, routePose, shipmentFrame } from './motion.ts';
+import { chainFeedback, collectPose, dockPosition, feedbackParticles, placementPose, reboundOffset, shipmentPose, shipmentGate, shipmentFrame } from './motion.ts';
 import type { Rect } from './layout.ts';
 import type { ViewState } from './view-types.ts';
 import { CREAM, MUTED, PALETTE, arrow, button, cargoBox, forklift, gradient, hazard, icon, outlinedText, panel, rivet, roundedPath, text } from './assets.ts';
@@ -30,7 +30,7 @@ export function render(ctx: Context, state: RunState, view: ViewState): void {
   const board = view.animation?.board ?? state.board;
   // Never mix an intermediate board with already-expired or cleared final traits.
   const cellTraits = view.animation ? view.animation.cellTraits : state.cellTraits;
-  drawOrders(ctx, { ...state, board, cellTraits }, view.animation?.shipment);
+  drawOrders(ctx, state, view);
   drawBoard(ctx, state, view, board, cellTraits);
   drawTrays(ctx, state, view);
   drawFooter(ctx, state, view);
@@ -99,16 +99,15 @@ function drawHeader(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, `${Math.max(0, progress)} / 6`, 474, 289, 23, CREAM, 'right');
 }
 
-function drawOrders(ctx: Context, state: RunState, shipment?: Shipment): void {
+function drawOrders(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, '出库订单', 56, 330, 26, CREAM);
   text(ctx, '数量达标 · 通路畅通', 1027, 330, 22, MUTED, 'right', 500);
   const w = (972 - (state.orders.length - 1) * 16) / Math.max(1, state.orders.length);
   state.orders.forEach((order, i) => {
     const x = 54 + i * (w + 16), y = 357;
-    const status = orderStatus(state, order);
-    const shipping = shipment?.dockId === order.dockId ? shipment : undefined;
+    const feedback = orderFeedback(state, order, view), { status, shipping, previewShipment } = feedback;
     const cargo = shipping?.cargo ?? order.cargo;
-    const p = PALETTE[cargo], ready = !!shipping || status.status === 'ready';
+    const p = PALETTE[cargo], ready = !!shipping || !!previewShipment || status.status === 'ready';
     const statusColor = ready ? '#abd982' : status.status === 'blocked' ? '#ff976d' : '#aac4d6';
     panel(ctx, { x, y, w, h: 135 }, ready ? '#2a4c3c' : '#293d51', ready ? '#8bb875' : '#697f90', 13);
     ctx.fillStyle = p.mid; roundedPath(ctx, x + 13, y + 14, 46, 46, 8); ctx.fill(); icon(ctx, cargo, x + 36, y + 37, 31, '#fff5df', p.ink);
@@ -120,16 +119,17 @@ function drawOrders(ctx: Context, state: RunState, shipment?: Shipment): void {
     ctx.fillStyle = '#10212c'; roundedPath(ctx, x + 15, y + 78, w - 30, 8, 4); ctx.fill();
     roundedPath(ctx, x + 15, y + 78, Math.max(1, (w - 30) * Math.min(1, shipping ? 1 : status.count / order.amount)), 8, 4); ctx.fillStyle = p.mid; ctx.fill();
     ctx.fillStyle = statusColor; ctx.beginPath(); ctx.arc(x + 22, y + 108, 5, 0, Math.PI * 2); ctx.fill();
-    const reason = 'reason' in status ? status.reason : undefined;
-    const blocked = reason === 'entry-blocked' ? '入口被堵 · 请留空' : reason === 'route-blocked' ? '数量已够 · 无空路' : '数量已够 · 通路被堵';
-    const label = shipping ? `出库中 · +${shipping.score}` : ready ? '通路畅通 · 可出库' : status.status === 'blocked' ? blocked : `再连 ${Math.max(0, order.amount - status.count)} ${state.rulesetVersion >= 2 ? '件' : '格'}`;
+    const stage = shipping && view.animation ? shipmentFrame(view.animation.progress, !!view.profile?.settings.reducedMotion).stage : null;
+    const label = shipping ? `${stage === 'exit' ? '正在离场' : stage === 'carry' ? '载货倒车中' : stage === 'collect' ? '装载中' : '叉车接货中'} · +${shipping.score}` : feedback.label;
     text(ctx, label, x + 35, y + 108, state.orders.length > 3 ? 17 : 21, statusColor, 'left', 600);
   });
 }
 
 function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[], cellTraits?: (CellTrait | null)[]): void {
   const { x, y, size, cell } = L.board;
-  if (!view.animation) text(ctx, tutorialStep(state) === 2 ? '数量够，路却堵住了：南门清墙 → 北门出货' : '同类相邻成组，给叉车留条路', 540, L.boardHint.y + L.boardHint.h / 2, 22, '#d9d0b7', 'center', 600);
+  const lesson = tutorialStep(state), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
+  const lessonHint = !view.animation && state.rulesetVersion === 3 && lesson !== null ? ['看上方订单：北门要3件食品，先放2件', '食品还差1件；上下左右连起来，再留空路', '食品够3件，北门被机械挡住：南门清机械→北门出食品'][lesson] : null;
+  if (!delivery) text(ctx, lessonHint ?? boardHint(state, view), 540, L.boardHint.y + L.boardHint.h / 2, 22, '#d9d0b7', 'center', 600);
   panel(ctx, { x: x - 26, y: y - 24, w: size + 52, h: size + 54 }, '#56616a', '#829098', 12);
   hazard(ctx, { x: x - 13, y: y - 13, w: size + 26, h: 14 });
   hazard(ctx, { x: x - 13, y: y + size - 1, w: size + 26, h: 14 });
@@ -153,18 +153,27 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   ctx.fillStyle = gradient(ctx, x, y + size - 18, 18, 'rgba(32,30,26,0)', 'rgba(32,30,26,.25)'); ctx.fillRect(x, y + size - 18, size, 18);
   drawTutorialTarget(ctx, state, view);
   for (const r of [0, 1]) for (const c of [0, 1]) rivet(ctx, x - 21 + c * (size + 42), y - 19 + r * (size + 40), 5);
-  state.orders.forEach(order => { const dock = DOCKS.find(d => d.id === order.dockId); if (dock) drawGate(ctx, dock, order.cargo); });
+  state.orders.forEach(order => {
+    const dock = DOCKS.find(d => d.id === order.dockId), shipping = view.animation?.shipment;
+    if (dock) drawGate(ctx, dock, shipping?.dockId === order.dockId ? shipping.cargo : order.cargo);
+  });
+  const finalShipment = view.animation?.shipment;
+  if (finalShipment && !state.orders.some(order => order.dockId === finalShipment.dockId)) {
+    const dock = DOCKS.find(d => d.id === finalShipment.dockId);
+    if (dock) drawGate(ctx, dock, finalShipment.cargo);
+  }
   if (state.upgrades.includes('upgrade.side_gate')) drawSideGate(ctx);
   if (view.preview?.valid) view.preview.shipments.forEach(s => drawRoute(ctx, s.path, false));
   const shipment = view.animation?.shipment, reduced = !!view.profile?.settings.reducedMotion;
   const frame = view.animation ? shipmentFrame(view.animation.progress, reduced) : null;
   if (shipment && frame) drawRoute(ctx, shipment.path, true, reduced ? 1 : .25 + frame.route * .75);
-  const dock = shipment ? DOCKS.find(d => d.id === shipment.dockId) : undefined;
+  const transport = shipment && frame ? shipmentPose(shipment, frame) : null;
+  const loaded = !!shipment && !reduced && (frame?.stage === 'carry' || frame?.stage === 'exit');
   const collecting = shipment && frame?.stage === 'collect' && !reduced;
   const drawCargo = (cargo: CargoId, index: number): void => {
     const source = { x: x + index % 7 * cell + 60, y: y + Math.floor(index / 7) * cell + 59 };
     const isShipment = shipment?.cells.includes(index), extra = shipment?.extraClearedCells?.includes(index);
-    const pose = collecting && isShipment && dock ? collectPose(source, dockPosition(dock), frame!.collect, false) : { ...source, scale: 1 };
+    const pose = collecting && isShipment && transport ? collectPose(source, transport.cargo, frame!.collect, false) : { ...source, scale: 1 };
     const placed = view.placementFx?.cells.includes(index) ? placementPose(view.placementFx.progress, reduced) : { x: 1, y: 1 };
     const failure = view.noticeFx?.kind === 'fail' ? placementPose(view.noticeFx.progress, reduced) : { x: 1, y: 1 };
     // Extra clears are unscored cleanup, so they disappear in place instead of flying to a Dock.
@@ -174,8 +183,11 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
     cargoBox(ctx, cargo, -55, -55, 110, collecting && extra ? 1 - frame!.collect : 1, cellTraits?.[index], view.profile?.cosmetics.cargo);
     ctx.restore();
   };
-  board.forEach((cargo, index) => { if (cargo && !(collecting && shipment?.cells.includes(index))) drawCargo(cargo, index); });
-  // Collected boxes stay above stationary boxes during their short flight.
+  board.forEach((cargo, index) => {
+    if (!cargo || loaded && (shipment?.cells.includes(index) || shipment?.extraClearedCells?.includes(index))) return;
+    if (!(collecting && shipment?.cells.includes(index))) drawCargo(cargo, index);
+  });
+  // The selected group gathers at the fork; the carried pallet replaces it only after loading.
   if (collecting) shipment?.cells.forEach(index => { const cargo = board[index]; if (cargo) drawCargo(cargo, index); });
   drawChosenGroups(ctx, view);
   drawExtraClears(ctx, view);
@@ -298,21 +310,34 @@ function drawPlacementFeedback(ctx: Context, view: ViewState): void {
 
 function drawShipment(ctx: Context, shipment: Shipment, progress: number, view: ViewState): void {
   const reduced = !!view.profile?.settings.reducedMotion, frame = shipmentFrame(progress, reduced);
-  const feedback = chainFeedback(shipment.chain), pose = routePose(shipment.path, frame.move);
+  const feedback = chainFeedback(shipment.chain), pose = shipmentPose(shipment, frame);
   const dock = DOCKS.find(d => d.id === shipment.dockId), target = dock ? dockPosition(dock) : null;
   if (pose) {
-    if (frame.stage === 'move') drawParticles(ctx, feedbackParticles(pose, shipment.chain, frame.move, 'move', reduced), '#c9baa0');
+    // The doorway occludes vehicles outside the warehouse, never the order or tray UI.
+    ctx.save(); ctx.beginPath(); ctx.rect(L.board.x - 30, L.board.y - 30, L.board.size + 60, L.board.size + 60); ctx.clip();
+    if (frame.stage === 'move' || frame.stage === 'carry') drawParticles(ctx, feedbackParticles(pose, shipment.chain, frame.stage === 'move' ? frame.move : frame.carry, 'move', reduced), '#c9baa0');
+    ctx.globalAlpha *= reduced ? 1 : pose.alpha;
     forklift(ctx, pose.x, pose.y, 99, pose.angle, view.profile?.cosmetics.forklift);
+    if (!reduced && pose.loaded) {
+      const cargo = pose.cargo;
+      // A stylized batch on the forks, not a new physical body or a gameplay cell.
+      ctx.fillStyle = '#af8750'; ctx.strokeStyle = '#54442f'; ctx.lineWidth = 3;
+      roundedPath(ctx, cargo.x - 35, cargo.y + 16, 70, 17, 3); ctx.fill(); ctx.stroke();
+      cargoBox(ctx, shipment.cargo, cargo.x - 32, cargo.y - 34, 64, 1, undefined, view.profile?.cosmetics.cargo);
+      panel(ctx, { x: cargo.x - 34, y: cargo.y + 24, w: 68, h: 28 }, '#17372f', '#b0daa1', 6);
+      text(ctx, `${shipment.units ?? shipment.cells.length}件`, cargo.x, cargo.y + 38, 20, '#f4ffe5', 'center', 800);
+    }
+    ctx.restore();
   }
-  if (target && frame.stage === 'collect') {
+  if (target && (reduced || frame.stage === 'exit')) {
     if (!reduced) {
       // One bounded pulse, confined to the gate and optionally the outer board rim.
-      const pulse = Math.sin(Math.PI * frame.collect);
+      const pulse = Math.sin(Math.PI * frame.exit), gate = shipmentGate(shipment) ?? target;
       ctx.save(); ctx.globalAlpha = feedback.flash * pulse; ctx.strokeStyle = '#ffe8a0'; ctx.lineWidth = 12;
-      ctx.beginPath(); ctx.arc(target.x, target.y, 39, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(gate.x, gate.y, 39, 0, Math.PI * 2); ctx.stroke();
       if (feedback.pulse) { ctx.globalAlpha = .18 * pulse; ctx.lineWidth = 5; ctx.strokeRect(L.board.x - 22, L.board.y - 21, L.board.size + 44, L.board.size + 42); }
       ctx.restore();
-      drawParticles(ctx, feedbackParticles(target, shipment.chain, frame.collect, 'collect'), '#ffe29b');
+      drawParticles(ctx, feedbackParticles(gate, shipment.chain, frame.exit, 'collect'), '#ffe29b');
     }
     // Scores stay in the Dock margin. Side-gate route entry never substitutes for the order Dock.
     const side = dock!.side;
@@ -496,7 +521,10 @@ function drawResult(ctx: Context, state: RunState, view: ViewState): void {
   const selected=[...new Set(state.upgrades)].map(id=>UPGRADES.find(upgrade=>upgrade.id===id)?.title??id);
   const keyUpgrades=selected.length?selected.slice(0,3).join(' / ')+(selected.length>3?` 等${selected.length}项`:''):'无';
   text(ctx, `关键升级  ${keyUpgrades}`, 240, 1041, 23, '#d4dcdd', 'left', 500);
-  if (tutorial) text(ctx, '练习不计入正式成绩与五班全勤', 540, 1118, 28, '#c1d1d6', 'center', 500);
+  if (tutorial) {
+    text(ctx, '正式目标：每班6单，共5班；候选全放不下就失败', 540, 1118, 25, '#e7e8cf', 'center', 600);
+    text(ctx, '本次练习不计入正式成绩', 540, 1161, 23, '#c1d1d6', 'center', 500);
+  }
   else if (daily) text(ctx, '同日同规则固定种子 · 每日挑战不进入加班', 540, 1118, 25, '#c1d1d6', 'center', 500);
   else if (!getUiControls(state, view).some(control => control.action.type === 'continueOvertime')) text(ctx, '下一次，给叉车留一条路', 540, 1118, 29, '#c1d1d6', 'center', 500);
   drawControls(ctx, state, view);
@@ -588,16 +616,27 @@ function drawActivePause(ctx: Context, state: RunState, view: ViewState): void {
   const overtime = !!state.overtime;
   panel(ctx, { x: 173, y: 395, w: 734, h: overtime ? 1310 : 1160 }, '#30455a', '#95a9b1', 28);
   hazard(ctx, { x: 201, y: 423, w: 678, h: 18 });
-  forklift(ctx, 540, 551, 137, -.12, view.profile?.cosmetics.forklift);
-  outlinedText(ctx, overtime ? '加班休息中' : '休息一下', 540, 674, 68, CREAM, 'center');
-  text(ctx, '货物与订单都已暂停', 540, 761, 29, '#c6d1d6', 'center', 500);
+  outlinedText(ctx, overtime ? '加班休息中' : '休息一下', 540, 520, 68, CREAM, 'center');
+  text(ctx, '货物与订单都已暂停', 540, 594, 29, '#c6d1d6', 'center', 500);
+  const goal = overtime ? '加班目标：继续接单追分，可主动结束'
+    : state.mode === 'tutorial' ? '练习目标：学会按订单凑货、给叉车留路'
+      : state.mode === 'daily' ? '今日目标：每班6单，共5班，同日固定种子'
+        : '目标：每班6单，共5班，完成订单就能过关';
+  text(ctx, goal, 540, 653, 26, '#ffe3a1', 'center', 700);
+  const basics = [
+    '看上方订单：只运匹配的货类，数量至少达标',
+    '同图标上下左右连成组；门口到货旁要有空路',
+    '有效落子后查全部旧单；新单等下一次落子',
+    '无订单先备货；候选全放不下就爆仓',
+  ];
+  basics.forEach((line,index)=>text(ctx,line,540,714+index*41,24,'#e4eddf','center',600));
   const rules = state.rulesetVersion >= 2 ? [
     '托盘占1格计2件；万能可连接当前订单货类',
     '加急：后续有效放置倒数归零，变废弃物',
     '废物占格不出库；危险品出货时清相邻废物',
     '穿托盘不搬走托盘；额外清理不计分',
-  ] : ['同类货物相邻成组，达到订单数量', '从出货口留出空格通路，叉车自动搬运'];
-  rules.forEach((line, index) => text(ctx, line, 540, 850 + index * 42, 24, '#b7cbd4', 'center', 500));
+  ] : ['货件固定朝向，不可旋转；相同货类不必同一货件'];
+  rules.forEach((line,index)=>text(ctx,line,540,913+index*35,22,'#b7cbd4','center',500));
   drawControls(ctx, state, view);
   text(ctx, view.saveStatus || '当前值班保留在本机', 540, overtime ? 1774 : 1630, 24, '#a3bac8', 'center', 500);
 }

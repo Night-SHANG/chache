@@ -13,7 +13,7 @@ import type { ViewState } from '../src/presentation/view-types.ts';
 
 const view = (patch: Partial<ViewState> = {}): ViewState => ({ selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '', elapsed: 0, animation: null, debug: false, needsResume: false, profile: createProfile(), ...patch });
 const run = (): RunState => ({ ...createRun(7, 'standard', 3), board: Array(49).fill(null), candidates: [{ id: 'piece.feedback', cargo: 'cargo.food', shapeId: 'shape.single' }] });
-const shipment = (patch: Partial<Shipment> = {}): Shipment => ({ type: 'shipment', dockId: 'dock.north', orderId: 'order.old', cargo: 'cargo.food', cells: [17], path: [{ x: 3, y: 0 }, { x: 3, y: 1 }, { x: 3, y: 2 }], score: 450, chain: 1, ...patch });
+const shipment = (patch: Partial<Shipment> = {}): Shipment => ({ type: 'shipment', dockId: 'dock.north', orderId: 'order.old', cargo: 'cargo.food', cells: [24], path: [{ x: 3, y: 0 }, { x: 3, y: 1 }, { x: 3, y: 2 }], score: 450, chain: 1, ...patch });
 
 /** Records actual Canvas2D output, and rejects APIs absent from the host baseline. */
 function surface() {
@@ -42,24 +42,25 @@ function surface() {
   return { ctx, labels, draws, words: () => labels.map(label => label.value).join('\n'), stack };
 }
 
-test('motion contracts use independent 100ms placement and 140/350/160ms shipment stages', () => {
+test('motion contracts use independent 100ms placement and explicit inbound load carry exit stages', () => {
   assert.deepEqual(motion.MOTION, { placeMs: 100, invalidMs: 140, noticeMs: 650, failMs: 180, reduced: { placeMs: 0, invalidMs: 0, noticeMs: 240, failMs: 0 } });
-  assert.deepEqual(motion.shipmentTiming(false), { routeMs: 140, moveMs: 350, collectMs: 160, totalMs: 650 });
-  assert.deepEqual(motion.shipmentTiming(true), { routeMs: 0, moveMs: 0, collectMs: 80, totalMs: 80 });
+  assert.deepEqual(motion.shipmentTiming(false), { routeMs: 100, moveMs: 260, collectMs: 140, carryMs: 360, exitMs: 140, totalMs: 1000 });
+  assert.deepEqual(motion.shipmentTiming(true), { routeMs: 0, moveMs: 0, collectMs: 80, carryMs: 0, exitMs: 0, totalMs: 80 });
 });
 
-test('linear shipment clock lights the path before moving and collects only after 490ms', () => {
-  assert.equal(motion.shipmentFrame(70 / 650, false).route, .5);
-  assert.equal(motion.shipmentFrame(139 / 650, false).move, 0);
-  assert.equal(motion.shipmentFrame(140 / 650, false).stage, 'move');
-  const halfway = motion.shipmentFrame(315 / 650, false);
-  assert.equal(halfway.move, .5); assert.equal(halfway.collect, 0);
-  assert.equal(motion.shipmentFrame(489 / 650, false).stage, 'move');
-  assert.equal(motion.shipmentFrame(490 / 650, false).stage, 'collect');
-  assert.equal(motion.shipmentFrame(570 / 650, false).collect, .5);
-  assert.equal(motion.shipmentFrame(1, false).collect, 1);
-  assert.equal(motion.shipmentFrame(-1, false).route, 0);
-  assert.equal(motion.shipmentFrame(2, false).collect, 1);
+test('linear shipment clock lights the path, loads, carries, and exits in order', () => {
+  assert.equal(motion.shipmentFrame(.05, false).route, .5);
+  assert.equal(motion.shipmentFrame(.099, false).move, 0);
+  assert.equal(motion.shipmentFrame(.1, false).stage, 'move');
+  const halfway=motion.shipmentFrame(.23,false);assert.equal(halfway.move,.5);assert.equal(halfway.collect,0);
+  assert.equal(motion.shipmentFrame(.359,false).stage,'move');
+  assert.equal(motion.shipmentFrame(.36,false).stage,'collect');
+  assert.equal(motion.shipmentFrame(.43,false).collect,.5);
+  assert.equal(motion.shipmentFrame(.5,false).stage,'carry');
+  assert.equal(motion.shipmentFrame(.86,false).stage,'exit');
+  assert.equal(motion.shipmentFrame(1,false).exit,1);
+  assert.equal(motion.shipmentFrame(-1,false).route,0);
+  assert.equal(motion.shipmentFrame(2,false).exit,1);
 });
 
 test('forklift pose follows canonical segments with eased motion and stable endpoint headings', () => {
@@ -69,18 +70,18 @@ test('forklift pose follows canonical segments with eased motion and stable endp
   assert.deepEqual(motion.routePose(path, 1), { ...cellCenter(path[2]), angle: 0 });
   assert.deepEqual(motion.routePose([path[0]], .5), { ...cellCenter(path[0]), angle: 0 });
   assert.equal(motion.routePose([], .5), null);
-  const quarter = motion.shipmentFrame((140 + 350 / 4) / 650, false);
+  const quarter = motion.shipmentFrame((100 + 260 / 4) / 1000, false);
   assert.ok(quarter.move > 0 && quarter.move < .25, 'mature tween easing applies inside move stage only');
 });
 
-test('collection lifts first, then converges to the actual order Dock rather than canonical path entry', () => {
+test('collection lifts first, then packs at the forklift load anchor without disappearing', () => {
   const source = cellCenter({ x: 3, y: 2 });
   for (const dock of DOCKS) {
     const target = motion.dockPosition(dock);
     const lifted = motion.collectPose(source, target, .15, false);
     assert.equal(lifted.x, source.x); assert.ok(lifted.y < source.y); assert.equal(lifted.scale, 1);
     const settled = motion.collectPose(source, target, 1, false);
-    assert.equal(settled.x, target.x); assert.equal(settled.y, target.y); assert.ok(settled.scale <= .08);
+    assert.equal(settled.x, target.x); assert.equal(settled.y, target.y); assert.equal(settled.scale, 64 / 110);
     const halfway = motion.collectPose(source, target, .6, false);
     assert.ok(Math.abs(halfway.x - target.x) <= Math.abs(source.x - target.x));
   }
@@ -125,7 +126,7 @@ test('placement has one bounded squash and invalid candidate has one small rebou
 });
 
 test('renderer uses baseline Canvas2D deterministically and never mutates domain or view', () => {
-  const state = run(); state.board[17] = 'cargo.food';
+  const state = run(); state.board[24] = 'cargo.food';
   for (const reducedMotion of [false, true]) for (const progress of [.05, .4, .82, 1]) {
     const current = view({ animation: { shipment: shipment({ chain: 40 }), progress, board: state.board.slice() } });
     current.profile!.settings.reducedMotion = reducedMotion;
@@ -138,8 +139,8 @@ test('renderer uses baseline Canvas2D deterministically and never mutates domain
   for (const file of ['renderer.ts', 'motion.ts']) assert.doesNotMatch(readFileSync(new URL(`../src/presentation/${file}`, import.meta.url), 'utf8'), /Math\.random|['"]lighter['"]|getContext\(['"]webgl/);
 });
 
-test('shipment score appears only at collection and remains outside the board for every Dock', () => {
-  const state = run(); state.board[17] = 'cargo.food';
+test('shipment score appears only at exit and remains outside the board for every Dock', () => {
+  const state = run(); state.board[24] = 'cargo.food';
   for (const dock of DOCKS) {
     const current = view({ animation: { shipment: shipment({ dockId: dock.id, chain: 4 }), progress: .45, board: state.board } });
     const before = surface(); render(before.ctx, state, current); assert.equal(before.labels.some(label => label.value === '+450'), false);
@@ -152,7 +153,7 @@ test('shipment score appears only at collection and remains outside the board fo
 });
 
 test('reduced rendering retains score and path while eliminating dynamic drawing across progress', () => {
-  const state = run(); state.board[17] = 'cargo.food';
+  const state = run(); state.board[24] = 'cargo.food';
   const current = view({ animation: { shipment: shipment({ chain: 4 }), progress: .1, board: state.board } });
   current.profile!.settings.reducedMotion = true;
   const first = surface(); render(first.ctx, state, current);
@@ -189,24 +190,24 @@ test('failure notice hides result captions and locks result hit regions until it
 });
 
 test('reduced shipment keeps the exact cargo-group boundary and no dynamic Dock particles', () => {
-  const state = run(); state.board[17] = 'cargo.food';
+  const state = run(); state.board[24] = 'cargo.food';
   const current = view({ animation: { shipment: shipment({ chain: 40 }), progress: .85, board: state.board } });
   current.profile!.settings.reducedMotion = true;
   const output = surface(); render(output.ctx, state, current);
-  assert.ok(output.draws.some(draw => draw.kind === 'strokeRect' && draw.stroke === '#cbffde' && draw.values[0] === L.board.x + 3 * 120 + 4 && draw.values[1] === L.board.y + 2 * 120 + 4));
+  assert.ok(output.draws.some(draw => draw.kind === 'strokeRect' && draw.stroke === '#cbffde' && draw.values[0] === L.board.x + 3 * 120 + 4 && draw.values[1] === L.board.y + 3 * 120 + 4));
   assert.equal(output.draws.filter(draw => draw.kind === 'arc' && ['#c9baa0', '#ffe29b'].includes(String(draw.fill))).length, 0);
   assert.equal(output.draws.some(draw => draw.kind === 'stroke' && draw.stroke === '#ffe8a0'), false);
 });
 
 test('rendered particle counts and single edge pulse remain capped at chain four', () => {
-  const state = run(); state.board[17] = 'cargo.food';
-  for (const chain of [2, 3, 4, 40]) for (const [progress, limit] of [[.5, 6], [.88, 12]]) {
+  const state = run(); state.board[24] = 'cargo.food';
+  for (const chain of [2, 3, 4, 40]) for (const [progress, limit] of [[.23, 6], [.93, 12]]) {
     const current = view({ animation: { shipment: shipment({ chain }), progress, board: state.board } });
     const output = surface(); render(output.ctx, state, current);
     const particles = output.draws.filter(draw => draw.kind === 'arc' && ['#c9baa0', '#ffe29b'].includes(String(draw.fill)));
     assert.ok(particles.length > 0 && particles.length <= limit);
     const edge = output.draws.filter(draw => draw.kind === 'strokeRect' && draw.stroke === '#ffe8a0');
-    assert.equal(edge.length, chain >= 4 && progress > 490 / 650 ? 1 : 0);
+    assert.equal(edge.length, chain >= 4 && progress >= .86 ? 1 : 0);
     assert.ok(edge.every(draw => Number(draw.alpha) <= .18 && draw.values[0] === L.board.x - 22));
   }
 });
@@ -218,4 +219,41 @@ test('single south Dock score does not overlap the bottom instruction line', () 
   const hint = output.labels.find(label => label.y === 1467);
   assert.ok(score && hint);
   assert.ok(score.y + score.size / 2 < hint.y - hint.size / 2, 'the score and instruction glyph boxes must be separate');
+});
+
+test('a consolidated load with its quantity stays attached during carry and exit', () => {
+ const state=run(); state.board[24]='cargo.food';
+ for(const progress of [.65,.92]){
+  const current=view({animation:{shipment:shipment({units:3}),progress,board:state.board}});
+  const output=surface();render(output.ctx,state,current);
+  assert.ok(output.labels.some(label=>label.value==='3件'),'shipping goods remain visible as a quantified load');
+ }
+});
+
+test('delivery score waits for the loaded return to reach the actual exit', () => {
+ const state=run();state.board[24]='cargo.food';
+ const loading=surface();render(loading.ctx,state,view({animation:{shipment:shipment(),progress:.45,board:state.board}}));
+ const returning=surface();render(returning.ctx,state,view({animation:{shipment:shipment(),progress:.80,board:state.board}}));
+ assert.equal(loading.labels.some(label=>label.value==='+450'),false);
+ assert.equal(returning.labels.some(label=>label.value==='+450'),false);
+ const exiting=surface();render(exiting.ctx,state,view({animation:{shipment:shipment(),progress:.93,board:state.board}}));
+ assert.equal(exiting.labels.some(label=>label.value==='+450'),true);
+});
+
+test('shipping gate keeps the dispatched cargo color until delivery instead of showing the refreshed order', () => {
+ const state=run();state.board[24]='cargo.food';state.orders=[{id:'order.new',dockId:'dock.north',cargo:'cargo.machine',amount:4,baseScore:100}];
+ const active=surface();render(active.ctx,state,view({animation:{shipment:shipment(),progress:.65,board:state.board}}));
+ const gates=active.draws.filter(draw=>draw.kind==='moveTo'&&draw.values[0]===-16&&draw.values[1]===-31);
+ assert.equal(gates.length,1);assert.equal(gates[0].fill,'#e9584b');
+ const idle=surface();render(idle.ctx,state,view());
+ assert.equal(idle.draws.find(draw=>draw.kind==='moveTo'&&draw.values[0]===-16&&draw.values[1]===-31)?.fill,'#76a74d');
+});
+
+test('transport is clipped to the warehouse lane and north delivery never overlaps its hint', () => {
+ const state=run();state.board[24]='cargo.food';
+ for(const progress of [.05,.65,.93]){
+  const output=surface();render(output.ctx,state,view({animation:{shipment:shipment(),progress,board:state.board}}));
+  assert.ok(output.draws.some(draw=>draw.kind==='rect'&&draw.values.join(',')==='90,530,900,900'));
+  if(progress===.93){assert.ok(output.labels.some(label=>label.value==='+450'));assert.equal(output.labels.some(label=>label.y===L.boardHint.y+L.boardHint.h/2),false);}
+ }
 });

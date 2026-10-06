@@ -165,7 +165,7 @@ test('three-tray compatibility alias stays identical and invalid counts do not i
 });
 
 test('v2 order cards use Domain units and distinguish blocked entry from an unreachable aisle', () => {
-  for (const [reason, expected] of [['ready', '通路畅通 · 可出库'], ['entry', '入口被堵 · 请留空'], ['route', '数量已够 · 无空路']] as const) {
+  for (const [reason, expected] of [['ready', '已满足 · 落子后检查'], ['entry', '入口被堵 · 请留空'], ['route', '数量已够 · 无空路']] as const) {
     const state = v2State(), surface = canvasSurface();
     state.orders = [{ id: 'order.food', dockId: 'dock.north', cargo: 'cargo.food', amount: 3, baseScore: 100 }];
     const indices = reason === 'route' ? [28, 29] : [8, 9];

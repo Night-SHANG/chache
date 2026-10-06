@@ -41,3 +41,7 @@
 origin：https://github.com/VaJoy/wx-minigame-helper.git
 HEAD：ad99e35a0200d4548cd879aa218ce845fd1e9fa2
 完整克隆，工作区干净；1430份references文件。仅阅读，没有执行其中脚本。以其正文作当前平台主要依据，未对不相关内容反复重查。
+
+## 2026-10-06 用户实测修复
+
+v0.3.2仅修表现与解释，不改规则：叉车到点朝货、装载后原路倒车，从实际门口离场；订单提示区分当前满足与落子预览，教学和暂停补基础玩法。用户暂不走站点托管的选择继续保留。细节与版本兼容见[forklift-feedback-v032.md](forklift-feedback-v032.md)。

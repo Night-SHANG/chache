@@ -1,0 +1,28 @@
+{
+  "status": "PAUSED_AT_USER_REQUEST",
+  "recordedAt": "2026-10-06T00:54:35Z",
+  "reason": "User asked to wait while comparing a different exit-and-forklift rule; no new gameplay rule implemented.",
+  "workVersion": "0.3.2-dev UNRELEASED",
+  "lastLibraryReleaseVersion": 6,
+  "lastReleasedGameVersion": "0.3.1-dev",
+  "baselineRestoreCommit": "1a9a237",
+  "latestBuiltGameSha256": "da99edcb5113d13a6c57cead2b18891bee18055f4a7b92b5e06cc821de56aeb4",
+  "gameplayFilesChanged": false,
+  "verification": {
+    "restoredBaselineNodeTests": "412/412 PASS",
+    "integratedNodeSuiteBeforeFinalTeachingAndClip": "459/459 PASS",
+    "independentLatestFocused": "75/75 PASS; teaching and v3 rules 39/39 PASS; clean-no-build exporter 4/4 PASS",
+    "latestTeachingRendererExporterFocused": "45/45 PASS",
+    "priorFullHostSuite": "host-smoke, host-v2-smoke, host-full-loop, host-feedback PASS before final teaching/clip",
+    "latestDeliveryHostPartial": "7 routes / 71 frames, lifecycle, reduced, order UI passed before new 3-size copy assertion",
+    "threeSizeStatus": "360x800 safeTop24 DPR2 tutorial 1/2 and tutorial pause passed. Step3 assertion expects old shorter text; remaining pages/sizes NOT RUN.",
+    "deliveryReportWarning": "report.json remains previous-build afade84 report. PNGs contain newer partial renders. Do NOT call this a complete latest-build report.",
+    "fullLatestAggregateGate": "NOT RUN after final teaching/clip changes",
+    "browserAndWechat": "NOT RUN by this task; user supplied v0.3.1 feedback only"
+  },
+  "nextIfOldRuleFixResumed": [
+    "Update exact step3 host text assertion to the approved fuller wording; preserve semantics.",
+    "Run all three sizes and final full lint/typecheck/tests/preflight/build/host; regenerate report with matching final build hash.",
+    "Inspect final screenshots, update checkpoint, commit, private Library checkpoint only after development resumes."
+  ]
+}

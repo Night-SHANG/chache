@@ -16,10 +16,10 @@ await writeFile('artifacts/01-host-initial.png',await host.canvas.encode('png'))
 host.drag(center(L.trays[0]),{x:300,y:740});host.frame();assert.equal(host.snapshot().commandIndex,1);assert.equal(host.snapshot().completedOrders,0);
 host.tap(center(L.trays[1]).x,center(L.trays[1]).y);host.tap(540,740);host.frame(150);assert.equal(host.snapshot().completedOrders,1);assert.equal(host.snapshot().score,100);
 await writeFile('artifacts/02-host-shipment.png',await host.canvas.encode('png'));
-host.frame(900);assert.equal(host.snapshot().completedOrders,1);
+host.frame(1300);assert.equal(host.snapshot().completedOrders,1);
 await writeFile('artifacts/03-host-after-shipment.png',await host.canvas.encode('png'));
-const old=host.storage.get(SAVE_KEYS.main);host.pointer('down',206,1666);host.pointer('move',540,1000);host.pointer('cancel',540,1000);host.pointer('up',540,1000);host.frame(950);assert.equal(host.storage.get(SAVE_KEYS.main),old,'cancel does not submit');
-host.tap(980,104);host.frame(1000);const paused=host.storage.get(SAVE_KEYS.main);host.drag(center(L.trays[0]),{x:300,y:860});host.frame(1050);assert.equal(host.storage.get(SAVE_KEYS.main),paused,'pause blocks board');
+const old=host.storage.get(SAVE_KEYS.main);host.pointer('down',206,1666);host.pointer('move',540,1000);host.pointer('cancel',540,1000);host.pointer('up',540,1000);host.frame(1350);assert.equal(host.storage.get(SAVE_KEYS.main),old,'cancel does not submit');
+host.tap(980,104);host.frame(1400);const paused=host.storage.get(SAVE_KEYS.main);host.drag(center(L.trays[0]),{x:300,y:860});host.frame(1450);assert.equal(host.storage.get(SAVE_KEYS.main),paused,'pause blocks board');
 await writeFile('artifacts/04-host-paused.png',await host.canvas.encode('png'));
 const reload=createHost(540,960,host.storage);reload.frame();await writeFile('artifacts/05-host-resume.png',await reload.canvas.encode('png'));reload.tap(540,1147);reload.frame();assert.equal(reload.snapshot().commandIndex,2);assert.equal(reload.snapshot().score,100);
 reload.callbacks.hide();reload.frame(100);assert.equal(reload.snapshot().completedOrders,1);reload.callbacks.show();reload.tap(540,1147);reload.frame(150);
@@ -33,7 +33,7 @@ for(let step=0;step<250&&journey.snapshot().phase!=='result';step++){
  if(state.phase==='upgrade'){if(!capturedUpgrade){await writeFile('artifacts/09-host-upgrade.png',await journey.canvas.encode('png'));capturedUpgrade=true;}const button=center(L.upgradeRects[0]);journey.tap(button.x,button.y);}
  else{const move=chooseMove(state);const index=state.candidates.findIndex(p=>p.id===move.pieceId);journey.drag(center(getTrayRects(state.candidates.length)[index]),{x:L.board.x+(move.origin.x+0.5)*L.board.cell,y:L.board.y+(move.origin.y+0.5)*L.board.cell});}
  journey.frame(journeyTime+=120);if(journey.snapshot().lastChain>1&&!capturedChain){await writeFile('artifacts/10-host-chain.png',await journey.canvas.encode('png'));capturedChain=true;}
- for(let i=0;i<5;i++)journey.frame(journeyTime+=800);
+ for(let i=0;i<5;i++)journey.frame(journeyTime+=1000);
  if(journey.snapshot().board.filter(Boolean).length>maxDense){maxDense=journey.snapshot().board.filter(Boolean).length;await writeFile('artifacts/11-host-dense-board.png',await journey.canvas.encode('png'));capturedDense=true;}
 }
 assert.ok(capturedUpgrade,'actual touch sequence reaches an upgrade');assert.equal(journey.snapshot().phase,'result');await writeFile('artifacts/12-host-result.png',await journey.canvas.encode('png'));
@@ -52,7 +52,7 @@ const chained=createHost(540,960,new Map([[SAVE_KEYS.main,encodeRun(chainState)]
 const chainIndex=chainState.candidates.findIndex(p=>p.id===chainMove.pieceId);chained.drag(center(getTrayRects(chainState.candidates.length)[chainIndex]),{x:L.board.x+(chainMove.origin.x+0.5)*L.board.cell,y:L.board.y+(chainMove.origin.y+0.5)*L.board.cell});chained.frame(850);chained.frame(1000);assert.ok(chained.snapshot().lastChain>1);await writeFile('artifacts/10-host-chain.png',await chained.canvas.encode('png'));capturedChain=true;
 assert.notEqual(winningSeed,null);const victory=createHost(540,960,new Map([[SAVE_KEYS.main,encodeRun({...createRun(winningSeed,'standard',CURRENT_RULESET),maxOccupancy:0})]]));victory.frame();victory.tap(540,1147);victory.frame();let victoryTime=1000;
 for(let step=0;step<300&&victory.snapshot().phase!=='result';step++){
- const state=victory.snapshot();if(state.phase==='upgrade'){const button=center(L.upgradeRects[0]);victory.tap(button.x,button.y);}else{const move=chooseMove(state),index=state.candidates.findIndex(p=>p.id===move.pieceId);victory.drag(center(getTrayRects(state.candidates.length)[index]),{x:L.board.x+(move.origin.x+0.5)*L.board.cell,y:L.board.y+(move.origin.y+0.5)*L.board.cell});}for(let i=0;i<5;i++)victory.frame(victoryTime+=800);
+ const state=victory.snapshot();if(state.phase==='upgrade'){const button=center(L.upgradeRects[0]);victory.tap(button.x,button.y);}else{const move=chooseMove(state),index=state.candidates.findIndex(p=>p.id===move.pieceId);victory.drag(center(getTrayRects(state.candidates.length)[index]),{x:L.board.x+(move.origin.x+0.5)*L.board.cell,y:L.board.y+(move.origin.y+0.5)*L.board.cell});}for(let i=0;i<5;i++)victory.frame(victoryTime+=1000);
 }
 assert.equal(victory.snapshot().result,'won');assert.equal(victory.snapshot().shift,5);await writeFile('artifacts/13-host-victory.png',await victory.canvas.encode('png'));
 const terminalReload=createHost(540,960,victory.storage);terminalReload.frame();terminalReload.callbacks.hide();assert.equal(terminalReload.snapshot().result,'won');

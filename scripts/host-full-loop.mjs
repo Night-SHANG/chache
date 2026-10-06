@@ -10,7 +10,7 @@ import {getUiControls} from '../src/presentation/ui.ts';
 import {L,getTrayRects} from '../src/presentation/layout.ts';
 const profile=h=>decodeProfile(h.storage.get(PROFILE_KEYS.main));
 const center=r=>({x:r.x+r.w/2,y:r.y+r.h/2});
-let time=0;const frame=h=>h.frame(time+=300),settle=h=>{for(let i=0;i<5;i++)h.frame(time+=900);};
+let time=0;const frame=h=>h.frame(time+=300),settle=h=>{for(let i=0;i<5;i++)h.frame(time+=1000);};
 const ui=(h,action,screen='game',paused=false,confirmation=null)=>{
  const state=h.snapshot(),view={screen,paused,confirmation,needsResume:false,profile:profile(h),canContinue:state.phase!=='result',animation:null};
  const controls=getUiControls(state,view),control=controls.find(c=>Object.entries(action).every(([k,v])=>c.action[k]===v));assert.ok(control,`control exists: ${JSON.stringify(action)}`);assert.ok(!control.disabled,`control enabled: ${control.label}`);const p=center(control.rect);h.tap(p.x,p.y);frame(h);
