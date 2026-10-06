@@ -1,0 +1,23 @@
+{
+  "status": "validated_completed",
+  "plannedRuns": 100002,
+  "verifiedRuns": 100002,
+  "pairedSeeds": 33334,
+  "strategies": [
+    "random",
+    "greedy",
+    "route"
+  ],
+  "batches": 334,
+  "gameplayChanged": false,
+  "gameCommit": "2f069901b69ecec8fcfbc0383c15fcf1ab7b7fc7",
+  "qaExecutionCommit": "df78e6b0ce866a82af138fd476e7fdc55e0c93a8",
+  "deliverableCommit": "527a9abc2a7cf0493415f971be3c945fb2eff6fe",
+  "sourceSha256": "bbe0ec96cdebd09051c04a44f846efaf25bac2b043f7f06103f578ac3c56918e",
+  "rulesSha256": "5d2c7f34a74ce705672ba4e841ab705aa90048b5796298508d7b18ca0f159a4e",
+  "analysisSha256": "d84464f0f076cde210832e4796775c8d82facfb2b33b8934213798c451d1bf4e",
+  "nodeTestsPassed": 412,
+  "pythonTestsPassed": 22,
+  "runtimeStatus": "headless rules scan completed; real browser and WeChat devices NOT RUN; no human balance certification",
+  "report": "docs/large-scan-results.md"
+}

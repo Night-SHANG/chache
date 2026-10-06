@@ -1,0 +1,41 @@
+/** Complete v3 UI exercised via actual wx touch handlers. Offline host, not browser/WeChat device. */
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {createHost} from './host-runtime.mjs';
+import {createRun,applyCommand,findLegalMoves} from '../src/domain/engine.ts';
+import {chooseMove} from './simulate.mjs';
+import {encodeRun,SAVE_KEYS} from '../src/application/save.ts';
+import {decodeProfile,PROFILE_KEYS,localDailyChallenge} from '../src/application/profile.ts';
+import {getUiControls} from '../src/presentation/ui.ts';
+import {L,getTrayRects} from '../src/presentation/layout.ts';
+const profile=h=>decodeProfile(h.storage.get(PROFILE_KEYS.main));
+const center=r=>({x:r.x+r.w/2,y:r.y+r.h/2});
+let time=0;const frame=h=>h.frame(time+=300),settle=h=>{for(let i=0;i<5;i++)h.frame(time+=900);};
+const ui=(h,action,screen='game',paused=false,confirmation=null)=>{
+ const state=h.snapshot(),view={screen,paused,confirmation,needsResume:false,profile:profile(h),canContinue:state.phase!=='result',animation:null};
+ const controls=getUiControls(state,view),control=controls.find(c=>Object.entries(action).every(([k,v])=>c.action[k]===v));assert.ok(control,`control exists: ${JSON.stringify(action)}`);assert.ok(!control.disabled,`control enabled: ${control.label}`);const p=center(control.rect);h.tap(p.x,p.y);frame(h);
+};
+const drop=(h,origin,index=0)=>{h.drag(center(getTrayRects(h.snapshot().candidates.length)[index]),{x:L.board.x+(origin.x+0.5)*L.board.cell,y:L.board.y+(origin.y+0.5)*L.board.cell});settle(h);};
+const pause=h=>{const p=center(L.pause);h.tap(p.x,p.y);frame(h);};
+const picture=async(h,name)=>writeFile(`artifacts/${name}.png`,await h.canvas.encode('png'));
+const h=createHost();frame(h);assert.equal(h.snapshot().rulesetVersion,3);assert.equal(h.snapshot().candidates.length,1);await picture(h,'18-host-v3-first-lesson');
+drop(h,{x:1,y:1});assert.equal(h.snapshot().tutorialStep,1);drop(h,{x:3,y:1});assert.equal(h.snapshot().tutorialStep,2);assert.equal(h.snapshot().completedOrders,1);await picture(h,'19-host-v3-blocked-lesson');
+drop(h,{x:3,y:4});assert.equal(h.snapshot().result,'won');assert.equal(h.snapshot().maxChain,2);assert.equal(profile(h).tutorialComplete,true);assert.equal(profile(h).stats.runs,0);await picture(h,'20-host-v3-tutorial-complete');
+ui(h,{type:'newRun',mode:'standard'});assert.equal(h.snapshot().mode,'standard');assert.equal(h.snapshot().runSerial,2);
+const beforeDebug=h.storage.get(SAVE_KEYS.main);h.tap(center(L.debug).x,center(L.debug).y);frame(h);await picture(h,'30-host-v3-debug-state');h.tap(710,1580);frame(h);await picture(h,'31-host-v3-debug-weights');h.tap(320,740);frame(h);assert.equal(h.storage.get(SAVE_KEYS.main),beforeDebug);h.tap(center(L.debug).x,center(L.debug).y);frame(h);
+const move=findLegalMoves(h.snapshot())[0],index=h.snapshot().candidates.findIndex(p=>p.id===move.pieceId);drop(h,move.origin,index);
+pause(h);ui(h,{type:'settings'},'game',true);await picture(h,'21-host-v3-settings');
+const beforeSettings=JSON.stringify(h.snapshot());ui(h,{type:'toggleSound'},'settings',true);ui(h,{type:'toggleMotion'},'settings',true);ui(h,{type:'cosmetic',kind:'theme',id:'night'},'settings',true);ui(h,{type:'cosmetic',kind:'cargo',id:'outline'},'settings',true);assert.equal(profile(h).settings.sound,false);assert.equal(profile(h).settings.reducedMotion,true);assert.equal(profile(h).cosmetics.theme,'night');assert.equal(JSON.stringify(h.snapshot()),beforeSettings);await picture(h,'22-host-v3-night-settings');
+const locked=getUiControls(h.snapshot(),{screen:'settings',profile:profile(h)}).find(c=>c.action.type==='cosmetic'&&c.action.id==='red');assert.equal(locked.disabled,true);const lockedPoint=center(locked.rect);h.tap(lockedPoint.x,lockedPoint.y);frame(h);assert.equal(profile(h).cosmetics.forklift,'yellow');
+ui(h,{type:'back'},'settings',true);ui(h,{type:'home'},'game',true);await picture(h,'23-host-v3-main-menu');
+const beforeDaily=h.storage.get(SAVE_KEYS.main),beforeProfile=h.storage.get(PROFILE_KEYS.main);ui(h,{type:'newRun',mode:'daily'},'menu');await picture(h,'24-host-v3-new-run-confirm');ui(h,{type:'cancel'},'menu',false,{kind:'newRun',mode:'daily'});assert.equal(h.storage.get(SAVE_KEYS.main),beforeDaily);assert.equal(h.storage.get(PROFILE_KEYS.main),beforeProfile);
+ui(h,{type:'newRun',mode:'daily'},'menu');ui(h,{type:'confirm'},'menu',false,{kind:'newRun',mode:'daily'});assert.equal(h.snapshot().mode,'daily');const expected=localDailyChallenge(Date.parse('2026-10-05T12:00:00.000Z'),3);assert.equal(h.snapshot().seed,expected.seed);assert.equal(h.snapshot().challengeDay,expected.day);await picture(h,'25-host-v3-local-daily');
+pause(h);const currentDaily=h.storage.get(SAVE_KEYS.main);ui(h,{type:'settings'},'game',true);ui(h,{type:'resetProfile'},'settings',true);await picture(h,'26-host-v3-reset-confirm');ui(h,{type:'cancel'},'settings',true,{kind:'resetProfile'});assert.equal(h.storage.get(SAVE_KEYS.main),currentDaily);
+ui(h,{type:'resetProfile'},'settings',true);ui(h,{type:'confirm'},'settings',true,{kind:'resetProfile'});assert.equal(profile(h).stats.runs,0);assert.equal(h.storage.get(SAVE_KEYS.main),currentDaily);
+const nextDay=createHost(540,960,h.storage,0,1,Date.parse('2026-10-06T12:00:00.000Z'));frame(nextDay);await picture(nextDay,'27-host-v3-previous-day-resume');nextDay.tap(center(L.resume).x,center(L.resume).y);frame(nextDay);assert.equal(nextDay.snapshot().challengeDay,'2026-10-05');assert.equal(nextDay.snapshot().seed,expected.seed);
+// Derive a real reachable victory before loading it through the ordinary save entry.
+let winning=createRun(1,'standard',3);for(let n=0;n<300&&winning.phase!=='result';n++){const command=winning.phase==='upgrade'?{type:'upgrade',upgradeId:winning.upgradeChoices[0]}:{type:'place',...chooseMove(winning)};winning=applyCommand(winning,command).state;}assert.equal(winning.result,'won');
+const ot=createHost(540,960,new Map([[SAVE_KEYS.main,encodeRun(winning)]]));frame(ot);assert.equal(profile(ot).stats.runs,1);await picture(ot,'28-host-v3-standard-victory');ui(ot,{type:'continueOvertime'});assert.equal(ot.snapshot().overtime,true);assert.equal(ot.snapshot().phase,'input');
+const safeMove=findLegalMoves(ot.snapshot()).find(m=>applyCommand(ot.snapshot(),{type:'place',...m}).state.phase==='input');assert.ok(safeMove);drop(ot,safeMove.origin,ot.snapshot().candidates.findIndex(p=>p.id===safeMove.pieceId));pause(ot);ui(ot,{type:'finishOvertime'},'game',true);const overtimeRaw=ot.storage.get(SAVE_KEYS.main);ui(ot,{type:'cancel'},'game',true,{kind:'finishOvertime'});assert.equal(ot.storage.get(SAVE_KEYS.main),overtimeRaw);ui(ot,{type:'finishOvertime'},'game',true);ui(ot,{type:'confirm'},'game',true,{kind:'finishOvertime'});assert.equal(ot.snapshot().endReason,'retired');assert.equal(profile(ot).stats.runs,1);assert.ok(profile(ot).bestScores['overtime.v3']);await picture(ot,'29-host-v3-overtime-result');
+const reloaded=createHost(540,960,ot.storage);frame(reloaded);reloaded.callbacks.hide();assert.equal(profile(reloaded).stats.runs,1);assert.equal(profile(reloaded).stats.orders,ot.snapshot().completedOrders);
+await writeFile('artifacts/host-full-loop.json',JSON.stringify({status:'PASS',kind:'actual game.js offline wx-host touch simulation; NOT real browser or WeChat',rulesetVersion:3,checks:['one-piece first tutorial','real blocked-route teaching chain','tutorial separated from formal stats','result to standard new run','pause to settings','sound/reduced motion/theme/cargo persist','locked cosmetic cannot be selected','main-menu controls','new-run cancel preserves both stores','daily date and seed UTC+8','profile reset cancel and confirmed Run isolation','cross-day resume keeps original challenge','real reachable standard victory','explicit Overtime entry and retirement with cancel','result reload is idempotent','paginated debug fields and hidden-board input isolation'],images:14},null,2));console.log('PASS: v3 full entry/profile/daily/settings/tutorial/Overtime touch journey; 14 host-rendered screens.');

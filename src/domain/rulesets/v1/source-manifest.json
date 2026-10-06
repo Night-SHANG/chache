@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "23e55cd77324be4eea490447fa0fc83c814bb3a7",
+  "rulesetVersion": 1,
+  "files": {
+    "board.ts": "fc6cd84ec924321a1995c79d3161e4f8b62cf7e6fbef896476134abb785e30ef",
+    "content.ts": "0f559f1800272a5e91c8610f0f5a8c1ac5b901f4f84248cfd920d9b4fcd00cc5",
+    "engine.ts": "7867827fed52961139adf86aff07da81b27d18c2fe62f9c6f13ebdbe5e9d997e",
+    "random.ts": "ea76664c43348efe5b8d2bffa4751c2721f55f7ca6818009e6b7419afad4ac3e",
+    "replay.ts": "cbad4ac49cd394a28a25c0e97bcc3ebb4cfb2e596e4e5e662aebd59f496a4a8b",
+    "types.ts": "94ba2b0fd993616223782104d410758bd3cfced625906852a2ddfa3319b892fc"
+  }
+}

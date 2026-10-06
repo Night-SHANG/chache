@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {createHost} from './host-runtime.mjs';
+import {createRun} from '../src/domain/engine.ts';
+import {checksum} from '../src/domain/replay.ts';
+import {encodeRun,SAVE_KEYS} from '../src/application/save.ts';
+import {createProfile,encodeProfile,PROFILE_KEYS} from '../src/application/profile.ts';
+import {L,getTrayRects} from '../src/presentation/layout.ts';
+const center=r=>({x:r.x+r.w/2,y:r.y+r.h/2});
+const point=(x,y)=>({x:L.board.x+(x+.5)*L.board.cell,y:L.board.y+(y+.5)*L.board.cell});
+const drop=(h,x,y)=>h.drag(center(getTrayRects(h.snapshot().candidates.length)[0]),point(x,y));
+const picture=async(h,name)=>writeFile(`artifacts/${name}.png`,await h.canvas.encode('png'));
+const played=(h,name)=>h.audioEvents.filter(e=>e.type==='play'&&e.src===`assets/${name}.wav`).length;
+const h=createHost();h.frame(16);drop(h,1,1);const first=checksum(h.snapshot());h.frame(66);await picture(h,'32-host-fx-place');h.frame(166);assert.equal(checksum(h.snapshot()),first);
+drop(h,3,1);const shipped=checksum(h.snapshot());h.frame(236);await picture(h,'33-host-fx-route');h.frame(476);await picture(h,'34-host-fx-forklift');h.frame(736);await picture(h,'35-host-fx-collect');h.frame(816);assert.equal(played(h,'forklift'),1);assert.equal(played(h,'ship'),1);assert.equal(checksum(h.snapshot()),shipped);
+drop(h,3,4);const chain=checksum(h.snapshot());h.frame(1126);h.frame(1386);h.frame(1466);h.frame(1776);h.frame(2036);await picture(h,'36-host-fx-chain2');h.frame(2116);assert.equal(played(h,'chain2'),1);assert.equal(checksum(h.snapshot()),chain);
+// Explicit authored four-order contract fixture, not a claim of naturally generated balance.
+const state=createRun(99,'standard',3);Object.assign(state,{shift:5,completedOrders:24,nextId:100,maxOccupancy:12});state.board.fill(null);state.cellTraits.fill(null);
+const groups=[['cargo.food',[8,9,10]],['cargo.machine',[26,33,40]],['cargo.chem',[36,37,38]],['cargo.cold',[22,23,24]]];for(const [cargo,cells] of groups)for(const cell of cells)state.board[cell]=cargo;
+state.orders=['north','east','south','west'].map((dock,i)=>({id:`order.fixture${i}`,dockId:`dock.${dock}`,cargo:groups[i][0],amount:3,baseScore:100}));state.candidates.forEach(p=>{p.shapeId='shape.single';p.cargo='cargo.food';delete p.trait;delete p.rushTurns;});
+const four=createHost(540,960,new Map([[SAVE_KEYS.main,encodeRun(state)]]));four.frame(16);four.tap(center(L.resume).x,center(L.resume).y);drop(four,0,0);assert.equal(four.snapshot().lastChain,4);const fourChecksum=checksum(four.snapshot());for(let i=1;i<=3;i++)four.frame(16+i*650);four.frame(2536);await picture(four,'37-host-fx-chain4');assert.equal(played(four,'chain3'),1);assert.equal(played(four,'chain4'),1);four.frame(2616);assert.equal(checksum(four.snapshot()),fourChecksum);
+const failing=createRun(2,'standard',3);failing.board.fill('cargo.food');failing.board[0]=null;failing.candidates.forEach(p=>{p.shapeId='shape.single';p.cargo='cargo.machine';});failing.orders.forEach(o=>{o.cargo=o.dockId==='dock.north'?'cargo.cold':'cargo.chem';});
+const fail=createHost(540,960,new Map([[SAVE_KEYS.main,encodeRun(failing)]]));fail.frame(16);fail.tap(center(L.resume).x,center(L.resume).y);drop(fail,0,0);const failed=checksum(fail.snapshot());fail.frame(106);await picture(fail,'38-host-fx-fail-transition');fail.tap(center(L.restart).x,center(L.restart).y);assert.equal(checksum(fail.snapshot()),failed);fail.frame(196);await picture(fail,'39-host-fx-fail-result');assert.equal(played(fail,'fail'),1);
+const profile=createProfile();profile.settings.reducedMotion=true;const reduced=createHost(540,960,new Map([[PROFILE_KEYS.main,encodeProfile(profile)]]));reduced.frame(16);drop(reduced,1,1);drop(reduced,3,1);const reducedChecksum=checksum(reduced.snapshot());reduced.frame(56);await picture(reduced,'40-host-fx-reduced');reduced.frame(96);assert.equal(played(reduced,'forklift'),0);assert.equal(played(reduced,'ship'),1);reduced.callbacks.hide();const audioCount=reduced.sounds.length;reduced.frame(1000);reduced.callbacks.show();reduced.frame(1016);assert.equal(reduced.sounds.length,audioCount);assert.equal(checksum(reduced.snapshot()),reducedChecksum);
+await writeFile('artifacts/host-feedback.json',JSON.stringify({status:'PASS',kind:'actual game.js offline Canvas/wx-host simulation; no real device or human listening',rulesetVersion:3,checks:['100ms placement snapshot','140ms route / 350ms move / 160ms collection snapshots','canonical path animation and stable gameplay checksum','real teaching Chain2 delivery cue','authored Chain4 fixture capped cue','180ms failure transition blocks result clicks','reduced80ms static feedback without forklift stage','hide/show discards transient audio and never repeats score'],images:9,audioEvents:{teaching:h.audioEvents,chain4:four.audioEvents,failure:fail.audioEvents,reduced:reduced.audioEvents}},null,2));console.log('PASS: phase3 actual package feedback timing/audio-call contracts; 9 host-rendered frames, real listening NOT RUN.');

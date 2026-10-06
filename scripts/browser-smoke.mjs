@@ -1,0 +1,13 @@
+import {createRequire} from 'node:module';
+import {mkdir,writeFile} from 'node:fs/promises';
+const require=createRequire(import.meta.url);
+const {chromium}=require('/opt/codex/cua_node/lib/node_modules/playwright');
+await mkdir('artifacts',{recursive:true});
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,chromiumSandbox:true,env:{...process.env,HOME:'/tmp/warehouse-browser-home',XDG_CACHE_HOME:'/tmp/warehouse-browser-cache',XDG_CONFIG_HOME:'/tmp/warehouse-browser-config'}});
+const page=await browser.newPage({viewport:{width:540,height:960},deviceScaleFactor:1});
+const errors=[];page.on('pageerror',error=>errors.push(error.message));
+await page.goto('http://127.0.0.1:4173/?seed=123');await page.waitForTimeout(400);
+await page.screenshot({path:'artifacts/01-first-playable.png'});
+console.log(await page.evaluate(()=>({commandIndex:window.__WAREHOUSE__.getState().commandIndex,phase:window.__WAREHOUSE__.getState().phase})));
+await writeFile('artifacts/browser-errors.json',JSON.stringify(errors));
+await browser.close();if(errors.length)throw Error(errors.join('\n'));
