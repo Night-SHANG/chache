@@ -1,9 +1,10 @@
 # 爆仓：最后一格 · 游戏版本备份
 
-游戏源码和逐版恢复快照保存在 `dev/wechat-game` 分支。本 main 分支只用作备份导航。
+- [打开最新源码（dev/wechat-game）](https://github.com/Night-SHANG/chache/tree/dev/wechat-game)
+- [查看版本映射与安全回退说明](https://github.com/Night-SHANG/chache/blob/dev/wechat-game/BACKUP_VERSIONS.md)
 
-备份按版本逐次提交，保留源码、lockfile、测试及构建脚本。首次导入的是 v0.3.1 恢复快照、v0.3.2 暂停时工作快照、v0.3.2 已验证节点、v0.4.0 双模式节点；各阶段的原始提交标识和 GitHub 备份提交标识会在该分支的 `BACKUP_VERSIONS.md` 中列明。
+已备份 v0.3.1 恢复快照、v0.3.2 暂停时 WIP、v0.3.2 本地已验证、v0.4.0 双模式、v0.5.0 混色三档。每版都有独立提交，可回到对应源码。main 只保留此导航。
 
-这些是重新导入的源码快照，不冒充原 Git 提交。早于 v0.3.1 恢复节点的原始 Git 对象并未找回。完整本地历史 bundle 继续保存在原私有文件备份中。
+这些是重新导入的源码快照，原 SHA 与备份 SHA 对照已写入恢复说明。早于 v0.3.1 恢复节点的原 Git 对象未找回；恢复后的完整原历史 bundle 另随私有文件备份保留。
 
-备份排除 node_modules、构建输出、真实玩家存档、凭据、私有参考截图、Notion 原文、十万局原始扫描数据与外部文档仓库。
+保留源码、lockfile、测试、资源生成和构建脚本；排除 node_modules、构建输出、真实玩家存档、凭据、私有截图、Notion 原文、十万局原始数据和外部文档仓库。真实浏览器、微信设备与真人体验验收以各版本说明为准。
