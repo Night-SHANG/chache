@@ -1,7 +1,8 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
-import {createRun,previewPlacement} from '../src/domain/engine.ts';
+import {createRun} from '../src/domain/engine.ts';
 import {createProfile} from '../src/application/profile.ts';
 import {render} from '../src/presentation/renderer.ts';
 import {getUiControls} from '../src/presentation/ui.ts';

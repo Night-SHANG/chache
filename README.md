@@ -1,40 +1,40 @@
-# 爆仓：最后一格 · v0.7.4 试玩版
+# 爆仓：最后一格 · v0.8.0
 
-入库按订单配货，出库把同色货物连到出口；两个模式都需要给叉车留路。入库保留普通五班、无限和每日挑战；出库为9×9四档。
+入库按订单配货，出库把同色货物连到出口；两个模式都需要给叉车留路。
 
-本版按用户选择，将出库每组动画固定为1秒：入场、整组收拢、载货到色口、离场。长路线在固定阶段内加快，连锁逐组播放。车辆仍沿当前货组清空后的最短安全通路行驶。其他颜色原地保留，规则、入库演出与计分不变。
+新版入库包含普通五班、无限和每日挑战：10类升级、7次选择、扩仓与候选扩容、加急报废、清扫二选一，以及可在开局前携带的三种道具。金币与道具库存跨局保留。出库的简单、中等、困难、专业各有普通和无限入口。两个模式分别提供可跳过的实际操作引导。
 
-操作见[试玩说明](docs/v074-playtest.md)，本地验收与平台边界见[验证记录](docs/v074-validation.md)。
+操作与打开方式见[试玩说明](docs/v080-playtest.md)。升级、价格、概率和收益仍是试行数值；完整验收记录见[验证记录](docs/v080-validation.md)。
 
 ## 打开试玩
 
-完整解压ZIP。Windows已安装Node.js时双击start-preview.cmd，启动后打开http://127.0.0.1:4173/。关闭命令窗口停止服务。macOS/Linux在目录中运行node scripts/serve.mjs。已构建试玩无需安装项目依赖；需要Node.js可从https://nodejs.org/获取官方版，开发基线为Node24。
+完整解压ZIP。Windows已安装Node.js时双击start-preview.cmd，启动后打开http://127.0.0.1:4173/。关闭命令窗口停止服务。macOS/Linux在目录中运行node scripts/serve.mjs。已构建试玩无需安装项目依赖；Node.js官方来源为https://nodejs.org/，开发基线为Node24。
 
-build/browser/index.html可直接打开，但文件模式的存储与音频支持取决于浏览器，优先HTTP方式。使用相同浏览器和地址保留本地进度；换浏览器或清缓存不会自动迁移。
+请通过启动器的HTTP地址打开。浏览器需要Web Locks以保证同一份记录只由一个窗口保存。第二个窗口会只读；返回原窗口继续。使用相同浏览器和地址保留本地记录。
 
-微信开发者工具导入build/wechat为小游戏，目录含真实game.js和game.json。project.config.json的AppID留空，由有权限的开发者填写。没有申请、配置凭据、上传或发布微信版本。
+微信开发者工具导入build/wechat为小游戏，目录含真实game.js/game.json，AppID留空供有权限的开发者填写。本项目没有申请凭据、上传或正式发布微信版本。
 
-## 开发与证据
+## 保存与版本
 
-依赖由package-lock.json固定，恢复依赖使用npm ci --ignore-scripts。常用任务为npm run lint、npm run typecheck、npm test、npm run preflight、npm run build和npm run host-smoke。构建不依赖网页dist转换，浏览器与微信共享规则和画面，平台适配单独隔离。
+新版入库规则9，普通出库规则8，无限出库规则10；旧1–8局保持原规则。旧成绩不追溯发金币。正常新局与重开分配新seed，每日按开局的北京时间日期固定seed；没有在线排名或服务器校时。
 
-普通构建默认关闭诊断。明确开发用途可执行npm run build:debug，开启只读状态与浏览器复现接口；开发构建不能替代玩家交付构建。普通出库按持久化局序号分配不同seed，固定seed仍保存在单局/回放中。每日的客户端日界仍为北京时间，不使用服务器校时，也没有在线排行榜。
+钱包、库存、当前新局、教学与领取记录共同提交到双副本。确认回主页结束当前棋盘，保留已得金币并退回未用道具；取消退出不改记录。后台和意外关闭恢复仍活跃的局。长局回放以128条指令封段保存；容量或保存不明时先停止新操作、核对原记录。
 
-- src/domain：独立TS规则、连通组、BFS、确定性生成、连锁与Replay。
-- src/application：会话、14个兼容存档槽、关闭标记、Profile、异常保护。
-- src/presentation和src/platform：共享Canvas2D、触控、生命周期、声音。
-- scripts/host-v074.mjs：实际game.js在离屏Canvas/wx宿主中的当前验收。
-- scripts/outbound-fixed-video-qa.mjs：实际game.js的完整30fps原速无声录像、逐帧载荷/位置、阶段边界与合法路线检查。
-- qa/v8-prefix-verify.mjs：读取400条已记录v6输入，验证旧状态及新增终局的前缀行为。
-- docs/v8-prefix-verification.md：核对方法与结果，不能当作新机器人平衡实验。
-- docs/project-scope-audit.md及历史版本记录：母文档范围和历史完成情况。
+本地校验用于减少重复结算并发现损坏，不能防止手工改档、全库回滚、清缓存或跨设备丢失。没有远程账号、云同步、充值、广告或体力。
 
-build-manifest.json、CHECKPOINT.json与包内SHA256SUMS记录来源和产物。完整开发备份保存历史Git bundle与大型QA数据；轻量试玩包只包含启动所需内容和说明。
+## 开发与验证
 
-## 验证边界
+以下命令用于完整源码备份；轻量试玩包不含源码、测试或开发依赖。
 
-本地测试和离屏宿主能够验证代码、规则和产物行为，不能替代真实浏览器、WindowsGUI、微信开发者工具/真机、音频听感或真人平衡验收。主玩法尚未最终选定。
+依赖由package-lock.json固定，恢复依赖使用npm ci --ignore-scripts。常用任务：npm run lint、npm run typecheck、npm test、npm run preflight、npm run build。浏览器与微信共享规则和画面，平台薄层单独适配。
 
-旧100,002局只覆盖旧入库规则；v0.6的400局测量和v0.7的记录前缀核对各自注明范围。没有依据机器人胜率自动调整规则，也没有把这些结果当作好玩或公平性证明。
+- src/domain：独立规则、确定性生成、四邻接/BFS、出货连锁与回放；旧规则指纹保持。
+- src/application：统一账户事务、收益、道具预留、历史分段、教学和旧档兼容。
+- src/presentation与src/platform：Canvas2D、共享触控几何、生命周期和声音。
+- scripts/host-growth.mjs：未修改game.js在原生Canvas/wx模拟宿主的手势、画面与逐帧验证。
+- scripts/simulate-growth.mjs：固定协议的新版规则/经济观察，可恢复且拒绝重复seed或不完整证据。
+- scripts/verify-account-faults.mjs：账户损坏与写入异常回归，以及只读证据验证。
 
-无远程账号、广告、支付、在线榜单或云存档。视觉采用现有程序化资产；四张视觉样板仅作方向参考，不嵌入游戏包。
+普通构建默认关闭开发诊断；npm run build:debug仅供开发复现。build-manifest.json、CHECKPOINT.json和包内SHA256SUMS记录源与产物。完整开发备份保存源码、Git历史及本次证据；轻包只含启动必需文件与简短说明。
+
+离屏宿主不等于真实浏览器、Windows GUI或微信真机。真人手感、音频听感、设备兼容和实际平衡仍需相应环境验证。旧100,002局不覆盖本次规则；新版1,280局仅是限定策略/种子/预算的经验样本，不代表真人乐趣或最优策略。没有据机器人胜率自动调整参数。

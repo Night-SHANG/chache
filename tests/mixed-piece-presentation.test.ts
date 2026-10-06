@@ -1,8 +1,9 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCanvas } from '@napi-rs/canvas';
 import { createProfile } from '../src/application/profile.ts';
-import { applyCommand, createRun, previewPlacement } from '../src/domain/engine.ts';
+import { applyCommand, createRun} from '../src/domain/engine.ts';
 import { checksum } from '../src/domain/replay.ts';
 import type { CargoId, Piece, RunState, Shipment } from '../src/domain/types.ts';
 import type { ViewState } from '../src/presentation/view-types.ts';
@@ -19,7 +20,7 @@ function run(): RunState {
   const state = createRun(7, 'color_exit', 5, 'entry'); state.board.fill(null); state.candidates = [mixedPiece()]; return state;
 }
 function view(patch: Partial<ViewState> = {}): ViewState {
-  return { selectedPieceId: 'piece.mixed', hoverOrigin: null, preview: { valid: true, cells: [3, 4, 10, 11], shipments: [] }, dragPoint: null,
+  return { selectedPieceId: 'piece.mixed', hoverOrigin: null, preview: { valid: true,events:[], cells: [3, 4, 10, 11], shipments: [] }, dragPoint: null,
     paused: false, message: '', saveStatus: '', elapsed: 0, animation: null, debug: false, needsResume: false, profile: createProfile(), ...patch };
 }
 function surface() {
@@ -48,7 +49,7 @@ function event(cargo: CargoId, cells: number[]): Shipment {
     orderId: cargo === FOOD ? 'exit.food' : 'exit.chem', score: cells.length * 10, chain: 1 };
 }
 function previewView(shipments: Shipment[] = []): ViewState {
-  return view({ preview: { valid: true, cells: [10, 11, 17, 18], shipments } });
+  return view({ preview: { valid: true,events:[], cells: [10, 11, 17, 18], shipments } });
 }
 
 // The shipment total includes old stock, while the remainder belongs only to this candidate.
@@ -78,7 +79,7 @@ test('unrelated old-stock shipment does not clear or miscount any new mixed-piec
 });
 
 test('mixed landing which blocks the southern entrance still names every retained crate', () => {
-  const hint = colorExitBoardHint(run(), view({ preview: { valid: true, cells: [38, 39, 45, 46], shipments: [] } }));
+  const hint = colorExitBoardHint(run(), view({ preview: { valid: true,events:[], cells: [38, 39, 45, 46], shipments: [] } }));
   assert.match(hint, /入口堵塞/); assert.match(hint, /留下食品2件、化工2件/);
 });
 
@@ -102,7 +103,7 @@ test('mixed remainder overlay marks only the two retained new cells with cargo-c
 
 test('mixed remainder overlay does not mark shipped cells, old inventory, animations, invalid previews, or pure pieces', () => {
   const state = run(), all = previewView([event(FOOD, [3, 4, 10, 11]), event(CHEM, [17, 18, 19, 20])]);
-  const invalid = view({ preview: { valid: false, cells: [10, 11, 17, 18], shipments: [] } });
+  const invalid = view({ preview: { valid: false,events:[], cells: [10, 11, 17, 18], shipments: [] } });
   const animation = view({ animation: { shipment: event(FOOD, [3, 4, 10, 11]), board: [...state.board], progress: .5 } });
   for (const v of [all, invalid, animation, view({ preview: null }), view({ selectedPieceId: null })]) {
     const drawn = surface(); drawMixedRemainder(drawn.ctx, state, v); assert.equal(drawn.borders.length, 0);

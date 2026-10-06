@@ -1,3 +1,4 @@
+import {legacyState} from './helpers/session-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GameSession } from '../src/application/session.ts';
@@ -25,6 +26,7 @@ function harness(state: RunState) {
       set: (k: string, v: string) => { data.set(k, v); },
       remove: (k: string) => data.delete(k),
     },
+    writerLease:{status:'held',release(){}},
     now: () => now,
     wallTime: () => 0,
     playSound: (name: string) => sounds.push(name),
@@ -68,20 +70,20 @@ const deliveries = (sounds: string[]) => sounds.filter(name => ['ship', 'chain2'
 
 test('outbound queues a snapshot-owned one-second plan while reducer score and checksum stay authoritative', () => {
   for (const version of [4, 8]) {
-    const f = fixture(version), h = harness(f.s), expected = applyCommand(h.session.state, f.command);
+    const f = fixture(version), h = harness(f.s), expected = applyCommand(legacyState(h.session), f.command);
     h.session.dispatch(f.command);
     const animation = h.session.view.animation;
     assert.ok(animation?.transportPlan, 'new outbound transport timeline');
     assert.equal(animation.transportPlan.durationMs, 1000, 'each outbound shipment owns one fixed second');
     assert.deepEqual(new Set(animation.transportPlan.cargoCells), new Set(animation.shipment.cells));
     assert.deepEqual(animation.shipment, expected.events.find(event => event.type === 'shipment'));
-    assert.equal(checksum(h.session.state), checksum(expected.state));
-    const digest = checksum(h.session.state);
+    assert.equal(checksum(legacyState(h.session)), checksum(expected.state));
+    const digest = checksum(legacyState(h.session));
     h.at(999);
     assert.ok(h.session.view.animation);
     h.at(1000);
     assert.equal(h.session.view.animation, null);
-    assert.equal(checksum(h.session.state), digest);
+    assert.equal(checksum(legacyState(h.session)), digest);
     assert.deepEqual(deliveries(h.sounds), ['ship']);
     h.at(100000);
     assert.deepEqual(deliveries(h.sounds), ['ship']);
@@ -126,7 +128,7 @@ test('session clock loads the whole group at 500 ms and delivers after the exter
 test('confirmation freezes the load boundary and cancelling resumes both full shipment clocks once', () => {
   const f = chainFixture(), h = harness(f.s);
   h.session.dispatch(f.command);
-  const digest = checksum(h.session.state);
+  const digest = checksum(legacyState(h.session));
   h.at(450);
   const progress = h.session.view.animation!.progress;
   assert.equal(sample(h).stage, 'collect');
@@ -155,7 +157,7 @@ test('confirmation freezes the load boundary and cancelling resumes both full sh
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
   h.at(100000);
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
-  assert.equal(checksum(h.session.state), digest);
+  assert.equal(checksum(legacyState(h.session)), digest);
 });
 
 for (const interrupt of ['pause', 'background', 'exit'] as const) {
@@ -166,7 +168,7 @@ for (const interrupt of ['pause', 'background', 'exit'] as const) {
       if (elapsed >= 1000) h.at(1000);
       h.at(elapsed);
       assert.ok(h.session.view.animation?.transportPlan);
-      const digest = checksum(h.session.state), score = h.session.state.score;
+      const digest = checksum(legacyState(h.session)), score = legacyState(h.session).score;
       const heard = deliveries(h.sounds);
       if (interrupt === 'pause') h.session.togglePause();
       else if (interrupt === 'background') h.session.hide();
@@ -185,8 +187,8 @@ for (const interrupt of ['pause', 'background', 'exit'] as const) {
       h.at(100000);
       assert.equal(h.session.view.animation, null);
       assert.deepEqual(deliveries(h.sounds), heard);
-      assert.equal(h.session.state.score, score);
-      assert.equal(checksum(h.session.state), digest);
+      assert.equal(legacyState(h.session).score, score);
+      assert.equal(checksum(legacyState(h.session)), digest);
     }
   });
 }
@@ -195,7 +197,7 @@ test('reduced outbound keeps each chained shipment at 80 ms with no driving cue'
   const f = chainFixture(), h = harness(f.s);
   h.session.action({ type: 'toggleMotion' });
   h.session.dispatch(f.command);
-  const digest = checksum(h.session.state);
+  const digest = checksum(legacyState(h.session));
   h.at(79);
   assert.equal(h.session.view.animation!.shipment.chain, 1);
   h.at(80);
@@ -209,11 +211,11 @@ test('reduced outbound keeps each chained shipment at 80 ms with no driving cue'
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
   h.at(100000);
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
-  assert.equal(checksum(h.session.state), digest);
+  assert.equal(checksum(legacyState(h.session)), digest);
 });
 
 test('two-color chain spends a second on each pre-clear snapshot and preserves its safe exit route', () => {
-  const f = chainFixture(), h = harness(f.s), expected = applyCommand(h.session.state, f.command);
+  const f = chainFixture(), h = harness(f.s), expected = applyCommand(legacyState(h.session), f.command);
   const events = expected.events.filter(event => event.type === 'shipment');
   assert.equal(events.length, 2);
   const firstBoard = f.s.board.slice();
@@ -230,9 +232,9 @@ test('two-color chain spends a second on each pre-clear snapshot and preserves i
   assert.deepEqual(first.transportPlan!.steps.filter(step => step.kind === 'move' && step.loadedCount > 0).map(step => step.to), [
     { x: 5, y: 3 }, { x: 6, y: 3 }, { x: 7, y: 3 }, { x: 8, y: 3 }, { x: 8, y: 4 },
   ]);
-  const digest = checksum(h.session.state);
+  const digest = checksum(legacyState(h.session));
   h.session.dispatch(f.command);
-  assert.equal(checksum(h.session.state), digest);
+  assert.equal(checksum(legacyState(h.session)), digest);
   h.at(999);
   assert.equal(h.session.view.animation!.shipment.chain, 1);
   h.at(1000);
@@ -251,11 +253,11 @@ test('two-color chain spends a second on each pre-clear snapshot and preserves i
   h.at(2000);
   assert.equal(h.session.view.animation, null);
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
-  assert.equal(checksum(h.session.state), checksum(expected.state));
+  assert.equal(checksum(legacyState(h.session)), checksum(expected.state));
 });
 
 test('skipping entire frames starts the next full second and credits each chained delivery once', () => {
-  const f = chainFixture(), h = harness(f.s), expected = applyCommand(h.session.state, f.command);
+  const f = chainFixture(), h = harness(f.s), expected = applyCommand(legacyState(h.session), f.command);
   h.session.dispatch(f.command);
   h.at(100000);
   assert.equal(h.session.view.animation!.shipment.chain, 2);
@@ -269,5 +271,5 @@ test('skipping entire frames starts the next full second and credits each chaine
   assert.equal(h.sounds.includes('forklift'), false);
   h.at(200000);
   assert.deepEqual(deliveries(h.sounds), ['ship', 'chain2']);
-  assert.equal(checksum(h.session.state), checksum(expected.state));
+  assert.equal(checksum(legacyState(h.session)), checksum(expected.state));
 });

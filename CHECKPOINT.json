@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.7.4-dev",
-  "status": "VERIFIED_LOCAL_FIXED_SECOND_OUTBOUND",
+  "appVersion": "0.8.0-dev",
+  "status": "LOCAL_VALIDATION_COMPLETE",
   "rulesets": [
     1,
     2,
@@ -9,82 +9,75 @@
     5,
     6,
     7,
-    8
+    8,
+    9,
+    10
   ],
   "modes": {
-    "inbound_standard_daily": {
-      "newRules": 3,
-      "boardSize": 7,
-      "legacy": [
-        1,
-        2
-      ]
-    },
-    "inbound_endless": {
-      "ruleset": 7,
-      "boardSize": 7,
-      "stageCap": 5
-    },
-    "outbound": {
-      "ruleset": 8,
-      "boardSize": 9,
-      "mixedPercent": {
-        "easy": 20,
-        "normal": 30,
-        "hard": 40,
-        "expert": 50
-      },
-      "minBatch": 4,
-      "targetBatches": 30,
-      "balanced": false,
-      "terminalCondition": "occupied south entry after complete settlement, victory first"
-    },
-    "legacy_outbound": {
-      "rulesets": [
+    "inbound": {
+      "ruleset": 9,
+      "modes": [
+        "standard",
+        "daily",
+        "endless"
+      ],
+      "boardSizes": [
+        7,
+        8
+      ],
+      "candidates": [
+        3,
         4,
         5
       ],
-      "boardSize": 7,
-      "continueOnly": true
+      "upgradeTypes": 10,
+      "upgradeChoices": 7,
+      "rushProbability": 0.06
     },
-    "legacy_outbound9": {
-      "ruleset": 6,
+    "outbound_normal": {
+      "ruleset": 8,
       "boardSize": 9,
-      "continueOnly": true
+      "targetBatches": 30
+    },
+    "outbound_endless": {
+      "ruleset": 10,
+      "boardSize": 9,
+      "stageCap": 5
+    },
+    "legacy": {
+      "rulesets": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "unchanged": true
     }
   },
-  "testsPassed": 956,
+  "economyVersion": 1,
+  "accountFormatVersion": 1,
+  "simulationCases": 1280,
+  "simulationCapped": 79,
+  "testsPassed": 1251,
   "pythonTestsPassed": 22,
-  "sourceSha256": "9b3af2e849fdf3665cb6efb79bc43bf730df3a866d2e643c5ea4b61f1f32aaeb",
-  "gameJsSha256": "21da5a0d1245d949c0f83c5d73b78142a6fbb25eb962dc2cf08a0b5394e74b5a",
-  "hostGroups": 12,
-  "measuredScreens": 17,
-  "screenshots": 133,
-  "pairedStrategyRuns": 400,
-  "runtimeStatus": "Offline native Canvas/wx-host and local gates PASS; real browser/Windows GUI/WeChat devices and human balance NOT VERIFIED",
-  "deliveryNotes": "docs/v074-playtest.md",
+  "sourceSha256": "f398788dccce139be5183880b382de784b1bdfd163494bab65161d9a926febf7",
+  "gameJsSha256": "a99be3b7429bf51874e3a712a0296a0ae5d59e5d388911dc3c24817d0188a0fa",
+  "runtimeStatus": "Local source gates and actual built-game native host PASSED. Real browser/Windows GUI/WeChat devices/audio listening and human balance NOT VERIFIED",
+  "deliveryNotes": "docs/v080-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
-  "recordedV6Prefixes": 400,
   "developerDiagnosticsDefault": false,
   "outboundPresentation": {
     "wholeGroupCollect": true,
     "totalMsPerGroup": 1000,
-    "routeMs": 100,
-    "approachMs": 260,
-    "collectMs": 140,
-    "carryMs": 360,
-    "exitMs": 100.8,
-    "fadeMs": 39.2,
     "reducedMs": 80,
-    "loadedPath": "unchanged shortest safe path after only current group clear",
-    "longRoutePolicy": "fit each fixed stage; no minimum per-cell duration",
-    "chainPolicy": "one complete second per shipment"
+    "chainPolicy": "one second per shipment"
   },
-  "rulesChangedFromV070": false,
-  "continuousVideoCases": 9,
-  "actualVideoFrames": 414,
-  "rulesChangedFromV071": false,
-  "rulesChangedFromV072": false,
-  "rulesChangedFromV073": false
+  "rulesChangedFromV074": true,
+  "hostCasesPassed": 22,
+  "validatedCodeCommit": "cdfc9ad9568f5080af2190ff03e3d9afdd7ec573"
 }

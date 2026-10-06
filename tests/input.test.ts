@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { InputController } from '../src/presentation/input.ts';
 import { L } from '../src/presentation/layout.ts';
-import type { Command, RunState } from '../src/domain/types.ts';
+import type { RunState } from '../src/domain/types.ts';
 import type { ViewState } from '../src/presentation/view-types.ts';
 function harness() {
  const state={phase:'input',candidates:[{id:'p1'},{id:'p2'},{id:'p3'}],upgradeChoices:['u1','u2','u3']} as RunState;
  const view={selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,developerMode:true,needsResume:false} as ViewState;
- const commands:Command[]=[];let resumed=0;
- const controller=new InputController({getState:()=>state,getView:()=>view,patchView:patch=>Object.assign(view,patch),preview:()=>({valid:true,cells:[],shipments:[]}),dispatch:command=>commands.push(command),togglePause:()=>{view.paused=!view.paused;},restart:()=>{},resume:()=>{view.needsResume=false;resumed++;},toggleDebug:()=>{view.debug=!view.debug;}});
+ const commands:import('../src/domain/playable.ts').GameCommand[]=[];let resumed=0;
+ const controller=new InputController({getState:()=>state,getView:()=>view,patchView:patch=>Object.assign(view,patch),preview:()=>({valid:true,events:[],cells:[],shipments:[]}),dispatch:command=>commands.push(command),togglePause:()=>{view.paused=!view.paused;},restart:()=>{},resume:()=>{view.needsResume=false;resumed++;},toggleDebug:()=>{view.debug=!view.debug;}});
  return {state,view,commands,controller,resumed:()=>resumed};
 }
 const tray=()=>({x:L.trays[0].x+L.trays[0].w/2,y:L.trays[0].y+L.trays[0].h/2});

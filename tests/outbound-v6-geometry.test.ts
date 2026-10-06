@@ -95,7 +95,7 @@ function surface() {
 test('v6 mixed p5 remainder uses actual cell colors and nine-wide indices above legacy range', () => {
   const state = state9(); state.candidates = [{ id:'mixed',shapeId:'shape.p5',cargo:'cargo.food',cellCargos:['cargo.food','cargo.food','cargo.chem','cargo.chem','cargo.chem'] }];
   const cells = [58,59,67,68,76], event = { ...event9(), cells:[4,13,58,59] };
-  const current = view({ selectedPieceId:'mixed', preview:{ valid:true,cells,shipments:[event] } });
+  const current = view({ selectedPieceId:'mixed', preview:{ valid:true,events:[],cells,shipments:[event] } });
   assert.deepEqual(mixedPiecePreview(state,current)?.remaining.map(item => item.cell),[67,68,76]);
   const drawn = surface(); drawMixedRemainder(drawn.ctx,state,current); assert.equal(drawn.borders.length,3);
   for (const [i,border] of drawn.borders.entries()) {
@@ -109,7 +109,7 @@ test('v6 gate blocking, freight preview outlines, and vehicle clipping all use s
   const state=state9(), current=view(), event=event9(); state.board[76]='cargo.machine';
   const gates=surface(); drawColorExitGates(gates.ctx,state,current); assert.match(gates.labels.join(' '),/入口堵塞/);
   state.board[76]=null; state.board[45]='cargo.machine'; const open=surface(); drawColorExitGates(open.ctx,state,current); assert.doesNotMatch(open.labels.join(' '),/入口堵塞/);
-  const routes=surface(); drawColorExitRoutes(routes.ctx,view({preview:{valid:true,cells:[],shipments:[event]}}));
+  const routes=surface(); drawColorExitRoutes(routes.ctx,view({preview:{valid:true,events:[],cells:[],shipments:[event]}}));
   assert.ok(routes.vertices.some(p => Math.abs(p.x-center9({x:4,y:0}).x)<.001 && Math.abs(p.y-center9({x:4,y:0}).y)<.001));
   assert.equal(routes.borders.length,event.cells.length); assert.ok(routes.borders.every(b => Math.abs(b.w-110*7/9)<.001));
   const vehicle=surface(),board=Array(81).fill(null);for(const cell of event.cells)board[cell]=event.cargo;drawColorExitShipment(vehicle.ctx,event,.4,view({animation:{shipment:event,progress:.4,board}})); assert.ok(vehicle.clips.some(c => Math.abs(c[0]-(120-30*7/9))<.001));

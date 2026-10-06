@@ -36,7 +36,7 @@ function surface() {
 test('menu exposes two mode selectors regardless of saved state', () => {
   for(const status of ['empty','saved','result'] as const){
     const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:status,color_exit:status}}));
-    assert.deepEqual(controls.map(c=>c.action),[{type:'chooseInbound'},{type:'chooseColorTier'},{type:'settings'}]);
+    assert.deepEqual(controls.map(c=>c.action),[{type:'chooseInbound'},{type:'chooseColorTier'},{type:'shop'},{type:'settings'}]);
     assert.match(controls[0].label,/入库模式/);assert.match(controls[1].label,/出库模式/);
   }
 });
@@ -104,7 +104,7 @@ test('only v3 five-shift standard victory offers overtime; every terminal mode o
 test('controls are pure geometry and their visible captions share hit-test centers', () => {
   const state = result(), current = view({ screen: 'menu', canContinue: true, dailyLabel: '2031-04-07' });
   const before = JSON.stringify({ state, current });
-  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 3); render(output.ctx, state, current);
+  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 4); render(output.ctx, state, current);
   assert.equal(JSON.stringify({ state, current }), before);
   for (const control of controls) for(const line of control.label.split('\n')) assert.ok(output.labels.some(label => label.value === line && label.x === control.rect.x + control.rect.w / 2 && label.y > control.rect.y && label.y < control.rect.y + control.rect.h));
 });
@@ -121,7 +121,7 @@ test('home shows achievements and real save status while inbound submenu owns sc
 
 test('confirmation copy explains resets and retains two explicit cancel/confirm buttons', () => {
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', confirmation: { kind: 'resetProfile' } }));
-  assert.match(output.words(), /成绩、外观和设置将恢复初始状态/); assert.match(output.words(), /当前对局会保留，结束后重新记录成绩/);
+  assert.match(output.words(), /清空显示的成绩记录/); assert.match(output.words(), /金币、库存、日奖励记录、设置和外观会保留/);
   assert.match(output.words(), /取消/); assert.match(output.words(), /确认重置/);
 });
 

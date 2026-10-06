@@ -1,6 +1,7 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyCommand, createRun, previewPlacement } from '../src/domain/engine.ts';
+import { applyCommand, createRun} from '../src/domain/engine.ts';
 import { orderStatus } from '../src/domain/board.ts';
 import { boardHint, orderFeedback } from '../src/presentation/order-feedback.ts';
 import type { CargoId, CellTrait, Order, RunState, Shipment } from '../src/domain/types.ts';
@@ -62,7 +63,7 @@ test('real preview can ship a different cargo from the dragged piece', () => {
 
 test('preview shipment must match the current order ID, not just its Dock', () => {
   const state = readyRun(), old = shipment({ cargo: 'cargo.machine' });
-  const current = view({ preview: { valid: true, cells: [40], shipments: [old] } });
+  const current = view({ preview: { valid: true,events:[], cells: [40], shipments: [old] } });
   const feedback = orderFeedback(state, state.orders[0], current);
   assert.equal(feedback.previewShipment, undefined);
   assert.equal(feedback.label, '暂不出货');
@@ -80,14 +81,14 @@ test('a valid placement blocking a currently ready entrance must not promise shi
 
 test('invalid preview never claims a dispatch, even with stale shipment data', () => {
   const state = readyRun(), stale = shipment({ orderId: state.orders[0].id, cargo: 'cargo.machine' });
-  const current = view({ preview: { valid: false, cells: [8], shipments: [stale] } });
+  const current = view({ preview: { valid: false,events:[], cells: [8], shipments: [stale] } });
   assert.equal(orderFeedback(state, state.orders[0], current).label, '这里放不下');
   assert.equal(orderFeedback(state, state.orders[0], current).previewShipment, undefined);
   assert.equal(boardHint(state, current), '这里放不下，换个位置');
 });
 
 test('real animation identifies its old shipment by Dock even after the card was replaced', () => {
-  const state = readyRun(), active = shipment(), current = view({ animation: { shipment: active, progress: .3, board: state.board.slice() }, preview: { valid: true, cells: [40], shipments: [shipment({ cargo: 'cargo.chem' })] } });
+  const state = readyRun(), active = shipment(), current = view({ animation: { shipment: active, progress: .3, board: state.board.slice() }, preview: { valid: true,events:[], cells: [40], shipments: [shipment({ cargo: 'cargo.chem' })] } });
   const feedback = orderFeedback(state, state.orders[0], current);
   assert.equal(feedback.shipping, active); assert.equal(feedback.previewShipment, undefined);
   assert.equal(feedback.label, '出货中 · +125'); assert.equal(boardHint(state, current), '食品出货中');
@@ -109,7 +110,7 @@ test('animation status uses both its board and matching trait snapshot', () => {
 });
 
 test('preview board hint names every real cargo once in dispatch order', () => {
-  const current = view({ preview: { valid: true, cells: [40], shipments: [shipment({ cargo: 'cargo.chem' }), shipment({ cargo: 'cargo.food' }), shipment({ cargo: 'cargo.chem' })] } });
+  const current = view({ preview: { valid: true,events:[], cells: [40], shipments: [shipment({ cargo: 'cargo.chem' }), shipment({ cargo: 'cargo.food' }), shipment({ cargo: 'cargo.chem' })] } });
   assert.equal(boardHint(run(), current), '预计出货：化工、食品');
 });
 

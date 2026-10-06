@@ -1,6 +1,6 @@
 {
   "name": "warehouse-last-slot",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,8 +13,10 @@
     "serve": "node scripts/serve.mjs",
     "smoke": "node scripts/browser-smoke.mjs",
     "check": "npm run lint && npm run typecheck && npm test && npm run preflight && npm run build",
-    "host-smoke": "node scripts/host-v074.mjs",
-    "simulate": "node scripts/simulate.mjs"
+    "host-smoke": "node scripts/host-growth.mjs",
+    "simulate": "node scripts/simulate.mjs",
+    "simulate:growth": "node scripts/simulate-growth.mjs",
+    "verify:accounts": "node scripts/verify-account-faults.mjs"
   },
   "dependencies": {
     "@tweenjs/tween.js": "25.0.0",

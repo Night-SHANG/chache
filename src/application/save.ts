@@ -7,7 +7,11 @@ import { P0_CONFIG, SHAPES, UPGRADES } from '../domain/content.ts';
 import { COLOR_EXIT_CARGO, COLOR_EXIT_TARGETS, RULES_V4_CONFIG } from '../domain/v4/content.ts';
 import { UPGRADES as LEGACY_UPGRADES } from '../domain/rulesets/v1/content.ts';
 
-export interface StoragePort { get(key:string):string|null; set(key:string,value:string):void; remove(key:string):void }
+export interface StoragePort {
+ get(key:string):string|null; set(key:string,value:string):void; remove(key:string):void;
+ listKeys?(prefix:string):string[];
+ capacity?():{usedBytes:number;limitBytes:number};
+}
 export const COLOR_EXIT_SAVE_KEYS={main:'warehouse.color_exit.run.v4',backup:'warehouse.color_exit.run.backup.v4',temp:'warehouse.color_exit.run.temp.v4'};
 export function saveKeysFor(slot:RunSlot):typeof SAVE_KEYS {
   requireValue(isRunSlot(slot),'存档槽无效');

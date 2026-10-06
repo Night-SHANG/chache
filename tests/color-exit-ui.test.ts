@@ -10,7 +10,7 @@ function surface(){const labels:string[]=[],values:Record<string,unknown>={globa
 
 test('legacy active state still opens the two new mode selectors without a legacy new-run button',()=>{
  const s=createRun(1,'color_exit',4),v=view({screen:'menu',variant:'color_exit',modeSlots:{orders:'saved',color_exit:'saved'}}),controls=getUiControls(s,v);
- assert.deepEqual(controls.map(c=>c.action.type),['chooseInbound','chooseColorTier','settings']);
+ assert.deepEqual(controls.map(c=>c.action.type),['chooseInbound','chooseColorTier','shop','settings']);
  assert.equal(controls.some(c=>c.action.type==='newRun'),false);
  const out=surface();render(out.ctx,s,v);assert.match(out.words(),/入库模式/);assert.match(out.words(),/出库模式/);assert.doesNotMatch(out.words(),/旧纯色最高分/);
 });

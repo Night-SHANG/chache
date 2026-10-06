@@ -1,7 +1,8 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildDebugRows} from '../src/presentation/diagnostics.ts';
-import {createRun, applyCommand, previewPlacement} from '../src/domain/engine.ts';
+import {createRun, applyCommand} from '../src/domain/engine.ts';
 import {checksum} from '../src/domain/replay.ts';
 import {orderStatus} from '../src/domain/board.ts';
 import {generatePieceV2} from '../src/domain/v2/engine.ts';

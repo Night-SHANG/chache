@@ -1,0 +1,8211 @@
+[
+  {
+    "options": {
+      "seed": 1,
+      "mode": "endless",
+      "toolCharges": {
+        "rotate": 1,
+        "clear": 1,
+        "wildcard": 0
+      }
+    },
+    "commands": [
+      {
+        "type": "chooseCleanup",
+        "branch": "orders"
+      },
+      {
+        "type": "rotate",
+        "pieceId": "piece.3",
+        "quarterTurns": 1
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.3",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.5",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.4",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.9",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.8",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.6",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.12",
+        "origin": {
+          "x": 3,
+          "y": 1
+        }
+      },
+      {
+        "type": "clear",
+        "cells": [
+          1
+        ]
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.13",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.14",
+        "origin": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.15",
+        "origin": {
+          "x": 2,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.16",
+        "origin": {
+          "x": 4,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.17",
+        "origin": {
+          "x": 5,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.18",
+        "origin": {
+          "x": 0,
+          "y": 4
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.19",
+        "origin": {
+          "x": 2,
+          "y": 4
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.20",
+        "origin": {
+          "x": 6,
+          "y": 4
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.10",
+        "origin": {
+          "x": 0,
+          "y": 6
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.22",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      }
+    ],
+    "checksums": [
+      "1d2153c8",
+      "5e85d82a",
+      "a8e81247",
+      "b5af7af6",
+      "8233389f",
+      "4060ec30",
+      "6f93cef1",
+      "c027d61e",
+      "2d4aea6f",
+      "80586025",
+      "645f91c3",
+      "f6e2dd58",
+      "5410aedc",
+      "4220a0a7",
+      "1d8c1104",
+      "abed706c",
+      "0d5b5d9c",
+      "e8550e10",
+      "8b24a351",
+      "a90a6f09"
+    ],
+    "state": {
+      "rulesetVersion": 9,
+      "runConfigId": "run.inbound_v9",
+      "seed": 1,
+      "mode": "endless",
+      "guided": false,
+      "boardSize": 7,
+      "board": [
+        "cargo.chem",
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        "cargo.chem",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        null,
+        null,
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        "cargo.chem",
+        "cargo.chem",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.chem",
+        null,
+        null,
+        "cargo.machine",
+        null,
+        null,
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        "cargo.machine",
+        null,
+        null,
+        null,
+        null
+      ],
+      "cellTraits": [
+        null,
+        null,
+        {
+          "kind": "rush",
+          "remaining": 3,
+          "bornAtPlacement": 17
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "rngState": [
+        -100249741,
+        -1498206153,
+        1113645209,
+        387196742
+      ],
+      "nextId": 24,
+      "candidates": [
+        {
+          "id": "piece.21",
+          "shapeId": "shape.i3_v",
+          "cargo": "cargo.machine",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.23",
+          "shapeId": "shape.i3_v",
+          "cargo": "cargo.machine",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.11",
+          "shapeId": "shape.i3_v",
+          "cargo": "cargo.machine",
+          "quarterTurns": 0
+        }
+      ],
+      "orders": [
+        {
+          "id": "order.7",
+          "dockId": "dock.north",
+          "cargo": "cargo.food",
+          "amount": 4,
+          "baseScore": 100
+        },
+        {
+          "id": "order.2",
+          "dockId": "dock.east",
+          "cargo": "cargo.chem",
+          "amount": 4,
+          "baseScore": 100
+        }
+      ],
+      "phase": "result",
+      "shift": 1,
+      "completedOrders": 1,
+      "score": 134,
+      "lastChain": 0,
+      "maxChain": 1,
+      "levels": {
+        "candidate_slots": 0,
+        "warehouse_expand": 0,
+        "side_gate": 0,
+        "small_parcels": 0,
+        "cargo_supply": 0,
+        "light_orders": 0,
+        "pallet_rate": 0,
+        "order_bonus": 0,
+        "overfill_bonus": 0,
+        "chain_bonus": 0
+      },
+      "upgradeChoices": [],
+      "pendingThresholds": [],
+      "claimedThresholds": [],
+      "supplyCargo": null,
+      "cleanup": {
+        "branch": "orders",
+        "progress": 1
+      },
+      "successfulPlacements": 17,
+      "generatedPieces": 20,
+      "toolCharges": {
+        "rotate": 0,
+        "clear": 0,
+        "wildcard": 0
+      },
+      "usedToolIds": [
+        "rotate",
+        "clear"
+      ],
+      "commandIndex": 20,
+      "commandBaseIndex": 0,
+      "commands": [
+        {
+          "type": "chooseCleanup",
+          "branch": "orders"
+        },
+        {
+          "type": "rotate",
+          "pieceId": "piece.3",
+          "quarterTurns": 1
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "clear",
+          "cells": [
+            1
+          ]
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        }
+      ],
+      "overtime": false,
+      "result": "failed",
+      "endReason": "blocked",
+      "maxOccupancy": 34
+    },
+    "coverage": {
+      "rush": true,
+      "cleanup": false,
+      "rotation": true,
+      "expanded": false
+    },
+    "checkpoints": [
+      {
+        "index": 2,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 1,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 7,
+          "board": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            -1688332362,
+            -241145165,
+            -396804122,
+            -1621395226
+          ],
+          "nextId": 6,
+          "candidates": [
+            {
+              "id": "piece.3",
+              "shapeId": "shape.l3_sw",
+              "cargo": "cargo.food",
+              "quarterTurns": 1
+            },
+            {
+              "id": "piece.4",
+              "shapeId": "shape.domino_v",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.5",
+              "shapeId": "shape.i3_v",
+              "cargo": "cargo.food",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.1",
+              "dockId": "dock.north",
+              "cargo": "cargo.food",
+              "amount": 4,
+              "baseScore": 100
+            },
+            {
+              "id": "order.2",
+              "dockId": "dock.east",
+              "cargo": "cargo.chem",
+              "amount": 4,
+              "baseScore": 100
+            }
+          ],
+          "phase": "input",
+          "shift": 1,
+          "completedOrders": 0,
+          "score": 0,
+          "lastChain": 0,
+          "maxChain": 0,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 0,
+            "side_gate": 0,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 0,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [],
+          "pendingThresholds": [],
+          "claimedThresholds": [],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "orders",
+            "progress": 0
+          },
+          "successfulPlacements": 0,
+          "generatedPieces": 3,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 2,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "orders"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.3",
+              "quarterTurns": 1
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 0
+        }
+      }
+    ]
+  },
+  {
+    "options": {
+      "seed": 17,
+      "mode": "endless",
+      "toolCharges": {
+        "rotate": 1,
+        "clear": 1,
+        "wildcard": 0
+      }
+    },
+    "commands": [
+      {
+        "type": "chooseCleanup",
+        "branch": "placements"
+      },
+      {
+        "type": "rotate",
+        "pieceId": "piece.4",
+        "quarterTurns": 1
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.4",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.6",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.5",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.9",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.10",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.12",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.13",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.15",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "light_orders"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.8",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.3",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.20",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.23",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.25",
+        "origin": {
+          "x": 0,
+          "y": 4
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "side_gate"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.19",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.17",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.30",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.32",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.27",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.35",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "candidate_slots"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.37",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.40",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.28",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.43",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.45",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.38",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.47",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.34",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.49",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "warehouse_expand"
+      },
+      {
+        "type": "clear",
+        "cells": [
+          1
+        ]
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.51",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.52",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.48",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.55",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.58",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.60",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "cargo_supply",
+        "cargo": "cargo.food"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.62",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.42",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.64",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.65",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.63",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.67",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.71",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "small_parcels"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.54",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.74",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.75",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.77",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "candidate_slots"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.73",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.81",
+        "origin": {
+          "x": 6,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.83",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.85",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.80",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.88",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.89",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.69",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.46",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.93",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.95",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.91",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.96",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.99",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.101",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.103",
+        "origin": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.94",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.87",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.98",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.107",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.106",
+        "origin": {
+          "x": 0,
+          "y": 3
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.112",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.79",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.110",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.115",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.116",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.113",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.118",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.117",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.120",
+        "origin": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.119",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.124",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.122",
+        "origin": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.105",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.130",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.128",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.133",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.134",
+        "origin": {
+          "x": 7,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.136",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.132",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.138",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.137",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.140",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.109",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.114",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.142",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.147",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.144",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.149",
+        "origin": {
+          "x": 7,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.150",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.152",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.145",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.154",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.156",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.158",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.155",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.126",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.139",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.164",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.166",
+        "origin": {
+          "x": 5,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.160",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.153",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.169",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.162",
+        "origin": {
+          "x": 6,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.173",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.170",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.175",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.171",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.179",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.176",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.181",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.180",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.168",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.161",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.178",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.189",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.190",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.191",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.185",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.183",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.188",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.194",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.193",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.196",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.199",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.197",
+        "origin": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.186",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.204",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.195",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.198",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.206",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.205",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.208",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.212",
+        "origin": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.214",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "checksums": [
+      "c5b5526d",
+      "e97c0abd",
+      "ebf3525d",
+      "d903c2be",
+      "3aeeeb55",
+      "b130535a",
+      "ea4b08cd",
+      "0e4e7fbf",
+      "642a4f2f",
+      "39f736a2",
+      "eaafa66c",
+      "1d241cc3",
+      "1bed9784",
+      "e66eca90",
+      "31be5b4d",
+      "6d8fa5c9",
+      "d49b2a66",
+      "1e690538",
+      "6d3b772a",
+      "3cdafd0b",
+      "832d50a1",
+      "d012a00a",
+      "7c161e64",
+      "79eaba49",
+      "c7c9b3a7",
+      "84f619d2",
+      "fcc3eee6",
+      "9aebc71a",
+      "61b2d676",
+      "e241016f",
+      "96f1d5e3",
+      "fd57a1c8",
+      "68104a4a",
+      "f2e4e3f2",
+      "faacdc8d",
+      "97253ef7",
+      "cf4953f8",
+      "919897df",
+      "40aac792",
+      "1a9a5784",
+      "f8b65b86",
+      "9094f1bf",
+      "75ffba18",
+      "0a9950e1",
+      "83091050",
+      "4bf9a137",
+      "1461c0fa",
+      "063094e8",
+      "29c94ada",
+      "0bcb15cb",
+      "9556c3f9",
+      "7cc801ad",
+      "2a3fc008",
+      "cf0f8169",
+      "3163d6ae",
+      "9ed80b16",
+      "805bdc85",
+      "1d82a964",
+      "c20842d5",
+      "7481e6fb",
+      "97801a44",
+      "e627ab15",
+      "8536ce8e",
+      "2a4bde5d",
+      "3c27e06d",
+      "d49a925e",
+      "e0ddbe6e",
+      "fee42188",
+      "8e05d502",
+      "5b65b1ca",
+      "1db4bde5",
+      "e662aa41",
+      "cf17965a",
+      "8e34c296",
+      "7215203f",
+      "8f4a6bac",
+      "01ebc6f8",
+      "00264857",
+      "2de6c87f",
+      "5391282b",
+      "cc0a2c25",
+      "ee2c0e7c",
+      "348621de",
+      "564527d9",
+      "9c2953d4",
+      "75bb3890",
+      "abc62d12",
+      "d9e461e9",
+      "76dd3e44",
+      "7a673912",
+      "9d517ed3",
+      "58fbc43a",
+      "0fafe411",
+      "0e2d033a",
+      "d69bcc78",
+      "aa870290",
+      "6fa785a2",
+      "bbfb31f7",
+      "76799a3c",
+      "2db46af8",
+      "f82702cf",
+      "bd8d32db",
+      "e27e85f3",
+      "6bc63ae4",
+      "50dec3ef",
+      "76ad3ab2",
+      "29daf7b3",
+      "90df9618",
+      "7fbc6ea0",
+      "45d2cab2",
+      "794f6878",
+      "2fa58c84",
+      "84077ef9",
+      "8b51d17f",
+      "658a32eb",
+      "40d79023",
+      "c7351f17",
+      "f68151ea",
+      "8f29eb9c",
+      "9b6fae07",
+      "a4d558ef",
+      "605b1cbc",
+      "4e57dd7e",
+      "7bb03f98",
+      "420a33b5",
+      "7d87b99f",
+      "99a6acb4",
+      "1cdf8f32",
+      "28670c2c",
+      "fb79c3e4",
+      "d8047d34",
+      "dcd50366",
+      "c315ca14",
+      "07898ee2",
+      "607ab0fb",
+      "2b77bb9f",
+      "f13570eb",
+      "424a4c69",
+      "349b264d",
+      "ff1f6407",
+      "ee03b21a",
+      "c6067a77",
+      "9886e4b0",
+      "0a1594d7",
+      "6d3b64b1",
+      "502e2723",
+      "05085b51",
+      "74752c0a",
+      "b9f2302a",
+      "66f96384"
+    ],
+    "state": {
+      "rulesetVersion": 9,
+      "runConfigId": "run.inbound_v9",
+      "seed": 17,
+      "mode": "endless",
+      "guided": false,
+      "boardSize": 8,
+      "board": [
+        "cargo.electronic",
+        "cargo.electronic",
+        "cargo.electronic",
+        null,
+        null,
+        null,
+        null,
+        "cargo.chem",
+        "cargo.electronic",
+        null,
+        "cargo.electronic",
+        "cargo.electronic",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "cellTraits": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        {
+          "kind": "waste"
+        },
+        {
+          "kind": "waste"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "rngState": [
+        2095751253,
+        625700083,
+        -1224032805,
+        468998818
+      ],
+      "nextId": 216,
+      "candidates": [
+        {
+          "id": "piece.202",
+          "shapeId": "shape.single",
+          "cargo": "cargo.food",
+          "quarterTurns": 0,
+          "trait": "rush",
+          "rushTurns": 3
+        },
+        {
+          "id": "piece.215",
+          "shapeId": "shape.domino_h",
+          "cargo": "cargo.machine",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.201",
+          "shapeId": "shape.single",
+          "cargo": "cargo.chem",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.211",
+          "shapeId": "shape.domino_v",
+          "cargo": "cargo.food",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.210",
+          "shapeId": "shape.single",
+          "cargo": "cargo.machine",
+          "quarterTurns": 0,
+          "trait": "pallet"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order.213",
+          "dockId": "dock.north",
+          "cargo": "cargo.machine",
+          "amount": 5,
+          "baseScore": 200
+        },
+        {
+          "id": "order.209",
+          "dockId": "dock.east",
+          "cargo": "cargo.electronic",
+          "amount": 6,
+          "baseScore": 200
+        },
+        {
+          "id": "order.207",
+          "dockId": "dock.south",
+          "cargo": "cargo.food",
+          "amount": 4,
+          "baseScore": 200
+        },
+        {
+          "id": "order.192",
+          "dockId": "dock.west",
+          "cargo": "cargo.cold",
+          "amount": 6,
+          "baseScore": 200
+        }
+      ],
+      "phase": "input",
+      "shift": 5,
+      "completedOrders": 66,
+      "score": 14519,
+      "lastChain": 0,
+      "maxChain": 1,
+      "levels": {
+        "candidate_slots": 2,
+        "warehouse_expand": 1,
+        "side_gate": 1,
+        "small_parcels": 1,
+        "cargo_supply": 1,
+        "light_orders": 1,
+        "pallet_rate": 0,
+        "order_bonus": 0,
+        "overfill_bonus": 0,
+        "chain_bonus": 0
+      },
+      "upgradeChoices": [],
+      "pendingThresholds": [],
+      "claimedThresholds": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        26
+      ],
+      "supplyCargo": "cargo.food",
+      "cleanup": {
+        "branch": "placements",
+        "progress": 2
+      },
+      "successfulPlacements": 140,
+      "generatedPieces": 145,
+      "toolCharges": {
+        "rotate": 0,
+        "clear": 0,
+        "wildcard": 0
+      },
+      "usedToolIds": [
+        "rotate",
+        "clear"
+      ],
+      "commandIndex": 150,
+      "commandBaseIndex": 0,
+      "commands": [
+        {
+          "type": "chooseCleanup",
+          "branch": "placements"
+        },
+        {
+          "type": "rotate",
+          "pieceId": "piece.4",
+          "quarterTurns": 1
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "side_gate"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.40",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.43",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.45",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.38",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.47",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.49",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "warehouse_expand"
+        },
+        {
+          "type": "clear",
+          "cells": [
+            1
+          ]
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.51",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.52",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.48",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.55",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.58",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.60",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "cargo_supply",
+          "cargo": "cargo.food"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.62",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.42",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.64",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.65",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.63",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.67",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.71",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.54",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.74",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.75",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.77",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.73",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.81",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.83",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.85",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.80",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.88",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.89",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.69",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.46",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.93",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.95",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.91",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.96",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.99",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.101",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.103",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.94",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.87",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.98",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.107",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.106",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.112",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.79",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.110",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.115",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.116",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.113",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.118",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.117",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.120",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.119",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.124",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.122",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.105",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.130",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.128",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.133",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.134",
+          "origin": {
+            "x": 7,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.136",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.132",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.138",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.137",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.140",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.109",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.114",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.142",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.147",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.144",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.149",
+          "origin": {
+            "x": 7,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.150",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.152",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.145",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.154",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.156",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.158",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.155",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.126",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.139",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.164",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.166",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.160",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.153",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.169",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.162",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.173",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.170",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.175",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.171",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.179",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.176",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.181",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.180",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.168",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.161",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.178",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.189",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.190",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.191",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.185",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.183",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.188",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.194",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.193",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.196",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.199",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.197",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.186",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.204",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.195",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.198",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.206",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.205",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.208",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.212",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.214",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "overtime": false,
+      "result": null,
+      "endReason": null,
+      "maxOccupancy": 15
+    },
+    "coverage": {
+      "rush": true,
+      "cleanup": true,
+      "rotation": true,
+      "expanded": true
+    },
+    "checkpoints": [
+      {
+        "index": 2,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 17,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 7,
+          "board": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            -1705793849,
+            -1090482004,
+            -1978728591,
+            949655036
+          ],
+          "nextId": 6,
+          "candidates": [
+            {
+              "id": "piece.3",
+              "shapeId": "shape.single",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.4",
+              "shapeId": "shape.l3_se",
+              "cargo": "cargo.chem",
+              "quarterTurns": 1
+            },
+            {
+              "id": "piece.5",
+              "shapeId": "shape.l3_nw",
+              "cargo": "cargo.machine",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.1",
+              "dockId": "dock.north",
+              "cargo": "cargo.chem",
+              "amount": 4,
+              "baseScore": 100
+            },
+            {
+              "id": "order.2",
+              "dockId": "dock.east",
+              "cargo": "cargo.machine",
+              "amount": 4,
+              "baseScore": 100
+            }
+          ],
+          "phase": "input",
+          "shift": 1,
+          "completedOrders": 0,
+          "score": 0,
+          "lastChain": 0,
+          "maxChain": 0,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 0,
+            "side_gate": 0,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 0,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [],
+          "pendingThresholds": [],
+          "claimedThresholds": [],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 0
+          },
+          "successfulPlacements": 0,
+          "generatedPieces": 3,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 2,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.4",
+              "quarterTurns": 1
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 0
+        }
+      },
+      {
+        "index": 10,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 17,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 7,
+          "board": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            1758247059,
+            1293920560,
+            67963287,
+            353689268
+          ],
+          "nextId": 18,
+          "candidates": [
+            {
+              "id": "piece.3",
+              "shapeId": "shape.single",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.8",
+              "shapeId": "shape.i3_v",
+              "cargo": "cargo.food",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.17",
+              "shapeId": "shape.single",
+              "cargo": "cargo.machine",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.14",
+              "dockId": "dock.north",
+              "cargo": "cargo.chem",
+              "amount": 4,
+              "baseScore": 100
+            },
+            {
+              "id": "order.16",
+              "dockId": "dock.east",
+              "cargo": "cargo.food",
+              "amount": 4,
+              "baseScore": 100
+            }
+          ],
+          "phase": "upgrade",
+          "shift": 1,
+          "completedOrders": 4,
+          "score": 488,
+          "lastChain": 1,
+          "maxChain": 1,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 0,
+            "side_gate": 0,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 0,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [
+            "light_orders",
+            "candidate_slots",
+            "overfill_bonus"
+          ],
+          "pendingThresholds": [
+            4
+          ],
+          "claimedThresholds": [],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 2
+          },
+          "successfulPlacements": 8,
+          "generatedPieces": 11,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 10,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.4",
+              "quarterTurns": 1
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.4",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.6",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.5",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.9",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.10",
+              "origin": {
+                "x": 0,
+                "y": 2
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.12",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.13",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.15",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 8
+        }
+      },
+      {
+        "index": 34,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 17,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 8,
+          "board": [
+            "cargo.electronic",
+            "cargo.electronic",
+            null,
+            null,
+            "cargo.food",
+            "cargo.food",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "cargo.food",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            {
+              "kind": "waste"
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            -963218686,
+            313143519,
+            -955835828,
+            -650410131
+          ],
+          "nextId": 52,
+          "candidates": [
+            {
+              "id": "piece.42",
+              "shapeId": "shape.single",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0,
+              "trait": "hazard"
+            },
+            {
+              "id": "piece.46",
+              "shapeId": "shape.single",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0,
+              "trait": "rush",
+              "rushTurns": 3
+            },
+            {
+              "id": "piece.51",
+              "shapeId": "shape.single",
+              "cargo": "cargo.electronic",
+              "quarterTurns": 0,
+              "trait": "rush",
+              "rushTurns": 3
+            },
+            {
+              "id": "piece.48",
+              "shapeId": "shape.l3_se",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.39",
+              "dockId": "dock.north",
+              "cargo": "cargo.electronic",
+              "amount": 3,
+              "baseScore": 150
+            },
+            {
+              "id": "order.44",
+              "dockId": "dock.east",
+              "cargo": "cargo.food",
+              "amount": 4,
+              "baseScore": 150
+            },
+            {
+              "id": "order.50",
+              "dockId": "dock.south",
+              "cargo": "cargo.machine",
+              "amount": 3,
+              "baseScore": 150
+            }
+          ],
+          "phase": "input",
+          "shift": 3,
+          "completedOrders": 16,
+          "score": 2712,
+          "lastChain": 1,
+          "maxChain": 1,
+          "levels": {
+            "candidate_slots": 1,
+            "warehouse_expand": 1,
+            "side_gate": 1,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 1,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [],
+          "pendingThresholds": [],
+          "claimedThresholds": [
+            4,
+            8,
+            12,
+            16
+          ],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 4
+          },
+          "successfulPlacements": 28,
+          "generatedPieces": 32,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 34,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.4",
+              "quarterTurns": 1
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.4",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.6",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.5",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.9",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.10",
+              "origin": {
+                "x": 0,
+                "y": 2
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.12",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.13",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.15",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "light_orders"
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.8",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.3",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.20",
+              "origin": {
+                "x": 0,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.23",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.25",
+              "origin": {
+                "x": 0,
+                "y": 4
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "side_gate"
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.19",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.17",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.30",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.32",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.27",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.35",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "candidate_slots"
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.37",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.40",
+              "origin": {
+                "x": 6,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.28",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.43",
+              "origin": {
+                "x": 1,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.45",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.38",
+              "origin": {
+                "x": 1,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.47",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.34",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.49",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "warehouse_expand"
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 8
+        }
+      }
+    ]
+  },
+  {
+    "options": {
+      "seed": 5678,
+      "mode": "endless",
+      "toolCharges": {
+        "rotate": 1,
+        "clear": 1,
+        "wildcard": 0
+      }
+    },
+    "commands": [
+      {
+        "type": "chooseCleanup",
+        "branch": "placements"
+      },
+      {
+        "type": "rotate",
+        "pieceId": "piece.5",
+        "quarterTurns": 1
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.5",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.6",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.3",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.9",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.11",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.12",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.14",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.4",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.8",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.17",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.18",
+        "origin": {
+          "x": 3,
+          "y": 1
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "light_orders"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.15",
+        "origin": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.16",
+        "origin": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.22",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.25",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "side_gate"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.27",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.31",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.33",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.35",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "warehouse_expand"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.37",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.29",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.20",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.38",
+        "origin": {
+          "x": 7,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.41",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.39",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.46",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "small_parcels"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.45",
+        "origin": {
+          "x": 5,
+          "y": 3
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.43",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.51",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.54",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.56",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "cargo_supply",
+        "cargo": "cargo.food"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.48",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.50",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.60",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.62",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.64",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.65",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.66",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.58",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "candidate_slots"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.70",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.71",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "upgrade",
+        "upgradeId": "candidate_slots"
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.59",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.68",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.77",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.76",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.73",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.81",
+        "origin": {
+          "x": 6,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.84",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.75",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.87",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.89",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.90",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.92",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.94",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.95",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.96",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.97",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "clear",
+        "cells": [
+          2
+        ]
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.82",
+        "origin": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.99",
+        "origin": {
+          "x": 3,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.98",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.103",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.104",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.80",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.79",
+        "origin": {
+          "x": 7,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.109",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.106",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.110",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.114",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.112",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.117",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.86",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.107",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.120",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.121",
+        "origin": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.123",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.125",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.126",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.101",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.129",
+        "origin": {
+          "x": 3,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.119",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.130",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.128",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.118",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.133",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.134",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.138",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.139",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.140",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.141",
+        "origin": {
+          "x": 3,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.137",
+        "origin": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.136",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.144",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.147",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.148",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.146",
+        "origin": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.151",
+        "origin": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.143",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.155",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.153",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.157",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.150",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.161",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.160",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.132",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.166",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.164",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.163",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.171",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.173",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.158",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.174",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.176",
+        "origin": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.178",
+        "origin": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.170",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.175",
+        "origin": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.183",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.185",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.181",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.188",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.189",
+        "origin": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.115",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.190",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.186",
+        "origin": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.194",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.193",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.168",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.196",
+        "origin": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.197",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.200",
+        "origin": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.202",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.203",
+        "origin": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.205",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.198",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.199",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.192",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.211",
+        "origin": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.212",
+        "origin": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.180",
+        "origin": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.215",
+        "origin": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "type": "place",
+        "pieceId": "piece.217",
+        "origin": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "checksums": [
+      "e48d35f4",
+      "f6793740",
+      "994f0e89",
+      "3f510ba2",
+      "2b4e33bf",
+      "19e1b394",
+      "0b56a599",
+      "07575b59",
+      "9f0bd91a",
+      "58700f06",
+      "c090524f",
+      "158607a1",
+      "e76706f7",
+      "6d4bf7b2",
+      "aab021af",
+      "cf6cbe53",
+      "6cf1077a",
+      "c1bd17fe",
+      "c0f78766",
+      "ced60d2c",
+      "66949cfa",
+      "79b6c39d",
+      "65a4e173",
+      "65cb310d",
+      "f8ce116d",
+      "41f0c254",
+      "c2743a33",
+      "1945dc7a",
+      "bbf083ca",
+      "761d8237",
+      "6ccf07e4",
+      "1b0acd26",
+      "d6bf9f6b",
+      "136b0f52",
+      "238419b7",
+      "583e1880",
+      "480988a2",
+      "ecf8090e",
+      "fc9d35c7",
+      "7d7854e4",
+      "30ddf692",
+      "7d1c0730",
+      "b0e9f27c",
+      "d4392412",
+      "c93371e9",
+      "4d46b773",
+      "5c769aba",
+      "7cad7445",
+      "58564237",
+      "2853fffb",
+      "60b60cf8",
+      "1c69294d",
+      "c07481d6",
+      "77836cac",
+      "dee04a87",
+      "7427fe08",
+      "d0f2fb51",
+      "cfb4455e",
+      "7f2f9e1d",
+      "3e755e74",
+      "fe68d3c7",
+      "ae15868b",
+      "8bbf2679",
+      "9d5e2d6b",
+      "4339800d",
+      "f3971d09",
+      "1b2d3624",
+      "8e79aafd",
+      "7f3d9e55",
+      "d11291d1",
+      "68e68d75",
+      "0ca3ec60",
+      "39be610e",
+      "d27122f3",
+      "0af7c280",
+      "2da523c2",
+      "a2639ef2",
+      "6fa865c7",
+      "498419ed",
+      "ceea9fe5",
+      "4d5f45fa",
+      "4bde581b",
+      "a5d3064d",
+      "b10d2f3c",
+      "38d50f93",
+      "b14ba306",
+      "b94b62ba",
+      "21491179",
+      "38e9e6c4",
+      "531f6194",
+      "adc2dfe7",
+      "5c5743a6",
+      "d85269c3",
+      "5651eb66",
+      "7090dc60",
+      "99ad7c04",
+      "95409666",
+      "fa54a04c",
+      "e1301a50",
+      "f1f2d473",
+      "25cd08c2",
+      "4073871e",
+      "60265372",
+      "81c12590",
+      "0d5d79a2",
+      "433dd0ad",
+      "6afcd9c5",
+      "5076545d",
+      "ed09300a",
+      "04a036a1",
+      "c02634aa",
+      "17be143b",
+      "191b6567",
+      "2633db06",
+      "84c27b9c",
+      "7a221441",
+      "48e73bd9",
+      "2e941bc2",
+      "4597f5ba",
+      "b8102c43",
+      "8b503230",
+      "c90d7db8",
+      "34d9e8e8",
+      "67f4c3de",
+      "888f0f46",
+      "61dfc751",
+      "2229692d",
+      "1d449821",
+      "9c0085cf",
+      "b2296b9f",
+      "681d8dde",
+      "dfa3ff7d",
+      "8fa88345",
+      "4e6298c9",
+      "f26c61a4",
+      "409355f7",
+      "86f3b00e",
+      "4c8ed3bc",
+      "5e13d333",
+      "4b64baa0",
+      "4dadc2b0",
+      "ad69451e",
+      "4d7a045f",
+      "116a11c6",
+      "7787906e",
+      "1cb25c68",
+      "44f1212a",
+      "e4d6d9c8",
+      "af478a81",
+      "530cac9c"
+    ],
+    "state": {
+      "rulesetVersion": 9,
+      "runConfigId": "run.inbound_v9",
+      "seed": 5678,
+      "mode": "endless",
+      "guided": false,
+      "boardSize": 8,
+      "board": [
+        "cargo.cold",
+        "cargo.cold",
+        "cargo.cold",
+        null,
+        null,
+        null,
+        "cargo.electronic",
+        "cargo.electronic",
+        null,
+        "cargo.cold",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "cargo.electronic",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "cellTraits": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "rngState": [
+        -1419987025,
+        -505291976,
+        -1658749881,
+        2007870866
+      ],
+      "nextId": 219,
+      "candidates": [
+        {
+          "id": "piece.218",
+          "shapeId": "shape.l3_nw",
+          "cargo": "cargo.food",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.207",
+          "shapeId": "shape.single",
+          "cargo": "cargo.cold",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.213",
+          "shapeId": "shape.single",
+          "cargo": "cargo.cold",
+          "quarterTurns": 0,
+          "trait": "rush",
+          "rushTurns": 3
+        },
+        {
+          "id": "piece.210",
+          "shapeId": "shape.l3_ne",
+          "cargo": "cargo.food",
+          "quarterTurns": 0
+        },
+        {
+          "id": "piece.208",
+          "shapeId": "shape.domino_v",
+          "cargo": "cargo.food",
+          "quarterTurns": 0
+        }
+      ],
+      "orders": [
+        {
+          "id": "order.216",
+          "dockId": "dock.north",
+          "cargo": "cargo.food",
+          "amount": 4,
+          "baseScore": 200
+        },
+        {
+          "id": "order.214",
+          "dockId": "dock.east",
+          "cargo": "cargo.machine",
+          "amount": 5,
+          "baseScore": 200
+        },
+        {
+          "id": "order.209",
+          "dockId": "dock.south",
+          "cargo": "cargo.cold",
+          "amount": 6,
+          "baseScore": 200
+        },
+        {
+          "id": "order.206",
+          "dockId": "dock.west",
+          "cargo": "cargo.electronic",
+          "amount": 4,
+          "baseScore": 200
+        }
+      ],
+      "phase": "input",
+      "shift": 5,
+      "completedOrders": 69,
+      "score": 15380,
+      "lastChain": 0,
+      "maxChain": 1,
+      "levels": {
+        "candidate_slots": 2,
+        "warehouse_expand": 1,
+        "side_gate": 1,
+        "small_parcels": 1,
+        "cargo_supply": 1,
+        "light_orders": 1,
+        "pallet_rate": 0,
+        "order_bonus": 0,
+        "overfill_bonus": 0,
+        "chain_bonus": 0
+      },
+      "upgradeChoices": [],
+      "pendingThresholds": [],
+      "claimedThresholds": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        26
+      ],
+      "supplyCargo": "cargo.food",
+      "cleanup": {
+        "branch": "placements",
+        "progress": 2
+      },
+      "successfulPlacements": 140,
+      "generatedPieces": 145,
+      "toolCharges": {
+        "rotate": 0,
+        "clear": 0,
+        "wildcard": 0
+      },
+      "usedToolIds": [
+        "rotate",
+        "clear"
+      ],
+      "commandIndex": 150,
+      "commandBaseIndex": 0,
+      "commands": [
+        {
+          "type": "chooseCleanup",
+          "branch": "placements"
+        },
+        {
+          "type": "rotate",
+          "pieceId": "piece.5",
+          "quarterTurns": 1
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "side_gate"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "warehouse_expand"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.38",
+          "origin": {
+            "x": 7,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.41",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.39",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.46",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.45",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.43",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.51",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.54",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.56",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "cargo_supply",
+          "cargo": "cargo.food"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.48",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.50",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.60",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.62",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.64",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.65",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.66",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.58",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.70",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.71",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "candidate_slots"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.59",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.68",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.77",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.76",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.73",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.81",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.84",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.75",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.87",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.89",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.90",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.92",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.94",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.95",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.96",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.97",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "clear",
+          "cells": [
+            2
+          ]
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.82",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.99",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.98",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.103",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.104",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.80",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.79",
+          "origin": {
+            "x": 7,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.109",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.106",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.110",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.114",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.112",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.117",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.86",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.107",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.120",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.121",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.123",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.125",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.126",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.101",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.129",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.119",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.130",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.128",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.118",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.133",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.134",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.138",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.139",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.140",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.141",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.137",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.136",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.144",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.147",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.148",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.146",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.151",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.143",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.155",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.153",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.157",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.150",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.161",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.160",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.132",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.166",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.164",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.163",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.171",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.173",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.158",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.174",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.176",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.178",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.170",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.175",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.183",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.185",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.181",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.188",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.189",
+          "origin": {
+            "x": 7,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.115",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.190",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.186",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.194",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.193",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.168",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.196",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.197",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.200",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.202",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.203",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.205",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.198",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.199",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.192",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.211",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.212",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.180",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.215",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.217",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "overtime": false,
+      "result": null,
+      "endReason": null,
+      "maxOccupancy": 15
+    },
+    "coverage": {
+      "rush": true,
+      "cleanup": true,
+      "rotation": true,
+      "expanded": true
+    },
+    "checkpoints": [
+      {
+        "index": 2,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 5678,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 7,
+          "board": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            -1462265609,
+            -569722153,
+            501692888,
+            -804881941
+          ],
+          "nextId": 6,
+          "candidates": [
+            {
+              "id": "piece.3",
+              "shapeId": "shape.single",
+              "cargo": "cargo.machine",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.4",
+              "shapeId": "shape.single",
+              "cargo": "cargo.machine",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.5",
+              "shapeId": "shape.l3_sw",
+              "cargo": "cargo.chem",
+              "quarterTurns": 1
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.1",
+              "dockId": "dock.north",
+              "cargo": "cargo.chem",
+              "amount": 4,
+              "baseScore": 100
+            },
+            {
+              "id": "order.2",
+              "dockId": "dock.east",
+              "cargo": "cargo.machine",
+              "amount": 4,
+              "baseScore": 100
+            }
+          ],
+          "phase": "input",
+          "shift": 1,
+          "completedOrders": 0,
+          "score": 0,
+          "lastChain": 0,
+          "maxChain": 0,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 0,
+            "side_gate": 0,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 0,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [],
+          "pendingThresholds": [],
+          "claimedThresholds": [],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 0
+          },
+          "successfulPlacements": 0,
+          "generatedPieces": 3,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 2,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.5",
+              "quarterTurns": 1
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 0
+        }
+      },
+      {
+        "index": 13,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 5678,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 7,
+          "board": [
+            "cargo.machine",
+            "cargo.machine",
+            "cargo.machine",
+            null,
+            null,
+            "cargo.chem",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            -19878691,
+            -2082900339,
+            541322840,
+            296866238
+          ],
+          "nextId": 21,
+          "candidates": [
+            {
+              "id": "piece.15",
+              "shapeId": "shape.domino_h",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.16",
+              "shapeId": "shape.l3_sw",
+              "cargo": "cargo.chem",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.20",
+              "shapeId": "shape.single",
+              "cargo": "cargo.food",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.13",
+              "dockId": "dock.north",
+              "cargo": "cargo.machine",
+              "amount": 4,
+              "baseScore": 100
+            },
+            {
+              "id": "order.19",
+              "dockId": "dock.east",
+              "cargo": "cargo.food",
+              "amount": 4,
+              "baseScore": 100
+            }
+          ],
+          "phase": "upgrade",
+          "shift": 1,
+          "completedOrders": 4,
+          "score": 491,
+          "lastChain": 1,
+          "maxChain": 1,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 0,
+            "side_gate": 0,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 0,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [
+            "cargo_supply",
+            "light_orders",
+            "overfill_bonus"
+          ],
+          "pendingThresholds": [
+            4
+          ],
+          "claimedThresholds": [],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 5
+          },
+          "successfulPlacements": 11,
+          "generatedPieces": 14,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 13,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.5",
+              "quarterTurns": 1
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.5",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.6",
+              "origin": {
+                "x": 0,
+                "y": 2
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.3",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.9",
+              "origin": {
+                "x": 1,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.11",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.12",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.14",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.4",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.8",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.17",
+              "origin": {
+                "x": 5,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.18",
+              "origin": {
+                "x": 3,
+                "y": 1
+              }
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 8
+        }
+      },
+      {
+        "index": 24,
+        "state": {
+          "rulesetVersion": 9,
+          "runConfigId": "run.inbound_v9",
+          "seed": 5678,
+          "mode": "endless",
+          "guided": false,
+          "boardSize": 8,
+          "board": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cellTraits": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "rngState": [
+            1244493625,
+            260304282,
+            -1230834582,
+            -532685078
+          ],
+          "nextId": 38,
+          "candidates": [
+            {
+              "id": "piece.37",
+              "shapeId": "shape.l3_sw",
+              "cargo": "cargo.electronic",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.29",
+              "shapeId": "shape.domino_h",
+              "cargo": "cargo.food",
+              "quarterTurns": 0
+            },
+            {
+              "id": "piece.20",
+              "shapeId": "shape.single",
+              "cargo": "cargo.food",
+              "quarterTurns": 0
+            }
+          ],
+          "orders": [
+            {
+              "id": "order.34",
+              "dockId": "dock.north",
+              "cargo": "cargo.chem",
+              "amount": 3,
+              "baseScore": 125
+            },
+            {
+              "id": "order.19",
+              "dockId": "dock.east",
+              "cargo": "cargo.food",
+              "amount": 3,
+              "baseScore": 100
+            },
+            {
+              "id": "order.36",
+              "dockId": "dock.south",
+              "cargo": "cargo.electronic",
+              "amount": 4,
+              "baseScore": 150
+            }
+          ],
+          "phase": "input",
+          "shift": 3,
+          "completedOrders": 12,
+          "score": 2116,
+          "lastChain": 1,
+          "maxChain": 1,
+          "levels": {
+            "candidate_slots": 0,
+            "warehouse_expand": 1,
+            "side_gate": 1,
+            "small_parcels": 0,
+            "cargo_supply": 0,
+            "light_orders": 1,
+            "pallet_rate": 0,
+            "order_bonus": 0,
+            "overfill_bonus": 0,
+            "chain_bonus": 0
+          },
+          "upgradeChoices": [],
+          "pendingThresholds": [],
+          "claimedThresholds": [
+            4,
+            8,
+            12
+          ],
+          "supplyCargo": null,
+          "cleanup": {
+            "branch": "placements",
+            "progress": 1
+          },
+          "successfulPlacements": 19,
+          "generatedPieces": 22,
+          "toolCharges": {
+            "rotate": 0,
+            "clear": 1,
+            "wildcard": 0
+          },
+          "usedToolIds": [
+            "rotate"
+          ],
+          "commandIndex": 24,
+          "commandBaseIndex": 0,
+          "commands": [
+            {
+              "type": "chooseCleanup",
+              "branch": "placements"
+            },
+            {
+              "type": "rotate",
+              "pieceId": "piece.5",
+              "quarterTurns": 1
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.5",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.6",
+              "origin": {
+                "x": 0,
+                "y": 2
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.3",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.9",
+              "origin": {
+                "x": 1,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.11",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.12",
+              "origin": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.14",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.4",
+              "origin": {
+                "x": 2,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.8",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.17",
+              "origin": {
+                "x": 5,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.18",
+              "origin": {
+                "x": 3,
+                "y": 1
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "light_orders"
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.15",
+              "origin": {
+                "x": 4,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.16",
+              "origin": {
+                "x": 5,
+                "y": 1
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.22",
+              "origin": {
+                "x": 5,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.25",
+              "origin": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "side_gate"
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.27",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.31",
+              "origin": {
+                "x": 4,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.33",
+              "origin": {
+                "x": 3,
+                "y": 0
+              }
+            },
+            {
+              "type": "place",
+              "pieceId": "piece.35",
+              "origin": {
+                "x": 5,
+                "y": 0
+              }
+            },
+            {
+              "type": "upgrade",
+              "upgradeId": "warehouse_expand"
+            }
+          ],
+          "overtime": false,
+          "result": null,
+          "endReason": null,
+          "maxOccupancy": 8
+        }
+      }
+    ]
+  }
+]

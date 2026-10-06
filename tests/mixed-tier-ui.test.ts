@@ -1,7 +1,8 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCanvas } from '@napi-rs/canvas';
-import { createRun, previewPlacement } from '../src/domain/engine.ts';
+import { createRun} from '../src/domain/engine.ts';
 import { createProfile } from '../src/application/profile.ts';
 import { slotForTier } from '../src/application/run-slots.ts';
 import { COLOR_TIERS } from '../src/domain/v5/content.ts';
@@ -30,7 +31,7 @@ const tierNames = { entry: '入门', middle: '中段', late: '后段' } as const
 // Old saves remain readable, but all new outbound games start at the current selector.
 test('legacy state uses the new home selectors', () => {
   const controls = getUiControls(run(), view({ screen: 'menu' }));
-  assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','settings']);
+  assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','shop','settings']);
   assert.match(controls[1].label,/出库模式/);
 });
 
@@ -54,8 +55,8 @@ test('empty and unavailable legacy slots do not create compatibility controls', 
 
 test('tier controls are nonoverlapping, in bounds, and each responds to a real tap', () => {
   const state = run(), v = view({ screen: 'colorTiers', modeSlots: { color_exit: 'saved' } }), actions: UiAction[] = [];
-  const input = new InputController({ getState: () => state, getView: () => v, patchView: patch => Object.assign(v, patch), preview: () => ({ valid: false, cells: [], shipments: [] }), dispatch: () => assert.fail('selector cannot place'), togglePause: () => {}, restart: () => {}, resume: () => {}, toggleDebug: () => {}, action: action => actions.push(action) });
-  const controls = getUiControls(state, v); assert.equal(controls.length, 5);
+  const input = new InputController({ getState: () => state, getView: () => v, patchView: patch => Object.assign(v, patch), preview: () => ({ valid: false, events:[], cells: [], shipments: [] }), dispatch: () => assert.fail('selector cannot place'), togglePause: () => {}, restart: () => {}, resume: () => {}, toggleDebug: () => {}, action: action => actions.push(action) });
+  const controls = getUiControls(state, v); assert.equal(controls.length, 9);
   for (const [index, control] of controls.entries()) {
     const r = control.rect; assert.ok(r.x >= 0 && r.y >= 0 && r.x + r.w <= L.width && r.y + r.h <= L.height);
     for (const other of controls.slice(index + 1)) assert.ok(!(r.x < other.rect.x + other.rect.w && r.x + r.w > other.rect.x && r.y < other.rect.y + other.rect.h && r.y + r.h > other.rect.y));
@@ -105,7 +106,7 @@ test('tray, hover and drag draw each mixed cell with its own cargo artwork', () 
   const state = run(); state.board.fill(null); state.candidates = [mixed];
   for (const presentation of ['tray', 'hover', 'drag'] as const) {
     const v = view(presentation === 'tray' ? {} : presentation === 'hover'
-      ? { selectedPieceId: 'mixed', hoverOrigin: { x: 1, y: 2 }, preview: { valid: true, cells: [15, 16, 22, 23], shipments: [] } }
+      ? { selectedPieceId: 'mixed', hoverOrigin: { x: 1, y: 2 }, preview: { valid: true,events:[], cells: [15, 16, 22, 23], shipments: [] } }
       : { selectedPieceId: 'mixed', dragPoint: { x: 520, y: 940 } });
     const output = surface(); render(output.ctx, state, v); assert.match(output.words(), /食品 \/ 化工/);
     for (const [index, cargo] of mixed.cellCargos!.entries()) {
@@ -131,7 +132,7 @@ test('actual renderer integrates retained mixed-cell outlines after a half shipm
 
 test('a dragged mixed piece also keeps both cargo bands visible in its landing preview', () => {
   const state = run(); state.board.fill(null); state.candidates = [mixed];
-  const v = view({ selectedPieceId: mixed.id, hoverOrigin: { x: 1, y: 2 }, dragPoint: { x: 780, y: 1100 }, preview: { valid: true, cells: [15, 16, 22, 23], shipments: [] } });
+  const v = view({ selectedPieceId: mixed.id, hoverOrigin: { x: 1, y: 2 }, dragPoint: { x: 780, y: 1100 }, preview: { valid: true,events:[], cells: [15, 16, 22, 23], shipments: [] } });
   const mixedOut = surface(), allFood = surface(); render(mixedOut.ctx, state, v); render(allFood.ctx, { ...state, candidates: [{ id: mixed.id, shapeId: 'shape.square', cargo: 'cargo.food' }] }, v);
   const x = L.board.x + 120 + 30, y = L.board.y + 360 + 29;
   assert.notDeepEqual([...mixedOut.ctx.getImageData(x, y, 12, 12).data], [...allFood.ctx.getImageData(x, y, 12, 12).data], 'chemical landing cell must not be a generic green footprint during drag');

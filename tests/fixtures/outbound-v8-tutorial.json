@@ -1,0 +1,251 @@
+{
+  "rulesetVersion": 8,
+  "mode": "color_exit",
+  "difficultyId": "easy",
+  "seed": 12,
+  "commands": [
+    {
+      "type": "place",
+      "pieceId": "piece.2",
+      "origin": {
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.1",
+      "origin": {
+        "x": 4,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.4",
+      "origin": {
+        "x": 2,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.6",
+      "origin": {
+        "x": 7,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.3",
+      "origin": {
+        "x": 5,
+        "y": 5
+      }
+    }
+  ],
+  "trace": [
+    {
+      "commandIndex": 1,
+      "checksum": "806d43b4",
+      "completedOrders": 0,
+      "events": [
+        {
+          "type": "placed",
+          "pieceId": "piece.2",
+          "cells": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "commandIndex": 2,
+      "checksum": "29f824a6",
+      "completedOrders": 0,
+      "events": [
+        {
+          "type": "placed",
+          "pieceId": "piece.1",
+          "cells": [
+            4,
+            13,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "commandIndex": 3,
+      "checksum": "94e45448",
+      "completedOrders": 0,
+      "events": [
+        {
+          "type": "placed",
+          "pieceId": "piece.4",
+          "cells": [
+            21,
+            29,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "commandIndex": 4,
+      "checksum": "55510b3a",
+      "completedOrders": 0,
+      "events": [
+        {
+          "type": "placed",
+          "pieceId": "piece.6",
+          "cells": [
+            34,
+            43,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "commandIndex": 5,
+      "checksum": "1680cf52",
+      "completedOrders": 1,
+      "events": [
+        {
+          "type": "placed",
+          "pieceId": "piece.3",
+          "cells": [
+            50,
+            51,
+            52,
+            53
+          ]
+        },
+        {
+          "type": "shipment",
+          "boardSize": 9,
+          "dockId": "dock.east",
+          "orderId": "exit.chem",
+          "cargo": "cargo.chem",
+          "cells": [
+            34,
+            43,
+            44,
+            52,
+            53
+          ],
+          "path": [
+            {
+              "x": 4,
+              "y": 8
+            },
+            {
+              "x": 4,
+              "y": 7
+            },
+            {
+              "x": 4,
+              "y": 6
+            },
+            {
+              "x": 5,
+              "y": 6
+            },
+            {
+              "x": 6,
+              "y": 6
+            },
+            {
+              "x": 7,
+              "y": 6
+            }
+          ],
+          "score": 50,
+          "chain": 1,
+          "units": 5,
+          "transport": "conveyor",
+          "cargoPaths": [
+            {
+              "cell": 34,
+              "path": [
+                {
+                  "x": 7,
+                  "y": 3
+                },
+                {
+                  "x": 7,
+                  "y": 4
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                }
+              ]
+            },
+            {
+              "cell": 43,
+              "path": [
+                {
+                  "x": 7,
+                  "y": 4
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                }
+              ]
+            },
+            {
+              "cell": 44,
+              "path": [
+                {
+                  "x": 8,
+                  "y": 4
+                }
+              ]
+            },
+            {
+              "cell": 52,
+              "path": [
+                {
+                  "x": 7,
+                  "y": 5
+                },
+                {
+                  "x": 8,
+                  "y": 5
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                }
+              ]
+            },
+            {
+              "cell": 53,
+              "path": [
+                {
+                  "x": 8,
+                  "y": 5
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "checkpoints": {
+    "insufficient": 2,
+    "firstShipment": 5,
+    "mixedRemainder": 5,
+    "diagonalSeparation": 3,
+    "orthogonalShipment": 5
+  }
+}

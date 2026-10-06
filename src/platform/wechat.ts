@@ -10,12 +10,13 @@ interface MiniImage {src:string;onload:(()=>void)|null;onerror:((error:unknown)=
 export interface WechatHost {
  createCanvas():MiniCanvas;getWindowInfo?():WindowInfo;getSystemInfoSync?():WindowInfo;
  getStorageSync(key:string):unknown;setStorageSync(key:string,value:string):void;removeStorageSync(key:string):void;
+ getStorageInfoSync?():{keys:string[];currentSize:number;limitSize:number};
  onTouchStart(callback:(event:TouchEvent)=>void):void;onTouchMove(callback:(event:TouchEvent)=>void):void;
  onTouchEnd(callback:(event:TouchEvent)=>void):void;onTouchCancel(callback:(event:TouchEvent)=>void):void;
  onHide(callback:()=>void):void;onShow(callback:()=>void):void;onWindowResize?(callback:()=>void):void;
  createInnerAudioContext():MiniAudio;createImage():MiniImage;
 }
-export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFrame:(callback:(time:number)=>void)=>number;now:()=>number}):Platform {
+export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFrame:(callback:(time:number)=>void)=>number;now:()=>number},context:'main'|'sub'='main'):Platform {
  // The first call is deliberately the screen canvas. No imported module creates a canvas.
  const canvas=host.createCanvas();
  const ctx=canvas.getContext('2d');if(!ctx)throw Error('无法创建2D画布');
@@ -35,7 +36,13 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  const sounds=new Map<SoundName,MiniAudio>();
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
  const platform:Platform={
-  storage:{get:key=>{const value=host.getStorageSync(key);if(value===''||value===undefined||value===null)return null;if(typeof value!=='string')throw Error('存储格式无效');return value;},set:(key,value)=>host.setStorageSync(key,value),remove:key=>host.removeStorageSync(key)},
+  writerLease:{status:context==='main'?'held':'unsupported',release(){this.status='unsupported';}},
+  storage:{get:key=>{const value=host.getStorageSync(key);if(value===''||value===undefined||value===null)return null;if(typeof value!=='string')throw Error('存储格式无效');return value;},set:(key,value)=>host.setStorageSync(key,value),remove:key=>host.removeStorageSync(key),
+   ...(host.getStorageInfoSync?{listKeys:(prefix:string)=>host.getStorageInfoSync!().keys.filter(key=>key.startsWith(prefix)).sort(),capacity:()=>{
+    const info=host.getStorageInfoSync!();if(!Number.isFinite(info.currentSize)||info.currentSize<0||!Number.isFinite(info.limitSize)||info.limitSize<=0)throw Error('存储容量信息无效');
+    return {usedBytes:Math.ceil(info.currentSize*1024),limitBytes:Math.floor(info.limitSize*1024)};
+   }}:{}),
+  },
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,offsetX*dpr,offsetY*dpr);return ctx;},
   frame:callback=>clock.requestAnimationFrame(()=>callback(clock.now())),now:clock.now,wallTime:()=>Date.now(),
   onPointer:callback=>{

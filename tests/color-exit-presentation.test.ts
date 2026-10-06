@@ -1,3 +1,4 @@
+import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import type { Point, Shipment } from '../src/domain/types.ts';
@@ -117,7 +118,7 @@ test('fixed gate overlay identifies all cargo doors and reserves the southern en
 
 test('preview renders differently colored dashed forklift access and solid cargo lines', () => {
   const canvas = surface(), event = shipment();
-  drawColorExitRoutes(canvas.ctx, view({ preview: { valid: true, cells: [], shipments: [event] } }));
+  drawColorExitRoutes(canvas.ctx, view({ preview: { valid: true,events:[], cells: [], shipments: [event] } }));
   const dashed = canvas.strokes.filter(s => s.dash.length), solid = canvas.strokes.filter(s => !s.dash.length);
   assert.ok(dashed.length, 'forklift empty access is dashed'); assert.ok(solid.some(s => dashed.every(d => d.style !== s.style)), 'cargo lines have a different solid color');
   assert.doesNotMatch(canvas.words(), /虚线|实线/, 'route legends belong in optional help');
@@ -137,7 +138,7 @@ test('help diagram explains linked cargo quantity, the matching exit, and the si
   assert.match(canvas.words(), /叉车入口/); assert.doesNotMatch(canvas.words(), /订单|旧单|升级|加班/);
 });
 
-import { createRun, previewPlacement } from '../src/domain/engine.ts';
+import { createRun} from '../src/domain/engine.ts';
 import { colorExitFeedback, colorExitBoardHint, drawColorExitCards } from '../src/presentation/color-exit-renderer.ts';
 function colorRun(): RunState {
   const run = createRun(7, 'color_exit', 4); run.board.fill(null);

@@ -128,7 +128,7 @@ test('side gate is explicitly labeled at southwest cell and stays distinct from 
 
 test('preview preserves exact selected cells and marks extra clear separately with text', () => {
   const state = v2State(), surface = canvasSurface(), view = baseView();
-  view.preview = { valid: true, cells: [30], shipments: [shipment({ cells: [8, 9], units: 3, usedPalletPass: true, extraClearedCells: [15] })] };
+  view.preview = { valid: true, events:[], cells: [30], shipments: [shipment({ cells: [8, 9], units: 3, usedPalletPass: true, extraClearedCells: [15] })] };
   render(surface.ctx, state, view);
   assert.deepEqual(surface.outlines.filter(rect => rect.w === 112 && rect.h === 112), [8, 9].map(index => ({ x: layout.L.board.x + index % 7 * 120 + 4, y: layout.L.board.y + Math.floor(index / 7) * 120 + 4, w: 112, h: 112 })));
   assert.ok(labelsOf(surface).some(value => value.includes('托盘保留')));
@@ -160,7 +160,8 @@ test('upgrade visuals communicate effect semantics instead of candidate-index ca
 test('three-tray compatibility alias stays identical and invalid counts do not invent hit targets', () => {
   assert.deepEqual(layout.L.trays3, layout.L.trays);
   assert.deepEqual(layout.getTrayRects(0), []);
-  assert.deepEqual(layout.getTrayRects(5), []);
+  assert.equal(layout.getTrayRects(5).length, 5);
+  assert.deepEqual(layout.getTrayRects(6), []);
   assert.deepEqual(layout.getTrayRects(Number.NaN), []);
 });
 
