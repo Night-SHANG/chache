@@ -4,7 +4,8 @@
  */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile, stat } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, stat, readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { createHost } from './host-runtime.mjs';
 import { createRun, applyCommand, previewPlacement } from '../src/domain/engine.ts';
@@ -18,6 +19,8 @@ import { getUiControls } from '../src/presentation/ui.ts';
 
 const OUT = 'artifacts/delivery-fix';
 const START = 32;
+const buildManifest = JSON.parse(await readFile('build/wechat/build-manifest.json', 'utf8'));
+const builtGameSha256 = createHash('sha256').update(await readFile('build/wechat/game.js')).digest('hex');
 const SCALE = .5;
 const full = [50, 150, 270, 359, 360, 395, 430, 499, 500, 590, 700, 855, 860, 910, 960, 990, 1000];
 const pictures = [];
@@ -314,7 +317,7 @@ async function verifyTeachingLayouts() {
     '废物占格不出库；危险品出货时清相邻废物', '穿托盘不搬走托盘；额外清理不计分'];
   const goals = { standard: '目标：每班6单，共5班，完成订单就能过关', daily: '今日目标：每班6单，共5班，同日固定种子',
     tutorial: '练习目标：学会按订单凑货、给叉车留路', overtime: '加班目标：继续接单追分，可主动结束' };
-  const lessonHints = ['看上方订单：北门要3件食品，先放2件', '食品还差1件；上下左右连起来，再留空路', '食品够3件，但北门被机械挡住：先清机械'];
+  const lessonHints = ['看上方订单：北门要3件食品，先放2件', '食品还差1件；上下左右连起来，再留空路', '食品够3件，北门被机械挡住：南门清机械→北门出食品'];
   const dragHints = ['第1步：把食品横2拖进虚线框', '第2步：把食品接在右侧，凑成3件出货', '第3步：补上机械，先清路，再连锁出货'];
   const resultHints = ['正式目标：每班6单，共5班；候选全放不下就失败', '本次练习不计入正式成绩'];
   const reports = [], sheets = [];
@@ -414,7 +417,22 @@ for (const fixture of fixtures) {
     }
   }
   assert.equal(shippedSounds(run.h).length, 1, 'one delivery sound for one scored shipment');
-  const report = { name: run.name, authored: true, savedFixtureChecksum: checksum(run.before), placedCommand: run.resolved.state.commands.at(-1),
+  async function sourceFiles(dir) {
+  const files = [];
+  for (const item of await readdir(dir, { withFileTypes: true })) {
+    const path = join(dir, item.name);
+    files.push(...(item.isDirectory() ? await sourceFiles(path) : [path]));
+  }
+  return files;
+}
+const sourceDigest = createHash('sha256');
+for (const path of [...await sourceFiles('src'), ...await sourceFiles('scripts'), 'package.json', 'package-lock.json'].sort()) {
+  sourceDigest.update(path); sourceDigest.update(await readFile(path));
+}
+assert.equal(sourceDigest.digest('hex'), buildManifest.sourceSha256, 'full source and verification script match the built manifest');
+assert.equal(createHash('sha256').update(await readFile('build/wechat/game.js')).digest('hex'), builtGameSha256, 'actual package did not change during verification');
+assert.equal(JSON.parse(await readFile('build/browser/build-manifest.json', 'utf8')).sourceSha256, buildManifest.sourceSha256, 'browser and WeChat artifacts share the same source fingerprint');
+const report = { name: run.name, authored: true, savedFixtureChecksum: checksum(run.before), placedCommand: run.resolved.state.commands.at(-1),
     shipment: run.shipment, settledChecksum: run.stable, settledScore: run.resolved.state.score, frames: run.frames };
   fixtureReports.push(report);
   console.log(`PASS ${run.name}: ${run.shipment.path.length} path cells; ${run.frames.length} stable-score frames; actual load/heading/exit checks.`);
@@ -534,7 +552,7 @@ const contactSheets = [
 const report = {
   status: 'PASS', evidenceKind: 'Actual build/wechat/game.js under offline native Canvas/wx host simulation',
   exclusions: ['No browser execution', 'No WeChat developer tools or physical device execution', 'No human audio listening', 'No claim of a recovered user save or natural balance'],
-  builtGameSha256: createHash('sha256').update(await readFile('build/wechat/game.js')).digest('hex'),
+  builtGameSha256, buildManifest, sameSourceManifestVerified: true,
   rulesetVersion: 3, timingsMs: { route: 100, inbound: 260, load: 140, carry: 360, exit: 140, total: 1000, reduced: 80 },
   authoredFixtureCount: fixtures.length, fixtures: fixtureReports,
   lifecycle: { hideDuringCarry: true, showResume: true, coldRestore: true, explicitPauseResume: true, stableChecksum: lifecycle.stable },

@@ -1,7 +1,7 @@
 {
-  "status": "PAUSED_AT_USER_REQUEST",
-  "recordedAt": "2026-10-06T00:54:35Z",
-  "reason": "User asked to wait while comparing a different exit-and-forklift rule; no new gameplay rule implemented.",
+  "status": "OLD_MODE_FIX_VERIFIED_NEW_MODE_DESIGN_APPROVED",
+  "recordedAt": "2026-10-06T01:05:02Z",
+  "reason": "User resumed development and accepted independent color-exit mode with per-box conveyor loading; old mode fixes now fully verified.",
   "workVersion": "0.3.2-dev UNRELEASED",
   "lastLibraryReleaseVersion": 6,
   "lastReleasedGameVersion": "0.3.1-dev",
@@ -15,9 +15,9 @@
     "latestTeachingRendererExporterFocused": "45/45 PASS",
     "priorFullHostSuite": "host-smoke, host-v2-smoke, host-full-loop, host-feedback PASS before final teaching/clip",
     "latestDeliveryHostPartial": "7 routes / 71 frames, lifecycle, reduced, order UI passed before new 3-size copy assertion",
-    "threeSizeStatus": "360x800 safeTop24 DPR2 tutorial 1/2 and tutorial pause passed. Step3 assertion expects old shorter text; remaining pages/sizes NOT RUN.",
-    "deliveryReportWarning": "report.json remains previous-build afade84 report. PNGs contain newer partial renders. Do NOT call this a complete latest-build report.",
-    "fullLatestAggregateGate": "NOT RUN after final teaching/clip changes",
+    "threeSizeStatus": "360x800 safeTop24 DPR2,540x960,1200x900: 24 screens/132 glyph bounds PASS",
+    "deliveryReportWarning": "Latest report sameSourceManifestVerified=true; source 2847b6594915017404f62437141cf709526b63fc9096175a210d062603969b27",
+    "fullLatestAggregateGate": "462 Node +22 Python; lint/typecheck/preflight/build/SHA; all 5 host scripts PASS",
     "browserAndWechat": "NOT RUN by this task; user supplied v0.3.1 feedback only"
   },
   "nextIfOldRuleFixResumed": [
