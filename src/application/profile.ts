@@ -1,6 +1,6 @@
-import type { ColorTier, RunState } from '../domain/types.ts';
-import { loadRun, type StoragePort } from './save.ts';
-import { RUN_SLOTS, isRunSlot, slotForRun, tierForSlot, type RunSlot } from './run-slots.ts';
+import type { ColorTier, OutboundDifficulty, RunState } from '../domain/types.ts';
+import { assertRun, loadRun, type StoragePort } from './save.ts';
+import { RUN_SLOTS, isRunSlot, slotForRun, tierForSlot, difficultyForSlot, type RunSlot } from './run-slots.ts';
 import { RULES_V4_CONFIG } from '../domain/v4/content.ts';
 
 /** Purely local preferences, cosmetics and results, independent of Run snapshots. */
@@ -11,6 +11,18 @@ export interface ColorExitProfile {
  stats:{runs:number;batches:number;wins:number;maxChain:number};
  bestScores:Partial<Record<'v4'|'v5',{score:number;chain:number}>>;
  lastRecordedRun:{serial:number;batches:number;score:number;ignored?:boolean}|null;
+ resetCursor?:{serial:number;commandIndex:number};
+}
+export interface OutboundProfile {
+ stats:{runs:number;batches:number;wins:number;maxChain:number};
+ bestScores:Partial<Record<'v6',{score:number;chain:number}>>;
+ lastRecordedRun:{serial:number;batches:number;score:number;ignored?:boolean}|null;
+ resetCursor?:{serial:number;commandIndex:number};
+}
+export interface EndlessProfile {
+ stats:{runs:number;orders:number;score:number;maxChain:number;retirements:number};
+ bestScores:Partial<Record<'v7',{score:number;chain:number;orders:number}>>;
+ lastRecordedRun:{serial:number;orders:number;score:number;ignored?:boolean}|null;
  resetCursor?:{serial:number;commandIndex:number};
 }
 export interface Profile {
@@ -27,6 +39,8 @@ export interface Profile {
  resetCursor?:{serial:number;commandIndex:number};
  colorExit?:ColorExitProfile;
  colorComparisons?:Partial<Record<ColorTier,ColorExitProfile>>;
+ outboundDifficulties?:Partial<Record<OutboundDifficulty,OutboundProfile>>;
+ endless?:EndlessProfile;
 }
 export function createProfile():Profile {
  return {schemaVersion:1,settings:{sound:true,reducedMotion:false},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null};
@@ -35,6 +49,14 @@ export function createProfile():Profile {
 function createColorExitProfile():ColorExitProfile {return {stats:{runs:0,batches:0,wins:0,maxChain:0},bestScores:{},lastRecordedRun:null};}
 /** Reading old profiles does not migrate their serialized shape or share mutable defaults. */
 export function getColorExitProfile(profile:Profile,tier?:ColorTier):ColorExitProfile {return (tier===undefined?profile.colorExit:profile.colorComparisons?.[tier])??createColorExitProfile();}
+
+function createOutboundProfile():OutboundProfile {return {stats:{runs:0,batches:0,wins:0,maxChain:0},bestScores:{},lastRecordedRun:null};}
+function createEndlessProfile():EndlessProfile {return {stats:{runs:0,orders:0,score:0,maxChain:0,retirements:0},bestScores:{},lastRecordedRun:null};}
+export function getOutboundProfile(profile:Profile,difficulty:OutboundDifficulty):OutboundProfile {
+ requireValue(['easy','normal','hard','expert'].includes(difficulty),'出库难度无效');
+ return profile.outboundDifficulties?.[difficulty]??createOutboundProfile();
+}
+export function getEndlessProfile(profile:Profile):EndlessProfile {return profile.endless??createEndlessProfile();}
 
 export interface CosmeticMetadata {id:string;name:string;description?:string;achievementId?:string}
 export const THEMES:readonly CosmeticMetadata[]=[{id:'day',name:'日班仓库',description:'明亮的日班色调，仅改变外观'},{id:'night',name:'夜班仓库',description:'深色夜班色调，仅改变外观'}];
@@ -71,7 +93,7 @@ export function localDailyChallenge(epochMs:number,rulesetVersion:number):Return
 export function assertProfile(value:unknown):asserts value is Profile {
  requireValue(object(value),'长期记录结构无效');
  requireValue(value.schemaVersion===1,'长期记录版本不兼容');
- requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit']),...(value.colorComparisons===undefined?[]:['colorComparisons'])]),'长期记录字段无效');
+ requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit']),...(value.colorComparisons===undefined?[]:['colorComparisons']),...(value.outboundDifficulties===undefined?[]:['outboundDifficulties']),...(value.endless===undefined?[]:['endless'])]),'长期记录字段无效');
  const settings=value.settings,cosmetics=value.cosmetics,stats=value.stats;
  requireValue(object(settings)&&keys(settings,['sound','reducedMotion'])&&typeof settings.sound==='boolean'&&typeof settings.reducedMotion==='boolean','设置无效');
  requireValue(object(cosmetics)&&keys(cosmetics,['theme','forklift','cargo'])&&known(THEMES,cosmetics.theme)&&known(FORKLIFTS,cosmetics.forklift)&&known(CARGO_STYLES,cosmetics.cargo),'外观无效');
@@ -103,8 +125,13 @@ export function assertProfile(value:unknown):asserts value is Profile {
   requireValue(object(value.colorComparisons)&&Object.keys(value.colorComparisons).every(tier=>tier==='entry'||tier==='middle'||tier==='late'),'颜色比较档记录字段无效');
   for(const record of Object.values(value.colorComparisons))assertColorExitProfile(record,value.nextRunSerial,'v5');
  }
+ if(value.outboundDifficulties!==undefined){
+  requireValue(object(value.outboundDifficulties)&&Object.keys(value.outboundDifficulties).every(difficulty=>['easy','normal','hard','expert'].includes(difficulty)),'出库难度记录字段无效');
+  for(const record of Object.values(value.outboundDifficulties))assertColorExitProfile(record,value.nextRunSerial,'v6');
+ }
+ if(value.endless!==undefined)assertEndlessProfile(value.endless,value.nextRunSerial);
 }
-function assertColorExitProfile(value:unknown,nextRunSerial:number,version:'v4'|'v5'):asserts value is ColorExitProfile {
+function assertColorExitProfile(value:unknown,nextRunSerial:number,version:'v4'|'v5'|'v6'):void {
  requireValue(object(value)&&keys(value,['stats','bestScores','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor'])]),'颜色出口记录字段无效');
  const stats=value.stats;
  requireValue(object(stats)&&keys(stats,['runs','batches','wins','maxChain'])&&integer(stats.runs)&&integer(stats.batches)&&integer(stats.wins,0,stats.runs)&&integer(stats.maxChain,0,3),'颜色出口统计无效');
@@ -113,6 +140,16 @@ function assertColorExitProfile(value:unknown,nextRunSerial:number,version:'v4'|
  const last=value.lastRecordedRun;
  requireValue(last===null||object(last)&&keys(last,last.ignored===undefined?['serial','batches','score']:['serial','batches','score','ignored'])&&(last.ignored===undefined||typeof last.ignored==='boolean')&&integer(last.serial,1,nextRunSerial-1)&&integer(last.batches,0,32)&&integer(last.score)&&last.score%RULES_V4_CONFIG.pointsPerCell===0,'颜色出口结算记录无效');
  requireValue(value.resetCursor===undefined||object(value.resetCursor)&&keys(value.resetCursor,['serial','commandIndex'])&&integer(value.resetCursor.serial,1,nextRunSerial-1)&&integer(value.resetCursor.commandIndex),'颜色出口重置边界无效');
+}
+function assertEndlessProfile(value:unknown,nextRunSerial:number):void {
+ requireValue(object(value)&&keys(value,['stats','bestScores','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor'])]),'无限入库记录字段无效');
+ const stats=value.stats;
+ requireValue(object(stats)&&keys(stats,['runs','orders','score','maxChain','retirements'])&&integer(stats.runs)&&integer(stats.orders)&&integer(stats.score)&&integer(stats.maxChain,0,64)&&integer(stats.retirements,0,stats.runs),'无限入库统计无效');
+ requireValue(object(value.bestScores)&&Object.keys(value.bestScores).length<=1,'无限入库最好成绩数量无效');
+ for(const [key,best] of Object.entries(value.bestScores))requireValue(key==='v7'&&object(best)&&keys(best,['score','chain','orders'])&&integer(best.score)&&integer(best.chain,0,64)&&integer(best.orders),'无限入库最好成绩无效');
+ const last=value.lastRecordedRun;
+ requireValue(last===null||object(last)&&keys(last,last.ignored===undefined?['serial','orders','score']:['serial','orders','score','ignored'])&&(last.ignored===undefined||typeof last.ignored==='boolean')&&integer(last.serial,1,nextRunSerial-1)&&integer(last.orders)&&integer(last.score),'无限入库结算记录无效');
+ requireValue(value.resetCursor===undefined||object(value.resetCursor)&&keys(value.resetCursor,['serial','commandIndex'])&&integer(value.resetCursor.serial,1,nextRunSerial-1)&&integer(value.resetCursor.commandIndex),'无限入库重置边界无效');
 }
 export function encodeProfile(profile:Profile):string {
  assertProfile(profile);const body=JSON.stringify(profile);const raw=JSON.stringify({schemaVersion:1,digest:digest(body),profile});requireValue(raw.length<=MAX_PROFILE_LENGTH,'长期记录超出大小限制');return raw;
@@ -145,6 +182,9 @@ function trimDaily(history:Profile['dailyHistory']):Profile['dailyHistory'] {
 /** Called only for stable terminal snapshots; the same run may later finish overtime. */
 export function recordResult(profile:Profile,run:RunState):Profile {
  assertProfile(profile);
+ const owns=(key:string)=>Object.prototype.hasOwnProperty.call(run,key);
+ if(run.rulesetVersion===7||run.mode==='endless'||run.runConfigId==='run.endless_v7')return recordEndlessResult(profile,run);
+ if(run.rulesetVersion===6||owns('boardSize')||owns('difficultyId')||run.runConfigId.startsWith('run.outbound9_v6.'))return recordOutboundResult(profile,run);
  if(run.mode==='color_exit'||run.rulesetVersion===4||run.rulesetVersion===5||run.colorTier!==undefined)return recordColorExitResult(profile,run);
  if(run.phase!=='result'||!['won','failed'].includes(String(run.result))||!integer(run.runSerial,1,MAX-1)||!integer(run.completedOrders)||!integer(run.score)||!integer(run.maxChain,0,64)||!integer(run.rulesetVersion,1,MAX_RULESET)||!['standard','daily','tutorial'].includes(run.mode))return profile;
  const cutoff=profile.resetCursor;
@@ -190,6 +230,25 @@ function recordColorExitResult(profile:Profile,run:RunState):Profile {
   lastRecordedRun:{serial:run.runSerial,batches:run.completedOrders,score:run.score},
  };
  return {...profile,...(tier===undefined?{colorExit}:{colorComparisons:{...profile.colorComparisons,[tier]:colorExit}}),nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
+}
+
+function recordOutboundResult(profile:Profile,run:RunState):Profile {
+ try{assertRun(run);if(run.rulesetVersion!==6||difficultyForSlot(slotForRun(run))!==run.difficultyId)return profile;}catch{return profile;}
+ if(run.phase!=='result'||!integer(run.runSerial,1,MAX-1)||run.difficultyId===undefined)return profile;
+ const current=getOutboundProfile(profile,run.difficultyId),cutoff=current.resetCursor,previous=current.lastRecordedRun;
+ if(cutoff&&(run.runSerial<cutoff.serial||run.runSerial===cutoff.serial&&run.commandIndex<=cutoff.commandIndex)||previous&&run.runSerial<=previous.serial)return profile;
+ const best=current.bestScores.v6;
+ const record:OutboundProfile={...current,stats:{runs:add(current.stats.runs,1),batches:add(current.stats.batches,run.completedOrders),wins:add(current.stats.wins,run.result==='won'?1:0),maxChain:Math.max(current.stats.maxChain,run.maxChain)},bestScores:{v6:{score:Math.max(best?.score??0,run.score),chain:Math.max(best?.chain??0,run.maxChain)}},lastRecordedRun:{serial:run.runSerial,batches:run.completedOrders,score:run.score}};
+ return {...profile,outboundDifficulties:{...profile.outboundDifficulties,[run.difficultyId]:record},nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
+}
+function recordEndlessResult(profile:Profile,run:RunState):Profile {
+ try{assertRun(run);if(slotForRun(run)!=='inbound_endless')return profile;}catch{return profile;}
+ if(run.phase!=='result'||!integer(run.runSerial,1,MAX-1))return profile;
+ const current=getEndlessProfile(profile),cutoff=current.resetCursor,previous=current.lastRecordedRun;
+ if(cutoff&&(run.runSerial<cutoff.serial||run.runSerial===cutoff.serial&&run.commandIndex<=cutoff.commandIndex)||previous&&run.runSerial<=previous.serial)return profile;
+ const best=current.bestScores.v7;
+ const endless:EndlessProfile={...current,stats:{runs:add(current.stats.runs,1),orders:add(current.stats.orders,run.completedOrders),score:add(current.stats.score,run.score),maxChain:Math.max(current.stats.maxChain,run.maxChain),retirements:add(current.stats.retirements,run.endReason==='retired'?1:0)},bestScores:{v7:{score:Math.max(best?.score??0,run.score),chain:Math.max(best?.chain??0,run.maxChain),orders:Math.max(best?.orders??0,run.completedOrders)}},lastRecordedRun:{serial:run.runSerial,orders:run.completedOrders,score:run.score}};
+ return {...profile,endless,nextRunSerial:Math.max(profile.nextRunSerial,run.runSerial+1)};
 }
 
 export interface ProfileSaveResult {ok:boolean;message:string}
@@ -272,6 +331,22 @@ export function resetProfile(storage:StoragePort,minimumNextSerial=1,...runs:Res
   retainResetCursor(profile,loaded.profile.resetCursor);
   for(const slot of RUN_SLOTS){
    if(slot==='orders')continue;
+   const difficulty=difficultyForSlot(slot),candidateNew=snapshots.get(slot);
+   const newRun=candidateNew&&integer(candidateNew.runSerial,1,MAX-1)&&integer(candidateNew.commandIndex)?candidateNew:null;
+   if(difficulty!==undefined){
+    const old=loaded.profile.outboundDifficulties?.[difficulty];if(!old&&!newRun)continue;
+    const record=createOutboundProfile(),prior=old?.lastRecordedRun;
+    if(newRun){record.resetCursor={serial:newRun.runSerial!,commandIndex:newRun.commandIndex};if(newRun.phase==='result')record.lastRecordedRun={serial:newRun.runSerial!,batches:newRun.completedOrders,score:newRun.score,ignored:true};else if(prior)record.lastRecordedRun={...prior,ignored:true};}
+    else if(prior){record.resetCursor={serial:prior.serial,commandIndex:MAX};record.lastRecordedRun={...prior,ignored:true};}
+    retainResetCursor(record,old?.resetCursor);profile.outboundDifficulties={...profile.outboundDifficulties,[difficulty]:record};continue;
+   }
+   if(slot==='inbound_endless'){
+    const old=loaded.profile.endless;if(!old&&!newRun)continue;
+    const record=createEndlessProfile(),prior=old?.lastRecordedRun;
+    if(newRun){record.resetCursor={serial:newRun.runSerial!,commandIndex:newRun.commandIndex};if(newRun.phase==='result')record.lastRecordedRun={serial:newRun.runSerial!,orders:newRun.completedOrders,score:newRun.score,ignored:true};else if(prior)record.lastRecordedRun={...prior,ignored:true};}
+    else if(prior){record.resetCursor={serial:prior.serial,commandIndex:MAX};record.lastRecordedRun={...prior,ignored:true};}
+    retainResetCursor(record,old?.resetCursor);profile.endless=record;continue;
+   }
    const tier=tierForSlot(slot),oldColor=tier===undefined?loaded.profile.colorExit:loaded.profile.colorComparisons?.[tier],candidate=snapshots.get(slot);
    const colorRun=candidate&&integer(candidate.runSerial,1,MAX-1)&&integer(candidate.commandIndex)?candidate:null;
    if(!oldColor&&!colorRun)continue;

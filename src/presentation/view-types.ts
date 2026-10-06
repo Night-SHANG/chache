@@ -1,4 +1,5 @@
-import type { Cell, CellTrait, ColorTier, PlacementPreview, Point, Shipment } from '../domain/types.ts';
+import type {PlacementRisk} from './placement-risk.ts';
+import type { Cell, CellTrait, ColorTier, OutboundDifficulty, PlacementPreview, Point, Shipment } from '../domain/types.ts';
 import type { RunSlot } from '../application/run-slots.ts';
 import type {Profile} from '../application/profile.ts';
 
@@ -8,6 +9,7 @@ export interface ViewState {
   hoverOrigin: Point | null;
   preview: PlacementPreview | null;
   dragPoint: Point | null;
+  placementRisk?: PlacementRisk|null;
   paused: boolean;
   message: string;
   saveStatus: string;
@@ -20,7 +22,7 @@ export interface ViewState {
   debugPage?: number;
   needsResume: boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers';
+  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns';
   variant?: RunSlot;
   modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
   comparisonSeed?: number;
@@ -29,5 +31,5 @@ export interface ViewState {
   profileNeedsRecovery?: boolean;
   dailyLabel?: string;
   canContinue?: boolean;
-  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode';mode?:'standard'|'daily'|'color_exit';variant?:RunSlot;colorTier?:ColorTier;seed?:number}|null;
+  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }

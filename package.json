@@ -1,6 +1,6 @@
 {
   "name": "warehouse-last-slot",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "serve": "node scripts/serve.mjs",
     "smoke": "node scripts/browser-smoke.mjs",
     "check": "npm run lint && npm run typecheck && npm test && npm run preflight && npm run build",
-    "host-smoke": "node scripts/host-smoke.mjs && node scripts/host-v2-smoke.mjs && node scripts/host-full-loop.mjs && node scripts/host-feedback.mjs",
+    "host-smoke": "node scripts/host-v060.mjs",
     "simulate": "node scripts/simulate.mjs"
   },
   "dependencies": {

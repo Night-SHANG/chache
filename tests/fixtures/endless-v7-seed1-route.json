@@ -1,0 +1,482 @@
+{
+  "seed": 1,
+  "description": "Frozen v3 ordinary seed-1 command route through 30 shipments; v7 continues directly from this boundary.",
+  "commands": [
+    {
+      "type": "place",
+      "pieceId": "piece.3",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.5",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.7",
+      "origin": {
+        "x": 5,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.4",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.11",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.6",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.9",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.15",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.stock_orders"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.17",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.14",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.13",
+      "origin": {
+        "x": 2,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.21",
+      "origin": {
+        "x": 0,
+        "y": 6
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.24",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.light_orders"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.20",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.27",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.30",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.28",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.34",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.pallet_pass"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.19",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.37",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.36",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.41",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.42",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.44",
+      "origin": {
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.wild_supply"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.32",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.46",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.48",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.47",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.51",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.52",
+      "origin": {
+        "x": 5,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.39",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.50",
+      "origin": {
+        "x": 3,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.58",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.sweep_route"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.55",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.61",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.62",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.56",
+      "origin": {
+        "x": 5,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.64",
+      "origin": {
+        "x": 4,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.68",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.hazard_clearance"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.66",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.71",
+      "origin": {
+        "x": 4,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.73",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.74",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.60",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.76",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.77",
+      "origin": {
+        "x": 4,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.79",
+      "origin": {
+        "x": 4,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.70",
+      "origin": {
+        "x": 2,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.82",
+      "origin": {
+        "x": 3,
+        "y": 3
+      }
+    },
+    {
+      "type": "upgrade",
+      "upgradeId": "upgrade.extra_pickup"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.75",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.81",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.86",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.88",
+      "origin": {
+        "x": 3,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.89",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.85",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.91",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    }
+  ]
+}

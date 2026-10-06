@@ -27,43 +27,35 @@ function surface() {
 }
 const tierNames = { entry: '入门', middle: '中段', late: '后段' } as const;
 
-// Replacing the main color action with a direct v4 switch must fail: v5 always starts at the selector.
-test('main color entry opens three-tier selection while retaining order actions', () => {
+// Old saves remain readable, but all new outbound games start at the v6 selector.
+test('legacy state uses the new home selectors', () => {
   const controls = getUiControls(run(), view({ screen: 'menu' }));
-  assert.ok(controls.some(control => control.action.type === 'chooseColorTier' && /颜色出口/.test(control.label)));
-  assert.ok(controls.some(control => control.action.type === 'switchMode' && control.action.variant === 'orders'));
-  assert.ok(controls.some(control => control.action.type === 'newRun' && control.action.mode === 'daily'));
+  assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','settings']);
+  assert.match(controls[1].label,/出库模式/);
 });
 
-test('three-tier selection has independent continue and common-seed new-run actions plus legacy recovery', () => {
-  const current = view({ screen: 'colorTiers', comparisonSeed: 9876, modeSlots: { orders: 'saved', color_exit: 'corrupt', color_exit_entry: 'saved', color_exit_middle: 'result', color_exit_late: 'empty' } });
+test('legacy screen offers only existing saved result and corrupt slots', () => {
+  const current = view({ screen: 'legacyRuns', modeSlots: { color_exit: 'corrupt', color_exit_entry: 'saved', color_exit_middle: 'result', color_exit_late: 'empty' } });
   const controls = getUiControls(run(), current), out = surface(); render(out.ctx, run(), current);
-  for (const tier of COLOR_TIERS) {
-    assert.ok(controls.some(control => control.action.type === 'switchMode' && control.action.variant === slotForTier(tier)));
-    assert.ok(controls.some(control => control.action.type === 'newRun' && control.action.mode === 'color_exit' && control.action.colorTier === tier));
-    assert.match(out.words(), new RegExp(`${tierNames[tier]}.*纯色${100 - MIXED_COLOR_PERCENT[tier]}%.*双色${MIXED_COLOR_PERCENT[tier]}%`));
-  }
+  assert.deepEqual(controls.flatMap(control=>control.action.type==='switchMode'?[control.action.variant]:[]),['color_exit','color_exit_entry','color_exit_middle']);
+  assert.equal(controls.some(control=>control.action.type==='newRun'),false);
   assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit_entry')!.label, /继续/);
   assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit_middle')!.label, /结算/);
-  assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit')!.label, /旧纯色.*存档待处理/);
-  assert.ok(controls.some(control => control.action.type === 'comparisonSeedNext'));
-  assert.ok(controls.some(control => control.action.type === 'home'));
-  assert.match(out.words(), /共同对比种子\n9876/); assert.match(out.words(), /逐件概率/);
-  assert.match(out.words(), /仅影响以后新开/); assert.match(out.words(), /不保证.*比例|不是.*配额/);
-  assert.doesNotMatch(out.words(), /已平衡|最终难度|自动.*升档/);
+  assert.match(controls.find(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit')!.label, /纯色.*\n存档待处理/);
+  assert.match(out.words(), /旧版出库.*7×7/);assert.match(out.words(), /9×9难度选择/);
 });
 
-test('empty legacy slot has no compatibility entry, unavailable slot remains visible', () => {
+test('empty and unavailable legacy slots do not create compatibility controls', () => {
   for (const status of ['empty', 'unavailable'] as const) {
     const controls = getUiControls(run(), view({ screen: 'colorTiers', modeSlots: { color_exit: status } }));
-    assert.equal(controls.some(control => control.action.type === 'switchMode' && control.action.variant === 'color_exit'), status === 'unavailable');
+    assert.equal(controls.some(control => control.action.type === 'chooseLegacy'), false);
   }
 });
 
 test('tier controls are nonoverlapping, in bounds, and each responds to a real tap', () => {
   const state = run(), v = view({ screen: 'colorTiers', modeSlots: { color_exit: 'saved' } }), actions: UiAction[] = [];
   const input = new InputController({ getState: () => state, getView: () => v, patchView: patch => Object.assign(v, patch), preview: () => ({ valid: false, cells: [], shipments: [] }), dispatch: () => assert.fail('selector cannot place'), togglePause: () => {}, restart: () => {}, resume: () => {}, toggleDebug: () => {}, action: action => actions.push(action) });
-  const controls = getUiControls(state, v); assert.ok(controls.length >= 8);
+  const controls = getUiControls(state, v); assert.equal(controls.length, 7);
   for (const [index, control] of controls.entries()) {
     const r = control.rect; assert.ok(r.x >= 0 && r.y >= 0 && r.x + r.w <= L.width && r.y + r.h <= L.height);
     for (const other of controls.slice(index + 1)) assert.ok(!(r.x < other.rect.x + other.rect.w && r.x + r.w > other.rect.x && r.y < other.rect.y + other.rect.h && r.y + r.h > other.rect.y));
@@ -72,21 +64,22 @@ test('tier controls are nonoverlapping, in bounds, and each responds to a real t
   }
 });
 
-test('terminal and menu restarts preserve the explicitly chosen tier', () => {
+test('legacy terminal restart leads to new difficulty selection without recreating v5', () => {
   for (const tier of COLOR_TIERS) for (const screen of ['game', 'menu'] as const) {
     const state = { ...run(tier), phase: 'result' as const, result: 'won' as const };
-    const action = getUiControls(state, view({ screen })).find(control => control.action.type === 'newRun' && control.action.mode === 'color_exit')?.action;
-    assert.deepEqual(action, { type: 'newRun', mode: 'color_exit', colorTier: tier });
+    const controls=getUiControls(state,view({screen}));
+    assert.ok(controls.some(control=>control.action.type==='chooseColorTier'));
+    assert.equal(controls.some(control=>control.action.type==='newRun'),false);
   }
 });
 
-test('tier switches and new runs identify target save and common seed in confirmation', () => {
+test('legacy switches identify target save and restart asks before leaving for new difficulties', () => {
   for (const tier of COLOR_TIERS) {
-    const state = run('entry'), switched = surface(), restarted = surface();
+    const state = run(tier), switched = surface(), restarted = surface();
     render(switched.ctx, state, view({ confirmation: { kind: 'switchMode', variant: slotForTier(tier) } }));
     assert.match(switched.words(), new RegExp(`切换到.*${tierNames[tier]}`)); assert.match(switched.words(), /保留/); assert.match(switched.words(), /取消/);
-    render(restarted.ctx, state, view({ confirmation: { kind: 'newRun', mode: 'color_exit', colorTier: tier, seed: 54321 } }));
-    assert.match(restarted.words(), new RegExp(`${tierNames[tier]}.*进度`)); assert.match(restarted.words(), /54321/); assert.match(restarted.words(), /其他.*保留/);
+    render(restarted.ctx, state, view({ confirmation: { kind: 'leaveRun', nextScreen:'colorTiers' } }));
+    assert.match(restarted.words(), /结束本局并选择新难度？/);assert.match(restarted.words(), /当前棋盘进度不会保留/);assert.match(restarted.words(), /历史成绩和设置不受影响/);
   }
 });
 
@@ -143,13 +136,12 @@ test('a dragged mixed piece also keeps both cargo bands visible in its landing p
   assert.notDeepEqual([...mixedOut.ctx.getImageData(x, y, 12, 12).data], [...allFood.ctx.getImageData(x, y, 12, 12).data], 'chemical landing cell must not be a generic green footprint during drag');
 });
 
-test('menu identifies its legacy best score and selector reads each v5 tier separately', () => {
+test('legacy scores appear only in compatibility screen and stay separate per tier', () => {
   const profile = createProfile();
   profile.colorExit = { stats: { runs: 1, batches: 4, wins: 0, maxChain: 1 }, bestScores: { v4: { score: 900, chain: 1 } }, lastRecordedRun: null };
   profile.colorComparisons = Object.fromEntries(COLOR_TIERS.map((tier, index) => [tier, { stats: { runs: 1, batches: 1, wins: 0, maxChain: 1 }, bestScores: { v5: { score: 100 + index * 100, chain: 1 } }, lastRecordedRun: null }]));
-  const menu = surface(); render(menu.ctx, run(), view({ screen: 'menu', profile }));
-  assert.match(menu.words(), /旧纯色最高分 · v4/);
-  const chooser = surface(); render(chooser.ctx, run(), view({ screen: 'colorTiers', profile }));
-  for (const [index, tier] of COLOR_TIERS.entries()) assert.match(chooser.words(), new RegExp(`${tierNames[tier]}[^\\n]+\\n逐件概率[^\\n]+本档最高分 ${100 + index * 100}`));
-  assert.doesNotMatch(chooser.words(), /本档最高分 900/);
+  const current=view({screen:'legacyRuns',profile,modeSlots:{color_exit:'result',color_exit_entry:'saved',color_exit_middle:'result',color_exit_late:'saved'}}),legacy=surface();render(legacy.ctx,run(),current);
+  assert.match(legacy.words(), /旧纯色最高分 900/);
+  for (const index of [0,1,2]) assert.match(legacy.words(), new RegExp(`本档最高分 ${100 + index * 100}`));
+  for(const screen of ['menu','colorTiers'] as const){const output=surface();render(output.ctx,run(),{...current,screen});assert.doesNotMatch(output.words(),/最高分 (900|100|200|300)/);}
 });

@@ -8,13 +8,11 @@ import type {ViewState} from '../src/presentation/view-types.ts';
 const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,screen:'game',profile:createProfile(),...patch});
 function surface(){const labels:string[]=[],values:Record<string,unknown>={globalAlpha:1};const noop=()=>{};const ctx=new Proxy({}, {get(_t,k){if(k==='fillText')return(s:string)=>labels.push(s);if(k==='createLinearGradient')return()=>({addColorStop:noop});if(k==='measureText')return(s:string)=>({width:s.length*18});return k in values?values[String(k)]:noop;},set(_t,k,v){values[String(k)]=v;return true;}}) as CanvasRenderingContext2D;return{ctx,words:()=>labels.join('\n')};}
 
-test('menu has order and tier-chooser entries, separate restarts, and an order-only daily challenge',()=>{
+test('legacy active state still opens the two new mode selectors without a legacy new-run button',()=>{
  const s=createRun(1,'color_exit',4),v=view({screen:'menu',variant:'color_exit',modeSlots:{orders:'saved',color_exit:'saved'}}),controls=getUiControls(s,v);
- assert.ok(controls.some(c=>c.action.type==='switchMode'&&c.action.variant==='orders'&&/订单/.test(c.label)));
- assert.ok(controls.some(c=>c.action.type==='chooseColorTier'&&/颜色出口/.test(c.label)));
- assert.ok(controls.some(c=>c.action.type==='newRun'&&c.action.mode==='color_exit'));
- assert.ok(controls.some(c=>c.action.type==='newRun'&&c.action.mode==='daily'&&/订单/.test(c.label)));
- const out=surface();render(out.ctx,s,v);assert.match(out.words(),/订单最高分/);assert.match(out.words(),/旧纯色最高分/);
+ assert.deepEqual(controls.map(c=>c.action.type),['chooseInbound','chooseColorTier','settings']);
+ assert.equal(controls.some(c=>c.action.type==='newRun'),false);
+ const out=surface();render(out.ctx,s,v);assert.match(out.words(),/入库模式/);assert.match(out.words(),/出库模式/);assert.doesNotMatch(out.words(),/旧纯色最高分/);
 });
 
 test('first color introduction explains all three conditions and has no new-run side effect control',()=>{
@@ -31,19 +29,19 @@ test('color gameplay and pause describe fixed gates and batches without order-mo
 
 test('switch confirmation explicitly preserves both mode saves and has a real cancel',()=>{
  const s=createRun(1,'standard',3),v=view({confirmation:{kind:'switchMode',variant:'color_exit'}}),out=surface();render(out.ctx,s,v);
- assert.match(out.words(),/保留/);assert.match(out.words(),/颜色出口/);assert.match(out.words(),/取消/);
+ assert.match(out.words(),/保留/);assert.match(out.words(),/旧版.*7×7|出库/);assert.match(out.words(),/取消/);
  assert.deepEqual(getUiControls(s,v).map(c=>c.action.type),['cancel','confirm']);
 });
 
 test('color result cannot offer overtime or restart an order run',()=>{
  const s=createRun(1,'color_exit',4);Object.assign(s,{phase:'result',result:'won',completedOrders:30,score:1490,shift:5,endReason:'completed'});
- const controls=getUiControls(s,view());assert.ok(controls.some(c=>c.action.type==='newRun'&&c.action.mode==='color_exit'));assert.equal(controls.some(c=>c.action.type==='continueOvertime'),false);
- const out=surface();render(out.ctx,s,view());assert.match(out.words(),/颜色出口/);assert.match(out.words(),/出货批次/);assert.match(out.words(),/累计出货.*149件/);assert.doesNotMatch(out.words(),/五个班次全部完成|当前成绩进入订单/);
+ const controls=getUiControls(s,view());assert.ok(controls.some(c=>c.action.type==='chooseColorTier'));assert.equal(controls.some(c=>c.action.type==='newRun'),false);assert.equal(controls.some(c=>c.action.type==='continueOvertime'),false);
+ const out=surface();render(out.ctx,s,view());assert.match(out.words(),/旧版.*7×7|出库/);assert.match(out.words(),/出货批次/);assert.match(out.words(),/累计出货.*149件/);assert.doesNotMatch(out.words(),/五个班次全部完成|当前成绩进入订单/);
 });
 
 test('recovery screen for color mode explains its own rules and offers a non-destructive mode menu',()=>{
  const out=surface();render(out.ctx,createRun(1,'color_exit',4),view({needsResume:true}));
- assert.match(out.words(),/颜色出口/);assert.match(out.words(),/同色出口/);assert.match(out.words(),/返回模式选择/);assert.doesNotMatch(out.words(),/托盘占1格|加急.*废弃物/);
+ assert.match(out.words(),/旧版.*7×7|出库/);assert.match(out.words(),/同色出口/);assert.match(out.words(),/返回主页.*确认结束/);assert.doesNotMatch(out.words(),/托盘占1格|加急.*废弃物/);
 });
 
 test('mode menu surfaces run-save failure even if the shared Profile is healthy',()=>{

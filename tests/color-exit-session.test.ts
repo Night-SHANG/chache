@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {getUiControls} from '../src/presentation/ui.ts';
+import {L} from '../src/presentation/layout.ts';
+import {loadPlayableRun,runLifecycleKeysFor} from '../src/application/run-lifecycle.ts';
 import {GameSession} from '../src/application/session.ts';
 import {createRun,findLegalMoves,applyCommand} from '../src/domain/engine.ts';
 import {checksum} from '../src/domain/replay.ts';
@@ -16,21 +18,21 @@ function host(initial=new Map<string,string>()){
 }
 const action=(s:GameSession,value:unknown)=>s.action(value as UiAction);
 function switchTo(s:GameSession,variant:'orders'|'color_exit'){
- s.action({type:'home'});action(s,{type:'switchMode',variant});assert.equal(s.view.confirmation?.kind,'switchMode');s.action({type:'confirm'});
+ action(s,{type:'switchMode',variant});assert.equal(s.view.confirmation?.kind,'switchMode');s.action({type:'confirm'});
 }
 function color(s:GameSession){switchTo(s,'color_exit');assert.equal(s.state.mode,'color_exit');assert.equal(s.view.screen,'colorIntro');action(s,{type:'introStart'});assert.equal(s.view.screen,'game');}
 
 test('switch confirmation cancel performs no storage writes or state changes',()=>{
- const h=host(),s=new GameSession(h.port,{seed:123,mode:'tutorial'});s.action({type:'home'});
+ const h=host(),s=new GameSession(h.port,{seed:123,mode:'tutorial'});s.hide();
  const raw=JSON.stringify([...h.data]),state=JSON.stringify(s.state),profile=JSON.stringify(s.profile),writes=h.writes.length;
  action(s,{type:'switchMode',variant:'color_exit'});assert.equal(s.view.confirmation?.kind,'switchMode');
  assert.equal(h.writes.length,writes);s.action({type:'cancel'});
  assert.equal(JSON.stringify([...h.data]),raw);assert.equal(JSON.stringify(s.state),state);assert.equal(JSON.stringify(s.profile),profile);
 });
 
-test('mode switch preserves separate runs and intro consumes no commands or RNG',()=>{
+test('explicit legacy mode switch preserves separate runs and intro consumes no commands or RNG',()=>{
  const h=host(),s=new GameSession(h.port,{seed:123,mode:'tutorial'});
- s.dispatch({type:'place',pieceId:s.state.candidates[0].id,origin:{x:1,y:1}});const old=checksum(s.state);s.action({type:'home'});const oldRaw=h.data.get(SAVE_KEYS.main);
+ s.dispatch({type:'place',pieceId:s.state.candidates[0].id,origin:{x:1,y:1}});const old=checksum(s.state);s.hide();const oldRaw=h.data.get(SAVE_KEYS.main);
  switchTo(s,'color_exit');assert.equal(s.state.rulesetVersion,4);assert.equal(s.view.screen,'colorIntro');const fresh=checksum(s.state),commands=s.state.commandIndex;
  s.dispatch({type:'place',...findLegalMoves(s.state)[0]});assert.equal(s.state.commandIndex,commands);action(s,{type:'introStart'});assert.equal(checksum(s.state),fresh);
  s.dispatch({type:'place',...findLegalMoves(s.state)[0]});const next=checksum(s.state);assert.notEqual(next,fresh);assert.ok(h.data.has(COLOR));assert.equal(h.data.get(SAVE_KEYS.main),oldRaw);
@@ -40,7 +42,7 @@ test('mode switch preserves separate runs and intro consumes no commands or RNG'
 });
 
 test('restarting color mode confirms and never replaces the order run',()=>{
- const h=host(),s=new GameSession(h.port,{seed:7,mode:'tutorial'});color(s);s.dispatch({type:'place',...findLegalMoves(s.state)[0]});s.action({type:'home'});
+ const h=host(),s=new GameSession(h.port,{seed:7,mode:'tutorial'});color(s);s.dispatch({type:'place',...findLegalMoves(s.state)[0]});s.hide();
  const old=h.data.get(SAVE_KEYS.main),active=h.data.get(COLOR),before=checksum(s.state);
  action(s,{type:'newRun',mode:'color_exit'});assert.equal(s.view.confirmation?.kind,'newRun');s.action({type:'cancel'});assert.equal(checksum(s.state),before);assert.equal(h.data.get(COLOR),active);
  action(s,{type:'newRun',mode:'color_exit'});s.action({type:'confirm'});assert.equal(s.state.commandIndex,0);assert.equal(s.view.screen,'colorIntro');assert.equal(h.data.get(SAVE_KEYS.main),old);
@@ -48,16 +50,16 @@ test('restarting color mode confirms and never replaces the order run',()=>{
 
 test('target save or active-pointer failure keeps the current mode and its saved progress',()=>{
  for(const key of [COLOR,ACTIVE]){
-  const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});s.action({type:'home'});const current=checksum(s.state),saved=h.data.get(SAVE_KEYS.main);
+  const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});s.hide();const current=checksum(s.state),saved=h.data.get(SAVE_KEYS.main);
   h.fail(key);action(s,{type:'switchMode',variant:'color_exit'});s.action({type:'confirm'});
   assert.equal(s.state.mode,'tutorial');assert.equal(checksum(s.state),current);assert.equal(h.data.get(SAVE_KEYS.main),saved);assert.match(s.view.saveStatus,/失败|无法/);
  }
 });
 
 test('a corrupt color slot is isolated and can return to intact order mode without overwriting it',()=>{
- const h=host(),s=new GameSession(h.port,{seed:8,mode:'tutorial'});s.action({type:'home'});const order=h.data.get(SAVE_KEYS.main);h.data.set(COLOR,'broken-color-原文');
+ const h=host(),s=new GameSession(h.port,{seed:8,mode:'tutorial'});s.hide();const order=h.data.get(SAVE_KEYS.main);h.data.set(COLOR,'broken-color-原文');
  switchTo(s,'color_exit');assert.equal(s.view.needsResume,true);assert.ok(s.view.recoveryError);assert.equal(h.data.get(COLOR),'broken-color-原文');assert.equal(h.data.get(SAVE_KEYS.main),order);
- s.action({type:'home'});action(s,{type:'switchMode',variant:'orders'});s.action({type:'confirm'});assert.equal(s.state.mode,'tutorial');assert.equal(h.data.get(COLOR),'broken-color-原文');
+ s.action({type:'home'});assert.equal(s.view.screen,'menu');action(s,{type:'switchMode',variant:'orders'});s.action({type:'confirm'});assert.equal(s.state.mode,'tutorial');assert.equal(h.data.get(COLOR),'broken-color-原文');
 });
 
 test('new serials consider both saved modes even when the profile counter is behind',()=>{
@@ -66,24 +68,24 @@ test('new serials consider both saved modes even when the profile counter is beh
 });
 
 test('corrupt mode recovery exposes a real pointer route back to mode selection',()=>{
- const h=host(),s=new GameSession(h.port,{seed:4,mode:'tutorial'});s.action({type:'home'});h.data.set(COLOR,'broken-color');switchTo(s,'color_exit');
+ const h=host(),s=new GameSession(h.port,{seed:4,mode:'tutorial'});s.hide();h.data.set(COLOR,'broken-color');switchTo(s,'color_exit');
  s.input.down({x:540,y:1460});s.input.up({x:540,y:1460});
  assert.equal(s.view.screen,'menu');assert.equal(s.view.needsResume,false);assert.equal(h.data.get(COLOR),'broken-color');
 });
 
 test('failed mode-pointer write never overwrites an existing target run when starting its daily challenge',()=>{
- const h=host(),s=new GameSession(h.port,{seed:5,mode:'tutorial'});color(s);s.action({type:'home'});const order=h.data.get(SAVE_KEYS.main),colorRaw=h.data.get(COLOR);
+ const h=host(),s=new GameSession(h.port,{seed:5,mode:'tutorial'});color(s);s.hide();const order=h.data.get(SAVE_KEYS.main),colorRaw=h.data.get(COLOR);
  h.fail(ACTIVE);s.action({type:'newRun',mode:'daily'});s.action({type:'confirm'});
  assert.equal(s.state.mode,'color_exit');assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),colorRaw);
 });
 
  test('switching to a backup requires explicit recovery before accepting placements',()=>{
-  const c=createRun(21,'color_exit',4);c.runSerial=50;const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});s.action({type:'home'});h.data.set(COLOR,'broken-main');h.data.set('warehouse.color_exit.run.backup.v4',encodeRun(c));
+  const c=createRun(21,'color_exit',4);c.runSerial=50;const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});s.hide();h.data.set(COLOR,'broken-main');h.data.set('warehouse.color_exit.run.backup.v4',encodeRun(c));
   switchTo(s,'color_exit');assert.equal(s.view.needsResume,true);const before=checksum(s.state);s.dispatch({type:'place',...findLegalMoves(s.state)[0]});assert.equal(checksum(s.state),before);
   s.resume();assert.equal(s.view.needsResume,false);s.dispatch({type:'place',...findLegalMoves(s.state)[0]});assert.equal(s.view.saveStatus,'已保存');assert.ok([...h.data.values()].includes('broken-main'));
  });
  test('unavailable target read cannot silently bypass new-run confirmation',()=>{
-  const h=host(),s=new GameSession(h.port,{seed:1,mode:'tutorial'});color(s);s.action({type:'home'});const before=h.data.get(SAVE_KEYS.main);h.failReadOnce(SAVE_KEYS.main);s.action({type:'newRun',mode:'daily'});
+  const h=host(),s=new GameSession(h.port,{seed:1,mode:'tutorial'});color(s);s.hide();const before=h.data.get(SAVE_KEYS.main);h.failReadOnce(SAVE_KEYS.main);s.action({type:'newRun',mode:'daily'});
   assert.equal(s.state.mode,'color_exit');assert.equal(h.data.get(SAVE_KEYS.main),before);assert.match(s.view.saveStatus,/无法读取/);
  });
  test('profile reset stops on unreadable inactive progress without touching either store',()=>{
@@ -107,14 +109,24 @@ function legacyTerminal(){let state=createRun(30,'standard',1);for(let n=0;n<300
   s.action({type:'resetProfile'});s.action({type:'confirm'});assert.equal(JSON.stringify([...h.data]),before);assert.match(s.view.profileStatus??'',/旧结算/);
  });
  test('serial allocation fails closed when the inactive slot cannot be read',()=>{
-  const h=host(),s=new GameSession(h.port,{seed:4,mode:'tutorial'});color(s);s.action({type:'home'});const before=h.data.get(COLOR);
+  const h=host(),s=new GameSession(h.port,{seed:4,mode:'tutorial'});color(s);s.hide();const before=h.data.get(COLOR);
   s.action({type:'newRun',mode:'color_exit'});h.failReadOnce(SAVE_KEYS.main);s.action({type:'confirm'});
   assert.equal(h.data.get(COLOR),before);assert.match(s.view.saveStatus,/无法读取/);
  });
 
-test('backup recovery can reach the other saved mode through real menu taps without writing bad main',()=>{
- const c=createRun(21,'color_exit',4);c.runSerial=50;const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});s.action({type:'home'});h.data.set(COLOR,'broken-main');h.data.set('warehouse.color_exit.run.backup.v4',encodeRun(c));switchTo(s,'color_exit');
- const tap=(x:number,y:number)=>{s.input.down({x,y});s.input.up({x,y});};tap(540,1460);assert.equal(s.view.screen,'menu');
- const choose=getUiControls(s.state,s.view).find(c=>c.action.type==='switchMode'&&c.action.variant==='orders')!;tap(choose.rect.x+choose.rect.w/2,choose.rect.y+choose.rect.h/2);
- assert.equal(s.view.confirmation?.kind,'switchMode');tap(729,1219);assert.equal(s.state.mode,'tutorial');assert.equal(s.view.needsResume,false);assert.equal(h.data.get(COLOR),'broken-main');
+test('backup recovery exits through real confirmation taps and closes only the selected run',()=>{
+ const c=createRun(21,'color_exit',4);c.runSerial=50;const h=host(),s=new GameSession(h.port,{seed:3,mode:'tutorial'});
+ h.data.set(COLOR,'broken-main');h.data.set('warehouse.color_exit.run.backup.v4',encodeRun(c));h.data.set('warehouse.color_exit.late.run.v5','untouched-other-bad-main');switchTo(s,'color_exit');
+ const order=h.data.get(SAVE_KEYS.main),backup=h.data.get('warehouse.color_exit.run.backup.v4'),before=JSON.stringify([...h.data]),profile=JSON.stringify(s.profile),state=checksum(s.state),writes=h.writes.length;
+ const tap=(rect:{x:number;y:number;w:number;h:number})=>{const point={x:rect.x+rect.w/2,y:rect.y+rect.h/2};s.input.down(point);s.input.up(point);};
+ const tapAction=(type:UiAction['type'])=>{const control=getUiControls(s.state,s.view).find(control=>control.action.type===type);assert.ok(control,`missing ${type} control`);tap(control.rect);};
+ tap(L.recoveryMenu);assert.equal(s.view.confirmation?.kind,'leaveRun');assert.equal(JSON.stringify([...h.data]),before);tapAction('cancel');
+ assert.equal(h.writes.length,writes);assert.equal(checksum(s.state),state);assert.equal(s.view.needsResume,true);assert.equal(JSON.stringify(s.profile),profile);
+ tap(L.recoveryMenu);tapAction('confirm');assert.equal(s.view.screen,'menu');assert.equal(s.view.needsResume,false);assert.equal(s.view.canContinue,false);
+ assert.equal(h.data.get(COLOR),'broken-main');assert.equal(h.data.get('warehouse.color_exit.run.backup.v4'),backup);assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get('warehouse.color_exit.late.run.v5'),'untouched-other-bad-main');
+ assert.equal(loadPlayableRun(h.port.storage,'color_exit').closed,true);assert.equal(loadPlayableRun(h.port.storage,'orders').closed,undefined);assert.equal(h.data.has(runLifecycleKeysFor('orders').main),false);assert.equal(h.data.has(runLifecycleKeysFor('color_exit_late').main),false);
+ const reload=new GameSession(h.port,{seed:99,mode:'standard'});assert.equal(reload.view.screen,'menu');assert.equal(reload.view.needsResume,false);assert.equal(reload.view.canContinue,false);
+ tapAction('chooseInbound');assert.equal(s.view.screen,'inboundMenu');
+ const standard=getUiControls(s.state,s.view).find(control=>control.action.type==='newRun'&&control.action.mode==='standard');assert.ok(standard);tap(standard.rect);assert.equal(s.view.confirmation?.kind,'newRun');tapAction('cancel');
+ assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),'broken-main');assert.equal(h.data.get('warehouse.color_exit.late.run.v5'),'untouched-other-bad-main');
 });

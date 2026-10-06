@@ -1,7 +1,6 @@
 {
-  "status": "MIXED_TIER_LOCAL_COMPARISON_COMPLETE",
-  "previousPausedCommit": "854b33fa98aae957f41a94eef811c8e5eb536658",
-  "oldModeVerifiedBaseline": "c673bdc",
-  "current": "See CHECKPOINT.json and docs/mixed-color-v050.md",
-  "pending": "Human selection across three mixed tiers; real browser/WeChat testing; no final main mode selected."
+  "status": "VERIFIED_LOCAL_V060_READY_FOR_PLAYTEST",
+  "stablePrevious": "cc78c06d73c475eadf2457dbe199227209e02bcc",
+  "current": "CHECKPOINT.json and docs/v060-playtest.md",
+  "pending": "Human four-difficulty selection and browser/WeChat device verification; no final main mode chosen"
 }

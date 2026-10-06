@@ -1,55 +1,61 @@
 {
-  "appVersion": "0.5.0-dev",
-  "status": "VERIFIED_LOCAL_MIXED_TIER_COMPARISON",
+  "appVersion": "0.6.0-dev",
+  "status": "VERIFIED_LOCAL_INBOUND_OUTBOUND_COMPARISON",
   "rulesets": [
     1,
     2,
     3,
     4,
-    5
+    5,
+    6,
+    7
   ],
   "modes": {
-    "orders": {
-      "newRunsUse": 3,
-      "legacyRules": [
+    "inbound_standard_daily": {
+      "newRules": 3,
+      "boardSize": 7,
+      "legacy": [
         1,
         2
       ]
     },
-    "color_exit": {
-      "ruleset": 4,
-      "balanced": false,
-      "minBatch": 4,
-      "targetBatches": 30
+    "inbound_endless": {
+      "ruleset": 7,
+      "boardSize": 7,
+      "stageCap": 5
     },
-    "color_exit_mixed": {
-      "ruleset": 5,
-      "balanced": false,
+    "outbound": {
+      "ruleset": 6,
+      "boardSize": 9,
+      "mixedPercent": {
+        "easy": 20,
+        "normal": 30,
+        "hard": 40,
+        "expert": 50
+      },
       "minBatch": 4,
       "targetBatches": 30,
-      "mixedPiecePercent": {
-        "entry": 20,
-        "middle": 30,
-        "late": 40
-      },
-      "saveSlots": "independent per tier"
+      "balanced": false
+    },
+    "legacy_outbound": {
+      "rulesets": [
+        4,
+        5
+      ],
+      "boardSize": 7,
+      "continueOnly": true
     }
   },
-  "testsPassed": 674,
+  "testsPassed": 839,
   "pythonTestsPassed": 22,
-  "sourceSha256": "5833b89d2094228b2aad3d89e708ab57aa9288b27ad67cdec5e6719a4ba331d9",
-  "gameJsSha256": "75a99516073b227be41f0d4747e9ad0c4e6f91f400fdd205dcd858254b2ec2e7",
+  "sourceSha256": "5bb11e9558ca59e06eee092deb3546f654a8ce7287e039b9b355d10ac0394735",
+  "gameJsSha256": "a03e41481930f44c55fef277abdc487713834dd27ad9b8a816c70941df3b6c3f",
+  "hostGroups": 8,
+  "measuredScreens": 12,
+  "screenshots": 37,
+  "pairedStrategyRuns": 400,
+  "runtimeStatus": "Offline native Canvas/wx-host and local gates PASS; real browser/Windows GUI/WeChat devices and human balance NOT VERIFIED",
+  "deliveryNotes": "docs/v060-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
-  "oldModeRouteFrames": 71,
-  "oldModeHelpScreens": 24,
-  "dualModeTransportFrames": 60,
-  "dualModeMeasuredScreens": 30,
-  "runtimeStatus": "Offline native Canvas/wx-host, replay/save and local build gates PASS. Real browser/WeChat devices and human understanding/balance NOT YET VERIFIED.",
-  "deliveryNotes": "docs/mixed-color-v050.md",
-  "preservesOldMode": true,
-  "mainModeUndecided": true,
-  "mixedTierMeasuredScreens": 15,
-  "mixedTierHostGroups": 11,
-  "mixedTierStrategyRuns": 300,
-  "historicalV4StrategyRuns": 200
+  "mainModeUndecided": true
 }

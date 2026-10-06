@@ -1,0 +1,18 @@
+{
+  "status": "SUPERSEDED_BY_VERIFIED_LOCAL_V060",
+  "stableBaseline": "cc78c06d73c475eadf2457dbe199227209e02bcc",
+  "intendedVersion": "0.6.0-dev",
+  "checkpointUtc": "2026-10-06T04:25:00Z",
+  "verifiedSubsets": [
+    "v6/v7 rules and independent domain review",
+    "400 v6 paired strategy games with replay/storage checks",
+    "geometry and placement-risk focused tests"
+  ],
+  "unfinished": [
+    "real browser/Windows GUI/WeChat device verification and human balance"
+  ],
+  "warning": "Original unfinished checkpoint is preserved in Git history; current local verification is recorded in CHECKPOINT.json.",
+  "verifiedSourceSha256": "5bb11e9558ca59e06eee092deb3546f654a8ce7287e039b9b355d10ac0394735",
+  "currentCheckpoint": "CHECKPOINT.json",
+  "historicalWipCommit": "347ec2d63fda87f299325cdf7239f66353277ff1"
+}

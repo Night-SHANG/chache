@@ -33,11 +33,12 @@ function surface() {
   return { ctx, labels, fills, strokes, gradients, words: () => labels.map(label => label.value).join('\n') };
 }
 
-test('menu exposes both independent modes and the selected-mode new-run action', () => {
-  const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'empty',color_exit:'empty'}}));
-  assert.deepEqual(controls.map(c=>c.action),[{type:'switchMode',variant:'orders'},{type:'chooseColorTier'},{type:'newRun',mode:'standard'},{type:'newRun',mode:'daily'},{type:'settings'}]);
-  assert.match(controls[0].label,/开始/);
-  const saved=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'saved',color_exit:'result'}}));assert.match(saved[0].label,/继续进度/);assert.equal(saved[1].action.type,'chooseColorTier');
+test('menu exposes two mode selectors regardless of saved state', () => {
+  for(const status of ['empty','saved','result'] as const){
+    const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:status,color_exit:status}}));
+    assert.deepEqual(controls.map(c=>c.action),[{type:'chooseInbound'},{type:'chooseColorTier'},{type:'settings'}]);
+    assert.match(controls[0].label,/入库模式/);assert.match(controls[1].label,/出库模式/);
+  }
 });
 
 test('all screen controls are positive, nonoverlapping and inside the shared logical viewport', () => {
@@ -62,7 +63,7 @@ test('confirmation is the only actionable layer even above settings, pause and a
 });
 
 test('menu and settings controls take precedence over paused and terminal runs', () => {
-  assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'switchMode');
+  assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'chooseInbound');
   assert.equal(getUiControls(result(), view({ screen: 'settings', paused: true }))[0]?.action.type, 'toggleSound');
 });
 
@@ -81,9 +82,9 @@ test('settings use Profile metadata, show real toggles, and disable only locked 
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);
 });
 
-test('pause offers continue, preserved home and settings; only overtime can be finished', () => {
-  assert.deepEqual(getUiControls(run(), view({ paused: true })).map(c => c.action.type), ['continue', 'home', 'settings']);
-  assert.deepEqual(getUiControls({ ...run(), overtime: true }, view({ paused: true })).map(c => c.action.type), ['continue', 'home', 'settings', 'finishOvertime']);
+test('pause offers safe continue, restart, home and settings with separate overtime settlement', () => {
+  assert.deepEqual(getUiControls(run(), view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings']);
+  assert.deepEqual(getUiControls({ ...run(), overtime: true }, view({ paused: true })).map(c => c.action.type), ['continue', 'newRun', 'home', 'settings', 'finishOvertime']);
 });
 
 test('only v3 five-shift standard victory offers overtime; every terminal mode offers home', () => {
@@ -101,17 +102,19 @@ test('only v3 five-shift standard victory offers overtime; every terminal mode o
 test('controls are pure geometry and their visible captions share hit-test centers', () => {
   const state = result(), current = view({ screen: 'menu', canContinue: true, dailyLabel: '2031-04-07' });
   const before = JSON.stringify({ state, current });
-  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 5); render(output.ctx, state, current);
+  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 3); render(output.ctx, state, current);
   assert.equal(JSON.stringify({ state, current }), before);
-  for (const control of controls) assert.ok(output.labels.some(label => label.value === control.label && label.x === control.rect.x + control.rect.w / 2 && label.y === control.rect.y + control.rect.h / 2));
+  for (const control of controls) for(const line of control.label.split('\n')) assert.ok(output.labels.some(label => label.value === line && label.x === control.rect.x + control.rect.w / 2 && label.y > control.rect.y && label.y < control.rect.y + control.rect.h));
 });
 
-test('menu shows local achievements, versioned best score, supplied Beijing date and real save status', () => {
+test('home shows achievements and real save status while inbound submenu owns scores and daily date', () => {
   const profile = createProfile(); profile.bestScores['standard.v3'] = { score: 7654, chain: 3 }; profile.bestScores['overtime.v3'] = { score: 19876, chain: 5 }; profile.achievements = ['first_shipment'];
-  const output = surface(); render(output.ctx, run(), view({ screen: 'menu', profile, dailyLabel: '2031-04-07', profileStatus: '保存失败，尚未持久化' }));
-  assert.match(output.words(), /7,654/); assert.match(output.words(), /加班最高分.*19,876/); assert.match(output.words(), /首次出货/); assert.match(output.words(), /2031-04-07/);
-  assert.match(output.words(), /北京时间/); assert.match(output.words(), /本地每日挑战/); assert.match(output.words(), /无在线排行/);
-  assert.match(output.words(), /保存失败，尚未持久化/); assert.doesNotMatch(output.words(), /云同步/);
+  const current=view({screen:'menu',profile,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
+  render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu'});
+  assert.match(home.words(), /首次出货/);assert.match(home.words(), /无在线排行/);
+  assert.match(inbound.words(), /7,654/);assert.match(inbound.words(), /加班最高分.*19,876/);assert.match(inbound.words(), /2031-04-07/);
+  assert.match(inbound.words(), /北京时间/);assert.match(inbound.words(), /本地每日挑战/);
+  for(const output of [home,inbound]){assert.match(output.words(), /保存失败，尚未持久化/);assert.doesNotMatch(output.words(), /云同步/);}
 });
 
 test('confirmation copy explains resets and retains two explicit cancel/confirm buttons', () => {
