@@ -1,4 +1,6 @@
 import type { Point } from '../domain/types.ts';
+import { boardGeometry } from './board-geometry.ts';
+import type { GeometrySource } from './board-geometry.ts';
 
 export interface Rect { x: number; y: number; w: number; h: number }
 
@@ -46,14 +48,15 @@ export function hitTestPoint(point: Point, rect: Rect): boolean {
     && point.x < rect.x + rect.w && point.y < rect.y + rect.h;
 }
 
-export function pointToCell(point: Point): Point | null {
-  const { x, y, cell, size } = L.board;
+export function pointToCell(point: Point, source?: GeometrySource): Point | null {
+  const { x, y, cell, size } = boardGeometry(source);
   if (!hitTestPoint(point, { x, y, w: size, h: size })) return null;
   return { x: Math.floor((point.x - x) / cell), y: Math.floor((point.y - y) / cell) };
 }
 
-export function cellCenter(point: Point): Point {
-  return { x: L.board.x + (point.x + 0.5) * L.board.cell, y: L.board.y + (point.y + 0.5) * L.board.cell };
+export function cellCenter(point: Point, source?: GeometrySource): Point {
+  const geometry = boardGeometry(source);
+  return { x: geometry.x + (point.x + 0.5) * geometry.cell, y: geometry.y + (point.y + 0.5) * geometry.cell };
 }
 
 /** Match a contain/letterbox canvas placed inside a client-space viewport. */

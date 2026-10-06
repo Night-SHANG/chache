@@ -1,8 +1,9 @@
 import { Easing } from '@tweenjs/tween.js';
 import type { Dock, Point, Shipment } from '../domain/types.ts';
-import { DOCKS } from '../domain/content.ts';
 import { RULES_V2_CONFIG } from '../domain/v2/content.ts';
-import { L, cellCenter } from './layout.ts';
+import { cellCenter } from './layout.ts';
+import { boardGeometry } from './board-geometry.ts';
+import type { GeometrySource } from './board-geometry.ts';
 
 /** Presentation-only clocks. The Domain and saved run never depend on these values. */
 export const MOTION = {
@@ -36,28 +37,30 @@ export function shipmentFrame(progress: number, reducedMotion: boolean): Shipmen
 }
 
 /** Canonical path is consumed verbatim. No new path, random jitter or board offset. */
-export function routePose(route: Point[], progress: number): (Point & { angle: number }) | null {
+export function routePose(route: Point[], progress: number, source?: GeometrySource): (Point & { angle: number }) | null {
   if (!route.length) return null;
   const step = unit(progress) * (route.length - 1), index = Math.floor(step), next = Math.min(route.length - 1, index + 1);
-  const from = cellCenter(route[index]), to = cellCenter(route[next]), amount = step - index;
-  const headingFrom = next === index ? cellCenter(route[Math.max(0, index - 1)]) : from;
+  const from = cellCenter(route[index], source), to = cellCenter(route[next], source), amount = step - index;
+  const headingFrom = next === index ? cellCenter(route[Math.max(0, index - 1)], source) : from;
   return { x: from.x + (to.x - from.x) * amount, y: from.y + (to.y - from.y) * amount, angle: Math.atan2(to.y - headingFrom.y, to.x - headingFrom.x) };
 }
 
 export interface ShipmentPose extends Point { angle: number; cargo: Point; loaded: boolean; alpha: number }
 type VehiclePose = Point & { angle: number };
-const boardCells = L.board.size / L.board.cell;
-const gridPoint = (point: Point): boolean => !!point && Number.isInteger(point.x) && Number.isInteger(point.y)
+const gridPoint = (point: Point, boardCells: number): boolean => !!point && Number.isInteger(point.x) && Number.isInteger(point.y)
   && point.x >= 0 && point.y >= 0 && point.x < boardCells && point.y < boardCells;
 const heading = (from: Point, to: Point): number => Math.atan2(to.y - from.y, to.x - from.x);
 const angleDelta = (from: number, to: number): number => Math.atan2(Math.sin(to - from), Math.cos(to - from));
 
 /** The path itself identifies the physical entrance, including the unlocked southwest gate. */
 function shipmentEntrance(shipment: Shipment): Dock | null {
+  if (shipment?.boardSize !== undefined && shipment.boardSize !== 9) return null;
+  const geometry = boardGeometry(shipment);
   const entry = shipment && Array.isArray(shipment.path) ? shipment.path[0] : undefined;
-  if (!entry || !gridPoint(entry)) return null;
-  const dock = DOCKS.find(candidate => candidate.entry.x === entry.x && candidate.entry.y === entry.y);
+  if (!entry || !gridPoint(entry, geometry.dimension)) return null;
+  const dock = geometry.docks.find(candidate => candidate.entry.x === entry.x && candidate.entry.y === entry.y);
   if (dock) return dock;
+  if (geometry.dimension === 9) return null;
   const side = RULES_V2_CONFIG.sideEntry;
   return entry.x === side.x && entry.y === side.y
     ? { id: 'gate.side', name: '西南侧门', entry, side: 'west', priority: 4 } : null;
@@ -66,18 +69,18 @@ function shipmentEntrance(shipment: Shipment): Dock | null {
 /** Doorway feedback belongs to the entrance actually used, independently of the order's score label. */
 export function shipmentGate(shipment: Shipment): Point | null {
   const dock = shipmentEntrance(shipment);
-  return dock ? dockPosition(dock) : null;
+  return dock ? dockPosition(dock, shipment) : null;
 }
 
 /** Short stationary turns preserve canonical corners and keep a carried load in front of the forks. */
-function journeyPose(points: Point[], progress: number, initialAngle: number, finalAngle: number, reverse = false): VehiclePose {
+function journeyPose(points: Point[], progress: number, initialAngle: number, finalAngle: number, reverse = false, cell = 120): VehiclePose {
   const segments: { from: VehiclePose; to: VehiclePose; weight: number }[] = [];
   let current: VehiclePose = { ...points[0], angle: initialAngle };
   const turn = (angle: number): void => {
     const delta = angleDelta(current.angle, angle);
     if (Math.abs(delta) < 1e-8) return;
     const next = { ...current, angle: current.angle + delta };
-    segments.push({ from: current, to: next, weight: Math.abs(delta) * L.board.cell * .22 });
+    segments.push({ from: current, to: next, weight: Math.abs(delta) * cell * .22 });
     current = next;
   };
   for (const point of points.slice(1)) {
@@ -100,38 +103,39 @@ function journeyPose(points: Point[], progress: number, initialAngle: number, fi
 
 /** Presentation-only pickup and reverse journey. It never derives a replacement gameplay path. */
 export function shipmentPose(shipment: Shipment, frame: ShipmentFrame): ShipmentPose | null {
+  const geometry = boardGeometry(shipment), boardCells = geometry.dimension;
   const dock = shipmentEntrance(shipment);
-  if (!dock || !Array.isArray(shipment.cells) || Array.from(shipment.path).some((point, index, path) => !gridPoint(point)
+  if (!dock || !Array.isArray(shipment.cells) || Array.from(shipment.path).some((point, index, path) => !gridPoint(point, boardCells)
     || index > 0 && Math.abs(point.x - path[index - 1].x) + Math.abs(point.y - path[index - 1].y) !== 1)) return null;
   const end = shipment.path[shipment.path.length - 1];
   const adjacent = shipment.cells.filter(index => Number.isInteger(index) && index >= 0 && index < boardCells ** 2
     && Math.abs(index % boardCells - end.x) + Math.abs(Math.floor(index / boardCells) - end.y) === 1);
   if (!adjacent.length) return null;
-  const cell = Math.min(...adjacent), centers = shipment.path.map(cellCenter), entry = centers[0], pickup = centers[centers.length - 1], gate = dockPosition(dock);
+  const cell = Math.min(...adjacent), centers = shipment.path.map(point => cellCenter(point, geometry)), entry = centers[0], pickup = centers[centers.length - 1], gate = dockPosition(dock, geometry);
   const inward = { x: dock.side === 'west' ? 1 : dock.side === 'east' ? -1 : 0, y: dock.side === 'north' ? 1 : dock.side === 'south' ? -1 : 0 };
   // The crate, pallet and 52 px downward count badge all clear the board before fading.
-  const outside = { x: entry.x - inward.x * L.board.cell * 1.6, y: entry.y - inward.y * L.board.cell * 1.6 };
-  const entryAngle = Math.atan2(inward.y, inward.x), pickupAngle = heading(pickup, cellCenter({ x: cell % boardCells, y: Math.floor(cell / boardCells) }));
+  const outside = { x: entry.x - inward.x * geometry.cell * 1.6, y: entry.y - inward.y * geometry.cell * 1.6 };
+  const entryAngle = Math.atan2(inward.y, inward.x), pickupAngle = heading(pickup, cellCenter({ x: cell % boardCells, y: Math.floor(cell / boardCells) }, geometry));
   const reduced = frame.stage === 'collect' && frame.move === 0;
   let pose: VehiclePose = { ...pickup, angle: pickupAngle }, alpha = 1;
   if (frame.stage === 'route') pose = { ...outside, angle: entryAngle };
-  else if (frame.stage === 'move') pose = journeyPose([outside, ...centers], frame.move, entryAngle, pickupAngle);
-  else if (frame.stage === 'carry') pose = journeyPose([...centers].reverse().concat(gate), frame.carry, pickupAngle, entryAngle, true);
+  else if (frame.stage === 'move') pose = journeyPose([outside, ...centers], frame.move, entryAngle, pickupAngle, false, geometry.cell);
+  else if (frame.stage === 'carry') pose = journeyPose([...centers].reverse().concat(gate), frame.carry, pickupAngle, entryAngle, true, geometry.cell);
   else if (frame.stage === 'exit') {
     const amount = unit(frame.exit), travel = unit(amount / .72);
     pose = { x: gate.x + (outside.x - gate.x) * travel, y: gate.y + (outside.y - gate.y) * travel, angle: entryAngle };
     alpha = 1 - unit((amount - .72) / .28);
   }
-  return { ...pose, cargo: { x: pose.x + Math.cos(pose.angle) * L.board.cell * .48, y: pose.y + Math.sin(pose.angle) * L.board.cell * .48 },
+  return { ...pose, cargo: { x: pose.x + Math.cos(pose.angle) * geometry.cell * .48, y: pose.y + Math.sin(pose.angle) * geometry.cell * .48 },
     loaded: !reduced && (frame.stage === 'carry' || frame.stage === 'exit' || frame.stage === 'collect' && unit(frame.collect) === 1), alpha };
 }
 
 /** Same position is used for the physical gate, collection and its restrained flash. */
-export function dockPosition(dock: Dock): Point {
-  const p = cellCenter(dock.entry);
+export function dockPosition(dock: Dock, source?: GeometrySource): Point {
+  const geometry = boardGeometry(source), p = cellCenter(dock.entry, geometry);
   return {
-    x: dock.side === 'west' ? L.board.x - 24 : dock.side === 'east' ? L.board.x + L.board.size + 24 : p.x,
-    y: dock.side === 'north' ? L.board.y - 10 : dock.side === 'south' ? L.board.y + L.board.size + 15 : p.y,
+    x: dock.side === 'west' ? geometry.x - 24 * geometry.scale : dock.side === 'east' ? geometry.x + geometry.size + 24 * geometry.scale : p.x,
+    y: dock.side === 'north' ? geometry.y - 10 * geometry.scale : dock.side === 'south' ? geometry.y + geometry.size + 15 * geometry.scale : p.y,
   };
 }
 

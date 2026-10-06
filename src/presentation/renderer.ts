@@ -1,3 +1,4 @@
+import {boardGeometry} from './board-geometry.ts';
 import { ACHIEVEMENTS, FORKLIFTS } from '../application/profile.ts';
 import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
@@ -133,16 +134,16 @@ function drawOrders(ctx: Context, state: RunState, view: ViewState): void {
 }
 
 function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[], cellTraits?: (CellTrait | null)[]): void {
-  const { x, y, size, cell } = L.board;
+  const geometry=boardGeometry(state), {x,y,size,cell,dimension,scale,boxSize}=geometry;
   const lesson = tutorialStep(state), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
   const lessonHint = !view.animation && state.rulesetVersion === 3 && lesson !== null ? ['看上方订单：北门要3件食品，先放2件', '食品还差1件；上下左右连起来，再留空路', '食品够3件，北门被机械挡住：南门清机械→北门出食品'][lesson] : null;
-  if (!delivery) text(ctx, state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view), 540, L.boardHint.y + L.boardHint.h / 2, 22, '#d9d0b7', 'center', 600);
+  if (!delivery) text(ctx, view.placementRisk?.message??(state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
   panel(ctx, { x: x - 26, y: y - 24, w: size + 52, h: size + 54 }, '#56616a', '#829098', 12);
   hazard(ctx, { x: x - 13, y: y - 13, w: size + 26, h: 14 });
   hazard(ctx, { x: x - 13, y: y + size - 1, w: size + 26, h: 14 });
   hazard(ctx, { x: x - 13, y, w: 14, h: size }, true); hazard(ctx, { x: x + size - 1, y, w: 14, h: size }, true);
   ctx.fillStyle = '#453e34'; ctx.fillRect(x, y, size, size);
-  for (let row = 0; row < 7; row++) for (let col = 0; col < 7; col++) {
+  for (let row = 0; row < dimension; row++) for (let col = 0; col < dimension; col++) {
     const px = x + col * cell, py = y + row * cell, tone = (row * 3 + col * 5) % 6;
     const night = view.profile?.cosmetics.theme === 'night';
     const floor = (night ? ['#536071', '#5b6776', '#4d5b6c', '#606c79', '#526272', '#586676'] : ['#958d7b', '#a19884', '#928976', '#a69c86', '#9b927d', '#a09680'])[tone];
@@ -181,7 +182,7 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   const loaded = !!shipment && !conveyor && !reduced && (frame?.stage === 'carry' || frame?.stage === 'exit');
   const collecting = shipment && frame?.stage === 'collect' && !reduced;
   const drawCargo = (cargo: CargoId, index: number): void => {
-    const source = { x: x + index % 7 * cell + 60, y: y + Math.floor(index / 7) * cell + 59 };
+    const source = { x: x + index % dimension * cell + cell/2, y: y + Math.floor(index / dimension) * cell + cell/2-scale };
     const isShipment = shipment?.cells.includes(index), extra = shipment?.extraClearedCells?.includes(index);
     const flowPose = conveyor && isShipment && shipment && frame ? colorExitCargoPose(shipment,index,frame) : null;
     const pose = flowPose ?? (collecting && isShipment && transport ? collectPose(source, transport.cargo, frame!.collect, false) : { ...source, scale: 1 });
@@ -193,7 +194,7 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
     if(conveyor&&isShipment){ctx.beginPath();ctx.rect(x-30,y-30,size+60,size+60);ctx.clip();}
     ctx.translate(pose.x, pose.y);
     ctx.scale(pose.scale * cleanupScale * placed.x * failure.x, pose.scale * cleanupScale * placed.y * failure.y);
-    cargoBox(ctx, cargo, -55, -55, 110, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo);
+    cargoBox(ctx, cargo, -boxSize/2, -boxSize/2, boxSize, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo);
     ctx.restore();
   };
   board.forEach((cargo, index) => {
@@ -204,9 +205,10 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   if (collecting) shipment?.cells.forEach(index => { const cargo = board[index]; if (cargo) drawCargo(cargo, index); });
   if(state.mode==='color_exit')drawColorExitRoutes(ctx,view);else drawChosenGroups(ctx, view);
   drawExtraClears(ctx, view);
-  drawPlacementFeedback(ctx, view);
+  drawPlacementFeedback(ctx, view,state);
   drawPlacement(ctx, state, view);
-  if(state.rulesetVersion===5)drawMixedRemainder(ctx,state,view);
+  if(view.placementRisk&&!view.animation){ctx.save();ctx.strokeStyle='#ff7959';ctx.lineWidth=4;for(const index of view.placementRisk.cells){if(index>=0&&index<dimension*dimension)ctx.strokeRect(x+index%dimension*cell+4*scale,y+Math.floor(index/dimension)*cell+4*scale,cell-8*scale,cell-8*scale);}ctx.restore();}
+  if(state.rulesetVersion===5||state.rulesetVersion===6)drawMixedRemainder(ctx,state,view);
   if (view.animation) {if(conveyor)drawColorExitShipment(ctx,view.animation.shipment,view.animation.progress,view);else drawShipment(ctx, view.animation.shipment, view.animation.progress, view);}
 }
 
@@ -289,35 +291,37 @@ function drawExtraClears(ctx: Context, view: ViewState): void {
 }
 
 function drawPlacement(ctx: Context, state: RunState, view: ViewState): void {
+  const {dimension,cell,boxSize,scale}=boardGeometry(state);
   const piece = state.candidates.find(p => p.id === view.selectedPieceId);
   if (!piece) return;
   if (view.hoverOrigin) {
     const shape = SHAPES.find(s => s.id === piece.shapeId);
     shape?.cells.forEach((p, index) => {
       const cx = p.x + view.hoverOrigin!.x, cy = p.y + view.hoverOrigin!.y;
-      if (cx < 0 || cy < 0 || cx > 6 || cy > 6) return;
-      const x = L.board.x + cx * L.board.cell + 4, y = L.board.y + cy * L.board.cell + 4;
-      const valid = view.preview?.valid;
-      ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112, 112);
-      ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2, y + 2, 108, 108);
-      if (state.rulesetVersion===5 || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + 1, y, 110, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
+      if (cx < 0 || cy < 0 || cx >=dimension || cy >=dimension) return;
+      const x = L.board.x + cx * cell + 4*scale, y = L.board.y + cy * cell + 4*scale;
+      const valid = view.preview?.valid&&!view.placementRisk;
+      ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112*scale, 112*scale);
+      ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2*scale, y + 2*scale, 108*scale, 108*scale);
+      if (state.rulesetVersion===5 || state.rulesetVersion===6 || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
     });
   }
   if (view.dragPoint) {
     const shape = SHAPES.find(s => s.id === piece.shapeId); if (!shape) return;
     ctx.save(); ctx.globalAlpha = .8;
-    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * 120 - 55, view.dragPoint!.y + p.y * 120 - 55, 110, 1, pieceTrait(piece), view.profile?.cosmetics.cargo)); ctx.restore();
+    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo)); ctx.restore();
   }
 }
 
-function drawPlacementFeedback(ctx: Context, view: ViewState): void {
+function drawPlacementFeedback(ctx: Context, view: ViewState,state:RunState): void {
+  const {dimension,cell,scale}=boardGeometry(state);
   const effect = view.placementFx; if (!effect) return;
   const reduced = !!view.profile?.settings.reducedMotion;
   ctx.save(); ctx.globalAlpha = reduced ? 1 : Math.max(0, 1 - effect.progress);
   ctx.strokeStyle = '#fff2ae'; ctx.lineWidth = 4;
   for (const index of effect.cells) {
-    if (index < 0 || index >= 49) continue;
-    ctx.strokeRect(L.board.x + index % 7 * L.board.cell + 4, L.board.y + Math.floor(index / 7) * L.board.cell + 4, 112, 112);
+    if (index < 0 || index >= dimension*dimension) continue;
+    ctx.strokeRect(L.board.x + index % dimension * cell + 4*scale, L.board.y + Math.floor(index / dimension) * cell + 4*scale, 112*scale, 112*scale);
   }
   ctx.restore();
 }
@@ -528,7 +532,7 @@ function drawResult(ctx: Context, state: RunState, view: ViewState): void {
     text(ctx,state.colorTier?`${colorTierLabel(state.colorTier)} · 本档分数`:'旧纯色出口分数',540,670,state.colorTier?28:30,CREAM,'center');outlinedText(ctx,number(state.score),540,774,90,'#ffce5b','center');
     text(ctx,`出货批次 ${state.completedOrders} · 目标30批`,540,897,30,CREAM,'center');
     text(ctx,`累计出货 ${state.score/RULES_V4_CONFIG.pointsPerCell}件`,540,945,27,CREAM,'center');
-    text(ctx,`最高连锁 ×${state.maxChain} · 最高占用 ${state.maxOccupancy??'未记录'}/49`,540,1001,26,'#d4dcdd','center');
+    text(ctx,`最高连锁 ×${state.maxChain} · 最高占用 ${state.maxOccupancy??'未记录'}/${state.board.length}`,540,1001,26,'#d4dcdd','center');
     text(ctx,state.colorTier?'仅计本档成绩；三档和旧纯色各自独立':'仅计旧纯色出口成绩，不与订单模式混排',540,1130,25,'#c1d1d6','center');
     drawControls(ctx,state,view);text(ctx,view.profileStatus||'本地记录',540,1590,23,'#91a4b3','center');return;
   }
@@ -546,7 +550,7 @@ function drawResult(ctx: Context, state: RunState, view: ViewState): void {
   text(ctx, `完成订单  ${state.completedOrders}`, 840, 830, 27, '#534332', 'right');
   const seconds = Math.floor(view.elapsed / 1000), time = `${Math.floor(seconds / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
   text(ctx, tutorial ? '已掌握入库与清路' : state.overtime ? '加班挑战' : `到达第 ${state.shift} 班`, 242, 939, 29, '#e7e4d4'); text(ctx, time, 838, 939, 29, '#e7e4d4', 'right');
-  const peak=state.maxOccupancy===undefined?'未记录（旧档）':`${Math.round(state.maxOccupancy/49*100)}%（${state.maxOccupancy}/49）`;
+  const peak=state.maxOccupancy===undefined?'未记录（旧档）':`${Math.round(state.maxOccupancy/state.board.length*100)}%（${state.maxOccupancy}/${state.board.length}）`;
   text(ctx, `最高占用  ${peak}`, 240, 992, 25, '#e7e4d4');
   const selected=[...new Set(state.upgrades)].map(id=>UPGRADES.find(upgrade=>upgrade.id===id)?.title??id);
   const keyUpgrades=selected.length?selected.slice(0,3).join(' / ')+(selected.length>3?` 等${selected.length}项`:''):'无';
