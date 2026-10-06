@@ -8,13 +8,13 @@ import type {ViewState} from '../src/presentation/view-types.ts';
 const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,screen:'game',profile:createProfile(),...patch});
 function surface(){const labels:string[]=[],values:Record<string,unknown>={globalAlpha:1};const noop=()=>{};const ctx=new Proxy({}, {get(_t,k){if(k==='fillText')return(s:string)=>labels.push(s);if(k==='createLinearGradient')return()=>({addColorStop:noop});if(k==='measureText')return(s:string)=>({width:s.length*18});return k in values?values[String(k)]:noop;},set(_t,k,v){values[String(k)]=v;return true;}}) as CanvasRenderingContext2D;return{ctx,words:()=>labels.join('\n')};}
 
-test('menu has two named mode entries, separate restarts, and an order-only daily challenge',()=>{
+test('menu has order and tier-chooser entries, separate restarts, and an order-only daily challenge',()=>{
  const s=createRun(1,'color_exit',4),v=view({screen:'menu',variant:'color_exit',modeSlots:{orders:'saved',color_exit:'saved'}}),controls=getUiControls(s,v);
  assert.ok(controls.some(c=>c.action.type==='switchMode'&&c.action.variant==='orders'&&/订单/.test(c.label)));
- assert.ok(controls.some(c=>c.action.type==='switchMode'&&c.action.variant==='color_exit'&&/颜色出口/.test(c.label)));
+ assert.ok(controls.some(c=>c.action.type==='chooseColorTier'&&/颜色出口/.test(c.label)));
  assert.ok(controls.some(c=>c.action.type==='newRun'&&c.action.mode==='color_exit'));
  assert.ok(controls.some(c=>c.action.type==='newRun'&&c.action.mode==='daily'&&/订单/.test(c.label)));
- const out=surface();render(out.ctx,s,v);assert.match(out.words(),/订单最高分/);assert.match(out.words(),/颜色出口最高分/);
+ const out=surface();render(out.ctx,s,v);assert.match(out.words(),/订单最高分/);assert.match(out.words(),/旧纯色最高分/);
 });
 
 test('first color introduction explains all three conditions and has no new-run side effect control',()=>{

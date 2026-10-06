@@ -21,7 +21,7 @@ export class InputController {
   if(this.active!==null)return;
   this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;
   const v=this.port.getView(),s=this.port.getState();
-  if(v.confirmation||!v.needsResume&&v.profile&&(v.screen==='menu'||v.screen==='settings'||v.screen==='colorIntro'||v.paused||s.phase==='result')){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}
+  if(v.confirmation||!v.needsResume&&v.profile&&(v.screen==='menu'||v.screen==='settings'||v.screen==='colorIntro'||v.screen==='colorTiers'||v.paused||s.phase==='result')){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}
   if(v.needsResume){if(!this.captureButton(point,L.resume,()=>this.port.resume())&&!this.captureButton(point,L.restart,()=>this.port.restart()))this.captureButton(point,L.recoveryMenu,()=>this.port.action?.({type:'home'}));return;}
   if(v.paused){if(!this.captureButton(point,L.resume,()=>this.port.togglePause())&&!this.captureButton(point,L.restart,()=>this.port.restart()))this.captureButton(point,L.pause,()=>this.port.togglePause());return;}
   if(v.debug){

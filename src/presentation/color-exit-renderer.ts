@@ -1,5 +1,6 @@
 import { CARGO, DOCKS, COLOR_EXIT_DOCKS, COLOR_EXIT_ENTRY, COLOR_EXIT_TARGETS, RULES_V4_CONFIG } from '../domain/content.ts';
 import { orderStatus } from '../domain/board.ts';
+import { pieceCellCargo } from '../domain/pieces.ts';
 import type { Order, Point, RunState, Shipment } from '../domain/types.ts';
 import type { ViewState } from './view-types.ts';
 import type { OrderFeedback } from './order-feedback.ts';
@@ -8,6 +9,7 @@ import type { Rect } from './layout.ts';
 import { CREAM, PALETTE, cargoBox, forklift, icon, panel, text } from './assets.ts';
 import { dockPosition, shipmentFrame } from './motion.ts';
 import { colorExitCargoPose, colorExitVehiclePose } from './color-exit-motion.ts';
+import { mixedPiecePreview, mixedRemainderCaption } from './mixed-piece-feedback.ts';
 
 type Context = CanvasRenderingContext2D;
 const cargoName = (id: string): string => CARGO.find(cargo => cargo.id === id)?.name ?? '货物';
@@ -78,6 +80,17 @@ export function drawColorExitRoutes(ctx: Context, view: ViewState): void {
   ctx.restore();
 }
 
+/** Small per-cell borders preserve the colors and icons of the half that stays on the board. */
+export function drawMixedRemainder(ctx: Context, state: RunState, view: ViewState): void {
+  const preview = mixedPiecePreview(state, view); if (!preview?.remaining.length) return;
+  ctx.save(); ctx.setLineDash([8, 6]); ctx.lineWidth = 3;
+  for (const item of preview.remaining) {
+    ctx.strokeStyle = PALETTE[item.cargo].light;
+    ctx.strokeRect(L.board.x + item.cell % 7 * 120 + 7, L.board.y + Math.floor(item.cell / 7) * 120 + 7, 106, 106);
+  }
+  ctx.restore();
+}
+
 /** The forklift carries no pack; all cargo rendering stays attached to each event cargoPath. */
 export function drawColorExitShipment(ctx: Context, shipment: Shipment, progress: number, view: ViewState): void {
   const reduced = !!view.profile?.settings.reducedMotion, frame = shipmentFrame(progress, reduced), pose = colorExitVehiclePose(shipment, frame);
@@ -93,7 +106,8 @@ export function drawColorExitShipment(ctx: Context, shipment: Shipment, progress
 }
 
 /** A static, state-free explanation which can be reused on the first-entry or pause card. */
-export function drawColorExitHelpDiagram(ctx: Context, rect: Rect): void {
+export function drawColorExitHelpDiagram(ctx: Context, rect: Rect, mixed = false): void {
+  if (mixed) { drawMixedHelpDiagram(ctx, rect); return; }
   const scale = Math.min(rect.w / 800, rect.h / 430);
   ctx.save(); ctx.translate(rect.x + (rect.w - 800 * scale) / 2, rect.y + (rect.h - 430 * scale) / 2); ctx.scale(scale, scale);
   const origin = { x: 82, y: 80 }, cell = 32, center = (x: number, y: number): Point => ({ x: origin.x + (x + .5) * cell, y: origin.y + (y + .5) * cell });
@@ -114,12 +128,46 @@ export function drawColorExitHelpDiagram(ctx: Context, rect: Rect): void {
   ctx.restore();
 }
 
+/** Both small boards use the same coordinates, so the surviving half visibly stays put. */
+function drawMixedHelpDiagram(ctx: Context, rect: Rect): void {
+  const scale = Math.min(rect.w / 800, rect.h / 430), cell = 32;
+  ctx.save(); ctx.translate(rect.x + (rect.w - 800 * scale) / 2, rect.y + (rect.h - 430 * scale) / 2); ctx.scale(scale, scale);
+  panel(ctx, { x: 0, y: 0, w: 800, h: 430 }, '#20394b', '#587586', 14);
+  text(ctx, '双色示例：食品2件 + 机械2件', 400, 29, 25, CREAM, 'center');
+  const foodCells = [[3, 0], [4, 0], [3, 1], [4, 1]], machineCells = [[3, 2], [4, 2]];
+  for (const [stage, x] of [38, 332].entries()) {
+    const origin = { x, y: 105 }, center = (cx: number, cy: number): Point => ({ x: origin.x + (cx + .5) * cell, y: origin.y + (cy + .5) * cell });
+    text(ctx, stage === 0 ? '旧食品2件 + 新食品2件' : '食品4件出货', x + 112, 64, 20, stage === 0 ? CREAM : PALETTE['cargo.food'].light, 'center');
+    for (let row = 0; row < 7; row++) for (let column = 0; column < 7; column++) {
+      ctx.fillStyle = '#56636a'; ctx.fillRect(x + column * cell + 1, origin.y + row * cell + 1, cell - 2, cell - 2);
+    }
+    if (stage === 0) {
+      for (const [cx, cy] of foodCells) cargoBox(ctx, 'cargo.food', x + cx * cell + 2, origin.y + cy * cell + 2, cell - 4);
+      line(ctx, [center(4, 1), center(3, 1), center(3, 0), { x: center(3, 0).x, y: 90 }], PALETTE['cargo.food'].light, false, 3);
+      ctx.strokeStyle = CREAM; ctx.lineWidth = 2; ctx.setLineDash([5, 4]); ctx.strokeRect(x + 3 * cell - 1, origin.y + cell - 1, 2 * cell + 2, 2 * cell + 2); ctx.setLineDash([]);
+    }
+    for (const [cx, cy] of machineCells) {
+      cargoBox(ctx, 'cargo.machine', x + cx * cell + 2, origin.y + cy * cell + 2, cell - 4);
+      if (stage === 1) { ctx.strokeStyle = PALETTE['cargo.machine'].light; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.strokeRect(x + cx * cell + 1, origin.y + cy * cell + 1, cell - 2, cell - 2); ctx.setLineDash([]); }
+    }
+    line(ctx, [center(3, 6), center(3, 3), center(2, 3), center(2, 1)], ACCESS_COLOR, true, 3);
+    text(ctx, '北·食品口', center(3, 0).x, 90, 15, PALETTE['cargo.food'].light, 'center');
+    text(ctx, '南入口 · 留空路', x + 112, 351, 18, ACCESS_COLOR, 'center');
+  }
+  line(ctx, [{ x: 275, y: 207 }, { x: 314, y: 207 }], CREAM, false, 3);
+  for (const [index, lesson] of ['每色仍需至少4件', '食品接北口后出货', '机械2件留原格', '仍会占格、影响空路'].entries()) {
+    text(ctx, lesson, 582, 125 + index * 54, index === 3 ? 18 : 21, index > 1 ? PALETTE['cargo.machine'].light : CREAM);
+  }
+  text(ctx, '2 + 2 不等于同色4件；两色各自检查出口和空路', 400, 399, 23, CREAM, 'center');
+  ctx.restore();
+}
+
 /** A prospective count is explanatory only; the Domain preview alone authorizes a shipping label. */
 export function colorExitFeedback(state: RunState, order: Order, view: ViewState): OrderFeedback {
   let visible = view.animation ? { ...state, board: view.animation.board, cellTraits: view.animation.cellTraits } : state;
   const selected = state.candidates.find(piece => piece.id === view.selectedPieceId);
   if (!view.animation && view.preview?.valid && selected) {
-    const board = [...state.board]; for (const cell of view.preview.cells) board[cell] = selected.cargo;
+    const board = [...state.board]; view.preview.cells.forEach((cell, index) => { board[cell] = pieceCellCargo(selected, index); });
     visible = { ...state, board };
   }
   const status = orderStatus(visible, order);
@@ -139,6 +187,13 @@ export function colorExitFeedback(state: RunState, order: Order, view: ViewState
 export function colorExitBoardHint(state: RunState, view: ViewState): string {
   if (view.animation) return `${cargoName(view.animation.shipment.cargo)}逐箱出货 · 叉车空载返回南口`;
   if (view.preview && !view.preview.valid) return '落点无效，请换一个空位置';
+  const mixed = mixedPiecePreview(state, view);
+  if (mixed) {
+    const shipment = view.preview!.shipments.length
+      ? `预计出货：${view.preview!.shipments.map(event => `${cargoName(event.cargo)}${event.cells.length}件`).join('、')}`
+      : entryBlocked(state, view) ? '南入口被堵，暂不出货' : '暂不出货';
+    return `${shipment}；${mixedRemainderCaption(mixed)}`;
+  }
   if (entryBlocked(state, view)) return '南入口被堵 · 叉车入口格必须留空才能出货';
   if (view.preview?.valid && view.preview.shipments.length) {
     return `预计出货：${view.preview.shipments.map(event => `${cargoName(event.cargo)}${event.cells.length}件`).join('、')}`;

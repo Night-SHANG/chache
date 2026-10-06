@@ -1,0 +1,2826 @@
+{
+  "baseline": "validated-v5-2026-10-06",
+  "config": {
+    "balanced": false,
+    "rulesetVersion": 5,
+    "runConfigId": "run.color_exit_mix_v5",
+    "boardSize": 7,
+    "candidateCount": 3,
+    "minBatch": 4,
+    "targetBatches": 30,
+    "batchesPerStage": 6,
+    "stageCount": 5,
+    "pointsPerCell": 10,
+    "generation": {
+      "occupancySmallPercent": 200,
+      "recentShapeDivisor": 2,
+      "cargoBaseWeight": 20,
+      "cargoPresenceWeight": 2
+    }
+  },
+  "percentages": {
+    "entry": 20,
+    "middle": 30,
+    "late": 40
+  },
+  "patterns": [
+    [
+      "cargo.food",
+      "cargo.food",
+      "cargo.machine",
+      "cargo.machine"
+    ],
+    [
+      "cargo.food",
+      "cargo.machine",
+      "cargo.food",
+      "cargo.machine"
+    ],
+    [
+      "cargo.food",
+      "cargo.food",
+      "cargo.chem",
+      "cargo.chem"
+    ],
+    [
+      "cargo.food",
+      "cargo.chem",
+      "cargo.food",
+      "cargo.chem"
+    ],
+    [
+      "cargo.machine",
+      "cargo.machine",
+      "cargo.food",
+      "cargo.food"
+    ],
+    [
+      "cargo.machine",
+      "cargo.food",
+      "cargo.machine",
+      "cargo.food"
+    ],
+    [
+      "cargo.machine",
+      "cargo.machine",
+      "cargo.chem",
+      "cargo.chem"
+    ],
+    [
+      "cargo.machine",
+      "cargo.chem",
+      "cargo.machine",
+      "cargo.chem"
+    ],
+    [
+      "cargo.chem",
+      "cargo.chem",
+      "cargo.food",
+      "cargo.food"
+    ],
+    [
+      "cargo.chem",
+      "cargo.food",
+      "cargo.chem",
+      "cargo.food"
+    ],
+    [
+      "cargo.chem",
+      "cargo.chem",
+      "cargo.machine",
+      "cargo.machine"
+    ],
+    [
+      "cargo.chem",
+      "cargo.machine",
+      "cargo.chem",
+      "cargo.machine"
+    ]
+  ],
+  "cases": [
+    {
+      "seed": 0,
+      "colorTier": "entry",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          287961297,
+          881330935,
+          -1912140501,
+          1356838350
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "41b58129",
+        "ac21ce03",
+        "d92a6b58",
+        "e3cfd510",
+        "7fda1dc3",
+        "ee3701f9",
+        "75feacef",
+        "809ccb5f",
+        "4e034257",
+        "331154af",
+        "5bcf74a1",
+        "93905cbc",
+        "fc94e802",
+        "b286bdbc",
+        "97b8ff49",
+        "b5689724",
+        "f24b9f79",
+        "22bd83da",
+        "559db233",
+        "e3330c01",
+        "ec4a6a18",
+        "846468e5",
+        "e163a183",
+        "0298983c",
+        "879e1900"
+      ]
+    },
+    {
+      "seed": 17,
+      "colorTier": "entry",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.l3_se",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.single",
+            "cargo": "cargo.machine"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.i3_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          -1410902073,
+          949368876,
+          572752744,
+          -590983209
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "e624e185",
+        "4228f54b",
+        "e2b6b750",
+        "7fb00958",
+        "d09812b8",
+        "a287d682",
+        "f6004206",
+        "b07512e4",
+        "5c8ef650",
+        "a81dcf11",
+        "02adaef2",
+        "2ee49754",
+        "cdbf796f",
+        "92acc8b9",
+        "a9e5229f"
+      ]
+    },
+    {
+      "seed": 939,
+      "colorTier": "entry",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.machine",
+            "cellCargos": [
+              "cargo.machine",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.chem"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.l3_nw",
+            "cargo": "cargo.food"
+          }
+        ],
+        "rngState": [
+          1225035922,
+          1100818394,
+          745322343,
+          -98921434
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        }
+      ],
+      "trace": [
+        "2d170f16",
+        "f5a7f2fc",
+        "18fc8b59",
+        "2a43e64a",
+        "ef079449",
+        "6de68036",
+        "a9e40ce1",
+        "51cd3b2b",
+        "05a82db3",
+        "e8742059",
+        "400f245f",
+        "77b2c919",
+        "2fb4cd07",
+        "516c6c48",
+        "206fc4f4"
+      ]
+    },
+    {
+      "seed": -2147483648,
+      "colorTier": "entry",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.single",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.food"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.food"
+          }
+        ],
+        "rngState": [
+          1207046690,
+          1052362909,
+          968853794,
+          -1810171890
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        }
+      ],
+      "trace": [
+        "aa32a01a",
+        "0ef033af",
+        "a0daf289",
+        "5ecc7d43",
+        "50fbfc5e",
+        "7c767460",
+        "3709085d",
+        "1802ce4c",
+        "eeb35af2",
+        "cbeb7cec",
+        "5ca99239",
+        "ee43f9fe",
+        "d328c9bd",
+        "f96e8db5",
+        "7cc47912",
+        "676ad1c2",
+        "b9b2725f",
+        "c439ce78",
+        "bf1cebef",
+        "036f7b72",
+        "3205d4a6",
+        "2d82d95b"
+      ]
+    },
+    {
+      "seed": 2147483647,
+      "colorTier": "entry",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_se",
+            "cargo": "cargo.food"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.square",
+            "cargo": "cargo.food",
+            "cellCargos": [
+              "cargo.food",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.chem"
+            ]
+          }
+        ],
+        "rngState": [
+          -1862138608,
+          -521820864,
+          -191554716,
+          -1639701548
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "5738dd02",
+        "97c7ae94",
+        "a671c49a",
+        "a81a94b1",
+        "85fc33f0",
+        "b436009f",
+        "6ca83eea",
+        "bd178907",
+        "f65b6676",
+        "8a6037ae",
+        "c1d86db0",
+        "c32f0298",
+        "6850925f",
+        "65d9694a",
+        "1a010f16",
+        "9acc01e5",
+        "a2ba592d",
+        "bfa06522",
+        "1ef0c379",
+        "a9cb30e1"
+      ]
+    },
+    {
+      "seed": 0,
+      "colorTier": "middle",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          287961297,
+          881330935,
+          -1912140501,
+          1356838350
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "c7e317f4",
+        "77e97946",
+        "1b4813e5",
+        "529df333",
+        "93edd98a",
+        "d50f0a08",
+        "de46f187",
+        "f93d084f",
+        "40cea8b6",
+        "a57432c7",
+        "d62d488f",
+        "252a7a32",
+        "dba5496a",
+        "de40ef30",
+        "1a4afe81",
+        "7d401b2d",
+        "8c32184f",
+        "21b3ff2c",
+        "89cba750",
+        "b9adddb2",
+        "8abc0050",
+        "a8f82f8a",
+        "a22fb242",
+        "746ac0f2",
+        "1b8d609e"
+      ]
+    },
+    {
+      "seed": 17,
+      "colorTier": "middle",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.l3_se",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.single",
+            "cargo": "cargo.machine"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.i3_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          -1410902073,
+          949368876,
+          572752744,
+          -590983209
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "ebf09a44",
+        "afbc10f9",
+        "80c764d0",
+        "dfccf6ae",
+        "c1486949",
+        "bd46506d",
+        "72d0a7ca",
+        "c88e880d",
+        "ec3d235c",
+        "c8c0e3a4",
+        "cafc72fd",
+        "aa7ff9a7",
+        "659cd39b",
+        "7f94719e",
+        "a72e8486"
+      ]
+    },
+    {
+      "seed": 939,
+      "colorTier": "middle",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.machine",
+            "cellCargos": [
+              "cargo.machine",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.chem"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.l3_nw",
+            "cargo": "cargo.food"
+          }
+        ],
+        "rngState": [
+          1225035922,
+          1100818394,
+          745322343,
+          -98921434
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        }
+      ],
+      "trace": [
+        "e59665a2",
+        "d9f5b8de",
+        "98a6410b",
+        "1fe2f1b7",
+        "1cb2fbfd",
+        "218ee739",
+        "64105612",
+        "f45c8576",
+        "7f0b0d8c",
+        "1545163c",
+        "19a4541f",
+        "704e4eb6",
+        "50720d90",
+        "92c7f2d3",
+        "ea82ade4"
+      ]
+    },
+    {
+      "seed": -2147483648,
+      "colorTier": "middle",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.single",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.food"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.food",
+              "cargo.chem",
+              "cargo.food"
+            ]
+          }
+        ],
+        "rngState": [
+          1207046690,
+          1052362909,
+          968853794,
+          -1810171890
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 6,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        }
+      ],
+      "trace": [
+        "0ea763e6",
+        "368630b8",
+        "7af0fa4a",
+        "4304b364",
+        "9c70e431",
+        "cae0a97b",
+        "b15b5fa3",
+        "e00c7d4d",
+        "0752fbe5",
+        "ccef66fe",
+        "4458e4fc",
+        "925aefae",
+        "ce2a4566",
+        "e5d76812",
+        "15a191ce",
+        "3c969cab",
+        "64c77f24"
+      ]
+    },
+    {
+      "seed": 2147483647,
+      "colorTier": "middle",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_se",
+            "cargo": "cargo.food"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.square",
+            "cargo": "cargo.food",
+            "cellCargos": [
+              "cargo.food",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.chem"
+            ]
+          }
+        ],
+        "rngState": [
+          -1862138608,
+          -521820864,
+          -191554716,
+          -1639701548
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "e6756036",
+        "30d46de0",
+        "34c2047f",
+        "a4a9729e",
+        "ae260aad",
+        "fec3afce",
+        "b760136c",
+        "bf94fe07",
+        "49e6baf5",
+        "598650a1",
+        "5892aeef",
+        "ad583fa8",
+        "03f5af2c"
+      ]
+    },
+    {
+      "seed": 0,
+      "colorTier": "late",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_sw",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          287961297,
+          881330935,
+          -1912140501,
+          1356838350
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        }
+      ],
+      "trace": [
+        "771f22a0",
+        "e77a9042",
+        "cf303f66",
+        "8a4be3a3",
+        "7e8cae0a",
+        "122f260e",
+        "727ed077",
+        "36098787",
+        "5f6e3503",
+        "1157d30d",
+        "b27a35ec",
+        "e3906e0e",
+        "c4349203",
+        "a6a342be",
+        "4c3c9dbe",
+        "0a1b1b39"
+      ]
+    },
+    {
+      "seed": 17,
+      "colorTier": "late",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.machine",
+            "cellCargos": [
+              "cargo.machine",
+              "cargo.food",
+              "cargo.machine",
+              "cargo.food"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.single",
+            "cargo": "cargo.machine"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.i3_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          -1410902073,
+          949368876,
+          572752744,
+          -590983209
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "57e45474",
+        "ddfd1641",
+        "40d0df69",
+        "9266cf0e",
+        "67028342",
+        "1c340146",
+        "08db70f6",
+        "cc9c6bcc",
+        "ad49f099",
+        "2541e889",
+        "5b3c9488",
+        "77039855",
+        "62f0f903",
+        "f3bd3247",
+        "3686b558"
+      ]
+    },
+    {
+      "seed": 939,
+      "colorTier": "late",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.machine",
+            "cellCargos": [
+              "cargo.machine",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.chem"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.l3_nw",
+            "cargo": "cargo.food"
+          }
+        ],
+        "rngState": [
+          1225035922,
+          1100818394,
+          745322343,
+          -98921434
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 6,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        }
+      ],
+      "trace": [
+        "c85ca0f0",
+        "8d9b74d0",
+        "604bd1f9",
+        "ae76ac74",
+        "689fa29a",
+        "3b883a4a",
+        "1f58cd00",
+        "3cad4d26",
+        "8c40f491",
+        "8acb0511",
+        "9ced7af8",
+        "c68848e7"
+      ]
+    },
+    {
+      "seed": -2147483648,
+      "colorTier": "late",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.single",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.food"
+            ]
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.food",
+              "cargo.chem",
+              "cargo.food"
+            ]
+          }
+        ],
+        "rngState": [
+          1207046690,
+          1052362909,
+          968853794,
+          -1810171890
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "8d3be441",
+        "e7759ec1",
+        "65665a8d",
+        "6b1d4b05",
+        "4886e786",
+        "0465a087",
+        "ca5c58a7",
+        "90594945",
+        "12c9a327",
+        "1c7e2634",
+        "a7df3246",
+        "9aa55b3b",
+        "18d1cf16",
+        "dc4ba0df",
+        "934cde01"
+      ]
+    },
+    {
+      "seed": 2147483647,
+      "colorTier": "late",
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.square",
+            "cargo": "cargo.chem",
+            "cellCargos": [
+              "cargo.chem",
+              "cargo.chem",
+              "cargo.machine",
+              "cargo.machine"
+            ]
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_se",
+            "cargo": "cargo.food"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.square",
+            "cargo": "cargo.food",
+            "cellCargos": [
+              "cargo.food",
+              "cargo.chem",
+              "cargo.food",
+              "cargo.chem"
+            ]
+          }
+        ],
+        "rngState": [
+          -1862138608,
+          -521820864,
+          -191554716,
+          -1639701548
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "ca979528",
+        "521c5e75",
+        "1a3fb293",
+        "9c8d6beb",
+        "e835a32f",
+        "0ec2ffef",
+        "1c05eeaa",
+        "3b34f304",
+        "01fc3417"
+      ]
+    }
+  ]
+}

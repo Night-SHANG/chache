@@ -1,4 +1,5 @@
-import type { Cell, CellTrait, PlacementPreview, Point, Shipment } from '../domain/types.ts';
+import type { Cell, CellTrait, ColorTier, PlacementPreview, Point, Shipment } from '../domain/types.ts';
+import type { RunSlot } from '../application/run-slots.ts';
 import type {Profile} from '../application/profile.ts';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
@@ -19,13 +20,14 @@ export interface ViewState {
   debugPage?: number;
   needsResume: boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'colorIntro';
-  variant?: 'orders'|'color_exit';
-  modeSlots?: {orders:'empty'|'saved'|'result'|'corrupt'|'unavailable';color_exit:'empty'|'saved'|'result'|'corrupt'|'unavailable'};
+  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers';
+  variant?: RunSlot;
+  modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
+  comparisonSeed?: number;
   profile?: Profile;
   profileStatus?: string;
   profileNeedsRecovery?: boolean;
   dailyLabel?: string;
   canContinue?: boolean;
-  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode';mode?:'standard'|'daily'|'color_exit';variant?:'orders'|'color_exit'}|null;
+  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode';mode?:'standard'|'daily'|'color_exit';variant?:RunSlot;colorTier?:ColorTier;seed?:number}|null;
 }

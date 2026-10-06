@@ -1,13 +1,16 @@
 import { ACHIEVEMENTS, FORKLIFTS } from '../application/profile.ts';
 import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
-import { getUiControls } from './ui.ts';
+import { COLOR_TIER_NAMES, colorTierLabel, getUiControls, runSlotLabel } from './ui.ts';
 import type { UiControl } from './ui.ts';
+import { COLOR_TIERS, MIXED_COLOR_PERCENT } from '../domain/v5/content.ts';
+import { pieceCellCargo } from '../domain/pieces.ts';
+import { pieceCaption } from './mixed-piece-feedback.ts';
 import { CARGO, DOCKS, SHAPES, UPGRADES, RULES_V4_CONFIG } from '../domain/content.ts';
 import { colorExitCargoPose } from './color-exit-motion.ts';
-import {drawColorExitCards,colorExitBoardHint,drawColorExitGates,drawColorExitRoutes,drawColorExitShipment,drawColorExitHelpDiagram} from './color-exit-renderer.ts';
+import {drawColorExitCards,colorExitBoardHint,drawColorExitGates,drawColorExitRoutes,drawColorExitShipment,drawColorExitHelpDiagram,drawMixedRemainder} from './color-exit-renderer.ts';
 import { boardHint, orderFeedback } from './order-feedback.ts';
-import type { CargoId, Cell, CellTrait, Dock, Piece, Point, RunState, Shipment, Upgrade } from '../domain/types.ts';
+import type { CargoId, ColorTier, Cell, CellTrait, Dock, Piece, Point, RunState, Shipment, Upgrade } from '../domain/types.ts';
 import { L, cellCenter, getTrayRects } from './layout.ts';
 import { chainFeedback, collectPose, dockPosition, feedbackParticles, placementPose, reboundOffset, shipmentPose, shipmentGate, shipmentFrame } from './motion.ts';
 import type { Rect } from './layout.ts';
@@ -27,6 +30,7 @@ export function render(ctx: Context, state: RunState, view: ViewState): void {
   drawWarehouse(ctx, view);
   if (view.confirmation) { drawConfirmation(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }
+  if (!view.needsResume && view.screen === 'colorTiers') { drawColorTierSelection(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'settings') { drawSettings(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorIntro') { drawColorExitIntro(ctx,state,view); ctx.restore(); return; }
   drawHeader(ctx, state, view);
@@ -38,7 +42,7 @@ export function render(ctx: Context, state: RunState, view: ViewState): void {
   drawTrays(ctx, state, view);
   drawFooter(ctx, state, view);
   if (view.debug) drawDebug(ctx, state, view);
-  if (view.needsResume) drawPause(ctx, true, state.rulesetVersion, view.recoveryError, state.mode === 'daily' ? state.challengeDay : undefined);
+  if (view.needsResume) drawPause(ctx, true, state.rulesetVersion, view.recoveryError, state.mode === 'daily' ? state.challengeDay : undefined, state.colorTier);
   else if (view.paused) drawActivePause(ctx, state, view);
   else if (state.phase === 'upgrade' && !view.animation) drawUpgrades(ctx, state);
   else if (state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
@@ -81,14 +85,14 @@ function drawHeader(ctx: Context, state: RunState, view: ViewState): void {
   hazard(ctx, { x: 55, y: 249, w: 425, h: 15 });
   forklift(ctx, 427, 177, 88, -.12, view.profile?.cosmetics.forklift);
   panel(ctx, { x: 548, y: 54, w: 363, h: 151 });
-  text(ctx, '当前分数', 577, 89, 25, MUTED);
+  text(ctx, state.colorTier ? colorTierLabel(state.colorTier) : '当前分数', 577, 89, state.colorTier ? 23 : 25, MUTED);
   text(ctx, number(state.score), 878, 151, 56, '#ffe087', 'right', 900);
   panel(ctx, L.pause, '#40536b');
   ctx.fillStyle = CREAM; roundedPath(ctx, 966, 80, 12, 47, 4); ctx.fill(); roundedPath(ctx, 989, 80, 12, 47, 4); ctx.fill();
   text(ctx, '连锁', L.chain.x, L.chain.y + 21, 20, MUTED);
   text(ctx, `×${state.lastChain}`, L.chain.x + L.chain.w, L.chain.y + 21, 28, '#f7cc67', 'right');
   panel(ctx, { x: 548, y: 226, w: 486, h: 70 }, '#25394c', '#53687a', 13);
-  text(ctx, state.mode==='color_exit'?`第 ${state.shift} 档`:state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
+  text(ctx, state.mode==='color_exit'?(state.rulesetVersion===5?`形状 ${state.shift}/5`:`第 ${state.shift} 档`):state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
   const progress = Math.min(6, state.completedOrders - (state.shift - 1) * 6);
   for (let i = 0; i < 5; i++) {
     const x = 735 + i * 57;
@@ -202,6 +206,7 @@ function drawBoard(ctx: Context, state: RunState, view: ViewState, board: Cell[]
   drawExtraClears(ctx, view);
   drawPlacementFeedback(ctx, view);
   drawPlacement(ctx, state, view);
+  if(state.rulesetVersion===5)drawMixedRemainder(ctx,state,view);
   if (view.animation) {if(conveyor)drawColorExitShipment(ctx,view.animation.shipment,view.animation.progress,view);else drawShipment(ctx, view.animation.shipment, view.animation.progress, view);}
 }
 
@@ -288,20 +293,20 @@ function drawPlacement(ctx: Context, state: RunState, view: ViewState): void {
   if (!piece) return;
   if (view.hoverOrigin) {
     const shape = SHAPES.find(s => s.id === piece.shapeId);
-    shape?.cells.forEach(p => {
+    shape?.cells.forEach((p, index) => {
       const cx = p.x + view.hoverOrigin!.x, cy = p.y + view.hoverOrigin!.y;
       if (cx < 0 || cy < 0 || cx > 6 || cy > 6) return;
       const x = L.board.x + cx * L.board.cell + 4, y = L.board.y + cy * L.board.cell + 4;
       const valid = view.preview?.valid;
       ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112, 112);
       ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2, y + 2, 108, 108);
-      if (piece.trait && !view.dragPoint) cargoBox(ctx, piece.cargo, x + 1, y, 110, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
+      if (state.rulesetVersion===5 || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + 1, y, 110, .7, pieceTrait(piece), view.profile?.cosmetics.cargo);
     });
   }
   if (view.dragPoint) {
     const shape = SHAPES.find(s => s.id === piece.shapeId); if (!shape) return;
     ctx.save(); ctx.globalAlpha = .8;
-    shape.cells.forEach(p => cargoBox(ctx, piece.cargo, view.dragPoint!.x + p.x * 120 - 55, view.dragPoint!.y + p.y * 120 - 55, 110, 1, pieceTrait(piece), view.profile?.cosmetics.cargo)); ctx.restore();
+    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * 120 - 55, view.dragPoint!.y + p.y * 120 - 55, 110, 1, pieceTrait(piece), view.profile?.cosmetics.cargo)); ctx.restore();
   }
 }
 
@@ -410,8 +415,8 @@ function drawTrays(ctx: Context, state: RunState, view: ViewState): void {
       drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo); ctx.restore();
     } else drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo);
     if (invalid) { ctx.save(); ctx.strokeStyle = '#ffb28b'; ctx.lineWidth = 3; roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.stroke(); ctx.restore(); }
-    const label = piece.trait ? `${traitName[piece.trait]} · ${cargoName(piece.cargo)}` : cargoName(piece.cargo);
-    text(ctx, label, r.x + r.w / 2, r.y + r.h - 27, piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
+    const label = piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece)}` : pieceCaption(piece);
+    text(ctx, label, r.x + r.w / 2, r.y + r.h - 27, piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
 }
 
@@ -421,33 +426,33 @@ function drawPieceInTray(ctx: Context, piece: Piece, r: Rect, selected: boolean,
   const cell = Math.min(piece.trait ? 104 : 74, Math.min(230, r.w - 54) / width, 166 / height);
   const x = r.x + (r.w - width * cell) / 2, y = r.y + 31 + (166 - height * cell) / 2;
   if (selected) { ctx.fillStyle = 'rgba(241,190,79,.09)'; ctx.beginPath(); ctx.ellipse(r.x + r.w / 2, r.y + 199, Math.min(105, r.w / 2 - 20), 14, 0, 0, Math.PI * 2); ctx.fill(); }
-  shape.cells.forEach(p => cargoBox(ctx, piece.cargo, x + p.x * cell, y + p.y * cell, cell - 2, 1, pieceTrait(piece), cargoStyle));
+  shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), x + p.x * cell, y + p.y * cell, cell - 2, 1, pieceTrait(piece), cargoStyle));
 }
 
 function drawFooter(ctx: Context, state: RunState, view: ViewState): void {
-  if(state.mode==='color_exit')text(ctx,'颜色出口 · 连同色口 + 至少4件 + 叉车空路',540,1840,22,'#bfbaa8','center',500);
+  if(state.mode==='color_exit')text(ctx,state.colorTier?`${colorTierLabel(state.colorTier)} · 每色4件 · 同色口 · 空路`:'颜色出口 · 连同色口 + 至少4件 + 叉车空路',540,1840,22,'#bfbaa8','center',500);
   else if (state.mode === 'daily') text(ctx, `本地每日 ${state.challengeDay ?? view.dailyLabel ?? '日期待确认'} · 北京时间`, 54, 1840, 21, '#bfbaa8', 'left', 500);
   else if (state.rulesetVersion >= 2 && state.shift >= 3) text(ctx, '托盘1格计2件 · 加急到期变废物 · 规则见暂停', 54, 1840, 21, '#bfbaa8', 'left', 500);
   else text(ctx, '凑够订单 → 空格通路 → 自动出库', 540, 1840, 24, '#bfbaa8', 'center', 500);
   text(ctx, view.saveStatus || '本机存档', 54, 1888, 19, '#8297a6', 'left', 500);
-  text(ctx, `规则 v${state.rulesetVersion} · 开发版 / ${state.mode==='color_exit'?'颜色出口·试验':state.mode === 'daily' ? '本地每日挑战' : state.mode === 'tutorial' ? '初次入库' : state.overtime ? '加班挑战' : '标准班次'}`, 1027, 1888, 18, '#8297a6', 'right', 500);
+  text(ctx, `规则 v${state.rulesetVersion} · 开发版 / ${state.mode==='color_exit'?(state.colorTier ? `${COLOR_TIER_NAMES[state.colorTier]}·比例比较` : '旧纯色出口·试验'):state.mode === 'daily' ? '本地每日挑战' : state.mode === 'tutorial' ? '初次入库' : state.overtime ? '加班挑战' : '标准班次'}`, 1027, 1888, 18, '#8297a6', 'right', 500);
   roundedPath(ctx, L.debug.x, L.debug.y, L.debug.w, L.debug.h, 6); ctx.fillStyle = 'rgba(13,23,31,.86)'; ctx.fill();
   text(ctx, '状态', L.debug.x + L.debug.w / 2, L.debug.y + 23, 20, '#9cabaf', 'center');
 }
 
 function shade(ctx: Context): void { ctx.fillStyle = 'rgba(5,11,18,.84)'; ctx.fillRect(0, 0, 1080, 1920); }
 
-function drawPause(ctx: Context, recovery: boolean, rulesetVersion: number, error?: string, challengeDay?: string): void {
+function drawPause(ctx: Context, recovery: boolean, rulesetVersion: number, error?: string, challengeDay?: string, colorTier?: ColorTier): void {
   shade(ctx); panel(ctx, { x: 173, y: 582, w: 734, h: 839 }, '#30455a', '#9aabaf', 28);
   hazard(ctx, { x: 201, y: 610, w: 678, h: 19 });
   forklift(ctx, 540, 744, 140, -.12);
   outlinedText(ctx, error ? '存档需要处理' : recovery ? '仓库还在等你' : '休息一下', 540, 868, 62, CREAM, 'center');
   text(ctx, error ? '现有存档无法安全继续' : recovery ? challengeDay ? `本地每日 ${challengeDay} · 已保存的挑战` : '已找到本机保存的进度' : '货物与订单都已暂停', 540, 960, 31, '#c6d1d6', 'center', 500);
   text(ctx, error ? '重新开始前会保留损坏存档原文' : recovery ? '继续上次班次，或开始全新一局' : '回来时，继续把仓库整理得井井有条', 540, 1013, 25, '#9bafbf', 'center', 500);
-  if(!error&&rulesetVersion===4){
-    ['颜色出口：每批至少4件，累计30批为目标','同图标上下左右相连，并接上对应同色出口','从南入口到货物旁边，必须留出叉车空路','逐箱沿货线出门；与订单模式独立保存'].forEach((line,index)=>text(ctx,line,540,1546+index*39,24,'#d5ddda','center',500));
+  if(!error&&rulesetVersion>=4){
+    [colorTier?`${colorTierLabel(colorTier)} · 逐件概率，本局固定`:'颜色出口：每批至少4件，累计30批为目标','同色至少4件相连，并接上对应同色出口','从南入口到货物旁边，必须留出叉车空路',colorTier?'双色分开出货；未出货的异色留在原格':'逐箱沿货线出门；与订单模式独立保存'].forEach((line,index)=>text(ctx,line,540,1546+index*39,24,'#d5ddda','center',500));
   }
-  if (!error && rulesetVersion >= 2 && rulesetVersion!==4) {
+  if (!error && rulesetVersion >= 2 && rulesetVersion<4) {
     const rules = [
       '托盘占1格计2件；万能可连接当前订单货类',
       '加急：后续有效放置倒数归零，变废弃物',
@@ -518,13 +523,13 @@ function drawResult(ctx: Context, state: RunState, view: ViewState): void {
   shade(ctx);
   if(state.mode==='color_exit'){
     outlinedText(ctx,state.result==='won'?'颜色出口完成！':'颜色出口 · 仓库满了',540,430,62,CREAM,'center');
-    text(ctx,state.result==='won'?'已达到30批目标，两个玩法可以继续比较':'所有候选都放不下了，可以再试一次',540,520,27,'#d9d9cf','center',500);
+    text(ctx,state.result==='won'?'已达到30批目标，可以继续比较实际体验':'所有候选都放不下了，可以再试一次',540,520,27,'#d9d9cf','center',500);
     panel(ctx,{x:174,y:600,w:732,h:455},'#415263','#b2a888',26);
-    text(ctx,'颜色出口分数',540,670,30,CREAM,'center');outlinedText(ctx,number(state.score),540,774,90,'#ffce5b','center');
+    text(ctx,state.colorTier?`${colorTierLabel(state.colorTier)} · 本档分数`:'旧纯色出口分数',540,670,state.colorTier?28:30,CREAM,'center');outlinedText(ctx,number(state.score),540,774,90,'#ffce5b','center');
     text(ctx,`出货批次 ${state.completedOrders} · 目标30批`,540,897,30,CREAM,'center');
     text(ctx,`累计出货 ${state.score/RULES_V4_CONFIG.pointsPerCell}件`,540,945,27,CREAM,'center');
     text(ctx,`最高连锁 ×${state.maxChain} · 最高占用 ${state.maxOccupancy??'未记录'}/49`,540,1001,26,'#d4dcdd','center');
-    text(ctx,'仅计颜色出口成绩，不与订单模式混排',540,1130,25,'#c1d1d6','center');
+    text(ctx,state.colorTier?'仅计本档成绩；三档和旧纯色各自独立':'仅计旧纯色出口成绩，不与订单模式混排',540,1130,25,'#c1d1d6','center');
     drawControls(ctx,state,view);text(ctx,view.profileStatus||'本地记录',540,1590,23,'#91a4b3','center');return;
   }
   const won = state.result === 'won', tutorial = state.mode === 'tutorial', daily = state.mode === 'daily';
@@ -604,18 +609,39 @@ function drawMenu(ctx: Context, state: RunState, view: ViewState): void {
   const best = view.profile?.bestScores['standard.v3'];
   text(ctx, '订单最高分 · v3', 222, 608, 25, '#a9c0c9', 'left', 500);
   text(ctx, number(best?.score ?? 0), 222, 675, 48, '#ffe29c', 'left', 900);
-  text(ctx, '颜色出口最高分 · v4', 850, 608, 25, '#a9c0c9', 'right', 500);
+  text(ctx, '旧纯色最高分 · v4', 850, 608, 25, '#a9c0c9', 'right', 500);
   text(ctx, number(view.profile?.colorExit?.bestScores.v4?.score ?? 0), 850, 675, 48, '#cce8ce', 'right', 900);
   text(ctx, `加班最高分 · ${number(view.profile?.bestScores['overtime.v3']?.score ?? 0)}`, 540, 737, 23, '#a9c0c9', 'center', 500);
   drawControls(ctx, state, view);
   text(ctx, `${view.dailyLabel ?? '日期待确认'} · 北京时间（UTC+08:00）`, 540, 1460, 27, '#d1dccf', 'center', 500);
-  text(ctx, '两模式分别留档 · 各自计分 · 暂不确定主模式', 540, 1513, 23, '#9bafbd', 'center', 500);
+  text(ctx, '三档比例可选 · 各档分别留档与计分', 540, 1513, 23, '#9bafbd', 'center', 500);
   const unlocked = ACHIEVEMENTS.filter(item => view.profile?.achievements.includes(item.id));
   text(ctx, `成就 ${unlocked.length} / ${ACHIEVEMENTS.length}`, 540, 1610, 24, '#ecc778', 'center', 600);
   text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '首次正式出货，解锁蓝色叉车', 540, 1660, 26, '#c4d2d6', 'center', 500);
-  text(ctx,view.saveStatus||'两模式分别保存在本机',540,1727,22,'#ffc7a6','center',500);
+  text(ctx,view.saveStatus||'订单、旧纯色与三档进度分别保存在本机',540,1727,22,'#ffc7a6','center',500);
   text(ctx, view.profileStatus || '长期记录保存在本机', 540, 1777, 23, '#9db0bc', 'center', 500);
   text(ctx, '纯外观 · 无永久战力 · 无在线排行', 540, 1845, 22, '#7f95a6', 'center', 500);
+}
+
+function drawColorTierSelection(ctx: Context, state: RunState, view: ViewState): void {
+  outlinedText(ctx, '颜色出口 · 三档比较', 540, 150, 66, CREAM, 'center');
+  text(ctx, '入门 / 中段 / 后段仅是比较档名，等你试玩选择', 540, 225, 25, '#c5d6db', 'center', 500);
+  panel(ctx, { x: 132, y: 275, w: 816, h: 218 }, '#304758', '#849792', 20);
+  text(ctx, '共同对比种子', 170, 321, 25, '#b8d1db');
+  text(ctx, String(view.comparisonSeed ?? '待确认'), 170, 378, 39, '#ffe29c');
+  text(ctx, '换种子仅影响以后新开；继续旧局沿用其原种子', 540, 457, 23, '#b8d1db', 'center', 500);
+  COLOR_TIERS.forEach((tier, index) => {
+    const y = 527 + index * 288, percentage = MIXED_COLOR_PERCENT[tier];
+    panel(ctx, { x: 132, y, w: 816, h: 249 }, '#293f51', '#718d98', 20);
+    text(ctx, `${COLOR_TIER_NAMES[tier]} · 纯色${100-percentage}% / 双色${percentage}%`, 170, y + 46, 32, '#ffe8b4');
+    const best = view.profile?.colorComparisons?.[tier]?.bestScores.v5?.score ?? 0;
+    text(ctx, `逐件概率 · 本局固定     本档最高分 ${number(best)}`, 170, y + 97, 24, '#b8cdd5', 'left', 500);
+  });
+  drawControls(ctx,state,view);
+  text(ctx, '每件独立抽取，不保证短局恰好达到显示比例', 540, 1703, 25, '#c7d8df', 'center', 500);
+  text(ctx, '三档只改双色比例 · 形状开放1–5不改本档概率', 540, 1754, 24, '#a9c2cb', 'center', 500);
+  text(ctx, view.saveStatus || '各档进度与成绩独立，旧纯色 v4 原样保留', 540, 1811, 23, '#ffc7a6', 'center', 500);
+  text(ctx, view.profileStatus || '本地记录 · 等待实际体验比较', 540, 1861, 21, '#8fa9b9', 'center', 500);
 }
 
 function drawSettings(ctx: Context, state: RunState, view: ViewState): void {
@@ -642,8 +668,9 @@ function drawActivePause(ctx: Context, state: RunState, view: ViewState): void {
   if(state.mode==='color_exit'){
     panel(ctx,{x:173,y:395,w:734,h:1320},'#30455a','#95a9b1',28);
     outlinedText(ctx,'颜色出口 · 暂停',540,530,57,CREAM,'center');
+    if(state.colorTier)text(ctx,`${colorTierLabel(state.colorTier)} · 逐件概率，本局固定`,540,579,24,'#b8d5ce','center');
     text(ctx,'目标：累计出货30批，全部候选放不下就失败',540,630,25,'#ffe3a1','center');
-    ['① 同图标上下左右相连，至少4件','② 货组必须连到对应颜色的单个出口','③ 南入口沿空格能走到货物旁边','叉车启动装卸，货箱逐箱沿货线出门','两个模式独立保存，可回主页切换'].forEach((line,i)=>text(ctx,line,540,718+i*56,25,'#d5e7df','center',500));
+    ['① 每色上下左右相连，至少4件','② 货组必须连到对应颜色的单个出口','③ 南入口沿空格能走到货物旁边',state.colorTier?'双色2+2不等于同色4件，异色留在原格':'叉车启动装卸，货箱逐箱沿货线出门',state.colorTier?'形状开放1–5只增加形状，双色比例不变':'两个模式独立保存，可回主页切换'].forEach((line,i)=>text(ctx,line,540,718+i*56,25,'#d5e7df','center',500));
     drawControls(ctx,state,view);return;
   }
   const overtime = !!state.overtime;
@@ -681,19 +708,23 @@ function drawConfirmation(ctx: Context, state: RunState, view: ViewState): void 
   const kind = view.confirmation?.kind;
   const title = kind === 'resetProfile' ? '重置长期记录？' : kind === 'finishOvertime' ? '结束这次加班？' : kind==='switchMode'?'保留进度并切换？':'开始新的值班？';
   outlinedText(ctx, title, 540, 750, 59, CREAM, 'center');
-  const lines = kind==='switchMode'?['当前模式的进度会保留，不会被新模式替换。',view.confirmation?.variant==='color_exit'?'切换到颜色出口，继续或开始独立进度。':'切换到订单模式，继续或开始独立进度。','取消不会改变任何一边的存档。']:kind === 'resetProfile' ? ['设置、外观和本地成绩将恢复初始状态。', '两个模式的当前值班仍会保留。', '当前局之后的结算会计入新记录。']
+  const confirmation = view.confirmation;
+  const target = confirmation?.variant ? runSlotLabel(confirmation.variant) : '订单模式';
+  const newTarget = confirmation?.mode === 'color_exit' ? confirmation.colorTier ? colorTierLabel(confirmation.colorTier) : '旧纯色出口 v4' : '订单模式';
+  const lines = kind==='switchMode' ? ['当前进度会保存；各档独立，不相互覆盖。', `切换到${target}。`, '已有进度沿用原种子；空档用共同种子。', '取消不会改变任何存档。']
+    : kind === 'resetProfile' ? ['设置、外观和本地成绩将恢复初始状态。', '订单、旧纯色与三档当前值班仍会保留。', '当前局之后的结算会计入新记录。']
     : kind === 'finishOvertime' ? ['将按当前分数结算这次加班。', '结算后不能继续本次加班。', '取消可回到原来的仓库。']
-      : ['只替换所选模式进度；另一模式仍会保留。', view.confirmation?.mode==='color_exit'?'开始新的颜色出口30批试玩。':view.confirmation?.mode === 'daily' ? '开始今日的本地固定种子挑战。' : '开始一轮全新的标准五班挑战。', '取消会完整保留当前进度。'];
-  lines.forEach((line, index) => text(ctx, line, 540, 897 + index * 63, 29, '#d1dde1', 'center', 500));
+    : [`将替换${newTarget}的进度。`, confirmation?.colorTier ? `共同对比种子：${confirmation.seed ?? view.comparisonSeed ?? '待确认'}` : confirmation?.mode === 'color_exit' ? '开始新的纯色出口30批试玩。' : confirmation?.mode === 'daily' ? '开始今日的本地固定种子挑战。' : '开始一轮全新的标准五班挑战。', '其他模式和各档进度都会保留。', '取消会完整保留现有进度。'];
+  lines.forEach((line, index) => text(ctx, line, 540, 860 + index * 63, 27, '#d1dde1', 'center', 500));
   drawControls(ctx, state, view);
 }
 
 function drawColorExitIntro(ctx:Context,state:RunState,view:ViewState):void{
   outlinedText(ctx,'颜色出口 · 试验模式',540,302,62,CREAM,'center');
   text(ctx,'目标：出货30批；候选全放不下就失败',540,412,30,'#ffe3a1','center');
-  text(ctx,'原订单模式仍保留，两边进度和成绩独立',540,477,26,'#d2dce1','center',500);
-  drawColorExitHelpDiagram(ctx,{x:140,y:595,w:800,h:430});
+  text(ctx,state.colorTier?`${colorTierLabel(state.colorTier)} · 逐件概率，本局固定`:'原订单模式仍保留，两边进度和成绩独立',540,477,26,'#d2dce1','center',500);
+  drawColorExitHelpDiagram(ctx,{x:140,y:595,w:800,h:430},state.rulesetVersion===5);
   text(ctx,'门固定不变：北食品、东化工、西机械；南边进叉车',540,1080,25,'#e4e4d7','center');
-  text(ctx,'每批至少4件是试玩基线，先看实际体验再调整',540,1135,24,'#9db5c3','center',500);
+  text(ctx,state.colorTier?'形状开放1–5不改比例；各档进度与成绩独立':'每批至少4件是试玩基线，先看实际体验再调整',540,1135,24,'#9db5c3','center',500);
   drawControls(ctx,state,view);
 }

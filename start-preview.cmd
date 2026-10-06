@@ -7,6 +7,5 @@ if errorlevel 1 (
   exit /b 1
 )
 echo Starting local preview on http://127.0.0.1:4173/
-start "" "http://127.0.0.1:4173/"
-node scripts\serve.mjs
+node scripts\serve.mjs --open
 pause

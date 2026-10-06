@@ -1,0 +1,2835 @@
+{
+  "baseline": "pre-v5",
+  "files": {
+    "src/domain/rulesets/v1/board.ts": "fc6cd84ec924321a1995c79d3161e4f8b62cf7e6fbef896476134abb785e30ef",
+    "src/domain/rulesets/v1/content.ts": "0f559f1800272a5e91c8610f0f5a8c1ac5b901f4f84248cfd920d9b4fcd00cc5",
+    "src/domain/rulesets/v1/engine.ts": "7867827fed52961139adf86aff07da81b27d18c2fe62f9c6f13ebdbe5e9d997e",
+    "src/domain/rulesets/v1/random.ts": "ea76664c43348efe5b8d2bffa4751c2721f55f7ca6818009e6b7419afad4ac3e",
+    "src/domain/rulesets/v1/replay.ts": "cbad4ac49cd394a28a25c0e97bcc3ebb4cfb2e596e4e5e662aebd59f496a4a8b",
+    "src/domain/rulesets/v1/types.ts": "94ba2b0fd993616223782104d410758bd3cfced625906852a2ddfa3319b892fc",
+    "src/domain/v2/board.ts": "d2c9273445e12acf6ba5ebd30ed59c4093e2718da738622430b090be8ac3546e",
+    "src/domain/v2/content.ts": "c306ac0a40c0e2d0f3382183cd1bc8b3abfe0e152d1ce18b57c9bcab54ef23fd",
+    "src/domain/v2/engine.ts": "ea8cb94c13e76199dc845c5fd24aad9b4044c79110c3a06bd6531229569193a6",
+    "src/domain/v3/content.ts": "333bee1d8d7783e39b37a00fbabd930cf0406972ebfee7d4003034e86fe80986",
+    "src/domain/v3/engine.ts": "889993d955664b7b0cd4239c89694d8b92beb4d3cde0b23357bd198fc30b93af",
+    "src/domain/v4/board.ts": "06a67e791c6a8de5a0701ed1974c40090184cbb39d2df4598df28bbe619bfd88",
+    "src/domain/v4/content.ts": "95f327b2a178ec67fd2247c517608ec4111568dc5c995b981cb9b11f429ab09d",
+    "src/domain/v4/engine.ts": "bfabe3076ade668c67a5a3b9e370c5c8521551ccf4e7b475560bf0a4131b7718"
+  },
+  "cases": [
+    {
+      "version": 1,
+      "seed": 1,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "12676f48",
+        "5c06ea97",
+        "1cd79654",
+        "1692db4f",
+        "e6cd293a",
+        "6c5c5939",
+        "4d164026",
+        "9fd2de6f",
+        "0b915b13",
+        "9f9728d6",
+        "2653a7e1",
+        "dad3377e",
+        "8a435766",
+        "0b94d742",
+        "25336ec2",
+        "65bd57ac",
+        "73e23908"
+      ]
+    },
+    {
+      "version": 1,
+      "seed": 19,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 2,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 6,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.36",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.38",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "9488d91d",
+        "fb883312",
+        "33efef02",
+        "e51349a6",
+        "3160f7b3",
+        "863b03ae",
+        "3eefb534",
+        "f227884a",
+        "63885b20",
+        "a4950e75",
+        "67fbe8d6",
+        "026c4da6",
+        "5c65d304",
+        "e2dc2f41",
+        "80b5c79f",
+        "febe1a26",
+        "0768d513",
+        "437f437f",
+        "5c05b0a1",
+        "4ad31ae6",
+        "5e73aade",
+        "6b35600d",
+        "9844095f",
+        "2bf3a2df",
+        "3dcafb73",
+        "a2bafb85",
+        "eb4663bf",
+        "e87d5d0f",
+        "03f45ae2"
+      ]
+    },
+    {
+      "version": 1,
+      "seed": 903,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.small_parcels"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.38",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.36",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.40",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.39",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.43",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.44",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.42",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.46",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.47",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.45",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.49",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        }
+      ],
+      "trace": [
+        "171a47bf",
+        "24d65317",
+        "1a67cfd0",
+        "17216b42",
+        "36da47ac",
+        "4365ff6e",
+        "8dccdffb",
+        "8ca10a7a",
+        "6c05f78d",
+        "6076f7f2",
+        "ede098e9",
+        "47d6032b",
+        "3e6aebce",
+        "7ab20ccd",
+        "b577bed7",
+        "0e0e9ea0",
+        "d705f5a8",
+        "bc3400a5",
+        "2ef6a8b7",
+        "da9b5d56",
+        "145f599e",
+        "ecdb1031",
+        "ac8613e9",
+        "3b01994e",
+        "beb57fda",
+        "df81a85e",
+        "a49655d7",
+        "23ba0fc9",
+        "b789197c",
+        "f4b001fe",
+        "0644dd02",
+        "638981bd",
+        "c4d4e79e",
+        "992a7dac",
+        "d3919386",
+        "24bda4ee",
+        "1c798ab8"
+      ]
+    },
+    {
+      "version": 2,
+      "seed": 1,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "f9790547",
+        "91b22b87",
+        "01d056c6",
+        "02119dd9",
+        "61d6c10b",
+        "ace998aa",
+        "a37914a8",
+        "1b00f4ff",
+        "cd894895",
+        "0b467157",
+        "2de23349",
+        "579aeb4f",
+        "ab7198dd",
+        "3209ddd5",
+        "067eafb9",
+        "51743727",
+        "5a0c8c34"
+      ]
+    },
+    {
+      "version": 2,
+      "seed": 19,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 6,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "5f241ec0",
+        "42135526",
+        "069a7113",
+        "84714fc9",
+        "4344f526",
+        "3e6eb681",
+        "d79d2e65",
+        "e2262aaa",
+        "84fe4dfa",
+        "81c7b6b7",
+        "bc569386",
+        "4a9f8278",
+        "6bd4d6d8",
+        "7cc62c8c",
+        "c4e997b9",
+        "0803309b",
+        "1352bf69",
+        "d610761a",
+        "3486cec1",
+        "559c1655",
+        "b5b76dc1",
+        "e66479bb",
+        "c8f752b5",
+        "1069c59c",
+        "0b1514ec",
+        "bf3b91bf",
+        "4f072786"
+      ]
+    },
+    {
+      "version": 2,
+      "seed": 903,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.small_order_first"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.36",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 2,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.40",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        }
+      ],
+      "trace": [
+        "fb44cb5b",
+        "4f4601a9",
+        "d3720ead",
+        "98dd1ede",
+        "9e965e68",
+        "e4270919",
+        "8e521eee",
+        "d275235f",
+        "e74a32f6",
+        "fac2dee3",
+        "07445014",
+        "0e8b82bd",
+        "1d4a48b8",
+        "7a3ab0b4",
+        "d74a10cb",
+        "26ea0997",
+        "605327bb",
+        "2c8ea9e5",
+        "c01419f3",
+        "c1a9070a",
+        "5ead522e",
+        "22776b7e",
+        "8fdc9cce",
+        "af8f488e",
+        "790ae14a",
+        "0fb2f57e",
+        "38722970",
+        "6ce66328",
+        "8c761673",
+        "d4cb1df7",
+        "4f86d2e1",
+        "09045a4c",
+        "87a48dcb"
+      ]
+    },
+    {
+      "version": 3,
+      "seed": 1,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        }
+      ],
+      "trace": [
+        "f88005c7",
+        "a6c393fa",
+        "2f38e317",
+        "f36be486",
+        "cededf85",
+        "f86168f9",
+        "bd373fcd",
+        "eaf5040c",
+        "b49d9347",
+        "1a0ce1ac",
+        "1e4668ef",
+        "eddb9c92",
+        "96261bf7",
+        "7f0f6016",
+        "37d0bc65",
+        "a51bd653",
+        "f90ee2a3"
+      ]
+    },
+    {
+      "version": 3,
+      "seed": 19,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.light_orders"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 5,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 4,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 6,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "b46d5517",
+        "42dff493",
+        "d27f2fb3",
+        "92730db2",
+        "eea996b8",
+        "e3774c7d",
+        "f622347e",
+        "0adfd732",
+        "8c635213",
+        "9e8a3551",
+        "7932266f",
+        "412956fc",
+        "1217d1e1",
+        "86dd554f",
+        "c1245c2c",
+        "6f177136",
+        "330b6cca",
+        "7564a1d2",
+        "64e29c52",
+        "54d5e960",
+        "4b0d5972",
+        "81900c22",
+        "0b348e94",
+        "e0a2ff03",
+        "de085b6e",
+        "72eac2b7",
+        "54f6abf4"
+      ]
+    },
+    {
+      "version": 3,
+      "seed": 903,
+      "mode": "standard",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "type": "upgrade",
+          "upgradeId": "upgrade.small_order_first"
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.26",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.27",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.28",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.29",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.25",
+          "origin": {
+            "x": 5,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.30",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.31",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.33",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.35",
+          "origin": {
+            "x": 1,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.36",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.37",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.32",
+          "origin": {
+            "x": 0,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.34",
+          "origin": {
+            "x": 2,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.40",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        }
+      ],
+      "trace": [
+        "f10de65c",
+        "d8a59208",
+        "1d143b4d",
+        "b22406f0",
+        "c0ec0006",
+        "91177f26",
+        "b4c7a558",
+        "9c2b7158",
+        "a0b03225",
+        "c5cf5999",
+        "f9474130",
+        "219d0c13",
+        "933843c1",
+        "c97a50e6",
+        "78def7f9",
+        "63dede5b",
+        "8490bc8e",
+        "baa1a0de",
+        "5d9e98c1",
+        "6bb9d5e1",
+        "4673e0bd",
+        "52b57cd2",
+        "f06ff18e",
+        "288471d5",
+        "7011d4cf",
+        "cd3aeefe",
+        "3a3015c4",
+        "1874daec",
+        "a921e63f",
+        "94ab6a31",
+        "bf0c98b7",
+        "46ee8ee0",
+        "dc9d9185"
+      ]
+    },
+    {
+      "version": 3,
+      "seed": 123,
+      "mode": "tutorial",
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        }
+      ],
+      "trace": [
+        "1efcbf08",
+        "84263b32",
+        "d6be3692",
+        "ffc8d530"
+      ]
+    },
+    {
+      "seed": 1,
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.domino_h",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.i3_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          -1590321373,
+          1082234399,
+          1675118783,
+          1703059471
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 6,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 4,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 3,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 4,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 3,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 1,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 3,
+            "y": 6
+          }
+        }
+      ],
+      "trace": [
+        "9c459e32",
+        "9d394cbb",
+        "75d55cbc",
+        "baedd6e1",
+        "9f00fb18",
+        "39d16068",
+        "e49b0b29",
+        "3166052e",
+        "882f70a6",
+        "1dbc4703",
+        "13b65c6f",
+        "b1599fe1",
+        "1c45feab",
+        "b08da23a",
+        "b1ff9010",
+        "9fa1bdd6",
+        "76c7cac1",
+        "bee04479",
+        "556a9386"
+      ],
+      "version": 4,
+      "mode": "color_exit"
+    },
+    {
+      "seed": 19,
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.domino_h",
+            "cargo": "cargo.chem"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.l3_nw",
+            "cargo": "cargo.machine"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.domino_v",
+            "cargo": "cargo.machine"
+          }
+        ],
+        "rngState": [
+          -972183229,
+          1962667614,
+          -2068168048,
+          -907157215
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 6,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 4,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 1,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 5,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 0,
+            "y": 6
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 4,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.20",
+          "origin": {
+            "x": 0,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.21",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        }
+      ],
+      "trace": [
+        "17eb7c32",
+        "47952776",
+        "a0e84de9",
+        "090f8d09",
+        "c516d0c8",
+        "102c606a",
+        "9225d507",
+        "4ade11d0",
+        "954f6a97",
+        "d3ffac0d",
+        "435e71a4",
+        "115bf511",
+        "d6153c74",
+        "98de758b",
+        "798d9a1b",
+        "ed0c1be2",
+        "acebfc9e",
+        "5e92755e",
+        "ca067df7",
+        "dd564943",
+        "1f81903d",
+        "d8868ff7",
+        "feed7534"
+      ],
+      "version": 4,
+      "mode": "color_exit"
+    },
+    {
+      "seed": 903,
+      "initial": {
+        "candidates": [
+          {
+            "id": "piece.1",
+            "shapeId": "shape.single",
+            "cargo": "cargo.machine"
+          },
+          {
+            "id": "piece.2",
+            "shapeId": "shape.domino_h",
+            "cargo": "cargo.food"
+          },
+          {
+            "id": "piece.3",
+            "shapeId": "shape.l3_ne",
+            "cargo": "cargo.chem"
+          }
+        ],
+        "rngState": [
+          639577668,
+          351724355,
+          655743004,
+          211599714
+        ]
+      },
+      "commands": [
+        {
+          "type": "place",
+          "pieceId": "piece.1",
+          "origin": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.4",
+          "origin": {
+            "x": 0,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.5",
+          "origin": {
+            "x": 5,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.2",
+          "origin": {
+            "x": 3,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.7",
+          "origin": {
+            "x": 3,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.6",
+          "origin": {
+            "x": 2,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.9",
+          "origin": {
+            "x": 2,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.10",
+          "origin": {
+            "x": 2,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.8",
+          "origin": {
+            "x": 5,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.11",
+          "origin": {
+            "x": 6,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.13",
+          "origin": {
+            "x": 2,
+            "y": 3
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.12",
+          "origin": {
+            "x": 0,
+            "y": 5
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.14",
+          "origin": {
+            "x": 4,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.3",
+          "origin": {
+            "x": 5,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.17",
+          "origin": {
+            "x": 1,
+            "y": 4
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.18",
+          "origin": {
+            "x": 1,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.15",
+          "origin": {
+            "x": 3,
+            "y": 2
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.16",
+          "origin": {
+            "x": 2,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.19",
+          "origin": {
+            "x": 6,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.22",
+          "origin": {
+            "x": 0,
+            "y": 1
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.23",
+          "origin": {
+            "x": 1,
+            "y": 0
+          }
+        },
+        {
+          "type": "place",
+          "pieceId": "piece.24",
+          "origin": {
+            "x": 3,
+            "y": 4
+          }
+        }
+      ],
+      "trace": [
+        "0adcdccc",
+        "32dd4060",
+        "7cc54ff2",
+        "2887ecb6",
+        "0f40332c",
+        "343465ba",
+        "6c638866",
+        "0d6bf58f",
+        "063bccea",
+        "1c8b50de",
+        "7da8857f",
+        "7176a6ac",
+        "a23a8eb0",
+        "c4d9735c",
+        "d1efb702",
+        "bb159e1c",
+        "7b0f6735",
+        "6b170b7b",
+        "32f05887",
+        "78123b0d",
+        "105888ec",
+        "e008d88d",
+        "a4c08b73"
+      ],
+      "version": 4,
+      "mode": "color_exit"
+    }
+  ]
+}

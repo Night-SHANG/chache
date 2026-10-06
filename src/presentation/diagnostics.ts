@@ -5,6 +5,7 @@ import {CARGO, SHAPES, P0_CONFIG} from '../domain/rulesets/v1/content.ts';
 import {RULES_V2_CONFIG, upgradeStackV2, upgradeParamV2} from '../domain/v2/content.ts';
 import {cellUnitsV2} from '../domain/v2/board.ts';
 import {RULES_V4_CONFIG,COLOR_EXIT_CARGO} from '../domain/v4/content.ts';
+import {MIXED_COLOR_PERCENT} from '../domain/v5/content.ts';
 import {RULES_V3_CONFIG} from '../domain/v3/content.ts';
 import type {ViewState} from './view-types.ts';
 
@@ -19,7 +20,7 @@ function weightRows(label: string, weights: [string, number][]): string[] {
  * historical inference, or command simulation occurs here. Tests replay the displayed
  * weighted pools against the real v2/v3 generators to catch formula or draw-order drift. */
 function generationRows(state: RunState, occupancy: number): string[] {
-  if(state.rulesetVersion===4){
+  if(state.rulesetVersion===4||state.rulesetVersion===5){
     const config=RULES_V4_CONFIG,bonus=Math.floor(occupancy*config.generation.occupancySmallPercent/49);
     const rows=[`generation color_exit fixed3; target_batches ${config.targetBatches}; min_batch ${config.minBatch}`,'special/upgrade disabled; freight follows event-owned four-neighbor cargoPaths',`shape occupancy_bonus ${bonus}%; repeat_divisor ${config.generation.recentShapeDivisor}`];
     const weights:[string,number][]=SHAPES.filter(shape=>shape.minShift<=state.shift).map(shape=>{
@@ -27,6 +28,7 @@ function generationRows(state: RunState, occupancy: number): string[] {
       if(state.candidates.some(piece=>piece.shapeId===shape.id))weight=Math.floor(weight/config.generation.recentShapeDivisor);
       return [shape.id,Math.max(1,weight)];
     });
+    if(state.rulesetVersion===5&&state.colorTier)rows.push(`color_tier ${state.colorTier}; mixed_probability ${MIXED_COLOR_PERCENT[state.colorTier]}%; independent_per_piece; no_fallback`,'four_draws type[1,100],shape[0,2147483647],cargo[0,2147483647],pattern[0,11]','mixed shape.square; 12 equal 2+2 bands; shape/cargo weights below apply only to pure branch');
     rows.push(...weightRows('shape_weight',weights));
     rows.push(...weightRows('cargo_weight',COLOR_EXIT_CARGO.map(cargo=>[cargo,config.generation.cargoBaseWeight+state.board.filter(cell=>cell===cargo).length*config.generation.cargoPresenceWeight])));
     return rows;
@@ -82,7 +84,7 @@ export function buildDebugRows(state: RunState, view: ViewState): string[] {
     `rng_state ${JSON.stringify(state.rngState)}`,
     `command_index ${state.commandIndex} | occupancy ${occupancy}/${state.board.length} (${(occupancy / state.board.length * 100).toFixed(1)}%)`,
     `last_checksum ${checksum(state)}`,
-    ...state.candidates.map(piece => `candidate ${piece.id} ${piece.shapeId} ${piece.cargo}${piece.trait ? ` trait=${piece.trait}` : ''}${piece.rushTurns !== undefined ? ` rush_turns=${piece.rushTurns}` : ''}`),
+    ...state.candidates.map(piece => `candidate ${piece.id} ${piece.shapeId} ${piece.cargo}${piece.cellCargos?` cell_cargos ${piece.cellCargos.join(',')}`:''}${piece.trait ? ` trait=${piece.trait}` : ''}${piece.rushTurns !== undefined ? ` rush_turns=${piece.rushTurns}` : ''}`),
   ];
   if (!state.candidates.length) rows.push('candidates none');
   for (const order of state.orders) {
@@ -91,7 +93,7 @@ export function buildDebugRows(state: RunState, view: ViewState): string[] {
     rows.push(`canonical_route ${order.id} ${route(status.path)}`);
   }
   if (!state.orders.length) rows.push('active_orders none');
-  const limit = state.rulesetVersion === 4 ? 3 : state.rulesetVersion === 3 ? RULES_V3_CONFIG.resolutionLimit : state.rulesetVersion === 2 ? RULES_V2_CONFIG.resolutionLimit : P0_CONFIG.resolutionLimit;
+  const limit = (state.rulesetVersion === 4||state.rulesetVersion === 5) ? 3 : state.rulesetVersion === 3 ? RULES_V3_CONFIG.resolutionLimit : state.rulesetVersion === 2 ? RULES_V2_CONFIG.resolutionLimit : P0_CONFIG.resolutionLimit;
   if (view.animation) {
     const shipment = view.animation.shipment;
     rows.push(`resolution_step ${shipment.chain}/${limit} animation | last_chain ${state.lastChain}`);

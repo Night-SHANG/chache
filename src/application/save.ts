@@ -1,20 +1,24 @@
 import type { RunState } from '../domain/types.ts';
+import { isRunSlot, slotForRun, tierForSlot, type RunSlot } from './run-slots.ts';
+export { RUN_SLOTS, isRunSlot, slotForRun, slotForTier, tierForSlot, type RunSlot } from './run-slots.ts';
+import { isValidColorExitPiece } from '../domain/pieces.ts';
 import { P0_CONFIG, SHAPES, UPGRADES } from '../domain/content.ts';
 import { COLOR_EXIT_CARGO, COLOR_EXIT_TARGETS, RULES_V4_CONFIG } from '../domain/v4/content.ts';
 import { UPGRADES as LEGACY_UPGRADES } from '../domain/rulesets/v1/content.ts';
 
 export interface StoragePort { get(key:string):string|null; set(key:string,value:string):void; remove(key:string):void }
-export type RunSlot='orders'|'color_exit';
 export const COLOR_EXIT_SAVE_KEYS={main:'warehouse.color_exit.run.v4',backup:'warehouse.color_exit.run.backup.v4',temp:'warehouse.color_exit.run.temp.v4'};
 export function saveKeysFor(slot:RunSlot):typeof SAVE_KEYS {
-  requireValue(slot==='orders'||slot==='color_exit','存档槽无效');
+  requireValue(isRunSlot(slot),'存档槽无效');
+  const tier=tierForSlot(slot);
+  if(tier)return {main:`warehouse.color_exit.${tier}.run.v5`,backup:`warehouse.color_exit.${tier}.run.backup.v5`,temp:`warehouse.color_exit.${tier}.run.temp.v5`};
   return slot==='color_exit'?COLOR_EXIT_SAVE_KEYS:SAVE_KEYS;
 }
 export const SAVE_KEYS={main:'warehouse.run.v1',backup:'warehouse.run.backup.v1',temp:'warehouse.run.temp.v1'};
 const CARGO=['cargo.food','cargo.machine','cargo.chem','cargo.electronic','cargo.cold'];
 const DOCKS=['dock.north','dock.east','dock.south','dock.west'];
 // Envelope schema and gameplay rules have separate meanings; this is the supported mapping.
-const schemaFor=(rules:number)=>rules===1?1:rules===2?2:rules===3?3:rules===4?4:0;
+const schemaFor=(rules:number)=>rules===1?1:rules===2?2:rules===3?3:rules===4?4:rules===5?5:0;
 type RecordValue=Record<string,unknown>;
 const object=(v:unknown):v is RecordValue=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const integer=(v:unknown,min=0,max=Number.MAX_SAFE_INTEGER):v is number=>Number.isSafeInteger(v)&&Number(v)>=min&&Number(v)<=max;
@@ -23,14 +27,17 @@ const array=(v:unknown,max=100000):v is unknown[]=>Array.isArray(v)&&v.length<=m
 const point=(v:unknown)=>object(v)&&integer(v.x,0,6)&&integer(v.y,0,6);
 function requireValue(ok:unknown,message:string):asserts ok { if(!ok)throw Error(message); }
 
-/** Schema four is deliberately separate so old legal snapshots keep their original contract. */
+/** Old color bytes retain schema four; mixed runs require an exact schema-five tier identity. */
 function assertColorExitRun(value:RecordValue):void {
- requireValue(value.rulesetVersion===4&&value.runConfigId===RULES_V4_CONFIG.runConfigId&&value.mode==='color_exit','颜色出口规则版本不兼容');
+ const mixed=value.rulesetVersion===5;
+ requireValue(value.mode==='color_exit'&&(mixed
+  ?(value.colorTier==='entry'||value.colorTier==='middle'||value.colorTier==='late')&&value.runConfigId===`run.color_exit_mix_v5.${value.colorTier}`
+  :value.rulesetVersion===4&&value.runConfigId===RULES_V4_CONFIG.runConfigId&&!Object.prototype.hasOwnProperty.call(value,'colorTier')),'颜色出口规则版本不兼容');
  requireValue(integer(value.seed,-2147483648,4294967295),'种子无效');
  requireValue(array(value.rngState,4)&&value.rngState.length===4&&value.rngState.every(v=>integer(v,-2147483648,2147483647)),'随机状态无效');
  requireValue(array(value.board,49)&&value.board.length===49&&value.board.every(v=>v===null||COLOR_EXIT_CARGO.some(cargo=>cargo===v)),'棋盘存档无效');
  requireValue(array(value.candidates,3)&&value.candidates.length===(value.phase==='result'&&value.result==='won'?2:3),'候选货物无效');
- requireValue(value.candidates.every(v=>object(v)&&id(v.id)&&SHAPES.some(shape=>shape.id===v.shapeId)&&COLOR_EXIT_CARGO.some(cargo=>cargo===v.cargo)&&v.trait===undefined&&v.rushTurns===undefined),'候选内容无效');
+ requireValue(value.candidates.every(v=>object(v)&&id(v.id)&&SHAPES.some(shape=>shape.id===v.shapeId)&&COLOR_EXIT_CARGO.some(cargo=>cargo===v.cargo)&&v.trait===undefined&&v.rushTurns===undefined&&(mixed?isValidColorExitPiece(v):!Object.prototype.hasOwnProperty.call(v,'cellCargos'))),'候选内容无效');
  requireValue(new Set(value.candidates.map(v=>(v as RecordValue).id)).size===value.candidates.length,'候选标识重复');
  requireValue(array(value.orders,3)&&value.orders.length===3&&value.orders.every((order,i)=>object(order)&&Object.keys(order).length===5&&Object.entries(COLOR_EXIT_TARGETS[i]).every(([key,expected])=>order[key]===expected)),'固定出口目标无效');
  requireValue(value.phase==='input'||value.phase==='result','阶段无效');
@@ -49,14 +56,15 @@ function assertColorExitRun(value:RecordValue):void {
 /** Untrusted JSON is checked before it can reach gameplay or rendering. */
 export function assertRun(value:unknown):asserts value is RunState {
   requireValue(object(value),'存档结构无效');
-  if(value.rulesetVersion===4||value.mode==='color_exit'){assertColorExitRun(value);return;}
+  if(value.rulesetVersion===4||value.rulesetVersion===5||value.mode==='color_exit'){assertColorExitRun(value);return;}
+  requireValue(!Object.prototype.hasOwnProperty.call(value,'colorTier'),'旧规则不允许颜色比较档');
   requireValue(value.rulesetVersion===P0_CONFIG.rulesetVersion&&value.runConfigId===P0_CONFIG.runConfigId||value.rulesetVersion===2&&value.runConfigId==='run.standard_v2'||value.rulesetVersion===3&&value.runConfigId==='run.standard_v3','规则版本不兼容');
   requireValue(integer(value.seed,-2147483648,4294967295),'种子无效');
   requireValue(['standard','daily','tutorial'].includes(String(value.mode)),'游戏模式无效');
   requireValue(array(value.rngState,4)&&value.rngState.length===4&&value.rngState.every(v=>integer(v,-2147483648,2147483647)),'随机状态无效');
   requireValue(array(value.board,49)&&value.board.length===49&&value.board.every(v=>v===null||CARGO.includes(String(v))),'棋盘存档无效');
   requireValue(array(value.candidates,4)&&(value.candidates.length>0||value.rulesetVersion===3&&value.mode==='tutorial'&&value.phase==='result'&&value.result==='won'),'候选货物无效');
-  requireValue(value.candidates.every(v=>object(v)&&id(v.id)&&SHAPES.some(shape=>shape.id===v.shapeId)&&CARGO.includes(String(v.cargo))),'候选内容无效');
+  requireValue(value.candidates.every(v=>object(v)&&id(v.id)&&SHAPES.some(shape=>shape.id===v.shapeId)&&CARGO.includes(String(v.cargo))&&!Object.prototype.hasOwnProperty.call(v,'cellCargos')),'候选内容无效');
   requireValue(new Set(value.candidates.map(v=>(v as RecordValue).id)).size===value.candidates.length,'候选标识重复');
   requireValue(array(value.orders,4)&&(value.orders.length>0||value.phase==='result'&&value.result==='won'),'订单无效');
   requireValue(value.orders.every(v=>object(v)&&id(v.id)&&DOCKS.includes(String(v.dockId))&&CARGO.includes(String(v.cargo))&&integer(v.amount,1,49)&&integer(v.baseScore,1,1000000)),'订单内容无效');
@@ -103,7 +111,7 @@ export function decodeRun(raw:string):RunState {
   requireValue(raw.length<=950000,'存档超出大小限制');
   const value:unknown=JSON.parse(raw);
   requireValue(object(value),'存档结构无效');
-  requireValue(value.schemaVersion===1||value.schemaVersion===2||value.schemaVersion===3||value.schemaVersion===4,'存档版本不兼容');
+  requireValue(value.schemaVersion===1||value.schemaVersion===2||value.schemaVersion===3||value.schemaVersion===4||value.schemaVersion===5,'存档版本不兼容');
   requireValue(typeof value.digest==='string'&&value.digest===digest(JSON.stringify(value.state)),'存档校验失败');
   assertRun(value.state);
   requireValue(value.schemaVersion===schemaFor(value.state.rulesetVersion),'存档版本与规则不兼容');
@@ -117,7 +125,7 @@ function archiveRaw(storage:StoragePort,key:string,raw:string):void {
  storage.set(archive,raw);requireValue(storage.get(archive)===raw,'损坏存档备份失败');
 }
 function decodeSlot(raw:string,slot:RunSlot):RunState {
- const state=decodeRun(raw);requireValue((state.mode==='color_exit')===(slot==='color_exit'),'存档模式与槽不一致');return state;
+ const state=decodeRun(raw);requireValue(slotForRun(state)===slot,'存档模式与槽不一致');return state;
 }
 export function loadRun(storage:StoragePort,slot:RunSlot='orders'):LoadResult {
   try {
@@ -130,10 +138,11 @@ export function loadRun(storage:StoragePort,slot:RunSlot='orders'):LoadResult {
 function restore(storage:StoragePort,key:string,raw:string|null):void {
  try{if(raw===null)storage.remove(key);else storage.set(key,raw);}catch{/* A prior valid backup or exact-byte archive remains available. */}
 }
-export function saveRun(storage:StoragePort,state:RunState,slot:RunSlot=state.mode==='color_exit'?'color_exit':'orders'):SaveResult {
+export function saveRun(storage:StoragePort,state:RunState,slot?:RunSlot):SaveResult {
   let previous:string|null=null,oldBackup:string|null=null,changed=false;
   let keys:typeof SAVE_KEYS|undefined;
   try {
+    slot??=slotForRun(state);
     keys=saveKeysFor(slot);
     const raw=encodeRun(state);decodeSlot(raw,slot);
     requireValue(raw.length<=950000,'存档超出大小限制');

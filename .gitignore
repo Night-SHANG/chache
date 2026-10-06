@@ -2,3 +2,6 @@ node_modules/
 build/
 artifacts/
 .superpowers/
+
+__pycache__/
+*.pyc

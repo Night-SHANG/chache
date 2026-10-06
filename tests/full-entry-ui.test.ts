@@ -35,9 +35,9 @@ function surface() {
 
 test('menu exposes both independent modes and the selected-mode new-run action', () => {
   const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'empty',color_exit:'empty'}}));
-  assert.deepEqual(controls.map(c=>c.action),[{type:'switchMode',variant:'orders'},{type:'switchMode',variant:'color_exit'},{type:'newRun',mode:'standard'},{type:'newRun',mode:'daily'},{type:'settings'}]);
+  assert.deepEqual(controls.map(c=>c.action),[{type:'switchMode',variant:'orders'},{type:'chooseColorTier'},{type:'newRun',mode:'standard'},{type:'newRun',mode:'daily'},{type:'settings'}]);
   assert.match(controls[0].label,/开始/);
-  const saved=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'saved',color_exit:'result'}}));assert.match(saved[0].label,/继续进度/);assert.match(saved[1].label,/查看结算/);
+  const saved=getUiControls(run(),view({screen:'menu',modeSlots:{orders:'saved',color_exit:'result'}}));assert.match(saved[0].label,/继续进度/);assert.equal(saved[1].action.type,'chooseColorTier');
 });
 
 test('all screen controls are positive, nonoverlapping and inside the shared logical viewport', () => {

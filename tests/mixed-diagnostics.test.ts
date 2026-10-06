@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {createRun} from '../src/domain/engine.ts';import {buildDebugRows} from '../src/presentation/diagnostics.ts';import type {ViewState} from '../src/presentation/view-types.ts';
+test('v5 diagnostics show fixed tier probability, four-draw protocol and each cell instead of v1 fallback',()=>{
+ for(const [tier,percent] of [['entry',20],['middle',30],['late',40]] as const){const s=createRun(1,'color_exit',5,tier);s.candidates[0]={id:'piece.1',shapeId:'shape.square',cargo:'cargo.food',cellCargos:['cargo.food','cargo.food','cargo.chem','cargo.chem']};const words=buildDebugRows(s,{paused:false} as ViewState).join('\n');assert.match(words,new RegExp(`color_tier ${tier}`));assert.match(words,new RegExp(`mixed_probability ${percent}%`));assert.match(words,/four_draws/);assert.match(words,/cell_cargos cargo.food,cargo.food,cargo.chem,cargo.chem/);assert.match(words,/resolution_step 0\/3/);assert.doesNotMatch(words,/unavailable ruleset v1/);}
+});

@@ -1,7 +1,7 @@
 {
-  "status": "DUAL_MODE_LOCAL_COMPARISON_COMPLETE",
+  "status": "MIXED_TIER_LOCAL_COMPARISON_COMPLETE",
   "previousPausedCommit": "854b33fa98aae957f41a94eef811c8e5eb536658",
   "oldModeVerifiedBaseline": "c673bdc",
-  "current": "See CHECKPOINT.json and docs/dual-mode-v040.md",
-  "pending": "Human gameplay comparison and real browser/WeChat verification; no main mode selected."
+  "current": "See CHECKPOINT.json and docs/mixed-color-v050.md",
+  "pending": "Human selection across three mixed tiers; real browser/WeChat testing; no final main mode selected."
 }
