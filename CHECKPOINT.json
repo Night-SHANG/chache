@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.7.3-dev",
-  "status": "VERIFIED_LOCAL_OUTBOUND_WHOLE_GROUP_LOAD",
+  "appVersion": "0.7.4-dev",
+  "status": "VERIFIED_LOCAL_FIXED_SECOND_OUTBOUND",
   "rulesets": [
     1,
     2,
@@ -53,36 +53,38 @@
       "continueOnly": true
     }
   },
-  "testsPassed": 952,
+  "testsPassed": 956,
   "pythonTestsPassed": 22,
-  "sourceSha256": "3211f409f90eab513d96d941c3185f5767a34e2599ef31f39b2d2b08a1bde71f",
-  "gameJsSha256": "042da34c6e977bc21ed9e6470b129de95406989b1c8d448712f000673d38eaa4",
+  "sourceSha256": "9b3af2e849fdf3665cb6efb79bc43bf730df3a866d2e643c5ea4b61f1f32aaeb",
+  "gameJsSha256": "21da5a0d1245d949c0f83c5d73b78142a6fbb25eb962dc2cf08a0b5394e74b5a",
   "hostGroups": 12,
   "measuredScreens": 17,
-  "screenshots": 79,
+  "screenshots": 133,
   "pairedStrategyRuns": 400,
   "runtimeStatus": "Offline native Canvas/wx-host and local gates PASS; real browser/Windows GUI/WeChat devices and human balance NOT VERIFIED",
-  "deliveryNotes": "docs/v073-playtest.md",
+  "deliveryNotes": "docs/v074-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "recordedV6Prefixes": 400,
   "developerDiagnosticsDefault": false,
   "outboundPresentation": {
     "wholeGroupCollect": true,
+    "totalMsPerGroup": 1000,
+    "routeMs": 100,
+    "approachMs": 260,
     "collectMs": 140,
-    "contactHoldMs": 100,
-    "loadedPath": "shortest cells then fewest turns on current-event-cleared snapshot",
-    "moveMsPerCell": 150,
-    "quarterTurnMs": 180,
-    "gateHoldMs": 180,
-    "exitMs": 240,
-    "fadeMs": 180,
+    "carryMs": 360,
+    "exitMs": 100.8,
+    "fadeMs": 39.2,
     "reducedMs": 80,
-    "totalDurationCap": null
+    "loadedPath": "unchanged shortest safe path after only current group clear",
+    "longRoutePolicy": "fit each fixed stage; no minimum per-cell duration",
+    "chainPolicy": "one complete second per shipment"
   },
   "rulesChangedFromV070": false,
-  "continuousVideoCases": 8,
-  "actualVideoFrames": 733,
+  "continuousVideoCases": 9,
+  "actualVideoFrames": 414,
   "rulesChangedFromV071": false,
-  "rulesChangedFromV072": false
+  "rulesChangedFromV072": false,
+  "rulesChangedFromV073": false
 }

@@ -1,0 +1,20 @@
+{
+  "status": "COMPLETED_LOCAL_VERIFICATION",
+  "stableBaseline": "d619eb92d3189684c5bda2e340105752953060f5",
+  "version": "0.7.4-dev",
+  "approved": "One second per outbound shipment; whole group load and safe shortest exit retained",
+  "phaseMs": {
+    "route": 100,
+    "approach": 260,
+    "collect": 140,
+    "carry": 360,
+    "exitAndFade": 140
+  },
+  "rulesChanged": false,
+  "pending": "Real browser/Windows GUI/WeChat device and player feel",
+  "testsPassed": 956,
+  "pythonTestsPassed": 22,
+  "hostGroups": 12,
+  "actualVideoFrames": 414,
+  "completedUtc": "2026-10-06T10:07:00Z"
+}

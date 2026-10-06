@@ -1,6 +1,7 @@
 import {findLoadedExitRoute} from './outbound-route.ts';
 import type { Cell, Point, Shipment } from '../domain/types.ts';
 import { boardGeometry } from './board-geometry.ts';
+import { shipmentTiming } from './motion.ts';
 
 export interface OutboundTransportStep {
   kind: 'route' | 'move' | 'turn' | 'collect' | 'exit' | 'hold';
@@ -22,9 +23,12 @@ export interface OutboundTransportPlan {
   exit: Point;
   route?:{moves:number;turnQuarters:number};
 }
-/** These clocks and weights affect presentation only, never the shipment or its capacity. */
+const sharedTiming = shipmentTiming(false);
+/** Fixed stage budgets match inbound; path length changes speed, never rules or capacity. */
 export const OUTBOUND_TRANSPORT_TIMING = {
-  routeMs: 100, moveMs: 150, contactHoldMs:100, collectMs:140, turnQuarterMs: 180, gateHoldMs: 180, exitMs: 240, holdMs: 180,
+  routeMs: sharedTiming.routeMs, approachMs: sharedTiming.moveMs, collectMs: sharedTiming.collectMs,
+  carryMs: sharedTiming.carryMs, exitMs: sharedTiming.exitMs * .72, holdMs: sharedTiming.exitMs * .28,
+  totalMs: sharedTiming.totalMs,
 } as const;
 
 const same = (a: Point, b: Point): boolean => a.x === b.x && a.y === b.y;
@@ -90,7 +94,7 @@ export function buildOutboundTransport(shipment: Shipment, board: Cell[]): Outbo
     : { x: dock.side === 'east' ? dimension : -1, y: dock.entry.y };
   let position = outside, angle = -Math.PI / 2;
   let loadedCount=0;
-  // Each step owns an actual duration; long routes never compress movement, turns or pickup time.
+  // Movement and stationary turns share their stage's fixed budget, like inbound journeyPose.
   const append = (kind: OutboundTransportStep['kind'], to: Point, toAngle: number, weight: number): void => {
     steps.push({ kind, from: { ...position }, to: { ...to }, fromAngle: angle, toAngle, startMs: 0, endMs: weight,
       loadedCount });
@@ -99,32 +103,43 @@ export function buildOutboundTransport(shipment: Shipment, board: Cell[]): Outbo
   const turn = (to: Point): void => {
     const target = Math.atan2(to.y - position.y, to.x - position.x);
     const delta = Math.atan2(Math.sin(target - angle), Math.cos(target - angle));
-    if (Math.abs(delta) > 1e-8) append('turn', position, angle + delta, timing.turnQuarterMs * Math.abs(delta) / (Math.PI / 2));
+    if (Math.abs(delta) > 1e-8) append('turn', position, angle + delta, Math.abs(delta) * .22);
   };
   const move = (to: Point): void => {
     turn(to);
-    append('move', to, angle, timing.moveMs);
+    append('move', to, angle, 1);
   };
   append('route', position, angle, timing.routeMs);
   for (const point of approach) move(point);
   const contact=Math.min(...cargoCells.filter(cell=>distance(endpoint,toPoint(cell,dimension))===1));
   turn(toPoint(contact,dimension));
-  append('hold',position,angle,timing.contactHoldMs);
+  const collectIndex=steps.length;
   append('collect',position,angle,timing.collectMs);
   loadedCount=cargoCells.length;
   const route=findLoadedExitRoute({dimension,board,clearedCells:cargoCells,start:position,exit,initialAngle:angle});
   if(!route)return null;
   for(const point of route.path)move(point);
   turn(exit);
-  append('hold',position,angle,timing.gateHoldMs);
-  let time=0;
-  for(const step of steps){const duration=step.endMs;step.startMs=time;step.endMs=time+=duration;}
+  if(steps.length===collectIndex+1)append('hold',position,angle,1);
+  const exitIndex=steps.length;
   append('exit', exit, angle, timing.exitMs);
-  const departure = steps[steps.length - 1]; departure.startMs = time; departure.endMs = time += timing.exitMs;
   append('hold', exit, angle, timing.holdMs);
-  const hold = steps[steps.length - 1]; hold.startMs = time; hold.endMs = time+timing.holdMs;
-  const durationMs=hold.endMs;
-  return { steps, cargoCells, durationMs, moveAtMs: timing.routeMs, deliveryAtMs: time, dimension, exit: { ...exit },route:{moves:route.moves,turnQuarters:route.turnQuarters} };
+  const phase=(first:number,last:number,start:number,end:number):void=>{
+    const weight=steps.slice(first,last).reduce((sum,step)=>sum+step.endMs,0);
+    let time=start;
+    for(let index=first;index<last;index++){
+      const step=steps[index],duration=(end-start)*step.endMs/weight;
+      step.startMs=time;step.endMs=index===last-1?end:time+duration;time=step.endMs;
+    }
+  };
+  const collectAt=timing.routeMs+timing.approachMs,carryAt=collectAt+timing.collectMs,exitAt=carryAt+timing.carryMs,deliveryAt=exitAt+timing.exitMs;
+  phase(0,1,0,timing.routeMs);
+  phase(1,collectIndex,timing.routeMs,collectAt);
+  phase(collectIndex,collectIndex+1,collectAt,carryAt);
+  phase(collectIndex+1,exitIndex,carryAt,exitAt);
+  phase(exitIndex,exitIndex+1,exitAt,deliveryAt);
+  phase(exitIndex+1,steps.length,deliveryAt,timing.totalMs);
+  return { steps, cargoCells, durationMs:timing.totalMs, moveAtMs: timing.routeMs, deliveryAtMs: deliveryAt, dimension, exit: { ...exit },route:{moves:route.moves,turnQuarters:route.turnQuarters} };
 }
 
 /** Stateless sampling supports skipped frames, backward scrubbing, and one atomic completed group load. */
