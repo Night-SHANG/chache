@@ -54,8 +54,7 @@ function planFor(event: ReturnType<typeof fixture>): OutboundTransportPlan {
   const plan = buildOutboundTransport(event.shipment, event.board); assert.ok(plan); return plan;
 }
 function assertSafeTour(event: ReturnType<typeof fixture>, plan: OutboundTransportPlan): void {
-  const { shipment, board } = event, dimension = plan.dimension, picked = new Set<number>(), group = new Set(shipment.cells);
-  const treeEdges = new Set(shipment.cargoPaths!.flatMap(cargo => cargo.path.slice(1).map((to, index) => [cellAt(cargo.path[index], dimension), cellAt(to, dimension)].sort((a, b) => a - b).join(':'))));
+  const { shipment, board } = event, dimension = plan.dimension, picked = new Set<number>();
   let previous = plan.steps[0];
   for (const step of plan.steps) {
     assert.deepEqual(step.from, previous.to); near(step.startMs, previous === step ? 0 : previous.endMs);
@@ -72,8 +71,6 @@ function assertSafeTour(event: ReturnType<typeof fixture>, plan: OutboundTranspo
       const destination = cellAt(step.to, dimension);
       if (step.to.x >= 0 && step.to.x < dimension && step.to.y >= 0 && step.to.y < dimension) {
         assert.ok(board[destination] === null || picked.has(destination), 'entry requires a completed pickup');
-        const source = cellAt(step.from, dimension);
-        if (group.has(source) && group.has(destination)) assert.ok(treeEdges.has([source, destination].sort((a, b) => a - b).join(':')), 'cargo travel follows certified tree edges');
       }
       if (step.kind === 'exit') assert.equal(picked.size, shipment.cells.length, 'last box is aboard before leaving');
     } else assert.deepEqual(step.from, step.to, 'route, turns and hold are stationary');
@@ -87,7 +84,7 @@ for (const dimension of [7, 9] as const) for (const side of ['north', 'east', 'w
   const middle = Math.floor(dimension / 2), north = [{ x: middle, y: 0 }, { x: middle, y: 1 }, { x: middle + 1, y: 1 }, { x: middle + 1, y: 2 }];
   const points = north.map(p => side === 'north' ? p : side === 'east' ? { x: dimension - 1 - p.y, y: p.x } : { x: p.y, y: dimension - 1 - p.x });
   const event = fixture(dimension, points, side), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.dimension, dimension); assert.ok(plan.durationMs >= 1000 && plan.durationMs <= 1600);
+  assert.equal(plan.dimension, dimension); assert.ok(plan.durationMs >= 2000);
   const start = sampleOutboundTransport(plan, 0), final = sampleOutboundTransport(plan, 1);
   assert.deepEqual(start.position, { x: middle, y: dimension }); angleNear(start.angle, -Math.PI / 2);
   assert.equal(start.loadedCount, 0); assert.equal(start.finished, false);
@@ -107,7 +104,7 @@ test('a fork visits each side branch and returns before reserving the path towar
   assert.equal(returns.length, 3, 'enter the junction and return from both side branches');
 });
 
-test('a loop follows only certified tree edges and picks each box once', () => {
+test('a loop follows safe adjacent cells and picks each box once', () => {
   const event = fixture(9, [{ x: 4, y: 0 }, { x: 4, y: 1 }, { x: 4, y: 2 }, { x: 5, y: 2 }, { x: 5, y: 1 }]);
   assertSafeTour(event, planFor(event));
 });
@@ -146,10 +143,10 @@ test('residual cargo of another color stays outside the route and the pickup ord
   assert.ok(!plan.pickupOrder.includes(30)); assert.ok(!plan.pickupOrder.includes(32)); assert.equal(JSON.stringify(event), before);
 });
 
-test('an eighty-box group has no carrying limit and a deterministic bounded readable ending', () => {
+test('an eighty-box group has no carrying limit and retains per-step pacing at its ending', () => {
   const points = Array.from({ length: 81 }, (_, cell) => pointAt(cell, 9)).filter(p => p.x !== 4 || p.y !== 8);
   const event = fixture(9, points), plan = planFor(event); assertSafeTour(event, plan);
-  assert.equal(plan.pickupOrder.length, 80); assert.ok(plan.durationMs <= 3200);
+  assert.equal(plan.pickupOrder.length, 80); assert.ok(plan.durationMs > 20000);
   assert.deepEqual(planFor(event), plan);
   const exit = plan.steps[plan.steps.length - 2], hold = plan.steps[plan.steps.length - 1];
   near(exit.endMs - exit.startMs, OUTBOUND_TRANSPORT_TIMING.exitMs); near(hold.endMs - hold.startMs, OUTBOUND_TRANSPORT_TIMING.holdMs);
@@ -165,7 +162,10 @@ test('sampling retains a box until its individual pickup completes and never cut
     else assert.equal(frame.pickup, undefined);
     if (step.kind === 'turn') assert.deepEqual(frame.position, step.from);
     if (step.kind === 'move' || step.kind === 'exit') {
-      near(frame.position.x, (step.from.x + step.to.x) / 2); near(frame.position.y, (step.from.y + step.to.y) / 2); angleNear(frame.angle, step.fromAngle);
+      angleNear(frame.angle, step.fromAngle);
+      if(step.kind==='exit'){near(frame.position.x,(step.from.x+step.to.x)/2);near(frame.position.y,(step.from.y+step.to.y)/2);}
+      else {const cell=cellAt({x:Math.round(frame.position.x),y:Math.round(frame.position.y)},plan.dimension);if(cell>=0&&cell<event.board.length)assert.ok(event.board[cell]===null||frame.pickedCells.includes(cell),'sampled vehicle enters only empty or picked space');
+        if(step.from.x===step.to.x)near(frame.position.x,step.from.x);else near(frame.position.y,step.from.y);}
     }
   }
   assert.ok(plan.steps.some(step => step.kind === 'turn'));

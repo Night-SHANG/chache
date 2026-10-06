@@ -68,7 +68,14 @@ export function drawColorExitRoutes(ctx: Context, view: ViewState): void {
     const geometry = boardGeometry(event), scale = geometry.scale;
     line(ctx, event.path.map(point => cellCenter(point, geometry)), ACCESS_COLOR, true, 6, scale);
     const color = PALETTE[event.cargo].light, drawn = new Set<string>();
-    for (const cargo of event.cargoPaths ?? []) {
+    const activePlan=view.animation?.transportPlan;
+    if(activePlan&&!view.profile?.settings.reducedMotion){
+      for(const step of activePlan.steps){
+        if(step.kind!=='move'||step.loadedCount===0)continue;
+        const from=step.from,to=step.to,key=`${from.x},${from.y}:${to.x},${to.y}`;
+        if(drawn.has(key))continue;drawn.add(key);line(ctx,[cellCenter(from,geometry),cellCenter(to,geometry)],color,false,5,scale);
+      }
+    }else for (const cargo of event.cargoPaths ?? []) {
       if (!colorExitCargoPose(event, cargo.cell, shipmentFrame(0, false))) continue;
       for (let i = 1; i < cargo.path.length; i++) {
         const from = cargo.path[i - 1], to = cargo.path[i], key = `${from.x},${from.y}:${to.x},${to.y}`;

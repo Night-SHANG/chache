@@ -1,10 +1,10 @@
-# 爆仓：最后一格 · v0.7.1 试玩版
+# 爆仓：最后一格 · v0.7.2 试玩版
 
 入库按订单配货，出库把同色货物连到出口；两个模式都需要给叉车留路。入库保留普通五班、无限和每日挑战；出库为9×9四档。
 
-本版将出库演出改为叉车逐格取货，沿清出的格子前进和折返，最后载货从对应色口离场。托盘和件数是紧凑的视觉表达，不增加承载容量规则。其他颜色原地保留，入库演出与计分不变。v0.7已有的简洁界面、保守入口终局判定与旧档兼容继续保留。
+本版修正出库动画过快的问题：按每段距离和转角计时，直线缓起缓停，逐箱取货，到色口停稳后离场；安全路线尽量减少重复折返。没有总时长硬压缩。载荷仍为视觉抽象，其他颜色原地保留，规则、入库演出与计分不变。
 
-操作见[试玩说明](docs/v071-playtest.md)，本地验收与平台边界见[验证记录](docs/v071-validation.md)。
+操作见[试玩说明](docs/v072-playtest.md)，本地验收与平台边界见[验证记录](docs/v072-validation.md)。
 
 ## 打开试玩
 
@@ -23,7 +23,8 @@ build/browser/index.html可直接打开，但文件模式的存储与音频支�
 - src/domain：独立TS规则、连通组、BFS、确定性生成、连锁与Replay。
 - src/application：会话、14个兼容存档槽、关闭标记、Profile、异常保护。
 - src/presentation和src/platform：共享Canvas2D、触控、生命周期、声音。
-- scripts/host-v071.mjs：实际game.js在离屏Canvas/wx宿主中的当前验收。
+- scripts/host-v072.mjs：实际game.js在离屏Canvas/wx宿主中的当前验收。
+- scripts/outbound-video-qa.mjs：实际game.js的完整30fps原速无声录像、逐帧载荷/位置与速度检查。
 - qa/v8-prefix-verify.mjs：读取400条已记录v6输入，验证旧状态及新增终局的前缀行为。
 - docs/v8-prefix-verification.md：核对方法与结果，不能当作新机器人平衡实验。
 - docs/project-scope-audit.md及历史版本记录：母文档范围和历史完成情况。
