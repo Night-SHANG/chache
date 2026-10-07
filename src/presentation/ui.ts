@@ -1,9 +1,10 @@
+import {guideProgress,guideTrackFor} from '../application/account-guides.ts';
 import type { ColorTier, OutboundDifficulty } from '../domain/types.ts';
 import { difficultyForSlot, tierForSlot, type RunSlot } from '../application/run-slots.ts';
 import { OUTBOUND_DIFFICULTIES,OUTBOUND_CARGO } from '../domain/v6/content.ts';
 import type { GameRun } from '../domain/playable.ts';
 import {isGuideComplete} from '../application/tutorials.ts';
-import {isInboundV9,isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
+import {isInboundV9,isInboundV16,isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
 import {getEconomyControls} from './economy-ui.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
@@ -82,7 +83,9 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
       control(settingsRow(1680), '返回', { type: 'back' }),
     ];
   }
+  const newGuide=isInboundV16(state)&&view.account&&(state.mode==='daily'||state.guided)&&!guideProgress(view.account,guideTrackFor(state)).skipped&&!isGuideComplete(guideTrackFor(state),guideProgress(view.account,guideTrackFor(state)),16);
   if (view.paused && state.phase!=='result') return [
+    ...(newGuide?[control({x:246,y:900,w:588,h:144},'跳过引导',{type:'skipTutorial'})]:[]),
     control({...L.resume,h:104},'继续游戏',{type:'continue'}),
     {...control({...L.restart,y:1220,h:104},state.mode==='daily'&&view.dailyLocked?'今日已完成':'重新开始',restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
     control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
@@ -93,7 +96,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   ];
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
   if (state.phase === 'result' && !view.animation) {
-    const overtime = [3,9,11,14,15].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
+    const overtime = [3,9,11,14,15,16].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
     return [
       ...(overtime ? [control({ ...L.resume }, '继续加班', { type: 'continueOvertime' }),control({...L.restart,y:1510},'完成收工',{type:'declineOvertime'})] : []),
       {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? view.dailyLocked?'今日已完成':state.result==='won'?'挑战今日':'再试一次' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
@@ -101,11 +104,11 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
       ...(isInboundRun(state)&&state.phase==='result'&&view.account&&isGuideComplete('inbound',view.account.guides.inbound,state.rulesetVersion)?[control({...L.restart,y:1650},'去试试出库',{type:'chooseColorTier'})]:[]),
     ];
   }
-  const skipGuide=view.guide?[control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})]:[];
+  const skipGuide=view.guide?isInboundV16(state)?state.phase==='cleanup'?[control({x:210,y:1420,w:660,h:144},'跳过引导',{type:'skipTutorial'})]:[]:[control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})]:[];
   if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)return [...state.upgradeChoices.map((id,index)=>control(L.upgradeRects[index],UPGRADES_V9.find(u=>u.id===id)?.title??id,{type:'chooseUpgrade',upgradeId:id})),...skipGuide];
   if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)return [...getEconomyControls(state,view),...skipGuide];
   if(isToolRun(state)&&state.phase==='rescue'&&!view.animation)return [...getEconomyControls(state,view),control({x:700,y:1788,w:332,h:132},state.rulesetVersion===12?'返回主页':'结束并结算',state.rulesetVersion===12?{type:'home'}:{type:'finishEndless'})];
-  if(view.guide&&!view.animation&&!view.paused)return [...getEconomyControls(state,view),control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})];
+  if(view.guide&&!view.animation&&!view.paused)return [...getEconomyControls(state,view),...skipGuide];
   if(state.mode==='tutorial'&&state.phase==='input'&&!view.animation)return [control({x:view.developerMode===true?600:820,y:1836,w:212,h:60},'跳过教学',{type:'skipTutorial'})];
   return getEconomyControls(state,view);
 }

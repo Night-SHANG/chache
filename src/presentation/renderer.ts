@@ -22,7 +22,7 @@ import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
 import {presentationPieceCells} from './inbound-helpers.ts';
 import {drawToolIcon,drawToolboxIcon} from './tool-art.ts';
-import {isInboundV9,isInboundRun,isInboundV11,isInboundV14,isInboundV15,isOutboundEndlessV10,isToolRun,isOutboundToolsRun,reservedEntryCells} from '../domain/playable.ts';
+import {isInboundV9,isInboundRun,isInboundV11,isInboundV14,isInboundV15,isInboundV16,isOutboundEndlessV10,isToolRun,isOutboundToolsRun,reservedEntryCells} from '../domain/playable.ts';
 import type {GameRun,GameShipment,InboundRun,ToolRun} from '../domain/playable.ts';
 import type {InboundPiece} from './inbound-helpers.ts';
 
@@ -241,7 +241,7 @@ function drawBoard(ctx: Context, state: GameRun, view: ViewState, board: Cell[],
     if(conveyor&&isShipment){ctx.beginPath();ctx.rect(x-30,y-30,size+60,size+60);ctx.clip();}
     ctx.translate(pose.x, pose.y);
     ctx.scale(pose.scale * cleanupScale * placed.x * failure.x, pose.scale * cleanupScale * placed.y * failure.y);
-    cargoBox(ctx, cargo, -boxSize/2, -boxSize/2, boxSize, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo, [14,15].includes(state.rulesetVersion), view.cargoOutline);
+    cargoBox(ctx, cargo, -boxSize/2, -boxSize/2, boxSize, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline);
     ctx.restore();
   };
   board.forEach((cargo, index) => {
@@ -368,13 +368,13 @@ function drawPlacement(ctx: Context, state: GameRun, view: ViewState): void {
       const valid = view.preview?.valid&&!view.placementRisk;
       ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112*scale, 112*scale);
       ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2*scale, y + 2*scale, 108*scale, 108*scale);
-      if ([5,6,8,10,12,13].includes(state.rulesetVersion) || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15].includes(state.rulesetVersion), view.cargoOutline);
+      if ([5,6,8,10,12,13].includes(state.rulesetVersion) || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline);
     });
   }
   if (view.dragPoint) {
     const shape = {cells:presentationPieceCells(piece,state.rulesetVersion)}; if (!shape) return;
     ctx.save(); ctx.globalAlpha = .8;
-    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15].includes(state.rulesetVersion), view.cargoOutline)); ctx.restore();
+    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline)); ctx.restore();
   }
 }
 
@@ -482,7 +482,7 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
     } else drawPieceInTray(ctx, piece, r, selected, state.rulesetVersion, view.profile?.cosmetics.cargo, view.cargoOutline);
     if (invalid) { ctx.save(); ctx.strokeStyle = '#ffb28b'; ctx.lineWidth = 3; roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.stroke(); ctx.restore(); }
     const compact=r.h<180,cellCount=presentationPieceCells(piece,state.rulesetVersion).length;
-    const label = [14,15].includes(state.rulesetVersion)&&piece.trait==='rush'?`加急 · ${cargoName(piece.cargo)} · ${piece.rushTurns??'?'}次`:piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
+    const label = [14,15,16].includes(state.rulesetVersion)&&piece.trait==='rush'?`加急 · ${cargoName(piece.cargo)} · ${piece.rushTurns??'?'}次`:piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
     text(ctx, label, r.x + r.w / 2, r.y + r.h - (compact?19:18), compact?24:'cellCargos' in piece&&piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
 }
@@ -500,7 +500,7 @@ function drawPieceInTray(ctx: Context, piece: Piece|InboundPiece, r: Rect, selec
   const areaHeight=r.h<180?58:Math.min(166,Math.max(42,r.h-60)),cell = Math.min(piece.trait ? 104 : 74, Math.min(230, r.w - 54) / width, areaHeight / height);
   const x = r.x + (r.w - width * cell) / 2, y = r.y + 25 + (areaHeight - height * cell) / 2;
   if (selected) { ctx.fillStyle = 'rgba(241,190,79,.09)'; ctx.beginPath(); ctx.ellipse(r.x + r.w / 2, r.y + r.h - 29, Math.min(105, r.w / 2 - 20), 14, 0, 0, Math.PI * 2); ctx.fill(); }
-  shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), x + p.x * cell, y + p.y * cell, cell - 2, 1, [14,15].includes(rulesetVersion)&&piece.trait==='rush'?undefined:pieceTrait(piece), cargoStyle, false, cargoOutline));
+  shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), x + p.x * cell, y + p.y * cell, cell - 2, 1, [14,15,16].includes(rulesetVersion)&&piece.trait==='rush'?undefined:pieceTrait(piece), cargoStyle, false, cargoOutline));
 }
 
 function drawFooter(ctx: Context, state: GameRun, view: ViewState): void {
@@ -609,7 +609,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
   ctx.font='500 23px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
   let shown=Math.min(2,selected.length),upgradeSummary=selected.length?`关键升级  ${selected.slice(0,shown).join(' / ')}${selected.length>shown?` 等${selected.length}项`:''}`:'关键升级  无';
   while(shown>0&&ctx.measureText(upgradeSummary).width>646){shown--;upgradeSummary=`关键升级  ${selected.slice(0,shown).join(' / ')}${shown?' · ':''}共${selected.length}项`;}
-  if(!isInboundV11(state)&&!isInboundV14(state)&&!isInboundV15(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
+  if(!isInboundV11(state)&&!isInboundV14(state)&&!isInboundV15(state)&&!isInboundV16(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
   if(reward)text(ctx,`本局金币 +${number(reward.earnedCoins)} · 余额 ${number(reward.wallet)}`,540,1060,26,'#ffe3a3','center');
   if(tutorial)text(ctx,'正式值班：每班6单，共5班',540,1118,25,'#e7e8cf','center',600);
   drawControls(ctx,state,view);
@@ -674,10 +674,10 @@ function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
 
 function drawInboundMenu(ctx:Context,state:GameRun,view:ViewState):void{
   outlinedText(ctx,'入库模式',540,200,79,CREAM,'center');
-  const best=view.account?view.account.profile.results['inbound.standard.v15.plain']?.best?.score??0:view.profile?.bestScores['standard.v3']?.score??0;
-  const endlessBest=view.account?view.account.profile.results['inbound.endless.v14.plain']?.best?.score??0:view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
+  const best=view.account?view.account.profile.results['inbound.standard.v16.plain']?.best?.score??0:view.profile?.bestScores['standard.v3']?.score??0;
+  const endlessBest=view.account?view.account.profile.results['inbound.endless.v16.plain']?.best?.score??0:view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
   text(ctx,`五班最高分 ${number(best)} · 无限最高分 ${number(endlessBest)}`,540,390,29,'#ffe3a3','center');
-  if(view.account)text(ctx,`带工具五班 ${number(view.account.profile.results['inbound.standard.v15.tools']?.best?.score??0)} · 无限 ${number(view.account.profile.results['inbound.endless.v14.tools']?.best?.score??0)}`,540,445,24,'#a9c0c9','center',500);
+  if(view.account)text(ctx,`带工具五班 ${number(view.account.profile.results['inbound.standard.v16.tools']?.best?.score??0)} · 无限 ${number(view.account.profile.results['inbound.endless.v16.tools']?.best?.score??0)}`,540,445,24,'#a9c0c9','center',500);
   else text(ctx,`加班最高分 · ${number(view.profile?.bestScores['overtime.v3']?.score??0)}`,540,445,24,'#a9c0c9','center',500);
   const cards=[['普通五班','每班6单，共5班'],['无限入库','持续接单，挑战高分'],['每日挑战',view.dailyLabel??'日期待确认']];
   cards.forEach(([title,description],index)=>{
@@ -787,15 +787,20 @@ function drawInboundHelpDiagram(ctx:Context):void {
 }
 
 function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState):void {
-  outlinedText(ctx,(isInboundV11(state)||isInboundV14(state)||isInboundV15(state))?'特殊货物与工具':'特殊货物与升级',540,250,58,CREAM,'center');
+  outlinedText(ctx,(isInboundV11(state)||isInboundV14(state)||isInboundV15(state)||isInboundV16(state))?'特殊货物与工具':'特殊货物与升级',540,250,58,CREAM,'center');
   const rules=isInboundRun(state)?[
     '双倍箱：占1格，计2件；万能可连接订单货类。',
-    '加急放下剩3次，之后先出货再扣数。',
+    ...(isInboundV16(state)?[state.mode==='daily'?'危险品：出货时清理相邻废弃物。':'危险品：按货类凑单，可正常出货。']:[]),
+    ...(!isInboundV16(state)||state.mode==='daily'?[
+    isInboundV16(state)?'加急数字按后续成功放置倒数，不是秒。':'加急放下剩3次，之后先出货再扣数。',
     '期限归零成为废物，占格、不出货。',
     '清扫二选一：每2单，或每6次有效放置。',
     '清扫只清旧废物；没有废弃物时也会重新计数。',
+    ]:[]),
+    ...(!isInboundV16(state)||state.mode!=='daily'?[
     '旋转改朝向；清障选1至2格；万能工具改单格。',
     '普通、无限最多带2种工具；未用的结束退回。',
+    ]:[]),
     ...(isInboundV9(state)?['减量：当前和新订单都少1件，最低3件。','扩仓、候选扩容、公共侧门与奖金立即生效。']:[]),
   ]:[
     '托盘：占1格，计2件。',
@@ -820,7 +825,7 @@ function drawEconomyFlow(ctx:Context,state:GameRun,view:ViewState):void {
  if(screen==='prepareCleanup'){drawCleanupChoices(ctx,state,view);return;}
  if(screen==='shop'){drawShop(ctx,state,view);return;}
  outlinedText(ctx,title,540,220,72,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,340,31,'#ffe3a3','center');
- const description=screen==='prepareTools'?'最多携带2种 · 同类1件 · 未使用的结束退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':'在真实五班局里学习订单、加急与清扫。';
+ const description=screen==='prepareTools'?'最多携带2种 · 同类1件 · 未使用的结束退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':view.prepareIntent?.spec.rulesetVersion===16?'拖放货件，同图标凑单，留空路出货。':'在真实五班局里学习订单、加急与清扫。';
  wrap(ctx,description,132,430,816,27,42);
  if(screen==='prepareTools')drawShopToolCards(ctx,view);
  drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1740);
@@ -881,7 +886,7 @@ function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState):void {
   text(ctx,index?'定期清扫':'按单清扫',r.x+r.w/2,r.y+87,38,'#ffe7b0','center');
   drawToolIcon(ctx,'clear',r.x+(r.w-190)/2,r.y+140,190);
   panel(ctx,{x:r.x+r.w/2-58,y:r.y+302,w:116,h:71},'#263a49','#b8c7b7',12);text(ctx,index?'6次':'2单',r.x+r.w/2,r.y+338,35,'#ffe3a3','center');
-  text(ctx,index?'每放置6次，':'每完成2单，',r.x+r.w/2,r.y+420,32,'#e1e8df','center',500);
+  text(ctx,index?isInboundV16(state)?'每成功放置6次，':'每放置6次，':'每完成2单，',r.x+r.w/2,r.y+420,32,'#e1e8df','center',500);
   text(ctx,'清除1格废弃物',r.x+r.w/2,r.y+464,32,'#e1e8df','center',500);
   text(ctx,'选择此项',r.x+r.w/2,r.y+r.h-58,30,'#ffe3a3','center');
  });

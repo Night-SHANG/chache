@@ -50,7 +50,7 @@ test('new starts atomically upgrade account schema and bind economy2 while prese
  const {service,storage}=install({wallet:555,dailyPaid:{'2026-10-05':{bestBase:13,paid:26}}});
  const result=send(service,{operationId:'start',type:'start',intent:intent('standard')});
  assert.equal(result.status,'acknowledged',result.message);
- assert.equal(result.account?.economyVersion,2); assert.equal(result.account?.formatVersion,3);
+ assert.equal(result.account?.economyVersion,2); assert.equal(result.account?.formatVersion,4);
  assert.equal(result.account?.run?.identity.economyVersion,2); assert.equal(result.account?.wallet,555);
  assert.deepEqual(result.account?.dailyPaid,{'2026-10-05':{bestBase:13,paid:26}});
  assert.deepEqual(result.account?.dailyRewards,{});
@@ -172,7 +172,7 @@ test('every before/after daily close fault atomically commits migration, bonus, 
    storage.resetFault();const restarted=accounts.createAccountService(storage,held(),()=>BEFORE);
    const result:accounts.TransactionResult=restarted.getStatus()==='degraded'?restarted.retryPending('win'):restarted.transact(request,1);
    assert.equal(result.status,'acknowledged',`${economyVersion}/${timing}/${at}: ${result.message}`);
-   assert.equal(result.account?.wallet,want);assert.equal(result.account?.run,null);assert.equal(result.account?.formatVersion,3);
+   assert.equal(result.account?.wallet,want);assert.equal(result.account?.run,null);assert.equal(result.account?.formatVersion,4);
    assert.equal(accounts.accountDailyAvailability(result.account!,BEFORE).completed,true);
    const writes=storage.operations.filter(op=>op.kind==='set').length;
    assert.equal(restarted.transact(request,1).status,'acknowledged');assert.equal(restarted.getSnapshot()?.wallet,want);

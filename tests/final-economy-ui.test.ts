@@ -102,7 +102,7 @@ for(let index=0;index<sizes.length;index++)test(`resolved scores and actual dail
 
 test('new selector record buckets keep both tool policy and rules version separate',()=>{
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
- account.profile.results={'outbound.v12.normal.plain':bucket(625),'outbound.v12.normal.tools':bucket(875),'outbound.v8.normal.plain':bucket(999999),'inbound.standard.v15.plain':bucket(1200),'inbound.standard.v15.tools':bucket(2400),'inbound.standard.v14.plain':bucket(999999),'inbound.standard.v14.tools':bucket(999999),'inbound.standard.v11.plain':bucket(999999)};
+ account.profile.results={'outbound.v12.normal.plain':bucket(625),'outbound.v12.normal.tools':bucket(875),'outbound.v8.normal.plain':bucket(999999),'inbound.standard.v16.plain':bucket(1200),'inbound.standard.v16.tools':bucket(2400),'inbound.standard.v14.plain':bucket(999999),'inbound.standard.v14.tools':bucket(999999),'inbound.standard.v15.plain':bucket(999999),'inbound.standard.v15.tools':bucket(999999),'inbound.standard.v11.plain':bucket(999999)};
  const out=capture(current(),view({screen:'colorTiers',account}),1,'records-outbound');assert.ok(out.some(l=>l.value==='最高分 625'));assert.ok(out.some(l=>l.value==='使用道具最高分 875'));assert.equal(out.some(l=>/999,999/.test(l.value)),false);
  const inbound=capture(current(),view({screen:'inboundMenu',account}),1,'records-inbound');assert.ok(inbound.some(l=>l.value==='五班最高分 1,200 · 无限最高分 0'));assert.ok(inbound.some(l=>l.value==='带工具五班 2,400 · 无限 0'));assert.equal(inbound.some(l=>/999,999/.test(l.value)),false);
 });

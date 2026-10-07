@@ -1,3 +1,4 @@
+import {createAccountService} from '../src/application/account-service.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { isGuideComplete, advanceGuide, guideOverlay } from '../src/application/tutorials.ts';
@@ -66,11 +67,11 @@ test('both real v11 authored branches teach place order path and phase-two clean
   }
 });
 
-test('new v15 guide sessions reuse the authored v14 route and carry learned and skipped track flags through reload', () => {
+test('saved v15 guide sessions reuse the authored v14 route and carry learned and skipped track flags through reload', () => {
   for (const path of Object.values(INBOUND_GUIDE_V14.branches)) {
-    const h = sessionHost(), s = h.session;
-    s.action({ type: 'newRun', mode: 'standard' });
-    s.action({ type: 'guidedStart', track: 'inbound' });
+    const h=sessionHost(),service=createAccountService(h.storage,h.platform.writerLease!,()=>h.platform.wallTime!());
+    assert.equal(service.transact({type:'start',operationId:'frozen15.guide',intent:{spec:{family:'inbound',rulesetVersion:15,mode:'standard',seed:0,guided:true,toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide:'guided'}},service.getSnapshot()!.generation).status,'acknowledged');
+    const s=new GameSession(h.platform,{seed:71,mode:'standard'});s.resume();
     assert.equal(s.state.rulesetVersion, 15);
     assert.equal(s.state.seed, INBOUND_GUIDE_V14.seed);
     for (const command of path) {

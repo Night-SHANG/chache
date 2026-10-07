@@ -34,12 +34,12 @@ export function startCurrentRun(session:GameSession,mode:'standard'|'daily'|'end
  if(session.view.confirmation)session.action({type:'confirm'});
  if(session.view.screen==='guideOffer')session.action({type:'directStart'});
  if(session.view.screen==='prepareTools')session.action({type:'prepareNext'});
- if(mode!=='color_exit'){
-  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='endless'?14:15);assert.equal(session.state.phase,'cleanup');
+ if(mode==='daily'){
+  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,16);assert.equal(session.state.phase,'cleanup');
   assert.equal(session.state.commandIndex,0);assert.equal(session.view.account?.run?.state.phase,'cleanup');
   session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);
  }
- assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?12:mode==='endless'?14:15);
+ assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?12:16);
 }
 
 export function inboundV9State(session:GameSession):InboundRunV9 {

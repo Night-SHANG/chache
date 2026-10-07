@@ -128,7 +128,18 @@ function assertInbound(value:Obj):void {
  if(value.result==='won')requireValue(value.endReason==='completed'||value.endReason==='retired'&&value.mode==='standard'&&value.overtime,'入库胜利原因无效');
 }
 
+/** Reject coercible JSON enums before the shared frozen validators use String(...). */
+function assertInboundPrimitiveEnumsV16(value:Obj):void {
+ requireValue(typeof value.mode==='string'&&typeof value.phase==='string','入库模式或阶段必须为字符串');
+ requireValue((value.result===null||typeof value.result==='string')&&(value.endReason===null||typeof value.endReason==='string'),'入库结果或结束原因必须为字符串或空');
+ requireValue(array(value.candidates,3)&&value.candidates.every(piece=>object(piece)&&(!has(piece,'trait')||typeof piece.trait==='string')),'候选特性必须为字符串');
+ requireValue(array(value.cellTraits,49)&&value.cellTraits.every(trait=>trait===null||object(trait)&&typeof trait.kind==='string'),'棋盘特性必须为字符串');
+ requireValue(array(value.usedToolIds,2)&&value.usedToolIds.every(tool=>typeof tool==='string'),'已用道具标识必须为字符串');
+ requireValue(array(value.orders,4)&&value.orders.every(order=>object(order)&&typeof order.dockId==='string'),'订单出口标识必须为字符串');
+}
+
 function assertInboundV11(value:Obj,version:11|14|15|16=11):void {
+ if(version===16)assertInboundPrimitiveEnumsV16(value);
  requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds']),'入库包含其他规则字段');
  if(version>=14){
   const optional=['runSerial','elapsedMs','maxOccupancy'];

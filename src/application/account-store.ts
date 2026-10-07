@@ -1,3 +1,4 @@
+import {InvalidGuideState} from './account-guides.ts';
 import { InvalidCosmeticState } from './cosmetics.ts';
 import type { AccountSnapshot } from './account-types.ts';
 import type { StoragePort } from './save.ts';
@@ -24,7 +25,7 @@ export function encodeAccount(account:AccountSnapshot):string {const body=serial
 export function decodeAccount(storage:StoragePort,raw:string):AccountSnapshot {
  const parsed:unknown=JSON.parse(raw);if(parsed===null||typeof parsed!=='object'||Array.isArray(parsed))throw Error('账户信封无效');const value=parsed as Record<string,unknown>;
  if(value.formatVersion!==1)throw new FutureFormat('账户版本不兼容');
- if(value.account!==null&&typeof value.account==='object'){const account=value.account as Record<string,unknown>;if(![1,2,3].includes(Number(account.formatVersion))||account.economyVersion!==(account.formatVersion===3?2:account.formatVersion))throw new FutureFormat('账户负载版本不兼容');}
+ if(value.account!==null&&typeof value.account==='object'){const account=value.account as Record<string,unknown>;if(typeof account.formatVersion!=='number'||![1,2,3,4].includes(account.formatVersion)||account.economyVersion!==(account.formatVersion===1?1:2))throw new FutureFormat('账户负载版本不兼容');}
  if(Object.keys(value).length!==4||!Object.keys(value).every(key=>['formatVersion','generation','digest','account'].includes(key))||!Number.isSafeInteger(value.generation)||Number(value.generation)<0||value.digest!==accountDigest(canonicalStringify(value.account)))throw Error('账户信封校验失败');
  if(unsupportedPrototype(value.account,value.generation))throw new FutureFormat('原型出库计分版本不兼容，原记录已保留');
  const account=deserializeAccount(storage,canonicalStringify(value.account));if(account.generation!==value.generation||encodeAccount(account)!==raw)throw Error('账户代际或规范序列化无效');return account;
@@ -32,7 +33,7 @@ export function decodeAccount(storage:StoragePort,raw:string):AccountSnapshot {
 function readRoots(storage:StoragePort,verify:(account:AccountSnapshot)=>void):{load:AccountLoad;raws:[string|null,string|null];accounts:[AccountSnapshot|null,AccountSnapshot|null]} {
  let raws:[string|null,string|null];try {raws=[storage.get(ACCOUNT_KEYS.a),storage.get(ACCOUNT_KEYS.b)];if(storage.get(ACCOUNT_KEYS.a)!==raws[0]||storage.get(ACCOUNT_KEYS.b)!==raws[1])throw Error('读取不一致');}catch{return {load:{status:'unavailable',account:null,message:'无法读取账户，请重试'},raws:[null,null],accounts:[null,null]};}
  const accounts:[AccountSnapshot|null,AccountSnapshot|null]=[null,null];let future=false,corrupt=false,unavailable=false;
- raws.forEach((raw,i)=>{if(raw===null)return;try{accounts[i]=decodeAccount(storage,raw);verify(accounts[i]!);}catch(error){accounts[i]=null;if(error instanceof FutureFormat||error instanceof InvalidCosmeticState||error instanceof UnsupportedHistoryFormat||error instanceof UnverifiedHistory)future=true;else if(error instanceof UnavailableRead)unavailable=true;else corrupt=true;}});
+ raws.forEach((raw,i)=>{if(raw===null)return;try{accounts[i]=decodeAccount(storage,raw);verify(accounts[i]!);}catch(error){accounts[i]=null;if(error instanceof FutureFormat||error instanceof InvalidCosmeticState||error instanceof InvalidGuideState||error instanceof UnsupportedHistoryFormat||error instanceof UnverifiedHistory)future=true;else if(error instanceof UnavailableRead)unavailable=true;else corrupt=true;}});
  const answer=(status:AccountLoad['status'],account:AccountSnapshot|null,message:string)=>({load:{status,account,message},raws,accounts});
  if(unavailable)return answer('unavailable',null,'无法完整读取账户历史，请重试');
  if(future)return answer('unknown',null,'账户版本不兼容，原记录已保留');

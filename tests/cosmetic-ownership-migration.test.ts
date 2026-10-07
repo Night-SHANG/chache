@@ -41,7 +41,7 @@ test('previews and refresh leave account1/2 bytes unchanged until the requested 
     assert.deepEqual([...storage.values.values()], [raw, raw]);
     assert.equal(storage.operations.some(op => op.kind === 'set'), false);
     const result = service.transact({ operationId: 'migrate', type: 'setSettings', patch: { sound: false } }, 0);
-    assert.equal(result.status, 'acknowledged'); assert.equal(result.account?.formatVersion, 3);
+    assert.equal(result.status, 'acknowledged'); assert.equal(result.account?.formatVersion, 4);
     assert.equal(result.account?.economyVersion, 2); assert.equal(result.account?.wallet, 500);
     assert.equal(result.account?.profile.cargoOutline, true); assert.equal(result.account?.profile.cosmetics.cargo, 'classic');
     assert.deepEqual(decodeAccount(storage, storage.values.get(ACCOUNT_KEYS.a)!), result.account);
@@ -79,7 +79,7 @@ test('migration leaves old bound run economy and daily safety records intact', (
   old.dailyPaid[day] = { bestBase: 45, paid: 90 };
   const { service, storage } = setup(old), run = structuredClone(old.run);
   const result = service.transact({ operationId: 'settings', type: 'setSettings', patch: { sound: false } }, 0);
-  assert.equal(result.status, 'acknowledged'); assert.equal(result.account?.formatVersion, 3);
+  assert.equal(result.status, 'acknowledged'); assert.equal(result.account?.formatVersion, 4);
   assert.deepEqual(result.account?.run, run); assert.equal(result.account?.run?.identity.economyVersion, 1);
   assert.deepEqual(result.account?.dailyPaid, old.dailyPaid);
   verifyAccountReferences(storage, result.account!);
@@ -116,13 +116,13 @@ test('digest-valid illegal owned ids, duplicates, unsorted ids and unowned equip
 
 test('future account and unsupported economy formats retain original bytes beside a valid root', () => {
   const { service } = setup(), account = service.transact({ operationId: 'migrate', type: 'setSettings', patch: {} }, 0).account!;
-  for (const patch of [{ formatVersion: 4, economyVersion: 2 }, { formatVersion: 3, economyVersion: 3 }]) {
+  for (const patch of [{ formatVersion: 5, economyVersion: 2 }, { formatVersion: 3, economyVersion: 3 }]) {
     const storage = new FaultStorage(); storage.values.set(ACCOUNT_KEYS.a, encodeAccount(account)); storage.values.set(ACCOUNT_KEYS.b, envelope({ ...account, ...patch }));
     const bytes = new Map(storage.values); assert.equal(repairAccount(storage, assertAccountSnapshot).status, 'unknown'); assert.deepEqual(storage.values, bytes);
   }
 });
 
-test('format3 preserves newly imported legacy daily completion across a later record reset', () => {
+test('format4 preserves newly imported legacy daily completion across a later record reset', () => {
   const initial = setup();
   const canonical = initial.service.transact({ operationId: 'canonical', type: 'setSettings', patch: {} }, 0).account!;
   const daily = localDailyChallenge(0, 3);
@@ -130,6 +130,6 @@ test('format3 preserves newly imported legacy daily completion across a later re
   const { service } = setup(canonical);
   const result = service.transact({ operationId: 'reset.later', type: 'resetResults' }, canonical.generation);
   assert.equal(result.status, 'acknowledged');
-  assert.equal(result.account?.formatVersion, 3);
+  assert.equal(result.account?.formatVersion, 4);
   assert.equal(result.account?.dailyRewards?.[daily.day]?.completedRunId, `legacy.${daily.day}`);
 });

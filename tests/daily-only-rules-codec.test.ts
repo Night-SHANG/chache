@@ -5,12 +5,49 @@ import {createRunV16,applyCommandV16,previewPlacementV16} from '../src/domain/v1
 import {checksumV16,replayV16,compactCommandTailV16} from '../src/domain/v16/replay.ts';
 import {findLegalMovesV16,pieceCellsV16,reservedEntryCellsV16} from '../src/domain/v16/board.ts';
 import {findRescuePlanV16} from '../src/domain/v16/tools.ts';
+import {createRunV15,applyCommandV15} from '../src/domain/v15/engine.ts';
 import {createPlayableRun,applyPlayableCommand,playableChecksum,findPlayableMoves,previewPlayablePlacement,isInboundV16,isInboundRun,reservedEntryCells} from '../src/domain/playable.ts';
 import type {InboundRunV16,InboundCommandV16} from '../src/domain/v16/types.ts';
 
 const start=(mode:InboundRunV16['mode']='standard')=>createRunV16({seed:17,mode});
 const active=(mode:InboundRunV16['mode']='standard')=>mode==='daily'?applyCommandV16(start(mode),{type:'chooseCleanup',branch:'orders'}).state:start(mode);
 function rejects(state:InboundRunV16,mutate:(value:InboundRunV16)=>void){const copy=structuredClone(state);mutate(copy);assert.throws(()=>assertGameRun(copy));assert.throws(()=>encodeGameRun(copy));}
+
+/** Construct an untrusted, correctly digested envelope without calling the validating encoder. */
+function untrustedEnvelope(state:unknown):string {
+ const body=JSON.stringify(state);let hash=2166136261;
+ for(let i=0;i<body.length;i++){hash^=body.charCodeAt(i);hash=Math.imul(hash,16777619);}
+ return JSON.stringify({schemaVersion:16,digest:(hash>>>0).toString(16).padStart(8,'0'),state});
+}
+const ENUM_PROBES:{field:string;text:string;nullable?:boolean;mutate:(state:Record<string,unknown>,value:unknown)=>void}[]=[
+ {field:'mode',text:'daily',mutate:(state:Record<string,unknown>,value:unknown)=>{state.mode=value;}},
+ {field:'phase',text:'input',mutate:(state:Record<string,unknown>,value:unknown)=>{state.phase=value;}},
+ {field:'candidate trait',text:'rush',mutate:(state:Record<string,unknown>,value:unknown)=>{const piece=(state.candidates as Record<string,unknown>[])[0];piece.shapeId='shape.single';piece.trait=value;delete piece.rushTurns;}},
+ {field:'board trait kind',text:'waste',mutate:(state:Record<string,unknown>,value:unknown)=>{(state.board as unknown[])[0]='cargo.food';(state.cellTraits as unknown[])[0]={kind:value};}},
+ {field:'used tool id',text:'rotate',mutate:(state:Record<string,unknown>,value:unknown)=>{state.usedToolIds=[value];}},
+ {field:'order dock id',text:'dock.north',mutate:(state:Record<string,unknown>,value:unknown)=>{(state.orders as Record<string,unknown>[])[0].dockId=value;}},
+ {field:'result',text:'failed',nullable:true,mutate:(state:Record<string,unknown>,value:unknown)=>{state.result=value;}},
+ {field:'end reason',text:'blocked',nullable:true,mutate:(state:Record<string,unknown>,value:unknown)=>{state.endReason=value;}},
+];
+for(const probe of ENUM_PROBES)for(const entrypoint of ['assert','encode','decode'] as const){
+ test(`v16 ${entrypoint} rejects non-string ${probe.field} including singleton and nested arrays`,()=>{
+  assert.equal(untrustedEnvelope(start()),encodeGameRun(start()),'malformed envelope helper must use the real digest and shape');
+  for(const value of [[probe.text],[[probe.text]],{},42,false,...(probe.nullable?[]:[null])]){
+   const state=structuredClone(start()) as unknown as Record<string,unknown>;probe.mutate(state,value);
+   const check=()=>entrypoint==='assert'?assertGameRun(state):entrypoint==='encode'?encodeGameRun(state as unknown as InboundRunV16):decodeGameRun(untrustedEnvelope(state));
+   assert.throws(check,`${probe.field}: ${JSON.stringify(value)}`);
+  }
+ });
+}
+
+test('strict rules16 enum validation leaves frozen rules15 acceptance unchanged',()=>{
+ const base=applyCommandV15(createRunV15({seed:17,mode:'standard'}),{type:'chooseCleanup',branch:'orders'}).state;
+ for(const probe of ENUM_PROBES)for(const value of [[probe.text],[[probe.text]]]){
+  const state=structuredClone(base) as unknown as Record<string,unknown>;probe.mutate(state,value);
+  if(['mode','result','end reason'].includes(probe.field))assert.throws(()=>assertGameRun(state));
+  else{assert.doesNotThrow(()=>assertGameRun(state));assert.deepEqual(decodeGameRun(encodeGameRun(state as unknown as typeof base)),state);}
+ }
+});
 
 // Real seed2026 route-policy placements, recorded as tray slot/x/y. No state injection.
 const LONG_RUN_MOVES='011 113 111 213 221 232 234 043 041 041 053 045 225 015 011 122 011 212 111 133 111 131 100 111 230 101 111 002 011 141 150 034 003 111 131 110 121 041 242 212 111 113 211 131 121 211 213 214 113 132 110 025 021 233 254 111 100 211 113 100 211 041 111 220 011 133 141 101 111 013 021 033 000 010 031 044 012 111 132 112 011 010 042 023 022 002 013 034 245 034 253 212 214 233 213 033 012 211 224 114 124 234 252 131 032 124 122 025 031 233 153 114 144 064 056 000 166 121 134 011 220 231 235 242 011 141 023 104 243 021'.split(' ').map(text=>text.split('').map(Number));

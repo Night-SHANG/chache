@@ -11,17 +11,17 @@ function start(s:GameSession,mode:'standard'|'endless'|'daily'|'color_exit',item
  if(s.view.screen==='guideOffer')s.action({type:'directStart'});
  if(mode!=='daily'){assert.equal(s.view.screen,'prepareTools');for(const item of items)s.action({type:'toggleItem',item});s.action({type:'prepareNext'});}
  assert.equal(s.view.screen,'game');
- if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,mode==='endless'?14:15);assert.equal(s.state.phase,'cleanup');s.action({type:'chooseCleanup',branch:'orders'});}
+ if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,16);assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');if(mode==='daily')s.action({type:'chooseCleanup',branch:'orders'});}
  else assert.equal(s.state.rulesetVersion,outboundMode==='endless'?13:12);
  assert.equal(s.state.phase,'input');
 }
 
-test('new inbound and outbound starts use reserved-entry identities and freeze pending cleanup',()=>{
+test('new inbound and outbound starts use reserved entries and only daily waits for cleanup',()=>{
  for(const mode of ['standard','endless','daily','color_exit'] as const){const h=sessionHost();start(h.session,mode);}
  const h=sessionHost();start(h.session,'color_exit',[],'endless');
  h.session.action({type:'home'});h.session.action({type:'confirm'});h.session.action({type:'newRun',mode:'standard'});
  if(h.session.view.screen==='guideOffer')h.session.action({type:'directStart'});h.session.action({type:'prepareNext'});
- assert.equal(h.session.state.phase,'cleanup');h.time(60000);h.session.tick(60000);assert.equal(h.session.view.elapsed,0);
+ assert.equal(h.session.state.phase,'input');h.time(500);h.session.tick(500);assert.equal(h.session.view.elapsed,500);
 });
 
 test('outbound preparation reserves at most two distinct actual inventory tools',()=>{
