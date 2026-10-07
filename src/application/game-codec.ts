@@ -183,8 +183,9 @@ function assertOutboundTools(value:Obj,version:12|13):void {
  requireValue(board.every(cell=>cell===null||OUTBOUND_CARGO.includes(cell as never))&&(value.cellTraits as unknown[]).every(trait=>trait===null),'出库棋盘货类无效');
  requireValue(board[OUTBOUND_ENTRY.entry.y*9+OUTBOUND_ENTRY.entry.x]===null,'入口必须保持空置');
  requireValue(value.maxOccupancy===undefined||integer(value.maxOccupancy,0,80),'占用格数包含预留入口');
- const winningPlacement=version===12&&value.endReason==='completed'&&(value.commands as unknown[]).at(-1)!==undefined&&((value.commands as Obj[]).at(-1)?.type==='place');
- requireValue(array(value.candidates,3)&&value.candidates.length===(winningPlacement?2:3)&&value.candidates.every(piece=>object(piece)&&exactKeys(piece,['id','shapeId','cargo','quarterTurns',...(has(piece,'cellCargos')?['cellCargos']:[])])&&id(piece.id)&&integer(piece.quarterTurns,0,3)&&isValidOutboundPieceV12(piece))&&unique(value.candidates.map(piece=>(piece as Obj).id)),'出库候选无效');
+ const commands=value.commands as Obj[],lastCommand=commands[commands.length-1];
+ const candidateCounts=version===12&&value.endReason==='completed'?(lastCommand?.type==='place'?[2]:lastCommand?.type==='clear'?[3]:[2,3]):[3];
+ requireValue(array(value.candidates,3)&&candidateCounts.includes(value.candidates.length)&&value.candidates.every(piece=>object(piece)&&exactKeys(piece,['id','shapeId','cargo','quarterTurns',...(has(piece,'cellCargos')?['cellCargos']:[])])&&id(piece.id)&&integer(piece.quarterTurns,0,3)&&isValidOutboundPieceV12(piece))&&unique(value.candidates.map(piece=>(piece as Obj).id)),'出库候选无效');
  requireValue(array(value.orders,3)&&value.orders.length===3&&value.orders.every((order,i)=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&Object.entries(OUTBOUND_TARGETS[i]).every(([key,expected])=>order[key]===expected)),'固定出口目标无效');
  requireValue(array(value.upgrades,0)&&array(value.upgradeChoices,0)&&value.overtime===false,'出库包含入库状态');
  requireValue(validToolChargesV12(value.toolCharges),'道具预算无效');

@@ -28,9 +28,11 @@ export function placementCellsV12(state:GeometryState,pieceId:string,origin:Poin
 }
 export function findGeometricMovesV12(state:GeometryState,firstOnly=false):{pieceId:string;origin:Point}[] {
  const moves:{pieceId:string;origin:Point}[]=[];
+ const available=state.board.reduce((count,cargo,index)=>count+(cargo===null&&index!==reserved?1:0),0);
  for(const piece of state.candidates){
   if(!isValidOutboundPieceV12(piece))continue;
   const offsets=pieceCellsV12(piece);
+  if(offsets.length>available)continue;
   for(let y=0;y<9;y++)for(let x=0;x<9;x++){
    if(offsets.some(point=>point.x+x>=9||point.y+y>=9||toIndexV6({x:point.x+x,y:point.y+y})===reserved||state.board[(point.y+y)*9+point.x+x]!==null))continue;
    moves.push({pieceId:piece.id,origin:{x,y}});if(firstOnly)return moves;

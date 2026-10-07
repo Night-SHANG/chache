@@ -24,6 +24,8 @@ test('outbound codec accepts the actual final placement before refill, and rejec
  const won=applyCommandV12(state,{type:'place',pieceId:state.candidates[0].id,origin:{x:4,y:3}});
  assert.equal(won.error,undefined);assert.equal(won.state.result,'won');assert.equal(won.state.candidates.length,2);
  assert.doesNotThrow(()=>assertGameRun(won.state));assert.deepEqual(decodeGameRun(encodeGameRun(won.state)),won.state);
+ const sealed=structuredClone(won.state);sealed.commandBaseIndex=128;sealed.commandIndex=128;sealed.commands=[];
+ assert.doesNotThrow(()=>assertGameRun(sealed),'the winning placement can be the final command of a durably sealed history segment');
  for(const run of [createRunV12(1,'normal'),createRunV13(1,'expert')]){
   assert.deepEqual(decodeGameRun(encodeGameRun(run)),run);
   const mutate=(change:(value:typeof run)=>void)=>{const bad=structuredClone(run);change(bad);assert.throws(()=>assertGameRun(bad));};

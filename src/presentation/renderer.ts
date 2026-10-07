@@ -1,7 +1,7 @@
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
 import {outboundGroupCargoPose} from './outbound-transport-view.ts';
 import {boardGeometry} from './board-geometry.ts';
-import { ACHIEVEMENTS, FORKLIFTS, getColorExitProfile, getEndlessProfile, getOutboundProfile } from '../application/profile.ts';
+import { ACHIEVEMENTS, FORKLIFTS, getColorExitProfile, getEndlessProfile } from '../application/profile.ts';
 import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
 import { LEGACY_SLOTS, OUTBOUND_DIFFICULTY_NAMES, colorTierLabel, outboundDifficultyLabel, getUiControls, hasLegacyRun, runSlotLabel } from './ui.ts';
@@ -462,6 +462,7 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
     const r = trays[index]; if (!r) return;
     const selected = piece.id === view.selectedPieceId || (tutorialStep(state) !== null && (state.rulesetVersion === 3 ? index === 0 : tutorialStep(state) === index) && !view.selectedPieceId);
     panel(ctx, r, selected ? '#485045' : '#293c50', selected ? '#f4cf69' : '#718396');
+    if(view.toolSelection&&view.toolSelection.item!=='clear'&&toolCandidateChanges(piece,state.rulesetVersion,view.toolSelection.item)){ctx.save();ctx.strokeStyle=selected?'#ffe3a3':'#9edfff';ctx.lineWidth=4;ctx.setLineDash(selected?[]:[12,8]);roundedPath(ctx,r.x+9,r.y+9,r.w-18,r.h-18,11);ctx.stroke();ctx.restore();}
     if (selected) { roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.strokeStyle = '#eec860'; ctx.lineWidth = 3; ctx.stroke(); }
     text(ctx, `0${index + 1}`, r.x + 20, r.y + 26, 17, '#718b9c');
     const invalid = view.invalidFx?.pieceId === piece.id;
@@ -478,6 +479,13 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
     const label = piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
     text(ctx, label, r.x + r.w / 2, r.y + r.h - (compact?19:18), compact?24:'cellCargos' in piece&&piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
+}
+
+function toolCandidateChanges(piece:Piece|InboundPiece,rulesetVersion:number,item:'rotate'|'wildcard'):boolean {
+ if(item==='wildcard')return [12,13].includes(rulesetVersion)||piece.trait!=='wildcard';
+ if(!('quarterTurns' in piece))return false;
+ const signature=(value:Piece|InboundPiece)=>presentationPieceCells(value,rulesetVersion).map((p,index)=>`${p.x},${p.y}:${pieceCellCargo(value,index)}`).sort().join('|');
+ return [1,2,3].some(turn=>signature({...piece,quarterTurns:(piece.quarterTurns+turn)%4 as 0|1|2|3})!==signature(piece));
 }
 
 function drawPieceInTray(ctx: Context, piece: Piece|InboundPiece, r: Rect, selected: boolean, rulesetVersion:number, cargoStyle?: CargoStyleId): void {
@@ -681,9 +689,9 @@ function drawColorTierSelection(ctx:Context,state:GameRun,view:ViewState):void {
   text(ctx,'选择难度',540,233,29,'#c5d6db','center',500);
   OUTBOUND_DIFFICULTIES.forEach((difficulty,index)=>{
     const y=452+index*244;panel(ctx,{x:132,y,w:816,h:242},'#293f51','#718d98',20);text(ctx,OUTBOUND_DIFFICULTY_NAMES[difficulty],170,y+37,33,'#ffe8b4');
-    const normal=view.account?.profile.results[`outbound.v8.${difficulty}`],endless=view.account?.profile.results[`outboundEndless.v10.${difficulty}`];
-    const oldBest=view.account?view.account.profile.legacyResults.outboundV8?.[difficulty]?.bestScores.v8?.score??0:view.profile?getOutboundProfile(view.profile,difficulty,8).bestScores.v8?.score??0:0;
-    const best=Math.max(oldBest,normal?.best?.score??0);
+    const normal=view.account?.profile.results[`outbound.v12.${difficulty}.plain`],endless=view.account?.profile.results[`outboundEndless.v13.${difficulty}.plain`];
+    const best=normal?.best?.score??0,normalTools=view.account?.profile.results[`outbound.v12.${difficulty}.tools`],endlessTools=view.account?.profile.results[`outboundEndless.v13.${difficulty}.tools`];
+    text(ctx,`工具最高 ${number(normalTools?.best?.score??0)}`,528,y+37,22,'#a9c0c9','right',500);text(ctx,`工具最高 ${number(endlessTools?.best?.score??0)}`,910,y+37,22,'#a9c0c9','right',500);
     text(ctx,`普通 · 30批 · 最高分 ${number(best)}`,170,y+85,23,'#b8cdd5','left',500);text(ctx,`无限 · 最高分 ${number(endless?.best?.score??0)} · ${endless?.maxUnits??0}批`,552,y+85,23,'#b8cdd5','left',500);
   });
   drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1790);
@@ -755,7 +763,7 @@ function drawHelp(ctx:Context,state:GameRun,view:ViewState):void {
   const basics=outbound?[
     '同类货物上下左右相连，至少4件。',
     '连到同色出口，南入口到货物旁留空路。',
-    [10,13].includes(state.rulesetVersion)?'无限持续出货；入口堵塞或货件全放不下时结束。':state.rulesetVersion===8?'出货30批过关；入口堵塞或货件全放不下时结束。':'出货30批过关；货件全放不下时结束。',
+    isOutboundToolsRun(state)?`${state.rulesetVersion===13?'无限持续出货':'出货30批过关'}；无落点和救场工具时结束。`:state.rulesetVersion===10?'无限持续出货；入口堵塞或货件全放不下时结束。':state.rulesetVersion===8?'出货30批过关；入口堵塞或货件全放不下时结束。':'出货30批过关；货件全放不下时结束。',
   ]:[
     '按订单配货，同类货物上下左右相连。',
     '数量达标，出货口到货物旁留出空路。',
@@ -861,7 +869,9 @@ function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState):void {
  drawPersistenceWarnings(ctx,view,1670);
 }
 function drawToolSelection(ctx:Context,state:GameRun,view:ViewState):void {
- const tool=view.toolSelection;if(!tool)return;const geometry=boardGeometry(state);ctx.save();ctx.strokeStyle='#ffe3a3';ctx.lineWidth=5;for(const cell of tool.cells)ctx.strokeRect(geometry.x+cell%geometry.dimension*geometry.cell+4,geometry.y+Math.floor(cell/geometry.dimension)*geometry.cell+4,geometry.cell-8,geometry.cell-8);ctx.restore();
+ const tool=view.toolSelection;if(!tool)return;const geometry=boardGeometry(state);ctx.save();
+ if(tool.item==='clear')for(let cell=0;cell<state.board.length;cell++){const selected=tool.cells.includes(cell);if(state.board[cell]===null||reservedEntryCells(state).includes(cell)||!selected&&tool.cells.length>=2)continue;ctx.strokeStyle=selected?'#ffe3a3':'#9edfff';ctx.lineWidth=selected?5:4;ctx.setLineDash(selected?[]:[10,7]);ctx.strokeRect(geometry.x+cell%geometry.dimension*geometry.cell+7,geometry.y+Math.floor(cell/geometry.dimension)*geometry.cell+7,geometry.cell-14,geometry.cell-14);}
+ ctx.restore();
  text(ctx,tool.error??ITEM_NAMES[tool.item],540,1468,25,tool.error?'#ffb28b':'#ffe3a3','center');drawControls(ctx,state,view);
 }
 function drawGrowthUpgrades(ctx:Context,state:import('../domain/v9/types.ts').InboundRunV9,view:ViewState):void {

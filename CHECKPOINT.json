@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.9.0-dev",
-  "status": "LOCAL_VALIDATION_COMPLETE",
+  "appVersion": "0.10.0-dev",
+  "status": "CORE_VALIDATED_PARAMETERS_UNDECIDED",
   "rulesets": [
     1,
     2,
@@ -12,11 +12,14 @@
     8,
     9,
     10,
-    11
+    11,
+    12,
+    13,
+    14
   ],
   "modes": {
     "inbound": {
-      "ruleset": 11,
+      "ruleset": 14,
       "modes": [
         "standard",
         "daily",
@@ -30,17 +33,25 @@
       ],
       "upgradeTypes": 0,
       "upgradeChoices": 0,
-      "rushProbability": 0.06
+      "rushProbability": 0.06,
+      "reservedEntries": 4,
+      "placeableCells": 45
     },
     "outbound_normal": {
-      "ruleset": 8,
+      "ruleset": 12,
       "boardSize": 9,
-      "targetBatches": 30
+      "targetBatches": 30,
+      "reservedEntries": 1,
+      "placeableCells": 80,
+      "tools": true
     },
     "outbound_endless": {
-      "ruleset": 10,
+      "ruleset": 13,
       "boardSize": 9,
-      "stageCap": 5
+      "stageCap": 5,
+      "reservedEntries": 1,
+      "placeableCells": 80,
+      "tools": true
     },
     "legacy": {
       "rulesets": [
@@ -53,20 +64,21 @@
         7,
         8,
         9,
-        10
+        10,
+        11
       ],
       "unchanged": true
     }
   },
   "economyVersion": 1,
   "accountFormatVersion": 1,
-  "simulationCases": 896,
-  "simulationCapped": 0,
-  "testsPassed": 1334,
+  "simulationCases": null,
+  "simulationCapped": null,
+  "testsPassed": 1422,
   "pythonTestsPassed": 22,
-  "sourceSha256": "95d9987895cab674f6f46a077156d19fd480167e264f4e142884ab486d26073a",
-  "gameJsSha256": "4d72b357256bca25eb44bd110a6309170906a5ddad4a8665f7e72a127810b831",
-  "runtimeStatus": "Actual game.js passed native wx/Canvas host 16/16 at three sizes. Real browser, Windows GUI, WeChat devices and human balance NOT VERIFIED.",
+  "sourceSha256": "befa231b6dd63e02d128de88ff5c72451e4393e3b509601eb088922da752b021",
+  "gameJsSha256": "359f3ca561ceea258d464dc2724bbf49db91aff2f894918d38919dec51dbc736",
+  "runtimeStatus": "Actual game.js native wx/Canvas host51/51 passed. Real browser/WeChat devices NOT VERIFIED. New probability/economy proposals remain research only; no interim delivery.",
   "deliveryNotes": "docs/v090-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
@@ -78,7 +90,7 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 16,
-  "validatedCodeCommit": "65c835b89fde56fca1505aa32011049a9fa7224e",
+  "hostCasesPassed": 51,
+  "validatedCodeCommit": "afc8342bdcef62888e274590ea6dba8be7528405",
   "rulesChangedFromV080": true
 }

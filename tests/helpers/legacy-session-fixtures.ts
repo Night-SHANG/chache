@@ -10,6 +10,7 @@ import {legacyState,sessionHost} from './session-fixtures.ts';
 import {createAccountService} from '../../src/application/account-service.ts';
 import {isInboundV9} from '../../src/domain/playable.ts';
 import type {InboundRunV9} from '../../src/domain/v9/types.ts';
+import type {AccountSnapshot} from '../../src/application/account-types.ts';
 
 export function legacyTutorial(seed=123):RunState {
  const state=createRun(seed,'tutorial',3);state.maxOccupancy=0;return state;
@@ -34,11 +35,11 @@ export function startCurrentRun(session:GameSession,mode:'standard'|'daily'|'end
  if(session.view.screen==='guideOffer')session.action({type:'directStart'});
  if(session.view.screen==='prepareTools')session.action({type:'prepareNext'});
  if(mode!=='color_exit'){
-  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,11);assert.equal(session.state.phase,'cleanup');
+  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,14);assert.equal(session.state.phase,'cleanup');
   assert.equal(session.state.commandIndex,0);assert.equal(session.view.account?.run?.state.phase,'cleanup');
   session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);
  }
- assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?8:11);
+ assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?12:14);
 }
 
 export function inboundV9State(session:GameSession):InboundRunV9 {
@@ -57,6 +58,22 @@ export function resumedV9Host(options:{guided?:boolean;mode?:'standard'|'endless
  assert.equal(started.status,'acknowledged');assert.equal(started.account?.run?.state.rulesetVersion,9);
  const session=new GameSession(host.platform,{seed:71,mode:'standard'});
  inboundV9State(session);assert.equal(session.view.needsResume,true);session.resume();
+ assert.equal(session.view.needsResume,false);assert.equal(session.view.screen,'game');
+ return {...host,session};
+}
+
+/** Persist frozen outbound rules through their original account start and explicitly resume them. */
+export function resumedOutboundHost(options:{version:8|10;guided?:boolean;account?:Partial<AccountSnapshot>}) {
+ const host=sessionHost(options.account),guided=options.guided??false;
+ assert.equal(guided&&options.version===10,false,'the frozen outbound guide belongs to v8');
+ const service=createAccountService(host.storage,host.platform.writerLease!,()=>host.platform.wallTime!());
+ const started=service.transact({type:'start',operationId:`fixture.start.v${options.version}`,intent:{
+  spec:{family:'outbound',variant:options.version===8?'normal':'endless',rulesetVersion:options.version,seed:71,difficultyId:guided?'easy':'normal'},
+  items:[],guide:guided?'guided':'direct',
+ }},service.getSnapshot()!.generation);
+ assert.equal(started.status,'acknowledged');assert.equal(started.account?.run?.state.rulesetVersion,options.version);
+ const session=new GameSession(host.platform,{seed:71,mode:'standard'});
+ assert.equal(session.state.rulesetVersion,options.version);assert.equal(session.view.needsResume,true);session.resume();
  assert.equal(session.view.needsResume,false);assert.equal(session.view.screen,'game');
  return {...host,session};
 }

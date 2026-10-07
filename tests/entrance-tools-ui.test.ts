@@ -42,6 +42,7 @@ test('outbound wildcard reveals three explicit color choices after candidate sel
  v.toolSelection.pieceId='piece.1';
  const choices=getUiControls(s,v).filter(c=>c.action.type==='toolCargo');assert.equal(choices.length,3);
  assert.deepEqual(choices.map(c=>c.action.type==='toolCargo'?c.action.cargo:null),['cargo.food','cargo.machine','cargo.chem']);
+ assert.ok(choices.every(c=>c.rect.w>=132&&c.rect.h>=132&&c.rect.x>=328&&c.rect.x+c.rect.w<=752));
  assert.equal(getUiControls(s,v).find(c=>c.action.type==='toolConfirm')?.disabled,true);
 });
 
@@ -72,4 +73,22 @@ test('rotation highlights changeable candidates while a plain single stays unmar
  const baseline=view();baseline.toolSelection={item:'clear',pieceId:null,cells:[],quarterTurns:0};const normal=rendered(s,baseline).canvas.getContext('2d'),targeting=rendered(s,v).canvas.getContext('2d'),rects=getTrayRects(2,true);
  const sample=(ctx:ReturnType<ReturnType<typeof createCanvas>['getContext']>,index:number)=>ctx.getImageData(rects[index].x+7,rects[index].y+26,6,70).data;
  assert.notDeepEqual(sample(targeting,0),sample(normal,0));assert.deepEqual(sample(targeting,1),sample(normal,1));
+});
+
+import {makeAccountFixture} from './helpers/account-fixtures.ts';
+test('outbound selector reads new plain records without mixing legacy or tool scores',()=>{
+ const v=view();v.screen='colorTiers';const account=makeAccountFixture();v.account=account;
+ const bucket=(score:number)=>({runs:1,units:5,maxUnits:5,score,wins:0,retirements:0,maxChain:1,best:{score,units:5,chain:1}});
+ account.profile.results={'outbound.v8.easy':bucket(999),'outboundEndless.v10.easy':bucket(888),'outbound.v12.easy.plain':bucket(123),'outboundEndless.v13.easy.plain':bucket(234),'outbound.v12.easy.tools':bucket(777),'outboundEndless.v13.easy.tools':bucket(666)};
+ const labels=rendered(outbound(),v).labels;assert.ok(labels.includes('普通 · 30批 · 最高分 123'));assert.ok(labels.includes('无限 · 最高分 234 · 5批'));assert.ok(labels.includes('工具最高 777'));assert.ok(labels.includes('工具最高 666'));assert.ok(!labels.some(label=>/999|888/.test(label)));
+});
+
+test('new outbound help does not claim the permanently reserved entry can end the run',()=>{
+ const v=view();v.screen='colorIntro';for(const version of [12,13]){const labels=rendered(outbound(version),v).labels;assert.ok(!labels.some(label=>/入口堵塞.*结束/.test(label)));assert.ok(labels.some(label=>/救场工具/.test(label)));}
+});
+
+test('normal outbound rescue returns home rather than offering unsupported retirement',()=>{
+ const normal=outbound(),endless=outbound(13),v=view();Object.assign(normal,{phase:'rescue'});Object.assign(endless,{phase:'rescue'});
+ assert.ok(getUiControls(normal,v).some(c=>c.action.type==='home'));assert.ok(!getUiControls(normal,v).some(c=>c.action.type==='finishEndless'));
+ assert.ok(getUiControls(endless,v).some(c=>c.action.type==='finishEndless'));
 });

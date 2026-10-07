@@ -6,7 +6,9 @@ import {createRunV14,applyCommandV14} from '../src/domain/v14/engine.ts';
 
 test('entrance study preserves old visible policy and excludes reserved new cells',async()=>{
  assert.ok(existsSync(new URL('../scripts/simulate-entrance.mjs',import.meta.url)),'new comparison driver is present');
+ // @ts-expect-error The bounded evidence CLI is JavaScript outside the TypeScript build.
  const {chooseEntranceMove}=await import('../scripts/simulate-entrance.mjs');
+ // @ts-expect-error The frozen reference CLI is JavaScript outside the TypeScript build.
  const {chooseRefinementMove}=await import('../scripts/simulate-refinement.mjs');
  for(const strategy of ['route','greedy'])for(const seed of [1,7]){
   let old=applyCommandV11(createRunV11({seed,mode:'standard'}),{type:'chooseCleanup',branch:'orders'}).state;

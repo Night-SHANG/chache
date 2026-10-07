@@ -121,16 +121,18 @@ export function findRescueCore(state:OutboundToolsCoreState):OutboundItemCommand
  for(let a=0;a<occupied.length;a++)for(let b=a+1;b<occupied.length;b++){const plan=tryClear([occupied[a],occupied[b]]);if(plan)return plan;}
  return null;
 }
-export function settlePhaseCore<T extends OutboundToolsCoreState>(state:T):T {
- const next=cloneData(state);if(next.result!==null)return next;
- if(normalComplete(next)){next.phase='result';next.result='won';next.endReason='completed';return next;}
- if(findGeometricMovesV12(next,true).length){next.phase='input';return next;}
- if(findRescueCore(next)){next.phase='rescue';return next;}
- next.phase='result';next.result='failed';next.endReason='blocked';return next;
+/** Keep the first witness transient so a rescue event does not repeat the same bounded search. */
+function settledPhase<T extends OutboundToolsCoreState>(state:T):{state:T;rescuePlan:OutboundItemCommandV12[]|null} {
+ const next=cloneData(state),settled={state:next,rescuePlan:null};if(next.result!==null)return settled;
+ if(normalComplete(next)){next.phase='result';next.result='won';next.endReason='completed';return settled;}
+ if(findGeometricMovesV12(next,true).length){next.phase='input';return settled;}
+ const rescuePlan=findRescueCore(next);if(rescuePlan){next.phase='rescue';return {state:next,rescuePlan};}
+ next.phase='result';next.result='failed';next.endReason='blocked';return settled;
 }
+export function settlePhaseCore<T extends OutboundToolsCoreState>(state:T):T {return settledPhase(state).state;}
 function settleWithEvents<T extends OutboundToolsCoreState>(state:T,events:OutboundToolEventV12[]):OutboundCoreStep<T> {
- const next=settlePhaseCore(state);
- if(next.phase==='rescue')events.push({type:'rescue',plan:findRescueCore(next)!});
+ const {state:next,rescuePlan}=settledPhase(state);
+ if(rescuePlan)events.push({type:'rescue',plan:rescuePlan});
  if(next.phase==='result'&&state.result===null)events.push({type:'result',result:next.result!,endReason:next.endReason!});
  return {state:next,events};
 }

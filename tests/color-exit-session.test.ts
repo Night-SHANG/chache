@@ -47,7 +47,7 @@ test('legacy color restart confirms ending and preserves both old slots before a
  const h=host(),s=resumeStoredLegacy(h.port,{seed:7,mode:'tutorial'});color(s);s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});s.hide();
  const old=h.data.get(SAVE_KEYS.main),active=h.data.get(COLOR),before=checksum(legacyState(s));s.restart();assert.equal(s.view.confirmation?.kind,'leaveRun');s.action({type:'cancel'});assert.equal(checksum(legacyState(s)),before);assert.equal(h.data.get(COLOR),active);
  s.restart();s.action({type:'confirm'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.state.rulesetVersion,4);assert.equal(h.data.get(COLOR),active);assert.equal(h.data.get(SAVE_KEYS.main),old);
- startCurrentRun(s,'color_exit');assert.equal(s.state.rulesetVersion,8);assert.equal(s.state.commandIndex,0);assert.equal(h.data.get(SAVE_KEYS.main),old);assert.equal(h.data.get(COLOR),active);
+ startCurrentRun(s,'color_exit');assert.equal(s.state.rulesetVersion,12);assert.equal(s.state.commandIndex,0);assert.equal(h.data.get(SAVE_KEYS.main),old);assert.equal(h.data.get(COLOR),active);
 });
 
 test('target save or active-pointer failure keeps the current mode and its saved progress',()=>{
