@@ -13,7 +13,7 @@ const view=(patch:Partial<ViewState>={}):ViewState=>({screen:'shop',selectedPiec
 function words(v:ViewState){const ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D,labels:string[]=[];const fill=ctx.fillText.bind(ctx);ctx.fillText=(value,x,y)=>{labels.push(value);fill(value,x,y);};render(ctx,state,v);return labels.join('\n');}
 test('shop preserves tool purchases and selected root tabs while settings contains no appearance controls',()=>{
  const v=view(),controls=getUiControls(state,v);assert.deepEqual(controls.filter(c=>c.action.type==='selectShopTab').map(c=>[c.label,c.selected]),[['道具',true],['外观',false]]);assert.equal(controls.filter(c=>c.action.type==='purchase').length,3);
- const settings=getUiControls(state,view({screen:'settings'}));assert.deepEqual(settings.map(c=>c.action.type),['toggleSound','toggleMotion','toggleTutorials','openPracticeSelect','resetProfile','back']);assert.doesNotMatch(words(view({screen:'settings'})),/仓库主题|叉车涂装|货箱样式/);
+ const settings=getUiControls(state,view({screen:'settings'}));assert.deepEqual(settings.map(c=>c.action.type),['toggleSound','toggleMotion','resetProfile','back']);assert.doesNotMatch(words(view({screen:'settings'})),/仓库主题|叉车涂装|货箱样式/);
 });
 test('cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip',()=>{
  const v=view({shopTab:'cosmetics',cosmeticCategory:'cargo',cosmeticPreview:{cargo:'wood'}}),controls=getUiControls(state,v),out=words(v);

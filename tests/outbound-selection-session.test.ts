@@ -18,20 +18,20 @@ test('fresh selection defaults to ordinary and repeated mode switches never writ
  assert.deepEqual([...storage.values],before);assert.equal(storage.operations.filter(o=>o.kind==='set'||o.kind==='remove').length,0);
 });
 
-test('all four difficulty starts retain selected mode and only ordinary easy offers guidance',()=>{
+test('all four difficulty starts retain selected mode and all preparations omit retired guidance',()=>{
  for(const mode of ['normal','endless'] as const)for(const difficulty of ['easy','normal','hard','expert'] as const){
   const {session:s}=host();s.action({type:'chooseColorTier'});s.action({type:'selectOutboundMode',mode});choose(s,difficulty);
-  assert.equal(s.view.screen,mode==='normal'&&difficulty==='easy'?'guideOffer':'prepareTools');
-  if(s.view.screen==='guideOffer')s.action({type:'directStart'});
+  assert.equal(s.view.screen,'prepareTools');
+  assert.equal(s.view.guide,null);
   assert.equal(s.view.screen,'prepareTools');s.action({type:'prepareNext'});
   assert.equal(s.state.rulesetVersion,mode==='normal'?12:13);assert.equal('difficultyId' in s.state&&s.state.difficultyId,difficulty);
   assert.equal(s.view.account?.run?.identity.mode,mode==='normal'?'outbound':'outboundEndless');assert.equal(s.view.outboundSelectionMode,mode);
  }
 });
 
-test('back from guidance or preparation preserves mode without saving any selection',()=>{
+test('back from ordinary or endless preparation preserves mode without saving any selection',()=>{
  const {session:s,storage}=host();s.action({type:'chooseColorTier'});const before=[...storage.values];
- choose(s,'easy');assert.equal(s.view.screen,'guideOffer');s.action({type:'back'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.view.outboundSelectionMode,'normal');
+ choose(s,'easy');assert.equal(s.view.screen,'prepareTools');s.action({type:'back'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.view.outboundSelectionMode,'normal');
  s.action({type:'selectOutboundMode',mode:'endless'});choose(s,'easy');assert.equal(s.view.screen,'prepareTools');s.action({type:'back'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.view.outboundSelectionMode,'endless');
  s.action({type:'home'});s.action({type:'chooseColorTier'});assert.equal(s.view.outboundSelectionMode,'endless');
  assert.deepEqual([...storage.values],before);assert.equal(reopen(storage).view.outboundSelectionMode,'normal','a menu preference is not persisted');

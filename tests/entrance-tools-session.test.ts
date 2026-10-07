@@ -11,7 +11,7 @@ function start(s:GameSession,mode:'standard'|'endless'|'daily'|'color_exit',item
  if(s.view.screen==='guideOffer')s.action({type:'directStart'});
  if(mode!=='daily'){assert.equal(s.view.screen,'prepareTools');for(const item of items)s.action({type:'toggleItem',item});s.action({type:'prepareNext'});}
  assert.equal(s.view.screen,'game');
- if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,16);assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');if(mode==='daily')s.action({type:'chooseCleanup',branch:'orders'});}
+ if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,18);assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');if(mode==='daily')s.action({type:'chooseCleanup',branch:'orders'});}
  else assert.equal(s.state.rulesetVersion,outboundMode==='endless'?13:12);
  assert.equal(s.state.phase,'input');
 }

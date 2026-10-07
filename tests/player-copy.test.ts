@@ -53,9 +53,9 @@ test('both modes have one optional help entry and inbound details preserve speci
  for(const word of ['托盘','万能','加急','废弃物','危险','侧门','不计分','新单'])assert.ok(out.includes(word),word);
 });
 
-test('interactive tutorial exposes a visible skip control but terminal gameplay does not',()=>{
- const s=createRun(7,'tutorial',3),controls=getUiControls(s,view()),skip=controls.find(c=>c.action.type==='skipTutorial');assert.ok(skip);assert.deepEqual(skip.rect,{x:820,y:1836,w:212,h:60});assert.match(capture(s,view()).words,/跳过教学/);
- const developer=view({developerMode:true}),developerSkip=getUiControls(s,developer).find(c=>c.action.type==='skipTutorial');assert.equal(developerSkip?.rect.x,600);assert.match(capture(s,developer).words,/状态/);
+test('saved tutorial gameplay and developer view expose no retired skip control',()=>{
+ const s=createRun(7,'tutorial',3);assert.equal(getUiControls(s,view()).some(c=>c.action.type==='skipTutorial'),false);assert.doesNotMatch(capture(s,view()).words,/跳过教学/);
+ const developer=view({developerMode:true});assert.equal(getUiControls(s,developer).some(c=>c.action.type==='skipTutorial'),false);assert.match(capture(s,developer).words,/状态/);
  assert.equal(getUiControls({...s,phase:'result',result:'won'},view()).some(c=>c.action.type==='skipTutorial'),false);
 });
 

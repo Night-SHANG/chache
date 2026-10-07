@@ -1,4 +1,3 @@
-import {tutorialsEnabled} from '../application/account-guides.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawHarborBackground,drawCosmeticPreview} from './cosmetic-art.ts';
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
@@ -23,12 +22,13 @@ import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
 import {presentationPieceCells} from './inbound-helpers.ts';
 import {drawToolIcon,drawToolboxIcon} from './tool-art.ts';
-import {isInboundV9,isInboundRun,isInboundV11,isInboundV14,isInboundV15,isInboundV16,isOutboundEndlessV10,isToolRun,isOutboundToolsRun,reservedEntryCells} from '../domain/playable.ts';
+import {isInboundV9,isInboundRun,isInboundV11,isInboundV14,isInboundV15,isTieredInbound,isOutboundEndlessV10,isToolRun,isOutboundToolsRun,reservedEntryCells} from '../domain/playable.ts';
+import {isInboundDifficultyV18} from '../domain/v18/content.ts';
 import type {GameRun,GameShipment,InboundRun,ToolRun} from '../domain/playable.ts';
 import type {InboundPiece} from './inbound-helpers.ts';
 
 import type {GeometrySource} from './board-geometry.ts';
-import {drawGuide} from './tutorial-view.ts';
+import {helpTopic,staticPresentationView} from './static-help.ts';
 import { boardHint, orderFeedback } from './order-feedback.ts';
 import type { CargoId, Cell, CellTrait, Dock, Piece, Point, RunState, Shipment, Upgrade } from '../domain/types.ts';
 import { L, cellCenter, getTrayRects } from './layout.ts';
@@ -50,6 +50,7 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
 export function render(ctx: Context, state: GameRun, view: ViewState): void {
+  view=staticPresentationView(view);
   const appearance=accountCosmeticState(view.account??null,view.profile);
   view={...view,profile:{...(view.profile??createProfile()),cosmetics:view.account?appearance.cosmetics:(view.profile?.cosmetics??appearance.cosmetics)},cargoOutline:appearance.cargoOutline};
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
@@ -58,14 +59,14 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'只读模式':'保存结果尚未确认',view.readOnlyReason??'已有棋盘、金币和库存保持上次确认状态。');ctx.restore();return;}
   if (view.confirmation) { drawConfirmation(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }
+  if (!view.needsResume && view.screen === 'helpMenu') { drawHelpMenu(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'inboundMenu') { drawInboundMenu(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorTiers') { drawColorTierSelection(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'legacyRuns') { drawLegacyRuns(ctx,state,view); ctx.restore(); return; }
-  if(view.screen==='tutorialPracticeSelect'){outlinedText(ctx,'重新体验教程',540,220,68,CREAM,'center');text(ctx,'教学练习 · 不计金币和成绩',540,370,29,'#ffe3a3','center');drawControls(ctx,state,view);ctx.restore();return;}
   if (!view.needsResume && view.screen === 'settings') { drawSettings(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorIntro') { drawHelp(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'helpDetails') { drawHelpDetails(ctx,state,view); ctx.restore(); return; }
-  if(['shop','prepareTools','prepareCleanup','guideOffer'].includes(view.screen??'')){drawEconomyFlow(ctx,state,view);ctx.restore();return;}
+  if(['shop','prepareTools','prepareCleanup'].includes(view.screen??'')){drawEconomyFlow(ctx,state,view);ctx.restore();return;}
   drawHeader(ctx, state, view);
   const shown=view.toolSelection?.preview??state;
   const board = view.animation?.board ?? shown.board;
@@ -89,9 +90,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   if (!view.paused && !view.needsResume && ['input','rescue'].includes(state.phase) && !view.animation&&!view.toolSelection&&!view.supplyUpgrade) drawControls(ctx,state,view);
   if(isInboundRun(state))drawGrowthFeedback(ctx,state,view);
   if(isInboundRun(state)&&state.phase==='rescue'&&!view.toolSelection&&!view.paused&&!view.needsResume&&!view.animation)text(ctx,'当前放不下，选择剩余工具救场，或结束并结算。',540,1468,25,'#ffe3a3','center');
-  if(view.guide&&state.phase==='input'&&!view.animation&&!view.paused&&!view.needsResume&&!view.toolSelection&&!view.supplyUpgrade&&!toolboxVisible(state,view))drawGuide(ctx,state,view);
   if(view.growthFx&&!view.animation)text(ctx,view.growthFx.label,540,1468,27,'#ffe3a3','center');
-  if(view.practice){if(view.practice.completed&&!view.animation){panel(ctx,{x:190,y:1480,w:700,h:330},'#293f51','#edc76b',24);outlinedText(ctx,'练习完成',540,1556,54,CREAM,'center');drawControls(ctx,state,view);}text(ctx,'教学练习 · 不计金币和成绩',540,33,28,'#ffe3a3','center');}
   ctx.restore();
 }
 
@@ -132,7 +131,7 @@ function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   if(!view.practice&&isToolRun(state))drawToolboxEntry(ctx,state,view);
   else forklift(ctx,427,177,88,-.12,view.profile?.cosmetics.forklift);
   panel(ctx, { x: 548, y: 54, w: view.practice?345:363, h: 151 });
-  text(ctx, view.practice?'练习分数':isInboundV16(state)&&state.mode==='standard'?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}五班`:('difficultyId' in state?state.difficultyId:undefined) ? outboundDifficultyLabel(('difficultyId' in state?state.difficultyId:undefined)!) : ('colorTier' in state?state.colorTier:undefined) ? colorTierLabel(('colorTier' in state?state.colorTier:undefined)!) : '当前分数', 577, 89, ('colorTier' in state?state.colorTier:undefined) || ('difficultyId' in state?state.difficultyId:undefined) ? 23 : 25, MUTED);
+  text(ctx, view.practice?'练习分数':isTieredInbound(state)?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}${state.mode==='daily'?'每日':state.mode==='endless'?'无限':'五班'}`:('difficultyId' in state?state.difficultyId:undefined) ? outboundDifficultyLabel(('difficultyId' in state?state.difficultyId:undefined)!) : ('colorTier' in state?state.colorTier:undefined) ? colorTierLabel(('colorTier' in state?state.colorTier:undefined)!) : '当前分数', 577, 89, ('colorTier' in state?state.colorTier:undefined) || ('difficultyId' in state?state.difficultyId:undefined) ? 23 : 25, MUTED);
   text(ctx, number(state.score), 878, 151, 56, '#ffe087', 'right', 900);
   if(!view.practice){panel(ctx, L.pause, '#40536b');ctx.fillStyle = CREAM; roundedPath(ctx, 966, 80, 12, 47, 4); ctx.fill(); roundedPath(ctx, 989, 80, 12, 47, 4); ctx.fill();}
   text(ctx, '连锁', L.chain.x, L.chain.y + 21, 20, MUTED);
@@ -180,10 +179,9 @@ function drawOrders(ctx: Context, state: GameRun, view: ViewState): void {
 
 function drawBoard(ctx: Context, state: GameRun, view: ViewState, board: Cell[], cellTraits?: (CellTrait | null)[]): void {
   const geometry=boardGeometry(state), {x,y,size,cell,dimension,scale,boxSize}=geometry;
-  const lesson = tutorialStep(state,view), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
-  const lessonHint = !view.animation && lesson !== null ? ['把食品拖进虚线框。', '再接上1件食品，凑够订单。', '补上机械，清路后继续出货。'][lesson] : null;
+  const delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
   if(view.animation&&state.mode==='color_exit'&&view.animation.shipment.chain>1)text(ctx,`${view.animation.shipment.chain}连出货`,540,L.boardHint.y+L.boardHint.h/2,28,'#ffdf75','center',900);
-  else if (!delivery&&!view.guide) text(ctx, (view.placementRisk?(view.developerMode===true?view.placementRisk.message:view.placementRisk.kind==='entry-blocked'?'入口堵塞':'通路将被切断'):undefined)??(state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
+  else if (!delivery) text(ctx, (view.placementRisk?(view.developerMode===true?view.placementRisk.message:view.placementRisk.kind==='entry-blocked'?'入口堵塞':'通路将被切断'):undefined)??(state.mode==='color_exit'?colorExitBoardHint(state,view):boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
   panel(ctx, { x: x - 26, y: y - 24, w: size + 52, h: size + 54 }, '#56616a', '#829098', 12);
   hazard(ctx, { x: x - 13, y: y - 13, w: size + 26, h: 14 });
   hazard(ctx, { x: x - 13, y: y + size - 1, w: size + 26, h: 14 });
@@ -206,10 +204,13 @@ function drawBoard(ctx: Context, state: GameRun, view: ViewState, board: Cell[],
   ctx.fillStyle = gradient(ctx, x, y, 24, 'rgba(32,30,26,.35)', 'rgba(32,30,26,0)'); ctx.fillRect(x, y, size, 24);
   ctx.fillStyle = gradient(ctx, x, y + size - 18, 18, 'rgba(32,30,26,0)', 'rgba(32,30,26,.25)'); ctx.fillRect(x, y + size - 18, size, 18);
   drawReservedEntries(ctx,state);
-  drawTutorialTarget(ctx, state, view);
   for (const r of [0, 1]) for (const c of [0, 1]) rivet(ctx, x - 21 + c * (size + 42), y - 19 + r * (size + 40), 5);
   if(state.mode==='color_exit')drawColorExitGates(ctx,state,view);
   else {
+    if(isInboundV14(state)||isInboundV15(state)||isTieredInbound(state)){
+      const shipping=view.animation?.shipment;
+      for(const dock of geometry.docks)if(!state.orders.some(order=>order.dockId===dock.id)&&shipping?.dockId!==dock.id)drawClosedGate(ctx,dock,state);
+    }
     state.orders.forEach(order => {
       const dock = boardGeometry(state).docks.find(d => d.id === order.dockId), shipping = view.animation?.shipment;
       if (dock) drawGate(ctx, dock, shipping?.dockId === order.dockId ? shipping.cargo : order.cargo,state);
@@ -243,7 +244,7 @@ function drawBoard(ctx: Context, state: GameRun, view: ViewState, board: Cell[],
     if(conveyor&&isShipment){ctx.beginPath();ctx.rect(x-30,y-30,size+60,size+60);ctx.clip();}
     ctx.translate(pose.x, pose.y);
     ctx.scale(pose.scale * cleanupScale * placed.x * failure.x, pose.scale * cleanupScale * placed.y * failure.y);
-    cargoBox(ctx, cargo, -boxSize/2, -boxSize/2, boxSize, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline);
+    cargoBox(ctx, cargo, -boxSize/2, -boxSize/2, boxSize, flowPose?.alpha ?? (collecting && extra ? 1 - frame!.collect : 1), cellTraits?.[index], view.profile?.cosmetics.cargo, [14,15,16,18].includes(state.rulesetVersion), view.cargoOutline);
     ctx.restore();
   };
   board.forEach((cargo, index) => {
@@ -277,26 +278,6 @@ function drawReservedEntries(ctx:Context,state:GameRun):void {
  ctx.restore();
 }
 
-/** Optional teaching overlay only; no commands or occupancy are changed. */
-function tutorialStep(state: GameRun,view:ViewState): 0 | 1 | 2 | null {
-  if(!tutorialsEnabled(view.account))return null;
-  if (state.rulesetVersion === 3 && state.mode === 'tutorial' && state.phase === 'input') return state.tutorialStep === 0 || state.tutorialStep === 1 || state.tutorialStep === 2 ? state.tutorialStep : null;
-  if (state.mode !== 'tutorial' || state.phase !== 'input' || state.completedOrders > 0) return null;
-  if (state.commandIndex === 0) return 0;
-  if (state.commandIndex === 1 && state.board[8] === 'cargo.food' && state.board[9] === 'cargo.food' && state.board[10] === null
-    && state.candidates[1]?.cargo === 'cargo.food' && state.candidates[1]?.shapeId === 'shape.single') return 1;
-  return null;
-}
-
-function drawTutorialTarget(ctx: Context, state: GameRun, view: ViewState): void {
-  const step = tutorialStep(state,view); if (step === null || view.animation || view.dragPoint) return;
-  const x = L.board.x + (step === 0 ? 1 : 3) * L.board.cell + 10, y = L.board.y + (step === 2 ? 4 : 1) * L.board.cell + 10;
-  const w = (step === 0 ? 2 : 1) * L.board.cell - 20;
-  ctx.save(); roundedPath(ctx, x, y, w, 100, 10); ctx.fillStyle = 'rgba(255,225,126,.10)'; ctx.fill();
-  ctx.strokeStyle = '#ffe58d'; ctx.lineWidth = 4; ctx.setLineDash([11, 9]); ctx.stroke(); ctx.setLineDash([]);
-  text(ctx, step === 0 ? '食品 ×2' : step === 1 ? '食品 ×1' : '机械 ×1', x + w / 2, y + 50, 24, '#fff1bd', 'center'); ctx.restore();
-}
-
 function drawGate(ctx: Context, dock: Dock, cargo: CargoId,source?:GeometrySource): void {
   const side = dock.side;
   const angle = side === 'north' ? Math.PI / 2 : side === 'south' ? -Math.PI / 2 : side === 'west' ? 0 : Math.PI;
@@ -306,6 +287,19 @@ function drawGate(ctx: Context, dock: Dock, cargo: CargoId,source?:GeometrySourc
   ctx.fillStyle = PALETTE[cargo].mid; roundedPath(ctx, -20, -31, 31, 62, 4); ctx.fill();
   arrow(ctx, -1, 0, 28, 0, '#fff7cf');
   ctx.restore();
+}
+
+/** Closed doors retain the same fixed positions, with shutters instead of arrows. */
+function drawClosedGate(ctx:Context,dock:Dock,source:GeometrySource):void {
+ const angle=dock.side==='north'?Math.PI/2:dock.side==='south'?-Math.PI/2:dock.side==='west'?0:Math.PI;
+ const position=dockPosition(dock,source);
+ ctx.save();ctx.translate(position.x,position.y);ctx.rotate(angle);
+ panel(ctx,{x:-25,y:-40,w:43,h:80},'#17212b','#7a838c',6);
+ ctx.fillStyle='#4b535b';roundedPath(ctx,-20,-31,31,62,4);ctx.fill();
+ ctx.strokeStyle='#818b93';ctx.lineWidth=2;
+ for(let y=-23;y<=23;y+=11){ctx.beginPath();ctx.moveTo(-18,y);ctx.lineTo(9,y);ctx.stroke();}
+ ctx.fillStyle='#1f2932';ctx.fillRect(-10,-5,12,10);ctx.strokeStyle='#a6adb2';ctx.strokeRect(-10,-5,12,10);
+ ctx.restore();
 }
 
 function drawSideGate(ctx: Context,state:GameRun): void {
@@ -371,13 +365,13 @@ function drawPlacement(ctx: Context, state: GameRun, view: ViewState): void {
       const valid = view.preview?.valid&&!view.placementRisk;
       ctx.fillStyle = valid ? 'rgba(223,239,144,.32)' : 'rgba(231,69,48,.30)'; ctx.fillRect(x, y, 112*scale, 112*scale);
       ctx.strokeStyle = valid ? '#f3f6b1' : '#ff7959'; ctx.lineWidth = 5; ctx.strokeRect(x + 2*scale, y + 2*scale, 108*scale, 108*scale);
-      if ([5,6,8,10,12,13].includes(state.rulesetVersion) || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline);
+      if ([5,6,8,10,12,13].includes(state.rulesetVersion) || piece.trait && !view.dragPoint) cargoBox(ctx, pieceCellCargo(piece,index), x + scale, y, boxSize, .7, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16,18].includes(state.rulesetVersion), view.cargoOutline);
     });
   }
   if (view.dragPoint) {
     const shape = {cells:presentationPieceCells(piece,state.rulesetVersion)}; if (!shape) return;
     ctx.save(); ctx.globalAlpha = .8;
-    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16].includes(state.rulesetVersion), view.cargoOutline)); ctx.restore();
+    shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo, [14,15,16,18].includes(state.rulesetVersion), view.cargoOutline)); ctx.restore();
   }
 }
 
@@ -462,14 +456,14 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
   const extra = new Set(shipments.flatMap(shipping => ('extraClearedCells' in shipping?shipping.extraClearedCells:undefined) ?? [])).size;
   const detail = [shipments.some(shipping => ('usedPalletPass' in shipping&&shipping.usedPalletPass)) ? '托盘保留' : '', extra ? `额外清理${extra}格` : ''].filter(Boolean).join(' / ');
   if (!view.toolSelection && !view.noticeFx && (!view.animation || view.animation.shipment.chain < 2)) {
-    const hint = detail || (tutorialStep(state,view) === null ? view.message : '');
+    const hint = detail || view.message;
     if(hint)text(ctx, hint, 540, 1467, 24, '#efe3c9', 'center', 600);
   }
   if(!view.toolSelection||state.candidates.length!==5){text(ctx,'待入库',58,1502,22,'#b8c3cd');text(ctx,`空位 ${state.board.filter((cell,index)=>cell===null&&!reservedEntryCells(state).includes(index)).length}`,1027,1502,22,'#b2c1ca','right',500);}
   const trays = getTrayRects(state.candidates.length,!!view.toolSelection);
   state.candidates.forEach((piece, index) => {
     const r = trays[index]; if (!r) return;
-    const selected = piece.id === view.selectedPieceId || (tutorialStep(state,view) !== null && (state.rulesetVersion === 3 ? index === 0 : tutorialStep(state,view) === index) && !view.selectedPieceId);
+    const selected = piece.id === view.selectedPieceId;
     panel(ctx, r, selected ? '#485045' : '#293c50', selected ? '#f4cf69' : '#718396');
     if(view.toolSelection&&view.toolSelection.item!=='clear'&&toolCandidateChanges(piece,state.rulesetVersion,view.toolSelection.item)){ctx.save();ctx.strokeStyle=selected?'#ffe3a3':'#9edfff';ctx.lineWidth=4;ctx.setLineDash(selected?[]:[12,8]);roundedPath(ctx,r.x+9,r.y+9,r.w-18,r.h-18,11);ctx.stroke();ctx.restore();}
     if (selected) { roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.strokeStyle = '#eec860'; ctx.lineWidth = 3; ctx.stroke(); }
@@ -485,7 +479,7 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
     } else drawPieceInTray(ctx, piece, r, selected, state.rulesetVersion, view.profile?.cosmetics.cargo, view.cargoOutline);
     if (invalid) { ctx.save(); ctx.strokeStyle = '#ffb28b'; ctx.lineWidth = 3; roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.stroke(); ctx.restore(); }
     const compact=r.h<180,cellCount=presentationPieceCells(piece,state.rulesetVersion).length;
-    const label = [14,15,16].includes(state.rulesetVersion)&&piece.trait==='rush'?`加急 · ${cargoName(piece.cargo)} · ${piece.rushTurns??'?'}次`:piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
+    const label = [14,15,16,18].includes(state.rulesetVersion)&&piece.trait==='rush'?`加急 · ${cargoName(piece.cargo)} · ${piece.rushTurns??'?'}次`:piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
     text(ctx, label, r.x + r.w / 2, r.y + r.h - (compact?19:18), compact?24:'cellCargos' in piece&&piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
 }
@@ -503,7 +497,7 @@ function drawPieceInTray(ctx: Context, piece: Piece|InboundPiece, r: Rect, selec
   const areaHeight=r.h<180?58:Math.min(166,Math.max(42,r.h-60)),cell = Math.min(piece.trait ? 104 : 74, Math.min(230, r.w - 54) / width, areaHeight / height);
   const x = r.x + (r.w - width * cell) / 2, y = r.y + 25 + (areaHeight - height * cell) / 2;
   if (selected) { ctx.fillStyle = 'rgba(241,190,79,.09)'; ctx.beginPath(); ctx.ellipse(r.x + r.w / 2, r.y + r.h - 29, Math.min(105, r.w / 2 - 20), 14, 0, 0, Math.PI * 2); ctx.fill(); }
-  shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), x + p.x * cell, y + p.y * cell, cell - 2, 1, [14,15,16].includes(rulesetVersion)&&piece.trait==='rush'?undefined:pieceTrait(piece), cargoStyle, false, cargoOutline));
+  shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), x + p.x * cell, y + p.y * cell, cell - 2, 1, [14,15,16,18].includes(rulesetVersion)&&piece.trait==='rush'?undefined:pieceTrait(piece), cargoStyle, false, cargoOutline));
 }
 
 function drawFooter(ctx: Context, state: GameRun, view: ViewState): void {
@@ -598,7 +592,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
   const title = endless ? '无限入库结算' : tutorial ? won ? '教学完成！' : '爆仓了！' : retired ? state.overtime?'加班结算':'入库结算' : state.overtime ? '加班结束' : daily ? won ? '挑战完成' : '挑战结算' : won ? '完美收工！' : '爆仓了！';
   outlinedText(ctx, title, 540, 414, 88, won || retired ? '#fff0bb' : '#ffbd86', 'center');
   const subtitle = endless ? retired ? '已按当前分数结算' : '所有货件都放不下了' : tutorial ? '可以开始正式值班了' : retired ? '已按当前分数结算' : state.overtime ? '所有货件都放不下了' : daily ? `每日挑战 · ${dailyChallengeDay(state,view) ?? view.dailyLabel ?? '日期待确认'}` : won ? '五个班次全部完成' : '所有货件都放不下了';
-  text(ctx, view.practice?'练习分数':isInboundV16(state)&&state.mode==='standard'?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}五班 · ${subtitle}`:subtitle, 540, 507, 28, '#d9d9cf', 'center', 500);
+  text(ctx, view.practice?'练习分数':isTieredInbound(state)?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}${state.mode==='daily'?'每日':state.mode==='endless'?'无限':'五班'} · ${subtitle}`:subtitle, 540, 507, 28, '#d9d9cf', 'center', 500);
   panel(ctx, { x: 174, y: 581, w: 732, h: 496 }, '#415263', '#b2a888', 26);
   roundedPath(ctx, 203, 610, 674, 269, 16); ctx.fillStyle = gradient(ctx, 203, 610, 269, '#f8e9c7', '#decaa4'); ctx.fill();
   text(ctx, tutorial ? '教学得分' : '本局得分', 540, 657, 30, '#5c4936', 'center');
@@ -613,7 +607,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
   ctx.font='500 23px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
   let shown=Math.min(2,selected.length),upgradeSummary=selected.length?`关键升级  ${selected.slice(0,shown).join(' / ')}${selected.length>shown?` 等${selected.length}项`:''}`:'关键升级  无';
   while(shown>0&&ctx.measureText(upgradeSummary).width>646){shown--;upgradeSummary=`关键升级  ${selected.slice(0,shown).join(' / ')}${shown?' · ':''}共${selected.length}项`;}
-  if(!isInboundV11(state)&&!isInboundV14(state)&&!isInboundV15(state)&&!isInboundV16(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
+  if(!isInboundV11(state)&&!isInboundV14(state)&&!isInboundV15(state)&&!isTieredInbound(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
   if(reward)text(ctx,`本局金币 +${number(reward.earnedCoins)} · 余额 ${number(reward.wallet)}`,540,1060,26,'#ffe3a3','center');
   if(tutorial)text(ctx,'正式值班：每班6单，共5班',540,1118,25,'#e7e8cf','center',600);
   drawControls(ctx,state,view);
@@ -672,20 +666,33 @@ function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
   text(ctx,`金币 ${view.account?.wallet??0}`,540,670,29,'#ffe3a3','center');
   drawControls(ctx, state, view);
   const unlocked = ACHIEVEMENTS.filter(item => view.profile?.achievements.includes(item.id));
-  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '首次出货，解锁蓝色叉车', 540, 1534, 26, '#c4d2d6', 'center', 500);
-  drawPersistenceWarnings(ctx,view,1660);
+  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '首次出货，解锁蓝色叉车', 540, 1650, 26, '#c4d2d6', 'center', 500);
+  drawPersistenceWarnings(ctx,view,1760);
+}
+
+function drawHelpMenu(ctx:Context,state:GameRun,view:ViewState):void {
+ outlinedText(ctx,'玩法说明',540,250,62,CREAM,'center');
+ text(ctx,'选择要查看的玩法',540,365,28,'#e4e4d7','center',500);
+ drawControls(ctx,state,view);
 }
 
 function drawInboundMenu(ctx:Context,state:GameRun,view:ViewState):void{
   outlinedText(ctx,'入库模式',540,200,79,CREAM,'center');
-  const difficulty=view.inboundDifficulty??'normal',label={normal:'普通',hard:'困难',expert:'专业'}[difficulty];
+  const difficulty=isInboundDifficultyV18(view.inboundDifficulty)?view.inboundDifficulty:'hard',label={hard:'困难',expert:'专业'}[difficulty];
   const score=(key:string)=>{const best=view.account?.profile.results[key]?.best;return best?number(best.score):'暂无';};
-  text(ctx,`${label}五班 · 最高分 ${score(`inbound.standard.v16.${difficulty}.plain`)}`,540,320,29,'#ffe3a3','center');
-  text(ctx,`带工具 ${score(`inbound.standard.v16.${difficulty}.tools`)}`,540,372,24,'#a9c0c9','center',500);
-  panel(ctx,{x:170,y:445,w:740,h:460},'#293f51','#718d98',20);
-  text(ctx,'五班 · 每班6单',210,501,35,'#ffe8b4');
-  const cards=[['无限入库',`最高分 ${score('inbound.endless.v16.plain')} · 工具 ${score('inbound.endless.v16.tools')}`,945],['每日挑战',view.dailyLabel??'日期待确认',1235]] as const;
-  cards.forEach(([title,description,y])=>{panel(ctx,{x:170,y:y-20,w:740,h:280},'#293f51','#718d98',20);text(ctx,title,210,y+20,35,'#ffe8b4');text(ctx,description,210,y+68,25,'#b8cdd5','left',500);});
+  panel(ctx,{x:132,y:286,w:816,h:180},'#172b3d','#536e80',24);
+  for(const [mode,title,y] of [['standard',`${label}五班`,520],['endless',`${label}无限`,840]] as const){
+    panel(ctx,{x:170,y,w:740,h:300},'#293f51','#718d98',20);
+    text(ctx,title,210,y+48,35,'#ffe8b4');
+    text(ctx,mode==='standard'?'每班6单 · 共五班':'从第一班开始 · 持续接单',210,y+97,25,'#b8cdd5','left',500);
+    text(ctx,`最高分 ${score(`inbound.${mode}.v18.${difficulty}.plain`)}`,210,y+163,27,'#e4edf0','left',600);
+    text(ctx,`使用道具最高分 ${score(`inbound.${mode}.v18.${difficulty}.tools`)}`,210,y+218,25,'#b8cdd5','left',500);
+  }
+  panel(ctx,{x:170,y:1160,w:740,h:320},'#293f51','#718d98',20);
+  text(ctx,'每日挑战 · 困难',210,1208,35,'#ffe8b4');
+  text(ctx,view.dailyLabel??'日期待确认',210,1257,25,'#b8cdd5','left',500);
+  text(ctx,`最高分 ${score('inbound.daily.v18.hard.plain')}`,210,1323,27,'#e4edf0','left',600);
+  text(ctx,'每日固定困难 · 不携带工具',210,1378,25,'#b8cdd5','left',500);
   drawControls(ctx,state,view);
   drawPersistenceWarnings(ctx,view,1775);
 }
@@ -758,18 +765,18 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
 
 function drawHelp(ctx:Context,state:GameRun,view:ViewState):void {
   outlinedText(ctx,'玩法说明',540,250,62,CREAM,'center');
-  const outbound=state.mode==='color_exit';
+  const outbound=helpTopic(state,view)==='outbound';
   const basics=outbound?[
     '同类货物上下左右相连，至少4件。',
     '连到同色出口，南入口到货物旁留空路。',
-    isOutboundToolsRun(state)?`${state.rulesetVersion===13?'无限持续出货':'出货30批过关'}；无落点和救场工具时结束。`:state.rulesetVersion===10?'无限持续出货；入口堵塞或货件全放不下时结束。':state.rulesetVersion===8?'出货30批过关；入口堵塞或货件全放不下时结束。':'出货30批过关；货件全放不下时结束。',
+    view.helpFromHome?'出货30批过关；无落点和救场工具时结束。':isOutboundToolsRun(state)?`${state.rulesetVersion===13?'无限持续出货':'出货30批过关'}；无落点和救场工具时结束。`:state.rulesetVersion===10?'无限持续出货；入口堵塞或货件全放不下时结束。':state.rulesetVersion===8?'出货30批过关；入口堵塞或货件全放不下时结束。':'出货30批过关；货件全放不下时结束。',
   ]:[
     '按订单配货，同类货物上下左右相连。',
     '数量达标，出货口到货物旁留出空路。',
-    isInboundRun(state)?'旋转工具可改朝向；道具可在放不下时救场。':'货件不能旋转；所有货件都放不下时结束。',
+    view.helpFromHome||isInboundRun(state)?'旋转工具可改朝向；道具可在放不下时救场。':'货件不能旋转；所有货件都放不下时结束。',
   ];
   basics.forEach((line,index)=>text(ctx,line,540,365+index*69,index===2&&outbound?25:28,'#e4e4d7','center',500));
-  if(outbound)drawColorExitHelpDiagram(ctx,{x:140,y:640,w:800,h:430},!!('colorTier' in state?state.colorTier:undefined)||!!('difficultyId' in state?state.difficultyId:undefined),state);
+  if(outbound)drawColorExitHelpDiagram(ctx,{x:140,y:640,w:800,h:430},view.helpFromHome||!!('colorTier' in state?state.colorTier:undefined)||!!('difficultyId' in state?state.difficultyId:undefined),view.helpFromHome?{boardSize:9}:state);
   else drawInboundHelpDiagram(ctx);
   drawControls(ctx,state,view);
 }
@@ -778,29 +785,46 @@ function drawInboundHelpDiagram(ctx:Context):void {
   panel(ctx,{x:140,y:640,w:800,h:430},'#20394b','#587586',14);
   const origin={x:205,y:725},cell=66;
   for(let row=0;row<4;row++)for(let col=0;col<4;col++){ctx.fillStyle='#56636a';ctx.fillRect(origin.x+col*cell+1,origin.y+row*cell+1,cell-2,cell-2);}
-  for(let col=0;col<3;col++)cargoBox(ctx,'cargo.food',origin.x+col*cell+3,origin.y+cell+3,cell-6);
+  for(let col=0;col<4;col++)cargoBox(ctx,'cargo.food',origin.x+col*cell+3,origin.y+cell+3,cell-6);
   ctx.strokeStyle='#9edfff';ctx.lineWidth=5;ctx.setLineDash([12,9]);ctx.beginPath();ctx.moveTo(370,685);ctx.lineTo(370,758);ctx.stroke();ctx.setLineDash([]);
   arrow(ctx,370,725,20,Math.PI/2,'#9edfff');
-  icon(ctx,'cargo.food',570,756,44,PALETTE['cargo.food'].light);text(ctx,'食品 3/3件',610,756,29,CREAM);
+  icon(ctx,'cargo.food',570,756,44,PALETTE['cargo.food'].light);text(ctx,'食品 4/4件',610,756,29,CREAM);
   text(ctx,'数量达标',570,837,28,'#d9ffc1');text(ctx,'留出空路即可出货',570,900,25,'#d9ffc1');
   text(ctx,'虚线：叉车通路',340,1030,23,'#9edfff','center');
 }
 
 function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState):void {
-  outlinedText(ctx,(isInboundV11(state)||isInboundV14(state)||isInboundV15(state)||isInboundV16(state))?'特殊货物与工具':'特殊货物与升级',540,250,58,CREAM,'center');
+  if(view.helpFromHome||isInboundV14(state)||isInboundV15(state)||isTieredInbound(state)){
+    outlinedText(ctx,'特殊货物与工具',540,250,58,CREAM,'center');
+    const shared=[
+      '双倍箱：占1格，计2件；万能可连接订单货类。',
+      '危险品：按货类凑单，可正常出货。',
+      '旋转改朝向；清障选1至2格；万能工具改单格。',
+      '五班、无限最多带2种工具，同类1件；未用退回。',
+    ];
+    shared.forEach((line,index)=>text(ctx,line,150,405+index*91,27,'#d5e7df','left',500));
+    text(ctx,'每日挑战',150,835,33,'#ffe3a3','left',800);
+    const daily=[
+      '每次开局选清扫：每2单，或每6次成功放置。',
+      '加急数字按后续成功放置次数倒数，不是倒计时',
+      '末班新来的货品全部加急。',
+      '候选区里的加急不扣数；期限归零变废物，占格、不出货。',
+      '清扫每次只清旧废物1格；没有废物时也重新计数。',
+      '危险品出货时清货组旁1格废弃物；仅每日生效。',
+      '每日不携带工具；五班、无限没有加急和废物。',
+    ];
+    daily.forEach((line,index)=>wrap(ctx,line,150,920+index*96,780,27,36));
+    drawControls(ctx,state,view);return;
+  }
+  outlinedText(ctx,(isInboundV11(state)||isInboundV14(state)||isInboundV15(state)||isTieredInbound(state))?'特殊货物与工具':'特殊货物与升级',540,250,58,CREAM,'center');
   const rules=isInboundRun(state)?[
     '双倍箱：占1格，计2件；万能可连接订单货类。',
-    ...(isInboundV16(state)?[state.mode==='daily'?'危险品：出货时清理相邻废弃物。':'危险品：按货类凑单，可正常出货。']:[]),
-    ...(!isInboundV16(state)||state.mode==='daily'?[
-    isInboundV16(state)?'加急数字按后续成功放置倒数，不是秒。':'加急放下剩3次，之后先出货再扣数。',
+    '加急放下剩3次，之后先出货再扣数。',
     '期限归零成为废物，占格、不出货。',
     '清扫二选一：每2单，或每6次有效放置。',
     '清扫只清旧废物；没有废弃物时也会重新计数。',
-    ]:[]),
-    ...(!isInboundV16(state)||state.mode!=='daily'?[
     '旋转改朝向；清障选1至2格；万能工具改单格。',
     '普通、无限最多带2种工具；未用的结束退回。',
-    ]:[]),
     ...(isInboundV9(state)?['减量：当前和新订单都少1件，最低3件。','扩仓、候选扩容、公共侧门与奖金立即生效。']:[]),
   ]:[
     '托盘：占1格，计2件。',
@@ -825,7 +849,7 @@ function drawEconomyFlow(ctx:Context,state:GameRun,view:ViewState):void {
  if(screen==='prepareCleanup'){drawCleanupChoices(ctx,state,view);return;}
  if(screen==='shop'){drawShop(ctx,state,view);return;}
  outlinedText(ctx,title,540,220,72,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,340,31,'#ffe3a3','center');
- const description=screen==='prepareTools'?'最多携带2种 · 同类1件 · 未使用的结束退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':view.prepareIntent?.spec.rulesetVersion===16?'拖放货件，同图标凑单，留空路出货。':'在真实五班局里学习订单、加急与清扫。';
+ const description=screen==='prepareTools'?'最多携带2种 · 同类1件 · 未使用的结束退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':view.prepareIntent&&[16,18].includes(view.prepareIntent.spec.rulesetVersion)?'拖放货件，同图标凑单，留空路出货。':'在真实五班局里学习订单、加急与清扫。';
  wrap(ctx,description,132,430,816,27,42);
  if(screen==='prepareTools')drawShopToolCards(ctx,view);
  drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1740);
@@ -886,7 +910,7 @@ function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState):void {
   text(ctx,index?'定期清扫':'按单清扫',r.x+r.w/2,r.y+87,38,'#ffe7b0','center');
   drawToolIcon(ctx,'clear',r.x+(r.w-190)/2,r.y+140,190);
   panel(ctx,{x:r.x+r.w/2-58,y:r.y+302,w:116,h:71},'#263a49','#b8c7b7',12);text(ctx,index?'6次':'2单',r.x+r.w/2,r.y+338,35,'#ffe3a3','center');
-  text(ctx,index?isInboundV16(state)?'每成功放置6次，':'每放置6次，':'每完成2单，',r.x+r.w/2,r.y+420,32,'#e1e8df','center',500);
+  text(ctx,index?isTieredInbound(state)?'每成功放置6次，':'每放置6次，':'每完成2单，',r.x+r.w/2,r.y+420,32,'#e1e8df','center',500);
   text(ctx,'清除1格废弃物',r.x+r.w/2,r.y+464,32,'#e1e8df','center',500);
   text(ctx,'选择此项',r.x+r.w/2,r.y+r.h-58,30,'#ffe3a3','center');
  });

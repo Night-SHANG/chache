@@ -31,7 +31,7 @@ const tierNames = { entry: '入门', middle: '中段', late: '后段' } as const
 // Old saves remain readable, but all new outbound games start at the current selector.
 test('legacy state uses the new home selectors', () => {
   const controls = getUiControls(run(), view({ screen: 'menu' }));
-  assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','shop','settings']);
+  assert.deepEqual(controls.map(control=>control.action.type),['chooseInbound','chooseColorTier','helpMenu','shop','settings']);
   assert.match(controls[1].label,/出库模式/);
 });
 

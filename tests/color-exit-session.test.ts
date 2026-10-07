@@ -22,7 +22,7 @@ const action=(s:GameSession,value:unknown)=>s.action(value as UiAction);
 function switchTo(s:GameSession,variant:'orders'|'color_exit'){
  action(s,{type:'switchMode',variant});assert.equal(s.view.confirmation?.kind,'switchMode');s.action({type:'confirm'});
 }
-function color(s:GameSession){switchTo(s,'color_exit');assert.equal(s.state.mode,'color_exit');assert.equal(s.view.screen,'colorIntro');action(s,{type:'introStart'});assert.equal(s.view.screen,'game');}
+function color(s:GameSession){switchTo(s,'color_exit');assert.equal(s.state.mode,'color_exit');assert.equal(s.view.screen,'colorIntro');action(s,{type:'helpBack'});assert.equal(s.view.screen,'game');}
 
 test('switch confirmation cancel performs no storage writes or state changes',()=>{
  const h=host(),s=resumeStoredLegacy(h.port,{seed:123,mode:'tutorial'});s.hide();
@@ -32,11 +32,11 @@ test('switch confirmation cancel performs no storage writes or state changes',()
  assert.equal(JSON.stringify([...h.data]),raw);assert.equal(JSON.stringify(s.state),state);assert.equal(JSON.stringify(s.profile),profile);
 });
 
-test('explicit legacy mode switch preserves separate runs and intro consumes no commands or RNG',()=>{
+test('explicit legacy mode switch preserves separate runs and static help consumes no commands or RNG',()=>{
  const h=host(),s=resumeStoredLegacy(h.port,{seed:123,mode:'tutorial'});
  s.dispatch({type:'place',pieceId:s.state.candidates[0].id,origin:{x:1,y:1}});const old=checksum(legacyState(s));s.hide();const oldRaw=h.data.get(SAVE_KEYS.main);
  switchTo(s,'color_exit');assert.equal(s.state.rulesetVersion,4);assert.equal(s.view.screen,'colorIntro');const fresh=checksum(legacyState(s)),commands=s.state.commandIndex;
- s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(s.state.commandIndex,commands);action(s,{type:'introStart'});assert.equal(checksum(legacyState(s)),fresh);
+ s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(s.state.commandIndex,commands);action(s,{type:'helpBack'});assert.equal(checksum(legacyState(s)),fresh);
  s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});const next=checksum(legacyState(s));assert.notEqual(next,fresh);assert.ok(h.data.has(COLOR));assert.equal(h.data.get(SAVE_KEYS.main),oldRaw);
  switchTo(s,'orders');assert.equal(checksum(legacyState(s)),old);assert.equal(s.state.mode,'tutorial');
  switchTo(s,'color_exit');assert.equal(checksum(legacyState(s)),next);assert.equal(h.data.get(ACTIVE),'color_exit');

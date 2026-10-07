@@ -1,0 +1,17 @@
+import type {FinalEconomyBinding} from './final-economy-host-support.mjs';
+import type {GameRun,GameCommand,RunSpec} from '../src/domain/playable.ts';
+import type {StorageHost,StorageSnapshot} from './daily-guides-host-support.mjs';
+export function verifyStaticHelpBinding(binding:FinalEconomyBinding):void;
+export function staticHelpPaintLabels(control:{label:string;action:{type:string;branch?:string}},rulesetVersion:number):string[];
+export function isStaticHelpGridFill(fillStyle:unknown):boolean;
+export function staticHelpDiagramPaintLabels(topic:'inbound'|'outbound'):string[];
+export function selectHostRetirementControl<T extends {action:{type:string};disabled?:boolean}>(controls:T[]):T;
+export function assertStaticHelpGeometry(controls:{rect:{x:number;y:number;w:number;h:number};action:{type:string}}[],viewport:{w:number;h:number;safe?:number;dpr?:number},require44?:boolean):unknown;
+export function assertStaticHelpUnchanged(host:StorageHost,before:StorageSnapshot,beforeState:unknown,afterState:unknown):unknown;
+export function chooseNonAuthoredPlacement(state:GameRun):{pieceId:string;origin:{x:number;y:number}}|undefined;
+export function replayUnlockPrefixes(raw:Record<string,unknown>):{spec:RunSpec;initial:GameRun;crossings:{commands:GameCommand[];next:GameCommand;before:GameRun;after:GameRun}[]};
+export function rebindWinningTier18Trace(raw:Record<string,unknown>,tier:'hard'|'expert'):{spec:Extract<RunSpec,{family:'inbound'}>;state:import('../src/domain/v18/types.ts').InboundRunV18;states:import('../src/domain/v18/types.ts').InboundRunV18[];commands:GameCommand[];expectedModelChecksum:string;provenance:string};
+export function staticHelpResumeStorage(spec:RunSpec,commands?:GameCommand[],options?:Record<string,unknown>):Map<string,string>;
+export function constructedDaily18Boundary(epoch:number):{spec:Extract<RunSpec,{family:'inbound'}>;state:import('../src/domain/v18/types.ts').InboundRunV18;next:GameCommand;label:string};
+export function writeStaticHelpReport(out:string,report:Record<string,unknown>):Promise<void>;
+export function runStaticHelpHostQA(options?:{out?:string;expectedCommit?:string;expectedSourceSha256?:string;expectedGameJsSha256?:string;only?:string}):Promise<Record<string,unknown>>;

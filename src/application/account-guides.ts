@@ -1,6 +1,6 @@
 import type {AccountSnapshot,GuideProgress,GuideTrack} from './account-types.ts';
 import type {GameRun} from '../domain/playable.ts';
-import {isInboundV16} from '../domain/playable.ts';
+import {isTieredInbound} from '../domain/playable.ts';
 
 export const tutorialsEnabled=(account:Pick<AccountSnapshot,'tutorialsEnabled'>|null|undefined):boolean=>account?.tutorialsEnabled!==false;
 export const freshGuideProgress=():GuideProgress=>({learned:[],skipped:false,authoredStartConsumed:false});
@@ -9,7 +9,7 @@ export function guideProgress(account:Pick<AccountSnapshot,'guides'>,track:Guide
  return account.guides[track]??freshGuideProgress();
 }
 export function guideTrackFor(state:GameRun):GuideTrack {
- return state.mode==='color_exit'?'outbound':isInboundV16(state)&&state.mode==='daily'?'daily':'inbound';
+ return state.mode==='color_exit'?'outbound':isTieredInbound(state)&&state.mode==='daily'?'daily':'inbound';
 }
 /** Called only while preparing a real account transaction. */
 export function upgradeAccountGuides(account:AccountSnapshot):AccountSnapshot {

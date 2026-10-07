@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.12.0-dev",
+  "appVersion": "0.13.0-dev",
   "status": "LOCAL_VALIDATION_COMPLETE",
   "rulesets": [
     1,
@@ -17,263 +17,165 @@
     13,
     14,
     15,
-    16
+    16,
+    18
   ],
+  "currentRules": {
+    "inbound": 18,
+    "outbound": 12,
+    "outboundEndless": 13
+  },
+  "accountFormatVersion": 4,
+  "economyVersion": 2,
   "modes": {
     "inbound": {
-      "ruleset": 16,
-      "modes": [
-        "standard",
-        "daily",
-        "endless"
-      ],
-      "boardSizes": [
-        7
-      ],
-      "candidates": [
-        3
-      ],
-      "upgradeTypes": 0,
-      "upgradeChoices": 0,
+      "boardSize": 7,
+      "candidateCount": 3,
       "reservedEntries": 4,
       "placeableCells": 45,
-      "rushShape": "adaptive ordinary shape",
-      "rushProbabilityByStage": [
-        0,
-        0,
-        0,
-        0,
-        0
+      "fiveAndEndlessDifficulties": [
+        "hard",
+        "expert"
       ],
-      "dailyRushProbabilityByStage": [
+      "defaultDifficulty": "hard",
+      "dailyDifficulty": "hard",
+      "overtimeDifficulties": [
+        "hard",
+        "expert"
+      ],
+      "orderRanges": {
+        "hard": [
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "expert": [
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "scoreMultipliers": {
+        "hard": [
+          3,
+          2
+        ],
+        "expert": [
+          2,
+          1
+        ]
+      },
+      "scorePolicy": "floor cumulative rawScore once; coins use displayed score",
+      "rushFiveAndEndless": 0,
+      "rushDailyByStage": [
         0.06,
         0.06,
         0.06,
         0.06,
         1
       ],
-      "guidedIntro": "basic placement/order/route only; daily context guide does not change seeded supply",
-      "cleanupMode": "daily only; mandatory every opening",
-      "fiveShiftDifficulties": [
+      "cleanup": "daily opening mandatory:2 orders or6 successful placements",
+      "hazard": "retained unchanged from rules16; cancelled17 never active"
+    },
+    "outbound": {
+      "rules": [
+        12,
+        13
+      ],
+      "boardSize": 9,
+      "difficulties": [
+        "easy",
         "normal",
         "hard",
         "expert"
       ],
-      "overtimeDifficulties": [
-        "normal"
-      ]
-    },
-    "outbound_normal": {
-      "ruleset": 12,
-      "boardSize": 9,
-      "targetBatches": 30,
-      "reservedEntries": 1,
-      "placeableCells": 80,
-      "tools": true
-    },
-    "outbound_endless": {
-      "ruleset": 13,
-      "boardSize": 9,
-      "stageCap": 5,
-      "reservedEntries": 1,
-      "placeableCells": 80,
-      "tools": true
-    },
-    "legacy": {
-      "rulesets": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15
-      ],
       "unchanged": true
-    },
-    "inbound_endless": {
-      "ruleset": 16,
-      "boardSize": 7,
-      "reservedEntries": 4,
-      "placeableCells": 45,
-      "rushProbability": 0,
-      "stageCap": 5,
-      "normalContinuation": "rule16 standard continues same run with zero rush and no cleanup; legacy15 keeps its original6%"
     }
   },
-  "economyVersion": 2,
-  "accountFormatVersion": 4,
-  "simulationCases": 192,
-  "simulationCapped": 0,
-  "testsPassed": 1780,
-  "pythonTestsPassed": 22,
-  "sourceSha256": "01af61f9b622a678212c3fbc51ce4abaa9711885acc9da7df8b6b5e3e1ad4205",
-  "gameJsSha256": "3b5de6ab08041eaf7462a4ecc0bdec6bf2787443fb83b23561646db8d0c1009a",
-  "runtimeStatus": "Actual unmodified game.js native Canvas/wx host passed. Real browser, Windows GUI and WeChat device not run.",
-  "deliveryNotes": "docs/v0120-playtest.md",
-  "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
-  "mainModeUndecided": true,
-  "developerDiagnosticsDefault": false,
-  "outboundPresentation": {
-    "wholeGroupCollect": true,
-    "totalMsPerGroup": 1000,
-    "reducedMs": 80,
-    "chainPolicy": "one second per shipment"
+  "help": {
+    "homeEntry": true,
+    "pauseEntry": true,
+    "topics": [
+      "inbound",
+      "outbound"
+    ],
+    "dailyDetails": true,
+    "interactiveTutorials": false,
+    "automatic": false,
+    "switchOrPractice": false,
+    "exactRushText": "加急数字按后续成功放置次数倒数，不是倒计时"
   },
-  "rulesChangedFromV074": true,
-  "hostCasesPassed": 58,
-  "validatedCodeCommit": "a0df18b89c3cac3bed731d0e2350723557993ebe",
-  "rulesChangedFromV080": true,
-  "accountEnvelopeVersion": 1,
-  "simulationCensorReason": "192 seeded order-quantity cases ended naturally; bot performance is not a human win rate.",
-  "difficultyScoreMultipliers": {
-    "easy": "1/1",
-    "normal": "5/4",
-    "hard": "3/2",
-    "expert": "2/1"
+  "ports": {
+    "allFourVisibleAtOpening": true,
+    "inactive": "gray closed shutter",
+    "dispatchUnchanged": true
+  },
+  "tools": {
+    "maxTypes": 2,
+    "each": 1,
+    "dailyPersonalTools": false
   },
   "economy": {
     "inboundScoreDivisor": 120,
     "outboundScoreDivisor": 30,
-    "firstDailyWinTotalMultiplier": 3,
-    "dailyLock": "start-date bound after first win",
-    "infinite": "cumulative score entitlement minus already paid"
+    "dailyWinTotalMultiplier": 3,
+    "dateLock": "global across rules versions; opening date bound"
   },
-  "hostStaticImages": 235,
-  "hostContinuousFrames": 41,
-  "previousValidatedCommit": "e84de2ded3c8ffa7e513c1dfa4f48a3284ef2930",
+  "sourceSha256": "d5df34edd5c68754a5f9ccc4e2e3e48b9c59f2347497d487296555acc3a19142",
+  "gameJsSha256": "96c32399207d1a67cfe4c702d4360b6154b0159da56c83a3328504474256ad25",
+  "testsPassed": 1885,
+  "pythonTestsPassed": 22,
   "focusedProtocolTestsPassed": 15,
-  "harnessCommit": "fb5f8788220f641c038b64b984898bc3830e00ae",
-  "updatedAtBeijing": "2026-10-07T19:04:17+08:00",
-  "cleanup": {
-    "orders": 2,
-    "placements": 6,
-    "clearedOldWasteCellsPerTrigger": 1,
-    "threeOrderBranch": "isolated research only",
-    "appliesTo": "new daily only; legacy runs retain their own rules"
-  },
-  "cosmetics": {
-    "accountFormat": 4,
-    "permanentOwnership": true,
-    "freeOutlineOverlay": true,
-    "paidCoinPrices": {
-      "cargo.wood": 300,
-      "forklift.white": 600,
-      "theme.harbor": 900
-    },
-    "buyDoesNotEquip": true,
-    "retainedOnResultsReset": true
-  },
-  "guideTracks": [
-    "inbound",
-    "outbound",
-    "daily"
-  ],
-  "orderRangesByStage": [
-    [
-      3,
-      4
-    ],
-    [
-      3,
-      5
-    ],
-    [
-      4,
-      5
-    ],
-    [
-      4,
-      6
-    ],
-    [
-      5,
-      7
-    ]
-  ],
-  "quantityExperiment": "Three playable ordinary-five tiers; daily/endless stay normal. No inbound difficulty coin multiplier.",
-  "fiveShiftTiers": {
-    "normal": [
-      [
-        3,
-        4
-      ],
-      [
-        3,
-        5
-      ],
-      [
-        4,
-        5
-      ],
-      [
-        4,
-        6
-      ],
-      [
-        5,
-        7
-      ]
-    ],
-    "hard": [
-      [
-        4,
-        4
-      ],
-      [
-        4,
-        5
-      ],
-      [
-        5,
-        5
-      ],
-      [
-        5,
-        6
-      ],
-      [
-        6,
-        7
-      ]
-    ],
-    "expert": [
-      [
-        4,
-        5
-      ],
-      [
-        4,
-        6
-      ],
-      [
-        5,
-        6
-      ],
-      [
-        5,
-        7
-      ],
-      [
-        6,
-        8
-      ]
-    ]
-  },
-  "tutorialControls": "Settings enable switch preserves completion; inbound/outbound/daily isolated practice has zero wallet, score, date-ledger and guide-completion writes.",
+  "hostCasesPassed": 39,
+  "hostStaticImages": 124,
+  "validatedCodeCommit": "d744101ad58b3615453dbf965e16ae6e27d8f213",
   "validationCommits": {
-    "full1780": "4cd0b27faf7c385b7e9bed8562719f38365b2e5e",
-    "productReview": "a0df18b89c3cac3bed731d0e2350723557993ebe",
-    "host": "fb5f8788220f641c038b64b984898bc3830e00ae",
-    "productByteIdenticalAfterReview": true,
-    "laterChanges": "Test harness and documentation only; final protocol15 and lint/typecheck/preflight rerun."
-  }
+    "full1885": "318f5d8744cb85e093566f9666e1c6e5accbbfa9",
+    "host": "478b6e03a2dcc7ab6c41fc3b4ae5376b8cada913",
+    "laterChanges": "Harness corrections and documents only; product JavaScript remained byte-identical. Protocol15/lint/typecheck/preflight rerun."
+  },
+  "productSource": {
+    "algorithm": "sha256(sorted relative POSIX path + NUL + bytes + NUL)",
+    "fileCount": 145,
+    "sha256": "5a9bba1ab8307421082a7a38de20f2cea6b12ec7b2cad800877d17df5aabbce2"
+  },
+  "simulation": "No new balance simulation. Existing16 C/B traces reused only for functional replay equivalence, not new win-rate claims.",
+  "runtimeStatus": "Actual unmodified game.js native Canvas/wx host passed; real browser, Windows GUI and WeChat device NOT RUN.",
+  "deliveryNotes": "docs/v0130-playtest.md",
+  "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
+  "updatedAtBeijing": "2026-10-07T22:06:37.224794+08:00"
 }

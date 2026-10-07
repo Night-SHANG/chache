@@ -6,7 +6,7 @@ export function startInbound(session:GameSession,mode:'standard'|'endless'|'dail
  session.action({type:'newRun',mode});if(session.view.confirmation)session.action({type:'confirm'});
  if(session.view.screen==='guideOffer')session.action({type:'directStart'});
  if(session.view.screen==='prepareTools'){items.forEach(item=>session.action({type:'toggleItem',item}));session.action({type:'prepareNext'});}
- assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,16);assert.equal(session.state.commandIndex,0);
+ assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,18);assert.equal('inboundDifficulty' in session.state&&session.state.inboundDifficulty,'hard');assert.equal(session.state.commandIndex,0);
  assert.equal(session.state.phase,mode==='daily'?'cleanup':'input');assert.deepEqual(session.view.account?.run?.reserved,items);
  if(mode==='daily'){assert.deepEqual(session.state.candidates,[]);session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);}
  assert.equal(session.state.phase,'input');assert.equal(session.state.candidates.length,3);assert.equal(session.view.screen,'game');

@@ -82,7 +82,9 @@ test('scan supervisor commits paired batches only after a verified zero-exit wor
 });
 
 test('scan supervisor resumes an interrupted batch without recounting completed runs', () => {
- const f=fixture({workerTimeoutMs:200});
+ // This checks resume integrity; the first normal batch must survive suite startup contention.
+ // Dedicated timeout/termination tests below retain their short timing budgets.
+ const f=fixture();
  try {
   assert.notEqual(f.run('hang_second').status,0);
   assert.equal(f.json('checkpoint.json').completedRuns,3);

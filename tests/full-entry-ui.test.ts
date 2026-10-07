@@ -41,7 +41,7 @@ function surface() {
 test('menu exposes two mode selectors regardless of saved state', () => {
   for(const status of ['empty','saved','result'] as const){
     const controls=getUiControls(run(),view({screen:'menu',modeSlots:{orders:status,color_exit:status}}));
-    assert.deepEqual(controls.map(c=>c.action),[{type:'chooseInbound'},{type:'chooseColorTier'},{type:'shop'},{type:'settings'}]);
+    assert.deepEqual(controls.map(c=>c.action),[{type:'chooseInbound'},{type:'chooseColorTier'},{type:'helpMenu'},{type:'shop'},{type:'settings'}]);
     assert.match(controls[0].label,/入库模式/);assert.match(controls[1].label,/出库模式/);
   }
 });
@@ -79,12 +79,12 @@ test('settings show real Profile toggles and record recovery while appearance li
   let controls = getUiControls(run(), view({ screen: 'settings', profile }));
   assert.equal(controls.find(c => c.action.type === 'toggleSound')?.selected, false);
   assert.equal(controls.find(c => c.action.type === 'toggleMotion')?.selected, true);
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'toggleTutorials', 'openPracticeSelect', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'resetProfile', 'back']);
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', profile }));
   assert.doesNotMatch(output.words(), /仓库主题|叉车涂装|货箱样式/);
   profile.achievements = ['first_shipment', 'five_shifts'];
   controls = getUiControls(run(), view({ screen: 'settings', profile, profileStatus: '主记录不可用，可恢复上一份长期记录备份', profileNeedsRecovery: true }));
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'toggleTutorials', 'openPracticeSelect', 'recoverProfile', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
   assert.ok(controls.some(c => c.action.type === 'recoverProfile'));
   assert.ok(controls.some(c => c.action.type === 'resetProfile'));
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);
@@ -110,7 +110,7 @@ test('only v3 five-shift standard victory offers overtime; every terminal mode o
 test('controls are pure geometry and their visible captions share hit-test centers', () => {
   const state = result(), current = view({ screen: 'menu', canContinue: true, dailyLabel: '2031-04-07' });
   const before = JSON.stringify({ state, current });
-  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 4); render(output.ctx, state, current);
+  const controls = getUiControls(state, current), output = surface(); assert.equal(controls.length, 5); render(output.ctx, state, current);
   assert.equal(JSON.stringify({ state, current }), before);
   for (const control of controls) for(const line of control.label.split('\n')) assert.ok(output.labels.some(label => label.value === line && label.x === control.rect.x + control.rect.w / 2 && label.y > control.rect.y && label.y < control.rect.y + control.rect.h));
 });
@@ -118,13 +118,13 @@ test('controls are pure geometry and their visible captions share hit-test cente
 test('home shows achievements and real save status while inbound submenu owns scores and daily date', () => {
   const profile = createProfile(); profile.bestScores['standard.v3'] = { score: 7654, chain: 3 }; profile.bestScores['overtime.v3'] = { score: 19876, chain: 5 }; profile.achievements = ['first_shipment'];
   const account=upgradeAccountGuides(retainAccountCosmetics(upgradeEconomy(makeAccountFixture()))),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
-  account.profile.results={'inbound.standard.v16.normal.plain':bucket(1234),'inbound.standard.v16.normal.tools':bucket(2456),'inbound.endless.v16.plain':bucket(3456),'inbound.endless.v16.tools':bucket(4567)};
+  account.profile.results={'inbound.standard.v18.hard.plain':bucket(1234),'inbound.standard.v18.hard.tools':bucket(2456),'inbound.endless.v18.hard.plain':bucket(3456),'inbound.endless.v18.hard.tools':bucket(4567),'inbound.standard.v16.normal.plain':bucket(9911),'inbound.endless.v16.plain':bucket(9922)};
   assertAccountSnapshot(account);
   const current=view({screen:'menu',profile,account,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
-  render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu',inboundDifficulty:'normal'});
+  render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu',inboundDifficulty:'hard'});
   assert.match(home.words(), /首次出货/);assert.doesNotMatch(home.words(), /无在线排行|本地记录模式/);
-  assert.match(inbound.words(), /普通五班 · 最高分 1,234/);assert.match(inbound.words(), /带工具 2,456/);assert.match(inbound.words(), /最高分 3,456 · 工具 4,567/);assert.doesNotMatch(inbound.words(), /7,654|19,876|加班最高分/);assert.match(inbound.words(), /2031-04-07/);
-  const legacyOnly=surface();render(legacyOnly.ctx,run(),{...current,account:null,screen:'inboundMenu',inboundDifficulty:'normal'});assert.match(legacyOnly.words(),/普通五班 · 最高分 暂无/);assert.doesNotMatch(legacyOnly.words(),/7,654|19,876/);
+  assert.match(inbound.words(), /困难五班/);assert.match(inbound.words(), /最高分 1,234/);assert.match(inbound.words(), /使用道具最高分 2,456/);assert.match(inbound.words(), /最高分 3,456/);assert.match(inbound.words(), /使用道具最高分 4,567/);assert.doesNotMatch(inbound.words(), /7,654|19,876|9,911|9,922|加班最高分/);assert.match(inbound.words(), /2031-04-07/);
+  const legacyOnly=surface();render(legacyOnly.ctx,run(),{...current,account:null,screen:'inboundMenu',inboundDifficulty:'hard'});assert.match(legacyOnly.words(),/困难五班/);assert.match(legacyOnly.words(),/最高分 暂无/);assert.doesNotMatch(legacyOnly.words(),/7,654|19,876/);
   assert.match(inbound.words(), /每日挑战/);assert.doesNotMatch(inbound.words(), /北京时间|本地每日/);
   for(const output of [home,inbound]){assert.match(output.words(), /保存失败，尚未持久化/);assert.doesNotMatch(output.words(), /云同步/);}
 });
@@ -135,15 +135,15 @@ test('confirmation copy explains resets and retains two explicit cancel/confirm 
   assert.match(output.words(), /取消/); assert.match(output.words(), /确认重置/);
 });
 
-test('v3 tutorial uses one shared tray, two food placements and the south-to-north route-clearing lesson', () => {
+test('saved v3 tutorial board retains its shared tray and cargo through the historical prefix without teaching copy', () => {
   let state = createRun(7, 'tutorial', 3);
   const expected = [/把食品拖进虚线框/, /再接上1件食品，凑够订单/, /补上机械，清路后继续出货/];
   for (let step = 0; step < 3; step++) {
     const output = surface(); render(output.ctx, state, view());
-    assert.match(output.words(), expected[step]); assert.equal(state.candidates.length, 1);
+    assert.doesNotMatch(output.words(), expected[step]); assert.equal(state.candidates.length, 1);
     const r = getTrayRects(1)[0];
     assert.ok(output.labels.some(label => label.value === (step === 2 ? '机械' : '食品') && label.x === r.x + r.w / 2));
-    if (step === 2) assert.ok(output.labels.some(label => label.value === '机械 ×1' && label.y > L.board.y + 4 * L.board.cell));
+    if (step === 2) assert.equal(output.labels.some(label => label.value === '机械 ×1' && label.y > L.board.y + 4 * L.board.cell),false);
     state = applyCommand(state, { type: 'place', pieceId: state.candidates[0].id, origin: step === 0 ? { x: 1, y: 1 } : step === 1 ? { x: 3, y: 1 } : { x: 3, y: 4 } }).state;
   }
 });
@@ -217,14 +217,14 @@ test('debug overlay presents paginated formal fields without extending below its
  const player=surface();render(player.ctx,run(),view({debug:true}));assert.doesNotMatch(player.words(),/rng_state|last_checksum|下一页/);
 });
 
-test('each teaching step uses one short board instruction and offers a skip control', () => {
+test('each saved tutorial step hides retired board instructions and skip controls', () => {
  let state=createRun(7,'tutorial',3);
  const expected=['把食品拖进虚线框。','再接上1件食品，凑够订单。','补上机械，清路后继续出货。'];
  for(let step=0;step<3;step++){
   const output=surface();render(output.ctx,state,view());
-  assert.deepEqual(output.labels.filter(label=>expected.includes(label.value)).map(label=>label.value),[expected[step]]);
-  assert.ok(output.labels.some(label=>label.value===expected[step]&&label.y===L.boardHint.y+L.boardHint.h/2));
-  assert.deepEqual(getUiControls(state,view()).map(control=>control.action),[{type:'skipTutorial'}]);
+  assert.deepEqual(output.labels.filter(label=>expected.includes(label.value)).map(label=>label.value),[]);
+  assert.equal(output.labels.some(label=>label.value===expected[step]&&label.y===L.boardHint.y+L.boardHint.h/2),false);
+  assert.deepEqual(getUiControls(state,view()).map(control=>control.action),[]);
   assert.doesNotMatch(output.words(),/第[123]步|北门要3件食品|北门被机械挡住/);
   state=applyCommand(state,{type:'place',pieceId:state.candidates[0].id,origin:[{x:1,y:1},{x:3,y:1},{x:3,y:4}][step]}).state;
  }

@@ -126,16 +126,16 @@ test('chain and board hint rows do not intersect the adjacent frame geometry', (
   assert.ok(L.boardHint.y + L.boardHint.h < 525, 'hint stays above north gate');
 });
 
-test('first two tutorial placements have visible actionable instructions', async () => {
+test('first two saved tutorial boards retain cargo labels and hide retired instructions', async () => {
   const { applyCommand } = await import('../src/domain/engine.ts');
   const initial = createRun(10, 'tutorial');
   const first = canvasSurface(); render(first.ctx, initial, baseView());
-  assert.ok(first.labels.includes('把食品拖进虚线框。'));
-  assert.ok(first.labels.includes('食品 ×2'));
+  assert.equal(first.labels.includes('把食品拖进虚线框。'),false);
+  assert.ok(first.labels.includes('食品'));assert.equal(first.labels.includes('食品 ×2'),false);
   const placed = applyCommand(initial, { type: 'place', pieceId: initial.candidates[0].id, origin: { x: 1, y: 1 } }).state;
   const second = canvasSurface(); render(second.ctx, placed, baseView());
-  assert.ok(second.labels.includes('再接上1件食品，凑够订单。'));
-  assert.ok(second.labels.includes('食品 ×1'));
+  assert.equal(second.labels.includes('再接上1件食品，凑够订单。'),false);
+  assert.ok(second.labels.includes('食品'));assert.equal(second.labels.includes('食品 ×1'),false);
 });
 
 

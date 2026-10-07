@@ -2,7 +2,7 @@ import {INBOUND_GUIDE_V16} from './inbound-guide-v16.ts';
 import {pieceCellsV16,docksV16} from '../domain/v16/board.ts';
 import type { GuideProgress, GuideStep, GuideTrack } from './account-types.ts';
 import type { GameCommand, GameRun, GameStepResult } from '../domain/playable.ts';
-import { isInboundRun, isInboundV9, isInboundV11, isInboundV14, isInboundV15, isInboundV16, isOutboundToolsRun } from '../domain/playable.ts';
+import { isInboundRun, isInboundV9, isInboundV11, isInboundV14, isInboundV15, isInboundV16, isTieredInbound, isOutboundToolsRun } from '../domain/playable.ts';
 import type { Cell, Command, Point } from '../domain/types.ts';
 import { SHAPES } from '../domain/rulesets/v1/content.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
@@ -45,7 +45,7 @@ const TEXT: Record<GuideStep, string> = {
 };
 
 function requiredSteps(track: GuideTrack, version: number): readonly GuideStep[] {
-  if(track==='inbound'&&version===16)return ['place','order','route'];
+  if(track==='inbound'&&(version===16||version===18))return ['place','order','route'];
   return track === 'inbound' && (version === 11||version===14||version===15) ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
 }
 
@@ -71,18 +71,18 @@ export function advanceGuide(track: GuideTrack, progress: GuideProgress, before:
   const learned = new Set(progress.learned);
   const teach = (step: GuideStep): void => { learned.add(step); };
   if (track === 'inbound'||track==='daily') {
-    if(track==='daily'&&(!isInboundV16(before)||before.mode!=='daily'))return progress;
+    if(track==='daily'&&(!isTieredInbound(before)||before.mode!=='daily'))return progress;
     if (!isInboundRun(before) || !isInboundRun(result.state)) return progress;
     const after = result.state;
     if (isInboundV9(before) && isInboundV9(after) && command.type === 'upgrade' && before.phase === 'upgrade' && before.upgradeChoices.includes(command.upgradeId as keyof typeof before.levels)
       && result.events.some(event => event.type === 'upgradeChosen' && event.upgradeId === command.upgradeId && after.levels[event.upgradeId] === before.levels[event.upgradeId] + 1)) teach('upgrade');
-    if ((track==='daily'||!isInboundV16(before))&&command.type === 'chooseCleanup' && before.phase === 'cleanup' && before.cleanup === null && after.cleanup?.branch === command.branch
+    if ((track==='daily'||!isTieredInbound(before))&&command.type === 'chooseCleanup' && before.phase === 'cleanup' && before.cleanup === null && after.cleanup?.branch === command.branch
       && result.events.some(event => event.type === 'cleanupChosen' && event.branch === command.branch)) teach('sweepChoice');
     if (command.type === 'place') {
       const piece = before.candidates.find(candidate => candidate.id === command.pieceId);
       const placed = result.events.find(event => event.type === 'placed' && event.pieceId === command.pieceId);
       if (!piece || !placed || placed.type !== 'placed') return progress;
-      const cells = (isInboundV16(before)?pieceCellsV16(piece):pieceCellsV9(piece)).map(point => (command.origin.y + point.y) * before.boardSize + command.origin.x + point.x);
+      const cells = (isTieredInbound(before)?pieceCellsV16(piece):pieceCellsV9(piece)).map(point => (command.origin.y + point.y) * before.boardSize + command.origin.x + point.x);
       if (cells.length !== placed.cells.length || !cells.every((cell, index) => cell === placed.cells[index])) return progress;
       if(track==='inbound')teach('place');
       const observed = [...before.board];
@@ -92,15 +92,15 @@ export function advanceGuide(track: GuideTrack, progress: GuideProgress, before:
           const order = before.orders.find(order => order.id === event.orderId && order.cargo === event.cargo);
           if (order && event.units >= order.amount && after.completedOrders > before.completedOrders) teach('order');
           const entry = event.gateId === 'dock.side' && before.levels.side_gate ? { x: 0, y: before.boardSize - 1 }
-            : (isInboundV16(before)?docksV16(before):docksV9(before)).find(dock => dock.id === event.gateId)?.entry;
+            : (isTieredInbound(before)?docksV16(before):docksV9(before)).find(dock => dock.id === event.gateId)?.entry;
           if (order && entry && validPath(event.path, observed, event.cells, before.boardSize, entry)) teach('route');
           for (const cell of [...event.cells, ...event.extraClearedCells]) observed[cell] = null;
         }
-        if ((track==='daily'||!isInboundV16(before))&&event.type === 'rushTick' && event.cells.some(tick => {
+        if ((track==='daily'||!isTieredInbound(before))&&event.type === 'rushTick' && event.cells.some(tick => {
           const old = before.cellTraits[tick.cell], current = after.cellTraits[tick.cell];
           return old?.kind === 'rush' && current?.kind === 'rush' && old.remaining === tick.remaining + 1 && current.remaining === tick.remaining && (tick.remaining === 2 || tick.remaining === 1);
         })) teach('rushTimer');
-        if (track==='inbound'&&!isInboundV16(before)&&event.type === 'rushExpired' && event.cells.some(cell => before.cellTraits[cell]?.kind === 'rush' && before.cellTraits[cell]?.remaining === 1 && after.cellTraits[cell]?.kind === 'waste' && after.board[cell] === before.board[cell])) teach('expired');
+        if (track==='inbound'&&!isTieredInbound(before)&&event.type === 'rushExpired' && event.cells.some(cell => before.cellTraits[cell]?.kind === 'rush' && before.cellTraits[cell]?.remaining === 1 && after.cellTraits[cell]?.kind === 'waste' && after.board[cell] === before.board[cell])) teach('expired');
       }
     }
   } else {
@@ -164,7 +164,7 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
 export function guideOverlay(track: GuideTrack, progress: GuideProgress, state: GameRun): GuideOverlay | null {
   if (progress.skipped || isGuideComplete(track, progress, state.rulesetVersion) || state.phase === 'result') return null;
   if(track==='daily'){
-    if(!isInboundV16(state)||state.mode!=='daily')return null;
+    if(!isTieredInbound(state)||state.mode!=='daily')return null;
     if(state.phase==='cleanup')return {step:'sweepChoice',text:''};
     return state.phase==='input'&&!progress.learned.includes('rushTimer')&&state.cellTraits.some(trait=>trait?.kind==='rush')?{step:'rushTimer',text:'加急数字按后续成功放置倒数，不是秒'}:null;
   }
@@ -177,7 +177,7 @@ export function guideOverlay(track: GuideTrack, progress: GuideProgress, state: 
   if (expected?.type === 'place') {
     if (track === 'outbound') step = (['place', 'colorExit', 'colorGroup', 'route', 'mixedRemainder'] as const)[state.commands.length] ?? step;
     if (isInboundRun(state) && state.candidates.find(piece => piece.id === expected.pieceId)?.trait === 'rush') step = 'rushTimer';
-    return { step, text: isInboundV16(state)?step==='place'?'拖动提示货件，放到虚线格。':'同图标相连凑单，留空路让叉车接货':TEXT[step], selectedPieceId: expected.pieceId, allowedOrigins: [{ ...expected.origin }], expectedCommand: { ...expected, origin: { ...expected.origin } } };
+    return { step, text: isTieredInbound(state)?step==='place'?'拖动提示货件，放到虚线格。':'同图标相连凑单，留空路让叉车接货':TEXT[step], selectedPieceId: expected.pieceId, allowedOrigins: [{ ...expected.origin }], expectedCommand: { ...expected, origin: { ...expected.origin } } };
   }
   return { step, text: TEXT[step], ...(expected ? { expectedCommand: { ...expected } } : {}) };
 }

@@ -36,6 +36,6 @@ test('stored developer comparison runs retain their fixed seed while preferences
  const s=new GameSession(h.platform,{seed:17,mode:'standard',developerMode:true});s.resume();const entry=h.data.get(saveKeysFor('color_exit_entry').main);s.action({type:'comparisonSeedNext'});assert.equal(s.view.comparisonSeed,18);assert.equal(h.data.get(saveKeysFor('color_exit_entry').main),entry);
  for(const tier of ['middle','entry'] as const){s.action({type:'switchMode',variant:`color_exit_${tier}`});s.action({type:'confirm'});assert.equal(legacyState(s).seed,17);assert.equal(s.state.rulesetVersion,5);}
 });
-test('account daily same-day restarts retain their actual v16 challenge and seed',()=>{
- const h=host(),s=new GameSession(h.platform,{seed:17,mode:'standard'});startCurrentRun(s,'daily');const seed=s.state.seed,day=s.view.account?.run?.identity.challengeDay,serial=s.state.runSerial;assert.equal(s.state.rulesetVersion,16);assert.equal(s.view.account?.run?.identity.challengeDay,'2026-10-06');startCurrentRun(s,'daily');assert.equal(s.state.seed,seed);assert.equal(s.view.account?.run?.identity.challengeDay,day);assert.ok(s.state.runSerial!>serial!);
+test('account daily same-day restarts retain their actual v18 hard challenge and seed',()=>{
+ const h=host(),s=new GameSession(h.platform,{seed:17,mode:'standard'});startCurrentRun(s,'daily');const seed=s.state.seed,day=s.view.account?.run?.identity.challengeDay,serial=s.state.runSerial;assert.equal(s.state.rulesetVersion,18);assert.equal(s.view.account?.run?.identity.challengeDay,'2026-10-06');startCurrentRun(s,'daily');assert.equal(s.state.seed,seed);assert.equal(s.view.account?.run?.identity.challengeDay,day);assert.ok(s.state.runSerial!>serial!);
 });

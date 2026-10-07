@@ -74,9 +74,9 @@ test('host cleanup oracle checks individual painted lines rather than its combin
  assert.deepEqual(hostControlPaintLabels({...control,action:{type:'chooseCleanup',branch:'orders'}},16),['按单清扫','每完成2单，','清除1格废弃物']);
  assert.deepEqual(hostControlPaintLabels({label:'300金币 · 购买',action:{type:'purchaseCosmetic'}},16),['300金币','购买']);
 });
-test('animation probe targets the current incomplete or completed practice layer',()=>{
+test('historical practice animation probe cannot target removed current practice exits',()=>{
  for(const kind of ['outbound','daily'] as const){let p=createPractice(kind);if(kind==='daily')p=applyPracticeCommand(p,{type:'chooseCleanup',branch:'orders'}).practice;while(!p.completed){const command=practiceOverlay(p)?.expectedCommand;assert.ok(command);const result=applyPracticeCommand(p,command);p=result.practice;if(result.events.some(e=>e.type==='shipment'))break;}
-  assert.equal(p.completed,kind==='outbound');assert.deepEqual(practiceAnimationExitTarget(p,true),kind==='outbound'?null:{x:427,y:177});assert.deepEqual(practiceAnimationExitTarget(p,false),kind==='outbound'?{x:540,y:1707}:{x:427,y:177});
+  assert.equal(p.completed,kind==='outbound');assert.deepEqual(practiceAnimationExitTarget(p,true),null);assert.deepEqual(practiceAnimationExitTarget(p,false),null);
  }
 });
 test('transient animation capture excludes the next settled guide while preserving its later paint check',()=>{

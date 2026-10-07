@@ -1,3 +1,4 @@
+import {isInboundDifficultyV18} from '../domain/v18/content.ts';
 import {guideProgress,guideTrackFor,upgradeAccountGuides} from './account-guides.ts';
 import {INBOUND_GUIDE_V16} from './inbound-guide-v16.ts';
 import { applyPlayableCommand, createPlayableRun, isInboundRun, isToolRun, isOutboundToolsRun, type GameCommand, type GameEvent, type GameRun, type GameStepResult, type RunSpec } from '../domain/playable.ts';
@@ -78,7 +79,7 @@ function legacyProfile(account: AccountSnapshot): Profile {
 export function accountDisplayProfile(account: Readonly<AccountSnapshot>): Profile {
   const profile = legacyProfile(account);
   // Frozen inbound achievements cover ordinary/daily orders; other score families stay independent.
-  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.)(plain|tools)$/.test(key));
+  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.|(standard|daily)\.v18\.(hard|expert)\.)(plain|tools)$/.test(key));
   const sum = (left: number, right: number): number => Math.min(Number.MAX_SAFE_INTEGER, left + right);
   const units = buckets.reduce((total, [, bucket]) => sum(total, bucket.units), 0);
   const wins = buckets.reduce((total, [, bucket]) => sum(total, bucket.wins), 0);
@@ -126,12 +127,12 @@ function validateRequest(request: unknown, generation: number): asserts request 
     && fields[request.type].every(field => owns(request, field)), '账户请求结构无效');
   if ('runId' in request) requireValue(identifier(request.runId), '本局标识无效');
 }
-function dailyIdentity(time: number, version: 9 | 11 | 14 | 15 | 16): { day: string; seed: number } {
+function dailyIdentity(time: number, version: 9 | 11 | 14 | 15 | 16 | 18): { day: string; seed: number } {
   const { day, seed } = localDailyChallenge(time, version);
   return { day, seed };
 }
 /** Current Shanghai-date availability; an existing run always keeps its own start day. */
-export function accountDailyAvailability(account:Readonly<AccountSnapshot>|null,time:number,rulesetVersion:9|11|14|15|16=16):{day:string;seed:number;completed:boolean;available:boolean} {
+export function accountDailyAvailability(account:Readonly<AccountSnapshot>|null,time:number,rulesetVersion:9|11|14|15|16|18=18):{day:string;seed:number;completed:boolean;available:boolean} {
  const daily=dailyIdentity(time,rulesetVersion),completed=account!==null&&dailyRewardRecord(account,daily.day).completedRunId!==null;
  return {...daily,completed,available:!completed};
 }
@@ -143,7 +144,7 @@ function validateActive(run: AccountRun): void {
   assertGameRun(state);
   if (isInboundRun(state)) {
     requireValue(state.mode === (id.mode === 'guided' ? 'standard' : id.mode) && state.guided === (id.mode === 'guided')
-      && id.difficultyId === undefined && (state.rulesetVersion!==16||state.inboundDifficulty===id.inboundDifficulty), '入库玩法身份不一致');
+      && id.difficultyId === undefined && ((state.rulesetVersion!==16&&state.rulesetVersion!==18)||state.inboundDifficulty===id.inboundDifficulty), '入库玩法身份不一致');
   } else {
     requireValue(state.mode === 'color_exit' && state.difficultyId === id.difficultyId && (isOutboundToolsRun(state)||run.reserved.length === 0)
       && (state.rulesetVersion === 10 || state.rulesetVersion === 13 ? id.mode === 'outboundEndless' : id.mode === 'outbound' || id.mode === 'outboundGuided' && id.difficultyId === 'easy'), '出库玩法身份不一致');
@@ -219,7 +220,8 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
     requireValue(result.state.rulesetVersion === before.state.rulesetVersion && result.state.runConfigId === before.state.runConfigId
       && result.state.seed === before.state.seed && result.state.mode === before.state.mode && result.state.runSerial === before.identity.serial
       && ('difficultyId' in result.state ? result.state.difficultyId : undefined) === ('difficultyId' in before.state ? before.state.difficultyId : undefined)
-      && (!isInboundRun(before.state) || isInboundRun(result.state) && result.state.guided === before.state.guided), 'Domain改变了本局身份');
+      && (!isInboundRun(before.state) || isInboundRun(result.state) && result.state.guided === before.state.guided
+        && (!(before.state.rulesetVersion===16||before.state.rulesetVersion===18)||'inboundDifficulty' in result.state&&result.state.inboundDifficulty===before.state.inboundDifficulty)), 'Domain改变了本局身份');
     const expectedCommands = [...before.state.commands, command];
     requireValue(canonicalStringify(result.state.commands) === canonicalStringify(expectedCommands), 'Domain没有记录已接受指令');
     let run: AccountRun = { ...before, state: { ...result.state, runSerial: before.identity.serial } as GameRun };
@@ -257,12 +259,13 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       requireValue(object(intent) && keys(intent, ['spec', 'items', 'guide', 'cleanupBranch']) && object(intent.spec)
         && Array.isArray(intent.items) && intent.items.length <= 2 && new Set(intent.items).size === intent.items.length
         && intent.items.every(item => ITEM_IDS.includes(item)) && ['guided', 'direct'].includes(intent.guide), '开局准备无效');
-      const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? spec.rulesetVersion===16&&spec.mode==='daily'?'daily':'inbound' : 'outbound', guided = intent.guide === 'guided';
-      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges',...(spec.rulesetVersion===16?['inboundDifficulty']:[])]) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16)
+      const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? (spec.rulesetVersion===16||spec.rulesetVersion===18)&&spec.mode==='daily'?'daily':'inbound' : 'outbound', guided = intent.guide === 'guided';
+      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges',...(spec.rulesetVersion===16||spec.rulesetVersion===18?['inboundDifficulty']:[])]) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16||spec.rulesetVersion===18)
         && ['standard', 'daily', 'endless'].includes(spec.mode) && spec.guided === guided
         : spec.family === 'outbound' && keys(spec, ['family', 'variant', 'rulesetVersion', 'seed', 'difficultyId',...(spec.rulesetVersion===12||spec.rulesetVersion===13?['toolCharges']:[])])
           && (spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) || spec.variant === 'endless' && (spec.rulesetVersion === 10||spec.rulesetVersion===13))
           && (!(spec.rulesetVersion===12||spec.rulesetVersion===13)||owns(spec,'toolCharges')&&validToolChargesV12(spec.toolCharges)), '开局玩法身份不匹配');
+      if(inbound&&spec.rulesetVersion===18)requireValue(!guided&&spec.guided===false&&(spec.inboundDifficulty===undefined||isInboundDifficultyV18(spec.inboundDifficulty))&&(spec.mode!=='daily'||spec.inboundDifficulty===undefined||spec.inboundDifficulty==='hard'),'规则18仅支持直接困难或专业开局，每日固定困难');
       requireValue(!guided || !guideProgress(account,track).authoredStartConsumed && !guideProgress(account,track).skipped && !isGuideComplete(track, guideProgress(account,track), spec.rulesetVersion), '首次辅助开局已经使用');
       requireValue(!guided || (inbound ? spec.mode === 'standard' : spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) && spec.difficultyId === 'easy'), '该模式不使用首次辅助开局');
       requireValue(intent.items.length === 0 || !guided && (inbound ? spec.mode !== 'daily' : spec.rulesetVersion===12||spec.rulesetVersion===13), '该模式不能使用个人工具');
@@ -279,7 +282,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       const identity: RunIdentity = {
         runId: `${account.epoch}.${serial}`, serial, rulesetVersion: resolved.rulesetVersion, runConfigId: state.runConfigId, economyVersion: resolved.rulesetVersion>=12?2:1,
         mode: inbound ? guided ? 'guided' : spec.mode : guided ? 'outboundGuided' : spec.variant === 'normal' ? 'outbound' : 'outboundEndless',
-        ...(isInboundRun(state)&&state.rulesetVersion===16?{inboundDifficulty:state.inboundDifficulty}:{}), ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
+        ...(isInboundRun(state)&&(state.rulesetVersion===16||state.rulesetVersion===18)?{inboundDifficulty:state.inboundDifficulty}:{}), ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
       };
       state = { ...state, runSerial: serial, maxOccupancy: 0, elapsedMs: 0 } as GameRun;
       let next: AccountSnapshot = { ...account, inventory, nextRunSerial: serial + 1,
@@ -347,7 +350,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       if (request.type === 'saveElapsed') requireValue(safe(elapsedMs), '计时必须是单调不减的安全整数');
       if (elapsedMs !== undefined) {
         requireValue(safe(elapsedMs) && elapsedMs >= (active.state.elapsedMs ?? 0), '计时必须是单调不减的安全整数');
-        requireValue(![11,14,15,16].includes(active.state.rulesetVersion) || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
+        requireValue(![11,14,15,16,18].includes(active.state.rulesetVersion) || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
         if (elapsedMs !== (active.state.elapsedMs ?? 0)) account = { ...account, run: { ...active, state: { ...active.state, elapsedMs } as GameRun } };
       }
       if (request.type === 'saveElapsed') return account;

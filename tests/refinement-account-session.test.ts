@@ -29,13 +29,13 @@ test('saved15 standard/daily and14 endless sessions show the actual saved pendin
     assert.equal(s.view.message, '');
     s.action({ type: 'chooseCleanup', branch: 'orders' });
     assert.equal(s.state.commandIndex, 1);
-    assert.equal(s.view.message, '已选择按单清扫');
+    assert.equal(s.view.message, '');
     h.time(60500); s.tick(60500);
     assert.equal(s.view.elapsed, 500);
   }
 });
 
-test('cleanup acknowledgement copy preserves reducer output and respects skipped or learned hints', () => {
+test('cleanup acknowledgement preserves reducer output and learned facts without retired teaching copy', () => {
   for (const status of ['new', 'skipped', 'learned'] as const) {
     const h = sessionHost({ guides: { inbound: { learned: status === 'learned' ? ['sweepChoice'] : [], skipped: status === 'skipped', authoredStartConsumed: false }, outbound: { learned: [], skipped: false, authoredStartConsumed: false } } });
     const s = pending(h), wallet = s.view.account!.wallet, command = { type: 'chooseCleanup' as const, branch: 'placements' as const };
@@ -48,8 +48,7 @@ test('cleanup acknowledgement copy preserves reducer output and respects skipped
     assert.equal(s.view.account?.guides.inbound.skipped, status === 'skipped');
     assert.deepEqual(s.view.account?.guides.inbound.learned, ['sweepChoice']);
     assert.equal(s.view.account?.guides.outbound.learned.length, 0);
-    if (status === 'new') assert.equal(s.view.message, '已选择定期清扫');
-    else assert.doesNotMatch(s.view.message, /已选择|空触发|不积存|本局不能改选/);
+    assert.doesNotMatch(s.view.message, /已选择|空触发|不积存|本局不能改选/);assert.equal(s.view.guide,null);
   }
 });
 

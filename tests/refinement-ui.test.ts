@@ -74,11 +74,11 @@ test('toolbox header remains visible during tool targeting with the real remaini
  const out=surface(s,view({toolSelection:{item:'rotate',pieceId:null,cells:[],quarterTurns:0}}));assert.ok(out.labels.includes('工具箱'));
 });
 
-test('new inbound selector reads standard and endless v16 buckets while keeping old records untouched',()=>{
+test('new inbound selector reads standard and endless hard18 buckets while keeping old records untouched',()=>{
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
  account.profile.results={'inbound.standard.v11.plain':bucket(222),'inbound.endless.v11.plain':bucket(333),'inbound.standard.v11.tools':bucket(444),'inbound.endless.v11.tools':bucket(555),'inbound.standard.v9.plain':bucket(999),'inbound.standard.v14.plain':bucket(888),'inbound.standard.v14.tools':bucket(777),'inbound.standard.v15.plain':bucket(666),'inbound.standard.v15.tools':bucket(555)};
- Object.assign(account.profile.results,{'inbound.standard.v16.normal.plain':bucket(122),'inbound.endless.v16.plain':bucket(133),'inbound.standard.v16.normal.tools':bucket(144),'inbound.endless.v16.tools':bucket(155)});
- const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/普通五班 · 最高分 122/);assert.match(out.words,/带工具 144/);assert.doesNotMatch(out.words,/222|333|444|555|777|888|999/);assert.equal(JSON.stringify(account),before);
+ Object.assign(account.profile.results,{'inbound.standard.v18.hard.plain':bucket(122),'inbound.endless.v18.hard.plain':bucket(133),'inbound.standard.v18.hard.tools':bucket(144),'inbound.endless.v18.hard.tools':bucket(155),'inbound.standard.v16.normal.plain':bucket(991),'inbound.endless.v16.plain':bucket(992)});
+ const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/困难五班/);assert.match(out.words,/最高分 122/);assert.match(out.words,/使用道具最高分 144/);assert.match(out.words,/最高分 133/);assert.match(out.words,/使用道具最高分 155/);assert.doesNotMatch(out.words,/222|333|444|555|777|888|999|991|992/);assert.equal(JSON.stringify(account),before);
 });
 
 import {INBOUND_GUIDE_V11} from '../src/application/inbound-guide-v11.ts';
@@ -86,7 +86,7 @@ import {advanceGuide,isGuideComplete} from '../src/application/tutorials.ts';
 import {applyPlayableCommand} from '../src/domain/playable.ts';
 import type {GuideProgress} from '../src/application/account-types.ts';
 
-test('real completed v11 tutorial result offers outbound while old v9 still requires upgrade learning',()=>{
+test('completed historical v11 and v9 tutorial facts no longer add an outbound result CTA',()=>{
  for(const commands of Object.values(INBOUND_GUIDE_V11.branches)){
   let state:GameRun=createRunV11({seed:INBOUND_GUIDE_V11.seed,mode:'standard',guided:true});
   let progress:GuideProgress={learned:[],skipped:false,authoredStartConsumed:true};
@@ -94,10 +94,10 @@ test('real completed v11 tutorial result offers outbound while old v9 still requ
   assert.equal(isGuideComplete('inbound',progress,11),true);assert.equal(progress.learned.includes('upgrade'),false);
   const finished=applyPlayableCommand(state,{type:'finish'});assert.equal(finished.error,undefined);assert.equal(finished.state.phase,'result');
   const account=makeAccountFixture();account.guides.inbound=progress;
-  assert.ok(getUiControls(finished.state,view({account})).some(c=>c.action.type==='chooseColorTier'));
+  assert.equal(getUiControls(finished.state,view({account})).some(c=>c.action.type==='chooseColorTier'),false);
   const old=createRunV9({seed:1,mode:'standard'});old.phase='result';old.result='failed';old.endReason='blocked';
   assert.equal(getUiControls(old,view({account})).some(c=>c.action.type==='chooseColorTier'),false);
-  account.guides.inbound={...progress,learned:[...progress.learned,'upgrade']};assert.ok(getUiControls(old,view({account})).some(c=>c.action.type==='chooseColorTier'));
+  account.guides.inbound={...progress,learned:[...progress.learned,'upgrade']};assert.equal(getUiControls(old,view({account})).some(c=>c.action.type==='chooseColorTier'),false);
  }
 });
 
