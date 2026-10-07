@@ -14,14 +14,15 @@ import { CARGO, DOCKS, SHAPES, UPGRADES, RULES_V4_CONFIG } from '../domain/conte
 import { colorExitCargoPose } from './color-exit-motion.ts';
 import {drawColorExitCards,colorExitBoardHint,drawColorExitGates,drawColorExitRoutes,drawColorExitShipment,drawColorExitHelpDiagram,drawMixedRemainder} from './color-exit-renderer.ts';
 import {growthFeedback} from './growth-feedback.ts';
-import {ITEM_NAMES,ITEM_PRICES,resultEarnedCoins} from './economy-ui.ts';
+import {TOOL_ITEMS,TOOLBOX_RECT,CLEANUP_RECTS,ITEM_EFFECTS,economyCardRect,toolboxVisible,toolStatus,ITEM_NAMES,ITEM_PRICES,resultEarnedCoins} from './economy-ui.ts';
 import {UPGRADES_V9} from '../domain/v9/content.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
-import {pieceCellsV9} from '../domain/v9/board.ts';
-import {isInboundV9,isOutboundEndlessV10} from '../domain/playable.ts';
-import type {GameRun,GameShipment} from '../domain/playable.ts';
-import type {PieceV9} from '../domain/v9/types.ts';
+import {inboundPieceCells,isInboundPiece} from './inbound-helpers.ts';
+import {drawToolIcon,drawToolboxIcon} from './tool-art.ts';
+import {isInboundV9,isInboundRun,isInboundV11,isOutboundEndlessV10} from '../domain/playable.ts';
+import type {GameRun,GameShipment,InboundRun} from '../domain/playable.ts';
+import type {InboundPiece} from './inbound-helpers.ts';
 
 import type {GeometrySource} from './board-geometry.ts';
 import {drawGuide} from './tutorial-view.ts';
@@ -66,22 +67,23 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   const cellTraits = view.animation ? view.animation.cellTraits : state.cellTraits;
   if(state.mode==='color_exit')drawColorExitCards(ctx,state,view);else drawOrders(ctx, state, view);
   drawBoard(ctx, state, view, board, cellTraits);
-  drawTrays(ctx, shown, view);
+  if(!toolboxVisible(state,view))drawTrays(ctx, shown, view);
+  else text(ctx,'工具箱 · 选择工具后回到货件',58,1502,24,'#ffe3a3');
   drawFooter(ctx, state, view);
   if (view.developerMode === true && view.debug) drawDebug(ctx, state, view);
   if (view.needsResume) drawRecovery(ctx,state,view);
   else if (view.paused && state.phase!=='result') drawActivePause(ctx, state, view);
   else if(view.toolSelection)drawToolSelection(ctx,state,view);
   else if(view.supplyUpgrade)drawFlow(ctx,state,view,'选择专供货类','');
-  else if(isInboundV9(state)&&state.phase==='cleanup'&&!view.animation)drawFlow(ctx,state,view,'选择清扫方式','本局只能选择一种，空触发不会积存。');
+  else if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)drawCleanupChoices(ctx,state,view);
   else if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)drawGrowthUpgrades(ctx,state,view);
-  else if (state.phase === 'upgrade' && !view.animation&&!isOutboundEndlessV10(state)&&!isInboundV9(state)) drawUpgrades(ctx, state);
+  else if (state.phase === 'upgrade' && !view.animation&&!isOutboundEndlessV10(state)&&!isInboundRun(state)) drawUpgrades(ctx, state);
   else if (state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
   if (!view.paused && !view.needsResume && view.noticeFx) drawNotice(ctx, view);
   if (!view.paused && !view.needsResume && ['input','rescue'].includes(state.phase) && !view.animation&&!view.toolSelection&&!view.supplyUpgrade) drawControls(ctx,state,view);
-  if(isInboundV9(state))drawGrowthFeedback(ctx,state,view);
-  if(isInboundV9(state)&&state.phase==='rescue'&&!view.toolSelection&&!view.paused&&!view.needsResume&&!view.animation)text(ctx,'当前放不下，选择剩余工具救场，或结束并结算。',540,1468,25,'#ffe3a3','center');
-  if(view.guide&&state.phase==='input'&&!view.animation&&!view.paused&&!view.needsResume&&!view.toolSelection&&!view.supplyUpgrade)drawGuide(ctx,state,view);
+  if(isInboundRun(state))drawGrowthFeedback(ctx,state,view);
+  if(isInboundRun(state)&&state.phase==='rescue'&&!view.toolSelection&&!view.paused&&!view.needsResume&&!view.animation)text(ctx,'当前放不下，选择剩余工具救场，或结束并结算。',540,1468,25,'#ffe3a3','center');
+  if(view.guide&&state.phase==='input'&&!view.animation&&!view.paused&&!view.needsResume&&!view.toolSelection&&!view.supplyUpgrade&&!toolboxVisible(state,view))drawGuide(ctx,state,view);
   if(view.growthFx&&!view.animation)text(ctx,view.growthFx.label,540,1468,27,'#ffe3a3','center');
   ctx.restore();
 }
@@ -119,7 +121,8 @@ function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   outlinedText(ctx, '爆仓', 49, 112, 115);
   outlinedText(ctx, '最后一格', 63, 206, 57);
   hazard(ctx, { x: 55, y: 249, w: 425, h: 15 });
-  forklift(ctx, 427, 177, 88, -.12, view.profile?.cosmetics.forklift);
+  if(isInboundRun(state))drawToolboxEntry(ctx,state,view);
+  else forklift(ctx,427,177,88,-.12,view.profile?.cosmetics.forklift);
   panel(ctx, { x: 548, y: 54, w: 363, h: 151 });
   text(ctx, ('difficultyId' in state?state.difficultyId:undefined) ? outboundDifficultyLabel(('difficultyId' in state?state.difficultyId:undefined)!) : ('colorTier' in state?state.colorTier:undefined) ? colorTierLabel(('colorTier' in state?state.colorTier:undefined)!) : '当前分数', 577, 89, ('colorTier' in state?state.colorTier:undefined) || ('difficultyId' in state?state.difficultyId:undefined) ? 23 : 25, MUTED);
   text(ctx, number(state.score), 878, 151, 56, '#ffe087', 'right', 900);
@@ -334,7 +337,7 @@ function drawPlacement(ctx: Context, state: GameRun, view: ViewState): void {
   const piece = state.candidates.find(p => p.id === view.selectedPieceId);
   if (!piece) return;
   if (view.hoverOrigin) {
-    const shape = {cells:'quarterTurns' in piece?pieceCellsV9(piece as PieceV9):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]};
+    const shape = {cells:isInboundPiece(piece)?inboundPieceCells(piece,state.rulesetVersion):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]};
     shape?.cells.forEach((p, index) => {
       const cx = p.x + view.hoverOrigin!.x, cy = p.y + view.hoverOrigin!.y;
       if (cx < 0 || cy < 0 || cx >=dimension || cy >=dimension) return;
@@ -346,7 +349,7 @@ function drawPlacement(ctx: Context, state: GameRun, view: ViewState): void {
     });
   }
   if (view.dragPoint) {
-    const shape = {cells:'quarterTurns' in piece?pieceCellsV9(piece as PieceV9):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]}; if (!shape) return;
+    const shape = {cells:isInboundPiece(piece)?inboundPieceCells(piece,state.rulesetVersion):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]}; if (!shape) return;
     ctx.save(); ctx.globalAlpha = .8;
     shape.cells.forEach((p,index) => cargoBox(ctx, pieceCellCargo(piece,index), view.dragPoint!.x + p.x * cell - boxSize/2, view.dragPoint!.y + p.y * cell - boxSize/2, boxSize, 1, pieceTrait(piece), view.profile?.cosmetics.cargo)); ctx.restore();
   }
@@ -436,9 +439,8 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
     const hint = detail || (tutorialStep(state) === null ? view.message : '');
     if(hint)text(ctx, hint, 540, 1467, 24, '#efe3c9', 'center', 600);
   }
-  text(ctx, '待入库', 58, 1502, 22, '#b8c3cd');
-  text(ctx, `空位 ${state.board.filter(cell=>cell===null).length}`, 1027, 1502, 22, '#b2c1ca', 'right', 500);
-  const trays = getTrayRects(state.candidates.length);
+  if(!view.toolSelection||state.candidates.length!==5){text(ctx,'待入库',58,1502,22,'#b8c3cd');text(ctx,`空位 ${state.board.filter(cell=>cell===null).length}`,1027,1502,22,'#b2c1ca','right',500);}
+  const trays = getTrayRects(state.candidates.length,!!view.toolSelection);
   state.candidates.forEach((piece, index) => {
     const r = trays[index]; if (!r) return;
     const selected = piece.id === view.selectedPieceId || (tutorialStep(state) !== null && (state.rulesetVersion === 3 ? index === 0 : tutorialStep(state) === index) && !view.selectedPieceId);
@@ -452,17 +454,17 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
       const squash = placementPose(progress, false), center = { x: r.x + r.w / 2, y: r.y + 126 };
       ctx.save(); ctx.translate(center.x, center.y + (invalid ? reboundOffset(progress, false) : 0));
       ctx.scale(squash.x, squash.y); ctx.translate(-center.x, -center.y);
-      drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo); ctx.restore();
-    } else drawPieceInTray(ctx, piece, r, selected, view.profile?.cosmetics.cargo);
+      drawPieceInTray(ctx, piece, r, selected, state.rulesetVersion, view.profile?.cosmetics.cargo); ctx.restore();
+    } else drawPieceInTray(ctx, piece, r, selected, state.rulesetVersion, view.profile?.cosmetics.cargo);
     if (invalid) { ctx.save(); ctx.strokeStyle = '#ffb28b'; ctx.lineWidth = 3; roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.stroke(); ctx.restore(); }
-    const compact=r.h<180,cellCount='quarterTurns' in piece?pieceCellsV9(piece as PieceV9).length:SHAPES.find(shape=>shape.id===piece.shapeId)?.cells.length??0;
+    const compact=r.h<180,cellCount=isInboundPiece(piece)?inboundPieceCells(piece,state.rulesetVersion).length:SHAPES.find(shape=>shape.id===piece.shapeId)?.cells.length??0;
     const label = piece.trait ? `${traitName[piece.trait]} · ${pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')}` : pieceCaption(piece).replace('双色·','').replace(/\//g,' / ')+(compact?` · ${cellCount}格`:'');
     text(ctx, label, r.x + r.w / 2, r.y + r.h - (compact?19:18), compact?24:'cellCargos' in piece&&piece.cellCargos ? 23 : piece.trait && r.w < 300 ? 24 : 27, selected ? '#ffe397' : '#e7e9df', 'center');
   });
 }
 
-function drawPieceInTray(ctx: Context, piece: Piece, r: Rect, selected: boolean, cargoStyle?: CargoStyleId): void {
-  const shape = {cells:'quarterTurns' in piece?pieceCellsV9(piece as PieceV9):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]}; if (!shape?.cells.length) return;
+function drawPieceInTray(ctx: Context, piece: Piece|InboundPiece, r: Rect, selected: boolean, rulesetVersion:number, cargoStyle?: CargoStyleId): void {
+  const shape = {cells:isInboundPiece(piece)?inboundPieceCells(piece,rulesetVersion):SHAPES.find(s=>s.id===piece.shapeId)?.cells??[]}; if (!shape?.cells.length) return;
   const width = Math.max(...shape.cells.map(p => p.x)) + 1, height = Math.max(...shape.cells.map(p => p.y)) + 1;
   const areaHeight=r.h<180?58:Math.min(166,Math.max(42,r.h-60)),cell = Math.min(piece.trait ? 104 : 74, Math.min(230, r.w - 54) / width, areaHeight / height);
   const x = r.x + (r.w - width * cell) / 2, y = r.y + 25 + (areaHeight - height * cell) / 2;
@@ -473,7 +475,7 @@ function drawPieceInTray(ctx: Context, piece: Piece, r: Rect, selected: boolean,
 function drawFooter(ctx: Context, state: GameRun, view: ViewState): void {
   if(state.mode==='daily'&&!persistenceWarnings(view).length)text(ctx,`每日挑战 · ${('challengeDay' in state?state.challengeDay:view.account?.run?.identity.challengeDay)??view.dailyLabel??'日期待确认'}`,54,1840,23,'#bfbaa8');
   drawPersistenceWarnings(ctx,view,1830,427,746);
-  if(view.developerMode===true){
+  if(view.developerMode===true&&!view.toolSelection&&state.phase!=='rescue'){
     roundedPath(ctx,L.debug.x,L.debug.y,L.debug.w,L.debug.h,6);ctx.fillStyle='rgba(13,23,31,.86)';ctx.fill();
     text(ctx,'状态',L.debug.x+L.debug.w/2,L.debug.y+23,20,'#9cabaf','center');
   }
@@ -576,7 +578,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
   ctx.font='500 23px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
   let shown=Math.min(2,selected.length),upgradeSummary=selected.length?`关键升级  ${selected.slice(0,shown).join(' / ')}${selected.length>shown?` 等${selected.length}项`:''}`:'关键升级  无';
   while(shown>0&&ctx.measureText(upgradeSummary).width>646){shown--;upgradeSummary=`关键升级  ${selected.slice(0,shown).join(' / ')}${shown?' · ':''}共${selected.length}项`;}
-  text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
+  if(!isInboundV11(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
   if(reward)text(ctx,`本局金币 +${number(reward.earnedCoins)} · 余额 ${number(reward.wallet)}`,540,1060,26,'#ffe3a3','center');
   if(tutorial)text(ctx,'正式值班：每班6单，共5班',540,1118,25,'#e7e8cf','center',600);
   drawControls(ctx,state,view);
@@ -584,7 +586,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
 }
 
 function drawDebug(ctx: Context, state: GameRun, view: ViewState): void {
-  if(isInboundV9(state)||isOutboundEndlessV10(state)){panel(ctx,{x:72,y:390,w:936,h:1310});text(ctx,`规则 v${state.rulesetVersion} · 指令 ${state.commandIndex}`,540,500,30,CREAM,'center');return;}
+  if(isInboundRun(state)||isOutboundEndlessV10(state)){panel(ctx,{x:72,y:390,w:936,h:1310});text(ctx,`规则 v${state.rulesetVersion} · 指令 ${state.commandIndex}`,540,500,30,CREAM,'center');return;}
   const pages=debugPages(state,view),page=(view.debugPage??0)%pages.length;
   panel(ctx, { x: 72, y: 390, w: 936, h: 1310 }, '#0f2634', '#8fa9af');
   text(ctx, `规则 v${state.rulesetVersion} · 开发版`, 112, 445, 31, '#f2d38b');
@@ -596,7 +598,11 @@ function drawDebug(ctx: Context, state: GameRun, view: ViewState): void {
 
 /** Shared controls are also the only hit regions consumed by Input. */
 function drawControls(ctx: Context, state: GameRun, view: ViewState): void {
-  getUiControls(state, view).forEach((control, index) => drawControl(ctx, control, index === 0 && !['toggleSound','comparisonSeedNext'].includes(control.action.type)));
+  getUiControls(state, view).forEach((control, index) => {
+    if(control.action.type==='toggleToolbox')return;
+    if(control.action.type==='tool'&&isInboundRun(state)){drawToolCard(ctx,state,control);return;}
+    drawControl(ctx, control, control.action.type==='purchase'||index===0&&!['toggleSound','comparisonSeedNext','toggleItem','chooseCleanup'].includes(control.action.type));
+  });
 }
 
 function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
@@ -609,7 +615,7 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
   ctx.strokeStyle = disabled ? '#526271' : warm ? '#bd8d38' : '#7890a3'; ctx.lineWidth = 3; ctx.stroke();
   roundedPath(ctx, r.x + 6, r.y + 6, r.w - 12, r.h - 12, 13); ctx.strokeStyle = disabled ? '#455565' : warm ? '#fff0ba' : '#526e85'; ctx.lineWidth = 1.5; ctx.stroke();
   if (selected) { roundedPath(ctx, r.x + 12, r.y + 22, 7, r.h - 44, 3); ctx.fillStyle = '#654016'; ctx.fill(); }
-  const lines = control.label.split('\n');
+  const lines = control.action.type==='purchase'?control.label.split(' · '):control.label.split('\n');
   lines.forEach((line, index) => {
     let size = lines.length > 1 ? index ? 28 : 36 : r.w < 420 ? 32 : 36;
     ctx.font = `800 ${size}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
@@ -636,10 +642,10 @@ function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
 
 function drawInboundMenu(ctx:Context,state:GameRun,view:ViewState):void{
   outlinedText(ctx,'入库模式',540,200,79,CREAM,'center');
-  const best=view.account?view.account.profile.results['inbound.standard.v9.plain']?.best?.score??0:view.profile?.bestScores['standard.v3']?.score??0;
-  const endlessBest=view.account?view.account.profile.results['inbound.endless.v9.plain']?.best?.score??0:view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
+  const best=view.account?view.account.profile.results['inbound.standard.v11.plain']?.best?.score??0:view.profile?.bestScores['standard.v3']?.score??0;
+  const endlessBest=view.account?view.account.profile.results['inbound.endless.v11.plain']?.best?.score??0:view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
   text(ctx,`五班最高分 ${number(best)} · 无限最高分 ${number(endlessBest)}`,540,390,29,'#ffe3a3','center');
-  if(view.account)text(ctx,`带工具五班 ${number(view.account.profile.results['inbound.standard.v9.tools']?.best?.score??0)} · 无限 ${number(view.account.profile.results['inbound.endless.v9.tools']?.best?.score??0)}`,540,445,24,'#a9c0c9','center',500);
+  if(view.account)text(ctx,`带工具五班 ${number(view.account.profile.results['inbound.standard.v11.tools']?.best?.score??0)} · 无限 ${number(view.account.profile.results['inbound.endless.v11.tools']?.best?.score??0)}`,540,445,24,'#a9c0c9','center',500);
   else text(ctx,`加班最高分 · ${number(view.profile?.bestScores['overtime.v3']?.score??0)}`,540,445,24,'#a9c0c9','center',500);
   const cards=[['普通五班','每班6单，共5班'],['无限入库','持续接单，挑战高分'],['每日挑战',view.dailyLabel??'日期待确认']];
   cards.forEach(([title,description],index)=>{
@@ -735,7 +741,7 @@ function drawHelp(ctx:Context,state:GameRun,view:ViewState):void {
   ]:[
     '按订单配货，同类货物上下左右相连。',
     '数量达标，出货口到货物旁留出空路。',
-    isInboundV9(state)?'旋转工具可改朝向；道具可在放不下时救场。':'货件不能旋转；所有货件都放不下时结束。',
+    isInboundRun(state)?'旋转工具可改朝向；道具可在放不下时救场。':'货件不能旋转；所有货件都放不下时结束。',
   ];
   basics.forEach((line,index)=>text(ctx,line,540,365+index*69,index===2&&outbound?25:28,'#e4e4d7','center',500));
   if(outbound)drawColorExitHelpDiagram(ctx,{x:140,y:640,w:800,h:430},!!('colorTier' in state?state.colorTier:undefined)||!!('difficultyId' in state?state.difficultyId:undefined),state);
@@ -756,8 +762,8 @@ function drawInboundHelpDiagram(ctx:Context):void {
 }
 
 function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState):void {
-  outlinedText(ctx,'特殊货物与升级',540,250,58,CREAM,'center');
-  const rules=isInboundV9(state)?[
+  outlinedText(ctx,isInboundV11(state)?'特殊货物与工具':'特殊货物与升级',540,250,58,CREAM,'center');
+  const rules=isInboundRun(state)?[
     '双倍箱：占1格，计2件；万能可连接订单货类。',
     '加急放下剩3次，之后先出货再扣数。',
     '期限归零成为废物，占格、不出货。',
@@ -765,8 +771,7 @@ function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState):void {
     '清扫只清旧废物，空触发不会积存。',
     '旋转改朝向；清障选1至2格；万能工具改单格。',
     '普通、无限最多带2种工具；未用的结束退回。',
-    '减量：当前和新订单都少1件，最低3件。',
-    '扩仓、候选扩容、公共侧门与奖金立即生效。',
+    ...(isInboundV9(state)?['减量：当前和新订单都少1件，最低3件。','扩仓、候选扩容、公共侧门与奖金立即生效。']:[]),
   ]:[
     '托盘：占1格，计2件。',
     '万能：可连接当前订单的货类。',
@@ -787,13 +792,57 @@ function drawFlow(ctx:Context,state:GameRun,view:ViewState,title:string,descript
 }
 function drawEconomyFlow(ctx:Context,state:GameRun,view:ViewState):void {
  const screen=view.screen,title=screen==='shop'?'金币商店':screen==='prepareTools'?'选择携带工具':screen==='prepareCleanup'?'选择清扫方式':view.guideTrack==='outbound'?'出库引导':'入库引导';
+ if(screen==='prepareCleanup'){drawCleanupChoices(ctx,state,view);return;}
  outlinedText(ctx,title,540,220,72,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,340,31,'#ffe3a3','center');
- const description=screen==='shop'?`旋转${ITEM_PRICES.rotate} · 清障${ITEM_PRICES.clear} · 万能${ITEM_PRICES.wildcard}。每局最多带2件，同类最多1件。`:screen==='prepareTools'?'可以不带工具免费开始。未使用的工具在结束本局时退回。':screen==='prepareCleanup'?'按单每2单清理，定期每6次有效放置清理旧废物。':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':'在真实五班局里学习订单、升级、加急与清扫。';
- wrap(ctx,description,170,430,740,27,42);drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1720);
+ const description=screen==='shop'?'工具可在开局前携带，每局最多2种。':screen==='prepareTools'?'最多携带2种 · 同类1件 · 未使用的结束退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':'在真实五班局里学习订单、加急与清扫。';
+ wrap(ctx,description,132,430,816,27,42);
+ if(screen==='shop'||screen==='prepareTools')TOOL_ITEMS.forEach((item,index)=>{
+  const r=economyCardRect(index),selected=screen==='prepareTools'&&view.prepareIntent?.items.includes(item);
+  panel(ctx,r,selected?'#3b493e':'#293f51',selected?'#edc76b':'#718d98',20);rivet(ctx,r.x+16,r.y+17);rivet(ctx,r.x+r.w-16,r.y+17);
+  drawToolIcon(ctx,item,r.x+28,r.y+48,160);text(ctx,ITEM_NAMES[item],r.x+210,r.y+57,40,'#ffe8b4');
+  text(ctx,`库存 ${view.account?.inventory[item]??0}`,r.x+r.w-30,r.y+57,27,'#c6d8d4','right');
+  text(ctx,ITEM_EFFECTS[item],r.x+210,r.y+118,27,'#e3e5d8','left',500);
+  text(ctx,item==='rotate'?'顺时针改变朝向':item==='clear'?'自选目标，确认使用':'可连接任意订单货类',r.x+210,r.y+163,24,'#a9c0c9','left',500);
+  if(selected)text(ctx,'已选择',r.x+210,r.y+224,27,'#ffe3a3');
+ });
+ drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1740);
+}
+
+function drawToolboxEntry(ctx:Context,state:GameRun,view:ViewState):void {
+ if(!isInboundRun(state))return;const r=TOOLBOX_RECT,count=TOOL_ITEMS.reduce((sum,item)=>sum+state.toolCharges[item],0);
+ panel(ctx,r,toolboxVisible(state,view)?'#5b543d':'#344655',toolboxVisible(state,view)?'#ffdc83':'#c4a66c',16);
+ drawToolboxIcon(ctx,r.x+34,r.y+13,77);text(ctx,'工具箱',r.x+r.w/2,r.y+116,26,'#fff0cf','center');
+ ctx.beginPath();ctx.arc(r.x+r.w-16,r.y+16,24,0,Math.PI*2);ctx.fillStyle='#eec76c';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#2d3540';ctx.stroke();text(ctx,String(count),r.x+r.w-16,r.y+16,27,'#44361f','center');
+}
+
+function drawToolCard(ctx:Context,state:InboundRun,control:UiControl):void {
+ if(control.action.type!=='tool')return;const {item}=control.action,{rect:r,disabled}=control;
+ panel(ctx,r,disabled?'#263847':'#405044',disabled?'#607582':'#d6b65f',18);
+ ctx.save();ctx.globalAlpha=disabled?.48:1;drawToolIcon(ctx,item,r.x+28,r.y+20,104);ctx.restore();
+ text(ctx,ITEM_NAMES[item],r.x+177,r.y+61,34,disabled?'#a8b9c0':'#ffe5a0','center');
+ text(ctx,toolStatus(state,item),r.x+177,r.y+105,25,disabled?'#b3c1c8':'#d9f0c8','center');
+ const description=item==='rotate'?'旋转选中货件':item==='clear'?'清除1至2格':'改单格万能货';
+ text(ctx,description,r.x+r.w/2,r.y+159,25,'#c8d7d8','center',500);
+ if(!disabled)text(ctx,'点击使用',r.x+r.w/2,r.y+r.h-35,27,'#ffe4a2','center');
+}
+
+function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState):void {
+ ctx.fillStyle='rgba(5,11,18,.65)';ctx.fillRect(0,0,1080,1920);
+ outlinedText(ctx,'选择清扫方式',540,470,67,CREAM,'center');text(ctx,'本局固定一种 · 空触发不会积存',540,554,28,'#cad9da','center',500);
+ CLEANUP_RECTS.forEach((r,index)=>{
+  panel(ctx,r,'#304957','#a3a18b',22);hazard(ctx,{x:r.x+24,y:r.y+22,w:r.w-48,h:10});
+  text(ctx,index?'定期清扫':'按单清扫',r.x+r.w/2,r.y+87,38,'#ffe7b0','center');
+  drawToolIcon(ctx,'clear',r.x+(r.w-190)/2,r.y+140,190);
+  panel(ctx,{x:r.x+r.w/2-58,y:r.y+302,w:116,h:71},'#263a49','#b8c7b7',12);text(ctx,index?'6次':'2单',r.x+r.w/2,r.y+338,35,'#ffe3a3','center');
+  text(ctx,index?'每6次放置清理旧废物':'每2单清理旧废物',r.x+r.w/2,r.y+420,26,'#e1e8df','center',500);
+  text(ctx,'选择此项',r.x+r.w/2,r.y+r.h-58,30,'#ffe3a3','center');
+ });
+ getUiControls(state,view).filter(c=>c.action.type!=='chooseCleanup').forEach(c=>drawControl(ctx,c,false));
+ drawPersistenceWarnings(ctx,view,1670);
 }
 function drawToolSelection(ctx:Context,state:GameRun,view:ViewState):void {
  const tool=view.toolSelection;if(!tool)return;const geometry=boardGeometry(state);ctx.save();ctx.strokeStyle='#ffe3a3';ctx.lineWidth=5;for(const cell of tool.cells)ctx.strokeRect(geometry.x+cell%geometry.dimension*geometry.cell+4,geometry.y+Math.floor(cell/geometry.dimension)*geometry.cell+4,geometry.cell-8,geometry.cell-8);ctx.restore();
- text(ctx,tool.error??(tool.item==='clear'?'点击1至2个占用格，确认后清障':tool.item==='rotate'?'选择一个货件，再预览旋转朝向':'选择一个候选，确认后变成单格万能货'),540,1390,25,tool.error?'#ffb28b':'#ffe3a3','center');drawControls(ctx,state,view);
+ text(ctx,tool.error??(tool.item==='clear'?'点击1至2个占用格，确认后清障':tool.item==='rotate'?'选择一个货件，再预览旋转朝向':'选择一个候选，确认后变成单格万能货'),540,1468,25,tool.error?'#ffb28b':'#ffe3a3','center');drawControls(ctx,state,view);
 }
 function drawGrowthUpgrades(ctx:Context,state:import('../domain/v9/types.ts').InboundRunV9,view:ViewState):void {
  shade(ctx);text(ctx,`已完成 ${state.completedOrders} 单`,540,419,29,'#b8c9d6','center');outlinedText(ctx,'选择一项升级',540,520,75,'#ffe5a1','center');
@@ -806,9 +855,9 @@ function drawGrowthUpgrades(ctx:Context,state:import('../domain/v9/types.ts').In
  });
  getUiControls(state,view).filter(c=>c.action.type==='skipTutorial').forEach(c=>drawControl(ctx,c,false));
 }
-function drawGrowthFeedback(ctx:Context,state:import('../domain/v9/types.ts').InboundRunV9,view:ViewState):void {
+function drawGrowthFeedback(ctx:Context,state:InboundRun,view:ViewState):void {
  if(view.animation||view.paused||state.phase==='result'||state.phase==='upgrade'||state.phase==='cleanup')return;
- const preview=view.preview?.stateAfter&&isInboundV9(view.preview.stateAfter)?{...view.preview,stateAfter:view.preview.stateAfter,events:[],shipments:view.preview.shipments.filter(s=> 'gateId' in s)}:null;
+ const preview=view.preview?.stateAfter&&isInboundRun(view.preview.stateAfter)?{...view.preview,stateAfter:view.preview.stateAfter,events:[],shipments:view.preview.shipments.filter(s=> 'gateId' in s)}:null;
  const feedback=growthFeedback(state,preview),geometry=boardGeometry(state);ctx.save();for(const item of feedback.rush){const x=geometry.x+item.cell%geometry.dimension*geometry.cell,y=geometry.y+Math.floor(item.cell/geometry.dimension)*geometry.cell;ctx.strokeStyle=item.outcome==='ships'?'#c4ffdb':item.outcome==='expires'?'#dd956f':'#e99e8e';ctx.lineWidth=3;ctx.strokeRect(x+6,y+6,geometry.cell-12,geometry.cell-12);text(ctx,item.outcome==='ships'?'出货':item.outcome==='expires'?'废物':String(item.remaining),x+geometry.cell-20,y+geometry.cell-19,19,ctx.strokeStyle as string,'center');}ctx.restore();
- if(feedback.sweep)text(ctx,`清扫 ${feedback.sweep.progress}/${feedback.sweep.target}`,540,1502,23,'#c6d1d6','center');
+ if(feedback.sweep&&!toolboxVisible(state,view)&&(!view.toolSelection||state.candidates.length!==5))text(ctx,`清扫 ${feedback.sweep.progress}/${feedback.sweep.target}`,540,1502,23,'#c6d1d6','center');
 }

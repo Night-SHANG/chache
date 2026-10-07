@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.8.0-dev",
-  "status": "LOCAL_VALIDATION_COMPLETE",
+  "appVersion": "0.9.0-dev",
+  "status": "IMPLEMENTATION_IN_PROGRESS",
   "rulesets": [
     1,
     2,
@@ -11,27 +11,25 @@
     7,
     8,
     9,
-    10
+    10,
+    11
   ],
   "modes": {
     "inbound": {
-      "ruleset": 9,
+      "ruleset": 11,
       "modes": [
         "standard",
         "daily",
         "endless"
       ],
       "boardSizes": [
-        7,
-        8
+        7
       ],
       "candidates": [
-        3,
-        4,
-        5
+        3
       ],
-      "upgradeTypes": 10,
-      "upgradeChoices": 7,
+      "upgradeTypes": 0,
+      "upgradeChoices": 0,
       "rushProbability": 0.06
     },
     "outbound_normal": {
@@ -53,20 +51,22 @@
         5,
         6,
         7,
-        8
+        8,
+        9,
+        10
       ],
       "unchanged": true
     }
   },
   "economyVersion": 1,
   "accountFormatVersion": 1,
-  "simulationCases": 1280,
-  "simulationCapped": 79,
-  "testsPassed": 1251,
-  "pythonTestsPassed": 22,
-  "sourceSha256": "f398788dccce139be5183880b382de784b1bdfd163494bab65161d9a926febf7",
-  "gameJsSha256": "a99be3b7429bf51874e3a712a0296a0ae5d59e5d388911dc3c24817d0188a0fa",
-  "runtimeStatus": "Local source gates and actual built-game native host PASSED. Real browser/Windows GUI/WeChat devices/audio listening and human balance NOT VERIFIED",
+  "simulationCases": null,
+  "simulationCapped": null,
+  "testsPassed": null,
+  "pythonTestsPassed": null,
+  "sourceSha256": null,
+  "gameJsSha256": null,
+  "runtimeStatus": "New refinement WIP; focused modules only, final integrated QA not yet run. Previous stable release is ff6e6d7/v0.8.0.",
   "deliveryNotes": "docs/v080-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
@@ -78,6 +78,7 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 22,
-  "validatedCodeCommit": "cdfc9ad9568f5080af2190ff03e3d9afdd7ec573"
+  "hostCasesPassed": null,
+  "validatedCodeCommit": null,
+  "rulesChangedFromV080": true
 }

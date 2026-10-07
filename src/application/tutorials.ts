@@ -1,6 +1,6 @@
 import type { GuideProgress, GuideStep, GuideTrack } from './account-types.ts';
 import type { GameCommand, GameRun, GameStepResult } from '../domain/playable.ts';
-import { isInboundV9 } from '../domain/playable.ts';
+import { isInboundRun, isInboundV9, isInboundV11 } from '../domain/playable.ts';
 import type { Cell, Command, Point } from '../domain/types.ts';
 import { SHAPES } from '../domain/rulesets/v1/content.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
@@ -8,6 +8,7 @@ import { collectGroupsV6 } from '../domain/v6/board.ts';
 import { OUTBOUND_DOCKS, OUTBOUND_ENTRY } from '../domain/v6/content.ts';
 import { docksV9, pieceCellsV9 } from '../domain/v9/board.ts';
 import { INBOUND_GUIDE_V9 } from '../domain/v9/tutorial.ts';
+import { INBOUND_GUIDE_V11 } from './inbound-guide-v11.ts';
 
 export interface GuideOverlay {
   step: GuideStep;
@@ -36,8 +37,12 @@ const TEXT: Record<GuideStep, string> = {
   mixedRemainder: '双色货按颜色分别出货。只清掉满足条件的同色部分，余色留在原格。',
 };
 
-export function isGuideComplete(track: GuideTrack, progress: GuideProgress): boolean {
-  return REQUIRED[track].every(step => progress.learned.includes(step));
+function requiredSteps(track: GuideTrack, version: number): readonly GuideStep[] {
+  return track === 'inbound' && version === 11 ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
+}
+
+export function isGuideComplete(track: GuideTrack, progress: GuideProgress, version = 9): boolean {
+  return requiredSteps(track, version).every(step => progress.learned.includes(step));
 }
 
 function validPath(path: Point[], board: Cell[], cells: number[], size: number, entry: Point): boolean {
@@ -58,9 +63,9 @@ export function advanceGuide(track: GuideTrack, progress: GuideProgress, before:
   const learned = new Set(progress.learned);
   const teach = (step: GuideStep): void => { learned.add(step); };
   if (track === 'inbound') {
-    if (!isInboundV9(before) || !isInboundV9(result.state)) return progress;
+    if (!isInboundRun(before) || !isInboundRun(result.state)) return progress;
     const after = result.state;
-    if (command.type === 'upgrade' && before.phase === 'upgrade' && before.upgradeChoices.includes(command.upgradeId as keyof typeof before.levels)
+    if (isInboundV9(before) && isInboundV9(after) && command.type === 'upgrade' && before.phase === 'upgrade' && before.upgradeChoices.includes(command.upgradeId as keyof typeof before.levels)
       && result.events.some(event => event.type === 'upgradeChosen' && event.upgradeId === command.upgradeId && after.levels[event.upgradeId] === before.levels[event.upgradeId] + 1)) teach('upgrade');
     if (command.type === 'chooseCleanup' && before.phase === 'cleanup' && before.cleanup === null && after.cleanup?.branch === command.branch
       && result.events.some(event => event.type === 'cleanupChosen' && event.branch === command.branch)) teach('sweepChoice');
@@ -128,8 +133,10 @@ function commandKey(command: GameCommand): string {
 function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefined {
   let paths: readonly (readonly GameCommand[])[];
   if (track === 'inbound') {
-    if (!isInboundV9(state) || !state.guided || state.seed !== INBOUND_GUIDE_V9.seed || state.commandBaseIndex !== 0) return undefined;
-    paths = Object.values(INBOUND_GUIDE_V9.branches);
+    if (!isInboundRun(state) || !state.guided || state.commandBaseIndex !== 0) return undefined;
+    const authored = isInboundV11(state) ? INBOUND_GUIDE_V11 : INBOUND_GUIDE_V9;
+    if (state.seed !== authored.seed) return undefined;
+    paths = Object.values(authored.branches);
   } else {
     if (state.rulesetVersion !== 8 || state.mode !== 'color_exit' || state.difficultyId !== 'easy' || state.seed !== OUTBOUND_GUIDE_V8.seed) return undefined;
     paths = [OUTBOUND_GUIDE_V8.commands];
@@ -141,16 +148,16 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
 }
 
 export function guideOverlay(track: GuideTrack, progress: GuideProgress, state: GameRun): GuideOverlay | null {
-  if (progress.skipped || isGuideComplete(track, progress) || state.phase === 'result') return null;
-  if (track === 'inbound' ? !isInboundV9(state) : state.mode !== 'color_exit' || ![8, 10].includes(state.rulesetVersion)) return null;
-  let step = REQUIRED[track].find(step => !progress.learned.includes(step))!;
-  if (isInboundV9(state) && state.phase === 'cleanup') step = 'sweepChoice';
+  if (progress.skipped || isGuideComplete(track, progress, state.rulesetVersion) || state.phase === 'result') return null;
+  if (track === 'inbound' ? !isInboundRun(state) : state.mode !== 'color_exit' || ![8, 10].includes(state.rulesetVersion)) return null;
+  let step = requiredSteps(track, state.rulesetVersion).find(step => !progress.learned.includes(step))!;
+  if (isInboundRun(state) && state.phase === 'cleanup') step = 'sweepChoice';
   else if (isInboundV9(state) && state.phase === 'upgrade') step = 'upgrade';
-  else if (isInboundV9(state) && state.cellTraits.some(trait => trait?.kind === 'rush') && !progress.learned.includes('expired')) step = 'rushTimer';
+  else if (isInboundRun(state) && state.cellTraits.some(trait => trait?.kind === 'rush') && !progress.learned.includes('expired')) step = 'rushTimer';
   const expected = authoredNext(track, state);
   if (expected?.type === 'place') {
     if (track === 'outbound') step = (['place', 'colorExit', 'colorGroup', 'route', 'mixedRemainder'] as const)[state.commands.length] ?? step;
-    if (isInboundV9(state) && state.candidates.find(piece => piece.id === expected.pieceId)?.trait === 'rush') step = 'rushTimer';
+    if (isInboundRun(state) && state.candidates.find(piece => piece.id === expected.pieceId)?.trait === 'rush') step = 'rushTimer';
     return { step, text: TEXT[step], selectedPieceId: expected.pieceId, allowedOrigins: [{ ...expected.origin }], expectedCommand: { ...expected, origin: { ...expected.origin } } };
   }
   return { step, text: TEXT[step], ...(expected ? { expectedCommand: { ...expected } } : {}) };

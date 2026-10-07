@@ -1,0 +1,92 @@
+{
+  "base": "ff6e6d7ce78cb0b8f58810de7d2d4536490d2ef7",
+  "files": {
+    "src/domain/v9/board.ts": "f3a02fb3592bbeba14f93da43fa0da6e9a0a051a187ea47beb62a11a0a1bd8fb",
+    "src/domain/v9/content.ts": "95b59d2d61459c4ab206678e1c5c3097312c42e978e989bb210eac05b7499e0e",
+    "src/domain/v9/engine.ts": "c3a2c1ac013b20121bd84de683e96040bbb9bd222715b4cdca9f198a9a531364",
+    "src/domain/v9/generation.ts": "9ac63843abc5d1b6c7e97854c84a529c32fd2861a6fd6bc996723d638be50747",
+    "src/domain/v9/replay.ts": "73fb36bcb6091955794ad6d3834beab0208258e0820d5e4c4a202febb6186158",
+    "src/domain/v9/tools.ts": "9e13f22abf76c4bda45eb105df594400c311410c20a644fb0f7a65ab57dd3de5",
+    "src/domain/v9/tutorial.ts": "1356d22fd2c361a665db90a21b18d87c62766794ec7fac5ea17f1aac4052ee16",
+    "src/domain/v9/types.ts": "bf1bce5bb000b4fa17a8de4e4e21ecb8eb66466bb3282bf332599c29713567a6",
+    "src/domain/v9/upgrades.ts": "31f43ea07d975e4cc3bae5a930da9c92a7466bc58a541fb91b26daac6c56f277",
+    "src/domain/v10/content.ts": "1dbc97db88800bac29b8b8ae22b150daf0fd0ab25aad30e3e0fb479b8e7d1468",
+    "src/domain/v10/engine.ts": "57097ed3bba45e7f5938b9d6c5f6af3b5b9b6f0a3c4ed05c795e38789ad33e13",
+    "src/domain/v10/replay.ts": "6c4e1d88d187f935df4d9cd55d7d24127ffd246ca0868c506fb87c46d25f2e46",
+    "src/domain/v10/types.ts": "4c2214ecafcc5e109b90804ce61ac7a080524e470001beee6c58767e567b4ead"
+  },
+  "saves": [
+    {
+      "golden": 0,
+      "kind": "initial",
+      "sha256": "c1d68e8e63f7a953d926caecf2182e54f1bc5832a0d9ccc815ed4d144dc9b732"
+    },
+    {
+      "golden": 0,
+      "kind": "final",
+      "sha256": "a2759c666c055cf0febb743823422536dcc94ffa6b43523936d277f69f946deb"
+    },
+    {
+      "golden": 0,
+      "kind": "checkpoint",
+      "checkpoint": 0,
+      "sha256": "1916f81c036e5cf5f14df5a2ca47f463b106aab4af9ee99442f5938a770a93ba"
+    },
+    {
+      "golden": 1,
+      "kind": "initial",
+      "sha256": "393ce91b5271b19ae41bbe6fffec0d8a7cd981d9caa7bb669c305c263003e4f7"
+    },
+    {
+      "golden": 1,
+      "kind": "final",
+      "sha256": "c137ef9187a4c605c0f297905f34233b7431a2003f01863bd5b7123a198cad62"
+    },
+    {
+      "golden": 1,
+      "kind": "checkpoint",
+      "checkpoint": 0,
+      "sha256": "3ce5d638b46d7dae964f9d2c72823cf0fc81274141ada95f5c47dee7d9c13ccd"
+    },
+    {
+      "golden": 1,
+      "kind": "checkpoint",
+      "checkpoint": 1,
+      "sha256": "bb3f2a42fbd4e7919db32a65a6817b33e4710dcb27ccef639779503c9a8e2b20"
+    },
+    {
+      "golden": 1,
+      "kind": "checkpoint",
+      "checkpoint": 2,
+      "sha256": "c0929547b4047c46a6b6bf883cf58834ca61ec20374911f31e3f5b02c6e61a84"
+    },
+    {
+      "golden": 2,
+      "kind": "initial",
+      "sha256": "a527c1c78dcd82dea549fab6a9901c3fd4407f7f94b95f5d89f0a8bc76ceb9c9"
+    },
+    {
+      "golden": 2,
+      "kind": "final",
+      "sha256": "0017b07181d4651de8211f03e522869c2f96516f3c0ea3ad7adc1742ffb4799c"
+    },
+    {
+      "golden": 2,
+      "kind": "checkpoint",
+      "checkpoint": 0,
+      "sha256": "0b143f3e4bd6c453057c617336cd4b5ac7803aa5927ef4e4e006d702bde269d5"
+    },
+    {
+      "golden": 2,
+      "kind": "checkpoint",
+      "checkpoint": 1,
+      "sha256": "46c1f38a35058c448543d66503431d62e6e2cbccbd964964ccf690f22cb6f0b8"
+    },
+    {
+      "golden": 2,
+      "kind": "checkpoint",
+      "checkpoint": 2,
+      "sha256": "469405310cb203543ff568c8f300b15d0d9e4867621fc97efb8ae8397522c0f0"
+    }
+  ]
+}

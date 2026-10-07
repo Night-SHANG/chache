@@ -14,9 +14,9 @@ import type {Platform} from '../src/platform/types.ts';
 import type {UiAction} from '../src/presentation/ui-types.ts';
 const COLOR='warehouse.color_exit.run.v4',ACTIVE='warehouse.active-mode.v1';
 function host(initial=new Map<string,string>()){
- let now=0,failKey='',readFail='',failAfterWrite='';const data=new Map(initial),writes:string[]=[];if(!data.has(SAVE_KEYS.main)){const tutorial=legacyTutorial();tutorial.runSerial=1;storeLegacyRun(data,tutorial);}if(!data.has(COLOR)){const pure=createRun(123,'color_exit',4);pure.runSerial=2;storeLegacyRun(data,pure);}
- const port={storage:{get:(key:string)=>{if(key===readFail){readFail='';throw Error('read failure');}return data.get(key)??null;},set:(key:string,value:string)=>{if(key===failKey)throw Error('quota');data.set(key,value);writes.push(key);if(key===failAfterWrite){failAfterWrite='';readFail=key;}},remove:(key:string)=>{data.delete(key);writes.push(key);}},writerLease:{status:'held',release(){}},now:()=>now,wallTime:()=>Date.parse('2026-10-06T00:00:00Z'),playSound:()=>{},stopSounds:()=>{}} as unknown as Platform;
- return {data,writes,port,time:(value:number)=>{now=value;},fail:(key:string)=>{failKey=key;},failReadOnce:(key:string)=>{readFail=key;},failReadbackOnce:(key:string)=>{failAfterWrite=key;}};
+ let now=0,failKey='',readFail='',readSkips=0,failAfterWrite='';const data=new Map(initial),writes:string[]=[];if(!data.has(SAVE_KEYS.main)){const tutorial=legacyTutorial();tutorial.runSerial=1;storeLegacyRun(data,tutorial);}if(!data.has(COLOR)){const pure=createRun(123,'color_exit',4);pure.runSerial=2;storeLegacyRun(data,pure);}
+ const port={storage:{get:(key:string)=>{if(key===readFail){if(readSkips>0)readSkips--;else{readFail='';throw Error('read failure');}}return data.get(key)??null;},set:(key:string,value:string)=>{if(key===failKey)throw Error('quota');data.set(key,value);writes.push(key);if(key===failAfterWrite){failAfterWrite='';readFail=key;}},remove:(key:string)=>{data.delete(key);writes.push(key);}},writerLease:{status:'held',release(){}},now:()=>now,wallTime:()=>Date.parse('2026-10-06T00:00:00Z'),playSound:()=>{},stopSounds:()=>{}} as unknown as Platform;
+ return {data,writes,port,time:(value:number)=>{now=value;},fail:(key:string)=>{failKey=key;},failReadOnce:(key:string,afterReads=0)=>{readFail=key;readSkips=afterReads;},failReadbackOnce:(key:string)=>{failAfterWrite=key;}};
 }
 const action=(s:GameSession,value:unknown)=>s.action(value as UiAction);
 function switchTo(s:GameSession,variant:'orders'|'color_exit'){
@@ -86,9 +86,10 @@ test('failed mode-pointer write never overwrites an existing target order save',
   switchTo(s,'color_exit');assert.equal(s.view.needsResume,true);const before=checksum(legacyState(s));s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(checksum(legacyState(s)),before);
   s.resume();assert.equal(s.view.needsResume,false);s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(s.view.saveStatus,'已保存');assert.ok([...h.data.values()].includes('broken-main'));
  });
+ // Immediate daily start reads the old slot once for the menu and twice for preparation before the account transaction.
  test('unavailable target read cannot silently bypass new-run confirmation',()=>{
   const h=host(),s=resumeStoredLegacy(h.port,{seed:1,mode:'tutorial'});color(s);s.hide();const before=JSON.stringify([...h.data]),order=h.data.get(SAVE_KEYS.main),oldColor=h.data.get(COLOR);h.failReadOnce(SAVE_KEYS.main);s.action({type:'newRun',mode:'daily'});
-  assert.equal(s.view.confirmation?.kind,'newRun');assert.equal(s.state.mode,'color_exit');assert.equal(JSON.stringify([...h.data]),before);s.action({type:'cancel'});assert.equal(JSON.stringify([...h.data]),before);s.action({type:'newRun',mode:'daily'});s.action({type:'confirm'});assert.equal(s.view.screen,'prepareCleanup');h.failReadOnce(SAVE_KEYS.main);s.action({type:'chooseCleanup',branch:'orders'});assert.equal(s.view.accountBlocked,true);assert.equal(s.view.account,null);assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),oldColor);
+  assert.equal(s.view.confirmation?.kind,'newRun');assert.equal(s.state.mode,'color_exit');assert.equal(JSON.stringify([...h.data]),before);s.action({type:'cancel'});assert.equal(JSON.stringify([...h.data]),before);s.action({type:'newRun',mode:'daily'});assert.equal(s.view.confirmation?.kind,'newRun');h.failReadOnce(SAVE_KEYS.main,3);s.action({type:'confirm'});assert.equal(s.view.accountBlocked,true);assert.equal(s.view.account,null);assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),oldColor);
  });
  test('profile reset stops on unreadable inactive progress without touching either store',()=>{
   const h=host(),s=resumeStoredLegacy(h.port,{seed:1,mode:'tutorial'});color(s);s.action({type:'settings'});const before=JSON.stringify([...h.data]);h.failReadOnce(SAVE_KEYS.main);s.action({type:'resetProfile'});s.action({type:'confirm'});

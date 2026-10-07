@@ -2,12 +2,15 @@ import {readFile,readdir,stat} from 'node:fs/promises';
 import {join} from 'node:path';
 import {CARGO,DOCKS,SHAPES,UPGRADES,P0_CONFIG} from '../src/domain/content.ts';
 import {UPGRADES_V9,RULES_V9_CONFIG} from '../src/domain/v9/content.ts';
+import {RULES_V11_CONFIG} from '../src/domain/v11/content.ts';
 import {RULES_V10_CONFIG} from '../src/domain/v10/content.ts';
 const failures=[];const check=(ok,message)=>{if(!ok)failures.push(message);};
 check(UPGRADES_V9.length===10&&UPGRADES_V9.reduce((sum,u)=>sum+u.maxStack,0)===20&&UPGRADES_V9.filter(u=>u.functional).length===7,'v9 upgrade catalogue');
 check(new Set(UPGRADES_V9.map(u=>u.id)).size===10,'v9 stable upgrade IDs');
 check(JSON.stringify(RULES_V9_CONFIG.upgradeThresholds)==='[4,8,12,16,20,24,26]','v9 reward thresholds');
-check(RULES_V9_CONFIG.rulesetVersion===9&&RULES_V10_CONFIG.rulesetVersion===10,'new rules identity');
+check(RULES_V9_CONFIG.rulesetVersion===9&&RULES_V10_CONFIG.rulesetVersion===10&&RULES_V11_CONFIG.rulesetVersion===11,'versioned rules identity');
+check(RULES_V11_CONFIG.boardSize===7&&RULES_V11_CONFIG.candidateCount===3,'v11 fixed board and candidate count');
+check(JSON.stringify(RULES_V11_CONFIG.orderMinByShift)==='[3,3,4,4,5]'&&JSON.stringify(RULES_V11_CONFIG.orderMaxByShift)==='[4,5,5,6,7]','v11 restored base orders');
 for(const [name,items] of [['cargo',CARGO],['shape',SHAPES],['dock',DOCKS],['upgrade',UPGRADES]])check(new Set(items.map(x=>x.id)).size===items.length,`${name}: duplicate stable ID`);
 check(CARGO.length===5&&DOCKS.length===4,'P0 cargo/dock count');
 for(const shape of SHAPES){const cells=shape.cells;check(cells.length>0&&cells.length<=5,`${shape.id}: cell count`);check(cells.every(c=>Number.isInteger(c.x)&&Number.isInteger(c.y)&&c.x>=0&&c.y>=0&&c.x<7&&c.y<7),`${shape.id}: coordinates`);check(Math.min(...cells.map(c=>c.x))===0&&Math.min(...cells.map(c=>c.y))===0,`${shape.id}: normalization`);check(new Set(cells.map(c=>`${c.x},${c.y}`)).size===cells.length,`${shape.id}: duplicate cell`);check(shape.weight>0,`${shape.id}: weight`);const seen=new Set([0]);let changed=true;while(changed){changed=false;for(let i=0;i<cells.length;i++)if(!seen.has(i)&&[...seen].some(j=>Math.abs(cells[i].x-cells[j].x)+Math.abs(cells[i].y-cells[j].y)===1)){seen.add(i);changed=true;}}check(seen.size===cells.length,`${shape.id}: disconnected shape`);}

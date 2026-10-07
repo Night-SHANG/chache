@@ -2,11 +2,11 @@ import type {OutboundTransportPlan} from './outbound-transport.ts';
 import type {PlacementRisk} from './placement-risk.ts';
 import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point } from '../domain/types.ts';
 import type { RunSlot } from '../application/run-slots.ts';
-import type {GameShipment, PlayablePreview} from '../domain/playable.ts';
+import type {GameShipment, PlayablePreview, InboundRun} from '../domain/playable.ts';
 import type {AccountSnapshot, ItemId, GuideTrack} from '../application/account-types.ts';
 import type {StartIntent} from '../application/account-service.ts';
 import type {GuideOverlay} from '../application/tutorials.ts';
-import type {ToolCommandV9, InboundRunV9, UpgradeIdV9} from '../domain/v9/types.ts';
+import type {ToolCommandV9, UpgradeIdV9} from '../domain/v9/types.ts';
 import type {Profile} from '../application/profile.ts';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
@@ -19,7 +19,8 @@ export interface ViewState {
   prepareIntent?:StartIntent|null;
   guideTrack?:GuideTrack;
   guide?:GuideOverlay|null;
-  toolSelection?:{item:ItemId;pieceId:string|null;cells:number[];quarterTurns:0|1|2|3;command?:ToolCommandV9;preview?:InboundRunV9;error?:string}|null;
+  toolboxOpen?:boolean;
+  toolSelection?:{item:ItemId;pieceId:string|null;cells:number[];quarterTurns:0|1|2|3;command?:ToolCommandV9;preview?:InboundRun;error?:string}|null;
   supplyUpgrade?:UpgradeIdV9|null;
   growthFx?:{label:string;progress:number}|null;
   selectedPieceId: string | null;
