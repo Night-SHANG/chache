@@ -183,12 +183,11 @@ export class GameSession {
  }
  private beginNewGame(action:Extract<UiAction,{type:'newRun'}>):void {
   const guide='direct' as const;
-  if(action.mode==='daily'&&!this.allowDailyStart())return;
-  const outbound=action.mode==='color_exit',track:GuideTrack=outbound?'outbound':action.mode==='daily'?'daily':'inbound';this.prepareReturn=outbound?'colorTiers':'inboundMenu';
+  const mode=action.mode==='daily'?'rush':action.mode,outbound=mode==='color_exit',track:GuideTrack=outbound?'outbound':'inbound';this.prepareReturn=outbound?'colorTiers':'inboundMenu';
   if(outbound)this.view.outboundSelectionMode=action.outboundMode??'normal';
   const selectedDifficulty=isInboundDifficultyV18(this.view.inboundDifficulty)?this.view.inboundDifficulty:'hard';
-  const inboundDifficulty=action.mode==='daily'?'hard':isInboundDifficultyV18(action.inboundDifficulty)?action.inboundDifficulty:selectedDifficulty;
-  const intent:StartIntent={spec:outbound?{family:'outbound',variant:action.outboundMode??'normal',rulesetVersion:action.outboundMode==='endless'?13:12,seed:0,difficultyId:action.difficultyId??'easy',toolCharges:{rotate:0,clear:0,wildcard:0}}:{family:'inbound',mode:action.mode==='endless'?'endless':action.mode==='daily'?'daily':'standard',rulesetVersion:18,inboundDifficulty,seed:0,guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide};this.view.prepareIntent=intent;this.view.guideTrack=track;
+  const inboundDifficulty=isInboundDifficultyV18(action.inboundDifficulty)?action.inboundDifficulty:selectedDifficulty;
+  const intent:StartIntent={spec:outbound?{family:'outbound',variant:action.outboundMode??'normal',rulesetVersion:action.outboundMode==='endless'?13:12,seed:0,difficultyId:action.difficultyId??'easy',toolCharges:{rotate:0,clear:0,wildcard:0}}:mode==='rush'?{family:'inbound',mode:'rush',rulesetVersion:19,inboundDifficulty,seed:0,guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}}:{family:'inbound',mode:mode==='endless'?'endless':'standard',rulesetVersion:18,inboundDifficulty,seed:0,guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide};this.view.prepareIntent=intent;this.view.guideTrack=track;
   const migration=this.view.account?null:prepareLegacyMigration(this.platform.storage);
   if(migration?.status==='blocked'){this.view.saveStatus=migration.message;this.view.prepareIntent=null;return;}
   this.prepareStart();
@@ -209,7 +208,7 @@ export class GameSession {
   const run=this.view.account?.run;if(!run)return;
   const before=this.state,operationId=`ui.${Math.floor(this.platform.wallTime?.()??Date.now())}.${this.view.account!.generation}.${++this.operationSerial}.command`;
   this.pendingRequest={type:'command',runId:run.identity.runId,command,operationId,elapsedMs:Math.floor(this.view.elapsed)};
-  this.afterAccountAck=(ack)=>{if([11,14,15,16,18].includes(before.rulesetVersion)&&before.phase==='cleanup'&&before.commandIndex===0)this.lastTick=this.platform.now();this.input.cancel();this.view.canContinue=this.state.phase!=='result';this.animateAccountStep(before,command,ack.events??[]);this.closeTerminalAccount();};
+  this.afterAccountAck=(ack)=>{if((isTieredInbound(before)||[11,14,15].includes(before.rulesetVersion))&&before.phase==='cleanup'&&before.commandIndex===0)this.lastTick=this.platform.now();this.input.cancel();this.view.canContinue=this.state.phase!=='result';this.animateAccountStep(before,command,ack.events??[]);this.closeTerminalAccount();};
   const result=this.accountService.transact(this.pendingRequest,this.view.account!.generation);
   if(!this.acceptAccountResult(result))return;
 
@@ -246,7 +245,6 @@ export class GameSession {
   if(action.type==='selectOutboundMode'){if(this.view.screen==='colorTiers'&&!this.view.needsResume&&!this.view.paused&&(action.mode==='normal'||action.mode==='endless'))this.view.outboundSelectionMode=action.mode;return true;}
   if(action.type==='retrySave'){this.retryAccount();return true;}
   if(action.type==='newRun'&&!action.colorTier){
-   if(action.mode==='daily'&&!this.allowDailyStart())return true;
    if(action.mode==='color_exit'&&action.difficultyId!==undefined&&!isOutboundDifficulty(action.difficultyId))return true;
    if(this.hasRun||this.view.account?.run){this.view.confirmation={kind:'newRun',mode:action.mode,inboundDifficulty:action.inboundDifficulty,difficultyId:action.difficultyId,outboundMode:action.outboundMode};return true;}
    this.beginNewGame(action);return true;
@@ -254,7 +252,6 @@ export class GameSession {
   if(action.type==='confirm'){
    const pending=this.view.confirmation;if(!pending)return true;
    if(pending.kind==='startPractice'){this.view.confirmation=null;return true;}
-   if(pending.kind==='newRun'&&pending.mode==='daily'&&!this.allowDailyStart()){this.view.confirmation=null;return true;}
    if(pending.kind==='purchaseCosmetic'){this.view.confirmation=null;if(pending.cosmeticKind&&pending.cosmeticId)this.requestAccount({type:'purchaseCosmetic',kind:pending.cosmeticKind,id:pending.cosmeticId});return true;}
    if(pending.kind==='purchase'){this.view.confirmation=null;if(pending.item)this.requestAccount({type:'purchase',item:pending.item});return true;}
    if(pending.kind==='newRun'&&!pending.colorTier){this.view.confirmation=null;const start=()=>this.beginNewGame({type:'newRun',mode:pending.mode??'standard',inboundDifficulty:pending.inboundDifficulty,difficultyId:pending.difficultyId,outboundMode:pending.outboundMode});if(this.accountOwned)this.closeAccount('home',start);else {if(this.state.phase==='result'&&!this.recordFinal())return true;this.closeConfirmed(this.prepareReturn);if(!this.hasRun)start();}return true;}
@@ -272,7 +269,7 @@ export class GameSession {
   if(action.type==='purchase'){this.view.confirmation={kind:'purchase',item:action.item};return true;}
   if(action.type==='toggleItem'){const intent=this.view.prepareIntent;if(!intent||intent.guide!=='direct'||intent.spec.family==='inbound'&&intent.spec.mode==='daily')return true;const index=intent.items.indexOf(action.item);if(index>=0)intent.items=intent.items.filter(i=>i!==action.item);else if(intent.items.length<2&&(this.view.account?.inventory[action.item]??0)>0)intent.items=[...intent.items,action.item];return true;}
   if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
-  if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15,16,18].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
+  if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15,16,18,19].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
   if(action.type==='chooseCleanup'){if(this.view.screen==='prepareCleanup'&&this.view.prepareIntent){this.view.prepareIntent.cleanupBranch=action.branch;this.startAccountIntent();}else this.dispatchAccount({type:'chooseCleanup',branch:action.branch});return true;}
   if(action.type==='back'&&['shop','prepareTools','prepareCleanup','guideOffer'].includes(this.view.screen??'')){this.view.screen=this.view.screen==='shop'?this.shopReturn:this.prepareReturn;this.view.prepareIntent=null;return true;}
   if(action.type==='toggleToolbox'){if(this.accountOwned&&isToolRun(this.state)&&['input','rescue'].includes(this.state.phase)&&this.view.screen==='game'&&!this.view.animation&&!this.view.needsResume&&!this.view.paused&&!this.view.toolSelection&&!this.view.supplyUpgrade){this.input.cancel();this.view.toolboxOpen=!this.view.toolboxOpen;}return true;}
@@ -380,7 +377,7 @@ export class GameSession {
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
   if(this.view.growthFx){this.view.growthFx.progress=Math.min(1,(now-this.growthStarted)/650);if(this.view.growthFx.progress>=1)this.view.growthFx=null;}
   if(this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
-  if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!([11,14,15,16,18].includes(this.state.rulesetVersion)&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
+  if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!((isTieredInbound(this.state)||[11,14,15].includes(this.state.rulesetVersion))&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
   if(this.messageExpiresAt&&now>=this.messageExpiresAt){this.view.message='';this.messageExpiresAt=0;}
   const reduced=this.profile.settings.reducedMotion;
   if(this.view.placementFx){this.view.placementFx.progress=Math.max(0,Math.min(1,(now-this.placementStarted)/MOTION.placeMs));if(reduced||this.view.placementFx.progress>=1)this.view.placementFx=null;}
@@ -409,7 +406,7 @@ export class GameSession {
   this.recoveryPending=false;
   if(!this.ensureSerial())return;this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.lastTick=this.platform.now();this.hasRun=true;this.canResume=true;this.view.canContinue=this.legacyState.phase!=='result';if(this.persist())this.recordFinal();this.view.message='';
  }
- restart():void{if(this.practice)return;if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){this.action({type:'newRun',...(isTieredInbound(this.state)?{inboundDifficulty:isInboundDifficultyV18(this.state.inboundDifficulty)?this.state.inboundDifficulty:'hard'}:{}),mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'?'daily':'standard',...('difficultyId' in this.state?{difficultyId:this.state.difficultyId,outboundMode:[10,13].includes(this.state.rulesetVersion)?'endless':'normal' as const}:{})});return;}if(this.legacyState.mode==='color_exit'&&this.legacyState.rulesetVersion<8){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.legacyState.mode==='color_exit'?'color_exit':this.legacyState.mode==='endless'?'endless':this.legacyState.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
+ restart():void{if(this.practice)return;if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){this.action({type:'newRun',...(isTieredInbound(this.state)?{inboundDifficulty:isInboundDifficultyV18(this.state.inboundDifficulty)?this.state.inboundDifficulty:'hard'}:{}),mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'||this.state.mode==='rush'?'rush':'standard',...('difficultyId' in this.state?{difficultyId:this.state.difficultyId,outboundMode:[10,13].includes(this.state.rulesetVersion)?'endless':'normal' as const}:{})});return;}if(this.legacyState.mode==='color_exit'&&this.legacyState.rulesetVersion<8){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.legacyState.mode==='color_exit'?'color_exit':this.legacyState.mode==='endless'?'endless':this.legacyState.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
  private activate(next:RunState,slot:RunSlot,source:'new'|'saved'|'backup'|'corrupt'|'unavailable'):void{
   this.input.cancel();this.clearFeedback();this.recoveryPending=source==='backup'||source==='corrupt'||source==='unavailable';this.slot=slot;this.legacyState=next;this.hasRun=source==='new'||source==='saved'||source==='backup';this.canResume=source==='saved'||source==='new'||source==='backup';this.lastTick=this.platform.now();
   Object.assign(this.view,{screen:source==='new'&&colorSlot(slot)&&next.rulesetVersion<8?'colorIntro':'game',needsResume:source==='backup'||source==='corrupt'||source==='unavailable',paused:false,animation:null,elapsed:next.elapsedMs??0,recoveryError:source==='corrupt'?'此模式存档无法读取，原文已保留':source==='unavailable'?'无法访问此模式存储':undefined,confirmation:null,canContinue:this.hasRun&&next.phase!=='result',message:''});
@@ -513,6 +510,7 @@ export class GameSession {
   return true;
  }
  action(action:UiAction):void{
+  if(action.type==='newRun'&&action.mode==='daily')action={...action,mode:'rush'};
   if(['toggleTutorials','openPracticeSelect','startPractice','guidedStart','directStart','skipTutorial','introStart'].includes(action.type))return;
   if(action.type==='newRun'&&action.mode!=='color_exit'&&action.inboundDifficulty!==undefined&&!isInboundDifficultyV18(action.inboundDifficulty))return;
   if(this.handleHelpAction(action))return;
@@ -525,7 +523,7 @@ export class GameSession {
   if(action.type==='cancel'){this.view.confirmation=null;return;}
   if(action.type==='confirm'){
    const pending=this.view.confirmation;if(!pending)return;this.view.confirmation=null;
-   if(pending.kind==='newRun')this.start(pending.mode??'standard',pending.colorTier,pending.seed,pending.difficultyId);
+   if(pending.kind==='newRun'){if(pending.mode!=='rush')this.start(pending.mode??'standard',pending.colorTier,pending.seed,pending.difficultyId);}
    else if(pending.kind==='leaveRun')this.closeConfirmed(pending.nextScreen??'menu');
    else if(pending.kind==='switchMode'){if(pending.variant)this.switchMode(pending.variant);}
    else if(pending.kind==='finishEndless'){this.view.paused=false;this.view.screen='game';this.dispatch({type:'finishEndless'});}
@@ -551,6 +549,7 @@ export class GameSession {
   if(action.type==='introStart'){if(this.legacyState.mode==='color_exit'&&!this.recoveryPending&&!this.view.needsResume){this.view.screen='game';this.view.paused=false;this.lastTick=this.platform.now();}return;}
 
   if(action.type==='newRun'){
+   if(action.mode==='rush')return;
    if(action.colorTier!==undefined&&(action.mode!=='color_exit'||!isColorTier(action.colorTier)))return;
    if(action.difficultyId!==undefined&&(action.mode!=='color_exit'||!isOutboundDifficulty(action.difficultyId)||action.colorTier!==undefined))return;
    const target:RunSlot=action.mode==='color_exit'?(action.difficultyId?slotForDifficulty(action.difficultyId,8):action.colorTier?slotForTier(action.colorTier):'color_exit'):action.mode==='endless'?'inbound_endless':'orders',loaded=loadPlayableRun(this.platform.storage,target);

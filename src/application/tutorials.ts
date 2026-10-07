@@ -71,7 +71,7 @@ export function advanceGuide(track: GuideTrack, progress: GuideProgress, before:
   const learned = new Set(progress.learned);
   const teach = (step: GuideStep): void => { learned.add(step); };
   if (track === 'inbound'||track==='daily') {
-    if(track==='daily'&&(!isTieredInbound(before)||before.mode!=='daily'))return progress;
+    if(track==='daily'&&(!isTieredInbound(before)||before.mode!=='daily'&&before.mode!=='rush'))return progress;
     if (!isInboundRun(before) || !isInboundRun(result.state)) return progress;
     const after = result.state;
     if (isInboundV9(before) && isInboundV9(after) && command.type === 'upgrade' && before.phase === 'upgrade' && before.upgradeChoices.includes(command.upgradeId as keyof typeof before.levels)
@@ -164,7 +164,7 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
 export function guideOverlay(track: GuideTrack, progress: GuideProgress, state: GameRun): GuideOverlay | null {
   if (progress.skipped || isGuideComplete(track, progress, state.rulesetVersion) || state.phase === 'result') return null;
   if(track==='daily'){
-    if(!isTieredInbound(state)||state.mode!=='daily')return null;
+    if(!isTieredInbound(state)||state.mode!=='daily'&&state.mode!=='rush')return null;
     if(state.phase==='cleanup')return {step:'sweepChoice',text:''};
     return state.phase==='input'&&!progress.learned.includes('rushTimer')&&state.cellTraits.some(trait=>trait?.kind==='rush')?{step:'rushTimer',text:'加急数字按后续成功放置倒数，不是秒'}:null;
   }

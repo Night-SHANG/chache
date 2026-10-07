@@ -47,11 +47,12 @@ export function accountCosmeticState(account: Readonly<AccountSnapshot> | null, 
     const item = getCosmetic(kind, profile.cosmetics[kind]);
     if (item && item.price === 0) owned.add(item.key);
   }
-  const formal = Object.entries(profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.|(standard|daily)\.v18\.(hard|expert)\.)(plain|tools)$/.test(key));
+  const formal = Object.entries(profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.|(standard|daily)\.v18\.(hard|expert)\.|rush\.v19\.(hard|expert)\.)(plain|tools)$/.test(key));
   let blue = legacy.achievements.includes('first_shipment') || legacy.stats.orders > 0 || formal.some(([, bucket]) => bucket.units > 0);
   let red = legacy.achievements.includes('five_shifts') || formal.some(([key, bucket]) => key.startsWith('inbound.standard.') && bucket.wins > 0);
   const run = account.run;
-  if (run && ['standard', 'daily'].includes(run.identity.mode) && [9, 11, 14, 15, 16, 18].includes(run.identity.rulesetVersion)) {
+  if (run && ['standard', 'daily', 'rush'].includes(run.identity.mode) && [9, 11, 14, 15, 16, 18, 19].includes(run.identity.rulesetVersion)
+    && !(run.state.rulesetVersion===18&&run.state.overtime)) {
     const cursor = run.resultCursor;
     const fresh = run.identity.serial > account.resetCursor.serial || run.identity.serial === account.resetCursor.serial && run.state.commandIndex > account.resetCursor.commandIndex && cursor !== null;
     if (fresh) {

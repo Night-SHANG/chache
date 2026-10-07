@@ -11,16 +11,17 @@ import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {RULES_V9_CONFIG,UPGRADES_V9} from '../domain/v9/content.ts';
 import {CARGO} from '../domain/content.ts';
 import type { ViewState } from './view-types.ts';
-import { L, type Rect } from './layout.ts';
+import { L, verticalStackRects, type Rect } from './layout.ts';
 import type { UiAction } from './ui-types.ts';
 
 export interface UiControl { rect: Rect; action: UiAction; label: string; disabled?: boolean; selected?: boolean }
 const wide = (y: number, h = 114): Rect => ({ x: 210, y, w: 660, h });
-const settingsRow = (y: number): Rect => ({ x: 132, y, w: 816, h: 144 });
 export const COLOR_TIER_NAMES: Readonly<Record<ColorTier,string>> = { entry: '入门', middle: '中段', late: '后段' };
 export const colorTierLabel = (tier: ColorTier): string => COLOR_TIER_NAMES[tier];
 export const OUTBOUND_DIFFICULTY_NAMES: Readonly<Record<OutboundDifficulty,string>> = { easy:'简单', normal:'中等', hard:'困难', expert:'专业' };
 export const outboundDifficultyLabel = (difficulty:OutboundDifficulty):string => OUTBOUND_DIFFICULTY_NAMES[difficulty];
+export const isInfiniteInbound = (state:GameRun):boolean => state.mode==='endless'||isInboundV18(state)&&state.overtime;
+export const inboundModeLabel = (state:GameRun):string => state.mode==='rush'?'加急':state.mode==='daily'?'每日':isInfiniteInbound(state)?'无限':'五班';
 export const runSlotLabel = (slot:RunSlot):string => {
   const difficulty=difficultyForSlot(slot),tier=tierForSlot(slot);
   return difficulty?`出库 · ${outboundDifficultyLabel(difficulty)}`:tier?`出库 · ${colorTierLabel(tier)}`:slot==='color_exit'?'出库模式':slot==='inbound_endless'?'无限入库':'入库模式';
@@ -30,7 +31,7 @@ export const hasLegacyRun = (view:ViewState,slot:RunSlot):boolean => ['saved','r
 const modeLabel = (view:ViewState,slot:RunSlot):string => view.modeSlots?.[slot]==='saved'?'继续旧局':view.modeSlots?.[slot]==='result'?'查看结算':'存档待处理';
 const restartAction = (state:GameRun):UiAction => state.mode==='color_exit'
   ? 'difficultyId' in state&&state.difficultyId&&[8,10,12,13].includes(state.rulesetVersion)?{type:'newRun',mode:'color_exit',difficultyId:state.difficultyId,outboundMode:[10,13].includes(state.rulesetVersion)?'endless':'normal'}:{type:'chooseColorTier'}
-  : {type:'newRun',mode:state.mode==='daily'?'daily':state.mode==='endless'?'endless':'standard',...(isTieredInbound(state)?{inboundDifficulty:isInboundDifficultyV18(state.inboundDifficulty)?state.inboundDifficulty:'hard'}:{})};
+  : {type:'newRun',mode:state.mode==='daily'||state.mode==='rush'?'rush':state.mode==='endless'?'endless':'standard',...(isTieredInbound(state)?{inboundDifficulty:isInboundDifficultyV18(state.inboundDifficulty)?state.inboundDifficulty:'hard'}:{})};
 const control = (rect: Rect, label: string, action: UiAction): UiControl => ({ rect, label, action });
 
 /** Only the top actionable layer is returned. Geometry never changes either state object. */
@@ -65,7 +66,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
       ...(['hard','expert'] as const).map((inboundDifficulty,index)=>({...control({x:150+index*400,y:304,w:380,h:144},index?'专业':'困难',{type:'selectInboundDifficulty',inboundDifficulty}),selected:selectedDifficulty===inboundDifficulty})),
       control({x:680,y:598,w:230,h:144},'开始五班',{type:'newRun',mode:'standard',inboundDifficulty:selectedDifficulty}),
       control({x:680,y:918,w:230,h:144},'开始无限',{type:'newRun',mode:'endless',inboundDifficulty:selectedDifficulty}),
-      {...control({x:680,y:1268,w:230,h:144},view.dailyLocked?'今日已完成':'开始挑战',{type:'newRun',mode:'daily',inboundDifficulty:'hard'}),disabled:!!view.dailyLocked},
+      control({x:680,y:1268,w:230,h:144},'开始加急',{type:'newRun',mode:'rush',inboundDifficulty:selectedDifficulty}),
       control(wide(1565,144),'返回主页',{type:'home'}),
     ];
   }
@@ -81,17 +82,19 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(1540),'返回出库选择',{type:'chooseColorTier'}),
   ];
   if (view.screen === 'settings') {
-    return [
-      { ...control(settingsRow(355), `声音：${view.profile?.settings.sound !== false ? '开' : '关'}`, { type: 'toggleSound' }), selected: view.profile?.settings.sound !== false },
-      { ...control(settingsRow(535), `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
-      ...(view.profileNeedsRecovery ? [control(settingsRow(1356), '恢复游戏记录', { type: 'recoverProfile' })] : []),
-      control(settingsRow(1518), '重置游戏记录', { type: 'resetProfile' }),
-      control(settingsRow(1680), '返回', { type: 'back' }),
+    const rows=verticalStackRects(view.profileNeedsRecovery?5:4,{x:132,y:355,w:816,h:144},36);
+    const controls=[
+      { ...control(rows[0], `声音：${view.profile?.settings.sound !== false ? '开' : '关'}`, { type: 'toggleSound' }), selected: view.profile?.settings.sound !== false },
+      { ...control(rows[1], `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
+      ...(view.profileNeedsRecovery ? [control(rows[2], '恢复游戏记录', { type: 'recoverProfile' })] : []),
+      control(rows[rows.length-2], '重置游戏记录', { type: 'resetProfile' }),
+      control(rows[rows.length-1], '返回', { type: 'back' }),
     ];
+    return controls;
   }
   if (view.paused && state.phase!=='result') return [
     control({...L.resume,h:104},'继续游戏',{type:'continue'}),
-    {...control({...L.restart,y:1220,h:104},state.mode==='daily'&&view.dailyLocked?'今日已完成':'重新开始',restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
+    control({...L.restart,y:1220,h:104},'重新开始',restartAction(state)),
     control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
     control({...L.restart,y:1480,h:104},'设置',{type:'settings'}),
     control({...L.restart,y:1610,h:104},'玩法说明',{type:'help'}),
@@ -101,11 +104,14 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
   if (state.phase === 'result' && !view.animation) {
     const overtime = (isInboundV18(state)||!isInboundV16(state)||state.inboundDifficulty==='normal') && [3,9,11,14,15,16,18].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
-    return [
-      ...(overtime ? [control({ ...L.resume }, '继续加班', { type: 'continueOvertime' }),control({...L.restart,y:1510},'完成收工',{type:'declineOvertime'})] : []),
-      {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? view.dailyLocked?'今日已完成':state.result==='won'?'挑战今日':'再试一次' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
+    const controls=[
+      ...(overtime ? [control({ ...L.resume }, '继续无限', { type: 'continueOvertime' })] : []),
+      {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily'||state.mode === 'rush' ? '再来一局' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state))},
       control({ ...L.restart, y: 1390 }, '返回主页', { type: 'home' }),
+      ...(overtime?[control({...L.restart},'完成收工',{type:'declineOvertime'})]:[]),
     ];
+    const rows=verticalStackRects(controls.length,{x:246,y:state.mode==='tutorial'?1160:1120,w:588,h:132},28);
+    return controls.map((item,index)=>({...item,rect:rows[index]}));
   }
   if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)return state.upgradeChoices.map((id,index)=>control(L.upgradeRects[index],UPGRADES_V9.find(u=>u.id===id)?.title??id,{type:'chooseUpgrade',upgradeId:id}));
   if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)return getEconomyControls(state,view);

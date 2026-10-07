@@ -1,4 +1,5 @@
 import {isInboundDifficultyV18} from '../domain/v18/content.ts';
+import {validToolChargesV16} from '../domain/v16/content.ts';
 import {guideProgress,guideTrackFor,upgradeAccountGuides} from './account-guides.ts';
 import {INBOUND_GUIDE_V16} from './inbound-guide-v16.ts';
 import { applyPlayableCommand, createPlayableRun, isInboundRun, isToolRun, isOutboundToolsRun, type GameCommand, type GameEvent, type GameRun, type GameStepResult, type RunSpec } from '../domain/playable.ts';
@@ -79,14 +80,15 @@ function legacyProfile(account: AccountSnapshot): Profile {
 export function accountDisplayProfile(account: Readonly<AccountSnapshot>): Profile {
   const profile = legacyProfile(account);
   // Frozen inbound achievements cover ordinary/daily orders; other score families stay independent.
-  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.|(standard|daily)\.v18\.(hard|expert)\.)(plain|tools)$/.test(key));
+  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.|(standard|daily)\.v18\.(hard|expert)\.|rush\.v19\.(hard|expert)\.)(plain|tools)$/.test(key));
   const sum = (left: number, right: number): number => Math.min(Number.MAX_SAFE_INTEGER, left + right);
   const units = buckets.reduce((total, [, bucket]) => sum(total, bucket.units), 0);
   const wins = buckets.reduce((total, [, bucket]) => sum(total, bucket.wins), 0);
   const runs = buckets.reduce((total, [, bucket]) => sum(total, bucket.runs), 0);
   const chain = buckets.reduce((best, [, bucket]) => Math.max(best, bucket.maxChain), 0);
   const won = buckets.some(([key, bucket]) => key.startsWith('inbound.standard.') && bucket.wins > 0);
-  const active = account.run && isInboundRun(account.run.state) && ['standard', 'daily'].includes(account.run.identity.mode) ? account.run : null;
+  const active = account.run && isInboundRun(account.run.state) && ['standard', 'daily', 'rush'].includes(account.run.identity.mode)
+    && !(account.run.state.rulesetVersion===18&&account.run.state.overtime) ? account.run : null;
   const cursor = active?.resultCursor, sameResetRun = active?.identity.serial === account.resetCursor.serial;
   const freshActive = active && (active.identity.serial > account.resetCursor.serial
     || sameResetRun && active.state.commandIndex > account.resetCursor.commandIndex && cursor !== null) ? active : null;
@@ -144,7 +146,7 @@ function validateActive(run: AccountRun): void {
   assertGameRun(state);
   if (isInboundRun(state)) {
     requireValue(state.mode === (id.mode === 'guided' ? 'standard' : id.mode) && state.guided === (id.mode === 'guided')
-      && id.difficultyId === undefined && ((state.rulesetVersion!==16&&state.rulesetVersion!==18)||state.inboundDifficulty===id.inboundDifficulty), '入库玩法身份不一致');
+      && id.difficultyId === undefined && ((state.rulesetVersion!==16&&state.rulesetVersion!==18&&state.rulesetVersion!==19)||state.inboundDifficulty===id.inboundDifficulty), '入库玩法身份不一致');
   } else {
     requireValue(state.mode === 'color_exit' && state.difficultyId === id.difficultyId && (isOutboundToolsRun(state)||run.reserved.length === 0)
       && (state.rulesetVersion === 10 || state.rulesetVersion === 13 ? id.mode === 'outboundEndless' : id.mode === 'outbound' || id.mode === 'outboundGuided' && id.difficultyId === 'easy'), '出库玩法身份不一致');
@@ -194,6 +196,10 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
     const base = baseCoins(isInboundRun(run.state)?'inbound':'outbound', run.state.completedOrders, run.state.score,run.identity.economyVersion);
     requireValue(base >= run.creditedBase, '累计收益不能倒退');
     let delta = base - run.creditedBase, dailyPaid = account.dailyPaid, dailyRewards = account.dailyRewards;
+    if(run.identity.mode==='rush'){
+      const won=run.state.result==='won'&&run.state.endReason==='completed',entitled=won?add(base,add(base,base)):base;
+      requireValue(entitled>=run.earnedCoins,'累计加急收益不能倒退');delta=entitled-run.earnedCoins;
+    }
     if (run.identity.mode === 'daily') {
       const day = run.identity.challengeDay!;
       const prior=dailyRewardRecord(account,day),won=run.state.result==='won'&&run.state.endReason==='completed';
@@ -221,7 +227,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       && result.state.seed === before.state.seed && result.state.mode === before.state.mode && result.state.runSerial === before.identity.serial
       && ('difficultyId' in result.state ? result.state.difficultyId : undefined) === ('difficultyId' in before.state ? before.state.difficultyId : undefined)
       && (!isInboundRun(before.state) || isInboundRun(result.state) && result.state.guided === before.state.guided
-        && (!(before.state.rulesetVersion===16||before.state.rulesetVersion===18)||'inboundDifficulty' in result.state&&result.state.inboundDifficulty===before.state.inboundDifficulty)), 'Domain改变了本局身份');
+        && (!(before.state.rulesetVersion===16||before.state.rulesetVersion===18||before.state.rulesetVersion===19)||'inboundDifficulty' in result.state&&result.state.inboundDifficulty===before.state.inboundDifficulty)), 'Domain改变了本局身份');
     const expectedCommands = [...before.state.commands, command];
     requireValue(canonicalStringify(result.state.commands) === canonicalStringify(expectedCommands), 'Domain没有记录已接受指令');
     let run: AccountRun = { ...before, state: { ...result.state, runSerial: before.identity.serial } as GameRun };
@@ -259,13 +265,15 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       requireValue(object(intent) && keys(intent, ['spec', 'items', 'guide', 'cleanupBranch']) && object(intent.spec)
         && Array.isArray(intent.items) && intent.items.length <= 2 && new Set(intent.items).size === intent.items.length
         && intent.items.every(item => ITEM_IDS.includes(item)) && ['guided', 'direct'].includes(intent.guide), '开局准备无效');
-      const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? (spec.rulesetVersion===16||spec.rulesetVersion===18)&&spec.mode==='daily'?'daily':'inbound' : 'outbound', guided = intent.guide === 'guided';
-      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges',...(spec.rulesetVersion===16||spec.rulesetVersion===18?['inboundDifficulty']:[])]) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16||spec.rulesetVersion===18)
-        && ['standard', 'daily', 'endless'].includes(spec.mode) && spec.guided === guided
+      const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? (spec.rulesetVersion===19||(spec.rulesetVersion===16||spec.rulesetVersion===18)&&spec.mode==='daily')?'daily':'inbound' : 'outbound', guided = intent.guide === 'guided';
+      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges',...(spec.rulesetVersion===16||spec.rulesetVersion===18||spec.rulesetVersion===19?['inboundDifficulty']:[])]) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16||spec.rulesetVersion===18||spec.rulesetVersion===19)
+        && (spec.rulesetVersion===19?spec.mode==='rush':['standard', 'daily', 'endless'].includes(spec.mode)) && spec.guided === guided
         : spec.family === 'outbound' && keys(spec, ['family', 'variant', 'rulesetVersion', 'seed', 'difficultyId',...(spec.rulesetVersion===12||spec.rulesetVersion===13?['toolCharges']:[])])
           && (spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) || spec.variant === 'endless' && (spec.rulesetVersion === 10||spec.rulesetVersion===13))
           && (!(spec.rulesetVersion===12||spec.rulesetVersion===13)||owns(spec,'toolCharges')&&validToolChargesV12(spec.toolCharges)), '开局玩法身份不匹配');
       if(inbound&&spec.rulesetVersion===18)requireValue(!guided&&spec.guided===false&&(spec.inboundDifficulty===undefined||isInboundDifficultyV18(spec.inboundDifficulty))&&(spec.mode!=='daily'||spec.inboundDifficulty===undefined||spec.inboundDifficulty==='hard'),'规则18仅支持直接困难或专业开局，每日固定困难');
+      if(inbound&&spec.rulesetVersion===19)requireValue(!guided&&spec.guided===false&&(spec.inboundDifficulty===undefined||isInboundDifficultyV18(spec.inboundDifficulty)),'加急仅支持直接困难或专业开局');
+      if(inbound&&spec.rulesetVersion===19)requireValue(spec.toolCharges===undefined||validToolChargesV16(spec.toolCharges,'standard'),'加急工具预算无效');
       requireValue(!guided || !guideProgress(account,track).authoredStartConsumed && !guideProgress(account,track).skipped && !isGuideComplete(track, guideProgress(account,track), spec.rulesetVersion), '首次辅助开局已经使用');
       requireValue(!guided || (inbound ? spec.mode === 'standard' : spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) && spec.difficultyId === 'easy'), '该模式不使用首次辅助开局');
       requireValue(intent.items.length === 0 || !guided && (inbound ? spec.mode !== 'daily' : spec.rulesetVersion===12||spec.rulesetVersion===13), '该模式不能使用个人工具');
@@ -277,12 +285,12 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       const seed = guided ? inbound ? spec.rulesetVersion===16?INBOUND_GUIDE_V16.seed:spec.rulesetVersion===14||spec.rulesetVersion===15?INBOUND_GUIDE_V14.seed:spec.rulesetVersion === 11 ? INBOUND_GUIDE_V11.seed : INBOUND_GUIDE_V9.seed : spec.rulesetVersion===12?OUTBOUND_GUIDE_V12.seed:OUTBOUND_GUIDE_V8.seed : daily?.seed ?? parseInt(accountDigest(`${account.epoch}.${serial}.${inbound ? 'inbound' : 'outbound'}`), 16);
       const charges: ToolChargesV9 = { rotate: 0, clear: 0, wildcard: 0 }, inventory = { ...account.inventory };
       for (const item of intent.items) { requireValue(inventory[item] > 0, '工具库存不足'); inventory[item]--; charges[item] = 1; }
-      const resolved: RunSpec = inbound ? { ...spec, seed, guided, toolCharges: charges } : spec.rulesetVersion===12||spec.rulesetVersion===13?{...spec,seed,toolCharges:charges}:{ ...spec, seed };
+      const resolved: RunSpec = inbound ? spec.rulesetVersion===19?{...spec,seed,guided:false,toolCharges:charges}:{ ...spec, seed, guided, toolCharges: charges } : spec.rulesetVersion===12||spec.rulesetVersion===13?{...spec,seed,toolCharges:charges}:{ ...spec, seed };
       let state = createPlayableRun(resolved);
       const identity: RunIdentity = {
         runId: `${account.epoch}.${serial}`, serial, rulesetVersion: resolved.rulesetVersion, runConfigId: state.runConfigId, economyVersion: resolved.rulesetVersion>=12?2:1,
         mode: inbound ? guided ? 'guided' : spec.mode : guided ? 'outboundGuided' : spec.variant === 'normal' ? 'outbound' : 'outboundEndless',
-        ...(isInboundRun(state)&&(state.rulesetVersion===16||state.rulesetVersion===18)?{inboundDifficulty:state.inboundDifficulty}:{}), ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
+        ...(isInboundRun(state)&&(state.rulesetVersion===16||state.rulesetVersion===18||state.rulesetVersion===19)?{inboundDifficulty:state.inboundDifficulty}:{}), ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
       };
       state = { ...state, runSerial: serial, maxOccupancy: 0, elapsedMs: 0 } as GameRun;
       let next: AccountSnapshot = { ...account, inventory, nextRunSerial: serial + 1,
@@ -350,7 +358,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       if (request.type === 'saveElapsed') requireValue(safe(elapsedMs), '计时必须是单调不减的安全整数');
       if (elapsedMs !== undefined) {
         requireValue(safe(elapsedMs) && elapsedMs >= (active.state.elapsedMs ?? 0), '计时必须是单调不减的安全整数');
-        requireValue(![11,14,15,16,18].includes(active.state.rulesetVersion) || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
+        requireValue(![11,14,15,16,18,19].includes(active.state.rulesetVersion) || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
         if (elapsedMs !== (active.state.elapsedMs ?? 0)) account = { ...account, run: { ...active, state: { ...active.state, elapsedMs } as GameRun } };
       }
       if (request.type === 'saveElapsed') return account;

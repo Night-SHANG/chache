@@ -1,7 +1,8 @@
+import {asV16 as rushAsV16} from '../domain/v19/engine.ts';
 import {asV16} from '../domain/v18/engine.ts';
 import {collectGroupsV16,selectOrderGroupV16,docksV16,pieceCellsV16} from '../domain/v16/board.ts';
 import type {PieceV16} from '../domain/v16/types.ts';
-import {isInboundV11,isInboundV14,isInboundV15,isInboundV16,isInboundV18,isTieredInbound} from '../domain/playable.ts';
+import {isInboundV11,isInboundV14,isInboundV15,isInboundV16,isInboundV18,isTieredInbound,isRushV19} from '../domain/playable.ts';
 import type {InboundRun} from '../domain/playable.ts';
 import type {Order,CargoId,Piece,Point} from '../domain/types.ts';
 import {SHAPES} from '../domain/content.ts';
@@ -17,11 +18,11 @@ import type {PieceV15} from '../domain/v15/types.ts';
 import type {OutboundToolPieceV12} from '../domain/v12/types.ts';
 export type InboundPiece=PieceV9|PieceV11|PieceV14|PieceV15|PieceV16;
 /** The version identifies the family; both families now have quarterTurns. */
-export const isInboundPiece=(piece:Piece|InboundPiece,rulesetVersion:number):piece is InboundPiece=>[9,11,14,15,16,18].includes(rulesetVersion)&&'quarterTurns' in piece&&typeof piece.quarterTurns==='number';
-export const inboundGroups=(state:InboundRun,cargo:CargoId)=>isInboundV18(state)?collectGroupsV16(asV16(state),cargo):isInboundV16(state)?collectGroupsV16(state,cargo):isInboundV15(state)?collectGroupsV15(state,cargo):isInboundV14(state)?collectGroupsV14(state,cargo):isInboundV11(state)?collectGroupsV11(state,cargo):collectGroupsV9(state,cargo);
-export const inboundOrderGroup=(state:InboundRun,order:Order)=>isInboundV18(state)?selectOrderGroupV16(asV16(state),order):isInboundV16(state)?selectOrderGroupV16(state,order):isInboundV15(state)?selectOrderGroupV15(state,order):isInboundV14(state)?selectOrderGroupV14(state,order):isInboundV11(state)?selectOrderGroupV11(state,order):selectOrderGroupV9(state,order);
+export const isInboundPiece=(piece:Piece|InboundPiece,rulesetVersion:number):piece is InboundPiece=>[9,11,14,15,16,18,19].includes(rulesetVersion)&&'quarterTurns' in piece&&typeof piece.quarterTurns==='number';
+export const inboundGroups=(state:InboundRun,cargo:CargoId)=>isRushV19(state)?collectGroupsV16(rushAsV16(state),cargo):isInboundV18(state)?collectGroupsV16(asV16(state),cargo):isInboundV16(state)?collectGroupsV16(state,cargo):isInboundV15(state)?collectGroupsV15(state,cargo):isInboundV14(state)?collectGroupsV14(state,cargo):isInboundV11(state)?collectGroupsV11(state,cargo):collectGroupsV9(state,cargo);
+export const inboundOrderGroup=(state:InboundRun,order:Order)=>isRushV19(state)?selectOrderGroupV16(rushAsV16(state),order):isInboundV18(state)?selectOrderGroupV16(asV16(state),order):isInboundV16(state)?selectOrderGroupV16(state,order):isInboundV15(state)?selectOrderGroupV15(state,order):isInboundV14(state)?selectOrderGroupV14(state,order):isInboundV11(state)?selectOrderGroupV11(state,order):selectOrderGroupV9(state,order);
 export const inboundDocks=(state:InboundRun)=>isTieredInbound(state)?docksV16(state):isInboundV15(state)?docksV15(state):isInboundV14(state)?docksV14(state):isInboundV11(state)?docksV11(state):docksV9(state);
-export const inboundPieceCells=(piece:InboundPiece,rulesetVersion:number)=>(rulesetVersion===16||rulesetVersion===18)?pieceCellsV16(piece):rulesetVersion===15?pieceCellsV15(piece):rulesetVersion===14?pieceCellsV14(piece):rulesetVersion===11?pieceCellsV11(piece):pieceCellsV9(piece);
+export const inboundPieceCells=(piece:InboundPiece,rulesetVersion:number)=>(rulesetVersion===16||rulesetVersion===18||rulesetVersion===19)?pieceCellsV16(piece):rulesetVersion===15?pieceCellsV15(piece):rulesetVersion===14?pieceCellsV14(piece):rulesetVersion===11?pieceCellsV11(piece):pieceCellsV9(piece);
 /** Outbound offsets keep the original index-to-cargo mapping through every rotation. */
 export function presentationPieceCells(piece:Piece|InboundPiece|OutboundToolPieceV12,rulesetVersion:number):Point[]{
  if((rulesetVersion===12||rulesetVersion===13)&&'quarterTurns' in piece)return pieceCellsV12(piece);

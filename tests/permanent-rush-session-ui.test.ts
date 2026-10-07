@@ -1,0 +1,89 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createCanvas} from '@napi-rs/canvas';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {GameSession} from '../src/application/session.ts';
+import {createRunV18} from '../src/domain/v18/engine.ts';
+import {createRunV19,applyCommandV19} from '../src/domain/v19/engine.ts';
+import {CARGO} from '../src/domain/rulesets/v1/content.ts';
+import {createRunV16} from '../src/domain/v16/engine.ts';
+import {scaledScoreV18} from '../src/domain/v18/content.ts';
+import {isTieredInbound,findPlayableMoves,previewPlayablePlacement,type GameRun} from '../src/domain/playable.ts';
+import {getUiControls} from '../src/presentation/ui.ts';
+import {render} from '../src/presentation/renderer.ts';
+import {L} from '../src/presentation/layout.ts';
+import type {ViewState} from '../src/presentation/view-types.ts';
+import {makeAccountRun} from './helpers/account-fixtures.ts';
+import {sessionHost} from './helpers/session-fixtures.ts';
+
+const sizes=[[360,800],[540,960],[1200,900]] as const;
+function capture(state:GameRun,current:ViewState,name='',width=1080,height=1920){
+ const canvas=createCanvas(width,height),ctx=canvas.getContext('2d'),labels:{value:string;left:number;right:number;top:number;bottom:number}[]=[],fill=ctx.fillText.bind(ctx),scale=Math.min(width/L.width,height/L.height);ctx.translate((width-L.width*scale)/2,(height-L.height*scale)/2);ctx.scale(scale,scale);
+ ctx.fillText=(value,x,y)=>{const m=ctx.measureText(value),t=ctx.getTransform();labels.push({value,left:t.a*(x-m.actualBoundingBoxLeft)+t.e,right:t.a*(x+m.actualBoundingBoxRight)+t.e,top:t.d*(y-m.actualBoundingBoxAscent)+t.f,bottom:t.d*(y+m.actualBoundingBoxDescent)+t.f});fill(value,x,y);};render(ctx as unknown as CanvasRenderingContext2D,state,current);
+ const dir=process.env.WAREHOUSE_RUSH_CAPTURE_DIR;if(dir&&name){mkdirSync(dir,{recursive:true});writeFileSync(`${dir}/${name}-${width}x${height}.png`,canvas.toBuffer('image/png'));}return {words:labels.map(l=>l.value).join('\n'),labels,scale};
+}
+function startRush(session:GameSession){session.action({type:'newRun',mode:'rush'});if(session.view.confirmation)session.action({type:'confirm'});assert.equal(session.view.screen,'prepareTools');session.action({type:'prepareNext'});assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,19);}
+function settle(h:ReturnType<typeof sessionHost>){h.time(h.platform.now()+10000);h.session.tick(h.platform.now());h.time(h.platform.now()+10000);h.session.tick(h.platform.now());}
+
+test('each difficulty selects all three cards, and permanent rush ignores prior daily completion',()=>{
+ const h=sessionHost({formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'old.daily',bonusPaid:40}}});h.session.action({type:'chooseInbound'});assert.equal(h.session.view.inboundDifficulty,'hard');
+ for(const tier of ['expert','hard','expert'] as const){const snapshot=[...h.data];h.session.action({type:'selectInboundDifficulty',inboundDifficulty:tier});const controls=getUiControls(h.session.state,h.session.view),starts=controls.filter(c=>c.action.type==='newRun');assert.deepEqual(starts.map(c=>c.action),['standard','endless','rush'].map(mode=>({type:'newRun',mode,inboundDifficulty:tier})));assert.ok(starts.every(c=>!c.disabled));assert.deepEqual([...h.data],snapshot);
+  const words=capture(h.session.state,h.session.view).words;assert.match(words,new RegExp(`${tier==='hard'?'困难':'专业'}.*加急`));assert.match(words,/五班 · 通关金币×3/);assert.doesNotMatch(words,/每日|今日|2026-|不携带/);
+ }
+ h.session.action({type:'home'});h.session.action({type:'chooseInbound'});assert.equal(h.session.view.inboundDifficulty,'expert');
+});
+
+test('stale daily start callbacks alias to fresh selected-tier rush without daily locks',()=>{
+ const h=sessionHost({formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'old.daily',bonusPaid:40}}});h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:'expert'});h.session.action({type:'newRun',mode:'daily'});assert.equal(h.session.view.screen,'prepareTools');assert.equal(h.session.view.prepareIntent?.spec.family==='inbound'&&h.session.view.prepareIntent.spec.mode,'rush');h.session.action({type:'prepareNext'});assert.equal(h.session.state.mode,'rush');assert.equal(isTieredInbound(h.session.state)&&h.session.state.inboundDifficulty,'expert');const seed=h.session.state.seed;h.session.action({type:'newRun',mode:'daily'});h.session.action({type:'confirm'});h.session.action({type:'prepareNext'});assert.equal(h.session.state.mode,'rush');assert.notEqual(h.session.state.seed,seed);
+});
+
+for(const tier of ['hard','expert'] as const)test(`${tier} rush prepares at most two tools, starts actual cleanup at zero elapsed, and restores/restarts fresh`,()=>{
+ const h=sessionHost({wallet:777,inventory:{rotate:1,clear:1,wildcard:1},formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'old.daily',bonusPaid:40}}});h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:tier});const before=[...h.data];h.session.action({type:'newRun',mode:'rush'});assert.equal(h.session.view.screen,'prepareTools');
+ for(const item of ['rotate','clear','wildcard'] as const)h.session.action({type:'toggleItem',item});assert.deepEqual(h.session.view.prepareIntent?.items,['rotate','clear']);h.session.action({type:'back'});assert.equal(h.session.view.screen,'inboundMenu');assert.deepEqual([...h.data],before);
+ h.session.action({type:'newRun',mode:'rush'});h.session.action({type:'toggleItem',item:'rotate'});h.session.action({type:'toggleItem',item:'clear'});h.session.action({type:'prepareNext'});
+ assert.equal(h.session.state.rulesetVersion,19);assert.equal(h.session.state.mode,'rush');assert.equal(h.session.state.phase,'cleanup');assert.equal(h.session.state.commandIndex,0);assert.deepEqual(h.session.state.candidates,[]);assert.equal(isTieredInbound(h.session.state)&&h.session.state.inboundDifficulty,tier);assert.equal(h.session.view.account?.run?.identity.challengeDay,undefined);assert.deepEqual(h.session.view.account?.run?.reserved,['rotate','clear']);assert.equal(h.session.view.guide,null);
+ h.time(45000);h.session.tick(45000);assert.equal(h.session.view.elapsed,0);h.time(65000);h.session.action({type:'chooseCleanup',branch:'placements'});assert.equal(h.session.state.phase,'input');assert.equal(h.session.view.elapsed,0);h.time(65500);h.session.tick(65500);assert.equal(h.session.view.elapsed,500);
+ const seed=h.session.state.seed,saved=structuredClone(h.session.state),restored=new GameSession(h.platform,{seed:999,mode:'standard'});assert.deepEqual(restored.state,saved);restored.resume();restored.view.inboundDifficulty=tier==='hard'?'expert':'hard';restored.restart();assert.equal(restored.view.confirmation?.mode,'rush');assert.equal(restored.view.confirmation?.inboundDifficulty,tier);const snapshot=[...h.data];restored.action({type:'cancel'});assert.deepEqual(restored.state,saved);assert.deepEqual([...h.data],snapshot);
+ restored.restart();restored.action({type:'confirm'});assert.equal(restored.view.screen,'prepareTools');assert.deepEqual(restored.view.account?.inventory,{rotate:1,clear:1,wildcard:1});restored.action({type:'prepareNext'});assert.equal(restored.state.rulesetVersion,19);assert.equal(restored.state.mode,'rush');assert.notEqual(restored.state.seed,seed);assert.equal(isTieredInbound(restored.state)&&restored.state.inboundDifficulty,tier);restored.action({type:'chooseCleanup',branch:'orders'});assert.ok(getUiControls(restored.state,restored.view).some(c=>c.action.type==='toggleToolbox'&&c.label==='工具箱 · 0'));
+});
+
+test('restored old daily stays unchanged, while restart offers permanent rush without a date lock',()=>{
+ const state=createRunV16({seed:17,mode:'daily'});state.runSerial=1;const run=makeAccountRun({state,identity:{runId:'old.daily',serial:1,rulesetVersion:16,inboundDifficulty:'normal',runConfigId:state.runConfigId,mode:'daily',challengeDay:'2026-10-05',economyVersion:2},history:{seed:17,runConfigId:state.runConfigId,head:null,totalCommands:0,tail:[]}}),h=sessionHost({run,nextRunSerial:2,formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'other.daily',bonusPaid:40}}});h.session.resume();assert.deepEqual(structuredClone(h.session.state),state);h.session.restart();assert.equal(h.session.view.confirmation?.mode,'rush');h.session.action({type:'cancel'});assert.deepEqual(structuredClone(h.session.state),state);h.session.restart();h.session.action({type:'confirm'});assert.equal(h.session.view.screen,'prepareTools');h.session.action({type:'prepareNext'});assert.equal(h.session.state.mode,'rush');assert.equal(h.session.state.rulesetVersion,19);
+});
+
+function nearFiveWin(tier:'hard'|'expert'){
+ const state=createRunV18({seed:17,mode:'standard',inboundDifficulty:tier});state.completedOrders=29;state.shift=5;state.runSerial=1;state.rawScore=101;state.score=scaledScoreV18(101,tier);state.candidates[0]={id:'last.food',shapeId:'shape.single',cargo:'cargo.food',quarterTurns:0};state.orders=['dock.north','dock.east','dock.south','dock.west'].map((dockId,index)=>({id:`last.order.${index}`,dockId,cargo:CARGO[index].id,amount:index===0?4:6,baseScore:200}));for(const cell of [8,9,10])state.board[cell]='cargo.food';
+ const run=makeAccountRun({state,identity:{runId:`last.${tier}`,serial:1,rulesetVersion:18,inboundDifficulty:tier,runConfigId:state.runConfigId,mode:'standard',economyVersion:2},history:{seed:17,runConfigId:state.runConfigId,head:null,totalCommands:0,tail:[]}});return sessionHost({run,nextRunSerial:2,formatVersion:2,economyVersion:2,dailyRewards:{}});
+}
+for(const tier of ['hard','expert'] as const)test(`${tier} five continuation renders and settles into the same-tier infinite menu record`,()=>{
+ const h=nearFiveWin(tier);h.session.resume();h.session.dispatch({type:'place',pieceId:'last.food',origin:{x:4,y:1}});settle(h);assert.equal(h.session.state.result,'won');const finalFiveScore=h.session.state.score,runId=h.session.view.account?.run?.identity.runId;
+ assert.equal(getUiControls(h.session.state,h.session.view).find(c=>c.action.type==='continueOvertime')?.label,'继续无限');h.session.view.inboundDifficulty=tier==='hard'?'expert':'hard';h.session.action({type:'continueOvertime'});assert.equal(h.session.state.overtime,true);assert.equal(h.session.view.account?.run?.identity.runId,runId);assert.equal(isTieredInbound(h.session.state)&&h.session.state.inboundDifficulty,tier);
+ const out=capture(h.session.state,h.session.view,`continued-${tier}`);assert.match(out.words,new RegExp(`${tier==='hard'?'困难':'专业'}无限`));assert.match(out.words,/无限 · 阶段5/);assert.match(out.words,/完成订单/);assert.doesNotMatch(out.words,/加班|本班订单|6 \/ 6/);assert.equal(out.labels.some(l=>l.value==='5'&&l.top<300),false,'terminal stage dots are absent');
+ for(let n=0;h.session.state.completedOrders===30&&n<50;n++){const moves=findPlayableMoves(h.session.state).map(move=>({move,p:previewPlayablePlacement(h.session.state,move.pieceId,move.origin)})).sort((a,b)=>(b.p.stateAfter?.score??0)-(a.p.stateAfter?.score??0));assert.ok(moves.length);h.session.dispatch({type:'place',...moves[0].move});settle(h);}
+ assert.ok(h.session.state.completedOrders>30);h.session.action({type:'finishOvertime'});h.session.action({type:'confirm'});settle(h);assert.equal(h.session.state.phase,'result');assert.match(capture(h.session.state,h.session.view).words,/无限入库结算/);const score=h.session.state.score;assert.ok(score>finalFiveScore);assert.equal(h.session.view.account?.profile.results[`inbound.standard.v18.${tier}.plain`]?.best?.score,finalFiveScore);assert.equal(h.session.view.account?.profile.results[`inbound.endless.v18.${tier}.plain`]?.best?.score,score);
+ h.session.action({type:'home'});h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:tier});const menu=capture(h.session.state,h.session.view).words;assert.ok(menu.includes(`最高分 ${score.toLocaleString('en-US')}`));assert.ok(menu.includes(`最高分 ${finalFiveScore.toLocaleString('en-US')}`));
+});
+
+test('rush records use separate tier/tool buckets and help explains permanent rush in the existing panel',()=>{
+ const h=sessionHost();h.session.action({type:'chooseInbound'});const account=structuredClone(h.session.view.account!);for(const [tier,plain,tools] of [['hard',111,222],['expert',333,444]] as const)for(const [kind,score] of [['plain',plain],['tools',tools]] as const)account.profile.results[`inbound.rush.v19.${tier}.${kind}`]={runs:1,units:30,maxUnits:30,score,wins:1,retirements:0,maxChain:1,best:{score,units:30,chain:1}};
+ for(const tier of ['hard','expert'] as const){const words=capture(h.session.state,{...h.session.view,account,inboundDifficulty:tier}).words;assert.ok(words.includes(`最高分 ${tier==='hard'?111:333}`));assert.ok(words.includes(`使用道具最高分 ${tier==='hard'?222:444}`));}
+ h.session.action({type:'home'});h.session.action({type:'helpMenu'});h.session.action({type:'selectHelp',topic:'inbound'});h.session.action({type:'helpDetails'});const words=capture(h.session.state,h.session.view).words;for(const copy of ['五班、无限、加急最多带2种工具','加急模式','每6次成功放置','加急数字按后续成功放置次数倒数，不是倒计时','末班新来的货品全部加急','仅加急生效','五班、无限没有加急和废物'])assert.ok(words.includes(copy),copy);assert.doesNotMatch(words,/每日|今日|不携带工具/);
+});
+
+test('current rush, help and continued-infinite source renders fit three viewports',()=>{
+ const h=sessionHost();h.session.action({type:'chooseInbound'});const menu={...h.session.view};startRush(h.session);const cleanup=structuredClone(h.session.state),cleanupView={...h.session.view};h.session.action({type:'chooseCleanup',branch:'orders'});const rush=h.session.state,rushView={...h.session.view};const continued=createRunV18({seed:17,mode:'standard',inboundDifficulty:'hard'});continued.overtime=true;continued.shift=5;continued.completedOrders=30;continued.rawScore=5980;continued.score=8970;
+ for(const [width,height] of sizes)for(const [name,state,current] of [['menu',rush,menu],['cleanup',cleanup,cleanupView],['rush',rush,rushView],['continued-infinite',continued,rushView],['help',rush,{...rushView,screen:'helpDetails',helpFromHome:true,helpTopic:'inbound'}]] as const){const out=capture(state,current,name,width,height);for(const l of out.labels)assert.ok(l.left>=-1&&l.right<=width+1&&l.top>=-1&&l.bottom<=height+1,`${name}: ${JSON.stringify(l)}`);for(const c of getUiControls(state,current)){assert.ok(c.rect.w*out.scale>=44&&c.rect.h*out.scale>=44,`${name}: ${c.label}`);}}
+});
+
+test('actual rush win shows its triple coins once, tags real tool use, and permits another fresh run',()=>{
+ for(const tier of ['hard','expert'] as const)for(const withTool of [false,true]){
+  // Explicit near-win fixture; tool use and the final shipment go through the real Session.
+  const state=applyCommandV19(createRunV19({seed:17,mode:'rush',inboundDifficulty:tier,toolCharges:{rotate:0,clear:0,wildcard:withTool?1:0}}),{type:'chooseCleanup',branch:'orders'}).state;state.completedOrders=29;state.shift=5;state.runSerial=1;state.rawScore=5600;state.score=scaledScoreV18(5600,tier);state.candidates[0]={id:'last.rush',shapeId:'shape.single',cargo:'cargo.food',quarterTurns:0};state.orders=['dock.north','dock.east','dock.south','dock.west'].map((dockId,index)=>({id:`last.rush.order.${index}`,dockId,cargo:CARGO[index].id,amount:index===0?4:6,baseScore:200}));for(const cell of [8,9,10])state.board[cell]='cargo.food';
+  const run=makeAccountRun({state,identity:{runId:`rush.last.${tier}`,serial:1,rulesetVersion:19,inboundDifficulty:tier,runConfigId:state.runConfigId,mode:'rush',economyVersion:2},reserved:withTool?['wildcard']:[],history:{seed:17,runConfigId:state.runConfigId,head:null,totalCommands:state.commandIndex,tail:state.commands}}),h=sessionHost({wallet:100,run,nextRunSerial:2,formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'old.daily',bonusPaid:40}}});h.session.resume();
+  if(withTool){h.session.action({type:'tool',item:'wildcard'});h.session.action({type:'toolPiece',pieceId:state.candidates[1].id});h.session.action({type:'toolConfirm'});settle(h);}
+  h.session.dispatch({type:'place',pieceId:'last.rush',origin:{x:4,y:1}});settle(h);assert.equal(h.session.state.result,'won');assert.equal(h.session.view.account?.run,null);const coins=tier==='hard'?225:300,score=tier==='hard'?9000:12000;assert.equal(h.session.state.score,score);assert.equal(h.session.view.account?.wallet,100+coins);assert.equal(h.session.view.account?.profile.results[`inbound.rush.v19.${tier}.${withTool?'tools':'plain'}`]?.best?.score,score);
+  const controls=getUiControls(h.session.state,h.session.view);assert.deepEqual(controls.map(c=>c.action.type),['newRun','home']);assert.ok(controls.every(c=>!c.disabled));assert.deepEqual(controls[0].action,{type:'newRun',mode:'rush',inboundDifficulty:tier});
+  for(const [width,height] of sizes){const out=capture(h.session.state,h.session.view,`rush-win-${tier}-${withTool?'tools':'plain'}`,width,height),coinRows=out.labels.filter(l=>l.value.startsWith('本局金币'));assert.equal(coinRows.length,1);assert.equal(coinRows[0].value,`本局金币 +${coins} · 余额 ${100+coins}`);assert.doesNotMatch(out.words,/每日|今日|加班/);assert.ok(controls.every(c=>c.rect.h*out.scale>=44));}
+  h.session.action(controls[0].action);assert.equal(h.session.view.screen,'prepareTools');h.session.action({type:'prepareNext'});assert.equal(h.session.state.mode,'rush');assert.equal(h.session.state.phase,'cleanup');assert.notEqual(h.session.state.seed,17);assert.equal(h.session.view.account?.wallet,100+coins);
+ }
+});

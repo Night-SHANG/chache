@@ -62,5 +62,5 @@ export interface ViewState {
   dailyLabel?: string;
   dailyLocked?: boolean;
   canContinue?: boolean;
-  confirmation?: {practiceKind?:import('../application/tutorial-practice.ts').PracticeKind;kind:'startPractice'|'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;inboundDifficulty?:import('./ui-types.ts').InboundUiDifficulty;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
+  confirmation?: {practiceKind?:import('../application/tutorial-practice.ts').PracticeKind;kind:'startPractice'|'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'rush'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;inboundDifficulty?:import('./ui-types.ts').InboundUiDifficulty;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }

@@ -10,6 +10,8 @@ import {inboundConfigIdV16,isInboundDifficultyV16} from '../domain/v16/content.t
 import {createRunV16} from '../domain/v16/engine.ts';
 import {inboundConfigIdV18,isInboundDifficultyV18,scaledScoreV18} from '../domain/v18/content.ts';
 import {createRunV18} from '../domain/v18/engine.ts';
+import {createRunV19} from '../domain/v19/engine.ts';
+import {rushConfigIdV19} from '../domain/v19/content.ts';
 import {reservedEntryCellsV14} from '../domain/v14/board.ts';
 import {validScoreStateV12} from '../domain/v12/score.ts';
 import {isValidOutboundPieceV12,validToolChargesV12} from '../domain/v12/content.ts';
@@ -34,9 +36,9 @@ const UPGRADE_IDS=UPGRADES_V9.map(upgrade=>upgrade.id);
 const DOCK_IDS=['dock.north','dock.east','dock.south','dock.west'];
 const COMMON_FIELDS=['rulesetVersion','runConfigId','seed','mode','boardSize','board','cellTraits','rngState','nextId','candidates','orders','phase','shift','completedOrders','score','lastChain','maxChain','generatedPieces','commandIndex','commandBaseIndex','commands','overtime','result','endReason','runSerial','elapsedMs','maxOccupancy'];
 
-export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14|15|16|18):asserts value is GameCommand {
+export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14|15|16|18|19):asserts value is GameCommand {
  requireValue(object(value),'指令结构无效');
- requireValue([8,9,10,11,12,13,14,15,16,18].includes(version),'指令版本不匹配');
+ requireValue([8,9,10,11,12,13,14,15,16,18,19].includes(version),'指令版本不匹配');
  const outboundTools=version===12||version===13;
  if(value.type==='place'){
   // Pre-expansion commands retain their original coordinate system.
@@ -55,12 +57,13 @@ export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14|
    requireValue(exactKeys(value,['type','cells'])&&array(value.cells,2)&&value.cells.length>0&&unique(value.cells)&&value.cells.every(cell=>integer(cell,0,outboundTools?80:version===11||version>=14?48:63)&&!reserved.includes(cell)),'清障指令无效');return;
   }
   case 'wildcard':requireValue(exactKeys(value,outboundTools?['type','pieceId','cargo']:['type','pieceId'])&&id(value.pieceId)&&(!outboundTools||OUTBOUND_CARGO.includes(value.cargo as never)),'万能指令无效');return;
-  case 'continueOvertime':case 'finish':requireValue(exactKeys(value,['type']),'结束指令无效');return;
+  case 'continueOvertime':requireValue(version!==19&&exactKeys(value,['type']),'加班指令无效');return;
+  case 'finish':requireValue(exactKeys(value,['type']),'结束指令无效');return;
   default:throw Error('指令版本不匹配');
  }
 }
 
-function assertCommon(value:Obj,version:9|10|11|12|13|14|15|16|18,size:number):void {
+function assertCommon(value:Obj,version:9|10|11|12|13|14|15|16|18|19,size:number):void {
  requireValue(integer(value.seed,-2147483648,4294967295),'种子无效');
  requireValue(array(value.rngState,4)&&value.rngState.length===4&&value.rngState.every(n=>integer(n,-2147483648,2147483647)),'随机状态无效');
  requireValue(array(value.board,size*size)&&value.board.length===size*size&&value.board.every(cell=>cell===null||cargo(cell)),'棋盘无效');
@@ -140,16 +143,17 @@ function assertInboundPrimitiveEnumsV16(value:Obj):void {
  requireValue(array(value.orders,4)&&value.orders.every(order=>object(order)&&typeof order.dockId==='string'),'订单出口标识必须为字符串');
 }
 
-function assertInboundV11(value:Obj,version:11|14|15|16|18=11):void {
+function assertInboundV11(value:Obj,version:11|14|15|16|18|19=11):void {
+ if(version===19){assertInboundPrimitiveEnumsV16(value);requireValue(value.mode==='rush'&&value.guided===false&&value.overtime===false&&isInboundDifficultyV18(value.inboundDifficulty),'规则19加急身份无效');requireValue(integer(value.rawScore)&&scaledScoreV18(value.rawScore,value.inboundDifficulty)===value.score,'规则19原始与显示分数不一致');}
  if(version===18){assertInboundPrimitiveEnumsV16(value);requireValue(isInboundDifficultyV18(value.inboundDifficulty)&&value.guided===false&&(value.mode!=='daily'||value.inboundDifficulty==='hard'),'规则18入库难度无效');requireValue(integer(value.rawScore)&&scaledScoreV18(value.rawScore,value.inboundDifficulty)===value.score,'规则18原始与显示分数不一致');}
  if(version===16){assertInboundPrimitiveEnumsV16(value);requireValue(isInboundDifficultyV16(value.inboundDifficulty)&&(value.inboundDifficulty==='normal'||value.mode==='standard'&&value.guided===false&&value.overtime===false),'入库难度无效');}
- requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16||version===18?['inboundDifficulty']:[]),...(version===18?['rawScore']:[])]),'入库包含其他规则字段');
+ requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16||version===18||version===19?['inboundDifficulty']:[]),...(version===18||version===19?['rawScore']:[])]),'入库包含其他规则字段');
  if(version>=14){
   const optional=['runSerial','elapsedMs','maxOccupancy'];
-  requireValue(exactKeys(value,[...COMMON_FIELDS.filter(field=>!optional.includes(field)),...optional.filter(field=>has(value,field)),'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16||version===18?['inboundDifficulty']:[]),...(version===18?['rawScore']:[])]),'入库字段无效');
+  requireValue(exactKeys(value,[...COMMON_FIELDS.filter(field=>!optional.includes(field)),...optional.filter(field=>has(value,field)),'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16||version===18||version===19?['inboundDifficulty']:[]),...(version===18||version===19?['rawScore']:[])]),'入库字段无效');
   requireValue(value.maxOccupancy===undefined||integer(value.maxOccupancy,0,45),'占用格数包含预留入口');
  }
- requireValue(value.runConfigId===(version===18?inboundConfigIdV18(value.inboundDifficulty as import('../domain/v18/types.ts').InboundDifficultyV18):version===16?inboundConfigIdV16(value.inboundDifficulty as import('../domain/v16/types.ts').InboundDifficultyV16):(version===15?RULES_V15_CONFIG:version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId)&&['standard','daily','endless'].includes(String(value.mode)),'入库身份无效');
+ requireValue(value.runConfigId===(version===19?rushConfigIdV19(value.inboundDifficulty as import('../domain/v19/types.ts').RushDifficultyV19):version===18?inboundConfigIdV18(value.inboundDifficulty as import('../domain/v18/types.ts').InboundDifficultyV18):version===16?inboundConfigIdV16(value.inboundDifficulty as import('../domain/v16/types.ts').InboundDifficultyV16):(version===15?RULES_V15_CONFIG:version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId)&&(version===19?value.mode==='rush':['standard','daily','endless'].includes(String(value.mode))),'入库身份无效');
  if(version===15)requireValue(value.mode==='standard'||value.mode==='daily','规则15不支持直接无限入库');
  requireValue(value.boardSize===7,'入库尺寸无效');
  assertCommon(value,version,value.boardSize);
@@ -159,18 +163,22 @@ function assertInboundV11(value:Obj,version:11|14|15|16|18=11):void {
  requireValue(object(value.levels)&&exactKeys(value.levels,NEUTRAL_LEVEL_IDS_V11)&&Object.values(value.levels).every(level=>level===0),'新入库不接受升级层数');
  requireValue(array(value.upgradeChoices,0)&&array(value.pendingThresholds,0)&&array(value.claimedThresholds,0)&&value.supplyCargo===null,'新入库不接受升级奖励或专供');
  requireValue(integer(value.successfulPlacements)&&Number(value.successfulPlacements)<=Number(value.commandIndex),'有效放置计数无效');
- requireValue(validToolChargesV11(value.toolCharges,value.mode as 'standard'|'daily'|'endless'),'道具预算无效');
+ requireValue(validToolChargesV11(value.toolCharges,version===19?'standard':value.mode as 'standard'|'daily'|'endless'),'道具预算无效');
  requireValue(array(value.usedToolIds,2)&&unique(value.usedToolIds)&&value.usedToolIds.every(tool=>TOOL_IDS.includes(String(tool))),'已用道具无效');
  const charges=value.toolCharges;
  requireValue(value.usedToolIds.every(tool=>charges[tool as keyof typeof charges]===0)&&Object.values(charges).reduce((sum,n)=>sum+n,0)+value.usedToolIds.length<=2,'道具预留与消耗矛盾');
  requireValue(value.mode!=='daily'||value.usedToolIds.length===0,'每日不接受道具');
+ if(version===19){
+  requireValue(value.cleanup!==null||value.usedToolIds.length===0,'待选清扫不能已使用工具');
+  requireValue(value.phase!=='rescue'||Object.values(charges).some(charge=>charge===1),'救援阶段缺少可用道具');
+ }
 
  requireValue(value.cleanup===null||(object(value.cleanup)&&exactKeys(value.cleanup,['branch','progress'])&&(value.cleanup.branch==='orders'||value.cleanup.branch==='placements')&&integer(value.cleanup.progress,0,value.cleanup.branch==='orders'?1:5)),'清扫进度无效');
- if(version===16||version===18){
+ if(version===16||version===18||version===19){
   const commands=value.commands as Obj[],choices=commands.filter(command=>command.type==='chooseCleanup');
-  if(value.mode!=='daily')requireValue(value.cleanup===null&&value.phase!=='cleanup'&&choices.length===0,'普通和无限不接受清扫');
+  if(value.mode!=='daily'&&version!==19)requireValue(value.cleanup===null&&value.phase!=='cleanup'&&choices.length===0,'普通和无限不接受清扫');
   else if(value.cleanup===null){
-   const opening=version===18?createRunV18({seed:Number(value.seed),mode:'daily'}):createRunV16({seed:Number(value.seed),mode:'daily'});
+   const opening=version===19?createRunV19({seed:Number(value.seed),mode:'rush',inboundDifficulty:value.inboundDifficulty as import('../domain/v19/types.ts').RushDifficultyV19}):version===18?createRunV18({seed:Number(value.seed),mode:'daily'}):createRunV16({seed:Number(value.seed),mode:'daily'});
    requireValue(value.phase==='cleanup'&&['completedOrders','score','lastChain','maxChain','successfulPlacements','generatedPieces','commandIndex','commandBaseIndex'].every(field=>value[field]===0)&&value.overtime===false,'每日待选清扫进度无效');
    requireValue((value.board as unknown[]).every(cell=>cell===null)&&(value.cellTraits as unknown[]).every(trait=>trait===null),'每日待选清扫不能已有棋盘货件');
    requireValue(value.nextId===opening.nextId&&JSON.stringify(value.rngState)===JSON.stringify(opening.rngState),'每日待选清扫随机流无效');
@@ -211,7 +219,7 @@ function assertInboundV11(value:Obj,version:11|14|15|16|18=11):void {
  requireValue(array(value.orders,4)&&(terminalCompletion?value.orders.length<4:value.orders.length===RULES_V11_CONFIG.docksByShift[Number(value.shift)-1]),'订单数无效');
  if(version>=15&&value.mode!=='endless'&&!value.overtime)requireValue(Number(value.completedOrders)<30?!terminalCompletion:terminalCompletion&&value.result==='won','入库完成状态无效');
  if(terminalCompletion)requireValue(value.overtime===false,'通关结算不能处于加班');
- requireValue(value.orders.every(order=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&id(order.id)&&DOCK_IDS.includes(String(order.dockId))&&cargo(order.cargo)&&integer(order.amount,3,(version===16||version===18)&&value.inboundDifficulty==='expert'&&value.shift===5?8:7)&&integer(order.baseScore,1,1000000)),'订单内容无效');
+ requireValue(value.orders.every(order=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&id(order.id)&&DOCK_IDS.includes(String(order.dockId))&&cargo(order.cargo)&&integer(order.amount,3,(version===16||version===18||version===19)&&value.inboundDifficulty==='expert'&&value.shift===5?8:7)&&integer(order.baseScore,1,1000000)),'订单内容无效');
  requireValue(unique(value.orders.map(order=>(order as Obj).id))&&unique(value.orders.map(order=>(order as Obj).dockId))&&unique(value.orders.map(order=>(order as Obj).cargo)),'订单标识重复');
  if(value.overtime)requireValue(value.mode==='standard'&&Number(value.completedOrders)>=30,'加班身份无效');
  if(value.endReason==='completed')requireValue(value.mode!=='endless'&&Number(value.completedOrders)>=30,'入库通关条件无效');
@@ -265,7 +273,7 @@ export function assertGameRun(value:unknown):asserts value is GameRun {
  if(value.rulesetVersion===9){assertInbound(value);return;}
  if(value.rulesetVersion===10){assertOutbound(value);return;}
  if(value.rulesetVersion===11){assertInboundV11(value);return;}
- if(value.rulesetVersion===14||value.rulesetVersion===15||value.rulesetVersion===16||value.rulesetVersion===18){assertInboundV11(value,value.rulesetVersion);return;}
+ if(value.rulesetVersion===14||value.rulesetVersion===15||value.rulesetVersion===16||value.rulesetVersion===18||value.rulesetVersion===19){assertInboundV11(value,value.rulesetVersion);return;}
  if(value.rulesetVersion===12||value.rulesetVersion===13){assertOutboundTools(value,value.rulesetVersion);return;}
  requireValue(integer(value.rulesetVersion,1,8),'不支持的规则版本');assertRun(value);
 }
@@ -278,7 +286,7 @@ export function decodeGameRun(raw:string):GameRun {
  requireValue(typeof raw==='string'&&raw.length<=950000,'单局存档超出大小限制');
  const envelope:unknown=JSON.parse(raw);requireValue(object(envelope),'单局存档无效');
  if(integer(envelope.schemaVersion,1,8))return decodeRun(raw);
- requireValue([9,10,11,12,13,14,15,16,18].includes(Number(envelope.schemaVersion)),'单局格式版本无效');
+ requireValue([9,10,11,12,13,14,15,16,18,19].includes(Number(envelope.schemaVersion)),'单局格式版本无效');
  if(Number(envelope.schemaVersion)>=12)requireValue(exactKeys(envelope,['schemaVersion','digest','state']),'单局封装字段无效');
  requireValue(typeof envelope.digest==='string'&&envelope.digest===digest(JSON.stringify(envelope.state)),'单局校验失败');
  assertGameRun(envelope.state);requireValue(envelope.state.rulesetVersion===envelope.schemaVersion,'格式与规则版本不一致');
