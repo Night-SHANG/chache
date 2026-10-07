@@ -43,7 +43,7 @@ export interface GameStepResult {state:GameRun;events:GameEvent[];error?:string}
 export interface PlayablePreview {
  valid:boolean;cells:number[];shipments:GameShipment[];events:GameEvent[];stateAfter?:GameRun;reason?:string;
 }
-export type InboundRunSpec = {family:'inbound';mode:'standard'|'daily'|'endless';rulesetVersion:9|11|14|15|16;seed:number;guided:boolean;toolCharges:ToolChargesV9};
+export type InboundRunSpec = {family:'inbound';mode:'standard'|'daily'|'endless';rulesetVersion:9|11|14|15|16;seed:number;guided:boolean;toolCharges:ToolChargesV9;inboundDifficulty?:import('./v16/types.ts').InboundDifficultyV16};
 export type OutboundRunSpec =
  | {family:'outbound';variant:'normal'|'endless';rulesetVersion:8|10;seed:number;difficultyId:OutboundDifficulty}
  | {family:'outbound';variant:'normal'|'endless';rulesetVersion:12|13;seed:number;difficultyId:OutboundDifficulty;toolCharges:ToolChargesV12};
@@ -73,7 +73,8 @@ export function createPlayableRun(spec:RunSpec):GameRun {
  if(!spec||!Number.isSafeInteger(spec.seed)||spec.seed < -2147483648||spec.seed>4294967295)throw Error('种子无效');
  if(spec.family==='inbound'){
   if(![9,11,14,15,16].includes(spec.rulesetVersion)||!['standard','daily','endless'].includes(spec.mode)||typeof spec.guided!=='boolean')throw Error('入库规则身份不匹配');
-  if(spec.rulesetVersion===16)return createRunV16({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
+  if(spec.rulesetVersion===16)return createRunV16({inboundDifficulty:spec.inboundDifficulty,seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
+  if(spec.inboundDifficulty!==undefined)throw Error('旧入库不接受难度');
   if(spec.rulesetVersion===15)return createRunV15({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
   if(spec.rulesetVersion===14)return createRunV14({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
   if(spec.rulesetVersion===11)return createRunV11({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});

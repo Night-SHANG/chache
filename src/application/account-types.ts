@@ -9,7 +9,7 @@ export type Inventory = Record<ItemId, number>;
 export interface RunIdentity {
  runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14|15|16; runConfigId:string;
  mode:'standard'|'daily'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
- difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1|2;
+ inboundDifficulty?:import('../domain/v16/types.ts').InboundDifficultyV16; difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1|2;
 }
 export interface HistoryRef { key:string; digest:string; commandCount:number }
 /** The sole persisted command tail. Domain commands are rebuilt from this field. */
@@ -52,6 +52,8 @@ export interface ClosedResult {
 export interface OperationRequest { operationId:string; expectedGeneration:number }
 export interface OperationReceipt extends OperationRequest { requestDigest:string; committedGeneration:number }
 export interface AccountSnapshot {
+ /** Required only in unpublished format4; legacy reads project true. */
+ tutorialsEnabled?:boolean;
  formatVersion:1|2|3|4; economyVersion:1|2; epoch:string; generation:number;
  nextRunSerial:number; closedThroughSerial:number; wallet:number; inventory:Inventory;
  run:AccountRun|null; lastClosedResult:ClosedResult|null; profile:AccountProfile;

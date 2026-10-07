@@ -23,7 +23,7 @@ function fundedPurchase(version:3|4) {
   assert.equal(purchased.status, 'acknowledged'); assert.equal(purchased.account?.wallet, 1500);
   assert.ok(purchased.account?.profile.ownedCosmetics?.includes('cargo.wood'));
   const newer=structuredClone(purchased.account!);
-  if(version===3){newer.formatVersion=3;delete newer.guides.daily;}
+  if(version===3){newer.formatVersion=3;delete newer.guides.daily;delete newer.tutorialsEnabled;}
   assertAccountSnapshot(newer);
   return { oldRaw, newer };
 }

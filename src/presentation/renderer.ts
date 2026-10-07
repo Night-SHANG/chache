@@ -1,9 +1,10 @@
+import {tutorialsEnabled} from '../application/account-guides.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawHarborBackground,drawCosmeticPreview} from './cosmetic-art.ts';
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
 import {outboundGroupCargoPose} from './outbound-transport-view.ts';
 import {boardGeometry} from './board-geometry.ts';
-import { ACHIEVEMENTS, createProfile, getColorExitProfile, getEndlessProfile } from '../application/profile.ts';
+import { ACHIEVEMENTS, createProfile, getColorExitProfile } from '../application/profile.ts';
 import type { CargoStyleId } from '../application/profile.ts';
 import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
 import { LEGACY_SLOTS, OUTBOUND_DIFFICULTY_NAMES, colorTierLabel, outboundDifficultyLabel, getUiControls, hasLegacyRun, runSlotLabel } from './ui.ts';
@@ -60,6 +61,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   if (!view.needsResume && view.screen === 'inboundMenu') { drawInboundMenu(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorTiers') { drawColorTierSelection(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'legacyRuns') { drawLegacyRuns(ctx,state,view); ctx.restore(); return; }
+  if(view.screen==='tutorialPracticeSelect'){outlinedText(ctx,'重新体验教程',540,220,68,CREAM,'center');text(ctx,'教学练习 · 不计金币和成绩',540,370,29,'#ffe3a3','center');drawControls(ctx,state,view);ctx.restore();return;}
   if (!view.needsResume && view.screen === 'settings') { drawSettings(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorIntro') { drawHelp(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'helpDetails') { drawHelpDetails(ctx,state,view); ctx.restore(); return; }
@@ -74,7 +76,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   if(!toolboxVisible(state,view))drawTrays(ctx, shown, view);
   else text(ctx,'工具箱 · 选择工具后回到货件',58,1502,24,'#ffe3a3');
   drawFooter(ctx, state, view);
-  if (view.developerMode === true && view.debug) drawDebug(ctx, state, view);
+  if (!view.practice&&view.developerMode === true && view.debug) drawDebug(ctx, state, view);
   if (view.needsResume) drawRecovery(ctx,state,view);
   else if (view.paused && state.phase!=='result') drawActivePause(ctx, state, view);
   else if(view.toolSelection)drawToolSelection(ctx,state,view);
@@ -82,13 +84,14 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   else if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)drawCleanupChoices(ctx,state,view);
   else if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)drawGrowthUpgrades(ctx,state,view);
   else if (state.phase === 'upgrade' && !view.animation&&!isOutboundEndlessV10(state)&&!isOutboundToolsRun(state)&&!isInboundRun(state)) drawUpgrades(ctx, state);
-  else if (state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
+  else if (!view.practice&&state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
   if (!view.paused && !view.needsResume && view.noticeFx) drawNotice(ctx, view);
   if (!view.paused && !view.needsResume && ['input','rescue'].includes(state.phase) && !view.animation&&!view.toolSelection&&!view.supplyUpgrade) drawControls(ctx,state,view);
   if(isInboundRun(state))drawGrowthFeedback(ctx,state,view);
   if(isInboundRun(state)&&state.phase==='rescue'&&!view.toolSelection&&!view.paused&&!view.needsResume&&!view.animation)text(ctx,'当前放不下，选择剩余工具救场，或结束并结算。',540,1468,25,'#ffe3a3','center');
   if(view.guide&&state.phase==='input'&&!view.animation&&!view.paused&&!view.needsResume&&!view.toolSelection&&!view.supplyUpgrade&&!toolboxVisible(state,view))drawGuide(ctx,state,view);
   if(view.growthFx&&!view.animation)text(ctx,view.growthFx.label,540,1468,27,'#ffe3a3','center');
+  if(view.practice){if(view.practice.completed&&!view.animation){panel(ctx,{x:190,y:1480,w:700,h:330},'#293f51','#edc76b',24);outlinedText(ctx,'练习完成',540,1556,54,CREAM,'center');drawControls(ctx,state,view);}text(ctx,'教学练习 · 不计金币和成绩',540,33,28,'#ffe3a3','center');}
   ctx.restore();
 }
 
@@ -122,17 +125,16 @@ function drawWarehouse(ctx: Context, view: ViewState): void {
 }
 
 function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
-  text(ctx, 'WAREHOUSE  /  LAST SLOT', 58, 35, 16, '#b6aa90', 'left', 600);
+  if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 58, 35, 16, '#b6aa90', 'left', 600);
   outlinedText(ctx, '爆仓', 49, 112, 115);
   outlinedText(ctx, '最后一格', 63, 206, 57);
   hazard(ctx, { x: 55, y: 249, w: 425, h: 15 });
-  if(isToolRun(state))drawToolboxEntry(ctx,state,view);
+  if(!view.practice&&isToolRun(state))drawToolboxEntry(ctx,state,view);
   else forklift(ctx,427,177,88,-.12,view.profile?.cosmetics.forklift);
-  panel(ctx, { x: 548, y: 54, w: 363, h: 151 });
-  text(ctx, ('difficultyId' in state?state.difficultyId:undefined) ? outboundDifficultyLabel(('difficultyId' in state?state.difficultyId:undefined)!) : ('colorTier' in state?state.colorTier:undefined) ? colorTierLabel(('colorTier' in state?state.colorTier:undefined)!) : '当前分数', 577, 89, ('colorTier' in state?state.colorTier:undefined) || ('difficultyId' in state?state.difficultyId:undefined) ? 23 : 25, MUTED);
+  panel(ctx, { x: 548, y: 54, w: view.practice?345:363, h: 151 });
+  text(ctx, view.practice?'练习分数':isInboundV16(state)&&state.mode==='standard'?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}五班`:('difficultyId' in state?state.difficultyId:undefined) ? outboundDifficultyLabel(('difficultyId' in state?state.difficultyId:undefined)!) : ('colorTier' in state?state.colorTier:undefined) ? colorTierLabel(('colorTier' in state?state.colorTier:undefined)!) : '当前分数', 577, 89, ('colorTier' in state?state.colorTier:undefined) || ('difficultyId' in state?state.difficultyId:undefined) ? 23 : 25, MUTED);
   text(ctx, number(state.score), 878, 151, 56, '#ffe087', 'right', 900);
-  panel(ctx, L.pause, '#40536b');
-  ctx.fillStyle = CREAM; roundedPath(ctx, 966, 80, 12, 47, 4); ctx.fill(); roundedPath(ctx, 989, 80, 12, 47, 4); ctx.fill();
+  if(!view.practice){panel(ctx, L.pause, '#40536b');ctx.fillStyle = CREAM; roundedPath(ctx, 966, 80, 12, 47, 4); ctx.fill(); roundedPath(ctx, 989, 80, 12, 47, 4); ctx.fill();}
   text(ctx, '连锁', L.chain.x, L.chain.y + 21, 20, MUTED);
   text(ctx, `×${state.lastChain}`, L.chain.x + L.chain.w, L.chain.y + 21, 28, '#f7cc67', 'right');
   panel(ctx, { x: 548, y: 226, w: 486, h: 70 }, '#25394c', '#53687a', 13);
@@ -178,7 +180,7 @@ function drawOrders(ctx: Context, state: GameRun, view: ViewState): void {
 
 function drawBoard(ctx: Context, state: GameRun, view: ViewState, board: Cell[], cellTraits?: (CellTrait | null)[]): void {
   const geometry=boardGeometry(state), {x,y,size,cell,dimension,scale,boxSize}=geometry;
-  const lesson = tutorialStep(state), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
+  const lesson = tutorialStep(state,view), delivery = view.animation && (view.profile?.settings.reducedMotion || shipmentFrame(view.animation.progress, false).stage === 'exit');
   const lessonHint = !view.animation && lesson !== null ? ['把食品拖进虚线框。', '再接上1件食品，凑够订单。', '补上机械，清路后继续出货。'][lesson] : null;
   if(view.animation&&state.mode==='color_exit'&&view.animation.shipment.chain>1)text(ctx,`${view.animation.shipment.chain}连出货`,540,L.boardHint.y+L.boardHint.h/2,28,'#ffdf75','center',900);
   else if (!delivery&&!view.guide) text(ctx, (view.placementRisk?(view.developerMode===true?view.placementRisk.message:view.placementRisk.kind==='entry-blocked'?'入口堵塞':'通路将被切断'):undefined)??(state.mode==='color_exit'?colorExitBoardHint(state,view):lessonHint ?? boardHint(state, view)), 540, L.boardHint.y + L.boardHint.h / 2, 22, view.placementRisk?'#ff967a':'#d9d0b7', 'center', 600);
@@ -276,7 +278,8 @@ function drawReservedEntries(ctx:Context,state:GameRun):void {
 }
 
 /** Optional teaching overlay only; no commands or occupancy are changed. */
-function tutorialStep(state: GameRun): 0 | 1 | 2 | null {
+function tutorialStep(state: GameRun,view:ViewState): 0 | 1 | 2 | null {
+  if(!tutorialsEnabled(view.account))return null;
   if (state.rulesetVersion === 3 && state.mode === 'tutorial' && state.phase === 'input') return state.tutorialStep === 0 || state.tutorialStep === 1 || state.tutorialStep === 2 ? state.tutorialStep : null;
   if (state.mode !== 'tutorial' || state.phase !== 'input' || state.completedOrders > 0) return null;
   if (state.commandIndex === 0) return 0;
@@ -286,7 +289,7 @@ function tutorialStep(state: GameRun): 0 | 1 | 2 | null {
 }
 
 function drawTutorialTarget(ctx: Context, state: GameRun, view: ViewState): void {
-  const step = tutorialStep(state); if (step === null || view.animation || view.dragPoint) return;
+  const step = tutorialStep(state,view); if (step === null || view.animation || view.dragPoint) return;
   const x = L.board.x + (step === 0 ? 1 : 3) * L.board.cell + 10, y = L.board.y + (step === 2 ? 4 : 1) * L.board.cell + 10;
   const w = (step === 0 ? 2 : 1) * L.board.cell - 20;
   ctx.save(); roundedPath(ctx, x, y, w, 100, 10); ctx.fillStyle = 'rgba(255,225,126,.10)'; ctx.fill();
@@ -459,14 +462,14 @@ function drawTrays(ctx: Context, state: GameRun, view: ViewState): void {
   const extra = new Set(shipments.flatMap(shipping => ('extraClearedCells' in shipping?shipping.extraClearedCells:undefined) ?? [])).size;
   const detail = [shipments.some(shipping => ('usedPalletPass' in shipping&&shipping.usedPalletPass)) ? '托盘保留' : '', extra ? `额外清理${extra}格` : ''].filter(Boolean).join(' / ');
   if (!view.toolSelection && !view.noticeFx && (!view.animation || view.animation.shipment.chain < 2)) {
-    const hint = detail || (tutorialStep(state) === null ? view.message : '');
+    const hint = detail || (tutorialStep(state,view) === null ? view.message : '');
     if(hint)text(ctx, hint, 540, 1467, 24, '#efe3c9', 'center', 600);
   }
   if(!view.toolSelection||state.candidates.length!==5){text(ctx,'待入库',58,1502,22,'#b8c3cd');text(ctx,`空位 ${state.board.filter((cell,index)=>cell===null&&!reservedEntryCells(state).includes(index)).length}`,1027,1502,22,'#b2c1ca','right',500);}
   const trays = getTrayRects(state.candidates.length,!!view.toolSelection);
   state.candidates.forEach((piece, index) => {
     const r = trays[index]; if (!r) return;
-    const selected = piece.id === view.selectedPieceId || (tutorialStep(state) !== null && (state.rulesetVersion === 3 ? index === 0 : tutorialStep(state) === index) && !view.selectedPieceId);
+    const selected = piece.id === view.selectedPieceId || (tutorialStep(state,view) !== null && (state.rulesetVersion === 3 ? index === 0 : tutorialStep(state,view) === index) && !view.selectedPieceId);
     panel(ctx, r, selected ? '#485045' : '#293c50', selected ? '#f4cf69' : '#718396');
     if(view.toolSelection&&view.toolSelection.item!=='clear'&&toolCandidateChanges(piece,state.rulesetVersion,view.toolSelection.item)){ctx.save();ctx.strokeStyle=selected?'#ffe3a3':'#9edfff';ctx.lineWidth=4;ctx.setLineDash(selected?[]:[12,8]);roundedPath(ctx,r.x+9,r.y+9,r.w-18,r.h-18,11);ctx.stroke();ctx.restore();}
     if (selected) { roundedPath(ctx, r.x + 7, r.y + 7, r.w - 14, r.h - 14, 13); ctx.strokeStyle = '#eec860'; ctx.lineWidth = 3; ctx.stroke(); }
@@ -504,6 +507,7 @@ function drawPieceInTray(ctx: Context, piece: Piece|InboundPiece, r: Rect, selec
 }
 
 function drawFooter(ctx: Context, state: GameRun, view: ViewState): void {
+  if(view.practice){if(view.practice.kind==='daily')text(ctx,'每日加急练习',54,1840,23,'#bfbaa8');return;}
   if(state.mode==='daily'&&!persistenceWarnings(view).length)text(ctx,`每日挑战 · ${dailyChallengeDay(state,view)??view.dailyLabel??'日期待确认'}`,54,1840,23,'#bfbaa8');
   drawPersistenceWarnings(ctx,view,1830,427,746);
   if(view.developerMode===true&&!view.toolSelection&&state.phase!=='rescue'){
@@ -594,7 +598,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
   const title = endless ? '无限入库结算' : tutorial ? won ? '教学完成！' : '爆仓了！' : retired ? state.overtime?'加班结算':'入库结算' : state.overtime ? '加班结束' : daily ? won ? '挑战完成' : '挑战结算' : won ? '完美收工！' : '爆仓了！';
   outlinedText(ctx, title, 540, 414, 88, won || retired ? '#fff0bb' : '#ffbd86', 'center');
   const subtitle = endless ? retired ? '已按当前分数结算' : '所有货件都放不下了' : tutorial ? '可以开始正式值班了' : retired ? '已按当前分数结算' : state.overtime ? '所有货件都放不下了' : daily ? `每日挑战 · ${dailyChallengeDay(state,view) ?? view.dailyLabel ?? '日期待确认'}` : won ? '五个班次全部完成' : '所有货件都放不下了';
-  text(ctx, subtitle, 540, 507, 28, '#d9d9cf', 'center', 500);
+  text(ctx, view.practice?'练习分数':isInboundV16(state)&&state.mode==='standard'?`${{normal:'普通',hard:'困难',expert:'专业'}[state.inboundDifficulty]}五班 · ${subtitle}`:subtitle, 540, 507, 28, '#d9d9cf', 'center', 500);
   panel(ctx, { x: 174, y: 581, w: 732, h: 496 }, '#415263', '#b2a888', 26);
   roundedPath(ctx, 203, 610, 674, 269, 16); ctx.fillStyle = gradient(ctx, 203, 610, 269, '#f8e9c7', '#decaa4'); ctx.fill();
   text(ctx, tutorial ? '教学得分' : '本局得分', 540, 657, 30, '#5c4936', 'center');
@@ -633,7 +637,7 @@ function drawControls(ctx: Context, state: GameRun, view: ViewState): void {
     if(control.action.type==='toggleToolbox')return;
     if(control.action.type==='tool'&&isToolRun(state)){drawToolCard(ctx,state,control);return;}
     if(control.action.type==='toolCargo'){const r=control.rect,cargo=control.action.cargo,color=PALETTE[cargo];panel(ctx,r,control.selected?color.dark:'#263847',control.selected?color.light:'#718d98',16);icon(ctx,cargo,r.x+r.w/2,r.y+44,44,color.light);text(ctx,control.label,r.x+r.w/2,r.y+99,25,color.light,'center');return;}
-    drawControl(ctx, control, ['purchase','purchaseCosmetic','equipCosmetic','setCargoOutline'].includes(control.action.type)||index===0&&!['toggleSound','comparisonSeedNext','toggleItem','chooseCleanup','selectOutboundMode','selectShopTab','selectCosmeticCategory','previewCosmetic'].includes(control.action.type));
+    drawControl(ctx, control, ['purchase','purchaseCosmetic','equipCosmetic','setCargoOutline'].includes(control.action.type)||index===0&&!['toggleSound','comparisonSeedNext','toggleItem','chooseCleanup','selectInboundDifficulty','selectOutboundMode','selectShopTab','selectCosmeticCategory','previewCosmetic'].includes(control.action.type));
   });
 }
 
@@ -659,7 +663,7 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
 }
 
 function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
-  text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, 120, 22, '#b7b098', 'center', 600);
+  if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, 120, 22, '#b7b098', 'center', 600);
   outlinedText(ctx, '爆仓', 540, 267, 151, CREAM, 'center');
   outlinedText(ctx, '最后一格', 540, 387, 79, '#ffe3a3', 'center');
   hazard(ctx, { x: 314, y: 448, w: 452, h: 14 });
@@ -674,18 +678,14 @@ function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
 
 function drawInboundMenu(ctx:Context,state:GameRun,view:ViewState):void{
   outlinedText(ctx,'入库模式',540,200,79,CREAM,'center');
-  const best=view.account?view.account.profile.results['inbound.standard.v16.plain']?.best?.score??0:view.profile?.bestScores['standard.v3']?.score??0;
-  const endlessBest=view.account?view.account.profile.results['inbound.endless.v16.plain']?.best?.score??0:view.profile?getEndlessProfile(view.profile).bestScores.v7?.score??0:0;
-  text(ctx,`五班最高分 ${number(best)} · 无限最高分 ${number(endlessBest)}`,540,390,29,'#ffe3a3','center');
-  if(view.account)text(ctx,`带工具五班 ${number(view.account.profile.results['inbound.standard.v16.tools']?.best?.score??0)} · 无限 ${number(view.account.profile.results['inbound.endless.v16.tools']?.best?.score??0)}`,540,445,24,'#a9c0c9','center',500);
-  else text(ctx,`加班最高分 · ${number(view.profile?.bestScores['overtime.v3']?.score??0)}`,540,445,24,'#a9c0c9','center',500);
-  const cards=[['普通五班','每班6单，共5班'],['无限入库','持续接单，挑战高分'],['每日挑战',view.dailyLabel??'日期待确认']];
-  cards.forEach(([title,description],index)=>{
-    const y=545+index*290;
-    panel(ctx,{x:170,y,w:740,h:280},'#293f51','#718d98',20);
-    text(ctx,title,210,y+55,35,'#ffe8b4');
-    text(ctx,description,210,y+111,25,'#b8cdd5','left',500);
-  });
+  const difficulty=view.inboundDifficulty??'normal',label={normal:'普通',hard:'困难',expert:'专业'}[difficulty];
+  const score=(key:string)=>{const best=view.account?.profile.results[key]?.best;return best?number(best.score):'暂无';};
+  text(ctx,`${label}五班 · 最高分 ${score(`inbound.standard.v16.${difficulty}.plain`)}`,540,320,29,'#ffe3a3','center');
+  text(ctx,`带工具 ${score(`inbound.standard.v16.${difficulty}.tools`)}`,540,372,24,'#a9c0c9','center',500);
+  panel(ctx,{x:170,y:445,w:740,h:460},'#293f51','#718d98',20);
+  text(ctx,'五班 · 每班6单',210,501,35,'#ffe8b4');
+  const cards=[['无限入库',`最高分 ${score('inbound.endless.v16.plain')} · 工具 ${score('inbound.endless.v16.tools')}`,945],['每日挑战',view.dailyLabel??'日期待确认',1235]] as const;
+  cards.forEach(([title,description,y])=>{panel(ctx,{x:170,y:y-20,w:740,h:280},'#293f51','#718d98',20);text(ctx,title,210,y+20,35,'#ffe8b4');text(ctx,description,210,y+68,25,'#b8cdd5','left',500);});
   drawControls(ctx,state,view);
   drawPersistenceWarnings(ctx,view,1775);
 }
@@ -732,7 +732,7 @@ function drawActivePause(ctx:Context,state:GameRun,view:ViewState):void {
   shade(ctx);panel(ctx,{x:173,y:395,w:734,h:1464},'#30455a','#95a9b1',28);
   hazard(ctx,{x:201,y:423,w:678,h:18});
   outlinedText(ctx,'已暂停',540,520,62,CREAM,'center');
-  const goal=state.mode==='color_exit'?[10,13].includes(state.rulesetVersion)?`无限出库 · 已出货 ${state.completedOrders} 批`:`出货 ${state.completedOrders}/30 批`
+  const goal=view.practice?'教学练习':state.mode==='color_exit'?[10,13].includes(state.rulesetVersion)?`无限出库 · 已出货 ${state.completedOrders} 批`:`出货 ${state.completedOrders}/30 批`
     : state.mode==='endless'?`无限入库 · 得分 ${number(state.score)}`
     : state.overtime?`加班挑战 · 得分 ${number(state.score)}`
     : state.mode==='tutorial'?'入库教学'
@@ -744,8 +744,8 @@ function drawActivePause(ctx:Context,state:GameRun,view:ViewState):void {
 function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
   shade(ctx);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
   const confirmation=view.confirmation,kind=confirmation?.kind,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
-  const title=kind==='purchaseCosmetic'&&cosmetic?`购买${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`购买${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置游戏记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
-  outlinedText(ctx,title,540,747,kind==='leaveRun'?51:56,CREAM,'center');
+  const title=kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`购买${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`购买${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置游戏记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
+  outlinedText(ctx,title,540,747,kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center');
   const target=confirmation?.variant?runSlotLabel(confirmation.variant):'入库模式';
   const lines=kind==='purchaseCosmetic'&&cosmetic?[`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-cosmetic.price)}。`]:kind==='purchase'&&confirmation?.item?[`花费 ${ITEM_PRICES[confirmation.item]} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-ITEM_PRICES[confirmation.item])}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
     :kind==='resetProfile'?['清空显示的成绩记录。','金币、库存、日奖励记录、设置和外观会保留。']

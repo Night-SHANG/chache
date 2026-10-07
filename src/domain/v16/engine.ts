@@ -1,6 +1,6 @@
 import {cloneData} from '../../shared/data.ts';
 import { createRandomState } from '../random.ts';
-import { RULES_V16_CONFIG as CONFIG,emptyLevelsV16,getStageV16,validToolChargesV16 } from './content.ts';
+import { RULES_V16_CONFIG as CONFIG,inboundConfigIdV16,isInboundDifficultyV16,emptyLevelsV16,getStageV16,validToolChargesV16 } from './content.ts';
 import { docksV16,neighborsV16,placementCellsV16,selectOrderGroupV16,findLegalMovesV16 } from './board.ts';
 import { refillCandidateV16,refreshOrdersV16 } from './generation.ts';
 import { applyToolV16,findRescuePlanV16 } from './tools.ts';
@@ -11,8 +11,9 @@ export {findLegalMovesV16} from './board.ts';
 function refillAll(state:InboundRunV16):InboundRunV16 {let next=state;while(next.candidates.length<CONFIG.candidateCount)next=refillCandidateV16(next,next.candidates.length);return next;}
 export function createRunV16(options:StartV16):InboundRunV16 {
  if(!options||!Number.isInteger(options.seed)||options.seed<-2147483648||options.seed>4294967295||!['standard','daily','endless'].includes(options.mode)||options.guided!==undefined&&typeof options.guided!=='boolean'||options.guided&&options.mode!=='standard')throw new Error('Invalid v16 start');
+ const inboundDifficulty=options.inboundDifficulty===undefined?'normal':options.inboundDifficulty;if(!isInboundDifficultyV16(inboundDifficulty)||inboundDifficulty!=='normal'&&(options.mode!=='standard'||options.guided))throw new Error('Invalid v16 difficulty');
  const toolCharges=options.toolCharges??{rotate:0,clear:0,wildcard:0};if(!validToolChargesV16(toolCharges,options.mode))throw new Error('Invalid v16 tool charges');
- let state:InboundRunV16={rulesetVersion:16,runConfigId:'run.inbound_v16',seed:options.seed,mode:options.mode,guided:options.guided??false,boardSize:7,board:Array(49).fill(null),cellTraits:Array(49).fill(null),rngState:createRandomState(options.seed),nextId:1,candidates:[],orders:[],phase:options.mode==='daily'?'cleanup':'input',shift:1,completedOrders:0,score:0,lastChain:0,maxChain:0,levels:emptyLevelsV16(),upgradeChoices:[],pendingThresholds:[],claimedThresholds:[],supplyCargo:null,cleanup:null,successfulPlacements:0,generatedPieces:0,toolCharges:{...toolCharges},usedToolIds:[],commandIndex:0,commandBaseIndex:0,commands:[],overtime:false,result:null,endReason:null,maxOccupancy:0};
+ let state:InboundRunV16={rulesetVersion:16,runConfigId:inboundConfigIdV16(inboundDifficulty),inboundDifficulty,seed:options.seed,mode:options.mode,guided:options.guided??false,boardSize:7,board:Array(49).fill(null),cellTraits:Array(49).fill(null),rngState:createRandomState(options.seed),nextId:1,candidates:[],orders:[],phase:options.mode==='daily'?'cleanup':'input',shift:1,completedOrders:0,score:0,lastChain:0,maxChain:0,levels:emptyLevelsV16(),upgradeChoices:[],pendingThresholds:[],claimedThresholds:[],supplyCargo:null,cleanup:null,successfulPlacements:0,generatedPieces:0,toolCharges:{...toolCharges},usedToolIds:[],commandIndex:0,commandBaseIndex:0,commands:[],overtime:false,result:null,endReason:null,maxOccupancy:0};
  state=refreshOrdersV16(state);if(state.mode!=='daily')state=refillAll(state);return state;
 }
 export function settlePhaseV16(state:InboundRunV16):InboundRunV16 {
@@ -57,7 +58,7 @@ export function applyCommandV16(state:InboundRunV16,command:InboundCommandV16):I
  const reject=(error:string):InboundStepResultV16=>({state,events:[],error});
  if(!command||!['place','chooseCleanup','rotate','clear','wildcard','continueOvertime','finish'].includes(command.type))return reject('未知指令');
  if(command.type==='continueOvertime'){
-  if(state.mode!=='standard'||state.phase!=='result'||state.result!=='won'||state.endReason!=='completed'||state.overtime)return reject('只有完成五班的普通局可以继续加班');
+  if(state.inboundDifficulty!=='normal'||state.mode!=='standard'||state.phase!=='result'||state.result!=='won'||state.endReason!=='completed'||state.overtime)return reject('只有完成五班的普通局可以继续加班');
   let next=cloneData(state);next.overtime=true;next.phase='input';next.result=null;next.endReason=null;next.commandIndex++;next.commands.push({type:'continueOvertime'});next=refillAll(refreshOrdersV16(next));return settleWithEvents(next,[{type:'overtimeStarted'}]);
  }
  if(state.phase==='result'||state.result!==null)return reject('本局已经结束');

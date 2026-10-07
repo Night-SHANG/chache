@@ -34,6 +34,7 @@ export type AccountRequest = { operationId: string } & (
   | { type: 'skipGuide'; runId: string; track: GuideTrack }
   | { type: 'close'; runId: string; reason: 'failed' | 'retired' | 'home' | 'decline_overtime'; elapsedMs?: number }
   | { type: 'resetResults' }
+  | { type: 'setTutorialsEnabled'; enabled: boolean }
   | { type: 'setSettings'; patch: Partial<Profile['settings']> }
   | { type: 'setCosmetic'; kind: 'theme' | 'forklift' | 'cargo'; id: string }
   | { type: 'recordLegacyResult'; slot: RunSlot }
@@ -77,7 +78,7 @@ function legacyProfile(account: AccountSnapshot): Profile {
 export function accountDisplayProfile(account: Readonly<AccountSnapshot>): Profile {
   const profile = legacyProfile(account);
   // Frozen inbound achievements cover ordinary/daily orders; other score families stay independent.
-  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(standard|daily)\.v(9|11|14|15|16)\.(plain|tools)$/.test(key));
+  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(?:(standard|daily)\.v(9|11|14|15)\.|daily\.v16\.|standard\.v16\.(normal|hard|expert)\.)(plain|tools)$/.test(key));
   const sum = (left: number, right: number): number => Math.min(Number.MAX_SAFE_INTEGER, left + right);
   const units = buckets.reduce((total, [, bucket]) => sum(total, bucket.units), 0);
   const wins = buckets.reduce((total, [, bucket]) => sum(total, bucket.wins), 0);
@@ -118,7 +119,7 @@ function validateRequest(request: unknown, generation: number): asserts request 
   const fields: Record<string, string[]> = {
     start: ['intent'], command: ['runId', 'command'], purchase: ['item'], skipGuide: ['runId', 'track'],
     saveElapsed: ['runId', 'elapsedMs'], purchaseCosmetic: ['kind', 'id'], setCargoOutline: ['enabled'],
-    close: ['runId', 'reason'], resetResults: [], setSettings: ['patch'], setCosmetic: ['kind', 'id'], recordLegacyResult: ['slot'],
+    close: ['runId', 'reason'], resetResults: [], setTutorialsEnabled:['enabled'], setSettings: ['patch'], setCosmetic: ['kind', 'id'], recordLegacyResult: ['slot'],
   };
   requireValue(typeof request.type === 'string' && owns(fields, request.type) && keys(request, ['operationId', 'type', ...fields[request.type],
     ...(request.type === 'command' || request.type === 'close' ? ['elapsedMs'] : [])])
@@ -142,7 +143,7 @@ function validateActive(run: AccountRun): void {
   assertGameRun(state);
   if (isInboundRun(state)) {
     requireValue(state.mode === (id.mode === 'guided' ? 'standard' : id.mode) && state.guided === (id.mode === 'guided')
-      && id.difficultyId === undefined, '入库玩法身份不一致');
+      && id.difficultyId === undefined && (state.rulesetVersion!==16||state.inboundDifficulty===id.inboundDifficulty), '入库玩法身份不一致');
   } else {
     requireValue(state.mode === 'color_exit' && state.difficultyId === id.difficultyId && (isOutboundToolsRun(state)||run.reserved.length === 0)
       && (state.rulesetVersion === 10 || state.rulesetVersion === 13 ? id.mode === 'outboundEndless' : id.mode === 'outbound' || id.mode === 'outboundGuided' && id.difficultyId === 'easy'), '出库玩法身份不一致');
@@ -257,7 +258,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
         && Array.isArray(intent.items) && intent.items.length <= 2 && new Set(intent.items).size === intent.items.length
         && intent.items.every(item => ITEM_IDS.includes(item)) && ['guided', 'direct'].includes(intent.guide), '开局准备无效');
       const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? spec.rulesetVersion===16&&spec.mode==='daily'?'daily':'inbound' : 'outbound', guided = intent.guide === 'guided';
-      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges']) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16)
+      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges',...(spec.rulesetVersion===16?['inboundDifficulty']:[])]) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14||spec.rulesetVersion===15||spec.rulesetVersion===16)
         && ['standard', 'daily', 'endless'].includes(spec.mode) && spec.guided === guided
         : spec.family === 'outbound' && keys(spec, ['family', 'variant', 'rulesetVersion', 'seed', 'difficultyId',...(spec.rulesetVersion===12||spec.rulesetVersion===13?['toolCharges']:[])])
           && (spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) || spec.variant === 'endless' && (spec.rulesetVersion === 10||spec.rulesetVersion===13))
@@ -278,7 +279,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       const identity: RunIdentity = {
         runId: `${account.epoch}.${serial}`, serial, rulesetVersion: resolved.rulesetVersion, runConfigId: state.runConfigId, economyVersion: resolved.rulesetVersion>=12?2:1,
         mode: inbound ? guided ? 'guided' : spec.mode : guided ? 'outboundGuided' : spec.variant === 'normal' ? 'outbound' : 'outboundEndless',
-        ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
+        ...(isInboundRun(state)&&state.rulesetVersion===16?{inboundDifficulty:state.inboundDifficulty}:{}), ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
       };
       state = { ...state, runSerial: serial, maxOccupancy: 0, elapsedMs: 0 } as GameRun;
       let next: AccountSnapshot = { ...account, inventory, nextRunSerial: serial + 1,
@@ -296,6 +297,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       requireValue(account.wallet >= ITEM_PRICES[request.item], '金币不足');
       return { ...account, wallet: account.wallet - ITEM_PRICES[request.item], inventory: { ...account.inventory, [request.item]: add(account.inventory[request.item], 1) } };
     }
+    if(request.type==='setTutorialsEnabled'){requireValue(typeof request.enabled==='boolean','教程偏好无效');return {...account,tutorialsEnabled:request.enabled};}
     if (request.type === 'setSettings') {
       const profile = setProfileSettings(legacyProfile(account), request.patch);
       return { ...account, profile: { ...account.profile, settings: profile.settings } };

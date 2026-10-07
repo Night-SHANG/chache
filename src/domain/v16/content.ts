@@ -1,4 +1,4 @@
-import type { StartV16, ToolChargesV16, UpgradeIdV16 } from './types.ts';
+import type { InboundDifficultyV16, StartV16, ToolChargesV16, UpgradeIdV16 } from './types.ts';
 export { CARGO, SHAPES } from '../rulesets/v1/content.ts';
 
 /** Neutral compatibility keys; rules16 never grants or evaluates upgrades. */
@@ -12,6 +12,9 @@ export const RULES_V16_CONFIG=Object.freeze({
   special:Object.freeze({minShift:3,rushTurns:3,dailyRushWeight:6,weights:Object.freeze({normal:91,pallet:5,rush:0,hazard:3,wildcard:1})}),
   cleanup:Object.freeze({orders:2,placements:6}),toolPrices:Object.freeze({rotate:80,clear:120,wildcard:160}),
 } as const);
+export const INBOUND_ORDER_RANGES_V16:Readonly<Record<InboundDifficultyV16,readonly (readonly [number,number])[]>>=Object.freeze({normal:[[3,4],[3,5],[4,5],[4,6],[5,7]],hard:[[4,4],[4,5],[5,5],[5,6],[6,7]],expert:[[4,5],[4,6],[5,6],[5,7],[6,8]]});
+export const isInboundDifficultyV16=(value:unknown):value is InboundDifficultyV16=>typeof value==='string'&&['normal','hard','expert'].includes(value);
+export const inboundConfigIdV16=(difficulty:InboundDifficultyV16):'run.inbound_v16'|'run.inbound_v16.hard'|'run.inbound_v16.expert'=>difficulty==='normal'?'run.inbound_v16':`run.inbound_v16.${difficulty}`;
 export function getStageV16(completedOrders:number):1|2|3|4|5 {
   if(!Number.isSafeInteger(completedOrders)||completedOrders<0)throw new Error('Invalid completed orders');
   return Math.min(5,Math.floor(completedOrders/6)+1) as 1|2|3|4|5;

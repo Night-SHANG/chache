@@ -9,9 +9,10 @@ export interface CellTraitV16 {kind:TraitId|'waste';remaining?:number;bornAtPlac
 export interface PieceV16 { id:string; shapeId:string; cargo:CargoId; trait?:TraitId; rushTurns?:number; quarterTurns:0|1|2|3 }
 export type ToolCommandV16 = {type:'rotate';pieceId:string;quarterTurns:1|2|3}|{type:'clear';cells:number[]}|{type:'wildcard';pieceId:string};
 export type InboundCommandV16 = {type:'place';pieceId:string;origin:Point}|{type:'chooseCleanup';branch:CleanupBranchV16}|ToolCommandV16|{type:'continueOvertime'}|{type:'finish'};
-export interface StartV16 { seed:number;mode:'standard'|'daily'|'endless';guided?:boolean;toolCharges?:ToolChargesV16 }
+export type InboundDifficultyV16 = 'normal'|'hard'|'expert';
+export interface StartV16 { inboundDifficulty?:InboundDifficultyV16; seed:number;mode:'standard'|'daily'|'endless';guided?:boolean;toolCharges?:ToolChargesV16 }
 export interface InboundRunV16 {
-  rulesetVersion:16;runConfigId:'run.inbound_v16';seed:number;mode:StartV16['mode'];guided:boolean;
+  rulesetVersion:16;runConfigId:'run.inbound_v16'|'run.inbound_v16.hard'|'run.inbound_v16.expert';inboundDifficulty:InboundDifficultyV16;seed:number;mode:StartV16['mode'];guided:boolean;
   boardSize:7;board:Cell[];cellTraits:(CellTraitV16|null)[];rngState:number[];nextId:number;
   candidates:PieceV16[];orders:Order[];phase:'cleanup'|'input'|'rescue'|'result';
   shift:1|2|3|4|5;completedOrders:number;score:number;lastChain:number;maxChain:number;

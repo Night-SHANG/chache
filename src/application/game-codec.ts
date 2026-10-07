@@ -6,7 +6,7 @@ import {RULES_V11_CONFIG,NEUTRAL_LEVEL_IDS_V11,validToolChargesV11} from '../dom
 import {outboundRunConfigIdV10} from '../domain/v10/content.ts';
 import {RULES_V14_CONFIG} from '../domain/v14/content.ts';
 import {RULES_V15_CONFIG} from '../domain/v15/content.ts';
-import {RULES_V16_CONFIG} from '../domain/v16/content.ts';
+import {inboundConfigIdV16,isInboundDifficultyV16} from '../domain/v16/content.ts';
 import {createRunV16} from '../domain/v16/engine.ts';
 import {reservedEntryCellsV14} from '../domain/v14/board.ts';
 import {validScoreStateV12} from '../domain/v12/score.ts';
@@ -139,14 +139,14 @@ function assertInboundPrimitiveEnumsV16(value:Obj):void {
 }
 
 function assertInboundV11(value:Obj,version:11|14|15|16=11):void {
- if(version===16)assertInboundPrimitiveEnumsV16(value);
- requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds']),'入库包含其他规则字段');
+ if(version===16){assertInboundPrimitiveEnumsV16(value);requireValue(isInboundDifficultyV16(value.inboundDifficulty)&&(value.inboundDifficulty==='normal'||value.mode==='standard'&&value.guided===false&&value.overtime===false),'入库难度无效');}
+ requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16?['inboundDifficulty']:[])]),'入库包含其他规则字段');
  if(version>=14){
   const optional=['runSerial','elapsedMs','maxOccupancy'];
-  requireValue(exactKeys(value,[...COMMON_FIELDS.filter(field=>!optional.includes(field)),...optional.filter(field=>has(value,field)),'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds']),'入库字段无效');
+  requireValue(exactKeys(value,[...COMMON_FIELDS.filter(field=>!optional.includes(field)),...optional.filter(field=>has(value,field)),'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds',...(version===16?['inboundDifficulty']:[])]),'入库字段无效');
   requireValue(value.maxOccupancy===undefined||integer(value.maxOccupancy,0,45),'占用格数包含预留入口');
  }
- requireValue(value.runConfigId===(version===16?RULES_V16_CONFIG:version===15?RULES_V15_CONFIG:version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId&&['standard','daily','endless'].includes(String(value.mode)),'入库身份无效');
+ requireValue(value.runConfigId===(version===16?inboundConfigIdV16(value.inboundDifficulty as import('../domain/v16/types.ts').InboundDifficultyV16):(version===15?RULES_V15_CONFIG:version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId)&&['standard','daily','endless'].includes(String(value.mode)),'入库身份无效');
  if(version===15)requireValue(value.mode==='standard'||value.mode==='daily','规则15不支持直接无限入库');
  requireValue(value.boardSize===7,'入库尺寸无效');
  assertCommon(value,version,value.boardSize);
@@ -208,7 +208,7 @@ function assertInboundV11(value:Obj,version:11|14|15|16=11):void {
  requireValue(array(value.orders,4)&&(terminalCompletion?value.orders.length<4:value.orders.length===RULES_V11_CONFIG.docksByShift[Number(value.shift)-1]),'订单数无效');
  if(version>=15&&value.mode!=='endless'&&!value.overtime)requireValue(Number(value.completedOrders)<30?!terminalCompletion:terminalCompletion&&value.result==='won','入库完成状态无效');
  if(terminalCompletion)requireValue(value.overtime===false,'通关结算不能处于加班');
- requireValue(value.orders.every(order=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&id(order.id)&&DOCK_IDS.includes(String(order.dockId))&&cargo(order.cargo)&&integer(order.amount,3,7)&&integer(order.baseScore,1,1000000)),'订单内容无效');
+ requireValue(value.orders.every(order=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&id(order.id)&&DOCK_IDS.includes(String(order.dockId))&&cargo(order.cargo)&&integer(order.amount,3,version===16&&value.inboundDifficulty==='expert'&&value.shift===5?8:7)&&integer(order.baseScore,1,1000000)),'订单内容无效');
  requireValue(unique(value.orders.map(order=>(order as Obj).id))&&unique(value.orders.map(order=>(order as Obj).dockId))&&unique(value.orders.map(order=>(order as Obj).cargo)),'订单标识重复');
  if(value.overtime)requireValue(value.mode==='standard'&&Number(value.completedOrders)>=30,'加班身份无效');
  if(value.endReason==='completed')requireValue(value.mode!=='endless'&&Number(value.completedOrders)>=30,'入库通关条件无效');

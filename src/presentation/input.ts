@@ -19,12 +19,13 @@ export class InputController {
  private routeReady=false;
  private button:{rect:Rect;act:()=>void}|null=null;
  constructor(port:InputPort){this.port=port;}
- private canPlace():boolean { const v=this.port.getView();return !(v.developerMode&&v.debug)&&!v.paused&&!v.needsResume&&!v.animation&&!v.confirmation&&!v.accountBlocked&&!v.toolSelection&&!toolboxVisible(this.port.getState(),v)&&!v.supplyUpgrade&&(!v.screen||v.screen==='game')&&this.port.getState().phase==='input'; }
+ private canPlace():boolean { const v=this.port.getView();return !v.practice?.completed&&!(v.developerMode&&v.debug)&&!v.paused&&!v.needsResume&&!v.animation&&!v.confirmation&&!v.accountBlocked&&!v.toolSelection&&!toolboxVisible(this.port.getState(),v)&&!v.supplyUpgrade&&(!v.screen||v.screen==='game')&&this.port.getState().phase==='input'; }
  private captureButton(point:Point,rect:Rect,act:()=>void):boolean { if(!hitTestPoint(point,rect))return false;this.button={rect,act};return true; }
  down(point:Point,id=0):void {
   if(this.active!==null)return;
   this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;
   const v=this.port.getView(),s=this.port.getState();
+  if(v.practice){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control){this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}if(v.practice.completed||v.paused||s.phase==='cleanup')return;}
   if(v.accountBlocked){const c=getUiControls(s,v).find(c=>hitTestPoint(point,c.rect));if(c)this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}
   if(v.supplyUpgrade||v.confirmation||!v.needsResume&&v.profile&&(v.screen!==undefined&&v.screen!=='game'||v.paused||s.phase==='result')){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}
   if(v.needsResume){if(!this.captureButton(point,L.resume,()=>this.port.resume())&&!this.captureButton(point,L.restart,()=>this.port.restart()))this.captureButton(point,L.recoveryMenu,()=>this.port.action?.({type:'home'}));return;}
@@ -34,7 +35,7 @@ export class InputController {
   }
   if(v.animation)return;
   if(s.phase==='result'){this.captureButton(point,L.restart,()=>this.port.restart());return;}
-  if(this.captureButton(point,L.pause,()=>this.port.togglePause())||v.developerMode&&!v.toolSelection&&s.phase!=='rescue'&&this.captureButton(point,L.debug,()=>this.port.toggleDebug()))return;
+  if(!v.practice&&this.captureButton(point,L.pause,()=>this.port.togglePause())||!v.practice&&v.developerMode&&!v.toolSelection&&s.phase!=='rescue'&&this.captureButton(point,L.debug,()=>this.port.toggleDebug()))return;
   if(v.toolSelection){const c=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(c){this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}const origin=pointToCell(point,s);if(v.toolSelection.item==='clear'&&origin){const cell=origin.y*Math.sqrt(s.board.length)+origin.x;this.button={rect:{x:point.x-20,y:point.y-20,w:40,h:40},act:()=>this.port.action?.({type:'toolCell',cell})};}else{const i=getTrayRects(s.candidates.length,true).findIndex(r=>hitTestPoint(point,r));if(i>=0)this.button={rect:getTrayRects(s.candidates.length,true)[i],act:()=>this.port.action?.({type:'toolPiece',pieceId:s.candidates[i].id})};}return;}
   if(isInboundRun(s)&&['upgrade','cleanup'].includes(s.phase)||isToolRun(s)&&s.phase==='rescue'){const c=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(c)this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}
   if(s.phase==='upgrade'){

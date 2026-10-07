@@ -109,7 +109,7 @@ test('already bound v9 and v11 daily runs retain the old income formula and capp
     const started = send(fresh, { type: 'start', operationId: `start.${version}`, intent: { ...intent('daily'), spec, ...(version === 9 ? { cleanupBranch: 'orders' as const } : {}) } as StartIntent });
     assert.equal(started.status, 'acknowledged', started.message);
     const legacy = structuredClone(started.account!);
-    legacy.formatVersion = 1; legacy.economyVersion = 1; delete legacy.dailyRewards; delete legacy.guides.daily;
+    legacy.formatVersion = 1; legacy.economyVersion = 1; delete legacy.dailyRewards; delete legacy.guides.daily;delete legacy.tutorialsEnabled;
     // Reconstruct the historical profile shape; a format3 profile cannot be relabeled as format1.
     const { settings, cosmetics, legacyResults, results } = legacy.profile;
     legacy.profile = { settings, cosmetics, legacyResults, results };

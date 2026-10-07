@@ -1,7 +1,7 @@
 import {cloneData} from '../../shared/data.ts';
 import { CARGO,SHAPES } from '../rulesets/v1/content.ts';
 import { nextRandom } from '../random.ts';
-import { RULES_V16_CONFIG as CONFIG } from './content.ts';
+import { RULES_V16_CONFIG as CONFIG,INBOUND_ORDER_RANGES_V16 } from './content.ts';
 import { cellUnitsV16,docksV16 } from './board.ts';
 import type { CargoId } from '../types.ts';
 import type { InboundRunV16,GenerationDistributionV16,PieceV16 } from './types.ts';
@@ -46,7 +46,7 @@ export function refreshOrdersV16(state:InboundRunV16):InboundRunV16 {
  for(const dock of docksV16(next).slice(0,CONFIG.docksByShift[next.shift-1])){
   if(next.orders.some(o=>o.dockId===dock.id))continue;
   const cargos=CARGO.slice(0,CONFIG.cargoByShift[next.shift-1]).map(c=>c.id).filter(c=>!next.orders.some(o=>o.cargo===c));
-  const cargo=cargos[random(next,0,cargos.length-1)],raw=random(next,CONFIG.orderMinByShift[next.shift-1],CONFIG.orderMaxByShift[next.shift-1]);
+  const cargo=cargos[random(next,0,cargos.length-1)],raw=random(next,...INBOUND_ORDER_RANGES_V16[next.inboundDifficulty][next.shift-1]);
   next.orders.push({id:`order.${next.nextId++}`,dockId:dock.id,cargo,amount:raw,baseScore:CONFIG.score.orderBase+(next.shift-1)*CONFIG.score.orderPerShift});
  }
  const docks=docksV16(next);next.orders.sort((a,b)=>docks.findIndex(d=>d.id===a.dockId)-docks.findIndex(d=>d.id===b.dockId));return next;

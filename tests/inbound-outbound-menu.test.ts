@@ -34,10 +34,10 @@ test('home has two clear mode entries and settings regardless of existing saves'
 });
 test('inbound submenu starts five shifts endless or daily without per-save continue controls',()=>{
  const current=view({screen:'inboundMenu',modeSlots:{orders:'saved',inbound_endless:'saved'}}),controls=getUiControls(inbound(),current);
- assert.deepEqual(controls.map(control=>control.action),[{type:'newRun',mode:'standard'},{type:'newRun',mode:'endless'},{type:'newRun',mode:'daily'},{type:'home'}]);
- assert.equal(controls[0].label,'开始五班');assert.equal(controls[1].label,'开始无限');assert.equal(controls[2].label,'开始挑战');
+ assert.deepEqual(controls.map(control=>control.action),[{type:'selectInboundDifficulty',inboundDifficulty:'normal'},{type:'selectInboundDifficulty',inboundDifficulty:'hard'},{type:'selectInboundDifficulty',inboundDifficulty:'expert'},{type:'newRun',mode:'standard',inboundDifficulty:'normal'},{type:'newRun',mode:'endless'},{type:'newRun',mode:'daily'},{type:'home'}]);
+ assert.equal(controls[3].label,'开始五班');assert.equal(controls[4].label,'开始无限');assert.equal(controls[5].label,'开始挑战');
  const out=surface();render(out.ctx,inbound(),current);assert.match(out.words(),/普通五班/);assert.match(out.words(),/无限入库/);assert.match(out.words(),/每日挑战/);
- assert.ok(controls.slice(0,3).every(control=>/开始/.test(control.label)));
+ assert.ok(controls.slice(3,6).every(control=>/开始/.test(control.label)));
 });
 test('outbound selector starts four difficulties without probability seed or version details',()=>{
  const current=view({screen:'colorTiers',comparisonSeed:12345,modeSlots:{outbound_easy:'saved',outbound_expert:'result'}}),controls=getUiControls(outbound(),current),out=surface();render(out.ctx,outbound(),current);
@@ -117,7 +117,7 @@ test('new mode profiles never display legacy or another-difficulty high scores',
  }
  const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`最高分 ${score}`&&label.y===outboundOut.labels.find(label=>label.text==='最高分 120')!.y+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
  assert.deepEqual(account.profile.legacyResults,profile);
- const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/无限最高分.*777/);assert.match(inboundOut.words(),/五班最高分.*101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
+ const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/普通五班 · 最高分 暂无/);assert.match(inboundOut.words(),/最高分 暂无 · 工具 暂无/);assert.doesNotMatch(inboundOut.words(),/777|101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
 });
 test('all new controls fit mobile and landscape viewport with readable labels and no overlaps',()=>{
  for(const current of [view({screen:'menu'}),view({screen:'inboundMenu'}),view({screen:'colorTiers',modeSlots:{color_exit:'saved'}}),view({screen:'legacyRuns',modeSlots:{color_exit:'saved',color_exit_entry:'saved',color_exit_middle:'result',color_exit_late:'corrupt'}}),view({paused:true}),view({confirmation:{kind:'leaveRun'}})]){
