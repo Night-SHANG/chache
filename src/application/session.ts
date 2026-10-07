@@ -90,6 +90,7 @@ export class GameSession {
   this.view.comparisonSeed=options.seed>>>0;try{const raw=platform.storage.get(COMPARISON_SEED_KEY);if(raw!==null&&/^\d+$/.test(raw)){const seed=Number(raw);if(Number.isSafeInteger(seed)&&seed>=0&&seed<=0xffffffff)this.view.comparisonSeed=seed;}}catch{/* A missing preference never changes run saves. */}
   this.refreshSlots();
   const account=this.accountService.getSnapshot();if(account){this.publishAccount(account);}else if(!['empty','ready'].includes(this.accountService.getStatus())){this.view.accountBlocked=true;this.view.accountStatus=this.accountService.getStatus();this.view.saveStatus='保存结果尚未确认，请重试';}
+  this.view.outboundSelectionMode=this.hasRun&&this.state.mode==='color_exit'&&[10,13].includes(this.state.rulesetVersion)?'endless':'normal';
   this.refreshDailyAvailability();
   this.input=new InputController({getState:()=>this.state,getView:()=>this.view,patchView:patch=>Object.assign(this.view,patch),preview:(pieceId,origin)=>previewPlayablePlacement(this.state,pieceId,origin),risk:(pieceId,origin)=>placementRisk(this.state,pieceId,origin),dispatch:command=>this.dispatch(command),togglePause:()=>this.togglePause(),restart:()=>this.restart(),resume:()=>this.resume(),toggleDebug:()=>{this.input.cancel();this.view.debug=!this.view.debug;this.view.debugPage=0;},action:action=>this.action(action),feedback:(kind,pieceId)=>this.feedback(kind,pieceId)});
   if(!this.writerHeld())this.blockWriter();
@@ -150,6 +151,7 @@ export class GameSession {
  private beginNewGame(action:Extract<UiAction,{type:'newRun'}>,guide:'guided'|'direct'='direct'):void {
   if(action.mode==='daily'&&!this.allowDailyStart())return;
   const outbound=action.mode==='color_exit',track:GuideTrack=outbound?'outbound':'inbound';this.prepareReturn=outbound?'colorTiers':'inboundMenu';
+  if(outbound)this.view.outboundSelectionMode=action.outboundMode??'normal';
   const intent:StartIntent={spec:outbound?{family:'outbound',variant:action.outboundMode??'normal',rulesetVersion:action.outboundMode==='endless'?13:12,seed:0,difficultyId:action.difficultyId??'easy',toolCharges:{rotate:0,clear:0,wildcard:0}}:{family:'inbound',mode:action.mode==='endless'?'endless':action.mode==='daily'?'daily':'standard',rulesetVersion:14,seed:0,guided:guide==='guided',toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide};this.view.prepareIntent=intent;this.view.guideTrack=track;
   const migration=this.view.account?null:prepareLegacyMigration(this.platform.storage);
   if(migration?.status==='blocked'){this.view.saveStatus=migration.message;this.view.prepareIntent=null;return;}
@@ -215,6 +217,7 @@ export class GameSession {
  private handleAccountAction(action:UiAction):boolean {
   if(this.view.accountBlocked){if(action.type==='retrySave'||action.type==='continue'||action.type==='recoverProfile')this.retryAccount();return true;}
   if(this.view.confirmation&&action.type!=='confirm'&&action.type!=='cancel')return true;
+  if(action.type==='selectOutboundMode'){if(this.view.screen==='colorTiers'&&!this.view.needsResume&&!this.view.paused&&(action.mode==='normal'||action.mode==='endless'))this.view.outboundSelectionMode=action.mode;return true;}
   if(action.type==='retrySave'){this.retryAccount();return true;}
   if(action.type==='newRun'&&!action.colorTier){
    if(action.mode==='daily'&&!this.allowDailyStart())return true;
@@ -234,7 +237,7 @@ export class GameSession {
   if(action.type==='shop'){if(this.view.account?.run){this.view.message='请先结束本局，再进入商店';return true;}this.shopReturn=this.view.screen;this.view.screen='shop';return true;}
   if(action.type==='purchase'){this.view.confirmation={kind:'purchase',item:action.item};return true;}
   if(action.type==='toggleItem'){const intent=this.view.prepareIntent;if(!intent||intent.guide!=='direct'||intent.spec.family==='inbound'&&intent.spec.mode==='daily')return true;const index=intent.items.indexOf(action.item);if(index>=0)intent.items=intent.items.filter(i=>i!==action.item);else if(intent.items.length<2&&(this.view.account?.inventory[action.item]??0)>0)intent.items=[...intent.items,action.item];return true;}
-  if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
+  if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
   if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
   if(action.type==='chooseCleanup'){if(this.view.screen==='prepareCleanup'&&this.view.prepareIntent){this.view.prepareIntent.cleanupBranch=action.branch;this.startAccountIntent();}else this.dispatchAccount({type:'chooseCleanup',branch:action.branch});return true;}
   if(action.type==='back'&&['shop','prepareTools','prepareCleanup','guideOffer'].includes(this.view.screen??'')){this.view.screen=this.view.screen==='shop'?this.shopReturn:this.prepareReturn;this.view.prepareIntent=null;return true;}

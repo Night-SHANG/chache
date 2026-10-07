@@ -1,6 +1,6 @@
 import type { GuideProgress, GuideStep, GuideTrack } from './account-types.ts';
 import type { GameCommand, GameRun, GameStepResult } from '../domain/playable.ts';
-import { isInboundRun, isInboundV9, isInboundV11, isInboundV14, isOutboundToolsRun } from '../domain/playable.ts';
+import { isInboundRun, isInboundV9, isInboundV11, isInboundV14, isInboundV15, isOutboundToolsRun } from '../domain/playable.ts';
 import type { Cell, Command, Point } from '../domain/types.ts';
 import { SHAPES } from '../domain/rulesets/v1/content.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
@@ -42,7 +42,7 @@ const TEXT: Record<GuideStep, string> = {
 };
 
 function requiredSteps(track: GuideTrack, version: number): readonly GuideStep[] {
-  return track === 'inbound' && (version === 11||version===14) ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
+  return track === 'inbound' && (version === 11||version===14||version===15) ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
 }
 
 export function isGuideComplete(track: GuideTrack, progress: GuideProgress, version = 9): boolean {
@@ -139,7 +139,7 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
   let paths: readonly (readonly GameCommand[])[];
   if (track === 'inbound') {
     if (!isInboundRun(state) || !state.guided || state.commandBaseIndex !== 0) return undefined;
-    const authored = isInboundV14(state)?INBOUND_GUIDE_V14:isInboundV11(state) ? INBOUND_GUIDE_V11 : INBOUND_GUIDE_V9;
+    const authored = isInboundV14(state)||isInboundV15(state)?INBOUND_GUIDE_V14:isInboundV11(state) ? INBOUND_GUIDE_V11 : INBOUND_GUIDE_V9;
     if (state.seed !== authored.seed) return undefined;
     paths = Object.values(authored.branches);
   } else {

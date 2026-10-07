@@ -13,14 +13,13 @@ test('migrated v8 ordinary guided and v10 endless records stay intact and never 
  account.profile.results['outbound.v8.easy']=bucket(50);account.profile.results['outboundGuided.v8.easy']=bucket(9999);account.profile.results['outboundEndless.v10.easy']=bucket(300);
  const persist=()=>{const raw=encodeAccount(account);h.storage.values.set(ACCOUNT_KEYS.a,raw);h.storage.values.set(ACCOUNT_KEYS.b,raw);};persist();
  const s=new GameSession(h.platform,{seed:71,mode:'standard'});s.action({type:'chooseColorTier'});let labels=words(s);
- assert.ok(labels.some(l=>l.value==='普通 · 30批 · 最高分 0'&&l.x===170));assert.ok(labels.some(l=>l.value==='无限 · 最高分 0 · 0批'&&l.x===552));
+ assert.equal(labels.filter(l=>l.value==='最高分 暂无').length,4);s.action({type:'selectOutboundMode',mode:'endless'});labels=words(s);assert.equal(labels.filter(l=>l.value==='最高分 暂无').length,4);
  assert.equal(s.view.account!.profile.legacyResults.outboundV8!.easy!.bestScores.v8!.score,100);
  assert.deepEqual(s.view.account!.profile.results,account.profile.results);
  assert.equal(s.view.account!.profile.results['outbound.v12.easy.plain'],undefined);assert.equal(s.view.account!.profile.results['outboundEndless.v13.easy.plain'],undefined);
  account.profile.results['outbound.v8.easy']=bucket(150);account.profile.results['outbound.v12.easy.plain']=bucket(125);account.profile.results['outbound.v12.easy.tools']=bucket(250);account.profile.results['outboundEndless.v13.easy.plain']=bucket(225);account.profile.results['outboundEndless.v13.easy.tools']=bucket(350);persist();
  const higher=new GameSession(h.platform,{seed:71,mode:'standard'});higher.action({type:'chooseColorTier'});labels=words(higher);
- assert.ok(labels.some(l=>l.value==='普通 · 30批 · 最高分 125'&&l.x===170));assert.ok(labels.some(l=>l.value==='无限 · 最高分 225 · 1批'&&l.x===552));
- assert.ok(labels.some(l=>l.value==='工具最高 250'));assert.ok(labels.some(l=>l.value==='工具最高 350'));
+ assert.ok(labels.some(l=>l.value==='最高分 125'));assert.ok(labels.some(l=>l.value==='使用道具最高分 250'));assert.equal(labels.some(l=>l.value==='最高分 225'||l.value==='使用道具最高分 350'),false);higher.action({type:'selectOutboundMode',mode:'endless'});labels=words(higher);assert.ok(labels.some(l=>l.value==='最高分 225'));assert.ok(labels.some(l=>l.value==='使用道具最高分 350'));assert.equal(labels.some(l=>l.value==='最高分 125'||l.value==='使用道具最高分 250'),false);
  assert.equal(labels.some(l=>/9,999|最高分 150|最高分 300/.test(l.value)),false);
  assert.equal(higher.view.account!.profile.results['outbound.v8.easy']!.best!.score,150);assert.equal(higher.view.account!.profile.results['outboundGuided.v8.easy']!.best!.score,9999);assert.equal(higher.view.account!.profile.results['outboundEndless.v10.easy']!.best!.score,300);
  assert.equal(higher.view.account!.profile.legacyResults.outboundV8!.easy!.bestScores.v8!.score,100);assert.equal(h.storage.values.get(PROFILE_KEYS.main),encodeProfileCopy());

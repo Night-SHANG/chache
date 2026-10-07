@@ -7,7 +7,6 @@ import {debugPages,DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
 import { LEGACY_SLOTS, OUTBOUND_DIFFICULTY_NAMES, colorTierLabel, outboundDifficultyLabel, getUiControls, hasLegacyRun, runSlotLabel } from './ui.ts';
 import type { UiControl } from './ui.ts';
 import { OUTBOUND_DIFFICULTIES } from '../domain/v6/content.ts';
-import {difficultyScoreMultiplierV12} from '../domain/v12/score.ts';
 import { tierForSlot } from '../application/run-slots.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
 import { pieceCaption } from './mixed-piece-feedback.ts';
@@ -132,9 +131,10 @@ function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   text(ctx, '连锁', L.chain.x, L.chain.y + 21, 20, MUTED);
   text(ctx, `×${state.lastChain}`, L.chain.x + L.chain.w, L.chain.y + 21, 28, '#f7cc67', 'right');
   panel(ctx, { x: 548, y: 226, w: 486, h: 70 }, '#25394c', '#53687a', 13);
-  text(ctx, state.mode==='color_exit'?`阶段 ${state.shift}/5`:state.mode==='endless'?`阶段 ${state.shift}/5`:state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
+  const endless=state.mode==='endless'||[10,13].includes(state.rulesetVersion);
+  text(ctx, endless?`无限 · 阶段${state.shift}`:state.mode==='color_exit'?`阶段 ${state.shift}/5`:state.overtime ? '加班挑战' : `第 ${state.shift} 班`, 573, 261, 28, '#e4f1f1');
   const progress = Math.min(6, state.completedOrders - (state.shift - 1) * 6);
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; !endless && i < 5; i++) {
     const x = 735 + i * 57;
     if (i < 4) { ctx.fillStyle = i < state.shift - 1 ? '#d3aa4f' : '#465563'; ctx.fillRect(x, 257, 55, 5); }
     ctx.fillStyle = i < state.shift ? '#ffc958' : '#243240'; ctx.strokeStyle = '#7f90a1'; ctx.lineWidth = 2;
@@ -142,7 +142,7 @@ function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
     text(ctx, String(i + 1), x, 260, 15, i < state.shift ? '#48321d' : '#8d9ba7', 'center');
   }
   text(ctx, state.mode==='color_exit'?'出货批次':state.mode==='endless'?'完成订单':'本班订单', 57, 291, 22, MUTED);
-  for (let i = 0; state.mode!=='endless' && i < 6; i++) { roundedPath(ctx, 180 + i * 43, 281, 35, 16, 4); ctx.fillStyle = i < progress ? '#ffc74d' : '#111c27'; ctx.fill(); }
+  for (let i = 0; !endless && i < 6; i++) { roundedPath(ctx, 180 + i * 43, 281, 35, 16, 4); ctx.fillStyle = i < progress ? '#ffc74d' : '#111c27'; ctx.fill(); }
   text(ctx, state.mode==='color_exit'?[10,13].includes(state.rulesetVersion)?`${state.completedOrders} 批`:`${state.completedOrders}/30 批`:state.mode==='endless'?`${state.completedOrders} 单`:`${Math.max(0, progress)} / 6`, 474, 289, 23, CREAM, 'right');
 }
 
@@ -628,7 +628,7 @@ function drawControls(ctx: Context, state: GameRun, view: ViewState): void {
     if(control.action.type==='toggleToolbox')return;
     if(control.action.type==='tool'&&isToolRun(state)){drawToolCard(ctx,state,control);return;}
     if(control.action.type==='toolCargo'){const r=control.rect,cargo=control.action.cargo,color=PALETTE[cargo];panel(ctx,r,control.selected?color.dark:'#263847',control.selected?color.light:'#718d98',16);icon(ctx,cargo,r.x+r.w/2,r.y+44,44,color.light);text(ctx,control.label,r.x+r.w/2,r.y+99,25,color.light,'center');return;}
-    drawControl(ctx, control, control.action.type==='purchase'||index===0&&!['toggleSound','comparisonSeedNext','toggleItem','chooseCleanup'].includes(control.action.type));
+    drawControl(ctx, control, control.action.type==='purchase'||index===0&&!['toggleSound','comparisonSeedNext','toggleItem','chooseCleanup','selectOutboundMode'].includes(control.action.type));
   });
 }
 
@@ -688,13 +688,15 @@ function drawInboundMenu(ctx:Context,state:GameRun,view:ViewState):void{
 function drawColorTierSelection(ctx:Context,state:GameRun,view:ViewState):void {
   outlinedText(ctx,'出库模式',540,157,70,CREAM,'center');
   text(ctx,'选择难度',540,233,29,'#c5d6db','center',500);
-  text(ctx,OUTBOUND_DIFFICULTIES.map(difficulty=>{const multiplier=difficultyScoreMultiplierV12(difficulty);return `${OUTBOUND_DIFFICULTY_NAMES[difficulty]} ×${multiplier.numerator/multiplier.denominator}`;}).join(' · '),540,304,26,'#ffe3a3','center',500);
+  const endless=view.outboundSelectionMode==='endless',bucketPrefix=endless?'outboundEndless.v13':'outbound.v12';
+  panel(ctx,{x:132,y:286,w:816,h:180},'#172b3d','#536e80',24);
+  text(ctx,endless?'无限 · 挑战最高分':'普通 · 完成30批',540,493,30,'#c5d6db','center',500);
   OUTBOUND_DIFFICULTIES.forEach((difficulty,index)=>{
-    const y=452+index*244;panel(ctx,{x:132,y,w:816,h:242},'#293f51','#718d98',20);text(ctx,OUTBOUND_DIFFICULTY_NAMES[difficulty],170,y+37,33,'#ffe8b4');
-    const normal=view.account?.profile.results[`outbound.v12.${difficulty}.plain`],endless=view.account?.profile.results[`outboundEndless.v13.${difficulty}.plain`];
-    const best=normal?.best?.score??0,normalTools=view.account?.profile.results[`outbound.v12.${difficulty}.tools`],endlessTools=view.account?.profile.results[`outboundEndless.v13.${difficulty}.tools`];
-    text(ctx,`工具最高 ${number(normalTools?.best?.score??0)}`,528,y+37,22,'#a9c0c9','right',500);text(ctx,`工具最高 ${number(endlessTools?.best?.score??0)}`,910,y+37,22,'#a9c0c9','right',500);
-    text(ctx,`普通 · 30批 · 最高分 ${number(best)}`,170,y+85,23,'#b8cdd5','left',500);text(ctx,`无限 · 最高分 ${number(endless?.best?.score??0)} · ${endless?.maxUnits??0}批`,552,y+85,23,'#b8cdd5','left',500);
+    const y=534+index*244;panel(ctx,{x:132,y,w:816,h:224},'#293f51','#718d98',20);text(ctx,OUTBOUND_DIFFICULTY_NAMES[difficulty],170,y+46,38,'#ffe8b4');
+    const plainBucket=view.account?.profile.results[`${bucketPrefix}.${difficulty}.plain`],plain=plainBucket?.best,tools=view.account?.profile.results[`${bucketPrefix}.${difficulty}.tools`]?.best;
+    if(endless)text(ctx,`最多出货 ${plainBucket?`${number(plainBucket.maxUnits)}批`:'暂无'}`,700,y+46,30,'#b8cdd5','right',500);
+    text(ctx,`最高分 ${plain?number(plain.score):'暂无'}`,170,y+108,32,'#e4edf0','left',600);
+    text(ctx,`使用道具最高分 ${tools?number(tools.score):'暂无'}`,170,y+162,30,'#b8cdd5','left',500);
   });
   drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1790);
 }

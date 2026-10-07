@@ -12,6 +12,7 @@ import type {ToolCommand} from './tool-preview.ts';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
+  outboundSelectionMode?:'normal'|'endless';
   account?:Readonly<AccountSnapshot>|null;
   accountStatus?:string;
   accountBlocked?:boolean;

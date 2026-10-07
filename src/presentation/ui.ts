@@ -65,9 +65,10 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(1565),'返回主页',{type:'home'}),
   ];
   if (view.screen === 'colorTiers') {
-    const controls:UiControl[]=[];
-    OUTBOUND_DIFFICULTIES.forEach((difficulty,index)=>{for(const outboundMode of ['normal','endless'] as const)controls.push(control({x:170+(outboundMode==='endless'?382:0),y:570+index*244,w:358,h:132},outboundMode==='normal'?`开始${OUTBOUND_DIFFICULTY_NAMES[difficulty]}`:`无限${OUTBOUND_DIFFICULTY_NAMES[difficulty]}`,{type:'newRun',mode:'color_exit',difficultyId:difficulty,outboundMode}));});
-    controls.push(control(wide(1620),'返回主页',{type:'home'}));
+    const outboundMode=view.outboundSelectionMode??'normal';
+    const controls:UiControl[]=(['normal','endless'] as const).map((mode,index)=>({...control({x:150+index*400,y:304,w:380,h:144},mode==='normal'?'普通':'无限',{type:'selectOutboundMode',mode}),selected:mode===outboundMode}));
+    OUTBOUND_DIFFICULTIES.forEach((difficultyId,index)=>controls.push(control({x:730,y:576+index*244,w:180,h:144},'开始',{type:'newRun',mode:'color_exit',difficultyId,outboundMode})));
+    controls.push(control(wide(1584,132),'返回主页',{type:'home'}));
     return controls;
   }
   if(view.screen==='legacyRuns')return [

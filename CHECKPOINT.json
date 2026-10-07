@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.10.0-dev",
-  "status": "LOCAL_VALIDATION_COMPLETE",
+  "appVersion": "0.11.0-dev",
+  "status": "APPROVED_COMBINED_UPDATE_IN_PROGRESS",
   "rulesets": [
     1,
     2,
@@ -76,12 +76,12 @@
   "accountFormatVersion": 2,
   "simulationCases": 288,
   "simulationCapped": 7,
-  "testsPassed": 1529,
-  "pythonTestsPassed": 22,
-  "sourceSha256": "0f5cb97a4a51573c365a699583cda07474361a8446360d8a366405c9b63bbbc1",
-  "gameJsSha256": "7fb6bb9c7c17ed6197771177e4e29c9f2aee2597c1bceaa8a875b50d0c790f7b",
-  "runtimeStatus": "Native Canvas/wx actual game.js host59/59, local aggregate and independent reviewPASS; real browser/WindowsGUI/WeChat deviceNOT RUN. Human balanceNOT proven.",
-  "deliveryNotes": "docs/v0100-playtest.md",
+  "testsPassed": null,
+  "pythonTestsPassed": null,
+  "sourceSha256": null,
+  "gameJsSha256": null,
+  "runtimeStatus": "UI refinement, new standard/daily stage-five rush rules15 and permanent cosmetic shop integrating; one combined package pending.",
+  "deliveryNotes": "docs/v0110-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "developerDiagnosticsDefault": false,
@@ -92,8 +92,8 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 59,
-  "validatedCodeCommit": "066cd0b47b3967f516f6557fedd6ae283f122ebb",
+  "hostCasesPassed": null,
+  "validatedCodeCommit": null,
   "rulesChangedFromV080": true,
   "accountEnvelopeVersion": 1,
   "simulationCensorReason": "7 endless cases still active at120 placements;0 finite caps",
@@ -110,6 +110,8 @@
     "dailyLock": "start-date bound after first win",
     "infinite": "cumulative score entitlement minus already paid"
   },
-  "hostStaticImages": 139,
-  "hostContinuousFrames": 738
+  "hostStaticImages": null,
+  "hostContinuousFrames": null,
+  "previousValidatedCommit": "eff25c268cd340bdaf787e2755975a9c2c3934c8",
+  "simulationEvidenceUnchanged": "v0.10.0 288-case adaptive study; no new probability or economic experiment in this UI patch"
 }
