@@ -49,8 +49,10 @@ export interface ViewState {
   developerMode?: boolean;
   debugPage?: number;
   needsResume: boolean;
+  helpTopic?:'inbound'|'outbound';
+  helpFromHome?:boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer'|'tutorialPracticeSelect';
+  screen?: 'game'|'menu'|'settings'|'helpMenu'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer'|'tutorialPracticeSelect';
   variant?: RunSlot;
   modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
   comparisonSeed?: number;

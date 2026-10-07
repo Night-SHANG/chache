@@ -1,11 +1,10 @@
-import {tutorialsEnabled,guideProgress,guideTrackFor} from '../application/account-guides.ts';
 import type { ColorTier, OutboundDifficulty } from '../domain/types.ts';
 import { difficultyForSlot, tierForSlot, type RunSlot } from '../application/run-slots.ts';
 import { OUTBOUND_DIFFICULTIES,OUTBOUND_CARGO } from '../domain/v6/content.ts';
 import type { GameRun } from '../domain/playable.ts';
-import {isGuideComplete} from '../application/tutorials.ts';
 import {isInboundV9,isInboundV16,isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
-import {getEconomyControls,CLEANUP_RECTS} from './economy-ui.ts';
+import {getEconomyControls} from './economy-ui.ts';
+import {helpTopic,staticPresentationView} from './static-help.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {RULES_V9_CONFIG,UPGRADES_V9} from '../domain/v9/content.ts';
@@ -35,12 +34,7 @@ const control = (rect: Rect, label: string, action: UiAction): UiControl => ({ r
 
 /** Only the top actionable layer is returned. Geometry never changes either state object. */
 export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
-  if(view.practice){
-    if(view.practice.completed)return view.animation?[]:[control(wide(1635,144),'返回设置',{type:'exitPractice'})];
-    if(view.paused)return [control(wide(1080,144),'继续练习',{type:'continue'}),control(wide(1280,144),'结束练习',{type:'exitPractice'})];
-    const exit=control({x:355,y:105,w:144,h:144},'退出',{type:'exitPractice'});
-    return state.phase==='cleanup'?[control(CLEANUP_RECTS[0],'按单清扫',{type:'chooseCleanup',branch:'orders'}),control(CLEANUP_RECTS[1],'定期清扫',{type:'chooseCleanup',branch:'placements'}),exit]:[exit,control({x:914,y:54,w:144,h:144},'暂停',{type:'pausePractice'})];
-  }
+  view=staticPresentationView(view);
   if(view.accountBlocked)return [control(wide(1250),view.readOnlyReason?'重试':'保存结果尚未确认，请重试',{type:'retrySave'})];
   if (view.confirmation) {
     const kind=view.confirmation.kind;
@@ -53,16 +47,16 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   if (view.needsResume) return [];
   if(view.toolSelection&&!view.paused&&(!view.screen||view.screen==='game')){const tool=view.toolSelection;return [control({x:48,y:1788,w:280,h:132},'取消',{type:'toolCancel'}),{...control({x:752,y:1788,w:280,h:132},'确认使用',{type:'toolConfirm'}),disabled:!tool.command||!!tool.error},...(isOutboundToolsRun(state)&&tool.item==='wildcard'&&tool.pieceId?OUTBOUND_CARGO.map((cargo,index)=>({...control({x:338+index*138,y:1788,w:132,h:132},CARGO.find(c=>c.id===cargo)?.name??'',{type:'toolCargo',cargo}),selected:tool.cargo===cargo})):[]),...(tool.item==='rotate'?[control({x:376,y:1788,w:328,h:132},'顺时针旋转',{type:'toolRotate'})]:[])];}
   if(view.supplyUpgrade)return [...CARGO.slice(0,isInboundV9(state)?RULES_V9_CONFIG.cargoByShift[state.shift-1]:3).map((cargo,index)=>control({x:210,y:650+index*170,w:660,h:122},isInboundV9(state)?`${cargo.name} · ${Math.round((generationDistributionV9(state).nonWildcardCargos.find(c=>c.cargo===cargo.id)?.probability??0)*100)}% → ${Math.round((generationDistributionV9(chooseUpgradeV9(state,'cargo_supply',cargo.id).state).nonWildcardCargos.find(c=>c.cargo===cargo.id)?.probability??0)*100)}%`:cargo.name,{type:'supplyCargo',cargo:cargo.id})),control(wide(1570),'取消',{type:'supplyCancel'})];
-  if(view.screen==='tutorialPracticeSelect')return [control(wide(610,144),'入库基础',{type:'startPractice',kind:'inbound'}),control(wide(820,144),'出库基础',{type:'startPractice',kind:'outbound'}),control(wide(1030,144),'每日加急',{type:'startPractice',kind:'daily'}),control(wide(1510,144),'返回设置',{type:'back'})];
-  if(view.screen==='guideOffer')return [control(wide(900),'开始引导',{type:'guidedStart',track:view.guideTrack??'inbound'}),control(wide(1080),'直接开始',{type:'directStart'}),control(wide(1400),'返回',{type:'back'})];
   if(['shop','prepareTools','prepareCleanup'].includes(view.screen??''))return getEconomyControls(state,view);
-  if (view.screen === 'colorIntro') return [control(wide(1240),'返回游戏',{type:'helpBack'}),...(state.mode==='color_exit'?[]:[control(wide(1390),isInboundRun(state)&&!isInboundV9(state)?'特殊货物与工具':'特殊货物与升级',{type:'helpDetails'})])];
-  if (view.screen === 'helpDetails') return [control(wide(1540),'返回玩法说明',{type:'help'})];
+  if (view.screen === 'helpMenu') return [control(wide(752,144),'入库玩法',{type:'selectHelp',topic:'inbound'}),control(wide(990,144),'出库玩法',{type:'selectHelp',topic:'outbound'}),control(wide(1390,144),'返回',{type:'home'})];
+  if (view.screen === 'colorIntro') return [control(wide(1240,view.helpFromHome?144:114),view.helpFromHome?'返回':'返回游戏',{type:'helpBack'}),...(helpTopic(state,view)==='outbound'?[]:[control(wide(1420,144),'特殊货物与工具',{type:'helpDetails'})])];
+  if (view.screen === 'helpDetails') return [control(wide(1600,144),'返回玩法说明',{type:'help'})];
   if (view.screen === 'menu') return [
     control(wide(752,176),'入库模式\n按订单配货',{type:'chooseInbound'}),
     control(wide(990,176),'出库模式\n同色连出口',{type:'chooseColorTier'}),
-    control({x:210,y:1265,w:318,h:114},'商店',{type:'shop'}),
-    control({x:552,y:1265,w:318,h:114},'设置',{type:'settings'}),
+    control(wide(1220,144),'玩法说明',{type:'helpMenu'}),
+    control({x:210,y:1420,w:318,h:132},'商店',{type:'shop'}),
+    control({x:552,y:1420,w:318,h:132},'设置',{type:'settings'}),
   ];
   if (view.screen === 'inboundMenu') return [
     ...(['normal','hard','expert'] as const).map((inboundDifficulty,index)=>({...control({x:190+index*238,y:575,w:224,h:144},['普通','困难','专业'][index],{type:'selectInboundDifficulty',inboundDifficulty}),selected:(view.inboundDifficulty??'normal')===inboundDifficulty})),
@@ -86,16 +80,12 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     return [
       { ...control(settingsRow(355), `声音：${view.profile?.settings.sound !== false ? '开' : '关'}`, { type: 'toggleSound' }), selected: view.profile?.settings.sound !== false },
       { ...control(settingsRow(535), `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
-      {...control(settingsRow(715),`新手教程：${tutorialsEnabled(view.account)?'开':'关'}`,{type:'toggleTutorials'}),selected:tutorialsEnabled(view.account)},
-      control(settingsRow(895),'重新体验教程',{type:'openPracticeSelect'}),
       ...(view.profileNeedsRecovery ? [control(settingsRow(1356), '恢复游戏记录', { type: 'recoverProfile' })] : []),
       control(settingsRow(1518), '重置游戏记录', { type: 'resetProfile' }),
       control(settingsRow(1680), '返回', { type: 'back' }),
     ];
   }
-  const newGuide=tutorialsEnabled(view.account)&&isInboundV16(state)&&view.account&&(state.mode==='daily'||state.guided)&&!guideProgress(view.account,guideTrackFor(state)).skipped&&!isGuideComplete(guideTrackFor(state),guideProgress(view.account,guideTrackFor(state)),16);
   if (view.paused && state.phase!=='result') return [
-    ...(newGuide?[control({x:246,y:900,w:588,h:144},'跳过引导',{type:'skipTutorial'})]:[]),
     control({...L.resume,h:104},'继续游戏',{type:'continue'}),
     {...control({...L.restart,y:1220,h:104},state.mode==='daily'&&view.dailyLocked?'今日已完成':'重新开始',restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
     control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
@@ -111,14 +101,10 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
       ...(overtime ? [control({ ...L.resume }, '继续加班', { type: 'continueOvertime' }),control({...L.restart,y:1510},'完成收工',{type:'declineOvertime'})] : []),
       {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? view.dailyLocked?'今日已完成':state.result==='won'?'挑战今日':'再试一次' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
       control({ ...L.restart, y: 1390 }, '返回主页', { type: 'home' }),
-      ...(isInboundRun(state)&&state.phase==='result'&&view.account&&isGuideComplete('inbound',view.account.guides.inbound,state.rulesetVersion)?[control({...L.restart,y:1650},'去试试出库',{type:'chooseColorTier'})]:[]),
     ];
   }
-  const skipGuide=view.guide?isInboundV16(state)?state.phase==='cleanup'?[control({x:210,y:1420,w:660,h:144},'跳过引导',{type:'skipTutorial'})]:[]:[control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})]:[];
-  if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)return [...state.upgradeChoices.map((id,index)=>control(L.upgradeRects[index],UPGRADES_V9.find(u=>u.id===id)?.title??id,{type:'chooseUpgrade',upgradeId:id})),...skipGuide];
-  if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)return [...getEconomyControls(state,view),...skipGuide];
+  if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)return state.upgradeChoices.map((id,index)=>control(L.upgradeRects[index],UPGRADES_V9.find(u=>u.id===id)?.title??id,{type:'chooseUpgrade',upgradeId:id}));
+  if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)return getEconomyControls(state,view);
   if(isToolRun(state)&&state.phase==='rescue'&&!view.animation)return [...getEconomyControls(state,view),control({x:700,y:1788,w:332,h:132},state.rulesetVersion===12?'返回主页':'结束并结算',state.rulesetVersion===12?{type:'home'}:{type:'finishEndless'})];
-  if(view.guide&&!view.animation&&!view.paused)return [...getEconomyControls(state,view),...skipGuide];
-  if(state.mode==='tutorial'&&state.phase==='input'&&!view.animation)return [control({x:view.developerMode===true?600:820,y:1836,w:212,h:60},'跳过教学',{type:'skipTutorial'})];
   return getEconomyControls(state,view);
 }
