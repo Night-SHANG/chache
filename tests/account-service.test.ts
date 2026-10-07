@@ -279,19 +279,25 @@ test('real tutorial learning and board commands publish atomically after repair'
   assert.deepEqual(learned.operation?.learned, ['place']);
 });
 
-test('daily ledger caps bonuses across versions and never follows score reset', () => {
-  const { service } = setup({ dailyPaid: { '2026-10-06': { bestBase: 60, paid: 120 } } });
-  const daily = intent({ spec: { family: 'inbound', mode: 'daily', rulesetVersion: 9, seed: 1, guided: false, toolCharges: { rotate: 0, clear: 0, wildcard: 0 } } });
-  const started = send(service, { operationId: 'daily', type: 'start', intent: daily });
-  assert.equal(started.status, 'acknowledged');
-  assert.deepEqual(started.account?.dailyPaid['2026-10-06'], { bestBase: 60, paid: 120 });
+test('legacy daily completion blocks new attempts across versions and survives score reset', () => {
+  const dailyPaid = { '2026-10-06': { bestBase: 60, paid: 120 } };
+  const { service, storage } = setup({ dailyPaid });
+  const rejectDailyStarts = (suffix: string) => {
+    for (const rulesetVersion of [9, 11, 14] as const) {
+      const daily = intent({ spec: { family: 'inbound', mode: 'daily', rulesetVersion, seed: 1, guided: false, toolCharges: { rotate: 0, clear: 0, wildcard: 0 } } });
+      const before = new Map(storage.values), account = service.getSnapshot();
+      const result = send(service, { operationId: `daily.${rulesetVersion}.${suffix}`, type: 'start', intent: daily });
+      assert.equal(result.status, 'not_committed');
+      assert.deepEqual(storage.values, before);
+      assert.deepEqual(service.getSnapshot(), account);
+    }
+  };
+  rejectDailyStarts('before-reset');
   const reset = send(service, { operationId: 'reset', type: 'resetResults' });
   assert.equal(reset.status, 'acknowledged');
-  assert.deepEqual(reset.account?.dailyPaid, started.account?.dailyPaid);
-  const closed = send(service, { operationId: 'finish', type: 'close', runId: started.account!.run!.identity.runId, reason: 'retired' });
-  assert.equal(closed.status, 'acknowledged');
-  assert.equal(closed.account?.wallet, 0);
-  assert.deepEqual(closed.account?.dailyPaid, started.account?.dailyPaid);
+  assert.deepEqual(reset.account?.dailyPaid, dailyPaid);
+  assert.equal(reset.account?.wallet, 0);
+  rejectDailyStarts('after-reset');
 });
 
 test('a failed fresh seed commit preserves the closed run, allocated serial and inventory until retry', () => {

@@ -1,6 +1,9 @@
-import { applyPlayableCommand, createPlayableRun, isInboundRun, type GameCommand, type GameEvent, type GameRun, type GameStepResult, type RunSpec } from '../domain/playable.ts';
+import { applyPlayableCommand, createPlayableRun, isInboundRun, isToolRun, isOutboundToolsRun, type GameCommand, type GameEvent, type GameRun, type GameStepResult, type RunSpec } from '../domain/playable.ts';
 import { INBOUND_GUIDE_V9 } from '../domain/v9/tutorial.ts';
 import { INBOUND_GUIDE_V11 } from './inbound-guide-v11.ts';
+import { INBOUND_GUIDE_V14 } from './inbound-guide-v14.ts';
+import { OUTBOUND_GUIDE_V12 } from './outbound-guide-v12.ts';
+import { validToolChargesV12 } from '../domain/v12/content.ts';
 import type { ToolChargesV9 } from '../domain/v9/types.ts';
 import type { WriterLease } from '../platform/writer-lease.ts';
 import { cloneData } from '../shared/data.ts';
@@ -10,7 +13,7 @@ import { commitAccount, loadAccount, repairAccount, type AccountLoad, type Commi
 import { recordAccountResult, resetAccountResults } from './account-profile.ts';
 import { accountDigest, canonicalStringify, stageHistory, verifyAccountReferences } from './history-store.ts';
 import { assertGameCommandShape, assertGameRun } from './game-codec.ts';
-import { baseCoins, dailyAward, ITEM_PRICES } from './economy.ts';
+import { baseCoins, dailyAward, dailyRewardRecord, upgradeEconomy, ITEM_PRICES } from './economy.ts';
 import { prepareLegacyMigration } from './legacy-migration.ts';
 import { advanceGuide, isGuideComplete, OUTBOUND_GUIDE_V8 } from './tutorials.ts';
 import { createProfile, encodeProfile, localDailyChallenge, PROFILE_KEYS, recordResult, resetProfile, setProfileCosmetic, setProfileSettings, type Profile } from './profile.ts';
@@ -69,7 +72,7 @@ function legacyProfile(account: AccountSnapshot): Profile {
 export function accountDisplayProfile(account: Readonly<AccountSnapshot>): Profile {
   const profile = legacyProfile(account);
   // Frozen inbound achievements cover ordinary/daily orders; other score families stay independent.
-  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(standard|daily)\.v(9|11)\.(plain|tools)$/.test(key));
+  const buckets = Object.entries(account.profile.results).filter(([key]) => /^inbound\.(standard|daily)\.v(9|11|14)\.(plain|tools)$/.test(key));
   const sum = (left: number, right: number): number => Math.min(Number.MAX_SAFE_INTEGER, left + right);
   const units = buckets.reduce((total, [, bucket]) => sum(total, bucket.units), 0);
   const wins = buckets.reduce((total, [, bucket]) => sum(total, bucket.wins), 0);
@@ -117,9 +120,14 @@ function validateRequest(request: unknown, generation: number): asserts request 
     && fields[request.type].every(field => owns(request, field)), '账户请求结构无效');
   if ('runId' in request) requireValue(identifier(request.runId), '本局标识无效');
 }
-function dailyIdentity(time: number, version: 9 | 11): { day: string; seed: number } {
+function dailyIdentity(time: number, version: 9 | 11 | 14): { day: string; seed: number } {
   const { day, seed } = localDailyChallenge(time, version);
   return { day, seed };
+}
+/** Current Shanghai-date availability; an existing run always keeps its own start day. */
+export function accountDailyAvailability(account:Readonly<AccountSnapshot>|null,time:number,rulesetVersion:9|11|14=14):{day:string;seed:number;completed:boolean;available:boolean} {
+ const daily=dailyIdentity(time,rulesetVersion),completed=account!==null&&dailyRewardRecord(account,daily.day).completedRunId!==null;
+ return {...daily,completed,available:!completed};
 }
 /** A persisted identity and the reducer's identity must agree before any command or credit. */
 function validateActive(run: AccountRun): void {
@@ -130,12 +138,13 @@ function validateActive(run: AccountRun): void {
   if (isInboundRun(state)) {
     requireValue(state.mode === (id.mode === 'guided' ? 'standard' : id.mode) && state.guided === (id.mode === 'guided')
       && id.difficultyId === undefined, '入库玩法身份不一致');
-    for (const item of ITEM_IDS) requireValue(state.toolCharges[item] === (run.reserved.includes(item) ? 1 : 0)
-      && !(run.reserved.includes(item) && state.usedToolIds.includes(item)), '工具预留与棋盘不一致');
   } else {
-    requireValue(state.mode === 'color_exit' && state.difficultyId === id.difficultyId && run.reserved.length === 0
-      && (state.rulesetVersion === 10 ? id.mode === 'outboundEndless' : id.mode === 'outbound' || id.mode === 'outboundGuided' && id.difficultyId === 'easy'), '出库玩法身份不一致');
+    requireValue(state.mode === 'color_exit' && state.difficultyId === id.difficultyId && (isOutboundToolsRun(state)||run.reserved.length === 0)
+      && (state.rulesetVersion === 10 || state.rulesetVersion === 13 ? id.mode === 'outboundEndless' : id.mode === 'outbound' || id.mode === 'outboundGuided' && id.difficultyId === 'easy'), '出库玩法身份不一致');
   }
+  if(isToolRun(state))for (const item of ITEM_IDS) requireValue(state.toolCharges[item] === (run.reserved.includes(item) ? 1 : 0)
+    && !(run.reserved.includes(item) && state.usedToolIds.includes(item)), '工具预留与棋盘不一致');
+  if(id.mode==='guided'||id.mode==='outboundGuided'||id.mode==='daily')requireValue(run.reserved.length===0&&(!isToolRun(state)||state.usedToolIds.length===0),'该模式不能使用个人工具');
 }
 
 export function createAccountService(storage: StoragePort, lease: WriterLease, wallTime: () => number): AccountService {
@@ -175,15 +184,22 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
   }
   function credit(account: AccountSnapshot): { account: AccountSnapshot; delta: number } {
     const run = account.run!;
-    const base = baseCoins(isInboundRun(run.state) ? 'inbound' : 'outbound', run.state.completedOrders, run.state.score);
+    const base = baseCoins(isInboundRun(run.state) ? 'inbound' : 'outbound', run.state.completedOrders, run.state.score,run.identity.economyVersion);
     requireValue(base >= run.creditedBase, '累计收益不能倒退');
-    let delta = base - run.creditedBase, dailyPaid = account.dailyPaid;
+    let delta = base - run.creditedBase, dailyPaid = account.dailyPaid, dailyRewards = account.dailyRewards;
     if (run.identity.mode === 'daily') {
       const day = run.identity.challengeDay!;
-      const award = dailyAward(base, dailyPaid[day] ?? { bestBase: 0, paid: 0 });
-      delta = add(delta, award.extra); dailyPaid = { ...dailyPaid, [day]: award.next };
+      const prior=dailyRewardRecord(account,day),won=run.state.result==='won'&&run.state.endReason==='completed';
+      if(run.identity.economyVersion===1){
+        const award = dailyAward(base, dailyPaid[day] ?? { bestBase: 0, paid: 0 });
+        delta = add(delta, award.extra); dailyPaid = { ...dailyPaid, [day]: award.next };
+        if(won)dailyRewards={...dailyRewards,[day]:{completedRunId:prior.completedRunId??run.identity.runId,bonusPaid:Math.max(prior.bonusPaid,award.next.paid)}};
+      }else if(won&&(!prior.completedRunId||prior.completedRunId===run.identity.runId)){
+        const bonus=add(base,base),extra=Math.max(0,bonus-prior.bonusPaid);
+        delta=add(delta,extra); dailyRewards={...dailyRewards,[day]:{completedRunId:run.identity.runId,bonusPaid:Math.max(prior.bonusPaid,bonus)}};
+      }
     }
-    return { account: { ...account, wallet: add(account.wallet, delta), dailyPaid, run: { ...run, creditedBase: base, earnedCoins: add(run.earnedCoins, delta) } }, delta };
+    return { account: { ...account, wallet: add(account.wallet, delta), dailyPaid, dailyRewards, run: { ...run, creditedBase: base, earnedCoins: add(run.earnedCoins, delta) } }, delta };
   }
   function applyDomain(account: AccountSnapshot, command: GameCommand, closing = false): { account: AccountSnapshot; events: GameEvent[]; delta: number; learned: GuideStep[] } {
     const before = account.run!;
@@ -201,9 +217,9 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
     const expectedCommands = [...before.state.commands, command];
     requireValue(canonicalStringify(result.state.commands) === canonicalStringify(expectedCommands), 'Domain没有记录已接受指令');
     let run: AccountRun = { ...before, state: { ...result.state, runSerial: before.identity.serial } as GameRun };
-    if (isInboundRun(run.state)) {
+    if (isToolRun(run.state)) {
       const old = before.state;
-      requireValue(isInboundRun(old), '工具规则身份不一致');
+      requireValue(isToolRun(old), '工具规则身份不一致');
       const newlyUsed = run.state.usedToolIds.filter(item => !old.usedToolIds.includes(item));
       const usedEvents = result.events.filter(event => event.type === 'toolUsed');
       const currentState = run.state;
@@ -236,24 +252,26 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
         && Array.isArray(intent.items) && intent.items.length <= 2 && new Set(intent.items).size === intent.items.length
         && intent.items.every(item => ITEM_IDS.includes(item)) && ['guided', 'direct'].includes(intent.guide), '开局准备无效');
       const spec = intent.spec, inbound = spec.family === 'inbound', track: GuideTrack = inbound ? 'inbound' : 'outbound', guided = intent.guide === 'guided';
-      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges']) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11)
+      requireValue(inbound ? keys(spec, ['family', 'mode', 'rulesetVersion', 'seed', 'guided', 'toolCharges']) && (spec.rulesetVersion === 9 || spec.rulesetVersion === 11 || spec.rulesetVersion===14)
         && ['standard', 'daily', 'endless'].includes(spec.mode) && spec.guided === guided
-        : spec.family === 'outbound' && keys(spec, ['family', 'variant', 'rulesetVersion', 'seed', 'difficultyId'])
-          && (spec.variant === 'normal' && spec.rulesetVersion === 8 || spec.variant === 'endless' && spec.rulesetVersion === 10), '开局玩法身份不匹配');
+        : spec.family === 'outbound' && keys(spec, ['family', 'variant', 'rulesetVersion', 'seed', 'difficultyId',...(spec.rulesetVersion===12||spec.rulesetVersion===13?['toolCharges']:[])])
+          && (spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) || spec.variant === 'endless' && (spec.rulesetVersion === 10||spec.rulesetVersion===13))
+          && (!(spec.rulesetVersion===12||spec.rulesetVersion===13)||owns(spec,'toolCharges')&&validToolChargesV12(spec.toolCharges)), '开局玩法身份不匹配');
       requireValue(!guided || !account.guides[track].authoredStartConsumed && !account.guides[track].skipped && !isGuideComplete(track, account.guides[track], spec.rulesetVersion), '首次辅助开局已经使用');
-      requireValue(!guided || (inbound ? spec.mode === 'standard' : spec.variant === 'normal' && spec.rulesetVersion === 8 && spec.difficultyId === 'easy'), '该模式不使用首次辅助开局');
-      requireValue(intent.items.length === 0 || inbound && !guided && spec.mode !== 'daily', '该模式不能使用个人工具');
+      requireValue(!guided || (inbound ? spec.mode === 'standard' : spec.variant === 'normal' && (spec.rulesetVersion === 8||spec.rulesetVersion===12) && spec.difficultyId === 'easy'), '该模式不使用首次辅助开局');
+      requireValue(intent.items.length === 0 || !guided && (inbound ? spec.mode !== 'daily' : spec.rulesetVersion===12||spec.rulesetVersion===13), '该模式不能使用个人工具');
       requireValue(inbound && spec.rulesetVersion === 9 && !guided ? intent.cleanupBranch === 'orders' || intent.cleanupBranch === 'placements' : intent.cleanupBranch === undefined, '清扫方式必须在当前局指定的步骤选择');
       requireValue(account.nextRunSerial < Number.MAX_SAFE_INTEGER, '本局序号已用尽');
       const serial = account.nextRunSerial;
       const daily = inbound && spec.mode === 'daily' ? dailyIdentity(wallTime(), spec.rulesetVersion) : null;
-      const seed = guided ? inbound ? spec.rulesetVersion === 11 ? INBOUND_GUIDE_V11.seed : INBOUND_GUIDE_V9.seed : OUTBOUND_GUIDE_V8.seed : daily?.seed ?? parseInt(accountDigest(`${account.epoch}.${serial}.${inbound ? 'inbound' : 'outbound'}`), 16);
+      requireValue(!daily||dailyRewardRecord(account,daily.day).completedRunId===null,'今日挑战已完成，请明天再来');
+      const seed = guided ? inbound ? spec.rulesetVersion===14?INBOUND_GUIDE_V14.seed:spec.rulesetVersion === 11 ? INBOUND_GUIDE_V11.seed : INBOUND_GUIDE_V9.seed : spec.rulesetVersion===12?OUTBOUND_GUIDE_V12.seed:OUTBOUND_GUIDE_V8.seed : daily?.seed ?? parseInt(accountDigest(`${account.epoch}.${serial}.${inbound ? 'inbound' : 'outbound'}`), 16);
       const charges: ToolChargesV9 = { rotate: 0, clear: 0, wildcard: 0 }, inventory = { ...account.inventory };
       for (const item of intent.items) { requireValue(inventory[item] > 0, '工具库存不足'); inventory[item]--; charges[item] = 1; }
-      const resolved: RunSpec = inbound ? { ...spec, seed, guided, toolCharges: charges } : { ...spec, seed };
+      const resolved: RunSpec = inbound ? { ...spec, seed, guided, toolCharges: charges } : spec.rulesetVersion===12||spec.rulesetVersion===13?{...spec,seed,toolCharges:charges}:{ ...spec, seed };
       let state = createPlayableRun(resolved);
       const identity: RunIdentity = {
-        runId: `${account.epoch}.${serial}`, serial, rulesetVersion: resolved.rulesetVersion, runConfigId: state.runConfigId, economyVersion: 1,
+        runId: `${account.epoch}.${serial}`, serial, rulesetVersion: resolved.rulesetVersion, runConfigId: state.runConfigId, economyVersion: resolved.rulesetVersion>=12?2:1,
         mode: inbound ? guided ? 'guided' : spec.mode : guided ? 'outboundGuided' : spec.variant === 'normal' ? 'outbound' : 'outboundEndless',
         ...(!inbound ? { difficultyId: spec.difficultyId } : {}), ...(daily ? { challengeDay: daily.day } : {}),
       };
@@ -312,7 +330,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       if (request.type === 'saveElapsed') requireValue(safe(elapsedMs), '计时必须是单调不减的安全整数');
       if (elapsedMs !== undefined) {
         requireValue(safe(elapsedMs) && elapsedMs >= (active.state.elapsedMs ?? 0), '计时必须是单调不减的安全整数');
-        requireValue(active.state.rulesetVersion !== 11 || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
+        requireValue(![11,14].includes(active.state.rulesetVersion) || active.state.phase !== 'cleanup' || active.state.commandIndex !== 0 || elapsedMs === 0, '选择清扫方式后才开始计时');
         if (elapsedMs !== (active.state.elapsedMs ?? 0)) account = { ...account, run: { ...active, state: { ...active.state, elapsedMs } as GameRun } };
       }
       if (request.type === 'saveElapsed') return account;
@@ -330,7 +348,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
     requireValue(['home', 'failed', 'retired', 'decline_overtime'].includes(request.reason), '结束原因无效');
     if (request.reason === 'retired' && active.state.phase !== 'result') {
       requireValue(active.state.phase === 'input' || active.state.phase === 'rescue', '请先完成待选奖励或清扫');
-      requireValue(active.state.rulesetVersion !== 8, '普通出库没有收工指令');
+      requireValue(active.state.rulesetVersion !== 8&&active.state.rulesetVersion!==12, '普通出库没有收工指令');
       const applied = applyDomain(account, isInboundRun(active.state) ? { type: 'finish' } : { type: 'finishOutboundEndless' }, true);
       next = applied.account; operation.events = applied.events; operation.coinDelta = applied.delta; operation.learned = applied.learned;
     }
@@ -376,7 +394,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       }
       try {
         operation.previous = loaded.account ? clone(loaded.account) : null;
-        const next = prepare(operation, clone(base));
+        const next = prepare(operation, upgradeEconomy(clone(base)));
         if (operation.request.type === 'saveElapsed' && canonicalStringify(next) === canonicalStringify(base)) {
           const result = acknowledge(base, operation); result.message = '计时未变化'; return result;
         }

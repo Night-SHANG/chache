@@ -102,13 +102,18 @@ test('pending v11 cleanup rejects invented elapsed time before the first acknowl
   assert.equal(service.getSnapshot()?.run?.state.elapsedMs, 0);
 });
 
-test('v11 real daily income uses the unchanged inbound formula and the same date cap as v9', () => {
-  const { service } = setup({ dailyPaid: { '2026-10-06': { bestBase: 60, paid: 120 } } });
+test('already bound v9 and v11 daily runs retain the old income formula and capped ledger', () => {
   for (const version of [9, 11] as const) {
+    const { service: fresh } = setup();
     const spec = { ...intent('daily').spec, rulesetVersion: version };
-    const started = send(service, { type: 'start', operationId: `start.${version}`, intent: { ...intent('daily'), spec, ...(version === 9 ? { cleanupBranch: 'orders' as const } : {}) } as StartIntent });
+    const started = send(fresh, { type: 'start', operationId: `start.${version}`, intent: { ...intent('daily'), spec, ...(version === 9 ? { cleanupBranch: 'orders' as const } : {}) } as StartIntent });
     assert.equal(started.status, 'acknowledged', started.message);
-    const runId = started.account!.run!.identity.runId, wallet = started.account!.wallet;
+    const legacy = structuredClone(started.account!);
+    legacy.formatVersion = 1; legacy.economyVersion = 1; delete legacy.dailyRewards;
+    legacy.dailyPaid = { '2026-10-06': { bestBase: 60, paid: 120 } };
+    const { service } = setup(legacy);
+    const runId = legacy.run!.identity.runId, wallet = legacy.wallet;
+    assert.equal(service.getSnapshot()?.run?.identity.economyVersion, 1);
     if (version === 11) assert.equal(send(service, { type: 'command', operationId: 'branch.11', runId, command: { type: 'chooseCleanup', branch: 'orders' } }).status, 'acknowledged');
     for (let i = 0; i < 20 && service.getSnapshot()!.run!.state.completedOrders === 0; i++) {
       const state = service.getSnapshot()!.run!.state;
@@ -120,12 +125,16 @@ test('v11 real daily income uses the unchanged inbound formula and the same date
     }
     const account = service.getSnapshot()!, state = account.run!.state, base = baseCoins('inbound', state.completedOrders, state.score);
     assert.ok(state.completedOrders > 0);
+    assert.equal(account.run!.identity.economyVersion, 1);
     assert.equal(account.run!.earnedCoins, base);
     assert.equal(account.wallet - wallet, base);
     assert.deepEqual(account.dailyPaid, { '2026-10-06': { bestBase: 60, paid: 120 } });
     const closed = send(service, { type: 'close', operationId: `finish.${version}`, runId, reason: 'retired' });
     assert.equal(closed.status, 'acknowledged', closed.message);
     assert.equal(closed.account?.profile.results[`inbound.daily.v${version}.plain`]?.units, state.completedOrders);
+    assert.deepEqual(closed.account?.dailyPaid, legacy.dailyPaid);
+    const blocked = send(service, { type: 'start', operationId: `blocked.${version}`, intent: { ...intent('daily'), spec, ...(version === 9 ? { cleanupBranch: 'orders' as const } : {}) } as StartIntent });
+    assert.equal(blocked.status, 'not_committed');
+    assert.equal(service.getSnapshot()?.wallet, account.wallet);
   }
-  assert.deepEqual(Object.keys(service.getSnapshot()!.profile.results).sort(), ['inbound.daily.v11.plain', 'inbound.daily.v9.plain']);
 });

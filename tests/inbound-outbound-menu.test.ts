@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
 import {createRun} from '../src/domain/engine.ts';
+import {makeAccountFixture} from './helpers/account-fixtures.ts';
 import {createProfile, getOutboundProfile, getEndlessProfile} from '../src/application/profile.ts';
 import {getUiControls,runSlotLabel} from '../src/presentation/ui.ts';
 import {render} from '../src/presentation/renderer.ts';
@@ -109,7 +110,13 @@ test('new mode profiles never display legacy or another-difficulty high scores',
  const profile=createProfile();profile.bestScores['standard.v3']={score:101,chain:1};profile.colorExit={stats:{runs:1,batches:1,wins:0,maxChain:1},bestScores:{v4:{score:9999,chain:1}},lastRecordedRun:null};
  profile.outboundV8={};profile.outboundDifficulties={};for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){const p=getOutboundProfile(profile,id,8);p.bestScores.v8={score:222+index*111,chain:1};profile.outboundV8[id]=p;const old=getOutboundProfile(profile,id,6);old.bestScores.v6={score:6666+index,chain:1};profile.outboundDifficulties[id]=old;}
  profile.endless=getEndlessProfile(profile);profile.endless.bestScores.v7={score:777,chain:1,orders:10};
- const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile}));for(const [index,score] of [222,333,444,555].entries())assert.ok(outboundOut.labels.some(label=>label.text===`普通 · 30批 · 最高分 ${score}`&&label.y===537+index*244));assert.doesNotMatch(outboundOut.words(),/9,999|6,66[6-9]|777|101/);
+ const unimported=surface();render(unimported.ctx,outbound(),view({screen:'colorTiers',profile}));assert.equal(unimported.labels.filter(label=>label.text==='普通 · 30批 · 最高分 0').length,4);assert.doesNotMatch(unimported.words(),/222|333|444|555|9,999|6,66[6-9]/);
+ const account=makeAccountFixture();account.profile.legacyResults=profile;
+ for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){
+  const score=120+index*110;account.profile.results[`outbound.v12.${id}.plain`]={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};
+ }
+ const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`普通 · 30批 · 最高分 ${score}`&&label.y===537+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
+ assert.deepEqual(account.profile.legacyResults,profile);
  const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/无限最高分.*777/);assert.match(inboundOut.words(),/五班最高分.*101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
 });
 test('all new controls fit mobile and landscape viewport with readable labels and no overlaps',()=>{

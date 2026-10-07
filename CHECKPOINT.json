@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.9.0-dev",
+  "appVersion": "0.10.0-dev",
   "status": "LOCAL_VALIDATION_COMPLETE",
   "rulesets": [
     1,
@@ -12,11 +12,14 @@
     8,
     9,
     10,
-    11
+    11,
+    12,
+    13,
+    14
   ],
   "modes": {
     "inbound": {
-      "ruleset": 11,
+      "ruleset": 14,
       "modes": [
         "standard",
         "daily",
@@ -30,17 +33,27 @@
       ],
       "upgradeTypes": 0,
       "upgradeChoices": 0,
-      "rushProbability": 0.06
+      "rushProbability": 0.06,
+      "reservedEntries": 4,
+      "placeableCells": 45,
+      "dailyRushProbability": 0.12,
+      "rushShape": "adaptive ordinary shape"
     },
     "outbound_normal": {
-      "ruleset": 8,
+      "ruleset": 12,
       "boardSize": 9,
-      "targetBatches": 30
+      "targetBatches": 30,
+      "reservedEntries": 1,
+      "placeableCells": 80,
+      "tools": true
     },
     "outbound_endless": {
-      "ruleset": 10,
+      "ruleset": 13,
       "boardSize": 9,
-      "stageCap": 5
+      "stageCap": 5,
+      "reservedEntries": 1,
+      "placeableCells": 80,
+      "tools": true
     },
     "legacy": {
       "rulesets": [
@@ -53,21 +66,22 @@
         7,
         8,
         9,
-        10
+        10,
+        11
       ],
       "unchanged": true
     }
   },
-  "economyVersion": 1,
-  "accountFormatVersion": 1,
-  "simulationCases": 896,
-  "simulationCapped": 0,
-  "testsPassed": 1334,
+  "economyVersion": 2,
+  "accountFormatVersion": 2,
+  "simulationCases": 288,
+  "simulationCapped": 7,
+  "testsPassed": 1529,
   "pythonTestsPassed": 22,
-  "sourceSha256": "95d9987895cab674f6f46a077156d19fd480167e264f4e142884ab486d26073a",
-  "gameJsSha256": "4d72b357256bca25eb44bd110a6309170906a5ddad4a8665f7e72a127810b831",
-  "runtimeStatus": "Actual game.js passed native wx/Canvas host 16/16 at three sizes. Real browser, Windows GUI, WeChat devices and human balance NOT VERIFIED.",
-  "deliveryNotes": "docs/v090-playtest.md",
+  "sourceSha256": "0f5cb97a4a51573c365a699583cda07474361a8446360d8a366405c9b63bbbc1",
+  "gameJsSha256": "7fb6bb9c7c17ed6197771177e4e29c9f2aee2597c1bceaa8a875b50d0c790f7b",
+  "runtimeStatus": "Native Canvas/wx actual game.js host59/59, local aggregate and independent reviewPASS; real browser/WindowsGUI/WeChat deviceNOT RUN. Human balanceNOT proven.",
+  "deliveryNotes": "docs/v0100-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "developerDiagnosticsDefault": false,
@@ -78,7 +92,24 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 16,
-  "validatedCodeCommit": "65c835b89fde56fca1505aa32011049a9fa7224e",
-  "rulesChangedFromV080": true
+  "hostCasesPassed": 59,
+  "validatedCodeCommit": "066cd0b47b3967f516f6557fedd6ae283f122ebb",
+  "rulesChangedFromV080": true,
+  "accountEnvelopeVersion": 1,
+  "simulationCensorReason": "7 endless cases still active at120 placements;0 finite caps",
+  "difficultyScoreMultipliers": {
+    "easy": "1/1",
+    "normal": "5/4",
+    "hard": "3/2",
+    "expert": "2/1"
+  },
+  "economy": {
+    "inboundScoreDivisor": 120,
+    "outboundScoreDivisor": 30,
+    "firstDailyWinTotalMultiplier": 3,
+    "dailyLock": "start-date bound after first win",
+    "infinite": "cumulative score entitlement minus already paid"
+  },
+  "hostStaticImages": 139,
+  "hostContinuousFrames": 738
 }

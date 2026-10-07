@@ -14,7 +14,7 @@ function pending(h: ReturnType<typeof sessionHost>, mode: 'standard'|'endless'|'
   if (s.view.screen === 'guideOffer') s.action({ type: 'directStart' });
   if (s.view.screen === 'prepareTools') { s.action({ type: 'toggleItem', item: 'rotate' }); s.action({ type: 'prepareNext' }); }
   assert.equal(s.view.screen, 'game');
-  assert.equal(s.state.rulesetVersion, 11);
+  assert.equal(s.state.rulesetVersion, 14);
   assert.equal(s.state.phase, 'cleanup');
   return s;
 }
@@ -111,7 +111,7 @@ test('unconfirmed cleanup choice freezes the published pending board through hid
   assert.equal(s.view.account?.generation, generation);
 });
 
-test('a v11 drawer tool uses the existing target preview and consumes only after confirmation', () => {
+test('a v14 drawer tool uses the existing target preview and consumes only after confirmation', () => {
   const h = sessionHost({ inventory: { rotate: 1, clear: 0, wildcard: 0 } }), s = pending(h);
   s.action({ type: 'chooseCleanup', branch: 'orders' });
   const piece = s.state.candidates.find(piece => piece.shapeId !== 'shape.single')!, before = [...h.data];

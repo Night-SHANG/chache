@@ -7,12 +7,25 @@ export interface AccountLoad {status:'empty'|'ready'|'degraded'|'unknown'|'unava
 export interface CommitResult {status:'acknowledged'|'committed_unmirrored'|'not_committed'|'unknown';account:AccountSnapshot|null;message:string}
 const UNCERTAIN='保存结果尚未确认，请重试';
 class FutureFormat extends Error {}
+const object=(value:unknown):value is Record<string,unknown>=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+/** A digest-valid prototype is incompatible, not a damaged mirror that may be erased. */
+function unsupportedPrototype(account:unknown,generation:unknown):boolean {
+ if(!object(account)||account.formatVersion!==1||account.economyVersion!==1||account.generation!==generation||!object(account.run))return false;
+ const {identity,state}=account.run;if(!object(identity)||!object(state))return false;
+ const version=identity.rulesetVersion;
+ return (version===12||version===13)&&identity.economyVersion===1&&state.rulesetVersion===version
+  &&['easy','normal','hard','expert'].includes(String(identity.difficultyId))&&state.difficultyId===identity.difficultyId
+  &&identity.runConfigId===`run.outbound9_v${version}.${identity.difficultyId}`&&state.runConfigId===identity.runConfigId
+  &&state.mode==='color_exit'&&(version===13?identity.mode==='outboundEndless':identity.mode==='outbound'||identity.mode==='outboundGuided'&&identity.difficultyId==='easy')
+  &&!Object.prototype.hasOwnProperty.call(state,'rawScore');
+}
 export function encodeAccount(account:AccountSnapshot):string {const body=serializeAccount(account);return canonicalStringify({formatVersion:1,generation:account.generation,digest:accountDigest(body),account:JSON.parse(body)});}
 export function decodeAccount(storage:StoragePort,raw:string):AccountSnapshot {
  const parsed:unknown=JSON.parse(raw);if(parsed===null||typeof parsed!=='object'||Array.isArray(parsed))throw Error('账户信封无效');const value=parsed as Record<string,unknown>;
  if(value.formatVersion!==1)throw new FutureFormat('账户版本不兼容');
- if(value.account!==null&&typeof value.account==='object'){const account=value.account as Record<string,unknown>;if(account.formatVersion!==1||account.economyVersion!==1)throw new FutureFormat('账户负载版本不兼容');}
+ if(value.account!==null&&typeof value.account==='object'){const account=value.account as Record<string,unknown>;if(![1,2].includes(Number(account.formatVersion))||account.economyVersion!==account.formatVersion)throw new FutureFormat('账户负载版本不兼容');}
  if(Object.keys(value).length!==4||!Object.keys(value).every(key=>['formatVersion','generation','digest','account'].includes(key))||!Number.isSafeInteger(value.generation)||Number(value.generation)<0||value.digest!==accountDigest(canonicalStringify(value.account)))throw Error('账户信封校验失败');
+ if(unsupportedPrototype(value.account,value.generation))throw new FutureFormat('原型出库计分版本不兼容，原记录已保留');
  const account=deserializeAccount(storage,canonicalStringify(value.account));if(account.generation!==value.generation||encodeAccount(account)!==raw)throw Error('账户代际或规范序列化无效');return account;
 }
 function readRoots(storage:StoragePort,verify:(account:AccountSnapshot)=>void):{load:AccountLoad;raws:[string|null,string|null];accounts:[AccountSnapshot|null,AccountSnapshot|null]} {

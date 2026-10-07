@@ -1,6 +1,6 @@
 import type { GuideProgress, GuideStep, GuideTrack } from './account-types.ts';
 import type { GameCommand, GameRun, GameStepResult } from '../domain/playable.ts';
-import { isInboundRun, isInboundV9, isInboundV11 } from '../domain/playable.ts';
+import { isInboundRun, isInboundV9, isInboundV11, isInboundV14, isOutboundToolsRun } from '../domain/playable.ts';
 import type { Cell, Command, Point } from '../domain/types.ts';
 import { SHAPES } from '../domain/rulesets/v1/content.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
@@ -9,6 +9,10 @@ import { OUTBOUND_DOCKS, OUTBOUND_ENTRY } from '../domain/v6/content.ts';
 import { docksV9, pieceCellsV9 } from '../domain/v9/board.ts';
 import { INBOUND_GUIDE_V9 } from '../domain/v9/tutorial.ts';
 import { INBOUND_GUIDE_V11 } from './inbound-guide-v11.ts';
+import { INBOUND_GUIDE_V14 } from './inbound-guide-v14.ts';
+import { OUTBOUND_GUIDE_V12 } from './outbound-guide-v12.ts';
+import { pieceCellsV12 } from '../domain/v12/board.ts';
+export { OUTBOUND_GUIDE_V12 } from './outbound-guide-v12.ts';
 
 export interface GuideOverlay {
   step: GuideStep;
@@ -38,7 +42,7 @@ const TEXT: Record<GuideStep, string> = {
 };
 
 function requiredSteps(track: GuideTrack, version: number): readonly GuideStep[] {
-  return track === 'inbound' && version === 11 ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
+  return track === 'inbound' && (version === 11||version===14) ? REQUIRED.inbound.filter(step => step !== 'upgrade') : REQUIRED[track];
 }
 
 export function isGuideComplete(track: GuideTrack, progress: GuideProgress, version = 9): boolean {
@@ -95,11 +99,12 @@ export function advanceGuide(track: GuideTrack, progress: GuideProgress, before:
       }
     }
   } else {
-    if (before.mode !== 'color_exit' || result.state.mode !== 'color_exit' || ![8, 10].includes(before.rulesetVersion) || command.type !== 'place') return progress;
+    if (before.mode !== 'color_exit' || result.state.mode !== 'color_exit' || ![8, 10, 12, 13].includes(before.rulesetVersion) || command.type !== 'place') return progress;
     const piece = before.candidates.find(candidate => candidate.id === command.pieceId), shape = SHAPES.find(shape => shape.id === piece?.shapeId);
     const placed = result.events.find(event => event.type === 'placed' && event.pieceId === command.pieceId);
     if (!piece || !shape || !placed || placed.type !== 'placed') return progress;
-    const cells = shape.cells.map(point => (command.origin.y + point.y) * 9 + command.origin.x + point.x);
+    const offsets=isOutboundToolsRun(before)?pieceCellsV12(before.candidates.find(candidate=>candidate.id===command.pieceId)!):shape.cells;
+    const cells = offsets.map(point => (command.origin.y + point.y) * 9 + command.origin.x + point.x);
     if (cells.length !== placed.cells.length || !cells.every((cell, index) => cell === placed.cells[index])) return progress;
     teach('place');
     const observed = [...before.board], cleared = new Set<number>();
@@ -134,12 +139,14 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
   let paths: readonly (readonly GameCommand[])[];
   if (track === 'inbound') {
     if (!isInboundRun(state) || !state.guided || state.commandBaseIndex !== 0) return undefined;
-    const authored = isInboundV11(state) ? INBOUND_GUIDE_V11 : INBOUND_GUIDE_V9;
+    const authored = isInboundV14(state)?INBOUND_GUIDE_V14:isInboundV11(state) ? INBOUND_GUIDE_V11 : INBOUND_GUIDE_V9;
     if (state.seed !== authored.seed) return undefined;
     paths = Object.values(authored.branches);
   } else {
-    if (state.rulesetVersion !== 8 || state.mode !== 'color_exit' || state.difficultyId !== 'easy' || state.seed !== OUTBOUND_GUIDE_V8.seed) return undefined;
-    paths = [OUTBOUND_GUIDE_V8.commands];
+    if (![8,12].includes(state.rulesetVersion) || state.mode !== 'color_exit' || state.difficultyId !== 'easy') return undefined;
+    const authored=state.rulesetVersion===12?OUTBOUND_GUIDE_V12:OUTBOUND_GUIDE_V8;
+    if(state.seed!==authored.seed)return undefined;
+    paths = [authored.commands];
   }
   const matching = paths.filter(path => state.commands.length < path.length && state.commands.every((command, index) => commandKey(command) === commandKey(path[index])));
   if (!matching.length) return undefined;
@@ -149,7 +156,7 @@ function authoredNext(track: GuideTrack, state: GameRun): GameCommand | undefine
 
 export function guideOverlay(track: GuideTrack, progress: GuideProgress, state: GameRun): GuideOverlay | null {
   if (progress.skipped || isGuideComplete(track, progress, state.rulesetVersion) || state.phase === 'result') return null;
-  if (track === 'inbound' ? !isInboundRun(state) : state.mode !== 'color_exit' || ![8, 10].includes(state.rulesetVersion)) return null;
+  if (track === 'inbound' ? !isInboundRun(state) : state.mode !== 'color_exit' || ![8, 10, 12, 13].includes(state.rulesetVersion)) return null;
   let step = requiredSteps(track, state.rulesetVersion).find(step => !progress.learned.includes(step))!;
   if (isInboundRun(state) && state.phase === 'cleanup') step = 'sweepChoice';
   else if (isInboundV9(state) && state.phase === 'upgrade') step = 'upgrade';

@@ -57,7 +57,7 @@ test('an unreadable newest history cannot resurrect a readable older wallet',asy
 });
 
 test('a future account payload version blocks repair even behind a valid envelope checksum',async()=>{
- const {accountDigest,canonicalStringify}=await import('../src/application/history-store.ts');const {storage,account}=saved();const future={...account,economyVersion:2};const raw=canonicalStringify({formatVersion:1,generation:account.generation,digest:accountDigest(canonicalStringify(future)),account:future});storage.values.set(ACCOUNT_KEYS.b,raw);storage.resetFault();assert.equal(loadAccount(storage,verify).status,'unknown');assert.equal(repairAccount(storage,verify).status,'unknown');assert.equal(storage.operations.some(op=>op.kind==='set'),false);
+ const {accountDigest,canonicalStringify}=await import('../src/application/history-store.ts');const {storage,account}=saved();const future={...account,formatVersion:3,economyVersion:3};const raw=canonicalStringify({formatVersion:1,generation:account.generation,digest:accountDigest(canonicalStringify(future)),account:future});storage.values.set(ACCOUNT_KEYS.b,raw);storage.resetFault();assert.equal(loadAccount(storage,verify).status,'unknown');assert.equal(repairAccount(storage,verify).status,'unknown');assert.equal(storage.operations.some(op=>op.kind==='set'),false);
 });
 
 test('retaining a last closed result does not let later shop or settings transactions use closing-only bytes',async()=>{

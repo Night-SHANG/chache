@@ -50,7 +50,7 @@ export function fixtureStorage(spec,commands=[],{inventory={rotate:0,clear:0,wil
 }
 function emptyFundedStorage(wallet=500){const storage=new Map(),account=makeAccountFixture({epoch:'host.shop',wallet,generation:1,lastOperation:{operationId:'host.fixture',expectedGeneration:0,requestDigest:'fixture',committedGeneration:1}}),raw=encodeAccount(account);storage.set(ACCOUNT_KEYS.a,raw);storage.set(ACCOUNT_KEYS.b,raw);return storage;}
 
-class Driver{
+export class Driver{
  constructor(host,out,images){this.h=host;this.out=out;this.images=images;this.screen=host.account().account?.run?'game':'menu';this.paused=false;this.needsResume=!!host.account().account?.run;this.confirmation=null;this.toolSelection=null;this.supplyUpgrade=null;this.toolboxOpen=false;this.prepareIntent=null;this.guideTrack='inbound';this.stateFallback=createPlayableRun(plainSpec());const account=host.account().account;this.runWalletBeforeStart=(account?.wallet??0)-(account?.run?.earnedCoins??account?.run?.creditedBase??0);this.trace=[];host.frame(0);host.pixelWitness.enabled=false;}
  account(){const read=this.h.account();assert.equal(read.status,'ready',`Authoritative A/B account ${read.status}`);return read.account;}
  state(){return this.h.account().account?.run?.state??this.stateFallback;}

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { isGuideComplete, advanceGuide, guideOverlay } from '../src/application/tutorials.ts';
 import type { GuideProgress } from '../src/application/account-types.ts';
 import { INBOUND_GUIDE_V11 } from '../src/application/inbound-guide-v11.ts';
+import { INBOUND_GUIDE_V14 } from '../src/application/inbound-guide-v14.ts';
 import { createRunV11, applyCommandV11 } from '../src/domain/v11/engine.ts';
 import { checksumV11 } from '../src/domain/v11/replay.ts';
 import { GameSession } from '../src/application/session.ts';
@@ -65,19 +66,19 @@ test('both real v11 authored branches teach place order path and phase-two clean
   }
 });
 
-test('new guide sessions use the real v11 script and carry learned and skipped track flags through reload', () => {
-  for (const path of Object.values(INBOUND_GUIDE_V11.branches)) {
+test('new guide sessions use the real v14 script and carry learned and skipped track flags through reload', () => {
+  for (const path of Object.values(INBOUND_GUIDE_V14.branches)) {
     const h = sessionHost(), s = h.session;
     s.action({ type: 'newRun', mode: 'standard' });
     s.action({ type: 'guidedStart', track: 'inbound' });
-    assert.equal(s.state.rulesetVersion, 11);
-    assert.equal(s.state.seed, INBOUND_GUIDE_V11.seed);
+    assert.equal(s.state.rulesetVersion, 14);
+    assert.equal(s.state.seed, INBOUND_GUIDE_V14.seed);
     for (const command of path) {
       if (command.type === 'chooseCleanup') s.action({ type: 'chooseCleanup', branch: command.branch });
       else s.dispatch(command);
       for (let frame = 0; s.view.animation && frame < 70; frame++) { h.time(s.state.commandIndex * 10000 + frame * 1000); s.tick(h.platform.now()); }
     }
-    assert.equal(isGuideComplete('inbound', s.view.account!.guides.inbound, 11), true);
+    assert.equal(isGuideComplete('inbound', s.view.account!.guides.inbound, 14), true);
     assert.equal(s.view.account?.guides.inbound.learned.includes('upgrade'), false);
     const restored = new GameSession(h.platform, { seed: 99, mode: 'standard' });
     assert.deepEqual(restored.view.account?.guides, s.view.account?.guides);

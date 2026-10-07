@@ -134,7 +134,7 @@ function snowflake(ctx: Context): void {
   ctx.stroke();
 }
 
-export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, size: number, alpha = 1, trait?: CellTrait | null, style: CargoStyleId = 'classic'): void {
+export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, size: number, alpha = 1, trait?: CellTrait | null, style: CargoStyleId = 'classic', largeRushCountdown = false): void {
   const p = PALETTE[cargo];
   ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(x, y); ctx.scale(size / 110, size / 110);
   if (trait?.kind === 'waste') {
@@ -164,7 +164,7 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   icon(ctx, cargo, 48, 60, 54, cargo === 'cargo.chem' ? '#fff2ac' : '#fff4da', p.ink);
   for (const [sx, sy] of [[10, 22], [87, 22], [10, 98], [87, 98]]) rivet(ctx, sx, sy, 2.2);
   ctx.fillStyle = p.ink; ctx.fillRect(33, 98, 30, 3); ctx.fillStyle = p.light; ctx.fillRect(37, 98, 2, 3); ctx.fillRect(45, 98, 1, 3); ctx.fillRect(51, 98, 3, 3);
-  if (trait) drawTraitBadge(ctx, trait);
+  if (trait) drawTraitBadge(ctx, trait, largeRushCountdown);
   if (style === 'outline') drawCargoOutline(ctx);
   ctx.restore();
 }
@@ -175,17 +175,18 @@ function drawCargoOutline(ctx: Context): void {
 }
 
 /** Secondary shape and text encode traits independently of base cargo color. */
-function drawTraitBadge(ctx: Context, trait: CellTrait): void {
+function drawTraitBadge(ctx: Context, trait: CellTrait, largeRushCountdown = false): void {
   const kind = trait.kind;
   if (kind === 'pallet') {
     ctx.fillStyle = '#bd8f50'; ctx.strokeStyle = '#483322'; ctx.lineWidth = 3;
     roundedPath(ctx, 2, 90, 105, 18, 3); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#483322'; for (const x of [19, 50, 81]) ctx.fillRect(x, 98, 9, 10);
   }
-  const label = kind === 'pallet' ? '×2' : kind === 'rush' ? `余${trait.remaining ?? '?'}次` : kind === 'hazard' ? '危险' : '万能';
+  const large=kind==='rush'&&largeRushCountdown;
+  const label = kind === 'pallet' ? '×2' : kind === 'rush' ? large?String(trait.remaining??'?'):`余${trait.remaining ?? '?'}次` : kind === 'hazard' ? '危险' : '万能';
   const color = kind === 'rush' && trait.remaining === 1 ? '#ffb392' : kind === 'wildcard' ? '#ddd0ff' : '#ffe393';
-  roundedPath(ctx, 14, 7, 84, 29, 5); ctx.fillStyle = '#1b2633'; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
-  text(ctx, label, 56, 22, kind === 'rush' ? 22 : 24, color, 'center', 900);
+  roundedPath(ctx, large?32:14, large?4:7, large?48:84, large?40:29, 5); ctx.fillStyle = '#1b2633'; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+  text(ctx, label, 56, large?25:22, large?34:kind === 'rush' ? 22 : 24, color, 'center', 900);
   if (kind === 'hazard') {
     ctx.fillStyle = '#ffdb75'; ctx.strokeStyle = '#4a321f'; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.moveTo(88, 69); ctx.lineTo(105, 96); ctx.lineTo(71, 96); ctx.closePath(); ctx.fill(); ctx.stroke();

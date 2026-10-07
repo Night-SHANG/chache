@@ -1,0 +1,7 @@
+{
+  "status": "SUPERSEDED_BY_VALIDATED_V0100",
+  "baseline": "f17d92757c2249f4957729148766338d164e80f0",
+  "approved": "multishape rush6/12/endless6; pure-score K120/K30; daily3x first-win lock; outbound multipliers1/1.25/1.5/2",
+  "validatedSlices": "Final code066cd0b:1529Node/22Python/static gates;whole-sourceindependentreview;288adaptive runs;actualgame.js59/59.",
+  "remaining": "No product implementation pending within approved scope. See CHECKPOINT.json and docs/v0100-validation.md for final artifact status and external platform limits."
+}

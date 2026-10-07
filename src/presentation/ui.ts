@@ -1,11 +1,11 @@
 import type { ColorTier, OutboundDifficulty } from '../domain/types.ts';
 import { difficultyForSlot, tierForSlot, type RunSlot } from '../application/run-slots.ts';
-import { OUTBOUND_DIFFICULTIES } from '../domain/v6/content.ts';
+import { OUTBOUND_DIFFICULTIES,OUTBOUND_CARGO } from '../domain/v6/content.ts';
 import { CARGO_STYLES, FORKLIFTS, THEMES } from '../application/profile.ts';
 import type { CosmeticMetadata } from '../application/profile.ts';
 import type { GameRun } from '../domain/playable.ts';
 import {isGuideComplete} from '../application/tutorials.ts';
-import {isInboundV9,isInboundRun} from '../domain/playable.ts';
+import {isInboundV9,isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
 import {getEconomyControls} from './economy-ui.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
@@ -30,7 +30,7 @@ export const LEGACY_SLOTS: readonly RunSlot[] = ['color_exit','color_exit_entry'
 export const hasLegacyRun = (view:ViewState,slot:RunSlot):boolean => ['saved','result','corrupt'].includes(view.modeSlots?.[slot]??'empty');
 const modeLabel = (view:ViewState,slot:RunSlot):string => view.modeSlots?.[slot]==='saved'?'继续旧局':view.modeSlots?.[slot]==='result'?'查看结算':'存档待处理';
 const restartAction = (state:GameRun):UiAction => state.mode==='color_exit'
-  ? 'difficultyId' in state&&state.difficultyId&&[8,10].includes(state.rulesetVersion)?{type:'newRun',mode:'color_exit',difficultyId:state.difficultyId,outboundMode:state.rulesetVersion===10?'endless':'normal'}:{type:'chooseColorTier'}
+  ? 'difficultyId' in state&&state.difficultyId&&[8,10,12,13].includes(state.rulesetVersion)?{type:'newRun',mode:'color_exit',difficultyId:state.difficultyId,outboundMode:[10,13].includes(state.rulesetVersion)?'endless':'normal'}:{type:'chooseColorTier'}
   : {type:'newRun',mode:state.mode==='daily'?'daily':state.mode==='endless'?'endless':'standard'};
 const control = (rect: Rect, label: string, action: UiAction): UiControl => ({ rect, label, action });
 
@@ -46,7 +46,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   }
   // The interrupted-save recovery flow owns L.resume/L.restart, above every menu.
   if (view.needsResume) return [];
-  if(view.toolSelection&&!view.paused&&(!view.screen||view.screen==='game')){const tool=view.toolSelection;return [control({x:48,y:1788,w:280,h:132},'取消',{type:'toolCancel'}),{...control({x:752,y:1788,w:280,h:132},'确认使用',{type:'toolConfirm'}),disabled:!tool.command||!!tool.error},...(tool.item==='rotate'?[control({x:376,y:1788,w:328,h:132},'顺时针旋转',{type:'toolRotate'})]:[])];}
+  if(view.toolSelection&&!view.paused&&(!view.screen||view.screen==='game')){const tool=view.toolSelection;return [control({x:48,y:1788,w:280,h:132},'取消',{type:'toolCancel'}),{...control({x:752,y:1788,w:280,h:132},'确认使用',{type:'toolConfirm'}),disabled:!tool.command||!!tool.error},...(isOutboundToolsRun(state)&&tool.item==='wildcard'&&tool.pieceId?OUTBOUND_CARGO.map((cargo,index)=>({...control({x:338+index*138,y:1788,w:132,h:132},CARGO.find(c=>c.id===cargo)?.name??'',{type:'toolCargo',cargo}),selected:tool.cargo===cargo})):[]),...(tool.item==='rotate'?[control({x:376,y:1788,w:328,h:132},'顺时针旋转',{type:'toolRotate'})]:[])];}
   if(view.supplyUpgrade)return [...CARGO.slice(0,isInboundV9(state)?RULES_V9_CONFIG.cargoByShift[state.shift-1]:3).map((cargo,index)=>control({x:210,y:650+index*170,w:660,h:122},isInboundV9(state)?`${cargo.name} · ${Math.round((generationDistributionV9(state).nonWildcardCargos.find(c=>c.cargo===cargo.id)?.probability??0)*100)}% → ${Math.round((generationDistributionV9(chooseUpgradeV9(state,'cargo_supply',cargo.id).state).nonWildcardCargos.find(c=>c.cargo===cargo.id)?.probability??0)*100)}%`:cargo.name,{type:'supplyCargo',cargo:cargo.id})),control(wide(1570),'取消',{type:'supplyCancel'})];
   if(view.screen==='guideOffer')return [control(wide(900),'开始引导',{type:'guidedStart',track:view.guideTrack??'inbound'}),control(wide(1080),'直接开始',{type:'directStart'}),control(wide(1400),'返回',{type:'back'})];
   if(['shop','prepareTools','prepareCleanup'].includes(view.screen??''))return getEconomyControls(state,view);
@@ -61,7 +61,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   if (view.screen === 'inboundMenu') return [
     control(wide(695,114),'开始五班',{type:'newRun',mode:'standard'}),
     control(wide(985,114),'开始无限',{type:'newRun',mode:'endless'}),
-    control(wide(1275,114),'开始挑战',{type:'newRun',mode:'daily'}),
+    {...control(wide(1275,114),view.dailyLocked?'今日已完成':'开始挑战',{type:'newRun',mode:'daily'}),disabled:!!view.dailyLocked},
     control(wide(1565),'返回主页',{type:'home'}),
   ];
   if (view.screen === 'colorTiers') {
@@ -94,19 +94,19 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   }
   if (view.paused && state.phase!=='result') return [
     control({...L.resume,h:104},'继续游戏',{type:'continue'}),
-    control({...L.restart,y:1220,h:104},'重新开始',restartAction(state)),
+    {...control({...L.restart,y:1220,h:104},state.mode==='daily'&&view.dailyLocked?'今日已完成':'重新开始',restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
     control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
     control({...L.restart,y:1480,h:104},'设置与外观',{type:'settings'}),
     control({...L.restart,y:1610,h:104},'玩法说明',{type:'help'}),
-    ...((state.mode==='endless'||state.rulesetVersion===10)&&state.phase==='input'?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishEndless'})]:[]),
+    ...((state.mode==='endless'||[10,13].includes(state.rulesetVersion))&&state.phase==='input'?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishEndless'})]:[]),
     ...(state.overtime?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishOvertime'})]:[]),
   ];
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
   if (state.phase === 'result' && !view.animation) {
-    const overtime = [3,9,11].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
+    const overtime = [3,9,11,14].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
     return [
       ...(overtime ? [control({ ...L.resume }, '继续加班', { type: 'continueOvertime' }),control({...L.restart,y:1510},'完成收工',{type:'declineOvertime'})] : []),
-      control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? '再试一次' : state.mode==='color_exit'&&state.rulesetVersion!==8?'选择难度':'再来一局', restartAction(state)),
+      {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? view.dailyLocked?'今日已完成':state.result==='won'?'挑战今日':'再试一次' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
       control({ ...L.restart, y: 1390 }, '返回主页', { type: 'home' }),
       ...(isInboundRun(state)&&state.phase==='result'&&view.account&&isGuideComplete('inbound',view.account.guides.inbound,state.rulesetVersion)?[control({...L.restart,y:1650},'去试试出库',{type:'chooseColorTier'})]:[]),
     ];
@@ -114,7 +114,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   const skipGuide=view.guide?[control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})]:[];
   if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)return [...state.upgradeChoices.map((id,index)=>control(L.upgradeRects[index],UPGRADES_V9.find(u=>u.id===id)?.title??id,{type:'chooseUpgrade',upgradeId:id})),...skipGuide];
   if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)return [...getEconomyControls(state,view),...skipGuide];
-  if(isInboundRun(state)&&state.phase==='rescue'&&!view.animation)return [...getEconomyControls(state,view),control({x:700,y:1788,w:332,h:132},'结束并结算',{type:'finishEndless'})];
+  if(isToolRun(state)&&state.phase==='rescue'&&!view.animation)return [...getEconomyControls(state,view),control({x:700,y:1788,w:332,h:132},state.rulesetVersion===12?'返回主页':'结束并结算',state.rulesetVersion===12?{type:'home'}:{type:'finishEndless'})];
   if(view.guide&&!view.animation&&!view.paused)return [...getEconomyControls(state,view),control({x:820,y:1836,w:212,h:60},'跳过引导',{type:'skipTutorial'})];
   if(state.mode==='tutorial'&&state.phase==='input'&&!view.animation)return [control({x:view.developerMode===true?600:820,y:1836,w:212,h:60},'跳过教学',{type:'skipTutorial'})];
   return getEconomyControls(state,view);

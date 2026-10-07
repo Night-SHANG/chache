@@ -1,13 +1,14 @@
 import type {OutboundTransportPlan} from './outbound-transport.ts';
 import type {PlacementRisk} from './placement-risk.ts';
-import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point } from '../domain/types.ts';
+import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point, CargoId } from '../domain/types.ts';
 import type { RunSlot } from '../application/run-slots.ts';
-import type {GameShipment, PlayablePreview, InboundRun} from '../domain/playable.ts';
+import type {GameShipment, PlayablePreview, ToolRun} from '../domain/playable.ts';
 import type {AccountSnapshot, ItemId, GuideTrack} from '../application/account-types.ts';
 import type {StartIntent} from '../application/account-service.ts';
 import type {GuideOverlay} from '../application/tutorials.ts';
-import type {ToolCommandV9, UpgradeIdV9} from '../domain/v9/types.ts';
+import type {UpgradeIdV9} from '../domain/v9/types.ts';
 import type {Profile} from '../application/profile.ts';
+import type {ToolCommand} from './tool-preview.ts';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
@@ -20,7 +21,7 @@ export interface ViewState {
   guideTrack?:GuideTrack;
   guide?:GuideOverlay|null;
   toolboxOpen?:boolean;
-  toolSelection?:{item:ItemId;pieceId:string|null;cells:number[];quarterTurns:0|1|2|3;command?:ToolCommandV9;preview?:InboundRun;error?:string}|null;
+  toolSelection?:{item:ItemId;pieceId:string|null;cells:number[];quarterTurns:0|1|2|3;cargo?:CargoId;command?:ToolCommand;preview?:ToolRun;error?:string}|null;
   supplyUpgrade?:UpgradeIdV9|null;
   growthFx?:{label:string;progress:number}|null;
   selectedPieceId: string | null;
@@ -49,6 +50,7 @@ export interface ViewState {
   profileStatus?: string;
   profileNeedsRecovery?: boolean;
   dailyLabel?: string;
+  dailyLocked?: boolean;
   canContinue?: boolean;
   confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase';item?:ItemId;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }
