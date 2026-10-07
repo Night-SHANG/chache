@@ -1,0 +1,10 @@
+{
+  "status": "HISTORICAL_WIP_SUPERSEDED",
+  "baseline": "ff6e6d7ce78cb0b8f58810de7d2d4536490d2ef7",
+  "scope": "Approved shop/toolbox/cleanup, new inbound rules11 without ordinary upgrades, restored base order amounts, paired five-shift observation",
+  "finalGates": "Superseded by CHECKPOINT.json LOCAL_VALIDATION_COMPLETE for v0.9.0",
+  "lastStablePlayable": "v0.9.0",
+  "gameplayIdentity": "old1–10 frozen; new11 distinct",
+  "delivery": "One final complete package only",
+  "validatedCodeCommit": "65c835b89fde56fca1505aa32011049a9fa7224e"
+}

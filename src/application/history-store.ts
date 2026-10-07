@@ -21,7 +21,7 @@ export function canonicalStringify(value:unknown):string {
 export function accountDigest(raw:string):string {let hash=2166136261;for(const byte of utf8Bytes(raw)){hash^=byte;hash=Math.imul(hash,16777619);}return (hash>>>0).toString(16).padStart(8,'0');}
 function requireValue(ok:unknown,message:string):asserts ok {if(!ok)throw Error(message);}
 function keyFor(identity:RunIdentity,first:number,digest:string):string {return `${HISTORY_PREFIX}${identity.runId}.${first}.${digest}`;}
-function commandValid(command:unknown,version:8|9|10):boolean {try{assertGameCommandShape(command,version);return true;}catch{return false;}}
+function commandValid(command:unknown,version:8|9|10|11):boolean {try{assertGameCommandShape(command,version);return true;}catch{return false;}}
 
 function chunkRaw(chunk:Omit<HistoryChunk,'digest'>):string {const digest=accountDigest(canonicalStringify(chunk));return canonicalStringify({...chunk,digest});}
 function readChunksValidated(storage:StoragePort,identity:RunIdentity,history:HistoryCursor):{commands:GameCommand[];keys:string[]} {

@@ -1,0 +1,19 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createCanvas} from '@napi-rs/canvas';
+import {attachPixelWitness,assertTextPaint,assertIconPixels,assertTextLinesPaint,displayedStock} from '../scripts/refinement-host-support.mjs';
+import {verifyEvidenceBinding,validateResumeStorage,probeBuiltHost} from '../scripts/growth-host-support.mjs';
+import {ACCOUNT_KEYS} from '../src/application/account-store.ts';
+import {mkdtemp,writeFile,rm} from 'node:fs/promises';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+const specimen=()=>{const canvas=createCanvas(200,100),context=canvas.getContext('2d');const h={canvas,context,viewport:{w:200,h:100,dpr:1,safe:0},frame(){context.fillStyle='#123456';context.fillRect(0,0,200,100);context.font='24px sans-serif';context.fillStyle='#fff';context.fillText('Visible',10,40);}};attachPixelWitness(h);return h;};
+test('glyph witness rejects absent and completely overpainted glyphs',()=>{const h=specimen();h.frame();assert.ok(assertTextPaint(h,'Visible').pixels>10);assert.throws(()=>assertTextPaint(h,'Missing'),/glyph|paint|text/i);h.context.fillStyle='#123456';h.context.fillRect(0,0,200,100);assert.throws(()=>assertTextPaint(h,'Visible'),/covered|visible|paint/i);});
+test('icon pixel witness rejects a flat card background',()=>{const h=specimen();h.frame();assert.throws(()=>assertIconPixels(h,{x:130,y:10,w:50,h:50},{physical:true}),/icon|color|pixel/i);h.context.fillStyle='#ffcc22';h.context.fillRect(130,10,30,30);h.context.fillStyle='#55bbdd';h.context.fillRect(140,20,30,30);assert.ok(assertIconPixels(h,{x:130,y:10,w:50,h:50},{physical:true}).colors>=3);});
+test('refinement evidence rejects source mismatch and corrupt fixtures',()=>{assert.throws(()=>verifyEvidenceBinding({sourceSha256:'a'.repeat(64),manifestSourceSha256:'b'.repeat(64),gameJsSha256:'c'.repeat(64)}),/source/);assert.throws(()=>validateResumeStorage(new Map([[ACCOUNT_KEYS.a,'{'],[ACCOUNT_KEYS.b,'{']])),/fixture|account|resume/i);});
+test('VM crashes and non-game stubs are explicit failures',async()=>{const dir=await mkdtemp(join(tmpdir(),'refinement-host-'));try{const path=join(dir,'game.js');await writeFile(path,'throw Error("refinement test crash")');const r=await probeBuiltHost({bundlePath:path});assert.equal(r.status,'FAIL');assert.match(r.error??'',/refinement test crash/);await writeFile(path,'globalThis.fake = true;');assert.equal((await probeBuiltHost({bundlePath:path})).status,'FAIL');}finally{await rm(dir,{recursive:true,force:true});}});
+test('repeated labels must match the specific control rectangle',()=>{const h=specimen();h.frame();h.context.fillStyle='#fff';h.context.fillText('Visible',105,80);const second={x:100,y:50,w:100,h:45};assert.ok(assertTextPaint(h,'Visible',{within:second}).rect.x>=100);h.context.fillStyle='#123456';h.context.fillRect(100,50,100,45);assert.throws(()=>assertTextPaint(h,'Visible',{within:second}),/covered|visible|paint/i);});
+
+test('multiline card copy requires every final painted line inside that card',()=>{const h=specimen();h.frame();h.context.font='12px "Warehouse CJK"';h.context.fillStyle='#fff';h.context.fillText('将一件待放货',105,20);h.context.fillText('换成万能箱',105,40);const card={x:100,y:0,w:100,h:50};const copy='将一件待放货\n换成万能箱';assert.equal(assertTextLinesPaint(h,copy,{within:card}).length,2);h.context.fillStyle='#123456';h.context.fillRect(100,25,100,25);assert.throws(()=>assertTextLinesPaint(h,copy,{within:card}),/covered|visible|paint/i);});
+
+test('displayed stock uses zero only for explicitly empty authoritative roots',()=>{assert.equal(displayedStock({status:'empty'},'clear'),0);assert.equal(displayedStock({status:'ready',account:{inventory:{clear:3}}},'clear'),3);for(const status of ['unknown','corrupt','unavailable'])assert.throws(()=>displayedStock({status},'clear'),/account|stock/i);assert.throws(()=>displayedStock({status:'ready'},'clear'),/account|stock/i);});
