@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.10.0-dev",
+  "appVersion": "0.11.0-dev",
   "status": "LOCAL_VALIDATION_COMPLETE",
   "rulesets": [
     1,
@@ -15,15 +15,15 @@
     11,
     12,
     13,
-    14
+    14,
+    15
   ],
   "modes": {
     "inbound": {
-      "ruleset": 14,
+      "ruleset": 15,
       "modes": [
         "standard",
-        "daily",
-        "endless"
+        "daily"
       ],
       "boardSizes": [
         7
@@ -33,11 +33,24 @@
       ],
       "upgradeTypes": 0,
       "upgradeChoices": 0,
-      "rushProbability": 0.06,
       "reservedEntries": 4,
       "placeableCells": 45,
-      "dailyRushProbability": 0.12,
-      "rushShape": "adaptive ordinary shape"
+      "rushShape": "adaptive ordinary shape",
+      "rushProbabilityByStage": [
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        1
+      ],
+      "dailyRushProbabilityByStage": [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        1
+      ],
+      "guidedIntro": "stage1 no rush; stage2-4 6%; stage5 100%"
     },
     "outbound_normal": {
       "ruleset": 12,
@@ -67,21 +80,33 @@
         8,
         9,
         10,
-        11
+        11,
+        12,
+        13,
+        14
       ],
       "unchanged": true
+    },
+    "inbound_endless": {
+      "ruleset": 14,
+      "boardSize": 7,
+      "reservedEntries": 4,
+      "placeableCells": 45,
+      "rushProbability": 0.06,
+      "stageCap": 5,
+      "normalContinuation": "retains rule15 identity but new generation returns to 6%"
     }
   },
   "economyVersion": 2,
-  "accountFormatVersion": 2,
-  "simulationCases": 288,
-  "simulationCapped": 7,
-  "testsPassed": 1529,
+  "accountFormatVersion": 3,
+  "simulationCases": 256,
+  "simulationCapped": 0,
+  "testsPassed": 1625,
   "pythonTestsPassed": 22,
-  "sourceSha256": "0f5cb97a4a51573c365a699583cda07474361a8446360d8a366405c9b63bbbc1",
-  "gameJsSha256": "7fb6bb9c7c17ed6197771177e4e29c9f2aee2597c1bceaa8a875b50d0c790f7b",
-  "runtimeStatus": "Native Canvas/wx actual game.js host59/59, local aggregate and independent reviewPASS; real browser/WindowsGUI/WeChat deviceNOT RUN. Human balanceNOT proven.",
-  "deliveryNotes": "docs/v0100-playtest.md",
+  "sourceSha256": "8e12c673ad554b1595fcdd416d75a1449678e7af9c9f946e8198745144ee91a6",
+  "gameJsSha256": "2b1b24551c5752bc8ef785a2580fc68ef1655ee1f8b9ecc4b8e715930e936d0e",
+  "runtimeStatus": "Local lint/typecheck/unit/preflight/build and actual native Canvas host validated. Real browser, Windows GUI and physical WeChat NOT RUN.",
+  "deliveryNotes": "docs/v0110-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "developerDiagnosticsDefault": false,
@@ -92,11 +117,11 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 59,
-  "validatedCodeCommit": "066cd0b47b3967f516f6557fedd6ae283f122ebb",
+  "hostCasesPassed": 139,
+  "validatedCodeCommit": "c5292456bb785e745531b46ccb92b606fa6baa97",
   "rulesChangedFromV080": true,
   "accountEnvelopeVersion": 1,
-  "simulationCensorReason": "7 endless cases still active at120 placements;0 finite caps",
+  "simulationCensorReason": "All 256 stage-five paired finite cases reached a real terminal result; cleanup extension has separate denominator.",
   "difficultyScoreMultipliers": {
     "easy": "1/1",
     "normal": "5/4",
@@ -110,6 +135,77 @@
     "dailyLock": "start-date bound after first win",
     "infinite": "cumulative score entitlement minus already paid"
   },
-  "hostStaticImages": 139,
-  "hostContinuousFrames": 738
+  "hostStaticImages": 295,
+  "hostContinuousFrames": 820,
+  "previousValidatedCommit": "eff25c268cd340bdaf787e2755975a9c2c3934c8",
+  "focusedProtocolTestsPassed": 17,
+  "harnessCommit": "bbf7063978cff31b9e4e51c1bbf23a6ce4ceee1a",
+  "updatedAtBeijing": "2026-10-07T15:44:00+08:00",
+  "cleanup": {
+    "orders": 2,
+    "placements": 6,
+    "clearedOldWasteCellsPerTrigger": 1,
+    "threeOrderBranch": "isolated research only"
+  },
+  "cosmetics": {
+    "accountFormat": 3,
+    "permanentOwnership": true,
+    "freeOutlineOverlay": true,
+    "paidCoinPrices": {
+      "cargo.wood": 300,
+      "forklift.white": 600,
+      "theme.harbor": 900
+    },
+    "buyDoesNotEquip": true,
+    "retainedOnResultsReset": true
+  },
+  "cleanupStudy": {
+    "cases": 384,
+    "casesPerModePerArm": 64,
+    "seeds": [
+      1,
+      32
+    ],
+    "strategies": 2,
+    "arms": [
+      "orders2",
+      "orders3_experimental",
+      "placements6"
+    ],
+    "capped": 0,
+    "productionOrders": 2,
+    "results": {
+      "standard/orders2": {
+        "won": 27,
+        "total": 64,
+        "reachedStageFive": 51
+      },
+      "standard/orders3": {
+        "won": 25,
+        "total": 64,
+        "reachedStageFive": 51
+      },
+      "standard/placements6": {
+        "won": 26,
+        "total": 64,
+        "reachedStageFive": 51
+      },
+      "daily/orders2": {
+        "won": 28,
+        "total": 64,
+        "reachedStageFive": 55
+      },
+      "daily/orders3": {
+        "won": 25,
+        "total": 64,
+        "reachedStageFive": 51
+      },
+      "daily/placements6": {
+        "won": 27,
+        "total": 64,
+        "reachedStageFive": 52
+      }
+    },
+    "overlapWithStageFive256Study": 128
+  }
 }

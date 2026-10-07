@@ -5,6 +5,7 @@ import {RULES_V9_CONFIG,UPGRADES_V9,getStageV9,validToolChargesV9} from '../doma
 import {RULES_V11_CONFIG,NEUTRAL_LEVEL_IDS_V11,validToolChargesV11} from '../domain/v11/content.ts';
 import {outboundRunConfigIdV10} from '../domain/v10/content.ts';
 import {RULES_V14_CONFIG} from '../domain/v14/content.ts';
+import {RULES_V15_CONFIG} from '../domain/v15/content.ts';
 import {reservedEntryCellsV14} from '../domain/v14/board.ts';
 import {validScoreStateV12} from '../domain/v12/score.ts';
 import {isValidOutboundPieceV12,validToolChargesV12} from '../domain/v12/content.ts';
@@ -29,13 +30,13 @@ const UPGRADE_IDS=UPGRADES_V9.map(upgrade=>upgrade.id);
 const DOCK_IDS=['dock.north','dock.east','dock.south','dock.west'];
 const COMMON_FIELDS=['rulesetVersion','runConfigId','seed','mode','boardSize','board','cellTraits','rngState','nextId','candidates','orders','phase','shift','completedOrders','score','lastChain','maxChain','generatedPieces','commandIndex','commandBaseIndex','commands','overtime','result','endReason','runSerial','elapsedMs','maxOccupancy'];
 
-export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14):asserts value is GameCommand {
+export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14|15):asserts value is GameCommand {
  requireValue(object(value),'指令结构无效');
- requireValue([8,9,10,11,12,13,14].includes(version),'指令版本不匹配');
+ requireValue([8,9,10,11,12,13,14,15].includes(version),'指令版本不匹配');
  const outboundTools=version===12||version===13;
  if(value.type==='place'){
   // Pre-expansion commands retain their original coordinate system.
-  requireValue(exactKeys(value,['type','pieceId','origin'])&&id(value.pieceId)&&point(value.origin,version===11||version===14?7:version===9?8:9),'落子指令无效');return;
+  requireValue(exactKeys(value,['type','pieceId','origin'])&&id(value.pieceId)&&point(value.origin,version===11||version>=14?7:version===9?8:9),'落子指令无效');return;
  }
  if(version===8)throw Error('普通出库指令无效');
  if(version===10){requireValue(value.type==='finishOutboundEndless'&&exactKeys(value,['type']),'无限出库指令无效');return;}
@@ -46,8 +47,8 @@ export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14)
   case 'upgrade':requireValue(version===9&&onlyKeys(value,['type','upgradeId','cargo'])&&UPGRADE_IDS.includes(value.upgradeId as never)&&(value.cargo===undefined||cargo(value.cargo)),'升级指令无效');return;
   case 'rotate':requireValue(exactKeys(value,['type','pieceId','quarterTurns'])&&id(value.pieceId)&&integer(value.quarterTurns,1,3),'旋转指令无效');return;
   case 'clear':{
-   const reserved=version===14?reservedEntryCellsV14({boardSize:7}):outboundTools?[OUTBOUND_ENTRY.entry.y*9+OUTBOUND_ENTRY.entry.x]:[];
-   requireValue(exactKeys(value,['type','cells'])&&array(value.cells,2)&&value.cells.length>0&&unique(value.cells)&&value.cells.every(cell=>integer(cell,0,outboundTools?80:version===11||version===14?48:63)&&!reserved.includes(cell)),'清障指令无效');return;
+   const reserved=version>=14?reservedEntryCellsV14({boardSize:7}):outboundTools?[OUTBOUND_ENTRY.entry.y*9+OUTBOUND_ENTRY.entry.x]:[];
+   requireValue(exactKeys(value,['type','cells'])&&array(value.cells,2)&&value.cells.length>0&&unique(value.cells)&&value.cells.every(cell=>integer(cell,0,outboundTools?80:version===11||version>=14?48:63)&&!reserved.includes(cell)),'清障指令无效');return;
   }
   case 'wildcard':requireValue(exactKeys(value,outboundTools?['type','pieceId','cargo']:['type','pieceId'])&&id(value.pieceId)&&(!outboundTools||OUTBOUND_CARGO.includes(value.cargo as never)),'万能指令无效');return;
   case 'continueOvertime':case 'finish':requireValue(exactKeys(value,['type']),'结束指令无效');return;
@@ -55,7 +56,7 @@ export function assertGameCommandShape(value:unknown,version:8|9|10|11|12|13|14)
  }
 }
 
-function assertCommon(value:Obj,version:9|10|11|12|13|14,size:number):void {
+function assertCommon(value:Obj,version:9|10|11|12|13|14|15,size:number):void {
  requireValue(integer(value.seed,-2147483648,4294967295),'种子无效');
  requireValue(array(value.rngState,4)&&value.rngState.length===4&&value.rngState.every(n=>integer(n,-2147483648,2147483647)),'随机状态无效');
  requireValue(array(value.board,size*size)&&value.board.length===size*size&&value.board.every(cell=>cell===null||cargo(cell)),'棋盘无效');
@@ -125,17 +126,18 @@ function assertInbound(value:Obj):void {
  if(value.result==='won')requireValue(value.endReason==='completed'||value.endReason==='retired'&&value.mode==='standard'&&value.overtime,'入库胜利原因无效');
 }
 
-function assertInboundV11(value:Obj,version:11|14=11):void {
+function assertInboundV11(value:Obj,version:11|14|15=11):void {
  requireValue(onlyKeys(value,[...COMMON_FIELDS,'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds']),'入库包含其他规则字段');
- if(version===14){
+ if(version>=14){
   const optional=['runSerial','elapsedMs','maxOccupancy'];
   requireValue(exactKeys(value,[...COMMON_FIELDS.filter(field=>!optional.includes(field)),...optional.filter(field=>has(value,field)),'guided','levels','upgradeChoices','pendingThresholds','claimedThresholds','supplyCargo','cleanup','successfulPlacements','toolCharges','usedToolIds']),'入库字段无效');
   requireValue(value.maxOccupancy===undefined||integer(value.maxOccupancy,0,45),'占用格数包含预留入口');
  }
- requireValue(value.runConfigId===(version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId&&['standard','daily','endless'].includes(String(value.mode)),'入库身份无效');
+ requireValue(value.runConfigId===(version===15?RULES_V15_CONFIG:version===14?RULES_V14_CONFIG:RULES_V11_CONFIG).runConfigId&&['standard','daily','endless'].includes(String(value.mode)),'入库身份无效');
+ if(version===15)requireValue(value.mode==='standard'||value.mode==='daily','规则15不支持直接无限入库');
  requireValue(value.boardSize===7,'入库尺寸无效');
  assertCommon(value,version,value.boardSize);
- if(version===14)requireValue(reservedEntryCellsV14({boardSize:7}).every(cell=>(value.board as unknown[])[cell]===null&&(value.cellTraits as unknown[])[cell]===null),'入口必须保持空置');
+ if(version>=14)requireValue(reservedEntryCellsV14({boardSize:7}).every(cell=>(value.board as unknown[])[cell]===null&&(value.cellTraits as unknown[])[cell]===null),'入口必须保持空置');
  requireValue(typeof value.guided==='boolean'&&(!value.guided||value.mode==='standard'),'引导身份无效');
  requireValue(['cleanup','input','rescue','result'].includes(String(value.phase)),'入库阶段无效');
  requireValue(object(value.levels)&&exactKeys(value.levels,NEUTRAL_LEVEL_IDS_V11)&&Object.values(value.levels).every(level=>level===0),'新入库不接受升级层数');
@@ -151,11 +153,12 @@ function assertInboundV11(value:Obj,version:11|14=11):void {
  if(value.cleanup===null)requireValue(value.phase==='cleanup'||value.guided===true&&Number(value.shift)===1,'未选择清扫的状态无效');
  else requireValue(value.phase!=='cleanup','已选择清扫仍要求再次选择');
  const initialCleanup=value.phase==='cleanup'&&value.commandIndex===0&&!value.guided;
- requireValue(array(value.candidates,3)&&value.candidates.length===(initialCleanup?0:3),'候选槽数量无效');
- requireValue(value.candidates.every(piece=>object(piece)&&id(piece.id)&&SHAPES.some(shape=>shape.id===piece.shapeId)&&cargo(piece.cargo)&&integer(piece.quarterTurns,0,3)&&!has(piece,'cellCargos')&&!has(piece,'orientation')&&(!has(piece,'trait')||TRAITS.slice(0,4).includes(String(piece.trait))&&(piece.shapeId==='shape.single'||version===14&&piece.trait==='rush'))&&(piece.trait==='rush'?piece.rushTurns===3:piece.rushTurns===undefined)),'候选货件无效');
+ const terminalCompletion=version===15&&value.phase==='result'&&value.endReason==='completed';
+ requireValue(array(value.candidates,3)&&value.candidates.length===(initialCleanup?0:terminalCompletion?2:3),'候选槽数量无效');
+ requireValue(value.candidates.every(piece=>object(piece)&&id(piece.id)&&SHAPES.some(shape=>shape.id===piece.shapeId)&&cargo(piece.cargo)&&integer(piece.quarterTurns,0,3)&&!has(piece,'cellCargos')&&!has(piece,'orientation')&&(!has(piece,'trait')||TRAITS.slice(0,4).includes(String(piece.trait))&&(piece.shapeId==='shape.single'||version>=14&&piece.trait==='rush'))&&(piece.trait==='rush'?piece.rushTurns===3:piece.rushTurns===undefined)),'候选货件无效');
  requireValue(unique(value.candidates.map(p=>(p as Obj).id)),'候选标识重复');
  const board=value.board as unknown[],traits=value.cellTraits as unknown[];
- if(version===14){
+ if(version>=14){
   requireValue(value.candidates.every(piece=>object(piece)&&exactKeys(piece,['id','shapeId','cargo','quarterTurns',...(has(piece,'trait')?['trait']:[]),...(has(piece,'rushTurns')?['rushTurns']:[])])),'入库候选字段无效');
   requireValue(value.candidates.every(piece=>object(piece)&&SHAPES.some(shape=>shape.id===piece.shapeId&&shape.minShift<=Number(value.shift))&&CARGO.slice(0,RULES_V14_CONFIG.cargoByShift[Number(value.shift)-1]).some(cargo=>cargo.id===piece.cargo)),'入库候选尚未解锁');
   requireValue(traits.every(trait=>trait===null||object(trait)&&exactKeys(trait,trait.kind==='rush'?['kind','remaining','bornAtPlacement']:['kind'])),'入库特性字段无效');
@@ -166,7 +169,7 @@ function assertInboundV11(value:Obj,version:11|14=11):void {
   if(trait.kind==='rush')requireValue(integer(trait.remaining,1,3)&&integer(trait.bornAtPlacement,0,Number(value.successfulPlacements)),'加急期限无效');
   else requireValue(trait.remaining===undefined&&trait.bornAtPlacement===undefined,'非加急货含期限');
  });
- if(version===14){
+ if(version>=14){
   const bornClocks=new Map<number,{remaining:number;cargo:unknown}>();
   traits.forEach((trait,index)=>{if(!object(trait)||trait.kind!=='rush')return;
    const born=Number(trait.bornAtPlacement),remaining=Number(trait.remaining),prior=bornClocks.get(born);
@@ -175,7 +178,9 @@ function assertInboundV11(value:Obj,version:11|14=11):void {
    bornClocks.set(born,{remaining,cargo:board[index]});
   });
  }
- requireValue(array(value.orders,4)&&value.orders.length===RULES_V11_CONFIG.docksByShift[Number(value.shift)-1],'订单数无效');
+ requireValue(array(value.orders,4)&&(terminalCompletion?value.orders.length<4:value.orders.length===RULES_V11_CONFIG.docksByShift[Number(value.shift)-1]),'订单数无效');
+ if(version===15&&value.mode!=='endless'&&!value.overtime)requireValue(Number(value.completedOrders)<30?!terminalCompletion:terminalCompletion&&value.result==='won','入库完成状态无效');
+ if(terminalCompletion)requireValue(value.overtime===false,'通关结算不能处于加班');
  requireValue(value.orders.every(order=>object(order)&&exactKeys(order,['id','dockId','cargo','amount','baseScore'])&&id(order.id)&&DOCK_IDS.includes(String(order.dockId))&&cargo(order.cargo)&&integer(order.amount,3,7)&&integer(order.baseScore,1,1000000)),'订单内容无效');
  requireValue(unique(value.orders.map(order=>(order as Obj).id))&&unique(value.orders.map(order=>(order as Obj).dockId))&&unique(value.orders.map(order=>(order as Obj).cargo)),'订单标识重复');
  if(value.overtime)requireValue(value.mode==='standard'&&Number(value.completedOrders)>=30,'加班身份无效');
@@ -230,7 +235,7 @@ export function assertGameRun(value:unknown):asserts value is GameRun {
  if(value.rulesetVersion===9){assertInbound(value);return;}
  if(value.rulesetVersion===10){assertOutbound(value);return;}
  if(value.rulesetVersion===11){assertInboundV11(value);return;}
- if(value.rulesetVersion===14){assertInboundV11(value,14);return;}
+ if(value.rulesetVersion===14||value.rulesetVersion===15){assertInboundV11(value,value.rulesetVersion);return;}
  if(value.rulesetVersion===12||value.rulesetVersion===13){assertOutboundTools(value,value.rulesetVersion);return;}
  requireValue(integer(value.rulesetVersion,1,8),'不支持的规则版本');assertRun(value);
 }
@@ -243,7 +248,7 @@ export function decodeGameRun(raw:string):GameRun {
  requireValue(typeof raw==='string'&&raw.length<=950000,'单局存档超出大小限制');
  const envelope:unknown=JSON.parse(raw);requireValue(object(envelope),'单局存档无效');
  if(integer(envelope.schemaVersion,1,8))return decodeRun(raw);
- requireValue([9,10,11,12,13,14].includes(Number(envelope.schemaVersion)),'单局格式版本无效');
+ requireValue([9,10,11,12,13,14,15].includes(Number(envelope.schemaVersion)),'单局格式版本无效');
  if(Number(envelope.schemaVersion)>=12)requireValue(exactKeys(envelope,['schemaVersion','digest','state']),'单局封装字段无效');
  requireValue(typeof envelope.digest==='string'&&envelope.digest===digest(JSON.stringify(envelope.state)),'单局校验失败');
  assertGameRun(envelope.state);requireValue(envelope.state.rulesetVersion===envelope.schemaVersion,'格式与规则版本不一致');

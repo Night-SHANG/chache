@@ -14,7 +14,7 @@ function pending(h: ReturnType<typeof sessionHost>, mode: 'standard'|'endless'|'
   if (s.view.screen === 'guideOffer') s.action({ type: 'directStart' });
   if (s.view.screen === 'prepareTools') { s.action({ type: 'toggleItem', item: 'rotate' }); s.action({ type: 'prepareNext' }); }
   assert.equal(s.view.screen, 'game');
-  assert.equal(s.state.rulesetVersion, 14);
+  assert.equal(s.state.rulesetVersion, mode === 'endless' ? 14 : 15);
   assert.equal(s.state.phase, 'cleanup');
   return s;
 }

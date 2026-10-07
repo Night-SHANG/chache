@@ -4,9 +4,9 @@ import { RUN_SLOTS, isRunSlot, slotForRun, tierForSlot, difficultyForSlot, outbo
 import { RULES_V4_CONFIG } from '../domain/v4/content.ts';
 
 /** Purely local preferences, cosmetics and results, independent of Run snapshots. */
-export type ThemeId='day'|'night';
-export type ForkliftId='yellow'|'blue'|'red';
-export type CargoStyleId='classic'|'outline';
+export type ThemeId='day'|'night'|'harbor';
+export type ForkliftId='yellow'|'blue'|'red'|'white';
+export type CargoStyleId='classic'|'outline'|'wood';
 export interface ColorExitProfile {
  stats:{runs:number;batches:number;wins:number;maxChain:number};
  bestScores:Partial<Record<'v4'|'v5',{score:number;chain:number}>>;

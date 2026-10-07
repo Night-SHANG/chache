@@ -134,7 +134,7 @@ function snowflake(ctx: Context): void {
   ctx.stroke();
 }
 
-export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, size: number, alpha = 1, trait?: CellTrait | null, style: CargoStyleId = 'classic', largeRushCountdown = false): void {
+export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, size: number, alpha = 1, trait?: CellTrait | null, style: CargoStyleId = 'classic', largeRushCountdown = false, outlineOverride = false): void {
   const p = PALETTE[cargo];
   ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(x, y); ctx.scale(size / 110, size / 110);
   if (trait?.kind === 'waste') {
@@ -143,7 +143,7 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
     ctx.strokeStyle = '#d9dee0'; ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.beginPath();
     ctx.moveTo(31, 25); ctx.lineTo(78, 66); ctx.moveTo(78, 25); ctx.lineTo(31, 66); ctx.stroke();
     text(ctx, '废弃物', 54, 87, 20, '#f2f0df', 'center', 900);
-    if (style === 'outline') drawCargoOutline(ctx);
+    if (style === 'outline' || outlineOverride) drawCargoOutline(ctx);
     ctx.restore(); return;
   }
   roundedPath(ctx, 6, 13, 103, 97, 10); ctx.fillStyle = 'rgba(9,14,16,.36)'; ctx.fill();
@@ -151,11 +151,14 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   ctx.beginPath(); ctx.moveTo(5, 17); ctx.lineTo(18, 4); ctx.lineTo(104, 4); ctx.lineTo(91, 17); ctx.closePath(); ctx.fillStyle = p.light; ctx.fill(); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(92, 17); ctx.lineTo(105, 4); ctx.lineTo(105, 91); ctx.lineTo(92, 104); ctx.closePath(); ctx.fillStyle = p.dark; ctx.fill(); ctx.stroke();
   roundedPath(ctx, 4, 16, 89, 88, 6); ctx.fillStyle = gradient(ctx, 0, 16, 88, p.light, p.mid); ctx.fill(); ctx.stroke();
-  roundedPath(ctx, 11, 24, 75, 71, 3); ctx.strokeStyle = p.dark; ctx.lineWidth = 2; ctx.stroke();
-  ctx.strokeStyle = 'rgba(255,255,255,.42)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(13, 26); ctx.lineTo(83, 26); ctx.moveTo(12, 28); ctx.lineTo(12, 91); ctx.stroke();
-  ctx.strokeStyle = p.dark; ctx.lineWidth = 2;
-  for (const [sx, sy, ex, ey] of [[14, 30, 28, 42], [82, 30, 69, 42], [14, 90, 27, 78], [82, 90, 70, 78]]) {
-    ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.stroke();
+  if (style === 'wood') drawWoodSlats(ctx, p);
+  else {
+    roundedPath(ctx, 11, 24, 75, 71, 3); ctx.strokeStyle = p.dark; ctx.lineWidth = 2; ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.42)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(13, 26); ctx.lineTo(83, 26); ctx.moveTo(12, 28); ctx.lineTo(12, 91); ctx.stroke();
+    ctx.strokeStyle = p.dark; ctx.lineWidth = 2;
+    for (const [sx, sy, ex, ey] of [[14, 30, 28, 42], [82, 30, 69, 42], [14, 90, 27, 78], [82, 90, 70, 78]]) {
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.stroke();
+    }
   }
   if (cargo === 'cargo.chem') hazard(ctx, { x: 16, y: 91, w: 64, h: 5 });
   if (cargo === 'cargo.cold') {
@@ -165,7 +168,30 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   for (const [sx, sy] of [[10, 22], [87, 22], [10, 98], [87, 98]]) rivet(ctx, sx, sy, 2.2);
   ctx.fillStyle = p.ink; ctx.fillRect(33, 98, 30, 3); ctx.fillStyle = p.light; ctx.fillRect(37, 98, 2, 3); ctx.fillRect(45, 98, 1, 3); ctx.fillRect(51, 98, 3, 3);
   if (trait) drawTraitBadge(ctx, trait, largeRushCountdown);
-  if (style === 'outline') drawCargoOutline(ctx);
+  if (style === 'outline' || outlineOverride) drawCargoOutline(ctx);
+  ctx.restore();
+}
+
+/** Stained timber retains the cargo palette; grain and rails stay below semantic marks. */
+function drawWoodSlats(ctx: Context, p: typeof PALETTE[CargoId]): void {
+  ctx.save();
+  for (const y of [22, 42, 62, 82]) {
+    ctx.fillStyle = gradient(ctx, 7, y, 17, p.light, p.mid); ctx.fillRect(7, y, 82, 17);
+    ctx.strokeStyle = p.dark; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(8, y + 18); ctx.lineTo(89, y + 18); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,248,220,.35)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(9, y); ctx.lineTo(88, y); ctx.stroke();
+    ctx.save(); ctx.globalAlpha *= .26; ctx.strokeStyle = p.ink; ctx.lineWidth = 1;
+    for (const offset of [5, 11]) {
+      ctx.beginPath(); ctx.moveTo(21, y + offset); ctx.bezierCurveTo(35, y + offset - 3, 53, y + offset + 3, 77, y + offset); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  for (const x of [10, 79]) {
+    ctx.fillStyle = '#97683e'; ctx.fillRect(x, 22, 8, 77);
+    ctx.fillStyle = '#d5ad6d'; ctx.fillRect(x + 1, 22, 5, 76);
+    ctx.fillStyle = '#edd095'; ctx.fillRect(x + 1, 22, 1, 76);
+    ctx.strokeStyle = '#7a5234'; ctx.lineWidth = .8; ctx.beginPath(); ctx.moveTo(x + 4, 30); ctx.lineTo(x + 3, 62); ctx.lineTo(x + 5, 89); ctx.stroke();
+    ctx.fillStyle = '#443e35'; for (const y of [27, 93]) ctx.fillRect(x + 3, y, 2, 2);
+  }
   ctx.restore();
 }
 
@@ -204,7 +230,7 @@ export function forklift(ctx: Context, x: number, y: number, size: number, angle
   ctx.fillStyle = 'rgba(0,0,0,.33)'; ctx.beginPath(); ctx.ellipse(0, 7, 57, 39, 0, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = '#131920';
   for (const xx of [-32, 19]) for (const yy of [-36, 23]) { roundedPath(ctx, xx, yy, 23, 17, 4); ctx.fill(); }
-  const colors = paint === 'blue' ? ['#478ed0', '#9bd8ff', '#254965', '#71bdff'] : paint === 'red' ? ['#d65646', '#ffb290', '#76332e', '#ff846b'] : ['#e4ab36', '#ffe077', '#6a481e', '#ffc857'];
+  const colors = paint === 'blue' ? ['#478ed0', '#9bd8ff', '#254965', '#71bdff'] : paint === 'red' ? ['#d65646', '#ffb290', '#76332e', '#ff846b'] : paint === 'white' ? ['#dce4e8', '#fff9e9', '#60717d', '#f2f0da'] : ['#e4ab36', '#ffe077', '#6a481e', '#ffc857'];
   ctx.fillStyle = colors[0]; ctx.strokeStyle = colors[2]; ctx.lineWidth = 3;
   roundedPath(ctx, -41, -25, 75, 50, 13); ctx.fill(); ctx.stroke();
   ctx.fillStyle = colors[1]; roundedPath(ctx, -38, -22, 25, 44, 8); ctx.fill();
@@ -215,6 +241,10 @@ export function forklift(ctx: Context, x: number, y: number, size: number, angle
   ctx.strokeStyle = '#bac1ba'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(31, -17); ctx.lineTo(61, -17); ctx.moveTo(31, 17); ctx.lineTo(61, 17); ctx.stroke();
   ctx.fillStyle = '#fff2a5'; ctx.fillRect(24, -24, 5, 7); ctx.fillRect(24, 17, 5, 7);
   ctx.fillStyle = '#ee6942'; ctx.fillRect(-40, -17, 4, 7); ctx.fillRect(-40, 10, 4, 7);
+  if (paint === 'white') {
+    ctx.fillStyle = '#d5a13d'; ctx.fillRect(-34, -19, 16, 3); ctx.fillRect(-34, 16, 16, 3);
+    ctx.fillStyle = '#536575'; for (const y of [-8, -2, 4]) ctx.fillRect(-31, y, 11, 2);
+  }
   ctx.restore();
 }
 

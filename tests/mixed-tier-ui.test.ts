@@ -56,7 +56,7 @@ test('empty and unavailable legacy slots do not create compatibility controls', 
 test('tier controls are nonoverlapping, in bounds, and each responds to a real tap', () => {
   const state = run(), v = view({ screen: 'colorTiers', modeSlots: { color_exit: 'saved' } }), actions: UiAction[] = [];
   const input = new InputController({ getState: () => state, getView: () => v, patchView: patch => Object.assign(v, patch), preview: () => ({ valid: false, events:[], cells: [], shipments: [] }), dispatch: () => assert.fail('selector cannot place'), togglePause: () => {}, restart: () => {}, resume: () => {}, toggleDebug: () => {}, action: action => actions.push(action) });
-  const controls = getUiControls(state, v); assert.equal(controls.length, 9);
+  const controls = getUiControls(state, v); assert.equal(controls.length, 7);
   for (const [index, control] of controls.entries()) {
     const r = control.rect; assert.ok(r.x >= 0 && r.y >= 0 && r.x + r.w <= L.width && r.y + r.h <= L.height);
     for (const other of controls.slice(index + 1)) assert.ok(!(r.x < other.rect.x + other.rect.w && r.x + r.w > other.rect.x && r.y < other.rect.y + other.rect.h && r.y + r.h > other.rect.y));

@@ -66,19 +66,19 @@ test('both real v11 authored branches teach place order path and phase-two clean
   }
 });
 
-test('new guide sessions use the real v14 script and carry learned and skipped track flags through reload', () => {
+test('new v15 guide sessions reuse the authored v14 route and carry learned and skipped track flags through reload', () => {
   for (const path of Object.values(INBOUND_GUIDE_V14.branches)) {
     const h = sessionHost(), s = h.session;
     s.action({ type: 'newRun', mode: 'standard' });
     s.action({ type: 'guidedStart', track: 'inbound' });
-    assert.equal(s.state.rulesetVersion, 14);
+    assert.equal(s.state.rulesetVersion, 15);
     assert.equal(s.state.seed, INBOUND_GUIDE_V14.seed);
     for (const command of path) {
       if (command.type === 'chooseCleanup') s.action({ type: 'chooseCleanup', branch: command.branch });
       else s.dispatch(command);
       for (let frame = 0; s.view.animation && frame < 70; frame++) { h.time(s.state.commandIndex * 10000 + frame * 1000); s.tick(h.platform.now()); }
     }
-    assert.equal(isGuideComplete('inbound', s.view.account!.guides.inbound, 14), true);
+    assert.equal(isGuideComplete('inbound', s.view.account!.guides.inbound, 15), true);
     assert.equal(s.view.account?.guides.inbound.learned.includes('upgrade'), false);
     const restored = new GameSession(h.platform, { seed: 99, mode: 'standard' });
     assert.deepEqual(restored.view.account?.guides, s.view.account?.guides);

@@ -1,3 +1,4 @@
+import {accountCosmeticState} from '../application/cosmetics.ts';
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
 import {outboundVehicleDisplay} from './outbound-transport-view.ts';
 import { CARGO, COLOR_EXIT_TARGETS } from '../domain/content.ts';
@@ -108,18 +109,18 @@ export function drawMixedRemainder(ctx: Context, state: GameRun, view: ViewState
 
 /** One brief whole-group gather loads the compact counted pallet before driving to the colored exit. */
 export function drawColorExitShipment(ctx: Context, shipment: Shipment, progress: number, view: ViewState): void {
-  const geometry = boardGeometry(shipment), scale = geometry.scale;
+  const geometry = boardGeometry(shipment), scale = geometry.scale, appearance=accountCosmeticState(view.account??null,view.profile);
   const reduced = !!view.profile?.settings.reducedMotion;
   const plan=!reduced?(view.animation?.transportPlan??(view.animation?buildOutboundTransport(shipment,view.animation.board):null)):null;
   const frame=plan?sampleOutboundTransport(plan,progress):null;
   if(frame&&frame.stage!=='route'){
     const pose=outboundVehicleDisplay(shipment,frame);
     ctx.save();ctx.beginPath();ctx.rect(geometry.x-30*scale,geometry.y-30*scale,geometry.size+60*scale,geometry.size+60*scale);ctx.clip();ctx.globalAlpha*=pose.alpha;
-    forklift(ctx,pose.x,pose.y,pose.vehicleSize,pose.angle,view.profile?.cosmetics.forklift);
+    forklift(ctx,pose.x,pose.y,pose.vehicleSize,pose.angle,appearance.cosmetics.forklift);
     if(pose.loadedCount>0){
       const size=pose.cargoSize,stack=Math.min(3,pose.loadedCount),x=pose.cargo.x,y=pose.cargo.y;
       panel(ctx,{x:x-size*.55,y:y+size*.2,w:size*1.1,h:size*.3},'#b48c55','#59442c',3*scale);
-      for(let level=0;level<stack;level++)cargoBox(ctx,shipment.cargo,x-size/2-level*2*scale,y-size/2-level*3*scale,size,1,undefined,view.profile?.cosmetics.cargo);
+      for(let level=0;level<stack;level++)cargoBox(ctx,shipment.cargo,x-size/2-level*2*scale,y-size/2-level*3*scale,size,1,undefined,appearance.cosmetics.cargo,false,appearance.cargoOutline);
       ctx.fillStyle='#18382e';ctx.strokeStyle='#b9dda9';ctx.lineWidth=2*scale;
       roundedPath(ctx,x-24*scale,y+6*scale,48*scale,20*scale,4*scale);ctx.fill();ctx.stroke();
       text(ctx,`${pose.loadedCount}件`,x,y+16*scale,17*scale,'#f4ffe5','center');

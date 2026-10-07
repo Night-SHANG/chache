@@ -25,7 +25,7 @@ function capture(state:RunState,current:ViewState,width=1080,height=1920){
 
 for(const screen of ['menu','inboundMenu','colorTiers','settings','colorIntro'] as const)test(`${screen} shows player copy without development or probability details`,()=>{
  const s=outbound(),v=view({screen,modeSlots:{color_exit:'saved',color_exit_entry:'saved'}}),out=capture(s,v);
- assert.doesNotMatch(out.words,denied);
+ assert.doesNotMatch(out.words,denied);if(screen==='colorTiers')for(const outboundSelectionMode of ['normal','endless'] as const){const words=capture(s,{...v,outboundSelectionMode}).words;assert.doesNotMatch(words,denied);assert.doesNotMatch(words,/工具最高|简单 ×1|中等 ×1.25|困难 ×1.5|专业 ×2/);assert.match(words,/使用道具最高分 暂无/);}
  assert.equal(getUiControls(s,v).some(c=>['chooseLegacy','comparisonSeedNext'].includes(c.action.type)),false);
 });
 

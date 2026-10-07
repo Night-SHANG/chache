@@ -76,11 +76,18 @@ test('rotation highlights changeable candidates while a plain single stays unmar
 });
 
 import {makeAccountFixture} from './helpers/account-fixtures.ts';
-test('outbound selector reads new plain records without mixing legacy or tool scores',()=>{
+test('outbound selector isolates selected-mode plain and tool records from legacy scores',()=>{
  const v=view();v.screen='colorTiers';const account=makeAccountFixture();v.account=account;
  const bucket=(score:number)=>({runs:1,units:5,maxUnits:5,score,wins:0,retirements:0,maxChain:1,best:{score,units:5,chain:1}});
  account.profile.results={'outbound.v8.easy':bucket(999),'outboundEndless.v10.easy':bucket(888),'outbound.v12.easy.plain':bucket(123),'outboundEndless.v13.easy.plain':bucket(234),'outbound.v12.easy.tools':bucket(777),'outboundEndless.v13.easy.tools':bucket(666)};
- const labels=rendered(outbound(),v).labels;assert.ok(labels.includes('普通 · 30批 · 最高分 123'));assert.ok(labels.includes('无限 · 最高分 234 · 5批'));assert.ok(labels.includes('工具最高 777'));assert.ok(labels.includes('工具最高 666'));assert.ok(!labels.some(label=>/999|888/.test(label)));
+ const before=JSON.stringify(account);
+ for(const mode of ['normal','endless'] as const){
+  v.outboundSelectionMode=mode;const labels=rendered(outbound(),v).labels,normal=mode==='normal';
+  assert.ok(labels.includes(`最高分 ${normal?123:234}`));assert.ok(labels.includes(`使用道具最高分 ${normal?777:666}`));
+  assert.equal(labels.includes(`最高分 ${normal?234:123}`),false);assert.equal(labels.includes(`使用道具最高分 ${normal?666:777}`),false);
+  if(!normal)assert.ok(labels.some(label=>label.includes('5批')));
+  assert.ok(!labels.some(label=>/999|888/.test(label)));assert.equal(JSON.stringify(account),before);
+ }
 });
 
 test('new outbound help does not claim the permanently reserved entry can end the run',()=>{

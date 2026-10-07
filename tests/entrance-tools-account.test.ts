@@ -27,7 +27,7 @@ test('new account starts reserve two tools and home returns unused reservations 
   const {storage,service}=setup();
   const started=send(service,{type:'start',operationId:'start',intent:intent(version)});
   assert.equal(started.status,'acknowledged',started.message);
-  assert.equal(started.account!.formatVersion,2);assert.equal(started.account!.economyVersion,2);assert.equal(started.account!.run!.identity.economyVersion,2);
+  assert.equal(started.account!.formatVersion,3);assert.equal(started.account!.economyVersion,2);assert.equal(started.account!.run!.identity.economyVersion,2);
   assert.deepEqual(started.account!.run!.reserved,['rotate','wildcard']);
   assert.deepEqual(started.account!.inventory,{rotate:0,clear:1,wildcard:0});
   const restarted=createAccountService(storage,held,()=>0),run=restarted.getSnapshot()!.run!;

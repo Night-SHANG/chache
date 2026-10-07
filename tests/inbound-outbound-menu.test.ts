@@ -41,12 +41,12 @@ test('inbound submenu starts five shifts endless or daily without per-save conti
 });
 test('outbound selector starts four difficulties without probability seed or version details',()=>{
  const current=view({screen:'colorTiers',comparisonSeed:12345,modeSlots:{outbound_easy:'saved',outbound_expert:'result'}}),controls=getUiControls(outbound(),current),out=surface();render(out.ctx,outbound(),current);
- assert.deepEqual(controls.filter(control=>control.action.type==='newRun').map(control=>control.action),['easy','normal','hard','expert'].flatMap(difficultyId=>['normal','endless'].map(outboundMode=>({type:'newRun',mode:'color_exit',difficultyId,outboundMode}))));
+ assert.deepEqual(controls.filter(control=>control.action.type==='newRun').map(control=>control.action),['easy','normal','hard','expert'].map(difficultyId=>({type:'newRun',mode:'color_exit',difficultyId,outboundMode:'normal'})));
  assert.equal(controls.some(control=>control.action.type==='switchMode'),false);
  for(const name of ['简单','中等','困难','专业'])assert.ok(out.labels.some(label=>label.text===name));
- assert.equal(out.labels.filter(label=>label.text.includes('最高分 0')).length,8);
+ assert.equal(out.labels.filter(label=>label.text.includes('最高分 暂无')).length,8);
  assert.doesNotMatch(out.words(),/9×9|12345|种子|概率|%|形状等级|继续进度|自动.*升档|旧版/);
- assert.deepEqual(controls.slice(8).map(control=>control.action),[{type:'home'}]);
+ assert.deepEqual(controls.filter(control=>control.action.type!=='newRun').map(control=>control.action),[{type:'selectOutboundMode',mode:'normal'},{type:'selectOutboundMode',mode:'endless'},{type:'home'}]);
 });
 test('legacy saves stay hidden from the new selector while direct compatibility screens remain readable',()=>{
  for(const status of ['empty','unavailable','saved','result','corrupt'] as const){
@@ -104,18 +104,18 @@ test('endless settlement is an explicit score recording action and retired never
  assert.deepEqual(getUiControls(state,view()).find(control=>control.action.type==='newRun')?.action,{type:'newRun',mode:'endless'});
 });
 test('endless pause and recovery retain mode score and stage without a finite victory target',()=>{
- for(const patch of [{paused:true},{needsResume:true}]){const out=surface();render(out.ctx,endless(),view(patch));assert.match(out.words(),/阶段 1\/5/);assert.match(out.words(),/无限入库/);assert.match(out.words(),/得分 0/);assert.doesNotMatch(out.words(),/30批|30单.*通关|五班.*过关/);}
+ for(const patch of [{paused:true},{needsResume:true}]){const out=surface();render(out.ctx,endless(),view(patch));assert.match(out.words(),/无限 · 阶段1/);assert.doesNotMatch(out.words(),/阶段 1\/5/);assert.match(out.words(),/无限入库/);assert.match(out.words(),/得分 0/);assert.doesNotMatch(out.words(),/30批|30单.*通关|五班.*过关/);}
 });
 test('new mode profiles never display legacy or another-difficulty high scores',()=>{
  const profile=createProfile();profile.bestScores['standard.v3']={score:101,chain:1};profile.colorExit={stats:{runs:1,batches:1,wins:0,maxChain:1},bestScores:{v4:{score:9999,chain:1}},lastRecordedRun:null};
  profile.outboundV8={};profile.outboundDifficulties={};for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){const p=getOutboundProfile(profile,id,8);p.bestScores.v8={score:222+index*111,chain:1};profile.outboundV8[id]=p;const old=getOutboundProfile(profile,id,6);old.bestScores.v6={score:6666+index,chain:1};profile.outboundDifficulties[id]=old;}
  profile.endless=getEndlessProfile(profile);profile.endless.bestScores.v7={score:777,chain:1,orders:10};
- const unimported=surface();render(unimported.ctx,outbound(),view({screen:'colorTiers',profile}));assert.equal(unimported.labels.filter(label=>label.text==='普通 · 30批 · 最高分 0').length,4);assert.doesNotMatch(unimported.words(),/222|333|444|555|9,999|6,66[6-9]/);
+ const unimported=surface();render(unimported.ctx,outbound(),view({screen:'colorTiers',profile}));assert.equal(unimported.labels.filter(label=>label.text==='最高分 暂无').length,4);assert.doesNotMatch(unimported.words(),/222|333|444|555|9,999|6,66[6-9]/);
  const account=makeAccountFixture();account.profile.legacyResults=profile;
  for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){
   const score=120+index*110;account.profile.results[`outbound.v12.${id}.plain`]={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};
  }
- const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`普通 · 30批 · 最高分 ${score}`&&label.y===537+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
+ const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`最高分 ${score}`&&label.y===outboundOut.labels.find(label=>label.text==='最高分 120')!.y+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
  assert.deepEqual(account.profile.legacyResults,profile);
  const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/无限最高分.*777/);assert.match(inboundOut.words(),/五班最高分.*101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
 });

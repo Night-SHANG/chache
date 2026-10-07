@@ -49,12 +49,12 @@ function capture(state:GameRun,value:ViewState,index:number,name:string){
 }
 
 for(let index=0;index<sizes.length;index++){
- test(`daily gray label and score multiplier decision aid fit viewport ${sizes[index].w}`,()=>{
+ test(`daily gray label and selected outbound mode fit viewport ${sizes[index].w}`,()=>{
   const state=current(),labels=capture(state,view({screen:'inboundMenu',dailyLocked:true}),index,'daily-locked');
   const gray=labels.find(l=>l.value==='今日已完成');assert.ok(gray);assert.equal(gray.color,'#a2b1be');
   const choices=capture(state,view({screen:'colorTiers'}),index,'difficulty');
-  const multiplier=choices.find(l=>l.value==='简单 ×1 · 中等 ×1.25 · 困难 ×1.5 · 专业 ×2');assert.ok(multiplier);
-  for(const label of [gray,multiplier]){assert.ok(label.left>=0&&label.right<=sizes[index].w);assert.ok(label.top>=0&&label.bottom<=sizes[index].h);}
+  assert.equal(choices.some(l=>/×1|×1.25|×1.5|×2/.test(l.value)),false);const mode=choices.find(l=>l.value==='普通');assert.ok(mode);assert.ok(choices.some(l=>l.value==='无限'));
+  for(const label of [gray,mode]){assert.ok(label.left>=0&&label.right<=sizes[index].w);assert.ok(label.top>=0&&label.bottom<=sizes[index].h);}
   assert.equal(choices.some(l=>/概率|种子|%/.test(l.value)),false);
  });
  test(`multi-cell rush countdowns and candidate timer stay readable at viewport ${sizes[index].w}`,()=>{
@@ -102,8 +102,8 @@ for(let index=0;index<sizes.length;index++)test(`resolved scores and actual dail
 
 test('new selector record buckets keep both tool policy and rules version separate',()=>{
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
- account.profile.results={'outbound.v12.normal.plain':bucket(625),'outbound.v12.normal.tools':bucket(875),'outbound.v8.normal.plain':bucket(999999),'inbound.standard.v14.plain':bucket(1200),'inbound.standard.v14.tools':bucket(2400),'inbound.standard.v11.plain':bucket(999999)};
- const out=capture(current(),view({screen:'colorTiers',account}),1,'records-outbound');assert.ok(out.some(l=>l.value==='普通 · 30批 · 最高分 625'));assert.ok(out.some(l=>l.value==='工具最高 875'));assert.equal(out.some(l=>/999,999/.test(l.value)),false);
+ account.profile.results={'outbound.v12.normal.plain':bucket(625),'outbound.v12.normal.tools':bucket(875),'outbound.v8.normal.plain':bucket(999999),'inbound.standard.v15.plain':bucket(1200),'inbound.standard.v15.tools':bucket(2400),'inbound.standard.v14.plain':bucket(999999),'inbound.standard.v14.tools':bucket(999999),'inbound.standard.v11.plain':bucket(999999)};
+ const out=capture(current(),view({screen:'colorTiers',account}),1,'records-outbound');assert.ok(out.some(l=>l.value==='最高分 625'));assert.ok(out.some(l=>l.value==='使用道具最高分 875'));assert.equal(out.some(l=>/999,999/.test(l.value)),false);
  const inbound=capture(current(),view({screen:'inboundMenu',account}),1,'records-inbound');assert.ok(inbound.some(l=>l.value==='五班最高分 1,200 · 无限最高分 0'));assert.ok(inbound.some(l=>l.value==='带工具五班 2,400 · 无限 0'));assert.equal(inbound.some(l=>/999,999/.test(l.value)),false);
 });
 

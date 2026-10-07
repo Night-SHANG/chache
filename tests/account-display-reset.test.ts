@@ -39,7 +39,7 @@ test('resetting a real standard thirty-order checkpoint clears active orders win
   assert.equal(reset.run?.earnedCoins, account.run?.earnedCoins);
 });
 
-test('cosmetic qualification uses the same reset projection while preserving the currently selected forklift', () => {
+test('permanent earned forklift rights survive reset while achievement projection is cleared', () => {
   const storage = new FaultStorage(), account = checkpoint(), raw = encodeAccount(account);
   storage.values.set(ACCOUNT_KEYS.a, raw); storage.values.set(ACCOUNT_KEYS.b, raw);
   const service = createAccountService(storage, { status: 'held', release() {} }, () => 0);
@@ -50,9 +50,12 @@ test('cosmetic qualification uses the same reset projection while preserving the
   assert.equal(reset.account?.profile.cosmetics.forklift, 'red');
   assert.equal(accountDisplayProfile(reset.account!).cosmetics.forklift, 'red');
   assert.equal(select('yellow', 'yellow').status, 'acknowledged');
-  assert.equal(select('red.after', 'red').status, 'not_committed');
-  assert.equal(select('blue.after', 'blue').status, 'not_committed');
-  assert.equal(service.getSnapshot()?.profile.cosmetics.forklift, 'yellow');
+  assert.deepEqual(accountDisplayProfile(reset.account!).achievements, []);
+  assert.ok(reset.account?.profile.ownedCosmetics?.includes('forklift.red'));
+  assert.ok(reset.account?.profile.ownedCosmetics?.includes('forklift.blue'));
+  assert.equal(select('red.after', 'red').status, 'acknowledged');
+  assert.equal(select('blue.after', 'blue').status, 'acknowledged');
+  assert.equal(service.getSnapshot()?.profile.cosmetics.forklift, 'blue');
 });
 
 test('continuing overtime after reset does not turn the previous completion or chain into new achievements', () => {

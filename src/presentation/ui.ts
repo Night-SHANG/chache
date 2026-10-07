@@ -1,8 +1,6 @@
 import type { ColorTier, OutboundDifficulty } from '../domain/types.ts';
 import { difficultyForSlot, tierForSlot, type RunSlot } from '../application/run-slots.ts';
 import { OUTBOUND_DIFFICULTIES,OUTBOUND_CARGO } from '../domain/v6/content.ts';
-import { CARGO_STYLES, FORKLIFTS, THEMES } from '../application/profile.ts';
-import type { CosmeticMetadata } from '../application/profile.ts';
 import type { GameRun } from '../domain/playable.ts';
 import {isGuideComplete} from '../application/tutorials.ts';
 import {isInboundV9,isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
@@ -17,7 +15,7 @@ import type { UiAction } from './ui-types.ts';
 
 export interface UiControl { rect: Rect; action: UiAction; label: string; disabled?: boolean; selected?: boolean }
 const wide = (y: number, h = 114): Rect => ({ x: 210, y, w: 660, h });
-const settingsRow = (y: number): Rect => ({ x: 132, y, w: 816, h: 106 });
+const settingsRow = (y: number): Rect => ({ x: 132, y, w: 816, h: 144 });
 export const COLOR_TIER_NAMES: Readonly<Record<ColorTier,string>> = { entry: '入门', middle: '中段', late: '后段' };
 export const colorTierLabel = (tier: ColorTier): string => COLOR_TIER_NAMES[tier];
 export const OUTBOUND_DIFFICULTY_NAMES: Readonly<Record<OutboundDifficulty,string>> = { easy:'简单', normal:'中等', hard:'困难', expert:'专业' };
@@ -39,9 +37,9 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   if(view.accountBlocked)return [control(wide(1250),view.readOnlyReason?'重试':'保存结果尚未确认，请重试',{type:'retrySave'})];
   if (view.confirmation) {
     const kind=view.confirmation.kind;
-    const label = kind==='purchase'?'确认购买':kind==='resetProfile'?'确认重置':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算':kind==='switchMode'?'保留并切换':kind==='leaveRun'?'结束本局':'开始新局';
-    const cancel=kind==='resetProfile'||kind==='switchMode'||kind==='purchase'?'取消':'继续游戏';
-    const height=kind==='purchase'?132:118;
+    const label = kind==='purchase'||kind==='purchaseCosmetic'?'确认购买':kind==='resetProfile'?'确认重置':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算':kind==='switchMode'?'保留并切换':kind==='leaveRun'?'结束本局':'开始新局';
+    const cancel=kind==='resetProfile'||kind==='switchMode'||kind==='purchase'||kind==='purchaseCosmetic'?'取消':'继续游戏';
+    const height=kind==='purchase'||kind==='purchaseCosmetic'?132:118;
     return [control({ x:186,y:1160,w:330,h:height },cancel,{type:'cancel'}),control({ x:564,y:1160,w:330,h:height },label,{type:'confirm'})];
   }
   // The interrupted-save recovery flow owns L.resume/L.restart, above every menu.
@@ -56,7 +54,7 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(752,176),'入库模式\n按订单配货',{type:'chooseInbound'}),
     control(wide(990,176),'出库模式\n同色连出口',{type:'chooseColorTier'}),
     control({x:210,y:1265,w:318,h:114},'商店',{type:'shop'}),
-    control({x:552,y:1265,w:318,h:114},'设置与外观',{type:'settings'}),
+    control({x:552,y:1265,w:318,h:114},'设置',{type:'settings'}),
   ];
   if (view.screen === 'inboundMenu') return [
     control(wide(695,114),'开始五班',{type:'newRun',mode:'standard'}),
@@ -65,9 +63,10 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(1565),'返回主页',{type:'home'}),
   ];
   if (view.screen === 'colorTiers') {
-    const controls:UiControl[]=[];
-    OUTBOUND_DIFFICULTIES.forEach((difficulty,index)=>{for(const outboundMode of ['normal','endless'] as const)controls.push(control({x:170+(outboundMode==='endless'?382:0),y:570+index*244,w:358,h:132},outboundMode==='normal'?`开始${OUTBOUND_DIFFICULTY_NAMES[difficulty]}`:`无限${OUTBOUND_DIFFICULTY_NAMES[difficulty]}`,{type:'newRun',mode:'color_exit',difficultyId:difficulty,outboundMode}));});
-    controls.push(control(wide(1620),'返回主页',{type:'home'}));
+    const outboundMode=view.outboundSelectionMode??'normal';
+    const controls:UiControl[]=(['normal','endless'] as const).map((mode,index)=>({...control({x:150+index*400,y:304,w:380,h:144},mode==='normal'?'普通':'无限',{type:'selectOutboundMode',mode}),selected:mode===outboundMode}));
+    OUTBOUND_DIFFICULTIES.forEach((difficultyId,index)=>controls.push(control({x:730,y:576+index*244,w:180,h:144},'开始',{type:'newRun',mode:'color_exit',difficultyId,outboundMode})));
+    controls.push(control(wide(1584,132),'返回主页',{type:'home'}));
     return controls;
   }
   if(view.screen==='legacyRuns')return [
@@ -75,35 +74,26 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(1540),'返回出库选择',{type:'chooseColorTier'}),
   ];
   if (view.screen === 'settings') {
-    const options = (catalogue: readonly CosmeticMetadata[], kind: 'theme' | 'forklift' | 'cargo', y: number): UiControl[] => {
-      const gap = 18, w = (816 - gap * (catalogue.length - 1)) / catalogue.length;
-      return catalogue.map((item, index) => {
-        const disabled = !!item.achievementId && !view.profile?.achievements.includes(item.achievementId);
-        const unlock = item.achievementId === 'first_shipment' ? '首次出货解锁' : '五班全勤解锁';
-        return { rect: { x: 132 + index * (w + gap), y, w, h: 112 }, action: { type: 'cosmetic', kind, id: item.id }, label: disabled ? `${item.name}\n${unlock}` : item.name, disabled, selected: view.profile?.cosmetics[kind] === item.id };
-      });
-    };
     return [
       { ...control(settingsRow(355), `声音：${view.profile?.settings.sound !== false ? '开' : '关'}`, { type: 'toggleSound' }), selected: view.profile?.settings.sound !== false },
-      { ...control(settingsRow(493), `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
-      ...options(THEMES, 'theme', 725), ...options(FORKLIFTS, 'forklift', 978), ...options(CARGO_STYLES, 'cargo', 1226),
-      ...(view.profileNeedsRecovery ? [control(settingsRow(1504), '恢复游戏记录', { type: 'recoverProfile' })] : []),
-      control(settingsRow(1636), '重置游戏记录', { type: 'resetProfile' }),
-      control(settingsRow(1768), '返回', { type: 'back' }),
+      { ...control(settingsRow(535), `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
+      ...(view.profileNeedsRecovery ? [control(settingsRow(1356), '恢复游戏记录', { type: 'recoverProfile' })] : []),
+      control(settingsRow(1518), '重置游戏记录', { type: 'resetProfile' }),
+      control(settingsRow(1680), '返回', { type: 'back' }),
     ];
   }
   if (view.paused && state.phase!=='result') return [
     control({...L.resume,h:104},'继续游戏',{type:'continue'}),
     {...control({...L.restart,y:1220,h:104},state.mode==='daily'&&view.dailyLocked?'今日已完成':'重新开始',restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},
     control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
-    control({...L.restart,y:1480,h:104},'设置与外观',{type:'settings'}),
+    control({...L.restart,y:1480,h:104},'设置',{type:'settings'}),
     control({...L.restart,y:1610,h:104},'玩法说明',{type:'help'}),
     ...((state.mode==='endless'||[10,13].includes(state.rulesetVersion))&&state.phase==='input'?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishEndless'})]:[]),
     ...(state.overtime?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishOvertime'})]:[]),
   ];
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
   if (state.phase === 'result' && !view.animation) {
-    const overtime = [3,9,11,14].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
+    const overtime = [3,9,11,14,15].includes(state.rulesetVersion) && state.mode === 'standard' && state.result === 'won' && state.shift === 5 && !state.overtime;
     return [
       ...(overtime ? [control({ ...L.resume }, '继续加班', { type: 'continueOvertime' }),control({...L.restart,y:1510},'完成收工',{type:'declineOvertime'})] : []),
       {...control({ ...L.restart }, state.mode === 'tutorial' ? '开始正式值班' : state.mode === 'daily' ? view.dailyLocked?'今日已完成':state.result==='won'?'挑战今日':'再试一次' : state.mode==='color_exit'&&![8,12].includes(state.rulesetVersion)?'选择难度':'再来一局', restartAction(state)),disabled:state.mode==='daily'&&!!view.dailyLocked},

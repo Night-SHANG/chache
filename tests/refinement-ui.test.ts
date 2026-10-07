@@ -74,11 +74,11 @@ test('toolbox header remains visible during tool targeting with the real remaini
  const out=surface(s,view({toolSelection:{item:'rotate',pieceId:null,cells:[],quarterTurns:0}}));assert.ok(out.labels.includes('工具箱'));
 });
 
-test('new inbound selector reads v14 record buckets while keeping old records untouched',()=>{
+test('new inbound selector reads standard v15 and endless v14 buckets while keeping old records untouched',()=>{
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
- account.profile.results={'inbound.standard.v11.plain':bucket(222),'inbound.endless.v11.plain':bucket(333),'inbound.standard.v11.tools':bucket(444),'inbound.endless.v11.tools':bucket(555),'inbound.standard.v9.plain':bucket(999)};
- Object.assign(account.profile.results,{'inbound.standard.v14.plain':bucket(122),'inbound.endless.v14.plain':bucket(133),'inbound.standard.v14.tools':bucket(144),'inbound.endless.v14.tools':bucket(155)});
- const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/五班最高分 122 · 无限最高分 133/);assert.match(out.words,/带工具五班 144 · 无限 155/);assert.doesNotMatch(out.words,/222|333|444|555|999/);assert.equal(JSON.stringify(account),before);
+ account.profile.results={'inbound.standard.v11.plain':bucket(222),'inbound.endless.v11.plain':bucket(333),'inbound.standard.v11.tools':bucket(444),'inbound.endless.v11.tools':bucket(555),'inbound.standard.v9.plain':bucket(999),'inbound.standard.v14.plain':bucket(888),'inbound.standard.v14.tools':bucket(777)};
+ Object.assign(account.profile.results,{'inbound.standard.v15.plain':bucket(122),'inbound.endless.v14.plain':bucket(133),'inbound.standard.v15.tools':bucket(144),'inbound.endless.v14.tools':bucket(155)});
+ const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/五班最高分 122 · 无限最高分 133/);assert.match(out.words,/带工具五班 144 · 无限 155/);assert.doesNotMatch(out.words,/222|333|444|555|777|888|999/);assert.equal(JSON.stringify(account),before);
 });
 
 import {INBOUND_GUIDE_V11} from '../src/application/inbound-guide-v11.ts';

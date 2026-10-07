@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRun, applyCommand } from '../src/domain/engine.ts';
-import { createProfile, FORKLIFTS } from '../src/application/profile.ts';
+import { createProfile } from '../src/application/profile.ts';
 import { L, hitTestPoint, getTrayRects, type Rect } from '../src/presentation/layout.ts';
 import { getUiControls } from '../src/presentation/ui.ts';
 import { render } from '../src/presentation/renderer.ts';
@@ -69,16 +69,17 @@ test('menu and settings controls take precedence over paused and terminal runs',
   const output=surface();render(output.ctx,result(),view({paused:true}));assert.match(output.words(),/完美收工/);assert.doesNotMatch(output.words(),/已暂停|玩法说明/);
 });
 
-test('settings use Profile metadata, show real toggles, and disable only locked forklift skins', () => {
+test('settings show real Profile toggles and record recovery while appearance lives in the shop', () => {
   const profile = createProfile(); profile.settings.sound = false; profile.settings.reducedMotion = true;
   let controls = getUiControls(run(), view({ screen: 'settings', profile }));
   assert.equal(controls.find(c => c.action.type === 'toggleSound')?.selected, false);
   assert.equal(controls.find(c => c.action.type === 'toggleMotion')?.selected, true);
-  assert.equal(controls.filter(c => c.action.type === 'cosmetic').length, 7);
-  for (const skin of FORKLIFTS) assert.equal(controls.find(c => c.action.type === 'cosmetic' && c.action.kind === 'forklift' && c.action.id === skin.id)?.disabled, !!skin.achievementId);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'resetProfile', 'back']);
+  const output = surface(); render(output.ctx, run(), view({ screen: 'settings', profile }));
+  assert.doesNotMatch(output.words(), /仓库主题|叉车涂装|货箱样式/);
   profile.achievements = ['first_shipment', 'five_shifts'];
   controls = getUiControls(run(), view({ screen: 'settings', profile, profileStatus: '主记录不可用，可恢复上一份长期记录备份', profileNeedsRecovery: true }));
-  assert.equal(controls.filter(c => c.action.type === 'cosmetic' && c.disabled).length, 0);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
   assert.ok(controls.some(c => c.action.type === 'recoverProfile'));
   assert.ok(controls.some(c => c.action.type === 'resetProfile'));
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);

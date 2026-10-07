@@ -1,3 +1,4 @@
+import type {CosmeticKind} from '../application/cosmetics.ts';
 import type {OutboundTransportPlan} from './outbound-transport.ts';
 import type {PlacementRisk} from './placement-risk.ts';
 import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point, CargoId } from '../domain/types.ts';
@@ -12,6 +13,11 @@ import type {ToolCommand} from './tool-preview.ts';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
+  shopTab?:'tools'|'cosmetics';
+  cosmeticCategory?:CosmeticKind;
+  cosmeticPreview?:Partial<Record<CosmeticKind,string>>;
+  cargoOutline?:boolean;
+  outboundSelectionMode?:'normal'|'endless';
   account?:Readonly<AccountSnapshot>|null;
   accountStatus?:string;
   accountBlocked?:boolean;
@@ -52,5 +58,5 @@ export interface ViewState {
   dailyLabel?: string;
   dailyLocked?: boolean;
   canContinue?: boolean;
-  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase';item?:ItemId;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
+  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }

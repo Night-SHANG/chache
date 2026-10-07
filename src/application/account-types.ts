@@ -7,7 +7,7 @@ export type ItemId = 'rotate' | 'clear' | 'wildcard';
 export type EconomyScope = 'inbound' | 'outbound';
 export type Inventory = Record<ItemId, number>;
 export interface RunIdentity {
- runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14; runConfigId:string;
+ runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14|15; runConfigId:string;
  mode:'standard'|'daily'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
  difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1|2;
 }
@@ -39,6 +39,8 @@ export interface ResultBucket {
 }
 export interface AccountProfile {
  settings:Profile['settings']; cosmetics:Profile['cosmetics'];
+ /** Required in account format 3; absent only in legacy formats. */
+ ownedCosmetics?:string[]; cargoOutline?:boolean;
  legacyResults:Omit<Profile,'schemaVersion'|'settings'|'cosmetics'|'tutorialComplete'|'nextRunSerial'>;
  results:Record<string,ResultBucket>;
 }
@@ -50,7 +52,7 @@ export interface ClosedResult {
 export interface OperationRequest { operationId:string; expectedGeneration:number }
 export interface OperationReceipt extends OperationRequest { requestDigest:string; committedGeneration:number }
 export interface AccountSnapshot {
- formatVersion:1|2; economyVersion:1|2; epoch:string; generation:number;
+ formatVersion:1|2|3; economyVersion:1|2; epoch:string; generation:number;
  nextRunSerial:number; closedThroughSerial:number; wallet:number; inventory:Inventory;
  run:AccountRun|null; lastClosedResult:ClosedResult|null; profile:AccountProfile;
  guides:Record<GuideTrack,GuideProgress>; dailyPaid:Record<string,{bestBase:number;paid:number}>;
