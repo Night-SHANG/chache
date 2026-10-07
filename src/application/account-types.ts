@@ -7,7 +7,7 @@ export type ItemId = 'rotate' | 'clear' | 'wildcard';
 export type EconomyScope = 'inbound' | 'outbound';
 export type Inventory = Record<ItemId, number>;
 export interface RunIdentity {
- runId:string; serial:number; rulesetVersion:8|9|10|11; runConfigId:string;
+ runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14; runConfigId:string;
  mode:'standard'|'daily'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
  difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1;
 }

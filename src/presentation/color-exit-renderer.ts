@@ -2,7 +2,7 @@ import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transpo
 import {outboundVehicleDisplay} from './outbound-transport-view.ts';
 import { CARGO, COLOR_EXIT_TARGETS } from '../domain/content.ts';
 import {playableOrderStatus} from './order-feedback.ts';
-import {isInboundRun,isOutboundEndlessV10} from '../domain/playable.ts';
+import {isInboundRun,isOutboundEndlessV10,isOutboundToolsRun} from '../domain/playable.ts';
 import type {GameRun} from '../domain/playable.ts';
 import { pieceCellCargo } from '../domain/pieces.ts';
 import type { Order, Point, Shipment } from '../domain/types.ts';
@@ -193,7 +193,7 @@ function drawMixedHelpDiagram(ctx: Context, rect: Rect, source?: GeometrySource)
 
 /** A prospective count is explanatory only; the Domain preview alone authorizes a shipping label. */
 export function colorExitFeedback(state: GameRun, order: Order, view: ViewState): OrderFeedback {
-  let visible:GameRun = view.animation ? isInboundRun(state)?{...state,board:view.animation.board,cellTraits:view.animation.cellTraits??Array(state.board.length).fill(null)}:isOutboundEndlessV10(state)?{...state,board:view.animation.board}:{...state,board:view.animation.board,cellTraits:view.animation.cellTraits} : state;
+  let visible:GameRun = view.animation ? isInboundRun(state)?{...state,board:view.animation.board,cellTraits:view.animation.cellTraits??Array(state.board.length).fill(null)}:(isOutboundEndlessV10(state)||isOutboundToolsRun(state))?{...state,board:view.animation.board}:{...state,board:view.animation.board,cellTraits:view.animation.cellTraits} : state;
   const selected = state.candidates.find(piece => piece.id === view.selectedPieceId);
   if (!view.animation && view.preview?.valid && selected) {
     const board = [...state.board]; view.preview.cells.forEach((cell, index) => { board[cell] = pieceCellCargo(selected, index); });
@@ -215,7 +215,7 @@ export function colorExitFeedback(state: GameRun, order: Order, view: ViewState)
 
 export function colorExitBoardHint(state: GameRun, view: ViewState): string {
   if (view.animation) return `${cargoName(view.animation.shipment.cargo)}出货中`;
-  if (view.preview && !view.preview.valid) return '这里放不下，换个位置';
+  if (view.preview && !view.preview.valid) return view.preview.reason==='入口需留空'?'入口需留空':'这里放不下，换个位置';
   const mixed = mixedPiecePreview(state, view);
   if (mixed) {
     const shipment = view.preview!.shipments.length

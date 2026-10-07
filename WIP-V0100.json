@@ -1,0 +1,9 @@
+{
+  "status": "WIP_NOT_RELEASED",
+  "baseline": "c1560138d6166b541611921a9b4715fb3406dcae",
+  "scope": "Reserved entries and outbound tools; rules12/13/14. Probability/coin new proposals are research only, not implemented.",
+  "completed": "Inbound14 focused30 and independent domain check passed.",
+  "remaining": "Outbound, account/UI integration, full checks, native-host QA and reviews incomplete after interruption.",
+  "stablePlayable": "v0.9.0",
+  "delivery": "One combined final package after all gates"
+}

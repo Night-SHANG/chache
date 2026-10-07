@@ -1,4 +1,4 @@
-import {isInboundRun} from '../domain/playable.ts';
+import {isInboundRun,isToolRun,isOutboundToolsRun} from '../domain/playable.ts';
 import {toolboxVisible} from './economy-ui.ts';
 import type {PlacementRisk} from './placement-risk.ts';
 import {DEBUG_PREVIOUS,DEBUG_NEXT} from './debug-layout.ts';
@@ -36,9 +36,9 @@ export class InputController {
   if(s.phase==='result'){this.captureButton(point,L.restart,()=>this.port.restart());return;}
   if(this.captureButton(point,L.pause,()=>this.port.togglePause())||v.developerMode&&!v.toolSelection&&s.phase!=='rescue'&&this.captureButton(point,L.debug,()=>this.port.toggleDebug()))return;
   if(v.toolSelection){const c=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(c){this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}const origin=pointToCell(point,s);if(v.toolSelection.item==='clear'&&origin){const cell=origin.y*Math.sqrt(s.board.length)+origin.x;this.button={rect:{x:point.x-20,y:point.y-20,w:40,h:40},act:()=>this.port.action?.({type:'toolCell',cell})};}else{const i=getTrayRects(s.candidates.length,true).findIndex(r=>hitTestPoint(point,r));if(i>=0)this.button={rect:getTrayRects(s.candidates.length,true)[i],act:()=>this.port.action?.({type:'toolPiece',pieceId:s.candidates[i].id})};}return;}
-  if(isInboundRun(s)&&['upgrade','cleanup','rescue'].includes(s.phase)){const c=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(c)this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}
+  if(isInboundRun(s)&&['upgrade','cleanup'].includes(s.phase)||isToolRun(s)&&s.phase==='rescue'){const c=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(c)this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}
   if(s.phase==='upgrade'){
-   if(s.rulesetVersion===10)return;
+   if(s.rulesetVersion===10||isOutboundToolsRun(s))return;
    const index=L.upgradeRects.findIndex(rect=>hitTestPoint(point,rect));
    if(index>=0&&s.upgradeChoices[index])this.button={rect:L.upgradeRects[index],act:()=>this.port.dispatch({type:'upgrade',upgradeId:s.upgradeChoices[index]})};return;
   }
