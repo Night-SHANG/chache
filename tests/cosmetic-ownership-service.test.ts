@@ -21,7 +21,7 @@ test('buying wood commits exactly 300 coins and permanent ownership without equi
   const result = transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' });
   assert.equal(result.status, 'acknowledged');
   assert.equal(result.account?.wallet, 1500);
-  assert.equal(result.account?.formatVersion, 3);
+  assert.equal(result.account?.formatVersion, 4);
   assert.equal(result.account?.economyVersion, 2);
   assert.ok(owned(result.account)?.includes('cargo.wood'));
   assert.equal(result.account?.profile.cosmetics.cargo, 'classic');

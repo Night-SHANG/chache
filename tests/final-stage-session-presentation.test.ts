@@ -10,11 +10,11 @@ import {render} from '../src/presentation/renderer.ts';
 import type {ViewState} from '../src/presentation/view-types.ts';
 
 const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,screen:'game',...patch});
-for(const mode of ['standard','daily','endless'] as const)test(`new ${mode} UI starts its exact approved rule and cleanup remains untimed`,()=>{
+for(const mode of ['standard','daily','endless'] as const)test(`new ${mode} UI starts rules16 and only daily cleanup remains untimed`,()=>{
  const h=sessionHost(),s=h.session;s.action({type:'newRun',mode});if(s.view.screen==='guideOffer')s.action({type:'directStart'});if(s.view.screen==='prepareTools')s.action({type:'prepareNext'});
- assert.equal(s.state.rulesetVersion,mode==='endless'?14:15);assert.equal(s.view.screen,'game');assert.equal(s.state.phase,'cleanup');assert.equal(s.state.commandIndex,0);
- h.time(60000);s.tick(60000);assert.equal(s.view.elapsed,0);assert.deepEqual(s.state.candidates,[]);s.action({type:'chooseCleanup',branch:'orders'});assert.equal(s.state.phase,'input');assert.equal(s.state.candidates.length,3);
- h.time(60200);s.tick(60200);assert.equal(s.view.elapsed,200);
+ assert.equal(s.state.rulesetVersion,16);assert.equal(s.view.screen,'game');assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');assert.equal(s.state.commandIndex,0);
+ h.time(200);s.tick(200);assert.equal(s.view.elapsed,mode==='daily'?0:200);if(mode==='daily'){assert.deepEqual(s.state.candidates,[]);s.action({type:'chooseCleanup',branch:'orders'});}assert.equal(s.state.phase,'input');assert.equal(s.state.candidates.length,3);
+ h.time(400);s.tick(400);assert.equal(s.view.elapsed,mode==='daily'?200:400);
 });
 test('rules15 presentation uses its own geometry and tool reducer without a rules9 or outbound fallback',()=>{
  const s=applyCommandV15(createRunV15({seed:1,mode:'standard',toolCharges:{rotate:0,clear:1,wildcard:0}}),{type:'chooseCleanup',branch:'orders'}).state;

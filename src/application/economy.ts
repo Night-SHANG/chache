@@ -30,7 +30,7 @@ export function upgradeEconomy(account:AccountSnapshot):AccountSnapshot {
  for(const run of [account.run,account.lastClosedResult])if(run?.identity.mode==='daily'&&run.identity.challengeDay
   &&('state' in run?run.state.result==='won':run.result==='won'))days.add(run.identity.challengeDay);
  const dailyRewards={...account.dailyRewards,...Object.fromEntries([...days].map(day=>[day,dailyRewardRecord(account,day)]))};
- return {...account,formatVersion:2,economyVersion:2,dailyRewards};
+ return {...account,formatVersion:account.formatVersion>=3?account.formatVersion:2,economyVersion:2,dailyRewards};
 }
 export function dailyAward(base:number,previous:{bestBase:number;paid:number}):{extra:number;next:{bestBase:number;paid:number}} {
  if(!safe(base)||!safe(previous.bestBase)||!safe(previous.paid)||previous.paid>120||previous.paid!==Math.min(120,previous.bestBase>=60?120:previous.bestBase*2))throw Error('每日收益记录无效');

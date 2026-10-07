@@ -2,6 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRun, applyCommand } from '../src/domain/engine.ts';
 import { createProfile } from '../src/application/profile.ts';
+import { upgradeAccountGuides } from '../src/application/account-guides.ts';
+import { retainAccountCosmetics } from '../src/application/cosmetics.ts';
+import { upgradeEconomy } from '../src/application/economy.ts';
+import { assertAccountSnapshot } from '../src/application/account-profile.ts';
+import { makeAccountFixture } from './helpers/account-fixtures.ts';
 import { L, hitTestPoint, getTrayRects, type Rect } from '../src/presentation/layout.ts';
 import { getUiControls } from '../src/presentation/ui.ts';
 import { render } from '../src/presentation/renderer.ts';
@@ -74,12 +79,12 @@ test('settings show real Profile toggles and record recovery while appearance li
   let controls = getUiControls(run(), view({ screen: 'settings', profile }));
   assert.equal(controls.find(c => c.action.type === 'toggleSound')?.selected, false);
   assert.equal(controls.find(c => c.action.type === 'toggleMotion')?.selected, true);
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'toggleTutorials', 'openPracticeSelect', 'resetProfile', 'back']);
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', profile }));
   assert.doesNotMatch(output.words(), /仓库主题|叉车涂装|货箱样式/);
   profile.achievements = ['first_shipment', 'five_shifts'];
   controls = getUiControls(run(), view({ screen: 'settings', profile, profileStatus: '主记录不可用，可恢复上一份长期记录备份', profileNeedsRecovery: true }));
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'toggleTutorials', 'openPracticeSelect', 'recoverProfile', 'resetProfile', 'back']);
   assert.ok(controls.some(c => c.action.type === 'recoverProfile'));
   assert.ok(controls.some(c => c.action.type === 'resetProfile'));
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);
@@ -112,10 +117,14 @@ test('controls are pure geometry and their visible captions share hit-test cente
 
 test('home shows achievements and real save status while inbound submenu owns scores and daily date', () => {
   const profile = createProfile(); profile.bestScores['standard.v3'] = { score: 7654, chain: 3 }; profile.bestScores['overtime.v3'] = { score: 19876, chain: 5 }; profile.achievements = ['first_shipment'];
-  const current=view({screen:'menu',profile,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
-  render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu'});
+  const account=upgradeAccountGuides(retainAccountCosmetics(upgradeEconomy(makeAccountFixture()))),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
+  account.profile.results={'inbound.standard.v16.normal.plain':bucket(1234),'inbound.standard.v16.normal.tools':bucket(2456),'inbound.endless.v16.plain':bucket(3456),'inbound.endless.v16.tools':bucket(4567)};
+  assertAccountSnapshot(account);
+  const current=view({screen:'menu',profile,account,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
+  render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu',inboundDifficulty:'normal'});
   assert.match(home.words(), /首次出货/);assert.doesNotMatch(home.words(), /无在线排行|本地记录模式/);
-  assert.match(inbound.words(), /7,654/);assert.match(inbound.words(), /加班最高分.*19,876/);assert.match(inbound.words(), /2031-04-07/);
+  assert.match(inbound.words(), /普通五班 · 最高分 1,234/);assert.match(inbound.words(), /带工具 2,456/);assert.match(inbound.words(), /最高分 3,456 · 工具 4,567/);assert.doesNotMatch(inbound.words(), /7,654|19,876|加班最高分/);assert.match(inbound.words(), /2031-04-07/);
+  const legacyOnly=surface();render(legacyOnly.ctx,run(),{...current,account:null,screen:'inboundMenu',inboundDifficulty:'normal'});assert.match(legacyOnly.words(),/普通五班 · 最高分 暂无/);assert.doesNotMatch(legacyOnly.words(),/7,654|19,876/);
   assert.match(inbound.words(), /每日挑战/);assert.doesNotMatch(inbound.words(), /北京时间|本地每日/);
   for(const output of [home,inbound]){assert.match(output.words(), /保存失败，尚未持久化/);assert.doesNotMatch(output.words(), /云同步/);}
 });

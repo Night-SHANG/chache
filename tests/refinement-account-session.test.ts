@@ -1,3 +1,4 @@
+import {createAccountService} from '../src/application/account-service.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GameSession } from '../src/application/session.ts';
@@ -9,17 +10,16 @@ import { makeAccountRun } from './helpers/account-fixtures.ts';
 import { baseCoins } from '../src/application/economy.ts';
 
 function pending(h: ReturnType<typeof sessionHost>, mode: 'standard'|'endless'|'daily' = 'endless') {
-  const s = h.session;
-  s.action({ type: 'newRun', mode });
-  if (s.view.screen === 'guideOffer') s.action({ type: 'directStart' });
-  if (s.view.screen === 'prepareTools') { s.action({ type: 'toggleItem', item: 'rotate' }); s.action({ type: 'prepareNext' }); }
-  assert.equal(s.view.screen, 'game');
-  assert.equal(s.state.rulesetVersion, mode === 'endless' ? 14 : 15);
-  assert.equal(s.state.phase, 'cleanup');
+  const service=createAccountService(h.storage,h.platform.writerLease!,()=>h.platform.wallTime!());
+  const version=mode==='endless'?14:15;
+  const result=service.transact({operationId:'fixture.frozen.start',type:'start',intent:{spec:{family:'inbound',mode,rulesetVersion:version,seed:0,guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}},items:mode!=='daily'&&service.getSnapshot()!.inventory.rotate?['rotate']:[],guide:'direct'}},service.getSnapshot()!.generation);
+  assert.equal(result.status,'acknowledged');
+  const s=new GameSession(h.platform,{seed:71,mode:'standard'});s.resume();h.session=s;
+  assert.equal(s.view.screen,'game');assert.equal(s.state.rulesetVersion,version);assert.equal(s.state.phase,'cleanup');
   return s;
 }
 
-test('new standard daily and endless sessions show the actual saved pending board and freeze its initial clock', () => {
+test('saved15 standard/daily and14 endless sessions show the actual saved pending board and freeze its initial clock', () => {
   for (const mode of ['standard', 'daily', 'endless'] as const) {
     const h = sessionHost(), s = pending(h, mode);
     h.time(60000); s.tick(60000);

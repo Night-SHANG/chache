@@ -15,6 +15,10 @@ import type {InboundRunV14, InboundCommandV14, InboundEventV14, ShipmentV14} fro
 import {applyCommandV14,createRunV14,findLegalMovesV14,previewPlacementV14} from './v14/engine.ts';
 import {reservedEntryCellsV14} from './v14/board.ts';
 import {checksumV14} from './v14/replay.ts';
+import type {InboundRunV16, InboundCommandV16, InboundEventV16, ShipmentV16} from './v16/types.ts';
+import {applyCommandV16,createRunV16,findLegalMovesV16,previewPlacementV16} from './v16/engine.ts';
+import {reservedEntryCellsV16} from './v16/board.ts';
+import {checksumV16} from './v16/replay.ts';
 import type {InboundRunV15, InboundCommandV15, InboundEventV15, ShipmentV15} from './v15/types.ts';
 import {applyCommandV15,createRunV15,findLegalMovesV15,previewPlacementV15} from './v15/engine.ts';
 import {reservedEntryCellsV15} from './v15/board.ts';
@@ -28,18 +32,18 @@ import {checksumV13} from './v13/replay.ts';
 import {OUTBOUND_ENTRY} from './v6/content.ts';
 import {validToolChargesV12} from './v12/content.ts';
 
-export type InboundRun = InboundRunV9 | InboundRunV11 | InboundRunV14 | InboundRunV15;
+export type InboundRun = InboundRunV9 | InboundRunV11 | InboundRunV14 | InboundRunV15 | InboundRunV16;
 export type OutboundToolsRun = OutboundToolRunV12 | OutboundToolRunV13;
 export type ToolRun = InboundRun | OutboundToolsRun;
 export type GameRun = RunState | InboundRun | OutboundEndlessRunV10 | OutboundToolsRun;
-export type GameCommand = Command | InboundCommandV9 | InboundCommandV11 | InboundCommandV14 | InboundCommandV15 | OutboundEndlessCommandV10 | OutboundToolCommandV12 | OutboundToolCommandV13;
-export type GameEvent = DomainEvent | InboundEventV9 | InboundEventV11 | InboundEventV14 | InboundEventV15 | OutboundEventV10 | OutboundToolEventV12 | OutboundToolEventV13;
-export type GameShipment = Shipment | ShipmentV9 | ShipmentV11 | ShipmentV14 | ShipmentV15 | OutboundShipmentV10 | Extract<OutboundToolEventV12 | OutboundToolEventV13,{type:'shipment'}>;
+export type GameCommand = Command | InboundCommandV9 | InboundCommandV11 | InboundCommandV14 | InboundCommandV15 | InboundCommandV16 | OutboundEndlessCommandV10 | OutboundToolCommandV12 | OutboundToolCommandV13;
+export type GameEvent = DomainEvent | InboundEventV9 | InboundEventV11 | InboundEventV14 | InboundEventV15 | InboundEventV16 | OutboundEventV10 | OutboundToolEventV12 | OutboundToolEventV13;
+export type GameShipment = Shipment | ShipmentV9 | ShipmentV11 | ShipmentV14 | ShipmentV15 | ShipmentV16 | OutboundShipmentV10 | Extract<OutboundToolEventV12 | OutboundToolEventV13,{type:'shipment'}>;
 export interface GameStepResult {state:GameRun;events:GameEvent[];error?:string}
 export interface PlayablePreview {
  valid:boolean;cells:number[];shipments:GameShipment[];events:GameEvent[];stateAfter?:GameRun;reason?:string;
 }
-export type InboundRunSpec = {family:'inbound';mode:'standard'|'daily'|'endless';rulesetVersion:9|11|14|15;seed:number;guided:boolean;toolCharges:ToolChargesV9};
+export type InboundRunSpec = {family:'inbound';mode:'standard'|'daily'|'endless';rulesetVersion:9|11|14|15|16;seed:number;guided:boolean;toolCharges:ToolChargesV9;inboundDifficulty?:import('./v16/types.ts').InboundDifficultyV16};
 export type OutboundRunSpec =
  | {family:'outbound';variant:'normal'|'endless';rulesetVersion:8|10;seed:number;difficultyId:OutboundDifficulty}
  | {family:'outbound';variant:'normal'|'endless';rulesetVersion:12|13;seed:number;difficultyId:OutboundDifficulty;toolCharges:ToolChargesV12};
@@ -48,14 +52,16 @@ export type RunSpec = InboundRunSpec | OutboundRunSpec;
 export const isInboundV9=(state:GameRun):state is InboundRunV9=>state.rulesetVersion===9;
 export const isInboundV11=(state:GameRun):state is InboundRunV11=>state.rulesetVersion===11;
 export const isInboundV14=(state:GameRun):state is InboundRunV14=>state.rulesetVersion===14;
+export const isInboundV16=(state:GameRun):state is InboundRunV16=>state.rulesetVersion===16;
 export const isInboundV15=(state:GameRun):state is InboundRunV15=>state.rulesetVersion===15;
-export const isInboundRun=(state:GameRun):state is InboundRun=>isInboundV9(state)||isInboundV11(state)||isInboundV14(state)||isInboundV15(state);
+export const isInboundRun=(state:GameRun):state is InboundRun=>isInboundV9(state)||isInboundV11(state)||isInboundV14(state)||isInboundV15(state)||isInboundV16(state);
 export const isOutboundEndlessV10=(state:GameRun):state is OutboundEndlessRunV10=>state.rulesetVersion===10;
 export const isOutboundToolsRun=(state:GameRun):state is OutboundToolsRun=>state.rulesetVersion===12||state.rulesetVersion===13;
 export const isOutboundV12=(state:GameRun):state is OutboundToolRunV12=>state.rulesetVersion===12;
 export const isOutboundV13=(state:GameRun):state is OutboundToolRunV13=>state.rulesetVersion===13;
 export const isToolRun=(state:GameRun):state is ToolRun=>isInboundRun(state)||isOutboundToolsRun(state);
 export function reservedEntryCells(state:GameRun):number[] {
+ if(isInboundV16(state))return reservedEntryCellsV16(state);
  if(isInboundV15(state))return reservedEntryCellsV15(state);
  if(isInboundV14(state))return reservedEntryCellsV14(state);
  if(isOutboundToolsRun(state))return [OUTBOUND_ENTRY.entry.y*state.boardSize+OUTBOUND_ENTRY.entry.x];
@@ -66,7 +72,9 @@ export function reservedEntryCells(state:GameRun):number[] {
 export function createPlayableRun(spec:RunSpec):GameRun {
  if(!spec||!Number.isSafeInteger(spec.seed)||spec.seed < -2147483648||spec.seed>4294967295)throw Error('种子无效');
  if(spec.family==='inbound'){
-  if(![9,11,14,15].includes(spec.rulesetVersion)||!['standard','daily','endless'].includes(spec.mode)||typeof spec.guided!=='boolean')throw Error('入库规则身份不匹配');
+  if(![9,11,14,15,16].includes(spec.rulesetVersion)||!['standard','daily','endless'].includes(spec.mode)||typeof spec.guided!=='boolean')throw Error('入库规则身份不匹配');
+  if(spec.rulesetVersion===16)return createRunV16({inboundDifficulty:spec.inboundDifficulty,seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
+  if(spec.inboundDifficulty!==undefined)throw Error('旧入库不接受难度');
   if(spec.rulesetVersion===15)return createRunV15({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
   if(spec.rulesetVersion===14)return createRunV14({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
   if(spec.rulesetVersion===11)return createRunV11({seed:spec.seed,mode:spec.mode,guided:spec.guided,toolCharges:spec.toolCharges});
@@ -93,6 +101,7 @@ export function applyPlayableCommand(state:GameRun,command:GameCommand):GameStep
  if(!command||typeof command!=='object')return rejected();
  if(isInboundV9(state))return INBOUND_COMMANDS.has(command.type)?applyCommandV9(state,command as InboundCommandV9):rejected();
  if(isInboundV11(state))return INBOUND_V11_COMMANDS.has(command.type)?applyCommandV11(state,command as InboundCommandV11):rejected();
+ if(isInboundV16(state))return INBOUND_V11_COMMANDS.has(command.type)?applyCommandV16(state,command as InboundCommandV16):rejected();
  if(isInboundV15(state))return INBOUND_V11_COMMANDS.has(command.type)?applyCommandV15(state,command as InboundCommandV15):rejected();
  if(isInboundV14(state))return INBOUND_V11_COMMANDS.has(command.type)?applyCommandV14(state,command as InboundCommandV14):rejected();
  if(isOutboundV12(state))return applyCommandV12(state,command as OutboundToolCommandV12);
@@ -103,6 +112,7 @@ export function applyPlayableCommand(state:GameRun,command:GameCommand):GameStep
 }
 
 export function previewPlayablePlacement(state:GameRun,pieceId:string,origin:Point):PlayablePreview {
+ if(isInboundV16(state))return previewPlacementV16(state,pieceId,origin);
  if(isInboundV15(state))return previewPlacementV15(state,pieceId,origin);
  if(isInboundV14(state))return previewPlacementV14(state,pieceId,origin);
  if(isInboundV11(state))return previewPlacementV11(state,pieceId,origin);
@@ -117,6 +127,7 @@ export function previewPlayablePlacement(state:GameRun,pieceId:string,origin:Poi
 }
 
 export function playableChecksum(state:GameRun):string {
+ if(isInboundV16(state))return checksumV16(state);
  if(isInboundV15(state))return checksumV15(state);
  if(isInboundV14(state))return checksumV14(state);
  if(isOutboundV12(state))return checksumV12(state);
@@ -127,6 +138,7 @@ export function playableChecksum(state:GameRun):string {
  return checksum(state);
 }
 export function findPlayableMoves(state:GameRun):{pieceId:string;origin:Point}[] {
+ if(isInboundV16(state))return findLegalMovesV16(state);
  if(isInboundV15(state))return findLegalMovesV15(state);
  if(isInboundV14(state))return findLegalMovesV14(state);
  if(isOutboundV12(state))return findLegalMovesV12(state);

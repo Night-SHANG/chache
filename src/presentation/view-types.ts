@@ -17,6 +17,8 @@ export interface ViewState {
   cosmeticCategory?:CosmeticKind;
   cosmeticPreview?:Partial<Record<CosmeticKind,string>>;
   cargoOutline?:boolean;
+  practice?:{kind:import('../application/tutorial-practice.ts').PracticeKind;completed:boolean};
+  inboundDifficulty?:import('../domain/v16/types.ts').InboundDifficultyV16;
   outboundSelectionMode?:'normal'|'endless';
   account?:Readonly<AccountSnapshot>|null;
   accountStatus?:string;
@@ -48,7 +50,7 @@ export interface ViewState {
   debugPage?: number;
   needsResume: boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer';
+  screen?: 'game'|'menu'|'settings'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer'|'tutorialPracticeSelect';
   variant?: RunSlot;
   modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
   comparisonSeed?: number;
@@ -58,5 +60,5 @@ export interface ViewState {
   dailyLabel?: string;
   dailyLocked?: boolean;
   canContinue?: boolean;
-  confirmation?: {kind:'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
+  confirmation?: {practiceKind?:import('../application/tutorial-practice.ts').PracticeKind;kind:'startPractice'|'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;inboundDifficulty?:import('../domain/v16/types.ts').InboundDifficultyV16;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }

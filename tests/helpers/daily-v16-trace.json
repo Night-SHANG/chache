@@ -1,0 +1,506 @@
+{
+  "wallTime": 1791432000000,
+  "seed": 3233129088,
+  "commands": [
+    {
+      "type": "chooseCleanup",
+      "branch": "orders"
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.4",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.5",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.8",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.3",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.7",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.11",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.13",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.9",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.16",
+      "origin": {
+        "x": 5,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.17",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.20",
+      "origin": {
+        "x": 0,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.19",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.23",
+      "origin": {
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.25",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.15",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.29",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.30",
+      "origin": {
+        "x": 2,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.32",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.33",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.35",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.37",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.39",
+      "origin": {
+        "x": 5,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.41",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.42",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.43",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.45",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.46",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.48",
+      "origin": {
+        "x": 0,
+        "y": 5
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.27",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.51",
+      "origin": {
+        "x": 4,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.50",
+      "origin": {
+        "x": 5,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.54",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.57",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.58",
+      "origin": {
+        "x": 2,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.60",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.28",
+      "origin": {
+        "x": 5,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.61",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.63",
+      "origin": {
+        "x": 2,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.62",
+      "origin": {
+        "x": 2,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.66",
+      "origin": {
+        "x": 4,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.67",
+      "origin": {
+        "x": 3,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.69",
+      "origin": {
+        "x": 1,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.52",
+      "origin": {
+        "x": 3,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.71",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.73",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.75",
+      "origin": {
+        "x": 6,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.77",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.79",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.80",
+      "origin": {
+        "x": 3,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.81",
+      "origin": {
+        "x": 1,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.65",
+      "origin": {
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.84",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.85",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.86",
+      "origin": {
+        "x": 4,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.70",
+      "origin": {
+        "x": 5,
+        "y": 4
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.89",
+      "origin": {
+        "x": 1,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.91",
+      "origin": {
+        "x": 4,
+        "y": 2
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.92",
+      "origin": {
+        "x": 2,
+        "y": 1
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.87",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.83",
+      "origin": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.94",
+      "origin": {
+        "x": 1,
+        "y": 3
+      }
+    },
+    {
+      "type": "place",
+      "pieceId": "piece.97",
+      "origin": {
+        "x": 2,
+        "y": 3
+      }
+    }
+  ]
+}

@@ -1,10 +1,14 @@
+import {createPractice,applyPracticeCommand,practiceOverlay,isPracticeKind} from './tutorial-practice.ts';
+import type {PracticeRun,PracticeKind} from './tutorial-practice.ts';
+import {isInboundDifficultyV16} from '../domain/v16/content.ts';
+import {tutorialsEnabled,guideProgress,guideTrackFor} from './account-guides.ts';
 import {getCosmetic,accountCosmeticState} from './cosmetics.ts';
 import {createAccountService,accountDisplayProfile,accountDailyAvailability} from './account-service.ts';
 import type {AccountService,AccountRequest,StartIntent,TransactionResult} from './account-service.ts';
 import {prepareLegacyMigration} from './legacy-migration.ts';
 import type {AccountSnapshot,GuideTrack,GuideProgress,GuideStep} from './account-types.ts';
 import type {GameRun,GameCommand,GameEvent,GameShipment} from '../domain/playable.ts';
-import {isInboundRun,isInboundV9,isToolRun,isOutboundToolsRun,reservedEntryCells,previewPlayablePlacement} from '../domain/playable.ts';
+import {isInboundRun,isInboundV9,isInboundV16,isToolRun,isOutboundToolsRun,reservedEntryCells,previewPlayablePlacement} from '../domain/playable.ts';
 import {guideOverlay,isGuideComplete} from './tutorials.ts';
 import {toolPreview} from '../presentation/tool-preview.ts';
 import type {ToolCommand} from '../presentation/tool-preview.ts';
@@ -41,6 +45,8 @@ import type {Profile} from './profile.ts';
 type RequestBody=AccountRequest extends infer R?R extends {operationId:string}?Omit<R,'operationId'>:never:never;
 export class GameSession {
  state!:GameRun;
+ private practice:PracticeRun|null=null;
+ private practiceReturnState:GameRun|null=null;
  private get legacyState():RunState{return this.state as RunState;}
  private set legacyState(state:RunState){this.state=state;}
  private accountService:AccountService;
@@ -91,6 +97,7 @@ export class GameSession {
   this.view.comparisonSeed=options.seed>>>0;try{const raw=platform.storage.get(COMPARISON_SEED_KEY);if(raw!==null&&/^\d+$/.test(raw)){const seed=Number(raw);if(Number.isSafeInteger(seed)&&seed>=0&&seed<=0xffffffff)this.view.comparisonSeed=seed;}}catch{/* A missing preference never changes run saves. */}
   this.refreshSlots();
   const account=this.accountService.getSnapshot();if(account){this.publishAccount(account);}else if(!['empty','ready'].includes(this.accountService.getStatus())){this.view.accountBlocked=true;this.view.accountStatus=this.accountService.getStatus();this.view.saveStatus='保存结果尚未确认，请重试';}
+  this.view.inboundDifficulty=isInboundV16(this.state)?this.state.inboundDifficulty:'normal';
   this.view.outboundSelectionMode=this.hasRun&&this.state.mode==='color_exit'&&[10,13].includes(this.state.rulesetVersion)?'endless':'normal';
   this.refreshDailyAvailability();
   this.input=new InputController({getState:()=>this.state,getView:()=>this.view,patchView:patch=>Object.assign(this.view,patch),preview:(pieceId,origin)=>previewPlayablePlacement(this.state,pieceId,origin),risk:(pieceId,origin)=>placementRisk(this.state,pieceId,origin),dispatch:command=>this.dispatch(command),togglePause:()=>this.togglePause(),restart:()=>this.restart(),resume:()=>this.resume(),toggleDebug:()=>{this.input.cancel();this.view.debug=!this.view.debug;this.view.debugPage=0;},action:action=>this.action(action),feedback:(kind,pieceId)=>this.feedback(kind,pieceId)});
@@ -98,17 +105,46 @@ export class GameSession {
   if(this.writerHeld()&&!this.accountOwned&&this.hasRun&&!this.view.needsResume&&this.ensureSerial()){if(this.persist())this.recordFinal();}
   if(this.writerHeld()&&this.accountOwned)this.closeTerminalAccount();
  }
+ private enterPractice(kind:PracticeKind):void {
+  if(this.practice||this.pendingRequest||this.view.accountBlocked||this.view.account?.run||this.hasRun||this.recoveryPending||this.closureUncertain)return;
+  this.practiceReturnState=this.state;this.practice=createPractice(kind);this.input.cancel();this.clearFeedback();this.state=this.practice.state;
+  Object.assign(this.view,{practice:{kind,completed:false},screen:'game',paused:false,needsResume:false,canContinue:false,accountRunId:undefined,prepareIntent:null,confirmation:null,guideTrack:kind,guide:practiceOverlay(this.practice),debug:false,supplyUpgrade:null,growthFx:null,recoveryError:undefined,elapsed:0});
+  this.preparedGuideProgress=null;this.hasRun=false;this.canResume=false;this.lastTick=this.platform.now();
+ }
+ private exitPractice():void {
+  if(!this.practice)return;this.input.cancel();this.clearFeedback();if(this.practiceReturnState)this.state=this.practiceReturnState;
+  this.practice=null;this.practiceReturnState=null;this.settingsReturn='menu';this.lastTick=this.platform.now();
+  Object.assign(this.view,{practice:undefined,guide:null,guideTrack:undefined,screen:'settings',paused:false,needsResume:false,canContinue:false,elapsed:0});this.refreshDailyAvailability();
+ }
+ private dispatchPractice(command:GameCommand):void {
+  if(!this.practice||this.view.paused||this.view.animation||this.view.screen!=='game')return;
+  const before=this.state,result=applyPracticeCommand(this.practice,command);if(result.error){this.view.message=result.error;return;}
+  this.practice=result.practice;this.state=this.practice.state;this.input.cancel();this.view.guide=practiceOverlay(this.practice);this.view.practice={kind:this.practice.kind,completed:this.practice.completed};this.animateAccountStep(before,command,result.events);
+ }
+ private handlePracticeAction(action:UiAction):void {
+  if(action.type==='exitPractice'){this.exitPractice();return;}
+  if(action.type==='pausePractice'){this.togglePause();return;}
+  if(action.type==='continue'){this.resume();return;}
+  if(action.type==='chooseCleanup')this.dispatchPractice({type:'chooseCleanup',branch:action.branch});
+ }
+ private confirmPractice(kind:PracticeKind):void {
+  if(this.accountOwned){const run=this.view.account?.run;this.closeAccount(run?.state.endReason==='completed'&&run.state.result==='won'?'decline_overtime':'home',()=>this.enterPractice(kind));return;}
+  if(this.hasRun&&this.state.phase==='result'&&(!this.persist()||!this.recordFinal()))return;
+  this.closeConfirmed('menu');if(!this.hasRun&&!this.recoveryPending&&!this.closureUncertain)this.enterPractice(kind);
+ }
  private writerHeld():boolean{return this.platform.writerLease?.status==='held';}
  private blockWriter():void{this.view.accountBlocked=true;this.view.readOnlyReason=this.platform.writerLease?.status==='busy'?'另一个窗口正在保存，请回到已经打开的游戏窗口。':'请重新用启动器打开游戏，确认只有一个窗口保存进度。';this.view.saveStatus=this.view.readOnlyReason;this.input?.cancel();}
  private publishAccount(account:Readonly<AccountSnapshot>):void {
+  if(this.practice)return;
   this.view.account=account;this.view.accountStatus='ready';this.view.accountBlocked=false;
   this.refreshDailyAvailability();
   this.profile=accountDisplayProfile(account);this.view.profile=this.profile;this.view.profileNeedsRecovery=false;this.profileReadBlocked=false;
   if(account.run){const sameRun=this.view.accountRunId===account.run.identity.runId,activating=!this.accountOwned;this.accountOwned=true;this.recoveryPending=false;this.state=account.run.state;if(!sameRun)this.view.toolboxOpen=false;if(isToolRun(this.state)&&this.state.phase==='rescue')this.view.toolboxOpen=true;else if(this.state.phase!=='input')this.view.toolboxOpen=false;this.hasRun=true;this.canResume=true;this.view.accountRunId=account.run.identity.runId;this.view.variant=this.state.mode==='color_exit'?'difficultyId' in this.state?slotForDifficulty(this.state.difficultyId!,8):'color_exit':this.state.mode==='endless'?'inbound_endless':'orders';this.view.canContinue=this.state.phase!=='result';this.view.elapsed=sameRun?Math.max(this.view.elapsed,this.state.elapsedMs??0):this.state.elapsedMs??0;if(activating)this.view.screen='game';this.view.needsResume=this.pendingRequest===null&&this.state.phase!=='result';
-   const track:GuideTrack=this.state.mode==='color_exit'?'outbound':'inbound';this.view.guideTrack=track;this.view.guide=account.run.identity.mode==='guided'||account.run.identity.mode==='outboundGuided'?guideOverlay(track,account.guides[track],this.state):null;
+   const track=guideTrackFor(this.state);this.view.guideTrack=track;this.view.guide=tutorialsEnabled(account)&&(account.run.identity.mode==='guided'||account.run.identity.mode==='outboundGuided'||track==='daily')?guideOverlay(track,guideProgress(account,track),this.state):null;
   }else{if(!this.accountOwned&&this.hasRun&&this.state.runSerial!==undefined&&this.state.runSerial>account.migration.legacySerialCeiling){this.hasRun=false;this.canResume=false;this.recoveryPending=false;this.state=createForSlot(this.newRunSeedBase,'orders');this.input?.cancel();Object.assign(this.view,{screen:'menu',needsResume:false,canContinue:false,recoveryError:undefined,confirmation:null});}this.view.accountRunId=undefined;this.view.guide=null;if(this.accountOwned){this.hasRun=false;this.canResume=false;this.view.canContinue=false;this.view.needsResume=false;}}
  }
  private requestAccount(payload:RequestBody,after?:(result:TransactionResult)=>void):boolean {
+  if(this.practice)return false;
   if(!this.writerHeld()){this.blockWriter();return false;}
   if(this.view.accountBlocked||this.pendingRequest)return false;
   const generation=this.view.account?.generation??0,operationId=`ui.${Math.floor(this.platform.wallTime?.()??Date.now())}.${generation}.${++this.operationSerial}.${payload.type}`;
@@ -125,6 +161,7 @@ export class GameSession {
   this.publishAccount(result.account);if(result.closedState){this.state=result.closedState;this.accountOwned=true;this.view.screen='game';}this.view.needsResume=false;this.pendingRequest=null;const after=this.afterAccountAck;this.afterAccountAck=null;after?.(result);return true;
  }
  private retryAccount():void {
+  if(this.practice)return;
   if(!this.writerHeld()){this.blockWriter();return;}
   if(this.view.readOnlyReason){this.view.readOnlyReason=undefined;this.view.accountBlocked=false;this.view.saveStatus='每次操作自动保存';return;}
   const operationId=this.pendingRequest?.operationId??this.accountService.getPendingOperationId();
@@ -136,29 +173,32 @@ export class GameSession {
 
  }
  private saveAccountElapsed():void {
+  if(this.practice)return;
   const run=this.view.account?.run;if(!this.accountOwned||!run||this.pendingRequest||this.view.accountBlocked||this.view.needsResume||!this.writerHeld())return;
   const elapsedMs=Math.floor(this.view.elapsed);if(elapsedMs<=(run.state.elapsedMs??0))return;
   this.requestAccount({type:'saveElapsed',runId:run.identity.runId,elapsedMs});
  }
  private closeAccount(reason:'failed'|'retired'|'home'|'decline_overtime',after?:()=>void):boolean {
+  if(this.practice)return false;
   const run=this.view.account?.run;if(!run){after?.();return true;}
   return this.requestAccount({type:'close',runId:run.identity.runId,reason,elapsedMs:Math.floor(this.view.elapsed)},after);
  }
  private closeTerminalAccount():void {
+  if(this.practice)return;
   const run=this.view.account?.run;if(!run||this.view.accountBlocked||this.pendingRequest||run.state.phase!=='result')return;
-  if(isInboundRun(run.state)&&run.state.mode==='standard'&&run.state.result==='won'&&!run.state.overtime&&run.state.endReason==='completed')return;
+  if(isInboundRun(run.state)&&(!isInboundV16(run.state)||run.state.inboundDifficulty==='normal')&&run.state.mode==='standard'&&run.state.result==='won'&&!run.state.overtime&&run.state.endReason==='completed')return;
   this.closeAccount(run.state.endReason==='retired'?'retired':run.state.result==='failed'?'failed':'decline_overtime');
  }
  private beginNewGame(action:Extract<UiAction,{type:'newRun'}>,guide:'guided'|'direct'='direct'):void {
   if(action.mode==='daily'&&!this.allowDailyStart())return;
-  const outbound=action.mode==='color_exit',track:GuideTrack=outbound?'outbound':'inbound';this.prepareReturn=outbound?'colorTiers':'inboundMenu';
+  const outbound=action.mode==='color_exit',track:GuideTrack=outbound?'outbound':action.mode==='daily'?'daily':'inbound';this.prepareReturn=outbound?'colorTiers':'inboundMenu';
   if(outbound)this.view.outboundSelectionMode=action.outboundMode??'normal';
-  const intent:StartIntent={spec:outbound?{family:'outbound',variant:action.outboundMode??'normal',rulesetVersion:action.outboundMode==='endless'?13:12,seed:0,difficultyId:action.difficultyId??'easy',toolCharges:{rotate:0,clear:0,wildcard:0}}:{family:'inbound',mode:action.mode==='endless'?'endless':action.mode==='daily'?'daily':'standard',rulesetVersion:action.mode==='endless'?14:15,seed:0,guided:guide==='guided',toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide};this.view.prepareIntent=intent;this.view.guideTrack=track;
+  const intent:StartIntent={spec:outbound?{family:'outbound',variant:action.outboundMode??'normal',rulesetVersion:action.outboundMode==='endless'?13:12,seed:0,difficultyId:action.difficultyId??'easy',toolCharges:{rotate:0,clear:0,wildcard:0}}:{family:'inbound',mode:action.mode==='endless'?'endless':action.mode==='daily'?'daily':'standard',rulesetVersion:16,inboundDifficulty:action.mode==='standard'?(action.inboundDifficulty??this.view.inboundDifficulty??'normal'):'normal',seed:0,guided:guide==='guided',toolCharges:{rotate:0,clear:0,wildcard:0}},items:[],guide};this.view.prepareIntent=intent;this.view.guideTrack=track;
   const migration=this.view.account?null:prepareLegacyMigration(this.platform.storage);
   if(migration?.status==='blocked'){this.view.saveStatus=migration.message;this.view.prepareIntent=null;return;}
   const progress=this.view.account?.guides[track]??(migration?.status==='ready'?migration.account.guides[track]:undefined);this.preparedGuideProgress=progress??null;
-  const eligible=outbound?intent.spec.family==='outbound'&&intent.spec.variant==='normal'&&intent.spec.difficultyId==='easy':action.mode==='standard';
-  if(guide==='direct'&&eligible&&!progress?.authoredStartConsumed&&!progress?.skipped&&(!progress||!isGuideComplete(track,progress,intent.spec.rulesetVersion))){this.view.screen='guideOffer';return;}
+  const eligible=outbound?intent.spec.family==='outbound'&&intent.spec.variant==='normal'&&intent.spec.difficultyId==='easy':action.mode==='standard'&&intent.spec.family==='inbound'&&(intent.spec.inboundDifficulty??'normal')==='normal';
+  if(tutorialsEnabled(this.view.account)&&guide==='direct'&&eligible&&!progress?.authoredStartConsumed&&!progress?.skipped&&(!progress||!isGuideComplete(track,progress,intent.spec.rulesetVersion))){this.view.screen='guideOffer';return;}
   this.prepareStart();
  }
  private prepareStart():void {
@@ -168,7 +208,7 @@ export class GameSession {
   this.startAccountIntent();
  }
  private startAccountIntent():void {
-  const intent=this.view.prepareIntent;if(!intent)return;const priorGuide=this.view.account?.guides.inbound??this.preparedGuideProgress;
+  const intent=this.view.prepareIntent;if(!intent)return;const priorGuide=this.view.account?guideProgress(this.view.account,this.view.guideTrack??'inbound'):this.preparedGuideProgress;
   if(intent.spec.family==='inbound'&&intent.spec.mode==='daily'&&!this.allowDailyStart()){this.view.prepareIntent=null;this.view.screen=this.prepareReturn;return;}
   this.requestAccount({type:'start',intent},ack=>{this.accountOwned=true;this.input.cancel();this.clearFeedback();this.view.prepareIntent=null;this.view.screen='game';this.view.paused=false;this.view.needsResume=false;this.view.elapsed=0;this.lastTick=this.platform.now();this.normalHintsShown.clear();if(priorGuide)this.showNormalMechanismHint(priorGuide,ack.events??[]);});
  }
@@ -176,9 +216,9 @@ export class GameSession {
   if(this.view.accountBlocked||this.recoveryPending||this.view.paused||this.view.needsResume||this.view.animation||this.view.confirmation||this.view.toolSelection||this.view.toolboxOpen||this.view.supplyUpgrade||this.view.screen!=='game'||this.view.developerMode&&this.view.debug)return;
   const run=this.view.account?.run;if(!run)return;
   const guide=this.view.guide;if(command.type==='place'&&guide?.allowedOrigins&&(!guide.allowedOrigins.some(p=>p.x===command.origin.x&&p.y===command.origin.y)||guide.selectedPieceId&&guide.selectedPieceId!==command.pieceId)){this.view.message='请把提示货件放到提示格，或跳过引导';return;}
-  const priorGuide=this.view.account!.guides.inbound,before=this.state,operationId=`ui.${Math.floor(this.platform.wallTime?.()??Date.now())}.${this.view.account!.generation}.${++this.operationSerial}.command`;
+  const priorGuide=guideProgress(this.view.account!,guideTrackFor(this.state)),before=this.state,operationId=`ui.${Math.floor(this.platform.wallTime?.()??Date.now())}.${this.view.account!.generation}.${++this.operationSerial}.command`;
   this.pendingRequest={type:'command',runId:run.identity.runId,command,operationId,elapsedMs:Math.floor(this.view.elapsed)};
-  this.afterAccountAck=(ack)=>{if([11,14,15].includes(before.rulesetVersion)&&before.phase==='cleanup'&&before.commandIndex===0)this.lastTick=this.platform.now();this.input.cancel();this.view.canContinue=this.state.phase!=='result';this.animateAccountStep(before,command,ack.events??[]);this.showNormalMechanismHint(priorGuide,ack.events??[]);this.closeTerminalAccount();};
+  this.afterAccountAck=(ack)=>{if([11,14,15,16].includes(before.rulesetVersion)&&before.phase==='cleanup'&&before.commandIndex===0)this.lastTick=this.platform.now();this.input.cancel();this.view.canContinue=this.state.phase!=='result';this.animateAccountStep(before,command,ack.events??[]);this.showNormalMechanismHint(priorGuide,ack.events??[]);this.closeTerminalAccount();};
   const result=this.accountService.transact(this.pendingRequest,this.view.account!.generation);
   if(!this.acceptAccountResult(result))return;
 
@@ -197,7 +237,7 @@ export class GameSession {
   const notes=events.filter(e=>e.type==='rushExpired'||e.type==='cleanup'||e.type==='toolUsed').map(e=>e.type==='rushExpired'?'加急到期成为废物':e.type==='cleanup'&&'cells' in e&&e.cells.length?`已清扫${e.cells.length}格旧废物`:e.type==='toolUsed'?'道具已使用':'').filter(Boolean);this.view.message=notes.join(' · ');this.messageExpiresAt=notes.length?this.platform.now()+1800:0;
  }
  private showNormalMechanismHint(progress:GuideProgress,events:GameEvent[]=[]):void {
-  if(!isInboundRun(this.state)||this.state.guided||progress.skipped||this.state.phase==='result')return;
+  if(!tutorialsEnabled(this.view.account)||!isInboundRun(this.state)||isInboundV16(this.state)||this.state.guided||progress.skipped||this.state.phase==='result')return;
   const cleanup=events.find(e=>e.type==='cleanupChosen');
   const hints:{step:GuideStep;present:boolean;text:string}[]=[
    {step:'expired',present:events.some(e=>e.type==='rushExpired'),text:'加急归零成为废物；清扫只处理旧废物。'},
@@ -218,20 +258,27 @@ export class GameSession {
  private handleAccountAction(action:UiAction):boolean {
   if(this.view.accountBlocked){if(action.type==='retrySave'||action.type==='continue'||action.type==='recoverProfile')this.retryAccount();return true;}
   if(this.view.confirmation&&action.type!=='confirm'&&action.type!=='cancel')return true;
+  if(action.type==='openPracticeSelect'){if(this.view.screen==='settings'&&!this.view.needsResume)this.view.screen='tutorialPracticeSelect';return true;}
+  if(action.type==='startPractice'){if(this.view.screen==='tutorialPracticeSelect'&&isPracticeKind(action.kind)){if(this.hasRun||this.view.account?.run)this.view.confirmation={kind:'startPractice',practiceKind:action.kind};else this.enterPractice(action.kind);}return true;}
+  if(action.type==='exitPractice')return true;
+  if(action.type==='back'&&this.view.screen==='tutorialPracticeSelect'){this.view.screen='settings';return true;}
+  if(action.type==='toggleTutorials'){if(this.view.screen==='settings'){const screen=this.view.screen,paused=this.view.paused;this.input.cancel();this.clearFeedback();this.requestAccount({type:'setTutorialsEnabled',enabled:!tutorialsEnabled(this.view.account)},()=>{this.view.screen=screen;this.view.paused=paused;});}return true;}
+  if(action.type==='selectInboundDifficulty'){if(this.view.screen==='inboundMenu'&&!this.view.needsResume&&isInboundDifficultyV16(action.inboundDifficulty))this.view.inboundDifficulty=action.inboundDifficulty;return true;}
   if(action.type==='selectOutboundMode'){if(this.view.screen==='colorTiers'&&!this.view.needsResume&&!this.view.paused&&(action.mode==='normal'||action.mode==='endless'))this.view.outboundSelectionMode=action.mode;return true;}
   if(action.type==='retrySave'){this.retryAccount();return true;}
   if(action.type==='newRun'&&!action.colorTier){
    if(action.mode==='daily'&&!this.allowDailyStart())return true;
    if(action.mode==='color_exit'&&action.difficultyId!==undefined&&!isOutboundDifficulty(action.difficultyId))return true;
-   if(this.hasRun||this.view.account?.run){this.view.confirmation={kind:'newRun',mode:action.mode,difficultyId:action.difficultyId,outboundMode:action.outboundMode};return true;}
+   if(this.hasRun||this.view.account?.run){this.view.confirmation={kind:'newRun',mode:action.mode,inboundDifficulty:action.inboundDifficulty,difficultyId:action.difficultyId,outboundMode:action.outboundMode};return true;}
    this.beginNewGame(action);return true;
   }
   if(action.type==='confirm'){
    const pending=this.view.confirmation;if(!pending)return true;
+   if(pending.kind==='startPractice'){this.view.confirmation=null;if(pending.practiceKind)this.confirmPractice(pending.practiceKind);return true;}
    if(pending.kind==='newRun'&&pending.mode==='daily'&&!this.allowDailyStart()){this.view.confirmation=null;return true;}
    if(pending.kind==='purchaseCosmetic'){this.view.confirmation=null;if(pending.cosmeticKind&&pending.cosmeticId)this.requestAccount({type:'purchaseCosmetic',kind:pending.cosmeticKind,id:pending.cosmeticId});return true;}
    if(pending.kind==='purchase'){this.view.confirmation=null;if(pending.item)this.requestAccount({type:'purchase',item:pending.item});return true;}
-   if(pending.kind==='newRun'&&!pending.colorTier){this.view.confirmation=null;const start=()=>this.beginNewGame({type:'newRun',mode:pending.mode??'standard',difficultyId:pending.difficultyId,outboundMode:pending.outboundMode});if(this.accountOwned)this.closeAccount('home',start);else {if(this.state.phase==='result'&&!this.recordFinal())return true;this.closeConfirmed(this.prepareReturn);if(!this.hasRun)start();}return true;}
+   if(pending.kind==='newRun'&&!pending.colorTier){this.view.confirmation=null;const start=()=>this.beginNewGame({type:'newRun',mode:pending.mode??'standard',inboundDifficulty:pending.inboundDifficulty,difficultyId:pending.difficultyId,outboundMode:pending.outboundMode});if(this.accountOwned)this.closeAccount('home',start);else {if(this.state.phase==='result'&&!this.recordFinal())return true;this.closeConfirmed(this.prepareReturn);if(!this.hasRun)start();}return true;}
    if(this.accountOwned){this.view.confirmation=null;if(pending.kind==='leaveRun')this.closeAccount(pending.nextScreen==='colorTiers'&&this.state.endReason==='completed'?'decline_overtime':'home',()=>this.openSelection(pending.nextScreen??'menu'));else if(pending.kind==='finishEndless'||pending.kind==='finishOvertime'){const before=this.state,run=this.view.account?.run;if(run){this.view.paused=false;this.requestAccount({type:'close',runId:run.identity.runId,reason:'retired',elapsedMs:Math.floor(this.view.elapsed)},ack=>{this.view.screen='game';this.animateAccountStep(before,[10,13].includes(before.rulesetVersion)?{type:'finishOutboundEndless'}:{type:'finish'},ack.events??[]);});}}else if(pending.kind==='resetProfile')this.requestAccount({type:'resetResults'});return true;}
    if(pending.kind==='resetProfile'){this.view.confirmation=null;if(this.hasRun&&this.state.phase==='result'&&(!this.persist()||!this.recordFinal())){this.view.profileStatus='本局结算尚未确认保存，请重试后再重置';return true;}this.requestAccount({type:'resetResults'});return true;}
    return false;
@@ -246,7 +293,7 @@ export class GameSession {
   if(action.type==='purchase'){this.view.confirmation={kind:'purchase',item:action.item};return true;}
   if(action.type==='toggleItem'){const intent=this.view.prepareIntent;if(!intent||intent.guide!=='direct'||intent.spec.family==='inbound'&&intent.spec.mode==='daily')return true;const index=intent.items.indexOf(action.item);if(index>=0)intent.items=intent.items.filter(i=>i!==action.item);else if(intent.items.length<2&&(this.view.account?.inventory[action.item]??0)>0)intent.items=[...intent.items,action.item];return true;}
   if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
-  if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
+  if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15,16].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
   if(action.type==='chooseCleanup'){if(this.view.screen==='prepareCleanup'&&this.view.prepareIntent){this.view.prepareIntent.cleanupBranch=action.branch;this.startAccountIntent();}else this.dispatchAccount({type:'chooseCleanup',branch:action.branch});return true;}
   if(action.type==='back'&&['shop','prepareTools','prepareCleanup','guideOffer'].includes(this.view.screen??'')){this.view.screen=this.view.screen==='shop'?this.shopReturn:this.prepareReturn;this.view.prepareIntent=null;return true;}
   if(action.type==='toggleToolbox'){if(this.accountOwned&&isToolRun(this.state)&&['input','rescue'].includes(this.state.phase)&&this.view.screen==='game'&&!this.view.animation&&!this.view.needsResume&&!this.view.paused&&!this.view.toolSelection&&!this.view.supplyUpgrade){this.input.cancel();this.view.toolboxOpen=!this.view.toolboxOpen;}return true;}
@@ -264,7 +311,7 @@ export class GameSession {
   if(action.type==='cosmetic'){this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
   if(!this.accountOwned)return false;
   if(action.type==='home'||action.type==='chooseInbound'||action.type==='chooseColorTier'){const screen=action.type==='home'?'menu':action.type==='chooseInbound'?'inboundMenu':'colorTiers';if(this.view.account?.run){this.input.cancel();this.view.confirmation={kind:'leaveRun',nextScreen:screen};}else this.openSelection(screen);return true;}
-  if(action.type==='skipTutorial'){const run=this.view.account?.run;if(run)this.requestAccount({type:'skipGuide',runId:run.identity.runId,track:this.view.guideTrack??'inbound'},()=>{this.view.message=isInboundRun(this.state)&&this.state.guided?'讲解已跳过，本局第2阶段引入加急；下一局正常起步':'讲解已跳过，可以自由操作';this.messageExpiresAt=this.platform.now()+3500;});return true;}
+  if(action.type==='skipTutorial'){const run=this.view.account?.run;if(run)this.requestAccount({type:'skipGuide',runId:run.identity.runId,track:this.view.guideTrack??'inbound'},()=>{this.view.message=isInboundRun(this.state)&&!isInboundV16(this.state)&&this.state.guided?'讲解已跳过，本局第2阶段引入加急；下一局正常起步':'讲解已跳过，可以自由操作';this.messageExpiresAt=this.platform.now()+3500;});return true;}
   if(action.type==='continue'){this.resume();return true;}
   if(action.type==='continueOvertime'){this.view.paused=false;this.view.screen='game';this.dispatchAccount({type:'continueOvertime'});return true;}
   if(action.type==='declineOvertime'){this.closeAccount('decline_overtime',()=>this.openSelection('menu'));return true;}
@@ -273,7 +320,7 @@ export class GameSession {
  }
  private daily(){return localDailyChallenge(this.platform.wallTime?.()??Date.now(),CURRENT_RULESET);}
  private refreshDailyAvailability():void {
-  const time=this.platform.wallTime?.()??Date.now(),daily=accountDailyAvailability(this.view.account??null,time,15);
+  const time=this.platform.wallTime?.()??Date.now(),daily=accountDailyAvailability(this.view.account??null,time,16);
   const legacyCompleted=!this.view.account&&Object.values(this.profile.dailyHistory).some(record=>record.day===daily.day&&record.won===true);
   this.view.dailyLabel=daily.day;this.view.dailyLocked=daily.completed||legacyCompleted;this.dailyDateIndex=Math.floor((time+8*60*60*1000)/(24*60*60*1000));
  }
@@ -286,7 +333,7 @@ export class GameSession {
   if(loaded.source==='unavailable'||loaded.source==='corrupt'){this.view.profileStatus=loaded.message;this.view.profileNeedsRecovery=true;return false;}
   this.profile=loaded.profile;this.view.profile=this.profile;this.profileReadBlocked=false;this.view.profileNeedsRecovery=loaded.source==='backup';this.view.profileStatus=loaded.message;return true;
  }
- private updateProfile(profile:Profile):void{if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned)return;if(this.profileReadBlocked){this.view.profileStatus='长期记录尚未读回，未写入默认数据';return;}this.profile=profile;this.view.profile=profile;const saved=saveProfile(this.platform.storage,profile);this.view.profileStatus=saved.message;if(!saved.ok)this.view.profileNeedsRecovery=true;}
+ private updateProfile(profile:Profile):void{if(this.practice)return;if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned)return;if(this.profileReadBlocked){this.view.profileStatus='长期记录尚未读回，未写入默认数据';return;}this.profile=profile;this.view.profile=profile;const saved=saveProfile(this.platform.storage,profile);this.view.profileStatus=saved.message;if(!saved.ok)this.view.profileNeedsRecovery=true;}
  private serialFloor():number|null{
   if(!this.ensureProfileReadable())return null;
   const closed=closedSerialFloor(this.platform.storage);if(!closed.ok){this.view.saveStatus=closed.message;return null;}
@@ -295,16 +342,16 @@ export class GameSession {
   return Math.max(1,closed.floor+1,(this.legacyState.runSerial??0)+1,...runs.map(run=>(run.state?.runSerial??0)+1));
  }
  private refreshSlots():void{const status=(slot:RunSlot)=>{const loaded=loadPlayableRun(this.platform.storage,slot);return loaded.state?loaded.state.phase==='result'?'result' as const:'saved' as const:loaded.source==='corrupt'?'corrupt' as const:loaded.source==='unavailable'?'unavailable' as const:'empty' as const;};this.view.modeSlots=Object.fromEntries(RUN_SLOTS.map(slot=>[slot,status(slot)]));this.view.variant=this.slot;}
- private setActiveSlot(slot:RunSlot):boolean{if(!this.writerHeld()){this.blockWriter();return false;}
+ private setActiveSlot(slot:RunSlot):boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}
   let previous:string|null=null,changed=false;
   try{previous=this.platform.storage.get(ACTIVE_SLOT_KEY);this.platform.storage.set(ACTIVE_SLOT_KEY,slot);changed=true;if(this.platform.storage.get(ACTIVE_SLOT_KEY)!==slot)throw Error('readback');return true;}
   catch{if(changed){try{if(previous===null)this.platform.storage.remove(ACTIVE_SLOT_KEY);else this.platform.storage.set(ACTIVE_SLOT_KEY,previous);}catch{/* Both independent run snapshots remain safe even if the selector cannot be restored. */}}this.view.saveStatus='模式切换保存失败，当前进度仍保留';return false;}
  }
- private ensureSerial():boolean{if(!this.writerHeld()){this.blockWriter();return false;}
+ private ensureSerial():boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}
   if(this.legacyState.runSerial)return true;const assigned=this.view.account?.migration.legacySerials[this.slot];if(assigned){this.legacyState={...this.legacyState,runSerial:assigned};return true;}const floor=this.serialFloor();if(floor===null){this.view.needsResume=true;return false;}
   const allocated=allocateRun(this.profile,floor);this.legacyState={...this.legacyState,runSerial:allocated.serial};this.updateProfile(allocated.profile);return true;
  }
- private recordFinal(run:RunState=this.legacyState):boolean{if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned||run.phase!=='result')return true;return this.requestAccount({type:'recordLegacyResult',slot:this.slot});}
+ private recordFinal(run:RunState=this.legacyState):boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned||run.phase!=='result')return true;return this.requestAccount({type:'recordLegacyResult',slot:this.slot});}
  private sound(name:SoundName):void{if(this.profile.settings.sound)this.platform.playSound(name);}
  private routeCue():void{const now=this.platform.now();if(now-this.lastRouteReady>=200){this.sound('route_ready');this.lastRouteReady=now;}}
  private feedback(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void{
@@ -316,6 +363,7 @@ export class GameSession {
  private startNotice(now:number):void{const notice=this.pendingNotice;this.pendingNotice=null;if(!notice)return;this.sound(notice.kind);this.noticeStarted=now;const duration=notice.kind==='fail'?(this.profile.settings.reducedMotion?MOTION.reduced.failMs:MOTION.failMs):(this.profile.settings.reducedMotion?MOTION.reduced.noticeMs:MOTION.noticeMs);this.view.noticeFx=duration?{...notice,progress:0}:null;}
 
  dispatch(command:GameCommand):void{
+  if(this.practice){this.dispatchPractice(command);return;}
   if(!this.writerHeld()){this.blockWriter();return;}
   if(this.accountOwned){this.dispatchAccount(command);return;}
   if(!['place','upgrade','continueOvertime','finishOvertime','finishEndless'].includes(command.type))return;
@@ -346,14 +394,14 @@ export class GameSession {
   if(command.type==='upgrade')this.sound('upgrade');
   this.view.message=resolved.events.some(event=>event.type==='rushExpired')?'加急过期':'';this.messageExpiresAt=this.view.message?this.platform.now()+1800:0;
  }
- private persist():boolean{if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned)return !this.view.accountBlocked;if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.legacyState.elapsedMs!==elapsedMs)this.legacyState={...this.legacyState,elapsedMs};const result=saveRun(this.platform.storage,this.legacyState,this.slot);this.view.saveStatus=result.message;return result.ok;}
+ private persist():boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned)return !this.view.accountBlocked;if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.legacyState.elapsedMs!==elapsedMs)this.legacyState={...this.legacyState,elapsedMs};const result=saveRun(this.platform.storage,this.legacyState,this.slot);this.view.saveStatus=result.message;return result.ok;}
  private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0,...('transport' in next.shipment&&next.shipment.transport==='conveyor'?{transportPlan:buildOutboundTransport(next.shipment as Shipment,next.board)??undefined}:{})}:null;if(next)this.routeCue();else this.startNotice(now);}
  tick(now:number):void{
   if(Math.floor(((this.platform.wallTime?.()??Date.now())+8*60*60*1000)/(24*60*60*1000))!==this.dailyDateIndex)this.refreshDailyAvailability();
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
   if(this.view.growthFx){this.view.growthFx.progress=Math.min(1,(now-this.growthStarted)/650);if(this.view.growthFx.progress>=1)this.view.growthFx=null;}
   if(this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
-  if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!([11,14,15].includes(this.state.rulesetVersion)&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
+  if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!([11,14,15,16].includes(this.state.rulesetVersion)&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
   if(this.messageExpiresAt&&now>=this.messageExpiresAt){this.view.message='';this.messageExpiresAt=0;}
   const reduced=this.profile.settings.reducedMotion;
   if(this.view.placementFx){this.view.placementFx.progress=Math.max(0,Math.min(1,(now-this.placementStarted)/MOTION.placeMs));if(reduced||this.view.placementFx.progress>=1)this.view.placementFx=null;}
@@ -367,10 +415,10 @@ export class GameSession {
   }
 
  }
- hide():void{this.view.toolboxOpen=false;this.view.toolSelection=null;if(!this.writerHeld()){this.input.cancel();return;}if(this.accountOwned){this.input.cancel();this.clearFeedback();this.view.paused=!this.view.needsResume&&this.state.phase!=='result';this.lastTick=this.platform.now();this.saveAccountElapsed();return;}this.input.cancel();this.clearFeedback();this.lastTick=this.platform.now();this.view.paused=!this.view.needsResume&&this.hasRun&&this.legacyState.phase!=='result';if(this.hasRun&&!this.view.needsResume&&this.persist())this.recordFinal();}
+ hide():void{if(this.practice){this.input.cancel();this.clearFeedback();this.view.paused=!this.practice.completed;this.lastTick=this.platform.now();return;}this.view.toolboxOpen=false;this.view.toolSelection=null;if(!this.writerHeld()){this.input.cancel();return;}if(this.accountOwned){this.input.cancel();this.clearFeedback();this.view.paused=!this.view.needsResume&&this.state.phase!=='result';this.lastTick=this.platform.now();this.saveAccountElapsed();return;}this.input.cancel();this.clearFeedback();this.lastTick=this.platform.now();this.view.paused=!this.view.needsResume&&this.hasRun&&this.legacyState.phase!=='result';if(this.hasRun&&!this.view.needsResume&&this.persist())this.recordFinal();}
  show():void{this.lastTick=this.platform.now();this.refreshDailyAvailability();this.view.message='';}
- togglePause():void{if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){if(this.view.accountBlocked||this.view.confirmation)return;this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();if(this.view.paused)this.saveAccountElapsed();return;}this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();if(this.view.paused&&this.persist())this.recordFinal();}
- resume():void{this.refreshDailyAvailability();if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){if(this.view.accountBlocked){this.retryAccount();return;}this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.view.recoveryError=undefined;this.lastTick=this.platform.now();if(isToolRun(this.state)&&this.state.phase==='rescue')this.view.toolboxOpen=true;this.closeTerminalAccount();if(this.view.account)this.showNormalMechanismHint(this.view.account.guides.inbound);return;}
+ togglePause():void{if(this.practice){if(this.practice.completed)return;this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();return;}if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){if(this.view.accountBlocked||this.view.confirmation)return;this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();if(this.view.paused)this.saveAccountElapsed();return;}this.input.cancel();this.view.paused=!this.view.paused;if(this.view.paused)this.clearFeedback();this.lastTick=this.platform.now();if(this.view.paused&&this.persist())this.recordFinal();}
+ resume():void{if(this.practice){this.view.paused=false;this.view.needsResume=false;this.view.screen='game';this.lastTick=this.platform.now();return;}this.refreshDailyAvailability();if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){if(this.view.accountBlocked){this.retryAccount();return;}this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.view.recoveryError=undefined;this.lastTick=this.platform.now();if(isToolRun(this.state)&&this.state.phase==='rescue')this.view.toolboxOpen=true;this.closeTerminalAccount();if(this.view.account)this.showNormalMechanismHint(guideProgress(this.view.account,guideTrackFor(this.state)));return;}
   if(this.closureUncertain||this.view.needsResume&&(!this.hasRun||!this.canResume||!!this.view.recoveryError)){
    const loaded=loadPlayableRun(this.platform.storage,this.slot);
    if(loaded.closed){this.closureUncertain=false;this.openSelection('menu');return;}
@@ -382,7 +430,7 @@ export class GameSession {
   this.recoveryPending=false;
   if(!this.ensureSerial())return;this.view.needsResume=false;this.view.paused=false;this.view.screen='game';this.lastTick=this.platform.now();this.hasRun=true;this.canResume=true;this.view.canContinue=this.legacyState.phase!=='result';if(this.persist())this.recordFinal();this.view.message='';
  }
- restart():void{if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){this.action({type:'newRun',mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'?'daily':'standard',...('difficultyId' in this.state?{difficultyId:this.state.difficultyId,outboundMode:[10,13].includes(this.state.rulesetVersion)?'endless':'normal' as const}:{})});return;}if(this.legacyState.mode==='color_exit'&&this.legacyState.rulesetVersion<8){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.legacyState.mode==='color_exit'?'color_exit':this.legacyState.mode==='endless'?'endless':this.legacyState.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
+ restart():void{if(this.practice)return;if(!this.writerHeld()){this.blockWriter();return;}if(this.accountOwned){this.action({type:'newRun',...(isInboundV16(this.state)?{inboundDifficulty:this.state.inboundDifficulty}:{}),mode:this.state.mode==='color_exit'?'color_exit':this.state.mode==='endless'?'endless':this.state.mode==='daily'?'daily':'standard',...('difficultyId' in this.state?{difficultyId:this.state.difficultyId,outboundMode:[10,13].includes(this.state.rulesetVersion)?'endless':'normal' as const}:{})});return;}if(this.legacyState.mode==='color_exit'&&this.legacyState.rulesetVersion<8){this.navigateSelection('colorTiers');return;}this.action({type:'newRun',mode:this.legacyState.mode==='color_exit'?'color_exit':this.legacyState.mode==='endless'?'endless':this.legacyState.mode==='daily'?'daily':'standard',colorTier:tierForSlot(this.slot),difficultyId:difficultyForSlot(this.slot)});}
  private activate(next:RunState,slot:RunSlot,source:'new'|'saved'|'backup'|'corrupt'|'unavailable'):void{
   this.input.cancel();this.clearFeedback();this.recoveryPending=source==='backup'||source==='corrupt'||source==='unavailable';this.slot=slot;this.legacyState=next;this.hasRun=source==='new'||source==='saved'||source==='backup';this.canResume=source==='saved'||source==='new'||source==='backup';this.lastTick=this.platform.now();
   Object.assign(this.view,{screen:source==='new'&&colorSlot(slot)&&next.rulesetVersion<8?'colorIntro':'game',needsResume:source==='backup'||source==='corrupt'||source==='unavailable',paused:false,animation:null,elapsed:next.elapsedMs??0,recoveryError:source==='corrupt'?'此模式存档无法读取，原文已保留':source==='unavailable'?'无法访问此模式存储':undefined,confirmation:null,canContinue:this.hasRun&&next.phase!=='result',message:''});
@@ -457,6 +505,7 @@ export class GameSession {
   this.closeConfirmed(screen);
  }
  action(action:UiAction):void{
+  if(this.practice){this.handlePracticeAction(action);return;}
   if(['home','newRun','chooseInbound','chooseColorTier','settings','help','finishEndless','finishOvertime','purchase'].includes(action.type)){this.view.toolboxOpen=false;this.view.toolSelection=null;}
   if(!this.writerHeld()){this.blockWriter();return;}
   if(this.handleAccountAction(action))return;

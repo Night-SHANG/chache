@@ -14,7 +14,7 @@ const held = () => ({ status: 'held' as const, release() {} });
 function rootEnvelope(account: unknown): string {
   return canonicalStringify({ formatVersion: 1, generation: (account as AccountSnapshot).generation, account, digest: accountDigest(canonicalStringify(account)) });
 }
-function fundedPurchase() {
+function fundedPurchase(version:3|4) {
   const old = makeAccountFixture({ wallet: 1800, generation: 1, lastOperation: { operationId: 'older.receipt', expectedGeneration: 0, requestDigest: 'fixture', committedGeneration: 1 } });
   const storage = new FaultStorage(), oldRaw = encodeAccount(old);
   storage.values.set(ACCOUNT_KEYS.a, oldRaw); storage.values.set(ACCOUNT_KEYS.b, oldRaw);
@@ -22,13 +22,16 @@ function fundedPurchase() {
   const purchased = service.transact({ operationId: 'purchase.wood', type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' }, 1);
   assert.equal(purchased.status, 'acknowledged'); assert.equal(purchased.account?.wallet, 1500);
   assert.ok(purchased.account?.profile.ownedCosmetics?.includes('cargo.wood'));
-  return { oldRaw, newer: structuredClone(purchased.account!) };
+  const newer=structuredClone(purchased.account!);
+  if(version===3){newer.formatVersion=3;delete newer.guides.daily;delete newer.tutorialsEnabled;}
+  assertAccountSnapshot(newer);
+  return { oldRaw, newer };
 }
 
 // A structural ownership error must not select the older funded wallet or overwrite paid rights.
-for (const malformed of ['extra equipped category', 'null profile'] as const) for (const side of ['a', 'b'] as const) {
-  test(`format3 ${malformed} in root ${side} survives load repair service retry and session retry byte-for-byte`, () => {
-    const { oldRaw, newer } = fundedPurchase();
+for(const version of [3,4] as const) for (const malformed of ['extra equipped category', 'null profile'] as const) for (const side of ['a', 'b'] as const) {
+  test(`format${version} ${malformed} in root ${side} survives load repair service retry and session retry byte-for-byte`, () => {
+    const { oldRaw, newer } = fundedPurchase(version);
     const changed = malformed === 'null profile' ? { ...newer, profile: null }
       : { ...newer, profile: { ...newer.profile, cosmetics: { ...newer.profile.cosmetics, trim: 'gold' } } };
     const changedRaw = rootEnvelope(changed);

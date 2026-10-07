@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.11.0-dev",
+  "appVersion": "0.12.0-dev",
   "status": "LOCAL_VALIDATION_COMPLETE",
   "rulesets": [
     1,
@@ -16,14 +16,16 @@
     12,
     13,
     14,
-    15
+    15,
+    16
   ],
   "modes": {
     "inbound": {
-      "ruleset": 15,
+      "ruleset": 16,
       "modes": [
         "standard",
-        "daily"
+        "daily",
+        "endless"
       ],
       "boardSizes": [
         7
@@ -37,20 +39,29 @@
       "placeableCells": 45,
       "rushShape": "adaptive ordinary shape",
       "rushProbabilityByStage": [
-        0.06,
-        0.06,
-        0.06,
-        0.06,
-        1
+        0,
+        0,
+        0,
+        0,
+        0
       ],
       "dailyRushProbabilityByStage": [
-        0.12,
-        0.12,
-        0.12,
-        0.12,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
         1
       ],
-      "guidedIntro": "stage1 no rush; stage2-4 6%; stage5 100%"
+      "guidedIntro": "basic placement/order/route only; daily context guide does not change seeded supply",
+      "cleanupMode": "daily only; mandatory every opening",
+      "fiveShiftDifficulties": [
+        "normal",
+        "hard",
+        "expert"
+      ],
+      "overtimeDifficulties": [
+        "normal"
+      ]
     },
     "outbound_normal": {
       "ruleset": 12,
@@ -83,30 +94,31 @@
         11,
         12,
         13,
-        14
+        14,
+        15
       ],
       "unchanged": true
     },
     "inbound_endless": {
-      "ruleset": 14,
+      "ruleset": 16,
       "boardSize": 7,
       "reservedEntries": 4,
       "placeableCells": 45,
-      "rushProbability": 0.06,
+      "rushProbability": 0,
       "stageCap": 5,
-      "normalContinuation": "retains rule15 identity but new generation returns to 6%"
+      "normalContinuation": "rule16 standard continues same run with zero rush and no cleanup; legacy15 keeps its original6%"
     }
   },
   "economyVersion": 2,
-  "accountFormatVersion": 3,
-  "simulationCases": 256,
+  "accountFormatVersion": 4,
+  "simulationCases": 192,
   "simulationCapped": 0,
-  "testsPassed": 1625,
+  "testsPassed": 1780,
   "pythonTestsPassed": 22,
-  "sourceSha256": "8e12c673ad554b1595fcdd416d75a1449678e7af9c9f946e8198745144ee91a6",
-  "gameJsSha256": "2b1b24551c5752bc8ef785a2580fc68ef1655ee1f8b9ecc4b8e715930e936d0e",
-  "runtimeStatus": "Local lint/typecheck/unit/preflight/build and actual native Canvas host validated. Real browser, Windows GUI and physical WeChat NOT RUN.",
-  "deliveryNotes": "docs/v0110-playtest.md",
+  "sourceSha256": "01af61f9b622a678212c3fbc51ce4abaa9711885acc9da7df8b6b5e3e1ad4205",
+  "gameJsSha256": "3b5de6ab08041eaf7462a4ecc0bdec6bf2787443fb83b23561646db8d0c1009a",
+  "runtimeStatus": "Actual unmodified game.js native Canvas/wx host passed. Real browser, Windows GUI and WeChat device not run.",
+  "deliveryNotes": "docs/v0120-playtest.md",
   "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
   "mainModeUndecided": true,
   "developerDiagnosticsDefault": false,
@@ -117,11 +129,11 @@
     "chainPolicy": "one second per shipment"
   },
   "rulesChangedFromV074": true,
-  "hostCasesPassed": 139,
-  "validatedCodeCommit": "c5292456bb785e745531b46ccb92b606fa6baa97",
+  "hostCasesPassed": 58,
+  "validatedCodeCommit": "a0df18b89c3cac3bed731d0e2350723557993ebe",
   "rulesChangedFromV080": true,
   "accountEnvelopeVersion": 1,
-  "simulationCensorReason": "All 256 stage-five paired finite cases reached a real terminal result; cleanup extension has separate denominator.",
+  "simulationCensorReason": "192 seeded order-quantity cases ended naturally; bot performance is not a human win rate.",
   "difficultyScoreMultipliers": {
     "easy": "1/1",
     "normal": "5/4",
@@ -135,20 +147,21 @@
     "dailyLock": "start-date bound after first win",
     "infinite": "cumulative score entitlement minus already paid"
   },
-  "hostStaticImages": 295,
-  "hostContinuousFrames": 820,
-  "previousValidatedCommit": "eff25c268cd340bdaf787e2755975a9c2c3934c8",
-  "focusedProtocolTestsPassed": 17,
-  "harnessCommit": "bbf7063978cff31b9e4e51c1bbf23a6ce4ceee1a",
-  "updatedAtBeijing": "2026-10-07T15:44:00+08:00",
+  "hostStaticImages": 235,
+  "hostContinuousFrames": 41,
+  "previousValidatedCommit": "e84de2ded3c8ffa7e513c1dfa4f48a3284ef2930",
+  "focusedProtocolTestsPassed": 15,
+  "harnessCommit": "fb5f8788220f641c038b64b984898bc3830e00ae",
+  "updatedAtBeijing": "2026-10-07T19:04:17+08:00",
   "cleanup": {
     "orders": 2,
     "placements": 6,
     "clearedOldWasteCellsPerTrigger": 1,
-    "threeOrderBranch": "isolated research only"
+    "threeOrderBranch": "isolated research only",
+    "appliesTo": "new daily only; legacy runs retain their own rules"
   },
   "cosmetics": {
-    "accountFormat": 3,
+    "accountFormat": 4,
     "permanentOwnership": true,
     "freeOutlineOverlay": true,
     "paidCoinPrices": {
@@ -159,53 +172,108 @@
     "buyDoesNotEquip": true,
     "retainedOnResultsReset": true
   },
-  "cleanupStudy": {
-    "cases": 384,
-    "casesPerModePerArm": 64,
-    "seeds": [
-      1,
-      32
+  "guideTracks": [
+    "inbound",
+    "outbound",
+    "daily"
+  ],
+  "orderRangesByStage": [
+    [
+      3,
+      4
     ],
-    "strategies": 2,
-    "arms": [
-      "orders2",
-      "orders3_experimental",
-      "placements6"
+    [
+      3,
+      5
     ],
-    "capped": 0,
-    "productionOrders": 2,
-    "results": {
-      "standard/orders2": {
-        "won": 27,
-        "total": 64,
-        "reachedStageFive": 51
-      },
-      "standard/orders3": {
-        "won": 25,
-        "total": 64,
-        "reachedStageFive": 51
-      },
-      "standard/placements6": {
-        "won": 26,
-        "total": 64,
-        "reachedStageFive": 51
-      },
-      "daily/orders2": {
-        "won": 28,
-        "total": 64,
-        "reachedStageFive": 55
-      },
-      "daily/orders3": {
-        "won": 25,
-        "total": 64,
-        "reachedStageFive": 51
-      },
-      "daily/placements6": {
-        "won": 27,
-        "total": 64,
-        "reachedStageFive": 52
-      }
-    },
-    "overlapWithStageFive256Study": 128
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ]
+  ],
+  "quantityExperiment": "Three playable ordinary-five tiers; daily/endless stay normal. No inbound difficulty coin multiplier.",
+  "fiveShiftTiers": {
+    "normal": [
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        7
+      ]
+    ],
+    "hard": [
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ]
+    ],
+    "expert": [
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        6,
+        8
+      ]
+    ]
+  },
+  "tutorialControls": "Settings enable switch preserves completion; inbound/outbound/daily isolated practice has zero wallet, score, date-ledger and guide-completion writes.",
+  "validationCommits": {
+    "full1780": "4cd0b27faf7c385b7e9bed8562719f38365b2e5e",
+    "productReview": "a0df18b89c3cac3bed731d0e2350723557993ebe",
+    "host": "fb5f8788220f641c038b64b984898bc3830e00ae",
+    "productByteIdenticalAfterReview": true,
+    "laterChanges": "Test harness and documentation only; final protocol15 and lint/typecheck/preflight rerun."
   }
 }
