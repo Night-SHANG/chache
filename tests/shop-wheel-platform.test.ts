@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import {createBrowserPlatform} from '../src/platform/browser.ts';
 import type {WheelEvent as WheelInput} from '../src/platform/types.ts';
 import {sessionHost,startInbound} from './helpers/session-fixtures.ts';
-import {shopScrollLimit} from '../src/presentation/shop-layout.ts';
 import {playableChecksum} from '../src/domain/playable.ts';
 
 function browserFixture(dpr=1,width=320,height=700){
@@ -51,14 +50,21 @@ test('wheel normalizes line and page units and follows resized CSS scale',()=>{
  }finally{f.restore();}
 });
 
-test('browser wheel reaches the real shop session, clamps without saving, and leaves game scrolling alone',()=>{
- const f=browserFixture(3),h=sessionHost({wallet:3000}),s=h.session;try{
+for(const dpr of [1,2,3])test(`browser wheel leaves every shop page unclaimed and unchanged at DPR ${dpr}`,()=>{
+ const f=browserFixture(dpr),h=sessionHost({wallet:3000}),s=h.session;try{
   s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
-  const before=[...h.data],checksum=playableChecksum(s.state);f.platform.onWheel?.(event=>s.input.wheel(event.point,event.deltaY));
-  assert.equal(f.event(),true);assert.equal(s.view.shopScroll?.sets,101.25);assert.equal(s.view.cosmeticSetPreview,undefined);
-  assert.equal(f.event({deltaY:100000}),true);assert.equal(s.view.shopScroll?.sets,shopScrollLimit(s.view));
-  assert.equal(f.event({deltaY:-100000}),true);assert.equal(s.view.shopScroll?.sets,0);
+  const before=[...h.data],checksum=playableChecksum(s.state);h.storage.resetFault();f.platform.onWheel?.(event=>s.input.wheel(event.point,event.deltaY));
+  for(const section of ['sets','theme','cargo','forklift'] as const){
+   s.action({type:'selectShopSection',section});
+   for(let page=0;page<(section==='sets'?4:5);page++){
+    s.action({type:section==='sets'?'selectCosmeticSetPage':'selectCosmeticPage',page});const viewBefore=structuredClone(s.view);
+    for(const values of [{},{deltaY:100000},{deltaY:-100000},{deltaY:2,deltaMode:1},{deltaY:-1,deltaMode:2}]){
+     assert.equal(f.event(values),false,`${section} page ${page}: ${JSON.stringify(values)}`);assert.deepEqual(s.view,viewBefore);
+    }
+   }
+  }
   assert.deepEqual([...h.data],before);assert.equal(playableChecksum(s.state),checksum);
+  assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
   s.action({type:'back'});startInbound(s);const gameChecksum=playableChecksum(s.state);
   assert.equal(f.event(),false);assert.equal(playableChecksum(s.state),gameChecksum);
  }finally{f.restore();}

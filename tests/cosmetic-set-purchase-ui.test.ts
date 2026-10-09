@@ -24,7 +24,7 @@ function words(s:GameSession,renderer=render){const ctx=createCanvas(1080,1920).
 
 test('set details put blue return on the left and yellow purchase on the right',()=>{
  const {session:s}=host();open(s);const back=controls(s).find(c=>c.action.type==='closeShopDetail'),buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');
- assert.ok(back);assert.ok(buy);assert.equal(back.label,'返回列表');assert.equal(back.buttonRole,'secondary');assert.equal(buy.label,'购买套装\n1440金币');assert.equal(buy.buttonRole,'primary');assert.equal(buy.disabled,false);assert.ok(back.rect.x+back.rect.w<buy.rect.x);
+ assert.ok(back);assert.ok(buy);assert.equal(back.label,'返回套装');assert.equal(back.buttonRole,'secondary');assert.equal(buy.label,'购买套装\n1440金币');assert.equal(buy.buttonRole,'primary');assert.equal(buy.disabled,false);assert.ok(back.rect.x+back.rect.w<buy.rect.x);
  assert.equal(controls(s).filter(c=>c.action.type==='previewCosmeticSetMember').length,3);
 });
 

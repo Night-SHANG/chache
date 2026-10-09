@@ -7,7 +7,6 @@ import { createProfile, setProfileCosmetic } from '../src/application/profile.ts
 import { FaultStorage, makeAccountFixture } from './helpers/account-fixtures.ts';
 import { sessionHost } from './helpers/session-fixtures.ts';
 import { getShopControls, selectedShopCosmetic } from '../src/presentation/economy-ui.ts';
-import { SHOP_CARD_HEIGHT, SHOP_CARD_GAP, shopScrollOffset } from '../src/presentation/shop-layout.ts';
 import { playableChecksum } from '../src/domain/playable.ts';
 import { build } from 'esbuild';
 
@@ -93,30 +92,30 @@ test('new sets never bypass owned checks, insufficient funds or legacy-profile p
  assert.throws(() => assertAccountCosmetics(account.profile), /原记录已保留/);
 });
 
-test('scrolling reference cards remain preview-only, open independent details and preserve 44px controls', () => {
- const { session, data } = sessionHost({ wallet: 10800 }), checksum = playableChecksum(session.state);
+test('paginated reference tiles remain preview-only on the same screen and preserve 44px controls', () => {
+ const { session, data, storage } = sessionHost({ wallet: 10800 }), checksum = playableChecksum(session.state);
  session.action({ type: 'shop' }); session.action({ type: 'selectShopTab', tab: 'cosmetics' });
- const before = [...data];
+ const before = [...data], account = JSON.stringify(session.view.account);storage.resetFault();
  for (const [kind, id] of NEW) {
   session.action({ type: 'selectShopSection', section: kind });
   const index = COSMETIC_CATALOG.filter(item => item.kind === kind).findIndex(item => item.id === id);
-  session.action({ type: 'scrollShop', deltaY: Math.floor(index / 2) * (SHOP_CARD_HEIGHT + SHOP_CARD_GAP) - shopScrollOffset(session.view) });
-  const offset = shopScrollOffset(session.view), list = getShopControls(session.view), card = list.find(control => control.action.type === 'previewCosmetic' && control.action.kind === kind && control.action.id === id);
-  assert.ok(card, `${kind}.${id} remains reachable by scrolling`);
-  assert.equal(list.some(control => control.action.type === 'purchaseCosmetic'), false);
+  session.action({ type: 'selectCosmeticPage', page: Math.floor(index / 4) });
+  const list = getShopControls(session.view), card = list.find(control => control.action.type === 'previewCosmetic' && control.action.kind === kind && control.action.id === id);
+  assert.ok(card, `${kind}.${id} remains reachable by pagination`);
+  assert.equal(list.filter(control => control.action.type === 'selectCosmeticPage').length, 2);
   session.action(card.action);
-  const controls = getShopControls(session.view);
-  assert.deepEqual(session.view.shopItemDetail, { kind, id }); assert.equal(selectedShopCosmetic(session.view).key, `${kind}.${id}`);
-  assert.deepEqual(controls.map(control => control.action.type), ['closeShopDetail', 'purchaseCosmetic']);
-  assert.deepEqual(controls[1].action, { type: 'purchaseCosmetic', kind, id });
+  const controls = getShopControls(session.view), buy = controls.find(control => control.action.type === 'purchaseCosmetic');
+  assert.equal(session.view.shopItemDetail, undefined); assert.equal(selectedShopCosmetic(session.view).key, `${kind}.${id}`);
+  assert.equal(controls.filter(control => control.action.type === 'selectShopSection').length, 4);assert.equal(controls.some(control => control.action.type === 'closeShopDetail'), false);
+  assert.deepEqual(buy?.action, { type: 'purchaseCosmetic', kind, id });
   for (const [index, control] of controls.entries()) {
    assert.ok(control.rect.w / 3 >= 44 && control.rect.h / 3 >= 44);
    for (const other of controls.slice(index + 1)) assert.ok(control.rect.x + control.rect.w <= other.rect.x || other.rect.x + other.rect.w <= control.rect.x || control.rect.y + control.rect.h <= other.rect.y || other.rect.y + other.rect.h <= control.rect.y);
   }
-  session.action(controls[0].action); assert.equal(session.view.shopItemDetail, undefined); assert.equal(session.view.shopSection, kind); assert.equal(shopScrollOffset(session.view), offset);
-  assert.ok(getShopControls(session.view).some(control => control.action.type === 'previewCosmetic' && control.action.id === id));
+  session.action({type:'selectShopTab',tab:'tools'});session.action({type:'selectShopTab',tab:'cosmetics'});assert.equal(session.view.shopSection, kind);assert.equal(selectedShopCosmetic(session.view).id, id);
+  assert.ok(getShopControls(session.view).some(control => control.action.type === 'previewCosmetic' && control.action.id === id && control.selected));
  }
- assert.deepEqual([...data], before); assert.equal(playableChecksum(session.state), checksum);
+ session.action({type:'back'});assert.equal(session.view.screen,'menu');assert.deepEqual([...data], before);assert.equal(JSON.stringify(session.view.account), account);assert.equal(storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);assert.equal(playableChecksum(session.state), checksum);
 });
 
 test('compiled free-playtest grants every new set without spending and paid-build restart keeps all earned rights', async () => {

@@ -72,7 +72,7 @@ export class InputController {
    if(!this.validShopGesture()||!hitTestPoint(point,{x:0,y:0,w:L.width,h:L.height})){this.cancel(id);return;}
    const deltaY=this.shopGesture.last.y-point.y;this.shopGesture.last=point;
    if(Math.hypot(point.x-this.start.x,point.y-this.start.y)>14){this.dragging=true;this.button=null;}
-   if(this.dragging&&deltaY!==0)this.port.action?.({type:'scrollShop',deltaY});
+   if(this.dragging&&deltaY!==0&&shopScrollLimit(this.port.getView())>0)this.port.action?.({type:'scrollShop',deltaY});
    return;
   }
   if(this.button)return;

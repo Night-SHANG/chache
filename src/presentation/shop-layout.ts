@@ -14,7 +14,8 @@ export const shopItems=(view:ViewState):readonly (CosmeticSetDefinition|Cosmetic
 export function shopListViewport(view:ViewState):Rect|null {
  return view.screen==='shop'&&view.shopTab==='cosmetics'&&!view.shopItemDetail&&!view.cosmeticSetPreview&&!view.confirmation&&!view.accountBlocked?{...SHOP_LIST_RECT}:null;
 }
-export function shopScrollLimit(view:ViewState):number {return Math.max(0,Math.ceil(shopItems(view).length/2)*(SHOP_CARD_HEIGHT+SHOP_CARD_GAP)-SHOP_CARD_GAP-SHOP_LIST_RECT.h);}
+/** Pagination has no scrollable overflow; the viewport remains only a tap/drag safety boundary. */
+export function shopScrollLimit(view:ViewState):number {void view;return 0;}
 export function shopScrollOffset(view:ViewState):number {const offset=view.shopScroll?.[shopSection(view)]??0;return Math.max(0,Math.min(shopScrollLimit(view),Number.isFinite(offset)?offset:0));}
 export function shopCardRect(view:ViewState,index:number):Rect {return {x:SHOP_LIST_RECT.x+index%2*(SHOP_CARD_WIDTH+SHOP_CARD_GAP),y:SHOP_LIST_RECT.y+Math.floor(index/2)*(SHOP_CARD_HEIGHT+SHOP_CARD_GAP)-shopScrollOffset(view),w:SHOP_CARD_WIDTH,h:SHOP_CARD_HEIGHT};}
 export interface ShopCard {item:CosmeticSetDefinition|CosmeticDefinition;rect:Rect;hitRect:Rect|null;}

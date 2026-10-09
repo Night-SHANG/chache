@@ -4,6 +4,8 @@ import {createWechatPlatform} from '../src/platform/wechat.ts';
 import type {WechatHost} from '../src/platform/wechat.ts';
 import type {PointerEvent} from '../src/platform/types.ts';
 import {InputController} from '../src/presentation/input.ts';
+import {getUiControls} from '../src/presentation/ui.ts';
+import {playableChecksum} from '../src/domain/playable.ts';
 import type {UiAction} from '../src/presentation/ui-types.ts';
 import {sessionHost} from './helpers/session-fixtures.ts';
 
@@ -31,17 +33,43 @@ test('WeChat empty touchcancel releases all active fingers without reviving ende
  assert.deepEqual(events.filter(event=>event.type==='cancel').map(event=>event.id),[7]);
 });
 
-for(const dpr of [1,2,3])test(`WeChat safe-area mapping scrolls the same logical distance at DPR ${dpr}`,()=>{
- const f=fixture(dpr),{session}=sessionHost({wallet:3000});Object.assign(session.view,{screen:'shop',shopTab:'cosmetics',shopSection:'sets',cosmeticSetPreview:undefined,shopItemDetail:undefined});
- const actions:UiAction[]=[],commands:unknown[]=[];
- const input=new InputController({getState:()=>session.state,getView:()=>session.view,patchView:patch=>Object.assign(session.view,patch),preview:()=>({valid:true,events:[],cells:[],shipments:[]}),dispatch:command=>commands.push(command),togglePause:()=>{},restart:()=>{},resume:()=>{},toggleDebug:()=>{},action:action=>actions.push(action)});
- f.platform.onPointer(event=>{if(event.type==='cancel')input.cancel(event.id);else input[event.type](event.point,event.id);});f.platform.onHide(()=>input.cancel());
- f.emit('down',[f.touch(7,330,800)]);f.emit('move',[f.touch(7,330,650)]);f.emit('cancel',[]);f.emit('up',[f.touch(7,330,800)]);
- assert.equal(actions.length,1);assert.equal(actions[0].type,'scrollShop');assert.ok('deltaY' in actions[0]&&Math.abs(actions[0].deltaY-150)<1e-10);assert.deepEqual(commands,[]);
- actions.length=0;f.emit('down',[f.touch(9,330,800)]);f.emit('cancel',[]);f.emit('up',[f.touch(9,330,800)]);assert.equal(actions.length,0);
- f.emit('down',[f.touch(9,330,800)]);f.hide();f.emit('up',[f.touch(9,330,800)]);assert.equal(actions.length,0);
- f.emit('down',[f.touch(10,330,800)]);f.emit('move',[f.touch(10,330,700)]);f.emit('up',[f.touch(10,330,700)]);assert.equal(actions.length,1);assert.ok('deltaY' in actions[0]&&Math.abs(actions[0].deltaY-100)<1e-10);
- assert.equal(f.canvas.width,320*dpr);
+for(const dpr of [1,2,3])test(`WeChat safe-area mapping preserves logical drag distance without scrolling at DPR ${dpr}`,()=>{
+ const f=fixture(dpr),h=sessionHost({wallet:3000}),{session}=h;Object.assign(session.view,{screen:'shop',shopTab:'cosmetics',shopSection:'sets',cosmeticSetPreview:undefined,shopItemDetail:undefined,placementRisk:null});
+ const actions:UiAction[]=[],commands:unknown[]=[],previews:unknown[]=[],events:PointerEvent[]=[];
+ const input=new InputController({getState:()=>session.state,getView:()=>session.view,patchView:patch=>Object.assign(session.view,patch),preview:(...args)=>{previews.push(args);return {valid:true,events:[],cells:[],shipments:[]};},dispatch:command=>commands.push(command),togglePause:()=>{},restart:()=>{},resume:()=>{},toggleDebug:()=>{},action:action=>actions.push(action)});
+ const before=structuredClone(session.view),dataBefore=[...h.data],checksum=playableChecksum(session.state);h.storage.resetFault();
+ f.platform.onPointer(event=>{events.push(event);if(event.type==='cancel')input.cancel(event.id);else input[event.type](event.point,event.id);});f.platform.onHide(()=>input.cancel());
+ f.emit('down',[f.touch(7,330,800)]);f.emit('move',[f.touch(7,330,650)]);
+ assert.deepEqual(events.map(event=>[event.type,event.id]),[['down',7],['move',7]]);
+ assert.ok(Math.abs(events[0].point.x-330)<1e-10&&Math.abs(events[0].point.y-800)<1e-10);
+ assert.ok(Math.abs(events[1].point.x-330)<1e-10&&Math.abs(events[1].point.y-650)<1e-10);
+ assert.ok(Math.abs(events[0].point.y-events[1].point.y-150)<1e-10);
+ assert.deepEqual(actions,[]);assert.deepEqual(session.view,before,'a mapped drag must never temporarily scroll');
+ f.emit('cancel',[]);f.emit('up',[f.touch(7,330,800)]);assert.deepEqual(actions,[]);assert.deepEqual(session.view,before);
+ f.emit('down',[f.touch(9,330,800)]);f.emit('cancel',[]);f.emit('up',[f.touch(9,330,800)]);assert.deepEqual(actions,[]);
+ f.emit('down',[f.touch(9,330,800)]);f.hide();f.emit('up',[f.touch(9,330,800)]);assert.deepEqual(actions,[]);
+ f.emit('down',[f.touch(10,330,800)]);f.emit('move',[f.touch(10,330,700)]);assert.deepEqual(actions,[]);f.emit('up',[f.touch(10,330,700)]);assert.deepEqual(actions,[]);assert.deepEqual(session.view,before);
+ const card=getUiControls(session.state,session.view).find(control=>control.action.type==='previewCosmeticSet');assert.ok(card);
+ f.emit('down',[f.touch(11,330,800)]);f.emit('move',[f.touch(11,333,804)]);f.emit('up',[f.touch(11,330,800)]);assert.deepEqual(actions,[card.action]);
+ assert.deepEqual(commands,[]);assert.deepEqual(previews,[]);assert.deepEqual([...h.data],dataBefore);assert.equal(playableChecksum(session.state),checksum);
+ assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+ assert.equal(f.canvas.width,320*dpr);assert.equal(f.canvas.height,740*dpr);
+});
+
+for(const dpr of [1,2,3])test(`WeChat real-shop swipes preserve every section's page, preview and data at DPR ${dpr}`,()=>{
+ const f=fixture(dpr),h=sessionHost({wallet:3000}),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
+ f.platform.onPointer(event=>{if(event.type==='cancel')s.input.cancel(event.id);else s.input[event.type](event.point,event.id);});
+ const dataBefore=[...h.data],checksum=playableChecksum(s.state);h.storage.resetFault();
+ for(const section of ['sets','theme','cargo','forklift'] as const){
+  s.action({type:'selectShopSection',section});s.action({type:section==='sets'?'selectCosmeticSetPage':'selectCosmeticPage',page:2});
+  const card=getUiControls(s.state,s.view).filter(control=>control.action.type===(section==='sets'?'previewCosmeticSet':'previewCosmetic'))[1];assert.ok(card);
+  const point={x:card.rect.x+card.rect.w/2,y:card.rect.y+card.rect.h/2},before=structuredClone(s.view);
+  f.emit('down',[f.touch(7,point.x,point.y)]);f.emit('move',[f.touch(7,point.x,point.y-50)]);assert.deepEqual(s.view,before,section);
+  f.emit('move',[f.touch(7,point.x,point.y)]);f.emit('up',[f.touch(7,point.x,point.y)]);assert.deepEqual(s.view,before,section);
+  f.emit('down',[f.touch(8,point.x,point.y)]);f.emit('up',[f.touch(8,point.x+25,point.y)]);assert.deepEqual(s.view,before,section);
+  assert.deepEqual([...h.data],dataBefore);assert.equal(playableChecksum(s.state),checksum);
+ }
+ assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });
 
 test('WeChat safe-area letterboxing never turns a touch in the margin into a shop gesture',()=>{

@@ -17,12 +17,12 @@ test('shop preserves tool purchases and selected root tabs while settings contai
  const settings=getUiControls(state,view({screen:'settings'}));assert.deepEqual(settings.map(c=>c.action.type),['toggleMusic','toggleSound','toggleMotion','resetProfile','back']);assert.doesNotMatch(words(view({screen:'settings'})),/仓库主题|叉车涂装|货箱样式/);
 });
 test('cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip',()=>{
- const v=view({shopTab:'cosmetics',shopSection:'cargo',shopItemDetail:{kind:'cargo',id:'wood'}}),controls=getUiControls(state,v),out=words(v);
- assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,0);const list=getUiControls(state,view({shopTab:'cosmetics',shopSection:'cargo'}));assert.equal(list.filter(c=>c.action.type==='selectShopSection').length,4);assert.deepEqual(list.filter(c=>c.action.type==='previewCosmetic').slice(0,4).map(c=>c.action.type==='previewCosmetic'&&`${c.action.kind}.${c.action.id}`),['cargo.classic','cargo.outline','cargo.wood','cargo.insulated']);assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,'购买\n300金币');assert.match(out,/原木藤箱/);
- const locked=words(view({shopTab:'cosmetics',shopSection:'forklift',shopItemDetail:{kind:'forklift',id:'red'}}));assert.match(locked,/成就解锁/);assert.match(locked,/通关入库五班后解锁/);
+ const v=view({shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}),controls=getUiControls(state,v),out=words(v);
+ assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,4);const list=getUiControls(state,view({shopTab:'cosmetics',shopSection:'cargo'}));assert.equal(list.filter(c=>c.action.type==='selectShopSection').length,4);assert.deepEqual(list.filter(c=>c.action.type==='previewCosmetic').slice(0,4).map(c=>c.action.type==='previewCosmetic'&&`${c.action.kind}.${c.action.id}`),['cargo.classic','cargo.outline','cargo.wood','cargo.insulated']);assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,'300金币 · 购买');assert.match(out,/原木藤箱/);
+ const locked=words(view({shopTab:'cosmetics',shopSection:'forklift',cosmeticPreview:{forklift:'red'}}));assert.match(locked,/成就解锁/);assert.match(locked,/通关入库五班后解锁/);
  const account=retainAccountCosmetics(makeAccountFixture({wallet:0}));account.profile.ownedCosmetics!.push('cargo.wood');account.profile.ownedCosmetics!.sort();
- const owned=getUiControls(state,view({account,shopTab:'cosmetics',shopSection:'cargo',shopItemDetail:{kind:'cargo',id:'wood'}}));assert.equal(owned.find(c=>c.action.type==='equipCosmetic')?.label,'装备');
- account.profile.cosmetics.cargo='wood';assert.equal(getUiControls(state,view({account,shopTab:'cosmetics',shopSection:'cargo',shopItemDetail:{kind:'cargo',id:'wood'}})).find(c=>c.action.type==='equipCosmetic')?.label,'使用中');
+ const owned=getUiControls(state,view({account,shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.equal(owned.find(c=>c.action.type==='equipCosmetic')?.label,'装备');
+ account.profile.cosmetics.cargo='wood';assert.equal(getUiControls(state,view({account,shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}})).find(c=>c.action.type==='equipCosmetic')?.label,'使用中');
 });
 test('all shop tabs categories cards actions and back are disjoint and at least 44 CSS pixels at three sizes',()=>{
  for(const viewport of [{w:360,h:800},{w:540,h:960},{w:1200,h:900}])for(const category of ['theme','cargo','forklift'] as const)for(const tab of ['tools','cosmetics'] as const){

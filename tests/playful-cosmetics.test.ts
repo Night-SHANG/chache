@@ -108,48 +108,62 @@ test('each new category keeps purchase rights private until a failed mirror is r
 import {GameSession} from '../src/application/session.ts';
 import {sessionHost} from './helpers/session-fixtures.ts';
 import {getUiControls} from '../src/presentation/ui.ts';
-import {SHOP_CARD_HEIGHT,SHOP_CARD_GAP,SHOP_LIST_RECT,shopScrollLimit,shopScrollOffset} from '../src/presentation/shop-layout.ts';
+import {cosmeticShopPage,selectedShopCosmetic} from '../src/presentation/economy-ui.ts';
 import {playableChecksum} from '../src/domain/playable.ts';
 
-// Every playful item remains reachable through the real scrolling list and pointer targets.
-test('scrolling shop cards open details and cancel, buy, equip, reload and reset each new item',()=>{
+// Every playful item remains reachable through v23 page controls and same-screen text tiles.
+test('v23 paginated item previews cancel, buy, equip, reload and reset each new item through real pointer targets',()=>{
  for(const [kind,id,price] of NEW){
-  const h=sessionHost({wallet:price}),s=h.session,checksum=playableChecksum(s.state);
-  const click=(type:string,target?:string)=>{const control=getUiControls(s.state,s.view).find(c=>c.action.type===type&&(target===undefined||'id' in c.action&&c.action.id===target||'section' in c.action&&c.action.section===target||'tab' in c.action&&c.action.tab===target));assert.ok(control,`${kind}.${id}/${type}/${target}`);const point={x:control.rect.x+control.rect.w/2,y:control.rect.y+control.rect.h/2};s.input.down(point);s.input.up(point);return control;};
-  click('shop');click('selectShopTab','cosmetics');click('selectShopSection',kind);
-  const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),targetRow=Math.floor(options.findIndex(item=>item.id===id)/2),stored=[...h.data];
-  s.action({type:'scrollShop',deltaY:targetRow*(SHOP_CARD_HEIGHT+SHOP_CARD_GAP)});
-  const offset=shopScrollOffset(s.view);assert.ok(offset>0);
-  assert.equal(getUiControls(s.state,s.view).some(c=>c.action.type==='purchaseCosmetic'),false,'list cards only open details');
-  click('previewCosmetic',id);assert.deepEqual(s.view.shopItemDetail,{kind,id});assert.deepEqual([...h.data],stored);
-  assert.equal(getUiControls(s.state,s.view).some(c=>c.action.type==='selectShopSection'||c.action.type==='previewCosmetic'),false);
-  click('closeShopDetail');assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.shopSection,kind);assert.equal(shopScrollOffset(s.view),offset);click('previewCosmetic',id);
-  const before=[...h.data];click('purchaseCosmetic',id);assert.equal(s.view.confirmation?.kind,'purchaseCosmetic');s.action({type:'cancel'});assert.deepEqual([...h.data],before);
-  click('purchaseCosmetic',id);s.action({type:'confirm'});s.action({type:'confirm'});assert.equal(s.view.account?.wallet,0);click('equipCosmetic',id);assert.equal(s.view.account?.profile.cosmetics[kind],id);
-  s.action({type:'resetProfile'});s.action({type:'confirm'});const restored=new GameSession(h.platform,{seed:71,mode:'standard'});assert.equal(restored.view.account?.profile.cosmetics[kind],id);assert.equal(restored.view.account?.wallet,0);assert.equal(playableChecksum(s.state),checksum);
+  const h=sessionHost({wallet:price}),s=h.session,checksum=playableChecksum(s.state),initialAccount=structuredClone(s.view.account),stored=[...h.data];h.storage.resetFault();
+  const click=(type:string,target?:string|number)=>{const control=getUiControls(s.state,s.view).find(c=>c.action.type===type&&(target===undefined||'id' in c.action&&c.action.id===target||'section' in c.action&&c.action.section===target||'tab' in c.action&&c.action.tab===target||'page' in c.action&&c.action.page===target));assert.ok(control,`${kind}.${id}/${type}/${target}`);assert.equal(!!control.disabled,false);const point={x:control.rect.x+control.rect.w/2,y:control.rect.y+control.rect.h/2};s.input.down(point);s.input.up(point);return control;};
+  const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),targetPage=Math.floor(options.findIndex(item=>item.id===id)/4);
+  const openItem=()=>{
+   click('shop');click('selectShopTab','cosmetics');click('selectShopSection',kind);
+   for(let page=1;page<=targetPage;page++){click('selectCosmeticPage',page);assert.equal(cosmeticShopPage(s.view).page,page);}
+   click('previewCosmetic',id);assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticPreview?.[kind],id);assert.equal(selectedShopCosmetic(s.view).id,id);assert.equal(cosmeticShopPage(s.view).page,targetPage);
+   const controls=getUiControls(s.state,s.view);assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,4);assert.equal(controls.filter(c=>c.action.type==='previewCosmetic').length,4);assert.equal(controls.some(c=>c.action.type==='closeShopDetail'),false);assert.ok(controls.find(c=>c.action.type==='previewCosmetic'&&c.action.id===id)?.selected);
+   assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,`${price}金币 · 购买`);
+  };
+  openItem();click('back');assert.equal(s.view.screen,'menu','ordinary preview adds no extra Back layer');openItem();
+  assert.deepEqual([...h.data],stored);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+  const before=[...h.data];click('purchaseCosmetic',id);assert.equal(s.view.confirmation?.kind,'purchaseCosmetic');s.action({type:'cancel'});assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+  click('purchaseCosmetic',id);s.action({type:'confirm'});s.action({type:'confirm'});assert.equal(s.view.account?.wallet,0);assert.deepEqual(s.view.account?.profile.cosmetics,initialAccount?.profile.cosmetics,'buying never silently equips');assert.deepEqual(accountCosmeticState(s.view.account).ownedCosmetics,[...FREE_COSMETICS,`${kind}.${id}`].sort());
+  click('equipCosmetic',id);assert.equal(s.view.account?.profile.cosmetics[kind],id);assert.equal(s.view.account?.wallet,0,'equipping costs no coins');
+  s.action({type:'resetProfile'});s.action({type:'confirm'});const restored=new GameSession(h.platform,{seed:71,mode:'standard'});assert.equal(restored.view.account?.profile.cosmetics[kind],id);assert.equal(restored.view.account?.wallet,0);assert.deepEqual(accountCosmeticState(restored.view.account).ownedCosmetics,[...FREE_COSMETICS,`${kind}.${id}`].sort());assert.equal(h.data.get(ACCOUNT_KEYS.a),h.data.get(ACCOUNT_KEYS.b));assert.equal(playableChecksum(s.state),checksum);
  }
 });
 
-test('all 53 rights coexist and every scrolling item retains 44 CSS pixel disjoint controls at 360px',()=>{
+test('v23 all 53 rights coexist and every paginated item retains read-only 44 CSS pixel disjoint controls at 320px',()=>{
  const {service,transact}=setup(COSMETIC_CATALOG.reduce((sum,item)=>sum+item.price,0));
  for(const item of COSMETIC_CATALOG.filter(item=>item.price>0))assert.equal(transact({type:'purchaseCosmetic',kind:item.kind,id:item.id}).status,'acknowledged');
  const account=service.getSnapshot()!;account.profile.ownedCosmetics!.push('forklift.blue','forklift.red');account.profile.ownedCosmetics!.sort();
  assert.equal(accountCosmeticState(account).ownedCosmetics.length,53);
- const h=sessionHost(account),s=h.session;assert.equal(s.view.account?.profile.ownedCosmetics?.length,53,'all 53 rights reload through real account validation');s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
+ const h=sessionHost(account),s=h.session;assert.equal(s.view.account?.profile.ownedCosmetics?.length,53,'all 53 rights reload through real account validation');const before=[...h.data],initialAccount=structuredClone(s.view.account),checksum=playableChecksum(s.state);h.storage.resetFault();s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
  const seen=new Set<string>();
+ const checkControls=()=>{
+  const controls=getUiControls(s.state,s.view);
+  assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,4);assert.equal(controls.some(c=>c.action.type==='purchaseCosmetic'||c.action.type==='closeShopDetail'||c.action.type==='selectCosmeticSetPage'),false);assert.equal(s.view.shopItemDetail,undefined);
+  for(const [index,control] of controls.entries()){
+   assert.ok(control.rect.w*320/1080>=44&&control.rect.h*320/1080>=44,control.action.type);assert.ok(control.rect.x>=0&&control.rect.x+control.rect.w<=1080&&control.rect.y>=0&&control.rect.y+control.rect.h<=1856,control.action.type);for(const other of controls.slice(index+1))assert.ok(control.rect.x+control.rect.w<=other.rect.x||other.rect.x+other.rect.w<=control.rect.x||control.rect.y+control.rect.h<=other.rect.y||other.rect.y+other.rect.h<=control.rect.y,`${control.action.type}/${other.action.type}`);
+  }
+  return controls;
+ };
  for(const kind of ['theme','cargo','forklift'] as const){
-  s.action({type:'selectShopSection',section:kind});const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),limit=shopScrollLimit(s.view),seenCategory=new Set<string>();
+  s.action({type:'selectShopSection',section:kind});const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),seenCategory=new Set<string>();
   assert.equal(options.length,kind==='forklift'?19:17);
-  for(let offset=0;offset<=limit+50;offset+=50){
-   s.action({type:'scrollShop',deltaY:offset-shopScrollOffset(s.view)});assert.equal(shopScrollOffset(s.view),Math.min(offset,limit));
-   const controls=getUiControls(s.state,s.view);
-   assert.equal(controls.some(c=>['selectCosmeticPage','selectCosmeticSetPage','purchaseCosmetic','equipCosmetic'].includes(c.action.type)),false);
-   for(const [index,control] of controls.entries()){
-    assert.ok(control.rect.w/3>=44&&control.rect.h/3>=44);assert.ok(control.rect.x>=0&&control.rect.x+control.rect.w<=1080&&control.rect.y>=0&&control.rect.y+control.rect.h<=1920);for(const other of controls.slice(index+1))assert.ok(control.rect.x+control.rect.w<=other.rect.x||other.rect.x+other.rect.w<=control.rect.x||control.rect.y+control.rect.h<=other.rect.y||other.rect.y+other.rect.h<=control.rect.y);
-    if(control.action.type==='previewCosmetic'){assert.equal(control.action.kind,kind);seenCategory.add(control.action.id);seen.add(`${kind}.${control.action.id}`);assert.ok(control.rect.y>=SHOP_LIST_RECT.y&&control.rect.y+control.rect.h<=SHOP_LIST_RECT.y+SHOP_LIST_RECT.h);}
+  for(let page=0;page<5;page++){
+   s.action({type:'selectCosmeticPage',page});assert.equal(cosmeticShopPage(s.view).page,page);
+   const controls=checkControls(),tiles=controls.filter(c=>c.action.type==='previewCosmetic'),expected=options.slice(page*4,page*4+4);
+   assert.equal(tiles.length,expected.length);assert.deepEqual(tiles.map(c=>c.action.type==='previewCosmetic'&&c.action.id),expected.map(item=>item.id));
+   assert.deepEqual(controls.filter(c=>c.action.type==='selectCosmeticPage').map(c=>[c.label,!!c.disabled]),[['上一页',page===0],['下一页',page===4]]);
+   for(const [index,control] of tiles.entries()){
+    assert.equal(control.action.type,'previewCosmetic');if(control.action.type!=='previewCosmetic')throw Error('Expected a same-screen item tile');
+    assert.equal(control.action.kind,kind);assert.ok(control.label.startsWith(`${expected[index].name}\n`));assert.deepEqual(control.rect,{x:132+index%2*420,y:1110+Math.floor(index/2)*170,w:396,h:150});
+    const point={x:control.rect.x+control.rect.w/2,y:control.rect.y+control.rect.h/2};s.input.down(point);s.input.up(point);assert.equal(selectedShopCosmetic(s.view).id,control.action.id);assert.equal(cosmeticShopPage(s.view).page,page);checkControls();
+    seenCategory.add(control.action.id);seen.add(`${kind}.${control.action.id}`);
    }
   }
   assert.deepEqual([...seenCategory].sort(),options.map(item=>item.id).sort());
  }
- assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());
+ assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());assert.equal(seen.size,53);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });

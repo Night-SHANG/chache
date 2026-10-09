@@ -15,7 +15,8 @@ test('classic preview variants are session-only and root entry resets while inte
  assert.deepEqual(s.view.classicSetSelection,{theme:'night',cargo:'outline',forklift:'white'});
  act(s,{type:'selectShopTab',tab:'tools'});act(s,{type:'selectShopTab',tab:'cosmetics'});assert.equal(s.view.classicSetSelection?.forklift,'white');
  act(s,{type:'closeShopDetail'});act(s,{type:'previewCosmeticSet',id:'classic'});assert.equal(s.view.classicSetSelection?.forklift,'white');
- act(s,{type:'previewCosmeticSetMember',kind:'forklift'});assert.deepEqual(s.view.shopItemDetail,{kind:'forklift',id:'white',fromSet:'classic'});
+ act(s,{type:'previewCosmeticSetMember',kind:'forklift'});assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.shopSection,'forklift');assert.equal(s.view.cosmeticPreview?.forklift,'white');assert.equal(s.view.cosmeticReturnSet,'classic');
+ act(s,{type:'selectCosmeticPage',page:1});act(s,{type:'previewCosmetic',kind:'forklift',id:'electric'});assert.equal(s.view.cosmeticPreview?.forklift,'electric');assert.equal(s.view.cosmeticReturnSet,'classic');
  act(s,{type:'back'});assert.equal(s.view.cosmeticSetPreview,'classic');assert.deepEqual(s.view.classicSetSelection,{theme:'night',cargo:'outline',forklift:'white'});
  act(s,{type:'back'});act(s,{type:'back'});act(s,{type:'shop'});assert.deepEqual(s.view.classicSetSelection,{theme:'day',cargo:'classic',forklift:'yellow'});
  assert.deepEqual([...h.data],before);assert.equal(playableChecksum(s.state),checksum);

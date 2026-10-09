@@ -8,7 +8,6 @@ import { upgradeAccountGuides } from '../src/application/account-guides.ts';
 import { upgradeEconomy } from '../src/application/economy.ts';
 import { createProfile, setProfileCosmetic } from '../src/application/profile.ts';
 import { cosmeticShopPage, getShopControls } from '../src/presentation/economy-ui.ts';
-import { SHOP_CARD_HEIGHT, SHOP_CARD_GAP, shopScrollOffset } from '../src/presentation/shop-layout.ts';
 import { FaultStorage, makeAccountFixture } from './helpers/account-fixtures.ts';
 import { sessionHost } from './helpers/session-fixtures.ts';
 import type { ViewState } from '../src/presentation/view-types.ts';
@@ -53,17 +52,16 @@ test('legacy recorded cargo pagination retains the original ice catalog position
  assert.deepEqual(cosmeticShopPage(view).items.map(item=>item.id),['space_case','ice_crystal','steam_brass','neon_circuit']);assert.equal(cosmeticShopPage(view).page,2);assert.equal(cosmeticShopPage(view).pages,5);
 });
 
-test('ice opens from the scrolling cargo list into a detail without changing account or wallet',()=>{
- const {service}=setup(),{session,data}=sessionHost(service.getSnapshot()!);
+test('ice is selected from its cargo page without changing account or wallet or adding a Back layer',()=>{
+ const {service}=setup(),{session,data,storage}=sessionHost(service.getSnapshot()!);
  session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});session.action({type:'selectShopSection',section:'cargo'});
- const before=JSON.stringify(session.view.account),stored=[...data],index=COSMETIC_CATALOG.filter(item=>item.kind==='cargo').findIndex(item=>item.id==='ice_crystal');
- session.action({type:'scrollShop',deltaY:Math.floor(index/2)*(SHOP_CARD_HEIGHT+SHOP_CARD_GAP)});
- const offset=shopScrollOffset(session.view),list=getShopControls(session.view),card=list.find(control=>control.action.type==='previewCosmetic'&&control.action.id==='ice_crystal');assert.ok(card);
- assert.equal(list.some(control=>control.action.type==='purchaseCosmetic'||control.action.type==='selectCosmeticPage'),false);session.action(card.action);
- assert.deepEqual(session.view.shopItemDetail,{kind:'cargo',id:'ice_crystal'});
- const controls=getShopControls(session.view);assert.deepEqual(controls.map(control=>control.action.type),['closeShopDetail','purchaseCosmetic']);assert.equal(controls[1].label,'购买\n300金币');assert.equal(controls[1].disabled,false);
- session.action(controls[0].action);assert.equal(session.view.shopItemDetail,undefined);assert.equal(shopScrollOffset(session.view),offset);assert.ok(getShopControls(session.view).some(control=>control.action.type==='previewCosmetic'&&control.action.id==='ice_crystal'));
- assert.equal(JSON.stringify(session.view.account),before);assert.deepEqual([...data],stored);
+ const before=JSON.stringify(session.view.account),stored=[...data],index=COSMETIC_CATALOG.filter(item=>item.kind==='cargo').findIndex(item=>item.id==='ice_crystal');storage.resetFault();
+ session.action({type:'selectCosmeticPage',page:Math.floor(index/4)});
+ const list=getShopControls(session.view),card=list.find(control=>control.action.type==='previewCosmetic'&&control.action.id==='ice_crystal');assert.ok(card);assert.equal(cosmeticShopPage(session.view).page,2);
+ assert.equal(list.filter(control=>control.action.type==='selectCosmeticPage').length,2);session.action(card.action);assert.equal(session.view.shopItemDetail,undefined);assert.equal(session.view.cosmeticPreview?.cargo,'ice_crystal');
+ const controls=getShopControls(session.view),buy=controls.find(control=>control.action.type==='purchaseCosmetic');assert.equal(controls.filter(control=>control.action.type==='selectShopSection').length,4);assert.equal(controls.filter(control=>control.action.type==='previewCosmetic').length,4);assert.equal(buy?.label,'300金币 · 购买');assert.equal(buy?.disabled,false);
+ assert.ok(controls.find(control=>control.action.type==='previewCosmetic'&&control.action.id==='ice_crystal')?.selected);session.action({type:'back'});assert.equal(session.view.screen,'menu');
+ assert.equal(JSON.stringify(session.view.account),before);assert.deepEqual([...data],stored);assert.equal(storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });
 
 test('compiled free-playtest ice claims preserve the wallet and survive paid-build restart',async()=>{

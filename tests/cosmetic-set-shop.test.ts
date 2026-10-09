@@ -6,7 +6,7 @@ import {createCanvas} from '@napi-rs/canvas';
 import {getUiControls} from '../src/presentation/ui.ts';
 import {render} from '../src/presentation/renderer.ts';
 import * as economyUi from '../src/presentation/economy-ui.ts';
-import {shopScrollLimit,shopCardRect} from '../src/presentation/shop-layout.ts';
+import {cosmeticSetCardRect} from '../src/presentation/economy-ui.ts';
 import * as cosmeticArt from '../src/presentation/cosmetic-art.ts';
 import {createRunV14} from '../src/domain/v14/engine.ts';
 import {createProfile} from '../src/application/profile.ts';
@@ -26,8 +26,8 @@ const controls=(v:ViewState)=>getUiControls(state,v);
 const open=(s:GameSession)=>{act(s,{type:'shop'});act(s,{type:'selectShopTab',tab:'cosmetics'});};
 const capture=(v:ViewState)=>{const c=createCanvas(1080,1920),ctx=c.getContext('2d'),labels:string[]=[];const fill=ctx.fillText.bind(ctx);ctx.fillText=(v,x,y)=>{labels.push(v);fill(v,x,y);};render(ctx as unknown as CanvasRenderingContext2D,state,v);return {c,labels};};
 
-test('appearance opens coordinated scrolling cards and four peer categories',()=>{
- const c=controls(view());assert.equal(c.filter(c=>c.action.type==='previewCosmeticSet').length,6);
+test('appearance opens four coordinated paginated cards and four peer categories',()=>{
+ const c=controls(view());assert.equal(c.filter(c=>c.action.type==='previewCosmeticSet').length,4);
  assert.deepEqual(c.filter(c=>c.action.type==='selectShopSection').map(c=>[c.label,c.selected]),[['套装',true],['场景',false],['货箱',false],['叉车',false]]);
  assert.ok(c.filter(c=>c.action.type==='previewCosmeticSet').every(c=>/金币|已拥有|使用中/.test(c.label)));
  const h=sessionHost();open(h.session);act(h.session,{type:'selectShopSection',section:'theme'});
@@ -35,14 +35,13 @@ test('appearance opens coordinated scrolling cards and four peer categories',()=
  act(h.session,{type:'selectShopTab',tab:'tools'});assert.equal(controls(h.session.view).filter(c=>c.action.type==='purchase').length,3);
 });
 
-test('set scrolling visits every unique visual card without equipping or persisting',()=>{
- const h=sessionHost(),s=h.session;open(s);const before=[...h.data],original=structuredClone(s.view.account!.profile.cosmetics),ids=new Set<string>(),limit=shopScrollLimit(s.view);
- for(let offset=0;offset<=limit+364;offset+=364){
-  const cards=controls(s.view).filter(c=>c.action.type==='previewCosmeticSet');
-  for(const c of cards){assert.equal(c.action.type,'previewCosmeticSet');if(c.action.type==='previewCosmeticSet')ids.add(c.action.id);s.action(c.action);assert.equal(controls(s.view).some(c=>c.action.type==='selectShopSection'),false);act(s,{type:'closeShopDetail'});}
-  act(s,{type:'scrollShop',deltaY:364});
+test('set pagination visits every unique visual card without equipping or persisting',()=>{
+ const h=sessionHost(),s=h.session;open(s);const before=[...h.data],original=structuredClone(s.view.account!.profile.cosmetics),ids=new Set<string>();h.storage.resetFault();
+ for(let page=0;page<4;page++){
+  act(s,{type:'selectCosmeticSetPage',page});const cards=controls(s.view).filter(c=>c.action.type==='previewCosmeticSet');assert.equal(cards.length,4);
+  for(const c of cards){assert.equal(c.action.type,'previewCosmeticSet');if(c.action.type==='previewCosmeticSet'){ids.add(c.action.id);s.action(c.action);assert.equal(controls(s.view).filter(c=>c.action.type==='selectShopSection').length,c.action.id==='classic'?0:4);}act(s,{type:'closeShopDetail'});assert.equal(s.view.cosmeticSetPage,page);}
  }
- assert.equal(ids.size,16);assert.deepEqual(s.view.account?.profile.cosmetics,original);assert.deepEqual([...h.data],before);act(s,{type:'back'});assert.equal(s.view.screen,'menu');assert.deepEqual([...h.data],before);
+ assert.equal(ids.size,16);assert.deepEqual(s.view.account?.profile.cosmetics,original);assert.deepEqual([...h.data],before);act(s,{type:'back'});assert.equal(s.view.screen,'menu');assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });
 
 test('coherent preview uses all three set members irrespective of worn appearance and never writes on cancel',()=>{
@@ -56,7 +55,7 @@ test('coherent preview uses all three set members irrespective of worn appearanc
 test('unaffordable missing set members disable bundle purchase and member link retains single-item purchase',()=>{
  const h=sessionHost({wallet:300}),s=h.session;open(s);act(s,{type:'previewCosmeticSet',id:'cold_chain'});const before=[...h.data];
  const buy=controls(s.view).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'购买套装\n1440金币');assert.ok(capture(s.view).labels.some(label=>label.includes('还差1140金币')));assert.equal(controls(s.view).some(c=>c.action.type==='equipCosmeticSet'),false);act(s,{type:'equipCosmeticSet',id:'cold_chain'});assert.deepEqual([...h.data],before);
- act(s,{type:'previewCosmeticSetMember',kind:'cargo'});assert.equal(s.view.cosmeticBrowse,'items');assert.equal(s.view.cosmeticPreview?.cargo,'insulated');assert.equal(controls(s.view).find(c=>c.action.type==='purchaseCosmetic')?.label,'购买\n300金币');
+ act(s,{type:'previewCosmeticSetMember',kind:'cargo'});assert.equal(s.view.cosmeticBrowse,'items');assert.equal(s.view.cosmeticPreview?.cargo,'insulated');assert.equal(controls(s.view).find(c=>c.action.type==='purchaseCosmetic')?.label,'300金币 · 购买');
  act(s,{type:'purchaseCosmetic',kind:'cargo',id:'insulated'});assert.equal(s.view.confirmation?.kind,'purchaseCosmetic');act(s,{type:'cancel'});assert.deepEqual([...h.data],before);
 });
 
@@ -86,15 +85,15 @@ test('large coordinated preview is a bounded deterministic real 9x9 board and al
 });
 
 test('standalone outline preview always shows classic outline after ice selection',()=>{
- const a=owned(),plain=capture(view({account:a,shopSection:'cargo',shopItemDetail:{kind:'cargo',id:'outline'}}));
- a.profile.cosmetics.cargo='ice_crystal';const ice=capture(view({account:a,shopSection:'cargo',shopItemDetail:{kind:'cargo',id:'outline'}})),r=economyUi.COSMETIC_PREVIEW_RECT;
+ const a=owned(),plain=capture(view({account:a,shopSection:'cargo',cosmeticPreview:{cargo:'outline'}}));
+ a.profile.cosmetics.cargo='ice_crystal';const ice=capture(view({account:a,shopSection:'cargo',cosmeticPreview:{cargo:'outline'}})),r=economyUi.COSMETIC_PREVIEW_RECT;
  assert.equal(digest(ice.c.getContext('2d').getImageData(r.x,r.y,r.w,r.h).data),digest(plain.c.getContext('2d').getImageData(r.x,r.y,r.w,r.h).data));
 });
 
 test('each partial ownership count selects purchase or equip from a read-only derived badge',()=>{
  for(let count=0;count<=3;count++){
   const account=owned();account.wallet=3000;account.profile.ownedCosmetics=account.profile.ownedCosmetics!.filter(key=>!['theme.cold_chain','cargo.insulated','forklift.electric'].slice(count).includes(key));
-  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`购买套装\n${[1440,720,480][count]}金币`);assert.ok(capture(v).labels.includes(`已拥有 ${count}/3`));assert.equal(JSON.stringify(account),before);
+  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`购买套装\n${[1440,720,480][count]}金币`);assert.ok(capture(v).labels.some(label=>label.endsWith(`已拥有 ${count}/3`)));assert.equal(JSON.stringify(account),before);
  }
 });
 
@@ -109,7 +108,7 @@ test('fresh-account set previews and invalid selectors create no account or dura
 });
 
 test('set cards show the same real-board floor and frame instead of unrelated product compositions',()=>{
- const v=view(),actual=capture(v),reference=createCanvas(1080,1920),ctx=reference.getContext('2d'),card=shopCardRect(v,1),r={x:card.x+16,y:card.y+16,w:card.w-32,h:230};
+ const v=view(),actual=capture(v),reference=createCanvas(1080,1920),ctx=reference.getContext('2d'),card=cosmeticSetCardRect(1),r={x:card.x+18,y:card.y+18,w:card.w-36,h:246};
  cosmeticArt.drawCosmeticSetPreview(ctx as unknown as CanvasRenderingContext2D,r,{theme:'cold_chain',cargoStyle:'insulated',forklift:'electric',cargoOutline:false});
  assert.equal(digest(actual.c.getContext('2d').getImageData(r.x,r.y,r.w,r.h).data),digest(ctx.getImageData(r.x,r.y,r.w,r.h).data));
 });

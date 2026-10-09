@@ -1,0 +1,54 @@
+{
+  "checkedAtBeijing": "2026-10-10T03:42:59.424568+08:00",
+  "files": [
+    {
+      "path": "artifacts/mixed-color-comparison/runs.jsonl",
+      "bytes": 6455780,
+      "sha256": "790341fd2d037738c79cc082c223956a0b982c5e0cea8855f289c1ac6bf9978f",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "artifacts/mixed-color-comparison/summary.json",
+      "bytes": 9726,
+      "sha256": "4aa9f30aa784229b1328fec901815bd66e52175273be500ad20f62bfa84f401d",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "artifacts/mixed-color-comparison/generator.jsonl",
+      "bytes": 4418827,
+      "sha256": "ab093c53f07f9673b2a66643e254a5dab41f86aba83c7b5857d1fa45cf60558f",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "artifacts/mixed-color-comparison/generator-summary.json",
+      "bytes": 2268,
+      "sha256": "a6395e3c801b0ffb569a0f39003caf2b0bae3eb164b5bcbd769f18e026d4757f",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "artifacts/mixed-color-comparison/report.md",
+      "bytes": 8716,
+      "sha256": "a53a4292998b5519840c988780fe20445bd7445bb7b6b3763fcd5c7e2d984f7c",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "docs/mixed-color-comparison.md",
+      "bytes": 8716,
+      "sha256": "a53a4292998b5519840c988780fe20445bd7445bb7b6b3763fcd5c7e2d984f7c",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "artifacts/mixed-color-comparison/manifest.json",
+      "bytes": 11072,
+      "sha256": "e46fea25770046612fa480408529dfbf84db7da8b80943de398da0b9e8b9a1ad",
+      "provenance": "Historical v15 working copy and independent v15 source copy; byte-identical and validated against original v5 evidence manifest"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-06-outbound-v6-comparison.md",
+      "bytes": 1715,
+      "sha256": "4eb6fe26f71d37da6a3c8eb1ff7278e782e4c18ea607d70feffd294392efe73b",
+      "provenance": "Original product-specific QA implementation plan recovered unchanged from v22 WIP checkpoint; required input to legacy evidence binding"
+    }
+  ],
+  "notNewSimulation": true
+}

@@ -244,17 +244,17 @@ export class GameSession {
   tool.command=command;const result=command?toolPreview(this.state,command):undefined;tool.preview=result&&!result.error?result.state:undefined;tool.error=result?.error;
  }
  private resetShopVisit():void {
-  Object.assign(this.view,{shopTab:'tools',shopSection:'sets',classicSetSelection:{...DEFAULT_CLASSIC_SET_SELECTION},shopScroll:{sets:0,theme:0,cargo:0,forklift:0},shopItemDetail:undefined,cosmeticBrowse:'sets',cosmeticCategory:undefined,cosmeticPreview:undefined,cosmeticSetPage:0,cosmeticSetPreview:undefined,cosmeticSetNotice:undefined});
+  Object.assign(this.view,{shopTab:'tools',shopSection:'sets',classicSetSelection:{...DEFAULT_CLASSIC_SET_SELECTION},shopScroll:{sets:0,theme:0,cargo:0,forklift:0},shopItemDetail:undefined,cosmeticBrowse:'sets',cosmeticCategory:undefined,cosmeticPreview:undefined,cosmeticSetPage:0,cosmeticSetPreview:undefined,cosmeticSetNotice:undefined,cosmeticReturnSet:undefined});
  }
  private selectShopSection(section:ShopSection):void {
   this.view.shopSection=section;this.view.cosmeticBrowse=section==='sets'?'sets':'items';
   if(section!=='sets')this.view.cosmeticCategory=section;
-  this.view.shopItemDetail=undefined;this.view.cosmeticSetPreview=undefined;this.view.cosmeticSetNotice=undefined;
+  this.view.shopItemDetail=undefined;this.view.cosmeticSetPreview=undefined;this.view.cosmeticSetNotice=undefined;this.view.cosmeticReturnSet=undefined;
  }
  private closeShopDetail():void {
   if(this.view.screen!=='shop'||this.view.shopTab!=='cosmetics')return;
-  const fromSet=this.view.shopItemDetail?.fromSet;
-  if(this.view.shopItemDetail){this.view.shopItemDetail=undefined;this.view.cosmeticSetPreview=fromSet&&getCosmeticSet(fromSet)?fromSet:undefined;if(this.view.cosmeticSetPreview)this.view.cosmeticBrowse='sets';}
+  const fromSet=this.view.cosmeticReturnSet??this.view.shopItemDetail?.fromSet;
+  if(fromSet||this.view.shopItemDetail){this.view.shopItemDetail=undefined;this.view.cosmeticReturnSet=undefined;this.view.cosmeticSetPreview=fromSet&&getCosmeticSet(fromSet)?fromSet:undefined;if(this.view.cosmeticSetPreview){this.view.cosmeticBrowse='sets';this.view.shopSection='sets';}}
   else this.view.cosmeticSetPreview=undefined;
   this.view.cosmeticSetNotice=undefined;
  }
@@ -306,7 +306,7 @@ export class GameSession {
    if(Number.isFinite(action.deltaY)&&shopListViewport(this.view)){const section=this.view.shopSection??'sets',current=this.view.shopScroll?.[section]??0;this.view.shopScroll={...this.view.shopScroll,[section]:Math.max(0,Math.min(shopScrollLimit(this.view),current+action.deltaY))};}return true;
   }
   if(action.type==='selectCosmeticBrowse'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&(action.mode==='sets'||action.mode==='items'))this.selectShopSection(action.mode==='sets'?'sets':this.view.cosmeticCategory??'theme');return true;}
-  if(action.type==='selectCosmeticSetPage'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&Number.isInteger(action.page)&&action.page>=0&&action.page<cosmeticSetShopPage(this.view).pages){this.view.cosmeticSetPage=action.page;this.view.cosmeticSetPreview=undefined;this.view.shopItemDetail=undefined;}return true;}
+  if(action.type==='selectCosmeticSetPage'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&Number.isInteger(action.page)&&action.page>=0&&action.page<cosmeticSetShopPage(this.view).pages){this.input.cancel();this.view.cosmeticSetPage=action.page;this.view.cosmeticSetPreview=undefined;this.view.shopItemDetail=undefined;}return true;}
   if(action.type==='previewCosmeticSet'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&getCosmeticSet(action.id)){this.selectShopSection('sets');this.view.cosmeticSetPreview=action.id;}return true;}
   if(action.type==='closeShopDetail'||action.type==='closeCosmeticSet'){this.closeShopDetail();return true;}
   if(action.type==='selectClassicSetVariant'){
@@ -315,7 +315,7 @@ export class GameSession {
   if(action.type==='equipClassicSet'){
    if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&this.view.cosmeticSetPreview==='classic'&&!this.view.shopItemDetail&&!this.view.account?.run){const selection=this.view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION,status=classicSetStatus(selection,accountCosmeticState(this.view.account??null,this.profile));if(status.complete&&!status.equipped)this.requestAccount({type:'equipClassicSet',selection:{...selection}});}return true;
   }
-  if(action.type==='previewCosmeticSetMember'){const set=selectedShopCosmeticSet(this.view);if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&set&&['theme','cargo','forklift'].includes(action.kind)){const id=set.id==='classic'?(this.view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION)[action.kind]:set[action.kind];this.view.cosmeticBrowse='items';this.view.cosmeticCategory=action.kind;this.view.cosmeticPreview={...this.view.cosmeticPreview,[action.kind]:id};this.view.shopItemDetail={kind:action.kind,id,fromSet:set.id};this.view.cosmeticSetPreview=undefined;this.view.cosmeticSetNotice=undefined;}return true;}
+  if(action.type==='previewCosmeticSetMember'){const set=selectedShopCosmeticSet(this.view);if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&set&&['theme','cargo','forklift'].includes(action.kind)){const id=set.id==='classic'?(this.view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION)[action.kind]:set[action.kind];this.view.cosmeticBrowse='items';this.view.cosmeticCategory=action.kind;this.view.cosmeticPreview={...this.view.cosmeticPreview,[action.kind]:id};this.view.shopSection=action.kind;this.view.shopItemDetail=undefined;this.view.cosmeticReturnSet=set.id;this.view.cosmeticSetPreview=undefined;this.view.cosmeticSetNotice=undefined;}return true;}
   if(action.type==='purchaseCosmeticSet'){
    if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&!this.view.account?.run){
     const quote=quoteCosmeticSetPurchase(action.id,accountCosmeticState(this.view.account??null,this.profile));
@@ -326,9 +326,9 @@ export class GameSession {
   if(action.type==='equipCosmeticSet'){const set=getCosmeticSet(action.id);if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&!this.view.account?.run&&set&&set.id!=='classic'){const status=cosmeticSetStatus(set,accountCosmeticState(this.view.account??null,this.profile));if(status.complete&&!status.equipped)this.requestAccount({type:'equipCosmeticSet',id:set.id});}return true;}
   if(action.type==='selectCosmeticCategory'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&['theme','cargo','forklift'].includes(action.kind))this.selectShopSection(action.kind);return true;}
   if(action.type==='selectCosmeticPage'){
-   if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&Number.isInteger(action.page)){const pagination=cosmeticShopPage(this.view);if(action.page>=0&&action.page<pagination.pages){const kind=selectedShopCosmetic(this.view).kind,item=COSMETIC_CATALOG.filter(option=>option.kind===kind)[action.page*COSMETICS_PER_PAGE];this.view.cosmeticPreview={...this.view.cosmeticPreview,[kind]:item.id};}}return true;
+   if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&Number.isInteger(action.page)){const pagination=cosmeticShopPage(this.view);if(action.page>=0&&action.page<pagination.pages){this.input.cancel();const kind=selectedShopCosmetic(this.view).kind,item=COSMETIC_CATALOG.filter(option=>option.kind===kind)[action.page*COSMETICS_PER_PAGE];this.view.cosmeticPreview={...this.view.cosmeticPreview,[kind]:item.id};}}return true;
   }
-  if(action.type==='previewCosmetic'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&getCosmetic(action.kind,action.id)){this.selectShopSection(action.kind);this.view.cosmeticPreview={...this.view.cosmeticPreview,[action.kind]:action.id};this.view.shopItemDetail={kind:action.kind,id:action.id};}return true;}
+  if(action.type==='previewCosmetic'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&getCosmetic(action.kind,action.id)){if(this.view.shopSection!==action.kind)this.selectShopSection(action.kind);this.view.cosmeticPreview={...this.view.cosmeticPreview,[action.kind]:action.id};this.view.shopItemDetail=undefined;}return true;}
   if(action.type==='purchaseCosmetic'){const item=getCosmetic(action.kind,action.id),owned=accountCosmeticState(this.view.account??null,this.profile).ownedCosmetics;if(this.view.screen==='shop'&&!this.view.account?.run&&item&&(PLAYTEST_FREE_SHOP||item.price>0)&&!owned.includes(item.key)&&(this.view.account?.wallet??0)>=shopPrice(item.price))this.view.confirmation={kind:'purchaseCosmetic',cosmeticKind:item.kind,cosmeticId:item.id};return true;}
   if(action.type==='equipCosmetic'){if(this.view.screen==='shop')this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
   if(action.type==='setCargoOutline'){if(this.view.screen==='shop')this.requestAccount({type:'setCargoOutline',enabled:action.enabled});return true;}
@@ -337,7 +337,7 @@ export class GameSession {
   if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
   if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15,16,18,19,20,21].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
   if(action.type==='chooseCleanup'){if(this.view.screen==='prepareCleanup'&&this.view.prepareIntent){this.view.prepareIntent.cleanupBranch=action.branch;this.startAccountIntent();}else this.dispatchAccount({type:'chooseCleanup',branch:action.branch});return true;}
-  if(action.type==='back'&&this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&(this.view.shopItemDetail||this.view.cosmeticSetPreview)){this.closeShopDetail();return true;}
+  if(action.type==='back'&&this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&(this.view.cosmeticReturnSet||this.view.shopItemDetail||this.view.cosmeticSetPreview)){this.closeShopDetail();return true;}
   if(action.type==='back'&&['shop','prepareTools','prepareCleanup','guideOffer'].includes(this.view.screen??'')){this.view.screen=this.view.screen==='shop'?this.shopReturn:this.prepareReturn;this.view.prepareIntent=null;return true;}
   if(action.type==='toggleToolbox'){if(this.accountOwned&&isToolRun(this.state)&&['input','rescue'].includes(this.state.phase)&&this.view.screen==='game'&&!this.view.animation&&!this.view.needsResume&&!this.view.paused&&!this.view.toolSelection&&!this.view.supplyUpgrade){this.input.cancel();this.view.toolboxOpen=!this.view.toolboxOpen;}return true;}
   if(action.type==='tool'){if(!isToolRun(this.state)||!this.accountOwned||!['input','rescue'].includes(this.state.phase)||!this.state.toolCharges[action.item]||this.view.animation||this.view.needsResume||this.view.paused)return true;this.input.cancel();this.view.toolboxOpen=false;this.view.toolSelection={item:action.item,pieceId:null,cells:[],quarterTurns:0};return true;}

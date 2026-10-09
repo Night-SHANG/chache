@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.22.0-dev",
+  "appVersion": "0.23.0-dev",
   "status": "VALIDATION_IN_PROGRESS",
   "rulesets": [
     1,
@@ -207,9 +207,9 @@
     "outboundUniversal": "出库：换成单格，自选货类。"
   },
   "simulation": "No new balance simulations; replay prefixes and explicitly constructed reward/rescue fixtures are functional QA.",
-  "runtimeStatus": "Original free/paid game.js native Canvas/wx host passed 148 cases, 445 screenshots. Real browser/Windows GUI/WeChat device NOT RUN.",
-  "deliveryNotes": "v22 pending final native host, package and restore verification",
-  "updatedAtBeijing": "2026-10-09T21:45:29.683541+08:00",
+  "runtimeStatus": "Current v23 real browser/WeChat developer tools/physical devices NOT RUN",
+  "deliveryNotes": "v23 pagination restoration validation in progress; recovered v22 product baseline verified, original historical materials incomplete",
+  "updatedAtBeijing": "2026-10-10T03:45:28.610698+08:00",
   "cosmetics": {
     "catalogSize": 53,
     "newItems": 6,
@@ -258,7 +258,8 @@
       "林间货仓",
       "冰晶货仓"
     ],
-    "fixedPaidSetCount": 15
+    "fixedPaidSetCount": 15,
+    "setPageSize": 4
   },
   "remoteBackup": {
     "status": "PAUSED_PREEXISTING_CANCELLATION",
@@ -288,7 +289,7 @@
       "reviewMetrics": "artifacts/v022-review/cache-comparison-metrics.json"
     },
     "setPurchase": "ceil(missing original prices * 4 / 5); free playtest zero; atomic rights and debit; idempotent; stale quote rejects; no automatic equip",
-    "navigation": "four peer sections; two-column scroll list; independent detail; origin Back retention",
+    "navigation": "four peer sections; four-per-page set cards and inline item banner/text tiles; previous/next; origin Back retention",
     "displaySetCount": 16,
     "fixedPaidSetCount": 15,
     "classicPreset": {
@@ -514,42 +515,26 @@
     "activeRunUnaffected": true
   },
   "unitValidation": {
-    "fullRun": {
-      "total": 2479,
-      "passed": 2477,
-      "failed": 2,
-      "skipped": 0,
-      "log": "full-serial.log"
+    "firstFullRun": {
+      "total": 2505,
+      "passed": 2458,
+      "failed": 47,
+      "log": "artifacts/v0230-validation/full-serial-first.log"
     },
-    "resolvedCases": [
-      {
-        "file": "tests/audio-assets.test.ts",
-        "reason": "obsolete four-item pageSize assertion replaced with exact approved scroll manifest; audio hashes unchanged"
-      },
-      {
-        "file": "tests/permanent-rush-session-ui.test.ts",
-        "reason": "obsolete root expert retention assertion replaced with approved hard default; current-run assertions unchanged"
-      }
-    ],
-    "targetedRerun": {
-      "total": 30,
-      "passed": 30,
-      "failed": 0,
-      "log": "final-resolution-focused.log",
-      "includesNewSupplementTests": 3
-    },
-    "productSourceAfterFullRun": "175 src files exact against frozen Library v1",
-    "unresolvedUnitFailures": 0,
-    "claim": "Complete first run plus explicit focused resolutions; not a one-shot all-green full run"
+    "newPaginationRegressions": 24,
+    "status": "FINAL_RERUN_PENDING"
   },
   "singleRunAllGreen": false,
   "restoreVerification": {
-    "status": "PENDING_V022"
+    "status": "PENDING_V023"
   },
   "nativeHostVerification": {
-    "status": "PENDING_V022",
-    "plannedChecks": 56,
-    "plannedGameJsCases": 54,
-    "sourceProtectionChecks": 2
+    "status": "PENDING_V023"
+  },
+  "recoveryBaseline": {
+    "commit": "50b2bebf6b6770f9765e40fdfc9629018d4ef476",
+    "gitHistory": "truthful shallow local boundary; original earlier remote history retained on GitHub",
+    "productIdentity": "v22 free/paid JS and four atlas PNGs verified",
+    "missingArtMasters": true
   }
 }

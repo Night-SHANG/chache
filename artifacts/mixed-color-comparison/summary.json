@@ -1,0 +1,317 @@
+{
+  "protocol": {
+    "id": "mixed-color-compare-v1",
+    "rulesetVersion": 5,
+    "mode": "color_exit",
+    "strategy": "per_cell_route_group",
+    "tiers": [
+      "entry",
+      "middle",
+      "late"
+    ],
+    "mixedPercent": {
+      "entry": 20,
+      "middle": 30,
+      "late": 40
+    },
+    "seedStart": 1,
+    "seedEnd": 100,
+    "fullGames": 300,
+    "maxCommands": 600,
+    "generatorSeed": 6062026,
+    "generatorSamplesPerTier": 10000,
+    "rules": {
+      "balanced": false,
+      "boardSize": 7,
+      "candidateCount": 3,
+      "minBatch": 4,
+      "targetBatches": 30,
+      "batchesPerStage": 6,
+      "stageCount": 5,
+      "pointsPerCell": 10
+    },
+    "selection": "One untuned fixed heuristic, all tiers. Lexicographic minimum [post-resolution south-entry occupied, post-resolution ready gate groups lacking empty entry route, -immediate batches, -immediate shipped cells, -routeGroupScore, mean actual placed-cell distance to own gate]. routeGroupScore = reachable empty cells + 3 * surviving own-gate-connected cells + 2 * same-color contacts with old cargo - mean own-gate distance - surviving occupancy. Every distance and contact uses pieceCellCargo at its actual cell, never only piece.cargo.",
+    "observation": "Current board, three candidates, static gates, phase and rules identity only; seed, RNG state, generated counter, future candidate and future draw are hidden. All legal placements are previewed without speculative applyCommand.",
+    "tieBreak": "Stable engine order: candidate index, origin y, origin x. Equal scores retain the first move; no random tie-breaking, rotation, search or autoplay tuning.",
+    "generation": "Counts include the three initial candidates and every actual replacement, including unselected held pieces. Winning placement ends before replacement, so its final held count is two. Selected counts are reported separately.",
+    "partial": "Immediate partial mixed placement: 0 < current mixed piece cells shipped < 4 after the complete chain. Separate per-event partial mixed-piece count records a mixed piece touched by a shipment with own cells still remaining just after that event (including earlier pieces and within-chain temporary halves). Partial shipment batches count batches with >=1 such piece; they are not number of all cells shipped.",
+    "chains": "Chain length is shipment events per accepted placement. Long chain means >=2; full 0/1/2/3 distribution and maximum are retained.",
+    "generatorSampling": "Separate generator-only stream of 10000 pieces per tier, seed6062026, starting at generation ordinal1. Identical raw RNG cursor; contexts cycle empty/checkerboard/full and shift rises 1..5 in equal spans. Each tier retains a rolling three-piece tray. Every generation verifies exact threshold selection, shared four raw draws, nested mixed sets and cursor equality. Checkerboard/full cannot fit a 2x2; mixed generation must still occur without fallback.",
+    "validation": "Real root createRun/applyCommand and preview per command. Every completed or capped run is replayed from seed/tier/commands with every checksum and full final state compared exactly. Failure requires blocked endReason and zero legal moves. Generated = selected + final-held for both kinds.",
+    "limitations": "Only 100 matched seeds, one hand-written heuristic, no human play. Same seed and generation ordinal share raw draws, but tier-dependent retained candidates, board states, stages and branches produce different weighted supplies and played sequences. No claim of optimality, fun, causal difficulty ranking, or old100002-run coverage of v5. Caps are inconclusive, never losses. No ratio or frozen-rule changes."
+  },
+  "seedStart": 1,
+  "seedEnd": 100,
+  "matchedSeeds": 100,
+  "totalRuns": 300,
+  "maxCommands": 600,
+  "tiers": {
+    "entry": {
+      "runs": 100,
+      "terminal": 100,
+      "won": 64,
+      "failed": 36,
+      "capped": 0,
+      "moves": 5244,
+      "movesPerRun": {
+        "n": 100,
+        "min": 22,
+        "p25": 51,
+        "median": 53,
+        "p75": 57,
+        "max": 67,
+        "mean": 52.44
+      },
+      "batches": 2639,
+      "batchesPerRun": {
+        "n": 100,
+        "min": 6,
+        "p25": 23,
+        "median": 30,
+        "p75": 30,
+        "max": 30,
+        "mean": 26.39
+      },
+      "peakOccupancy": {
+        "n": 100,
+        "min": 9,
+        "p25": 15,
+        "median": 21,
+        "p75": 35.25,
+        "max": 45,
+        "mean": 25.01
+      },
+      "maxChain": {
+        "n": 100,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 2,
+        "mean": 1.1
+      },
+      "generated": {
+        "pure": 4339,
+        "mixed": 1141
+      },
+      "initialGenerated": {
+        "pure": 240,
+        "mixed": 60
+      },
+      "selected": {
+        "pure": 4217,
+        "mixed": 1027
+      },
+      "heldFinal": {
+        "pure": 122,
+        "mixed": 114
+      },
+      "chainDistribution": {
+        "0": 2616,
+        "1": 2617,
+        "2": 11,
+        "3": 0
+      },
+      "longChainPlacements": 11,
+      "immediatePartialMixedPlacement": 716,
+      "immediateFullyShippedMixedPlacement": 11,
+      "immediateMixedShippedCells": 1476,
+      "immediateMixedRemainingCells": 2632,
+      "partialMixedPieceShipmentEvents": 937,
+      "partialShipmentBatches": 829,
+      "previewChecks": 5244,
+      "replayChecks": 5244,
+      "elapsedMs": 6668.434272999995,
+      "millisecondsPerRun": {
+        "n": 100,
+        "min": 20.67078700000002,
+        "p25": 54.17812000000015,
+        "median": 60.91732550000006,
+        "p75": 70.31103924999888,
+        "max": 233.54711099999986,
+        "mean": 66.68434272999995
+      }
+    },
+    "middle": {
+      "runs": 100,
+      "terminal": 100,
+      "won": 26,
+      "failed": 74,
+      "capped": 0,
+      "moves": 4539,
+      "movesPerRun": {
+        "n": 100,
+        "min": 14,
+        "p25": 36,
+        "median": 49,
+        "p75": 56,
+        "max": 67,
+        "mean": 45.39
+      },
+      "batches": 2034,
+      "batchesPerRun": {
+        "n": 100,
+        "min": 2,
+        "p25": 14,
+        "median": 21.5,
+        "p75": 30,
+        "max": 31,
+        "mean": 20.34
+      },
+      "peakOccupancy": {
+        "n": 100,
+        "min": 12,
+        "p25": 31.75,
+        "median": 35.5,
+        "p75": 39,
+        "max": 45,
+        "mean": 33.1
+      },
+      "maxChain": {
+        "n": 100,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 2,
+        "mean": 1.09
+      },
+      "generated": {
+        "pure": 3316,
+        "mixed": 1497
+      },
+      "initialGenerated": {
+        "pure": 208,
+        "mixed": 92
+      },
+      "selected": {
+        "pure": 3219,
+        "mixed": 1320
+      },
+      "heldFinal": {
+        "pure": 97,
+        "mixed": 177
+      },
+      "chainDistribution": {
+        "0": 2514,
+        "1": 2016,
+        "2": 9,
+        "3": 0
+      },
+      "longChainPlacements": 9,
+      "immediatePartialMixedPlacement": 773,
+      "immediateFullyShippedMixedPlacement": 9,
+      "immediateMixedShippedCells": 1582,
+      "immediateMixedRemainingCells": 3698,
+      "partialMixedPieceShipmentEvents": 1085,
+      "partialShipmentBatches": 917,
+      "previewChecks": 4539,
+      "replayChecks": 4539,
+      "elapsedMs": 5502.3857699999935,
+      "millisecondsPerRun": {
+        "n": 100,
+        "min": 14.59476899999936,
+        "p25": 38.4384885000004,
+        "median": 54.411029499999586,
+        "p75": 65.21946724999952,
+        "max": 164.9862119999998,
+        "mean": 55.02385769999994
+      }
+    },
+    "late": {
+      "runs": 100,
+      "terminal": 100,
+      "won": 7,
+      "failed": 93,
+      "capped": 0,
+      "moves": 3583,
+      "movesPerRun": {
+        "n": 100,
+        "min": 14,
+        "p25": 27,
+        "median": 33,
+        "p75": 43,
+        "max": 66,
+        "mean": 35.83
+      },
+      "batches": 1452,
+      "batchesPerRun": {
+        "n": 100,
+        "min": 2,
+        "p25": 9,
+        "median": 12.5,
+        "p75": 18,
+        "max": 30,
+        "mean": 14.52
+      },
+      "peakOccupancy": {
+        "n": 100,
+        "min": 18,
+        "p25": 31,
+        "median": 36,
+        "p75": 39,
+        "max": 46,
+        "mean": 34.8
+      },
+      "maxChain": {
+        "n": 100,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 2,
+        "mean": 1.03
+      },
+      "generated": {
+        "pure": 2314,
+        "mixed": 1562
+      },
+      "initialGenerated": {
+        "pure": 178,
+        "mixed": 122
+      },
+      "selected": {
+        "pure": 2247,
+        "mixed": 1336
+      },
+      "heldFinal": {
+        "pure": 67,
+        "mixed": 226
+      },
+      "chainDistribution": {
+        "0": 2134,
+        "1": 1446,
+        "2": 3,
+        "3": 0
+      },
+      "longChainPlacements": 3,
+      "immediatePartialMixedPlacement": 685,
+      "immediateFullyShippedMixedPlacement": 3,
+      "immediateMixedShippedCells": 1382,
+      "immediateMixedRemainingCells": 3962,
+      "partialMixedPieceShipmentEvents": 1019,
+      "partialShipmentBatches": 818,
+      "previewChecks": 3583,
+      "replayChecks": 3583,
+      "elapsedMs": 4591.717366999994,
+      "millisecondsPerRun": {
+        "n": 100,
+        "min": 14.048162999999931,
+        "p25": 29.315503000000263,
+        "median": 37.791869999999676,
+        "p75": 52.571399249999786,
+        "max": 191.65161699999953,
+        "mean": 45.91717366999994
+      }
+    }
+  },
+  "outcomeTriples": {
+    "won/failed/failed": 39,
+    "won/won/failed": 19,
+    "failed/failed/failed": 33,
+    "failed/won/failed": 2,
+    "won/failed/won": 2,
+    "won/won/won": 4,
+    "failed/won/won": 1
+  }
+}

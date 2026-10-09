@@ -11,7 +11,7 @@ function wood(session:GameSession){act(session,{type:'shop'});act(session,{type:
 test('shop previews and tabs are ephemeral even before the first account exists',()=>{
  const h=sessionHost({},false),s=h.session,before=[...h.data],checksum=playableChecksum(s.state);h.storage.resetFault();wood(s);
  assert.equal(s.view.shopTab,'cosmetics');assert.equal(s.view.cosmeticCategory,'cargo');assert.equal(s.view.cosmeticPreview?.cargo,'wood');
- act(s,{type:'selectCosmeticCategory',kind:'forklift'});act(s,{type:'previewCosmetic',kind:'forklift',id:'white'});act(s,{type:'back'});assert.equal(s.view.screen,'shop');assert.equal(s.view.shopItemDetail,undefined);act(s,{type:'back'});
+ act(s,{type:'selectCosmeticCategory',kind:'forklift'});act(s,{type:'previewCosmetic',kind:'forklift',id:'white'});assert.equal(s.view.shopItemDetail,undefined);act(s,{type:'back'});
  assert.equal(s.view.screen,'menu');assert.equal(s.view.account,null);assert.deepEqual([...h.data],before);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(o=>o.kind==='set'||o.kind==='remove'),false);
 });
 test('cancel purchase keeps balance; confirmed purchase owns wood once and separate equip is free',()=>{
