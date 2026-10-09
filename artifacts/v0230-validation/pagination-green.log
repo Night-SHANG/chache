@@ -1,0 +1,31 @@
+✔ v23 restores v21 same-screen item banner and standard set preview geometry (1.113261ms)
+✔ v23 four direct tabs retain old inline item selection and explicit page controls (13.364275ms)
+✔ v23 set member Back restores originating set and page after member page changes (1.391683ms)
+✔ v23 paginates all sixteen sets including classic in four old-size cards (0.200687ms)
+✔ v23 keeps four direct peer sections and never reintroduces the singles intermediary (11.954054ms)
+✔ v23 set pagination includes classic and all fifteen fixed sets once in four pages (1.721191ms)
+✔ v23 restores exactly four set cards in the old two-by-two geometry (1.845486ms)
+✔ v23 theme exposes all catalog items through five four-text-tile pages (2.478025ms)
+✔ v23 cargo exposes all catalog items through five four-text-tile pages (2.143919ms)
+✔ v23 forklift exposes all catalog items through five four-text-tile pages (3.287183ms)
+✔ v23 ordinary selection updates the same-screen banner, text tiles and explicit purchase button (19.578007ms)
+✔ v23 restores the old single-item preview banner and renders selection into it without a detail route (51.271447ms)
+✔ v23 ignores out-of-range and noninteger set and item page actions (3.604775ms)
+✔ v23 previews and paging every catalog entry neither persist nor create a fresh account (4.347366ms)
+✔ v23 internal set Back retains the exact originating list page (1.889832ms)
+✔ v23 set-member browsing can turn pages and select another item before Back returns to its set (1.197145ms)
+✔ v23 explicitly choosing a different category clears the set-member return origin (2.000195ms)
+✔ v23 fresh root shop entry resets tabs, page and classic defaults while internal Back retains choices (0.997509ms)
+✔ v23 all paginated controls fit the viewport, remain disjoint and have at least 44 CSS pixels at width 320 (3.348334ms)
+✔ v23 wheel input neither scrolls nor changes page, preview or durable state (1.569577ms)
+✔ v23 dragging a cosmetic option more than fourteen logical pixels permanently cancels that tap (4.50553ms)
+✔ v23 pointer cancel and hide-show abandon a pending cosmetic tap, then a fresh small-motion tap works (1.415639ms)
+✔ v23 all sixteen classic preview combinations stay session-only and unowned choices cannot equip (1.495958ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 775.290919

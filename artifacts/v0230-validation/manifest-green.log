@@ -1,0 +1,14 @@
+✔ all 12 original WAVs have complete mono PCM headers and the specified short durations (33.865119ms)
+✔ short audio has silent endpoints, smooth attack/release and moderate unclipped peaks (25.283385ms)
+✔ audio generation is byte-deterministic, independent of order and distinct for each cue (32.404302ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (9.657127ms)
+✔ forklift movement remains lighter than shipment and chain signals (11.221026ms)
+✔ both build targets contain exactly the same 12 generated local WAVs on repeated builds (720.496193ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 952.636832

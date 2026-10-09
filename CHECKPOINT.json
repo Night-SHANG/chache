@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.23.0-dev",
-  "status": "VALIDATION_IN_PROGRESS",
+  "appVersion": "0.23.0",
+  "status": "HOST_VERIFIED_WITH_TWO_HISTORICAL_INPUT_BLOCKERS",
   "rulesets": [
     1,
     2,
@@ -208,8 +208,8 @@
   },
   "simulation": "No new balance simulations; replay prefixes and explicitly constructed reward/rescue fixtures are functional QA.",
   "runtimeStatus": "Current v23 real browser/WeChat developer tools/physical devices NOT RUN",
-  "deliveryNotes": "v23 pagination restoration validation in progress; recovered v22 product baseline verified, original historical materials incomplete",
-  "updatedAtBeijing": "2026-10-10T03:45:28.610698+08:00",
+  "deliveryNotes": "v21 pagination and inline previews restored with four direct categories; latest v22 product fixes preserved. 2516/2518 full tests and64/64 frozen host checks. Two absent historical art-master inputs remain blocked.",
+  "updatedAtBeijing": "2026-10-10T03:52:44.139553+08:00",
   "cosmetics": {
     "catalogSize": 53,
     "newItems": 6,
@@ -262,8 +262,10 @@
     "setPageSize": 4
   },
   "remoteBackup": {
-    "status": "PAUSED_PREEXISTING_CANCELLATION",
-    "localBundlePreserved": true
+    "baselineCommit": "50b2bebf6b6770f9765e40fdfc9629018d4ef476",
+    "baselineBranch": "recovery/v0.22-2026-10-09",
+    "candidateProductCommit": "e25c0b87f397af50e930005d2ea9fd3687f4427c",
+    "v23FinalReceipt": "RELEASE-RECEIPT.json is written after final remote readback; no pending upload is represented as completed"
   },
   "music": {
     "asset": "assets/bgm.mp3",
@@ -282,11 +284,9 @@
     "setApply": "all three owned; explicit atomic account transaction",
     "preview": "read-only real shared board",
     "cache": {
-      "surfaces": 5,
-      "maxBytes": 5000000,
+      "scope": "paginated card previews",
       "coldWarmPixelExact": true,
-      "forcedUncachedEdgeDifferences": "Reviewed loaded fractional-scroll fixture: 3502 changed pixels, edge max93, interior max5; outside viewport0; cold/warm0. Direct per-primitive clipping versus cached composite edge antialiasing only.",
-      "reviewMetrics": "artifacts/v022-review/cache-comparison-metrics.json"
+      "validation": "unchanged bounded-cache and exact pixel assertions passed"
     },
     "setPurchase": "ceil(missing original prices * 4 / 5); free playtest zero; atomic rights and debit; idempotent; stale quote rejects; no automatic equip",
     "navigation": "four peer sections; four-per-page set cards and inline item banner/text tiles; previous/next; origin Back retention",
@@ -322,7 +322,7 @@
     "wechatVolume": 1,
     "sourceAssetsUnchanged": true
   },
-  "artSource": "Reference-driven built-in imagegen, full masters retained; crop/resize/encode pipeline, original runtime semantic glyphs",
+  "artSource": "Runtime atlases retained byte-identically from delivered v22. Historical generated masters are not included in this recovered source.",
   "artValidation": "Same-theme and cross-theme29/37px visual fixtures are not gameplay examples",
   "cargoAtlas": {
     "src": "assets/cargo-materials.png",
@@ -425,14 +425,7 @@
     "bytes": 61052,
     "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
   },
-  "artSourceMasters": [
-    "artifacts/v0190-art-source",
-    "artifacts/v0200-art-source",
-    "artifacts/v0200-scene-source",
-    "artifacts/v0210-art-source",
-    "artifacts/v0210-scene-source"
-  ],
-  "originalUserReferences": "artifacts/v0190-user-reference",
+  "originalUserReferences": "Not included; private references excluded from source backup and GitHub",
   "sourceCacheExcluded": true,
   "sceneMaterialAtlas": {
     "src": "assets/scene-materials.png",
@@ -522,19 +515,79 @@
       "log": "artifacts/v0230-validation/full-serial-first.log"
     },
     "newPaginationRegressions": 24,
-    "status": "FINAL_RERUN_PENDING"
+    "status": "COMPLETE_WITH_TWO_INPUT_BLOCKERS",
+    "finalFullRun": {
+      "total": 2518,
+      "passed": 2516,
+      "failed": 2,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationMs": 274003.508609,
+      "log": "artifacts/v0230-validation/full-serial-second.log"
+    },
+    "firstFailureClassification": {
+      "obsoleteUiContractsMigrated": 44,
+      "historicalSimulationFixtureRestored": 1,
+      "unavailableHistoricalArtMasters": 2
+    },
+    "independentReviewFocusedPasses": 100,
+    "blockedTests": [
+      {
+        "file": "tests/cargo-atlas.test.ts:34",
+        "missing": "artifacts/v0200-art-source/cargo-wood-generated.png"
+      },
+      {
+        "file": "tests/v021-cargo-forklift-art.test.ts:28",
+        "missing": "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+      }
+    ]
   },
   "singleRunAllGreen": false,
   "restoreVerification": {
-    "status": "PENDING_V023"
+    "status": "PASS_PRODUCT_COMMIT",
+    "productCommit": "e25c0b87f397af50e930005d2ea9fd3687f4427c",
+    "trackedFiles": 769,
+    "allTrackedSha256Equal": true,
+    "freeAndPaidFourJavaScriptExact": true,
+    "fourSourceAndSixteenPackagedAtlasesExact": true,
+    "gitFsckExit": 0,
+    "shallowBoundary": "50b2bebf6b6770f9765e40fdfc9629018d4ef476",
+    "finalDocumentationCommitArchive": "Revalidated separately in RELEASE-RECEIPT.json"
   },
   "nativeHostVerification": {
-    "status": "PENDING_V023"
+    "status": "PASS",
+    "total": 64,
+    "passed": 64,
+    "failed": 0,
+    "nativeGameJsCases": 58,
+    "originalBrowserAppEventHostCases": 4,
+    "sourceChecks": 2,
+    "freePolicyChecks": 32,
+    "paidPolicyChecks": 32,
+    "inheritedPasses": 0,
+    "report": "artifacts/v0230-host/first/report.json",
+    "reportSha256": "69e23cb74593697134254e4520818293d88ea55278c60e9945e20dffbf8cd1b4",
+    "frozenProductCommit": "e25c0b87f397af50e930005d2ea9fd3687f4427c",
+    "sourceSha256": "cc86c767372bd090920ca7f7f5b76ff21fde895b3e5f0f3cda21bd74a4b471a2",
+    "realBrowserOrDevice": false
   },
   "recoveryBaseline": {
     "commit": "50b2bebf6b6770f9765e40fdfc9629018d4ef476",
     "gitHistory": "truthful shallow local boundary; original earlier remote history retained on GitHub",
     "productIdentity": "v22 free/paid JS and four atlas PNGs verified",
     "missingArtMasters": true
+  },
+  "historicalArtSourceMasterPaths": [
+    "artifacts/v0190-art-source",
+    "artifacts/v0200-art-source",
+    "artifacts/v0200-scene-source",
+    "artifacts/v0210-art-source",
+    "artifacts/v0210-scene-source"
+  ],
+  "packageBudget": {
+    "wechatBytes": 3389671,
+    "limit": 4194304,
+    "remaining": 804633,
+    "freeGameJsBytes": 881897
   }
 }

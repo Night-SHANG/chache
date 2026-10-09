@@ -1,0 +1,17 @@
+✔ v6 comparison fixes four thresholds, one geometry-aware heuristic and exactly 400-game campaign (2.747905ms)
+✔ v6 heuristic uses actual cell colors and 9-wide gate distances after settlement (2.947661ms)
+✔ v6 empty-route and own-gate connectivity are different fixed features (0.87689ms)
+✔ v6 policy is deterministic, read-only and blind to seed, RNG, ordinal, history and difficulty thresholds (33.073845ms)
+✔ v6 mixed provenance counts P5 two-of-five partial clearing and older remnants exactly (0.461835ms)
+✔ v6 independent sampling checks six draws, nested thresholds, all eight shapes and unplaceable four/five-cell pieces (33.164679ms)
+✔ v6 short cap reconciles actual generation, selected/held, replay and strict storage without reporting losses (74.616708ms)
+✔ source binding includes root routing, save identity, pure-rand code and refuses drift (7.501003ms)
+✔ v6 evidence roundtrips short fixture commands and refuses output corruption (61.754424ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 386.164559

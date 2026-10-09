@@ -1,0 +1,35 @@
+✔ six image-reference sets append 18 independently priced cosmetics without removing old entitlements (1.726921ms)
+✔ all reference cosmetics buy once, equip separately, retain mixed ownership and restore through existing account formats (145.630494ms)
+✔ new sets never bypass owned checks, insufficient funds or legacy-profile parsing (21.791885ms)
+✔ paginated reference tiles remain preview-only on the same screen and preserve 44px controls (10.975946ms)
+✔ compiled free-playtest grants every new set without spending and paid-build restart keeps all earned rights (183.687252ms)
+✔ a failed mirror never exposes newly claimed reference rights and repairing each category charges once (12.221222ms)
+✔ home tools help is a third static topic and returns without changing account or storage (21.504899ms)
+✔ paused tools help returns through the original explanation to the same paused board (34.683562ms)
+✔ inbound explanation puts special cargo above return and removes shared tools from cargo details (11.671558ms)
+✔ both menu positions show one fixed rush bucket and independent plain and tool maximum orders (17.118765ms)
+✔ hard settlement preserves the larger order maximum when a shorter run scores more, through restore and reset (46.646962ms)
+✔ expert settlement preserves the larger order maximum when a shorter run scores more, through restore and reset (40.06351ms)
+✔ hard five-shift continuation settles total orders into the visible endless maximum (220.845023ms)
+✔ expert five-shift continuation settles total orders into the visible endless maximum (218.550561ms)
+✔ mode controls and help remain readable, disjoint and touchable at all three target sizes (127.176098ms)
+✔ large score and maximum-order records retain all digits without colliding with start controls (9.740033ms)
+✔ fixed rush board and settlement keep the unprefixed mode label at three sizes (119.786199ms)
+✔ cosmetic shop has four peer sections, paginated set cards and same-screen ordinary item previews (3.62106ms)
+✔ every cosmetic is reachable by paging while selections stay ephemeral and confirmation blocks navigation (7.29681ms)
+✔ a paged purchase retains same-screen selection, equips separately and reopening resets ephemeral browsing (16.789938ms)
+✔ every shop category page fits three viewports with 44 CSS targets and no overlap (823.990077ms)
+✔ equipped logistics themes reach the actual renderer without mutating the background game (69.184824ms)
+✔ whole-body catalog upgrades two stable rights and appends independent 300-coin ice crystals (1.387705ms)
+✔ ice ownership buys once, equips independently, retains old rights and wallet across restart and reset (23.810124ms)
+✔ legacy recorded cargo pagination retains the original ice catalog position (1.604756ms)
+✔ ice is selected from its cargo page without changing account or wallet or adding a Back layer (7.525352ms)
+✔ compiled free-playtest ice claims preserve the wallet and survive paid-build restart (85.553584ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3447.31201

@@ -1,0 +1,297 @@
+✔ v23 keeps four direct peer sections and never reintroduces the singles intermediary (18.581332ms)
+✔ v23 set pagination includes classic and all fifteen fixed sets once in four pages (2.948952ms)
+✖ v23 restores exactly four set cards in the old two-by-two geometry (4.847147ms)
+✖ v23 theme exposes all catalog items through five four-text-tile pages (2.099393ms)
+✖ v23 cargo exposes all catalog items through five four-text-tile pages (1.80805ms)
+✖ v23 forklift exposes all catalog items through five four-text-tile pages (1.915911ms)
+✖ v23 ordinary selection updates the same-screen banner, text tiles and explicit purchase button (2.666204ms)
+✖ v23 restores the old single-item preview banner and renders selection into it without a detail route (66.41996ms)
+✔ v23 ignores out-of-range and noninteger set and item page actions (4.581714ms)
+✔ v23 previews and paging every catalog entry neither persist nor create a fresh account (4.776552ms)
+✖ v23 internal set Back retains the exact originating list page (1.830614ms)
+✖ v23 set-member browsing can turn pages and select another item before Back returns to its set (0.870871ms)
+✔ v23 explicitly choosing a different category clears the set-member return origin (1.243143ms)
+✖ v23 fresh root shop entry resets tabs, page and classic defaults while internal Back retains choices (1.654704ms)
+✔ v23 all paginated controls fit the viewport, remain disjoint and have at least 44 CSS pixels at width 320 (5.73948ms)
+✖ v23 wheel input neither scrolls nor changes page, preview or durable state (1.419685ms)
+✔ v23 dragging a cosmetic option more than fourteen logical pixels permanently cancels that tap (8.016998ms)
+✖ v23 pointer cancel and hide-show abandon a pending cosmetic tap, then a fresh small-motion tap works (2.768935ms)
+✔ v23 all sixteen classic preview combinations stay session-only and unowned choices cannot equip (2.126293ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 8
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 893.818993
+
+✖ failing tests:
+
+test at tests/cosmetic-pagination-v023.test.ts:70:1
+✖ v23 restores exactly four set cards in the old two-by-two geometry (4.847147ms)
+  AssertionError [ERR_ASSERTION]: page 1 must not show a third card row
+  
+  6 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:74:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:88:25
+✖ v23 theme exposes all catalog items through five four-text-tile pages (2.099393ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:88:25
+✖ v23 cargo exposes all catalog items through five four-text-tile pages (1.80805ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:88:25
+✖ v23 forklift exposes all catalog items through five four-text-tile pages (1.915911ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:111:1
+✖ v23 ordinary selection updates the same-screen banner, text tiles and explicit purchase button (2.666204ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   id: 'wood',
+  +   kind: 'cargo'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:114:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'cargo', id: 'wood' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:124:1
+✖ v23 restores the old single-item preview banner and renders selection into it without a detail route (66.41996ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   id: 'night',
+  +   kind: 'theme'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:132:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'theme', id: 'night' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:171:1
+✖ v23 internal set Back retains the exact originating list page (1.830614ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'classic',
+      'cold_chain',
+      'rail_freight',
+      'express_sorting',
+  +   'toy_workshop',
+  +   'paper_warehouse'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:178:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'classic', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse' ],
+    expected: [ 'classic', 'cold_chain', 'rail_freight', 'express_sorting' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:183:1
+✖ v23 set-member browsing can turn pages and select another item before Back returns to its set (0.870871ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   fromSet: 'neon_depot',
+  +   id: 'neon_circuit',
+  +   kind: 'cargo'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:186:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'cargo', id: 'neon_circuit', fromSet: 'neon_depot' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:201:1
+✖ v23 fresh root shop entry resets tabs, page and classic defaults while internal Back retains choices (1.654704ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'classic',
+      'cold_chain',
+      'rail_freight',
+      'express_sorting',
+  +   'toy_workshop',
+  +   'paper_warehouse'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:209:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'classic', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse' ],
+    expected: [ 'classic', 'cold_chain', 'rail_freight', 'express_sorting' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:230:1
+✖ v23 wheel input neither scrolls nor changes page, preview or durable state (1.419685ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:234:57)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-v023.test.ts:253:1
+✖ v23 pointer cancel and hide-show abandon a pending cosmetic tap, then a fresh small-motion tap works (2.768935ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   id: 'wood',
+  +   kind: 'cargo'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-v023.test.ts:261:62)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'cargo', id: 'wood' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

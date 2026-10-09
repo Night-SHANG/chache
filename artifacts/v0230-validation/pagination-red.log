@@ -1,0 +1,62 @@
+✖ v23 restores v21 same-screen item banner and standard set preview geometry (2.245699ms)
+✖ v23 paginates all sixteen sets including classic in four old-size cards (0.664245ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 229.396518
+
+✖ failing tests:
+
+test at tests/cosmetic-pagination-contract.test.ts:6:1
+✖ v23 restores v21 same-screen item banner and standard set preview geometry (2.245699ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   h: 980,
+  -   h: 232,
+      w: 816,
+      x: 132,
+  +   y: 440
+  -   y: 750
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-contract.test.ts:7:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { x: 132, y: 440, w: 816, h: 980 },
+    expected: { x: 132, y: 750, w: 816, h: 232 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-contract.test.ts:10:1
+✖ v23 paginates all sixteen sets including classic in four old-size cards (0.664245ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'cold_chain'
+  - 'classic'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-contract.test.ts:12:70)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'cold_chain',
+    expected: 'classic',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

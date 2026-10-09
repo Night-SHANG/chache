@@ -1,0 +1,52 @@
+✔ all 12 original WAVs have complete mono PCM headers and the specified short durations (37.258822ms)
+✔ short audio has silent endpoints, smooth attack/release and moderate unclipped peaks (30.976603ms)
+✔ audio generation is byte-deterministic, independent of order and distinct for each cue (36.271388ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (10.283196ms)
+✔ forklift movement remains lighter than shipment and chain signals (11.265332ms)
+✖ both build targets contain exactly the same 12 generated local WAVs on repeated builds (481.806074ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 752.523111
+
+✖ failing tests:
+
+test at tests/audio-assets.test.ts:61:1
+✖ both build targets contain exactly the same 12 generated local WAVs on repeated builds (481.806074ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      catalogSize: 53,
+      columns: 2,
+  +   navigation: 'sections-scroll-detail',
+  -   navigation: 'sections-pagination-inline-preview',
+  -   pageSize: 4,
+      sections: [
+        'sets',
+        'theme',
+        'cargo',
+        'forklift'
+      ],
+      setCount: 16,
+  -   setPageSize: 4
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/audio-assets.test.ts:72:1600)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { catalogSize: 53, setCount: 16, navigation: 'sections-scroll-detail', sections: [ 'sets', 'theme', 'cargo', 'forklift' ], columns: 2 },
+    expected: { catalogSize: 53, setCount: 16, navigation: 'sections-pagination-inline-preview', sections: [ 'sets', 'theme', 'cargo', 'forklift' ], columns: 2, pageSize: 4, setPageSize: 4 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,62 @@
+✔ v23 restores v21 same-screen item banner and standard set preview geometry (1.51022ms)
+✖ v23 four direct tabs retain old inline item selection and explicit page controls (10.657473ms)
+✖ v23 set member Back restores originating set and page after member page changes (2.032554ms)
+✔ v23 paginates all sixteen sets including classic in four old-size cards (0.240297ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 319.868533
+
+✖ failing tests:
+
+test at tests/cosmetic-pagination-contract.test.ts:11:1
+✖ v23 four direct tabs retain old inline item selection and explicit page controls (10.657473ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-contract.test.ts:13:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-pagination-contract.test.ts:21:1
+✖ v23 set member Back restores originating set and page after member page changes (2.032554ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   fromSet: 'field_station',
+  +   id: 'field_supply',
+  +   kind: 'cargo'
+  + }
+  - undefined
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-contract.test.ts:24:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'cargo', id: 'field_supply', fromSet: 'field_station' },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

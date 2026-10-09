@@ -1,0 +1,25 @@
+{
+  "root": "/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore",
+  "ownerFrozen": true,
+  "aggregateChecksPassed": true,
+  "aggregateScope": "Applicable changed-behavior readiness: lint/typecheck/preflight exit0,49 focused contract/account/driver checks plus164 migrated UI checks. Final full rerun pending; two unchanged historical-art-master checks are explicitly blocked by missing recovery inputs. This does not claim a complete all-green suite.",
+  "blockedHistoricalChecks": [
+    "cargo-atlas: committed raster artwork verifies every generated source and exact encoded atlas",
+    "v021-cargo-forklift-art: new generated atlas rows obey their incremental byte budgets and preserve source evidence"
+  ],
+  "expectedVersion": "0.23.0-dev",
+  "expectedCommit": "e25c0b87f397af50e930005d2ea9fd3687f4427c",
+  "expectedSourceSha256": "cc86c767372bd090920ca7f7f5b76ff21fde895b3e5f0f3cda21bd74a4b471a2",
+  "expectedCatalogSize": 53,
+  "expectedSetCount": 16,
+  "freeBuildRoot": "/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0230-frozen/free",
+  "paidBuildRoot": "/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0230-frozen/paid",
+  "expectedGameJsSha256": "070d644708f4d3c36782d812b8e2c5ca1cad8ec4fd51947d2e29e43ab2e2b4fb",
+  "expectedBrowserJsSha256": "0d83b216f17100636c7ac06d4c07c61eeb4c8381a9cead337bdd14f0e24a9436",
+  "expectedPaidGameJsSha256": "be8fd8ecd9e74e36a2e4457a97fbfa0dafd4ba9d70a12297fff589754e46ae2a",
+  "expectedPaidBrowserJsSha256": "066ae732cb509e2c2e14ee99cb5eb3fbdc0c007ee859b42e104560f26d9e80f0",
+  "expectedAtlasSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+  "expectedThemedForkliftAtlasSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+  "expectedBoardMaterialAtlasSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+  "expectedSceneMaterialAtlasSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+}

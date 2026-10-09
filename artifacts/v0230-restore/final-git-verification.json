@@ -1,0 +1,64 @@
+[
+  {
+    "command": [
+      "git",
+      "status",
+      "--porcelain=v1"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "log",
+      "--format=%H %s",
+      "--all"
+    ],
+    "exitCode": 0,
+    "stdout": "e25c0b87f397af50e930005d2ea9fd3687f4427c Restore paginated cosmetics and v21 inline previews on recovered v22\n50b2bebf6b6770f9765e40fdfc9629018d4ef476 backup: preserve recovered v0.22 product snapshot with verified runtime identity\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "fsck",
+      "--full"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "rev-parse",
+      "--is-shallow-repository"
+    ],
+    "exitCode": 0,
+    "stdout": "true\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "config",
+      "--local",
+      "--list"
+    ],
+    "exitCode": 0,
+    "stdout": "core.repositoryformatversion=0\ncore.filemode=true\ncore.bare=false\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "remote",
+      "-v"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

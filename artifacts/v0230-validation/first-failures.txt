@@ -1,0 +1,1057 @@
+✖ failing tests:
+
+test at tests/cargo-atlas.test.ts:34:1
+✖ committed raster artwork verifies every generated source and exact encoded atlas (2.101333ms)
+  Error: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0200-art-source/cargo-wood-generated.png'
+      at Object.openSync (node:fs:622:18)
+      at readFileSync (node:fs:488:35)
+      at generateCargoAtlas (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/scripts/generate-cargo-atlas.mjs:15:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cargo-atlas.test.ts:36:19)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0200-art-source/cargo-wood-generated.png'
+  }
+
+test at tests/cargo-atlas.test.ts:39:1
+✖ atlas completion changes only shop pixels, preserving active session checksum, wallet and storage (85.029182ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   id: 'ice_crystal',
+  -   kind: 'cargo'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cargo-atlas.test.ts:43:270)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'cargo', id: 'ice_crystal' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/classic-set-session.test.ts:13:1
+✖ classic preview variants are session-only and root entry resets while internal Back retains them (15.395455ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   fromSet: 'classic',
+  -   id: 'white',
+  -   kind: 'forklift'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/classic-set-session.test.ts:18:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'forklift', id: 'white', fromSet: 'classic' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-purchase-ui.test.ts:25:1
+✖ set details put blue return on the left and yellow purchase on the right (10.254011ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '返回套装' !== '返回列表'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-purchase-ui.test.ts:27:40)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '返回套装',
+    expected: '返回列表',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-shop.test.ts:29:1
+✖ appearance opens coordinated scrolling cards and four peer categories (2.795475ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 6
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-shop.test.ts:30:34)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 6,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-shop.test.ts:38:1
+✖ set scrolling visits every unique visual card without equipping or persisting (7.697841ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-shop.test.ts:42:161)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-shop.test.ts:56:1
+✖ unaffordable missing set members disable bundle purchase and member link retains single-item purchase (12.402206ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 购买'
+  - '购买\n300金币'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-shop.test.ts:59:163)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 购买',
+    expected: '购买\n300金币',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-shop.test.ts:94:1
+✖ each partial ownership count selects purchase or equip from a read-only derived badge (15.409494ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(capture(v).labels.includes(`已拥有 ${count}/3`))
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-shop.test.ts:97:327)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-set-shop.test.ts:111:1
+✖ set cards show the same real-board floor and frame instead of unrelated product compositions (59.276716ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'afa2b5793b2a6b61ebeb87a5e5da77ff0ce808fef89f1748a6f6f3dfab12d9f9'
+  - 'fbca9f18a5a4b7b27299f2e65ec7637da974d705d31d9dc7b39a492f3d7b0f53'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-set-shop.test.ts:114:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'afa2b5793b2a6b61ebeb87a5e5da77ff0ce808fef89f1748a6f6f3dfab12d9f9',
+    expected: 'fbca9f18a5a4b7b27299f2e65ec7637da974d705d31d9dc7b39a492f3d7b0f53',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-shop-session.test.ts:11:1
+✖ shop previews and tabs are ephemeral even before the first account exists (6.906348ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'menu' !== 'shop'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-shop-session.test.ts:14:144)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'menu',
+    expected: 'shop',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cosmetic-shop-ui.test.ts:19:1
+✖ cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip (14.375441ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-shop-ui.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/economy-ui.test.ts:13:1
+✖ new account accomplishments unlock the same cosmetic buttons that the account service permits (10.641888ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   id: 'blue',
+  -   kind: 'forklift'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/economy-ui.test.ts:16:101)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'forklift', id: 'blue' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/navigation-state-v022.test.ts:73:1
+✖ each shop section retains independent scroll across peer sections and tools tab (1.690466ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 100
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/navigation-state-v022.test.ts:76:93)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 100,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/navigation-state-v022.test.ts:83:1
+✖ set member detail returns to its set then the same scrolled set list (1.356181ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   fromSet: 'cold_chain',
+  -   id: 'insulated',
+  -   kind: 'cargo'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/navigation-state-v022.test.ts:87:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'cargo', id: 'insulated', fromSet: 'cold_chain' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/navigation-state-v022.test.ts:94:1
+✖ independent item detail returns to the same peer section and scroll (0.982627ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   id: 'white',
+  -   kind: 'forklift'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/navigation-state-v022.test.ts:96:68)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'forklift', id: 'white' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/navigation-state-v022.test.ts:118:1
+✖ scroll clamps current section and ignores nonfinite deltas and hidden list actions (4.247467ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(end&&end>0&&end<Number.MAX_SAFE_INTEGER)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/navigation-state-v022.test.ts:120:102)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/outbound-v6-compare.test.ts:99:1
+✖ v6 evidence roundtrips short fixture commands and refuses output corruption (35.055715ms)
+  Error: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/docs/superpowers/plans/2026-10-06-outbound-v6-comparison.md'
+      at Object.openSync (node:fs:622:18)
+      at readFileSync (node:fs:488:35)
+      at file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/qa/outbound-v6-compare.mjs:271:91
+      at Array.map (<anonymous>)
+      at sourceArtifacts (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/qa/outbound-v6-compare.mjs:271:71)
+      at Module.writeEvidence (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/qa/outbound-v6-compare.mjs:272:107)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/outbound-v6-compare.test.ts:103:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/docs/superpowers/plans/2026-10-06-outbound-v6-comparison.md'
+  }
+
+test at tests/playful-cosmetics.test.ts:115:1
+✖ scrolling shop cards open details and cancel, buy, equip, reload and reset each new item (9.790416ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(offset>0)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/playful-cosmetics.test.ts:122:48)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/playful-cosmetics.test.ts:133:1
+✖ all 53 rights coexist and every scrolling item retains 44 CSS pixel disjoint controls at 360px (119.305446ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/playful-cosmetics.test.ts:146:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/playtest-shop-policy.test.ts:58:1
+✖ compiled UI shows free claims at zero wallet, separate equip, and paid fallback shortages (6.509499ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'selectShopTab',
+  +   'selectShopTab',
+  +   'selectShopSection',
+  +   'selectShopSection',
+  +   'selectShopSection',
+  +   'selectShopSection',
+  +   'previewCosmetic',
+  +   'previewCosmetic',
+  +   'previewCosmetic',
+  +   'previewCosmetic',
+  +   'selectCosmeticPage',
+  +   'selectCosmeticPage',
+  -   'closeShopDetail',
+      'purchaseCosmetic',
+  +   'back'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/playtest-shop-policy.test.ts:64:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'selectShopTab', 'selectShopTab', 'selectShopSection', 'selectShopSection', 'selectShopSection', 'selectShopSection', 'previewCosmetic', 'previewCosmetic', 'previewCosmetic', 'previewCosmetic', 'selectCosmeticPage', 'selectCosmeticPage', 'purchaseCosmetic', 'back' ],
+    expected: [ 'closeShopDetail', 'purchaseCosmetic' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/playtest-shop-policy.test.ts:72:1
+✖ actual compiled Session permits free zero-wallet and achievement claims through confirmation, cancel, and equip (4.165584ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   id: 'wood',
+  -   kind: 'cargo'
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/playtest-shop-policy.test.ts:74:251)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'cargo', id: 'wood' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/reference-series-cosmetics.test.ts:96:1
+✖ scrolling reference cards remain preview-only, open independent details and preserve 44px controls (5.94978ms)
+  AssertionError [ERR_ASSERTION]: theme.steam_foundry remains reachable by scrolling
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/reference-series-cosmetics.test.ts:105:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/shop-card-layout.test.ts:22:1
+✖ appearance lists four peer sections with image-sized two-column cards and no pagination or singles layer (2.618833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-card-layout.test.ts:25:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-card-layout.test.ts:29:1
+✖ item and set details are independent pages with left back, right action and only set member links (0.609875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-card-layout.test.ts:31:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-card-layout.test.ts:38:1
+✖ every section scrolls to every catalog item with clipped controls never under 44 CSS pixels or outside viewport (0.644575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1868
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-card-layout.test.ts:42:64)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1868,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-card-layout.test.ts:55:1
+✖ list artwork cache is bounded, reused while wallet stays live, and keyed by section and scroll (47.544996ms)
+  AssertionError [ERR_ASSERTION]: one composite prevents six-card LRU thrashing
+  
+  4 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-card-layout.test.ts:59:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-navigation-driver.test.ts:4:81
+✖ v22 native-driver pointer intent agrees with real source session: items (139.732245ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   id: 'day',
+  -   kind: 'theme'
+  - }
+  
+      at check (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/helpers/shop-navigation-driver-harness.mjs:20:245)
+      at exerciseShopDriver (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/helpers/shop-navigation-driver-harness.mjs:28:255)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-navigation-driver.test.ts:5:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { kind: 'theme', id: 'day' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-navigation-driver.test.ts:4:81
+✖ v22 native-driver pointer intent agrees with real source session: sets (158.627357ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'theme' !== 'sets'
+  
+      at check (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/helpers/shop-navigation-driver-harness.mjs:20:191)
+      at exerciseShopDriver (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/helpers/shop-navigation-driver-harness.mjs:30:257)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-navigation-driver.test.ts:5:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'theme',
+    expected: 'sets',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-navigation-driver.test.ts:4:81
+✖ v22 native-driver pointer intent agrees with real source session: transactions (143.040269ms)
+  Error: Native scroll could not reach {"type":"previewCosmeticSet","id":"harbor"}
+      at ShopNavigationDriver.seek (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/scripts/shop-navigation-host-runtime.mjs:82:9)
+      at ShopNavigationDriver.previewSet (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/scripts/shop-navigation-host-runtime.mjs:85:110)
+      at exerciseShopDriver (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/helpers/shop-navigation-driver-harness.mjs:34:5)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-navigation-driver.test.ts:5:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/shop-scroll-input.test.ts:19:1
+✖ shop drag emits incremental vertical deltas and never previews or places game pieces (15.800788ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: 60,
+  -     type: 'scrollShop'
+  -   },
+  -   {
+  -     deltaY: 50,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: 60 }, { type: 'scrollShop', deltaY: 50 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:24:1
+✖ shop scroll threshold keeps small motion a tap and diagonal motion cancels a card tap (1.693371ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: -3,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:27:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: -3 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:35:1
+✖ shop dragging stays captured beyond the bottom viewport and cannot activate the footer (1.474096ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: -860,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:37:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: -860 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:40:1
+✖ secondary shop fingers cannot steal, release, or cancel the primary gesture (1.297764ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: 50,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:42:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: 50 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:45:1
+✖ shop cancellation releases its pending card and permits the next pointer (1.171717ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: 30,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:47:83)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: 30 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:56:1
+✖ shop wheel only claims finite nonzero movement inside the exact list clipping rectangle (1.781816ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:57:27)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:81:1
+✖ a wheel scroll cancels a card tap pending under the pointer (1.412974ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:82:48)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:89:1
+✖ leaving the logical canvas cancels shop dragging instead of scrolling to an invalid mapped point (1.363071ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   {
+  -     deltaY: 30,
+  -     type: 'scrollShop'
+  -   }
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:91:83)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ { type: 'scrollShop', deltaY: 30 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:100:1
+✖ a clipped card sliver cannot activate while a sufficiently visible card stays tappable (1.320227ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-scroll-input.test.ts:102:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-wheel-platform.test.ts:54:1
+✖ browser wheel reaches the real shop session, clamps without saving, and leaves game scrolling alone (9.302621ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/shop-wheel-platform.test.ts:58:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tools-help-and-maxorders.test.ts:91:1
+✖ cosmetic shop has four peer sections, a two-column scrolling list, and independent details (5.120872ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(COSMETIC_PREVIEW_RECT.h>840)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/tools-help-and-maxorders.test.ts:93:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/tools-help-and-maxorders.test.ts:107:1
+✖ every cosmetic is reachable by scrolling while category offsets stay ephemeral and confirmation blocks navigation (2.535759ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/tools-help-and-maxorders.test.ts:112:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tools-help-and-maxorders.test.ts:124:1
+✖ a scrolled item purchase remains in its detail, equips separately, and reopening resets browsing without losing ownership (4.459341ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(card)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/tools-help-and-maxorders.test.ts:128:135)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/v021-cargo-forklift-art.test.ts:28:1
+✖ new generated atlas rows obey their incremental byte budgets and preserve source evidence (0.619548ms)
+  Error: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0210-art-source/cargo-harbor_container-generated.png'
+      at Object.openSync (node:fs:622:18)
+      at readFileSync (node:fs:488:35)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/v021-cargo-forklift-art.test.ts:37:98)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/artifacts/v0210-art-source/cargo-harbor_container-generated.png'
+  }
+
+test at tests/wechat-shop-input.test.ts:34:26
+✖ WeChat safe-area mapping scrolls the same logical distance at DPR 1 (11.387663ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/wechat-shop-input.test.ts:40:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-shop-input.test.ts:34:26
+✖ WeChat safe-area mapping scrolls the same logical distance at DPR 2 (1.734141ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/wechat-shop-input.test.ts:40:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-shop-input.test.ts:34:26
+✖ WeChat safe-area mapping scrolls the same logical distance at DPR 3 (1.151527ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/wechat-shop-input.test.ts:40:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/whole-crate-cosmetics.test.ts:56:1
+✖ ice opens from the scrolling cargo list into a detail without changing account or wallet (9.789783ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(card)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/whole-crate-cosmetics.test.ts:61:188)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,19 @@
+$ git status --porcelain=v1
+exit=0
+$ git log --format=%H %s --all
+e25c0b87f397af50e930005d2ea9fd3687f4427c Restore paginated cosmetics and v21 inline previews on recovered v22
+50b2bebf6b6770f9765e40fdfc9629018d4ef476 backup: preserve recovered v0.22 product snapshot with verified runtime identity
+exit=0
+$ git rev-parse HEAD
+e25c0b87f397af50e930005d2ea9fd3687f4427c
+exit=0
+$ git rev-parse --is-shallow-repository
+true
+exit=0
+$ git fsck --full
+exit=0
+$ git config --local --list
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+exit=0

@@ -1,0 +1,51 @@
+✔ v23 restores v21 same-screen item banner and standard set preview geometry (1.137827ms)
+✔ v23 four direct tabs retain old inline item selection and explicit page controls (15.452299ms)
+✔ v23 set member Back restores originating set and page after member page changes (1.578801ms)
+✔ v23 paginates all sixteen sets including classic in four old-size cards (0.288247ms)
+✖ v23 page navigation cancels a pending old-page pointer in the same section (5.825747ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 289.507666
+
+✖ failing tests:
+
+test at tests/cosmetic-pagination-contract.test.ts:34:1
+✖ v23 page navigation cancels a pending old-page pointer in the same section (5.825747ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      cosmeticSetPage: 1,
+  +   cosmeticSetPreview: 'classic',
+  -   cosmeticSetPreview: undefined,
+      dailyLabel: '2026-10-06',
+      dailyLocked: false,
+      debug: false,
+      developerMode: false,
+      dragPoint: null,
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/github-v022-backup/remote-verified-restore/tests/cosmetic-pagination-contract.test.ts:40:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 0 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', classicSetSelection: { theme: 'day', cargo: 'classic', forklift: 'yellow' }, shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, shopItemDetail: undefined, cosmeticBrowse: 'sets', cosmeticCategory: undefined, cosmeticPreview: undefined, cosmeticSetPage: 1, cosmeticSetPreview: 'classic', cosmeticSetNotice: undefined, cosmeticReturnSet: undefined },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 0 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', classicSetSelection: { theme: 'day', cargo: 'classic', forklift: 'yellow' }, shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, shopItemDetail: undefined, cosmeticBrowse: 'sets', cosmeticCategory: undefined, cosmeticPreview: undefined, cosmeticSetPage: 1, cosmeticSetPreview: undefined, cosmeticSetNotice: undefined, cosmeticReturnSet: undefined },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,21 @@
+✔ classic is one pinned configurable display preset over the unchanged 53 items and fifteen fixed bundles (2.304518ms)
+✔ all sixteen owned classic choices atomically equip three slots and the exact outline flag (254.038361ms)
+✔ classic validates allowed values, exact shape and selected ownership without fallback or partial writes (14.073357ms)
+✔ classic status compares selected ownership, every slot and outline without changing the source (0.764924ms)
+✔ every classic apply storage fault retains a whole old or new four-field state and exact retry commits once (123.963043ms)
+✔ production classic choices retain blue/red achievement locks and white individual 600-coin purchase (7.649335ms)
+✔ free playtest classic still requires an explicit existing-item claim before atomic equip (197.768215ms)
+✔ classic outline replaces ice crystal with classic cargo and classic choice explicitly clears the outline (9.266258ms)
+✔ restart repairs a pending classic outfit with the original outline and no partial publication (5.040908ms)
+✔ classic preview variants are session-only and root entry resets while internal Back retains them (16.861967ms)
+✔ classic context purchase retains preview and applies only after separate explicit equip (13.033036ms)
+✔ classic session uncertain apply publishes no partial outfit and retries the original selection (7.620836ms)
+✔ hidden, confirming, blocked and malformed classic variant actions are harmless (1.268682ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1223.286319

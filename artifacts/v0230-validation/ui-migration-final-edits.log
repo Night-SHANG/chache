@@ -1,0 +1,32 @@
+✔ appearance lists four peer sections, four page-scoped set cards and four compact item tiles (2.904677ms)
+✔ standard set detail keeps global tabs and member links while ordinary items keep action left and Back right (0.78235ms)
+✔ every section pages through every catalog entry with disabled bounds, disjoint controls and 44px targets (2.638031ms)
+✔ page artwork cache stays bounded, reuses current cards and keeps wallet and item selection live (307.523214ms)
+✔ classic preset is pinned before the fifteen paid sets without expanding the 53-item catalog (0.418971ms)
+✔ classic detail has compact preview-only variants and owned-state primary route with 44px targets (0.51924ms)
+✔ cached page art is exact across cold and warm frames and leaves pixels outside the art region unchanged (1199.638961ms)
+✔ individual preview painters normalize inherited stroke state without changing the caller (6.690239ms)
+✔ home tools help is a third static topic and returns without changing account or storage (19.933463ms)
+✔ paused tools help returns through the original explanation to the same paused board (30.313924ms)
+✔ inbound explanation puts special cargo above return and removes shared tools from cargo details (12.000833ms)
+✔ both menu positions show one fixed rush bucket and independent plain and tool maximum orders (21.632893ms)
+✔ hard settlement preserves the larger order maximum when a shorter run scores more, through restore and reset (49.836778ms)
+✔ expert settlement preserves the larger order maximum when a shorter run scores more, through restore and reset (43.712428ms)
+✔ hard five-shift continuation settles total orders into the visible endless maximum (235.315959ms)
+✔ expert five-shift continuation settles total orders into the visible endless maximum (190.640503ms)
+✔ mode controls and help remain readable, disjoint and touchable at all three target sizes (120.223544ms)
+✔ large score and maximum-order records retain all digits without colliding with start controls (8.47792ms)
+✔ fixed rush board and settlement keep the unprefixed mode label at three sizes (97.085849ms)
+✔ cosmetic shop has four peer sections, paginated set cards and same-screen ordinary item previews (3.569563ms)
+✔ every cosmetic is reachable by paging while selections stay ephemeral and confirmation blocks navigation (4.612668ms)
+✔ a paged purchase retains same-screen selection, equips separately and reopening resets ephemeral browsing (16.161261ms)
+✔ every shop category page fits three viewports with 44 CSS targets and no overlap (716.743674ms)
+✔ equipped logistics themes reach the actual renderer without mutating the background game (62.382819ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4347.398436

@@ -1,0 +1,60 @@
+{
+  "verifiedCommit": "e25c0b87f397af50e930005d2ea9fd3687f4427c",
+  "trackedFileCount": 769,
+  "trackedPathsExact": true,
+  "trackedSha256BeforeAfterMatch": true,
+  "statusClean": true,
+  "gitFsckFullExitCode": 0,
+  "nativeGitDirectory": true,
+  "gitConfigOnlyCore": true,
+  "remotes": [],
+  "shallow": true,
+  "shallowBoundary": "50b2bebf6b6770f9765e40fdfc9629018d4ef476",
+  "earlierRemoteHistoryFullyRestored": false,
+  "dependencyInstallPerformed": false,
+  "temporaryDependencyLinkRemoved": true,
+  "generatedBuildRemovedFromStaging": true,
+  "symlinksInStaging": 0,
+  "buildExitCodes": {
+    "free": 0,
+    "paid": 0
+  },
+  "javascriptMatches": [
+    {
+      "mode": "free",
+      "path": "browser/app.js",
+      "bytes": 882569,
+      "actualSha256": "0d83b216f17100636c7ac06d4c07c61eeb4c8381a9cead337bdd14f0e24a9436",
+      "frozenSha256": "0d83b216f17100636c7ac06d4c07c61eeb4c8381a9cead337bdd14f0e24a9436",
+      "match": true
+    },
+    {
+      "mode": "free",
+      "path": "wechat/game.js",
+      "bytes": 881897,
+      "actualSha256": "070d644708f4d3c36782d812b8e2c5ca1cad8ec4fd51947d2e29e43ab2e2b4fb",
+      "frozenSha256": "070d644708f4d3c36782d812b8e2c5ca1cad8ec4fd51947d2e29e43ab2e2b4fb",
+      "match": true
+    },
+    {
+      "mode": "paid",
+      "path": "browser/app.js",
+      "bytes": 882570,
+      "actualSha256": "066ae732cb509e2c2e14ee99cb5eb3fbdc0c007ee859b42e104560f26d9e80f0",
+      "frozenSha256": "066ae732cb509e2c2e14ee99cb5eb3fbdc0c007ee859b42e104560f26d9e80f0",
+      "match": true
+    },
+    {
+      "mode": "paid",
+      "path": "wechat/game.js",
+      "bytes": 881898,
+      "actualSha256": "be8fd8ecd9e74e36a2e4457a97fbfa0dafd4ba9d70a12297fff589754e46ae2a",
+      "frozenSha256": "be8fd8ecd9e74e36a2e4457a97fbfa0dafd4ba9d70a12297fff589754e46ae2a",
+      "match": true
+    }
+  ],
+  "atlasCopiesMatched": 16,
+  "uniqueSourceAtlasMatches": 4,
+  "stagingBytes": 27222081,
+  "docsCommitWillRequireRestaging": true
+}
