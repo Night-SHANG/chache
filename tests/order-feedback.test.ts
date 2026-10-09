@@ -87,9 +87,10 @@ test('invalid preview never claims a dispatch, even with stale shipment data', (
   assert.equal(boardHint(state, current), '这里放不下，换个位置');
 });
 
-test('real animation identifies its old shipment by Dock even after the card was replaced', () => {
-  const state = readyRun(), active = shipment(), current = view({ animation: { shipment: active, progress: .3, board: state.board.slice() }, preview: { valid: true,events:[], cells: [40], shipments: [shipment({ cargo: 'cargo.chem' })] } });
-  const feedback = orderFeedback(state, state.orders[0], current);
+test('real animation identifies its exact old order after the committed Dock order was replaced', () => {
+  const state = readyRun(), active = shipment(),oldOrder=order({id:active.orderId}), current = view({ animation: { shipment: active, progress: .3, board: state.board.slice(),orders:[oldOrder],completedOrderIds:[],queuedOrderIds:[oldOrder.id] }, preview: { valid: true,events:[], cells: [40], shipments: [shipment({ cargo: 'cargo.chem' })] } });
+  const feedback = orderFeedback(state, oldOrder, current);
+  assert.equal(orderFeedback(state,state.orders[0],current).shipping,undefined);
   assert.equal(feedback.shipping, active); assert.equal(feedback.previewShipment, undefined);
   assert.equal(feedback.label, '出货中 · +125'); assert.equal(boardHint(state, current), '食品出货中');
 });

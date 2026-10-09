@@ -11,7 +11,7 @@ function wood(session:GameSession){act(session,{type:'shop'});act(session,{type:
 test('shop previews and tabs are ephemeral even before the first account exists',()=>{
  const h=sessionHost({},false),s=h.session,before=[...h.data],checksum=playableChecksum(s.state);h.storage.resetFault();wood(s);
  assert.equal(s.view.shopTab,'cosmetics');assert.equal(s.view.cosmeticCategory,'cargo');assert.equal(s.view.cosmeticPreview?.cargo,'wood');
- act(s,{type:'selectCosmeticCategory',kind:'forklift'});act(s,{type:'previewCosmetic',kind:'forklift',id:'white'});act(s,{type:'back'});
+ act(s,{type:'selectCosmeticCategory',kind:'forklift'});act(s,{type:'previewCosmetic',kind:'forklift',id:'white'});act(s,{type:'back'});assert.equal(s.view.screen,'shop');assert.equal(s.view.shopItemDetail,undefined);act(s,{type:'back'});
  assert.equal(s.view.screen,'menu');assert.equal(s.view.account,null);assert.deepEqual([...h.data],before);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(o=>o.kind==='set'||o.kind==='remove'),false);
 });
 test('cancel purchase keeps balance; confirmed purchase owns wood once and separate equip is free',()=>{
@@ -20,9 +20,9 @@ test('cancel purchase keeps balance; confirmed purchase owns wood once and separ
  act(s,{type:'purchaseCosmetic',kind:'cargo',id:'wood'});act(s,{type:'confirm'});act(s,{type:'confirm'});
  assert.equal(s.view.account?.wallet,0);assert.ok(s.view.account?.profile.ownedCosmetics?.includes('cargo.wood'));assert.equal(s.view.account?.profile.cosmetics.cargo,'classic');
  act(s,{type:'equipCosmetic',kind:'cargo',id:'wood'});assert.equal(s.view.account?.profile.cosmetics.cargo,'wood');assert.equal(s.view.account?.wallet,0);
- act(s,{type:'setCargoOutline',enabled:true});assert.equal(s.view.account?.profile.cargoOutline,true);assert.equal(s.view.account?.profile.cosmetics.cargo,'wood');
+ act(s,{type:'setCargoOutline',enabled:true});assert.equal(s.view.account?.profile.cargoOutline,true);assert.equal(s.view.account?.profile.cosmetics.cargo,'classic');
  act(s,{type:'resetProfile'});act(s,{type:'confirm'});assert.ok(s.view.account?.profile.ownedCosmetics?.includes('cargo.wood'));assert.equal(s.view.account?.profile.cargoOutline,true);
- const restored=new GameSession(h.platform,{seed:71,mode:'standard'});assert.equal(restored.view.account?.profile.cosmetics.cargo,'wood');assert.equal(restored.view.account?.profile.cargoOutline,true);
+ const restored=new GameSession(h.platform,{seed:71,mode:'standard'});assert.equal(restored.view.account?.profile.cosmetics.cargo,'classic');assert.equal(restored.view.account?.profile.cargoOutline,true);
 });
 test('unconfirmed cosmetic save blocks interaction and retry publishes the original purchase only once',()=>{
  const h=sessionHost({wallet:300}),s=h.session;wood(s);const before=s.view.account,original=h.storage.set.bind(h.storage);let broken=true;

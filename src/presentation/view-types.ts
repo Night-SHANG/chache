@@ -1,7 +1,8 @@
+import type {ClassicSetSelection} from '../application/cosmetic-sets.ts';
 import type {CosmeticKind} from '../application/cosmetics.ts';
 import type {OutboundTransportPlan} from './outbound-transport.ts';
 import type {PlacementRisk} from './placement-risk.ts';
-import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point, CargoId } from '../domain/types.ts';
+import type { Cell, CellTrait, ColorTier, OutboundDifficulty, Point, CargoId, Order } from '../domain/types.ts';
 import type { RunSlot } from '../application/run-slots.ts';
 import type {GameShipment, PlayablePreview, ToolRun} from '../domain/playable.ts';
 import type {AccountSnapshot, ItemId, GuideTrack} from '../application/account-types.ts';
@@ -11,9 +12,19 @@ import type {UpgradeIdV9} from '../domain/v9/types.ts';
 import type {Profile} from '../application/profile.ts';
 import type {ToolCommand} from './tool-preview.ts';
 
+export type ShopSection='sets'|'theme'|'cargo'|'forklift';
+
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
   shopTab?:'tools'|'cosmetics';
+  shopSection?:ShopSection;
+  classicSetSelection?:ClassicSetSelection;
+  shopScroll?:Partial<Record<ShopSection,number>>;
+  shopItemDetail?:{kind:CosmeticKind;id:string;fromSet?:string};
+  cosmeticBrowse?:'sets'|'items';
+  cosmeticSetPage?:number;
+  cosmeticSetPreview?:string;
+  cosmeticSetNotice?:string;
   cosmeticCategory?:CosmeticKind;
   cosmeticPreview?:Partial<Record<CosmeticKind,string>>;
   cargoOutline?:boolean;
@@ -41,7 +52,7 @@ export interface ViewState {
   message: string;
   saveStatus: string;
   elapsed: number;
-  animation: { shipment: GameShipment; progress: number; transportPlan?: OutboundTransportPlan; board: Cell[]; cellTraits?: (CellTrait | null)[] } | null;
+  animation: { shipment: GameShipment; progress: number; transportPlan?: OutboundTransportPlan; board: Cell[]; cellTraits?: (CellTrait | null)[]; orders?:Order[]; completedOrderIds?:string[]; queuedOrderIds?:string[] } | null;
   placementFx?: { cells: number[]; progress: number } | null;
   invalidFx?: { pieceId: string; progress: number } | null;
   noticeFx?: { kind: 'shift' | 'fail'; label: string; progress: number } | null;
@@ -52,7 +63,7 @@ export interface ViewState {
   helpTopic?:'inbound'|'outbound';
   helpFromHome?:boolean;
   recoveryError?: string;
-  screen?: 'game'|'menu'|'settings'|'helpMenu'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer'|'tutorialPracticeSelect';
+  screen?: 'game'|'menu'|'settings'|'helpMenu'|'colorIntro'|'colorTiers'|'inboundMenu'|'legacyRuns'|'helpDetails'|'toolsHelp'|'shop'|'prepareTools'|'prepareCleanup'|'guideOffer'|'tutorialPracticeSelect';
   variant?: RunSlot;
   modeSlots?: Partial<Record<RunSlot,'empty'|'saved'|'result'|'corrupt'|'unavailable'>>;
   comparisonSeed?: number;
@@ -62,5 +73,5 @@ export interface ViewState {
   dailyLabel?: string;
   dailyLocked?: boolean;
   canContinue?: boolean;
-  confirmation?: {practiceKind?:import('../application/tutorial-practice.ts').PracticeKind;kind:'startPractice'|'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic';item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;inboundDifficulty?:import('./ui-types.ts').InboundUiDifficulty;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
+  confirmation?: {practiceKind?:import('../application/tutorial-practice.ts').PracticeKind;kind:'startPractice'|'newRun'|'resetProfile'|'finishOvertime'|'switchMode'|'leaveRun'|'finishEndless'|'purchase'|'purchaseCosmetic'|'purchaseCosmeticSet';cosmeticSetId?:string;cosmeticSetQuote?:{missingKeys:string[];originalPrice:number;price:number};item?:ItemId;cosmeticKind?:CosmeticKind;cosmeticId?:string;outboundMode?:'normal'|'endless';mode?:'standard'|'daily'|'rush'|'color_exit'|'endless';variant?:RunSlot;colorTier?:ColorTier;inboundDifficulty?:import('./ui-types.ts').InboundUiDifficulty;difficultyId?:OutboundDifficulty;seed?:number;nextScreen?:'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'}|null;
 }

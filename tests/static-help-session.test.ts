@@ -12,7 +12,7 @@ const writes=(h:ReturnType<typeof sessionHost>)=>h.storage.operations.filter(op=
 for(const mode of ['standard','endless','daily','color_exit'] as const)test(`fresh ${mode} starts without an interactive offer or guide`,()=>{
  const h=sessionHost({},false);h.session.action({type:'newRun',mode,difficultyId:'easy'});assert.notEqual(h.session.view.screen,'guideOffer');
  if(h.session.view.screen==='prepareTools')h.session.action({type:'prepareNext'});assert.equal(h.session.view.screen,'game');assert.equal(h.session.view.guide,null);assert.equal(h.session.view.practice,undefined);
- assert.equal(h.session.view.account?.run?.identity.mode,mode==='color_exit'?'outbound':mode);if('guided' in h.session.state)assert.equal(h.session.state.guided,false);
+ assert.equal(h.session.view.account?.run?.identity.mode,mode==='color_exit'?'outbound':mode==='daily'?'rush':mode);if('guided' in h.session.state)assert.equal(h.session.state.guided,false);
  assert.equal(h.session.state.phase,mode==='daily'?'cleanup':'input');assert.equal(h.session.state.commandIndex,0);
  if(mode==='daily'){assert.equal(h.session.state.candidates.length,0);h.session.action({type:'chooseCleanup',branch:'placements'});assert.equal(h.session.state.phase,'input');assert.equal(h.session.view.guide,null);}
 });

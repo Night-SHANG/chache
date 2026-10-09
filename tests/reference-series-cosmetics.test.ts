@@ -1,0 +1,155 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState, assertAccountCosmetics, getCosmetic, retainAccountCosmetics } from '../src/application/cosmetics.ts';
+import { createAccountService, type AccountRequest } from '../src/application/account-service.ts';
+import { ACCOUNT_KEYS, encodeAccount } from '../src/application/account-store.ts';
+import { createProfile, setProfileCosmetic } from '../src/application/profile.ts';
+import { FaultStorage, makeAccountFixture } from './helpers/account-fixtures.ts';
+import { sessionHost } from './helpers/session-fixtures.ts';
+import { getShopControls, selectedShopCosmetic } from '../src/presentation/economy-ui.ts';
+import { SHOP_CARD_HEIGHT, SHOP_CARD_GAP, shopScrollOffset } from '../src/presentation/shop-layout.ts';
+import { playableChecksum } from '../src/domain/playable.ts';
+import { build } from 'esbuild';
+
+const NEW = [
+ ['theme', 'steam_foundry', '蒸汽工场', 900], ['theme', 'neon_depot', '霓虹货站', 900],
+ ['theme', 'lava_forge', '熔岩铸造厂', 900], ['theme', 'ocean_vault', '深海货库', 900],
+ ['theme', 'royal_store', '鎏金宝库', 900], ['theme', 'field_station', '野外补给站', 900],
+ ['cargo', 'steam_brass', '蒸汽机匣', 300], ['cargo', 'neon_circuit', '霓虹机匣', 300],
+ ['cargo', 'lava_core', '熔岩石箱', 300], ['cargo', 'ocean_relic', '深海珊瑚箱', 300],
+ ['cargo', 'royal_gold', '鎏金宝匣', 300], ['cargo', 'field_supply', '战术补给箱', 300],
+ ['forklift', 'steam', '锅炉叉车', 600], ['forklift', 'neon', '光轨叉车', 600],
+ ['forklift', 'lava', '耐热叉车', 600], ['forklift', 'diving', '潜航叉车', 600],
+ ['forklift', 'royal', '礼装叉车', 600], ['forklift', 'field', '越野叉车', 600],
+] as const;
+
+function setup(wallet = 10800) {
+ const storage = new FaultStorage(), raw = encodeAccount(makeAccountFixture({ wallet }));
+ storage.values.set(ACCOUNT_KEYS.a, raw); storage.values.set(ACCOUNT_KEYS.b, raw);
+ const service = createAccountService(storage, { status: 'held', release() {} }, () => 0);
+ let serial = 0;
+ const transact = (request: Record<string, unknown>) => service.transact({ operationId: `reference.${++serial}`, ...request } as AccountRequest, service.getSnapshot()!.generation);
+ return { storage, service, transact, raw };
+}
+
+test('six image-reference sets append 18 independently priced cosmetics without removing old entitlements', () => {
+ const original47 = COSMETIC_CATALOG.slice(0, 47);
+ assert.equal(original47.length, 47);
+ assert.equal(new Set(original47.map(item => item.key)).size, 47);
+ assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => original47.filter(item => item.kind === kind).length), [15, 16, 16]);
+ assert.equal(COSMETIC_CATALOG.length, 53);
+ assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
+ for (const [kind, id, name, price] of NEW) {
+  const item = getCosmetic(kind, id);
+  assert.ok(item, `${kind}.${id}`); assert.equal(item.name, name); assert.equal(item.price, price);
+  assert.equal(item.overlay, undefined); assert.equal(item.achievementId, undefined);
+ }
+ assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
+ for (const [kind, ids] of [
+  ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
+  ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'taped', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
+  ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'compact', 'toy', 'paper', 'space']],
+ ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
+});
+
+test('all reference cosmetics buy once, equip separately, retain mixed ownership and restore through existing account formats', () => {
+ const { service, transact, storage } = setup(), before = service.getSnapshot()!;
+ for (const [kind, id, , price] of NEW) {
+  const wallet = service.getSnapshot()!.wallet;
+  assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged', id);
+  assert.equal(service.getSnapshot()!.wallet, wallet - price);
+  assert.equal(service.getSnapshot()!.profile.cosmetics[kind], before.profile.cosmetics[kind]);
+  assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged');
+  assert.equal(service.getSnapshot()!.wallet, wallet - price);
+ }
+ for (const [kind, id] of [['theme', 'ocean_vault'], ['cargo', 'royal_gold'], ['forklift', 'steam']] as const) {
+  assert.equal(transact({ type: 'setCosmetic', kind, id }).status, 'acknowledged');
+ }
+ assert.equal(transact({ type: 'setCargoOutline', enabled: true }).status, 'acknowledged');
+ assert.equal(transact({ type: 'resetResults' }).status, 'acknowledged');
+ const reloaded = createAccountService(storage, { status: 'held', release() {} }, () => 0);
+ assert.equal(reloaded.getStatus(), 'ready'); assert.deepEqual(reloaded.getSnapshot(), service.getSnapshot());
+ assert.equal(reloaded.getSnapshot()!.wallet, 0);
+ assert.deepEqual(reloaded.getSnapshot()!.profile.cosmetics, { theme: 'ocean_vault', cargo: 'classic', forklift: 'steam' });
+ assert.equal(accountCosmeticState(reloaded.getSnapshot()).ownedCosmetics.length, FREE_COSMETICS.length + 18);
+ assert.equal(reloaded.getSnapshot()!.profile.cargoOutline, true);
+ assert.equal(storage.values.get(ACCOUNT_KEYS.a), storage.values.get(ACCOUNT_KEYS.b));
+});
+
+test('new sets never bypass owned checks, insufficient funds or legacy-profile parsing', () => {
+ for (const [kind, id, , price] of NEW) {
+  const { service, transact, storage, raw } = setup(price - 1); storage.resetFault();
+  assert.equal(transact({ type: 'setCosmetic', kind, id }).status, 'not_committed');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'not_committed');
+  assert.equal(service.getSnapshot()!.wallet, price - 1);
+  assert.deepEqual([...storage.values.values()], [raw, raw]);
+  assert.equal(storage.operations.some(operation => operation.kind === 'set'), false);
+  assert.ok(setProfileCosmetic(createProfile(), kind, id).error);
+ }
+ const account = retainAccountCosmetics(makeAccountFixture());
+ account.profile.ownedCosmetics = COSMETIC_CATALOG.map(item => item.key).sort();
+ assert.doesNotThrow(() => assertAccountCosmetics(account.profile));
+ account.profile.ownedCosmetics.push('cargo.future_unknown'); account.profile.ownedCosmetics.sort();
+ assert.throws(() => assertAccountCosmetics(account.profile), /原记录已保留/);
+});
+
+test('scrolling reference cards remain preview-only, open independent details and preserve 44px controls', () => {
+ const { session, data } = sessionHost({ wallet: 10800 }), checksum = playableChecksum(session.state);
+ session.action({ type: 'shop' }); session.action({ type: 'selectShopTab', tab: 'cosmetics' });
+ const before = [...data];
+ for (const [kind, id] of NEW) {
+  session.action({ type: 'selectShopSection', section: kind });
+  const index = COSMETIC_CATALOG.filter(item => item.kind === kind).findIndex(item => item.id === id);
+  session.action({ type: 'scrollShop', deltaY: Math.floor(index / 2) * (SHOP_CARD_HEIGHT + SHOP_CARD_GAP) - shopScrollOffset(session.view) });
+  const offset = shopScrollOffset(session.view), list = getShopControls(session.view), card = list.find(control => control.action.type === 'previewCosmetic' && control.action.kind === kind && control.action.id === id);
+  assert.ok(card, `${kind}.${id} remains reachable by scrolling`);
+  assert.equal(list.some(control => control.action.type === 'purchaseCosmetic'), false);
+  session.action(card.action);
+  const controls = getShopControls(session.view);
+  assert.deepEqual(session.view.shopItemDetail, { kind, id }); assert.equal(selectedShopCosmetic(session.view).key, `${kind}.${id}`);
+  assert.deepEqual(controls.map(control => control.action.type), ['closeShopDetail', 'purchaseCosmetic']);
+  assert.deepEqual(controls[1].action, { type: 'purchaseCosmetic', kind, id });
+  for (const [index, control] of controls.entries()) {
+   assert.ok(control.rect.w / 3 >= 44 && control.rect.h / 3 >= 44);
+   for (const other of controls.slice(index + 1)) assert.ok(control.rect.x + control.rect.w <= other.rect.x || other.rect.x + other.rect.w <= control.rect.x || control.rect.y + control.rect.h <= other.rect.y || other.rect.y + other.rect.h <= control.rect.y);
+  }
+  session.action(controls[0].action); assert.equal(session.view.shopItemDetail, undefined); assert.equal(session.view.shopSection, kind); assert.equal(shopScrollOffset(session.view), offset);
+  assert.ok(getShopControls(session.view).some(control => control.action.type === 'previewCosmetic' && control.action.id === id));
+ }
+ assert.deepEqual([...data], before); assert.equal(playableChecksum(session.state), checksum);
+});
+
+test('compiled free-playtest grants every new set without spending and paid-build restart keeps all earned rights', async () => {
+ const built = await build({ stdin: { contents: "export {createAccountService} from './src/application/account-service.ts';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, platform: 'node', format: 'esm', define: { __PLAYTEST_FREE_SHOP__: 'true' } });
+ const free = await import(`data:text/javascript;base64,${Buffer.from(built.outputFiles[0].text).toString('base64')}`) as { createAccountService: typeof createAccountService };
+ const storage = new FaultStorage(), raw = encodeAccount(makeAccountFixture({ wallet: 57 }));
+ for (const key of [ACCOUNT_KEYS.a, ACCOUNT_KEYS.b]) storage.values.set(key, raw);
+ const service = free.createAccountService(storage, { status: 'held', release() {} }, () => 0);
+ for (const [kind, id] of NEW) {
+  const request: AccountRequest = { type: 'purchaseCosmetic', operationId: `free-reference.${kind}.${id}`, kind, id };
+  const generation = service.getSnapshot()!.generation;
+  assert.equal(service.transact(request, generation).status, 'acknowledged');
+  assert.equal(service.transact(request, generation).status, 'acknowledged');
+  assert.equal(service.getSnapshot()!.wallet, 57);
+  assert.equal(service.transact({ type: 'setCosmetic', operationId: `free-equip.${kind}.${id}`, kind, id }, service.getSnapshot()!.generation).status, 'acknowledged');
+ }
+ const paid = createAccountService(storage, { status: 'held', release() {} }, () => 0);
+ assert.equal(paid.getStatus(), 'ready'); assert.deepEqual(paid.getSnapshot(), service.getSnapshot());
+ for (const [kind, id, , price] of NEW) { assert.ok(paid.getSnapshot()!.profile.ownedCosmetics?.includes(`${kind}.${id}`)); assert.equal(getCosmetic(kind, id)?.price, price); }
+ assert.equal(paid.getSnapshot()!.wallet, 57);
+});
+
+test('a failed mirror never exposes newly claimed reference rights and repairing each category charges once', () => {
+ for (const [kind, id, , price] of [NEW[0], NEW[6], NEW[12]]) {
+  const { storage, service } = setup(), set = storage.set.bind(storage);
+  storage.set = (key, value) => { if (key === ACCOUNT_KEYS.a) throw Error('mirror offline'); set(key, value); };
+  const request: AccountRequest = { type: 'purchaseCosmetic', operationId: 'reference.retry', kind, id };
+  assert.equal(service.transact(request, 0).status, 'committed_unmirrored');
+  assert.equal(accountCosmeticState(service.getSnapshot()).ownedCosmetics.includes(`${kind}.${id}`), false);
+  const restored = createAccountService(storage, { status: 'held', release() {} }, () => 0);
+  assert.equal(restored.getSnapshot(), null); storage.set = set;
+  assert.equal(restored.retryPending('reference.retry').status, 'acknowledged');
+  assert.equal(restored.getSnapshot()!.wallet, 10800 - price);
+  assert.equal(restored.transact(request, 0).status, 'acknowledged'); assert.equal(restored.getSnapshot()!.wallet, 10800 - price);
+ }
+});

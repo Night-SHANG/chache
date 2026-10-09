@@ -1,0 +1,434 @@
+{
+  "width": 2048,
+  "height": 128,
+  "tileSize": 128,
+  "paints": [
+    "electric",
+    "heavy",
+    "compact",
+    "toy",
+    "paper",
+    "space",
+    "steam",
+    "neon",
+    "lava",
+    "diving",
+    "royal",
+    "field",
+    "timber",
+    "ice",
+    "harbor"
+  ],
+  "source": "artifacts/v0200-art-source/themed-forklifts-generated.png",
+  "sourceSha256": "a7c6d848b9a7b276d1c53f6164453fb562f02d18e1ee9641df6458efdad2ecb9",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "cropRects": [
+    [
+      16,
+      59,
+      402,
+      293
+    ],
+    [
+      428,
+      58,
+      821,
+      294
+    ],
+    [
+      849,
+      62,
+      1239,
+      293
+    ],
+    [
+      14,
+      355,
+      403,
+      597
+    ],
+    [
+      427,
+      355,
+      821,
+      597
+    ],
+    [
+      847,
+      356,
+      1239,
+      598
+    ],
+    [
+      16,
+      655,
+      405,
+      892
+    ],
+    [
+      429,
+      654,
+      822,
+      893
+    ],
+    [
+      847,
+      655,
+      1239,
+      894
+    ],
+    [
+      14,
+      953,
+      404,
+      1197
+    ],
+    [
+      428,
+      951,
+      821,
+      1197
+    ],
+    [
+      846,
+      953,
+      1237,
+      1197
+    ],
+    [
+      158,
+      88,
+      864,
+      531
+    ],
+    [
+      153,
+      568,
+      865,
+      1000
+    ],
+    [
+      159,
+      1044,
+      864,
+      1452
+    ]
+  ],
+  "placements": [
+    {
+      "paint": "electric",
+      "sourceRect": [
+        16,
+        59,
+        402,
+        293
+      ],
+      "atlasRect": [
+        2,
+        26,
+        124,
+        75
+      ]
+    },
+    {
+      "paint": "heavy",
+      "sourceRect": [
+        428,
+        58,
+        821,
+        294
+      ],
+      "atlasRect": [
+        130,
+        27,
+        124,
+        74
+      ]
+    },
+    {
+      "paint": "compact",
+      "sourceRect": [
+        849,
+        62,
+        1239,
+        293
+      ],
+      "atlasRect": [
+        258,
+        27,
+        124,
+        73
+      ]
+    },
+    {
+      "paint": "toy",
+      "sourceRect": [
+        14,
+        355,
+        403,
+        597
+      ],
+      "atlasRect": [
+        386,
+        25,
+        124,
+        77
+      ]
+    },
+    {
+      "paint": "paper",
+      "sourceRect": [
+        427,
+        355,
+        821,
+        597
+      ],
+      "atlasRect": [
+        514,
+        26,
+        124,
+        76
+      ]
+    },
+    {
+      "paint": "space",
+      "sourceRect": [
+        847,
+        356,
+        1239,
+        598
+      ],
+      "atlasRect": [
+        642,
+        25,
+        124,
+        77
+      ]
+    },
+    {
+      "paint": "steam",
+      "sourceRect": [
+        16,
+        655,
+        405,
+        892
+      ],
+      "atlasRect": [
+        770,
+        26,
+        124,
+        76
+      ]
+    },
+    {
+      "paint": "neon",
+      "sourceRect": [
+        429,
+        654,
+        822,
+        893
+      ],
+      "atlasRect": [
+        898,
+        26,
+        124,
+        75
+      ]
+    },
+    {
+      "paint": "lava",
+      "sourceRect": [
+        847,
+        655,
+        1239,
+        894
+      ],
+      "atlasRect": [
+        1026,
+        26,
+        124,
+        76
+      ]
+    },
+    {
+      "paint": "diving",
+      "sourceRect": [
+        14,
+        953,
+        404,
+        1197
+      ],
+      "atlasRect": [
+        1154,
+        25,
+        124,
+        78
+      ]
+    },
+    {
+      "paint": "royal",
+      "sourceRect": [
+        428,
+        951,
+        821,
+        1197
+      ],
+      "atlasRect": [
+        1282,
+        25,
+        124,
+        78
+      ]
+    },
+    {
+      "paint": "field",
+      "sourceRect": [
+        846,
+        953,
+        1237,
+        1197
+      ],
+      "atlasRect": [
+        1410,
+        25,
+        124,
+        77
+      ]
+    },
+    {
+      "paint": "timber",
+      "sourceRect": [
+        158,
+        88,
+        864,
+        531
+      ],
+      "atlasRect": [
+        1666,
+        25,
+        124,
+        78
+      ]
+    },
+    {
+      "paint": "ice",
+      "sourceRect": [
+        153,
+        568,
+        865,
+        1000
+      ],
+      "atlasRect": [
+        1794,
+        26,
+        124,
+        75
+      ]
+    },
+    {
+      "paint": "harbor",
+      "sourceRect": [
+        159,
+        1044,
+        864,
+        1452
+      ],
+      "atlasRect": [
+        1922,
+        28,
+        124,
+        72
+      ]
+    }
+  ],
+  "sampling": {
+    "alphaComponentThreshold": 128,
+    "cropPadding": 2,
+    "fit": [
+      124,
+      124
+    ],
+    "resampling": "LANCZOS",
+    "quantization": "Frozen v0.20 256-color palette; nearest premultiplied RGBA for appended tiles",
+    "rotation": 0,
+    "runtimeDestination": [
+      -44,
+      -40,
+      80,
+      80
+    ]
+  },
+  "alpha": {
+    "transparentPixels": 141736,
+    "translucentPixels": 120408,
+    "opaquePixels": 0
+  },
+  "bytes": 61052,
+  "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+  "tileColumns": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15
+  ],
+  "newSource": {
+    "path": "artifacts/v0210-art-source/forklifts-timber-ice-harbor-generated.png",
+    "sha256": "116fbd1975d646fb0dbdb7523b60d984efc0d95f9c6604b3e827138ba7a21194",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "paints": [
+      "timber",
+      "ice",
+      "harbor"
+    ],
+    "cropRects": [
+      [
+        158,
+        88,
+        864,
+        531
+      ],
+      [
+        153,
+        568,
+        865,
+        1000
+      ],
+      [
+        159,
+        1044,
+        864,
+        1452
+      ]
+    ]
+  },
+  "preservation": {
+    "path": "artifacts/v0210-art-source/forklifts-v020-protected.png",
+    "sha256": "007e9b0f85d0d0289017839477117cf4efdb68609682c497e80ef79a0973da2e",
+    "tiles": 12,
+    "separatorRect": [
+      1536,
+      0,
+      128,
+      128
+    ],
+    "separatorReason": "Preserve former image-edge filtering for the field body at every runtime size",
+    "encoding": "Original palette/index buffer retained; appended tiles nearest premultiplied RGBA palette encoding only"
+  }
+}

@@ -25,7 +25,7 @@ test('static help main run requires the exact complete owner commit, source and 
 });
 test('help controls use printed lines, including current successful-placement cleanup text',()=>{
  assert.deepEqual(staticHelpPaintLabels({label:'入库模式\n按订单配货',action:{type:'chooseInbound'}},16),['入库模式','按订单配货']);
- for(const rules of [16,18])assert.deepEqual(staticHelpPaintLabels({label:'定期清扫 · 每成功放置6次，清除1格废弃物',action:{type:'chooseCleanup',branch:'placements'}},rules),['定期清扫','每成功放置6次，','清除1格废弃物']);
+ for(const rules of [16,18])assert.deepEqual(staticHelpPaintLabels({label:'定期清扫 · 每成功放置6次，清除1格废弃箱',action:{type:'chooseCleanup',branch:'placements'}},rules),['定期清扫','每成功放置6次，','清除1格废弃箱']);
  assert.deepEqual(staticHelpPaintLabels({label:'特殊货物与工具',action:{type:'helpDetails'}},16),['特殊货物与工具']);
 });
 test('new home help controls meet 44 CSS pixels and have no overlapping touch regions at every target size',()=>{

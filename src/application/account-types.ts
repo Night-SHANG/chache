@@ -7,8 +7,8 @@ export type ItemId = 'rotate' | 'clear' | 'wildcard';
 export type EconomyScope = 'inbound' | 'outbound';
 export type Inventory = Record<ItemId, number>;
 export interface RunIdentity {
- runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14|15|16|18; runConfigId:string;
- mode:'standard'|'daily'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
+ runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14|15|16|18|19|20|21; runConfigId:string;
+ mode:'standard'|'daily'|'rush'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
  inboundDifficulty?:import('../domain/v16/types.ts').InboundDifficultyV16; difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1|2;
 }
 export interface HistoryRef { key:string; digest:string; commandCount:number }
@@ -51,6 +51,10 @@ export interface ClosedResult {
 }
 export interface OperationRequest { operationId:string; expectedGeneration:number }
 export interface OperationReceipt extends OperationRequest { requestDigest:string; committedGeneration:number }
+/** Applies only existing ownership; sets do not introduce a persisted ownership category. */
+export interface EquipCosmeticSetRequest { type:'equipCosmeticSet'; id:string }
+/** The confirmation records an exact missing-member quote; no set ownership is persisted. */
+export interface PurchaseCosmeticSetRequest { type:'purchaseCosmeticSet'; id:string; quotedKeys:string[]; quotedPrice:number }
 export interface AccountSnapshot {
  /** Required only in unpublished format4; legacy reads project true. */
  tutorialsEnabled?:boolean;

@@ -1,0 +1,124 @@
+{
+  "width": 512,
+  "height": 512,
+  "tileSize": 128,
+  "themes": [
+    "day",
+    "night",
+    "harbor",
+    "cold_chain",
+    "rail_freight",
+    "express_sorting",
+    "toy_workshop",
+    "paper_warehouse",
+    "space_cargo",
+    "steam_foundry",
+    "neon_depot",
+    "lava_forge",
+    "ocean_vault",
+    "royal_store",
+    "field_station"
+  ],
+  "source": "artifacts/v0190-art-source/board-materials-generated.png",
+  "sourceSha256": "44ffa7166ccc10e4f3923325ea0b8bcb3a49f3533c67f89d7081f0c8f3caabc8",
+  "cropRects": [
+    [
+      0,
+      0,
+      314,
+      314
+    ],
+    [
+      314,
+      0,
+      627,
+      314
+    ],
+    [
+      627,
+      0,
+      940,
+      314
+    ],
+    [
+      940,
+      0,
+      1254,
+      314
+    ],
+    [
+      0,
+      314,
+      314,
+      627
+    ],
+    [
+      314,
+      314,
+      627,
+      627
+    ],
+    [
+      627,
+      314,
+      940,
+      627
+    ],
+    [
+      940,
+      314,
+      1254,
+      627
+    ],
+    [
+      0,
+      627,
+      314,
+      940
+    ],
+    [
+      314,
+      627,
+      627,
+      940
+    ],
+    [
+      627,
+      627,
+      940,
+      940
+    ],
+    [
+      940,
+      627,
+      1254,
+      940
+    ],
+    [
+      0,
+      940,
+      314,
+      1254
+    ],
+    [
+      314,
+      940,
+      627,
+      1254
+    ],
+    [
+      627,
+      940,
+      940,
+      1254
+    ],
+    [
+      940,
+      940,
+      1254,
+      1254
+    ]
+  ],
+  "bytes": 166727,
+  "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+}

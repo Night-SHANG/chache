@@ -47,10 +47,10 @@ test('both modes have one optional help entry and inbound details preserve speci
  for(const s of [outbound(),inbound()]){
   const controls=getUiControls(s,view({paused:true}));assert.equal(controls.filter(c=>c.action.type==='help').length,1);assert.doesNotMatch(capture(s,view({paused:true})).words,/每色上下左右|有效落子后查|托盘占1格/);
   const help=view({screen:'colorIntro',paused:true});assert.equal(getUiControls(s,help).filter(c=>c.action.type==='helpBack').length,1);
-  const out=capture(s,help).words;assert.match(out,/玩法说明/);assert.match(out,/上下左右/);assert.match(out,/空路/);
+  const out=capture(s,help).words;assert.match(out,s.mode==='color_exit'?/出库玩法/:/入库玩法/);assert.match(out,/上下左右/);assert.match(out,/空路/);
  }
  const details=view({screen:'helpDetails' as ViewState['screen'],paused:true});const out=capture(inbound(),details).words;
- for(const word of ['托盘','万能','加急','废弃物','危险','侧门','不计分','新单'])assert.ok(out.includes(word),word);
+ for(const word of ['托盘','万能','加急','废弃箱','危险','侧门','不计分','新单'])assert.ok(out.includes(word),word);
 });
 
 test('saved tutorial gameplay and developer view expose no retired skip control',()=>{

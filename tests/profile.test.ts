@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 const profileApi=await import('../src/application/profile.ts').catch(()=>null);
 test('profile starts with independent local defaults and serial one',()=>{
  assert.ok(profileApi,'Profile implementation must exist');
- assert.deepEqual(profileApi.createProfile(),{schemaVersion:1,settings:{sound:true,reducedMotion:false},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null});
+ assert.deepEqual(profileApi.createProfile(),{schemaVersion:1,settings:{sound:true,reducedMotion:false,music:true},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null});
  const first=profileApi.createProfile(),second=profileApi.createProfile();first.settings.sound=false;assert.equal(second.settings.sound,true);
 });
 
@@ -107,7 +107,7 @@ test('cosmetics reject unknown and locked ids while default themes and cargo sty
  assert.equal(p.setProfileCosmetic(profile,'theme','night').profile.cosmetics.theme,'night');assert.equal(p.setProfileCosmetic(profile,'cargo','outline').profile.cosmetics.cargo,'outline');assert.equal(p.THEMES.length,2);assert.equal(p.FORKLIFTS.length,3);assert.equal(p.CARGO_STYLES.length,2);
 });
 test('settings patch validates booleans and leaves all other data unchanged',()=>{
- const profile=frozen(p.createProfile()),next=p.setProfileSettings(profile,{sound:false,reducedMotion:true});assert.deepEqual(next.settings,{sound:false,reducedMotion:true});assert.deepEqual({...next,settings:profile.settings},profile);assert.throws(()=>p.setProfileSettings(profile,{sound:'false'} as unknown as Partial<Profile['settings']>));
+ const profile=frozen(p.createProfile()),next=p.setProfileSettings(profile,{sound:false,reducedMotion:true});assert.deepEqual(next.settings,{sound:false,reducedMotion:true,music:true});assert.deepEqual({...next,settings:profile.settings},profile);assert.throws(()=>p.setProfileSettings(profile,{sound:'false'} as unknown as Partial<Profile['settings']>));
 });
 test('daily challenge uses client UTC+08 midnight and includes rules version in identity and seed',()=>{
  const before=p.localDailyChallenge(Date.parse('2026-10-05T15:59:59.999Z'),3),after=p.localDailyChallenge(Date.parse('2026-10-05T16:00:00.000Z'),3);

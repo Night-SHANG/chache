@@ -68,10 +68,10 @@ test('actual daily host entry refuses missing binding before any bundle executio
  const out=await mkdtemp(join(tmpdir(),'daily-guides-entry-'));try{await assert.rejects(runDailyGuidesHostQA({out}),/hash|commit/);const report=JSON.parse(await readFile(join(out,'first-failure.json'),'utf8'));assert.equal(report.executedScenarios,0);assert.equal(report.status,'FAIL');}finally{await rm(out,{recursive:true,force:true});}
 });
 test('host cleanup oracle checks individual painted lines rather than its combined accessible label',()=>{
- const control={label:'定期清扫 · 每成功放置6次，清除1格废弃物',action:{type:'chooseCleanup',branch:'placements'}};
- assert.deepEqual(hostControlPaintLabels(control,16),['定期清扫','每成功放置6次，','清除1格废弃物']);
- assert.deepEqual(hostControlPaintLabels(control,15),['定期清扫','每放置6次，','清除1格废弃物']);
- assert.deepEqual(hostControlPaintLabels({...control,action:{type:'chooseCleanup',branch:'orders'}},16),['按单清扫','每完成2单，','清除1格废弃物']);
+ const control={label:'定期清扫 · 每成功放置6次，清除1格废弃箱',action:{type:'chooseCleanup',branch:'placements'}};
+ assert.deepEqual(hostControlPaintLabels(control,16),['定期清扫','每成功放置6次，','清除1格废弃箱']);
+ assert.deepEqual(hostControlPaintLabels(control,15),['定期清扫','每放置6次，','清除1格废弃箱']);
+ assert.deepEqual(hostControlPaintLabels({...control,action:{type:'chooseCleanup',branch:'orders'}},16),['按单清扫','每完成2单，','清除1格废弃箱']);
  assert.deepEqual(hostControlPaintLabels({label:'300金币 · 购买',action:{type:'purchaseCosmetic'}},16),['300金币','购买']);
 });
 test('historical practice animation probe cannot target removed current practice exits',()=>{
@@ -87,5 +87,5 @@ test('tool witness selection skips a first legal move that immediately ships all
  let state=createPlayableRun({family:'inbound',mode:'endless',rulesetVersion:16,seed:2643966282,guided:false,inboundDifficulty:'normal',toolCharges:{rotate:1,clear:1,wildcard:0}});const piece=state.candidates.find(p=>!applyPlayableCommand(state,{type:'rotate',pieceId:p.id,quarterTurns:1}).error);assert.ok(piece);state=applyPlayableCommand(state,{type:'rotate',pieceId:piece.id,quarterTurns:1}).state;const before=structuredClone(state),move=chooseHostClearablePlacement(state);assert.ok(move);const placed=applyPlayableCommand(state,{type:'place',...move});assert.equal(placed.error,undefined);assert.ok(placed.state.board.some(cell=>cell!==null));assert.deepEqual(state,before);
 });
 test('unknown-account host projection uses normal save-retry UI without inventing a writer-lease reason',()=>{
- const projected=hostRecoveryView('unknown');assert.equal(projected.accountBlocked,true);assert.equal('readOnlyReason' in projected,false);const state=createPractice('inbound').state,controls=getUiControls(state,{...projected,selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false});assert.equal(controls[0].label,'保存结果尚未确认，请重试');assert.equal(hostRecoveryView('ready').accountBlocked,false);
+ const projected=hostRecoveryView('unknown');assert.equal(projected.accountBlocked,true);assert.equal('readOnlyReason' in projected,false);const state=createPractice('inbound').state,controls=getUiControls(state,{...projected,selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false});assert.equal(controls[0].label,'重试');assert.equal(hostRecoveryView('ready').accountBlocked,false);
 });

@@ -1,6 +1,6 @@
 {
   "name": "warehouse-last-slot",
-  "version": "0.13.0",
+  "version": "0.22.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,7 +17,9 @@
     "simulate": "node scripts/simulate.mjs",
     "simulate:growth": "node scripts/simulate-growth.mjs",
     "verify:accounts": "node scripts/verify-account-faults.mjs",
-    "simulate:refinement": "node scripts/simulate-refinement.mjs"
+    "simulate:refinement": "node scripts/simulate-refinement.mjs",
+    "build:playtest": "node scripts/build.mjs --playtest-free-shop",
+    "build:production": "node scripts/build.mjs --production"
   },
   "dependencies": {
     "@tweenjs/tween.js": "25.0.0",

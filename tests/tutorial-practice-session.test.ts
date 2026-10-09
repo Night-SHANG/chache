@@ -179,7 +179,7 @@ test('settings and static help replace practice controls and fit three sizes wit
     for (const [i, a] of controls.entries()) for (const b of controls.slice(i + 1)) assert.ok(a.rect.x + a.rect.w <= b.rect.x || b.rect.x + b.rect.w <= a.rect.x || a.rect.y + a.rect.h <= b.rect.y || b.rect.y + b.rect.h <= a.rect.y, `${a.label}/${b.label}`);
   };
   h.session.action({ type: 'settings' }); check(); h.session.action({ type: 'back' }); check(); h.session.action({ type: 'helpMenu' }); check();
-  for (const topic of ['inbound', 'outbound'] as const) { h.session.action({ type: 'selectHelp', topic }); check(); assert.match(words(h.session), /玩法说明/); assert.doesNotMatch(words(h.session), /教学练习|练习完成/); h.session.action({ type: 'helpBack' }); }
+  for (const topic of ['inbound', 'outbound'] as const) { h.session.action({ type: 'selectHelp', topic }); check(); assert.match(words(h.session), topic==='inbound'?/入库玩法/:/出库玩法/); assert.doesNotMatch(words(h.session), /教学练习|练习完成/); h.session.action({ type: 'helpBack' }); }
 });
 
 test('a legal random drag is accepted freely without retired tutorial exit or skip copy', () => {

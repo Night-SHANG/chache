@@ -9,14 +9,14 @@ import {GameSession as Session} from '../src/application/session.ts';
 function start(s:GameSession,mode:'standard'|'endless'|'daily'|'color_exit',items:ItemId[]=[],outboundMode:'normal'|'endless'='normal'){
  s.action({type:'newRun',mode,outboundMode,difficultyId:'easy'});
  if(s.view.screen==='guideOffer')s.action({type:'directStart'});
- if(mode!=='daily'){assert.equal(s.view.screen,'prepareTools');for(const item of items)s.action({type:'toggleItem',item});s.action({type:'prepareNext'});}
+ assert.equal(s.view.screen,'prepareTools');for(const item of items)s.action({type:'toggleItem',item});s.action({type:'prepareNext'});
  assert.equal(s.view.screen,'game');
- if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,18);assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');if(mode==='daily')s.action({type:'chooseCleanup',branch:'orders'});}
+ if(mode!=='color_exit'){assert.equal(s.state.rulesetVersion,mode==='daily'?21:18);assert.equal(s.state.phase,mode==='daily'?'cleanup':'input');if(mode==='daily')s.action({type:'chooseCleanup',branch:'orders'});}
  else assert.equal(s.state.rulesetVersion,outboundMode==='endless'?13:12);
  assert.equal(s.state.phase,'input');
 }
 
-test('new inbound and outbound starts use reserved entries and only daily waits for cleanup',()=>{
+test('new inbound and outbound starts use reserved entries and only the rush alias waits for cleanup',()=>{
  for(const mode of ['standard','endless','daily','color_exit'] as const){const h=sessionHost();start(h.session,mode);}
  const h=sessionHost();start(h.session,'color_exit',[],'endless');
  h.session.action({type:'home'});h.session.action({type:'confirm'});h.session.action({type:'newRun',mode:'standard'});

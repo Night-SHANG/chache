@@ -2,12 +2,13 @@ import assert from 'node:assert/strict';import {GameSession} from '../../src/app
 export function legacyState(session:GameSession):RunState{assert.equal(isInboundRun(session.state)||isOutboundEndlessV10(session.state)||isOutboundToolsRun(session.state),false,'this fixture must remain a frozen legacy run');if(isInboundRun(session.state)||isOutboundEndlessV10(session.state)||isOutboundToolsRun(session.state))throw Error('Expected legacy run');return session.state;}
 export function inboundState(session:GameSession):InboundRun{assert.equal(isInboundRun(session.state),true);if(!isInboundRun(session.state))throw Error('Expected actual inbound run');return session.state;}
 export function sessionHost(patch:Partial<AccountSnapshot>={},persistAccount=true){const storage=new FaultStorage(),account=makeAccountFixture(patch);if(persistAccount){account.generation=1;account.lastOperation={operationId:'fixture',expectedGeneration:0,requestDigest:'fixture',committedGeneration:1};const raw=encodeAccount(account);storage.values.set(ACCOUNT_KEYS.a,raw);storage.values.set(ACCOUNT_KEYS.b,raw);}let now=0;const sounds:string[]=[];const platform={storage,writerLease:{status:'held',release(){}},now:()=>now,wallTime:()=>Date.parse('2026-10-06T12:00:00Z'),playSound:(name:string)=>sounds.push(name),stopSounds(){}} as unknown as Platform;return {storage,data:storage.values,platform,sounds,time:(value:number)=>now=value,session:new GameSession(platform,{seed:71,mode:'standard'})};}
-export function startInbound(session:GameSession,mode:'standard'|'endless'|'daily'='standard',items:ItemId[]=[]):void{
+export function startInbound(session:GameSession,mode:'standard'|'endless'|'rush'|'daily'='standard',items:ItemId[]=[]):void{
+ const rush=mode==='rush'||mode==='daily';
  session.action({type:'newRun',mode});if(session.view.confirmation)session.action({type:'confirm'});
  if(session.view.screen==='guideOffer')session.action({type:'directStart'});
  if(session.view.screen==='prepareTools'){items.forEach(item=>session.action({type:'toggleItem',item}));session.action({type:'prepareNext'});}
- assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,18);assert.equal('inboundDifficulty' in session.state&&session.state.inboundDifficulty,'hard');assert.equal(session.state.commandIndex,0);
- assert.equal(session.state.phase,mode==='daily'?'cleanup':'input');assert.deepEqual(session.view.account?.run?.reserved,items);
- if(mode==='daily'){assert.deepEqual(session.state.candidates,[]);session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);}
+ assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,rush?21:18);assert.equal(session.state.mode,rush?'rush':mode);assert.equal('inboundDifficulty' in session.state&&session.state.inboundDifficulty,rush?'normal':'hard');assert.equal(session.state.commandIndex,0);
+ assert.equal(session.state.phase,rush?'cleanup':'input');assert.deepEqual(session.view.account?.run?.reserved,items);
+ if(rush){assert.deepEqual(session.state.candidates,[]);session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);}
  assert.equal(session.state.phase,'input');assert.equal(session.state.candidates.length,3);assert.equal(session.view.screen,'game');
 }

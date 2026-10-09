@@ -66,15 +66,15 @@ test('selected mode alone drives plain and used-tool score rows, preserving zero
  }
  for(const mode of ['normal','endless'] as const){
   const current=view({account,outboundSelectionMode:mode}),out=surface();render(out.ctx,createRunV12(1,'easy'),current);
-  const plain=out.labels.filter(label=>label.text.startsWith('最高分 ')).map(label=>label.text),tools=out.labels.filter(label=>label.text.startsWith('使用道具最高分 ')).map(label=>label.text);
-  assert.deepEqual(plain,mode==='normal'?['最高分 0','最高分 1,101','最高分 1,102','最高分 1,103']:['最高分 3,100','最高分 3,101','最高分 3,102','最高分 3,103']);
+  const plain=out.labels.filter(label=>label.text.startsWith('无道具最高分 ')).map(label=>label.text),tools=out.labels.filter(label=>label.text.startsWith('使用道具最高分 ')).map(label=>label.text);
+  assert.deepEqual(plain,mode==='normal'?['无道具最高分 0','无道具最高分 1,101','无道具最高分 1,102','无道具最高分 1,103']:['无道具最高分 3,100','无道具最高分 3,101','无道具最高分 3,102','无道具最高分 3,103']);
   assert.deepEqual(tools,mode==='normal'?['使用道具最高分 暂无','使用道具最高分 2,101','使用道具最高分 2,102','使用道具最高分 2,103']:['使用道具最高分 4,100','使用道具最高分 4,101','使用道具最高分 4,102','使用道具最高分 4,103']);
   assert.doesNotMatch(out.words(),/倍率|×|工具最高|带工具/);
   const normal=out.labels.find(label=>label.text==='普通')!,endless=out.labels.find(label=>label.text==='无限')!;
   assert.notEqual(normal.fill,endless.fill,'only selected mode has the active visual treatment');
  }
  const absent=surface();render(absent.ctx,createRunV12(1,'easy'),view());
- assert.equal(absent.labels.filter(label=>label.text==='最高分 暂无').length,4);
+ assert.equal(absent.labels.filter(label=>label.text==='无道具最高分 暂无').length,4);
  assert.equal(absent.labels.filter(label=>label.text==='使用道具最高分 暂无').length,4);
 });
 
@@ -82,7 +82,7 @@ test('large scores fit beside their start buttons and labels remain readable at 
  const account=makeAccountFixture();for(const difficulty of difficulties)for(const suffix of ['plain','tools'])account.profile.results[`outbound.v12.${difficulty}.${suffix}`]=scoreBucket(999999999);
  const current=view({account}),out=surface();render(out.ctx,createRunV12(1,'easy'),current);
  const starts=getUiControls(createRunV12(1,'easy'),current).filter(c=>c.action.type==='newRun');
- const rows=out.labels.filter(label=>/^最高分 |^使用道具最高分 /.test(label.text));assert.equal(rows.length,8);
+ const rows=out.labels.filter(label=>/^无道具最高分 |^使用道具最高分 /.test(label.text));assert.equal(rows.length,8);
  for(const label of rows){
   const start=starts.find(c=>label.y>=c.rect.y-50&&label.y<=c.rect.y+c.rect.h+25)!;
   assert.ok(start&&label.x+label.width<=start.rect.x-16,`${label.text} fits before start`);

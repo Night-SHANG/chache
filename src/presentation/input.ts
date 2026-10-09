@@ -9,6 +9,7 @@ import { hitTestPoint, L, pointToCell, getTrayRects } from './layout.ts';
 import {getUiControls} from './ui.ts';
 import type {UiAction} from './ui-types.ts';
 import type { Rect } from './layout.ts';
+import {shopListViewport,shopScrollLimit,shopSection} from './shop-layout.ts';
 export interface InputPort { getState():GameRun;getView():ViewState;patchView(patch:Partial<ViewState>):void;preview(pieceId:string,origin:Point):PlayablePreview;risk?(pieceId:string,origin:Point):PlacementRisk|null;dispatch(command:GameCommand):void;togglePause():void;restart():void;resume():void;toggleDebug():void;action?(action:UiAction):void;feedback?(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void }
 /** Both drag/drop and tap/tap end at the same immutable domain command. */
 export class InputController {
@@ -18,13 +19,21 @@ export class InputController {
  private dragging=false;
  private routeReady=false;
  private button:{rect:Rect;act:()=>void}|null=null;
+ private shopGesture:{last:Point;section:ReturnType<typeof shopSection>}|null=null;
  constructor(port:InputPort){this.port=port;}
  private canPlace():boolean { const v=this.port.getView();return !v.practice?.completed&&!(v.developerMode&&v.debug)&&!v.paused&&!v.needsResume&&!v.animation&&!v.confirmation&&!v.accountBlocked&&!v.toolSelection&&!toolboxVisible(this.port.getState(),v)&&!v.supplyUpgrade&&(!v.screen||v.screen==='game')&&this.port.getState().phase==='input'; }
  private captureButton(point:Point,rect:Rect,act:()=>void):boolean { if(!hitTestPoint(point,rect))return false;this.button={rect,act};return true; }
  down(point:Point,id=0):void {
   if(this.active!==null)return;
-  this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;
+  this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;this.shopGesture=null;
   const v=this.port.getView(),s=this.port.getState();
+  const shopViewport=shopListViewport(v);
+  if(shopViewport&&hitTestPoint(point,shopViewport)){
+   this.shopGesture={last:point,section:shopSection(v)};
+   const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));
+   if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};
+   return;
+  }
   if(v.practice){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control){this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}if(v.practice.completed||v.paused||s.phase==='cleanup')return;}
   if(v.accountBlocked){const c=getUiControls(s,v).find(c=>hitTestPoint(point,c.rect));if(c)this.button={rect:c.rect,act:()=>this.port.action?.(c.action)};return;}
   if(v.supplyUpgrade||v.confirmation||!v.needsResume&&v.profile&&(v.screen!==undefined&&v.screen!=='game'||v.paused||s.phase==='result')){const control=getUiControls(s,v).find(c=>!c.disabled&&hitTestPoint(point,c.rect));if(control)this.button={rect:control.rect,act:()=>this.port.action?.(control.action)};return;}
@@ -58,13 +67,27 @@ export class InputController {
   this.port.patchView({dragPoint:dragging?point:null,hoverOrigin:origin,preview,placementRisk:preview?.valid&&origin?this.port.risk?.(pieceId,origin)??null:null});
  }
  move(point:Point,id=0):void {
-  if(this.active!==id||this.button||!this.start)return;
+  if(this.active!==id||!this.start)return;
+  if(this.shopGesture){
+   if(!this.validShopGesture()||!hitTestPoint(point,{x:0,y:0,w:L.width,h:L.height})){this.cancel(id);return;}
+   const deltaY=this.shopGesture.last.y-point.y;this.shopGesture.last=point;
+   if(Math.hypot(point.x-this.start.x,point.y-this.start.y)>14){this.dragging=true;this.button=null;}
+   if(this.dragging&&deltaY!==0)this.port.action?.({type:'scrollShop',deltaY});
+   return;
+  }
+  if(this.button)return;
   if(!this.canPlace()){this.cancel();return;}
   if(Math.hypot(point.x-this.start.x,point.y-this.start.y)>14)this.dragging=true;
   this.updatePreview(point,this.dragging);
  }
  up(point:Point,id=0):void {
   if(this.active!==id)return;
+  if(this.shopGesture){
+   const button=this.button,viewport=shopListViewport(this.port.getView()),tap=this.validShopGesture()&&!this.dragging&&!!this.start&&Math.hypot(point.x-this.start.x,point.y-this.start.y)<=14;
+   this.active=null;this.button=null;this.start=null;this.shopGesture=null;this.dragging=false;
+   if(tap&&button&&viewport&&hitTestPoint(point,viewport)&&hitTestPoint(point,button.rect))button.act();
+   return;
+  }
   const button=this.button;this.active=null;this.button=null;this.start=null;
   if(button){if(hitTestPoint(point,button.rect))button.act();return;}
   const pieceId=this.port.getView().selectedPieceId,origin=pointToCell(point,this.port.getState());
@@ -77,5 +100,12 @@ export class InputController {
   this.dragging=false;
   this.port.patchView({dragPoint:null,hoverOrigin:null,preview:null,placementRisk:null});
  }
- cancel(id?:number):void {if(id!==undefined&&this.active!==id)return;this.active=null;this.start=null;this.button=null;this.dragging=false;this.port.patchView({dragPoint:null,hoverOrigin:null,preview:null,selectedPieceId:null,placementRisk:null});}
+ private validShopGesture():boolean {const view=this.port.getView();return !!this.shopGesture&&!!shopListViewport(view)&&this.shopGesture.section===shopSection(view);}
+ wheel(point:Point,deltaY:number):boolean {
+  const view=this.port.getView(),viewport=shopListViewport(view);
+  if(!viewport||!hitTestPoint(point,viewport)||!Number.isFinite(deltaY)||deltaY===0||shopScrollLimit(view)<=0||!this.port.action)return false;
+  if(this.shopGesture){this.dragging=true;this.button=null;}
+  this.port.action({type:'scrollShop',deltaY});return true;
+ }
+ cancel(id?:number):void {if(id!==undefined&&this.active!==id)return;this.active=null;this.start=null;this.button=null;this.shopGesture=null;this.dragging=false;this.port.patchView({dragPoint:null,hoverOrigin:null,preview:null,selectedPieceId:null,placementRisk:null});}
 }

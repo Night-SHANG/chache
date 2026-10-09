@@ -1,5 +1,7 @@
+import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
+import { createMusicController } from './music.ts';
 import { L, mapClientPoint } from '../presentation/layout.ts';
 import type {WriterLease} from './writer-lease.ts';
 export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:WriterLease={status:'unsupported',release(){}}):Platform {
@@ -8,11 +10,18 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
  const resize=()=>{const r=canvas.getBoundingClientRect();rect={x:r.left,y:r.top,w:r.width,h:r.height};dpr=Math.min(window.devicePixelRatio||1,3);canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);scale=Math.min(r.width/L.width,r.height/L.height);};
  resize();window.addEventListener('resize',resize);
  const sounds=new Map<SoundName,HTMLAudioElement>();
+ const showCallbacks:(()=>void)[]=[];
+ let soundtrack:HTMLAudioElement|undefined;
+ const music=createMusicController(onError=>{
+  if(!soundtrack){soundtrack=new Audio('assets/bgm.mp3');try{soundtrack.addEventListener?.('error',onError);}catch{/* Optional host error listener. */}}
+  soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;return soundtrack;
+ });
  const stopSounds=()=>{for(const audio of sounds.values()){
   try{audio.pause();}catch{/* A broken audio handle must not block lifecycle callbacks or the other cues. */}
   try{audio.currentTime=0;}catch{/* Some hosts cannot seek before decoding. */}
  }};
  return {
+  createCanvasSurface:()=>{const surface=document.createElement('canvas');if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
   writerLease,
   storage:{get:key=>window.localStorage.getItem(key),set:(key,value)=>window.localStorage.setItem(key,value),remove:key=>window.localStorage.removeItem(key),listKeys:prefix=>{
    const store=window.localStorage,keys:string[]=[];for(let i=0;i<store.length;i++){const key=store.key(i);if(key!==null&&key.startsWith(prefix))keys.push(key);}return keys.sort();
@@ -23,16 +32,22 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
    const bind=(name:string,type:PointerEvent['type'])=>canvas.addEventListener(name,event=>{
     const e=event as globalThis.PointerEvent;e.preventDefault();
     if(type==='down')canvas.setPointerCapture(e.pointerId);
-    const point=mapClientPoint({x:e.clientX,y:e.clientY},rect)??{x:-1,y:-1};callback({type,point,id:e.pointerId});
+    const point=mapClientPoint({x:e.clientX,y:e.clientY},rect)??{x:-1,y:-1};const dispatch=()=>callback({type,point,id:e.pointerId});if(type==='down')music.gesture(dispatch);else dispatch();
     if((type==='up'||type==='cancel')&&canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
    });
    bind('pointerdown','down');bind('pointermove','move');bind('pointerup','up');bind('pointercancel','cancel');
    canvas.addEventListener('lostpointercapture',event=>callback({type:'cancel',point:{x:-1,y:-1},id:(event as globalThis.PointerEvent).pointerId}));
   },
-  onHide:callback=>{const hide=()=>{stopSounds();callback();};document.addEventListener('visibilitychange',()=>{if(document.hidden)hide();});window.addEventListener('pagehide',hide);},
-  onShow:callback=>document.addEventListener('visibilitychange',()=>{if(!document.hidden)callback();}),
-  playSound:name=>{if(!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=0.35;audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio cannot block a move. */}},
-  stopSounds,
+  onWheel:callback=>canvas.addEventListener('wheel',event=>{
+   if(event.ctrlKey||!Number.isFinite(event.deltaY)||event.deltaY===0||scale<=0)return;
+   const point=mapClientPoint({x:event.clientX,y:event.clientY},rect);if(!point)return;
+   const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?rect.h:1),deltaY=pixels/scale;
+   if(Number.isFinite(deltaY)&&callback({point,deltaY}))event.preventDefault();
+  },{passive:false}),
+  onHide:callback=>{const hide=()=>{music.hide();stopSounds();callback();};document.addEventListener('visibilitychange',()=>{if(document.hidden)hide();});window.addEventListener('pagehide',hide);},
+  onShow:callback=>{showCallbacks.push(callback);if(showCallbacks.length!==1)return;const show=()=>{for(const listener of showCallbacks)listener();music.show();};document.addEventListener('visibilitychange',()=>{if(!document.hidden)show();});window.addEventListener('pageshow',show);},
+  playSound:name=>{if(!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=AUDIO_LEVELS.browserEffects;audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio cannot block a move. */}},
+  stopSounds,setMusicState:music.setState,
   loadImage:path=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=path;}),
  };
 }

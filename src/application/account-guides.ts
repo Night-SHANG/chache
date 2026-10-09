@@ -9,7 +9,7 @@ export function guideProgress(account:Pick<AccountSnapshot,'guides'>,track:Guide
  return account.guides[track]??freshGuideProgress();
 }
 export function guideTrackFor(state:GameRun):GuideTrack {
- return state.mode==='color_exit'?'outbound':isTieredInbound(state)&&state.mode==='daily'?'daily':'inbound';
+ return state.mode==='color_exit'?'outbound':isTieredInbound(state)&&(state.mode==='daily'||state.mode==='rush')?'daily':'inbound';
 }
 /** Called only while preparing a real account transaction. */
 export function upgradeAccountGuides(account:AccountSnapshot):AccountSnapshot {

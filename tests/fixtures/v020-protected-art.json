@@ -1,0 +1,267 @@
+{
+  "source": "Decoded v0.20 atlas pixels, frozen before the v0.21 append",
+  "cargo": [
+    {
+      "id": "wood",
+      "rect": [
+        0,
+        0,
+        670,
+        134
+      ],
+      "sha256": "e8b3d545c931be69c3e4c39ebdcde2875cbce5061c4e965412885eacc27293da"
+    },
+    {
+      "id": "insulated",
+      "rect": [
+        0,
+        134,
+        670,
+        134
+      ],
+      "sha256": "229b4fa7d1dfbb685081414043ee7d1c66b31f206bcb9d9317359cee39a14064"
+    },
+    {
+      "id": "reinforced",
+      "rect": [
+        0,
+        268,
+        670,
+        134
+      ],
+      "sha256": "1df04bb36255fab1f401184a317f147c07077a727311849403275c417b3f81e5"
+    },
+    {
+      "id": "taped",
+      "rect": [
+        0,
+        402,
+        670,
+        134
+      ],
+      "sha256": "410cdb649607a69b56c0d45eb800282483dba0c429c58860f524e027fef973e3"
+    },
+    {
+      "id": "toy_brick",
+      "rect": [
+        0,
+        536,
+        670,
+        134
+      ],
+      "sha256": "59de515afda6daa93b579edb784baca12e5c03d46be6b3093669e5d6a85acb05"
+    },
+    {
+      "id": "paper_fold",
+      "rect": [
+        0,
+        670,
+        670,
+        134
+      ],
+      "sha256": "a84d56d5be5e850d90a4ba38c3ab3dd80573073fe722cf2bf25b16251e864cda"
+    },
+    {
+      "id": "space_case",
+      "rect": [
+        0,
+        804,
+        670,
+        134
+      ],
+      "sha256": "3be5bdaebf9d0eb8d8e1dd70df387ab556fd3d98f5f77441e73a8cd616c9c8a9"
+    },
+    {
+      "id": "ice_crystal",
+      "rect": [
+        0,
+        938,
+        670,
+        134
+      ],
+      "sha256": "16f4c9f6fdcb1265c38ff1feaddd018a347b9044f0d9eee7367bd91767aab76d"
+    },
+    {
+      "id": "steam_brass",
+      "rect": [
+        0,
+        1072,
+        670,
+        134
+      ],
+      "sha256": "53b659a1416dd921ee6ab19bec0b2109572130f6b5e9470fbf3a4b885200cc78"
+    },
+    {
+      "id": "neon_circuit",
+      "rect": [
+        0,
+        1206,
+        670,
+        134
+      ],
+      "sha256": "7ce0d5a5096c2e6224b03a253637bce0e53ca223f366396591da377916c9f83a"
+    },
+    {
+      "id": "lava_core",
+      "rect": [
+        0,
+        1340,
+        670,
+        134
+      ],
+      "sha256": "5182df9ca90c2934cf948bafba8b88d046084c0f8d68706a5247af689383bd8d"
+    },
+    {
+      "id": "ocean_relic",
+      "rect": [
+        0,
+        1474,
+        670,
+        134
+      ],
+      "sha256": "016c4faa4a33fe30993797bf41b843db3df9a9393afbb61bdc2cbc325c90cf0b"
+    },
+    {
+      "id": "royal_gold",
+      "rect": [
+        0,
+        1608,
+        670,
+        134
+      ],
+      "sha256": "24fea236975694ed11b54822330765dcf66657ae49999a3c5921a9df33dedf10"
+    },
+    {
+      "id": "field_supply",
+      "rect": [
+        0,
+        1742,
+        670,
+        134
+      ],
+      "sha256": "d0ccf7d7398ae88cd175399664c29bf6ae55c0819b5d4488647a9af24c079c5e"
+    }
+  ],
+  "forklifts": [
+    {
+      "id": "electric",
+      "rect": [
+        0,
+        0,
+        128,
+        128
+      ],
+      "sha256": "a63d9800464e2c69cdee64a3d0173438f80f896caf2bf528560f1878413c6cba"
+    },
+    {
+      "id": "heavy",
+      "rect": [
+        128,
+        0,
+        128,
+        128
+      ],
+      "sha256": "cb1cd68f5aed80fbdc41889c96762252b9e8761bb3cdaa0ebbd795d63b05d8a1"
+    },
+    {
+      "id": "compact",
+      "rect": [
+        256,
+        0,
+        128,
+        128
+      ],
+      "sha256": "16bf683ee5ad3ccce105f721ceec0aa5a661b4d74d87c0f9e05f5d357215d58c"
+    },
+    {
+      "id": "toy",
+      "rect": [
+        384,
+        0,
+        128,
+        128
+      ],
+      "sha256": "69a6ea94846008ecb26996d40b397efbda9ec9f1d7c8ca0669118b878b44cf84"
+    },
+    {
+      "id": "paper",
+      "rect": [
+        512,
+        0,
+        128,
+        128
+      ],
+      "sha256": "945066824dfa983706706171282e2b05d8aab1aad9ba9429fa789f1d7db2dbad"
+    },
+    {
+      "id": "space",
+      "rect": [
+        640,
+        0,
+        128,
+        128
+      ],
+      "sha256": "26465dda09fba463b84a40ff38f01ec74cd7c6a622c6e6cc0ec3e7019013adf3"
+    },
+    {
+      "id": "steam",
+      "rect": [
+        768,
+        0,
+        128,
+        128
+      ],
+      "sha256": "29ae083ba4bfa7c16172b525853713f158c1807385fafb3cd528d50325317258"
+    },
+    {
+      "id": "neon",
+      "rect": [
+        896,
+        0,
+        128,
+        128
+      ],
+      "sha256": "c64e6c2c02a2e8025037ba2bf7bcd455b551b925bf1888ec57556b43e56ca4c8"
+    },
+    {
+      "id": "lava",
+      "rect": [
+        1024,
+        0,
+        128,
+        128
+      ],
+      "sha256": "bf447e5cbae70013065cac0e999df2f2202ce83d9342d23f48068493ec94f6e0"
+    },
+    {
+      "id": "diving",
+      "rect": [
+        1152,
+        0,
+        128,
+        128
+      ],
+      "sha256": "c5955acfa974bf267bb8e096b994f7ab061cbdbb6d73c374381c0ebab7cdfd6d"
+    },
+    {
+      "id": "royal",
+      "rect": [
+        1280,
+        0,
+        128,
+        128
+      ],
+      "sha256": "a65fa13c7d4369574bf0ce69bd9d2cfd1ad17c9d56419d683d2fbc09cfbe1882"
+    },
+    {
+      "id": "field",
+      "rect": [
+        1408,
+        0,
+        128,
+        128
+      ],
+      "sha256": "ef83540cfa9645ec66b68b933e5e01043b72d192e38be3591aaf30e20e2c36d2"
+    }
+  ]
+}

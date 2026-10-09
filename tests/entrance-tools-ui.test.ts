@@ -83,15 +83,15 @@ test('outbound selector isolates selected-mode plain and tool records from legac
  const before=JSON.stringify(account);
  for(const mode of ['normal','endless'] as const){
   v.outboundSelectionMode=mode;const labels=rendered(outbound(),v).labels,normal=mode==='normal';
-  assert.ok(labels.includes(`最高分 ${normal?123:234}`));assert.ok(labels.includes(`使用道具最高分 ${normal?777:666}`));
-  assert.equal(labels.includes(`最高分 ${normal?234:123}`),false);assert.equal(labels.includes(`使用道具最高分 ${normal?666:777}`),false);
+  assert.ok(labels.includes(`无道具最高分 ${normal?123:234}`));assert.ok(labels.includes(`使用道具最高分 ${normal?777:666}`));
+  assert.equal(labels.includes(`无道具最高分 ${normal?234:123}`),false);assert.equal(labels.includes(`使用道具最高分 ${normal?666:777}`),false);
   if(!normal)assert.ok(labels.some(label=>label.includes('5批')));
   assert.ok(!labels.some(label=>/999|888/.test(label)));assert.equal(JSON.stringify(account),before);
  }
 });
 
 test('new outbound help does not claim the permanently reserved entry can end the run',()=>{
- const v=view();v.screen='colorIntro';for(const version of [12,13]){const labels=rendered(outbound(version),v).labels;assert.ok(!labels.some(label=>/入口堵塞.*结束/.test(label)));assert.ok(labels.some(label=>/救场工具/.test(label)));}
+ const v=view();v.screen='colorIntro';for(const version of [12,13]){const labels=rendered(outbound(version),v).labels;assert.ok(!labels.some(label=>/入口堵塞.*结束/.test(label)));assert.ok(labels.some(label=>/道具无法救场/.test(label)));}
 });
 
 test('normal outbound rescue returns home rather than offering unsupported retirement',()=>{

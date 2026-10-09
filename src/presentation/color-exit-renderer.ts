@@ -1,3 +1,6 @@
+import type { ThemeId } from '../application/profile.ts';
+import type { BoardGeometry } from './board-geometry.ts';
+import { drawThemedGateShell } from './scene-frame-atlas.ts';
 import {accountCosmeticState} from '../application/cosmetics.ts';
 import {buildOutboundTransport,sampleOutboundTransport} from './outbound-transport.ts';
 import {outboundVehicleDisplay} from './outbound-transport-view.ts';
@@ -43,21 +46,28 @@ function entryBlocked(state: GameRun, view: ViewState): boolean {
 
 /** Fixed cargo doors remain distinct from the single forklift entrance. */
 export function drawColorExitGates(ctx: Context, state: GameRun, view: ViewState): void {
-  const geometry = boardGeometry(state), scale = geometry.scale;
+  drawColorExitGateMarkers(ctx,boardGeometry(state),view.profile?.cosmetics.theme??'day',entryBlocked(state,view));
+}
+
+/** Exact game gate bodies shared by the static appearance preview. */
+export function drawColorExitGateMarkers(ctx:Context,geometry:Readonly<BoardGeometry>,theme:ThemeId,blocked=false,labels=true):void {
+  const scale=geometry.scale;
   ctx.save();
   for (const exit of colorExits(geometry)) {
     const dock = exit;
     const p = dockPosition(dock, geometry), side = dock.side !== 'north', color = PALETTE[exit.cargo];
+    drawThemedGateShell(ctx,theme,{x:p.x-(side?23:48)*scale,y:p.y-(side?48:23)*scale,w:(side?46:96)*scale,h:(side?96:39)*scale});
     panel(ctx, { x: p.x - (side ? 16 : 41) * scale, y: p.y - (side ? 41 : 16) * scale, w: (side ? 32 : 82) * scale, h: (side ? 82 : 32) * scale }, color.dark, color.light, 6);
     const center = cellCenter(dock.entry, geometry); arrowhead(ctx, center, { x: p.x * 2 - center.x, y: p.y * 2 - center.y }, '#fff7dd', 13 * scale);
     const label = dock.side === 'north' ? { x: 679, y: 541 } : { x: dock.side === 'west' ? 51 : 1029, y: 911 };
-    icon(ctx, exit.cargo, dock.side === 'north' ? 612 : label.x, dock.side === 'north' ? label.y : 945, 29, color.light);
-    text(ctx, exit.label, label.x, label.y, 21, color.light, 'center');
+    if(labels)icon(ctx, exit.cargo, dock.side === 'north' ? 612 : label.x, dock.side === 'north' ? label.y : 945, 29, color.light);
+    if(labels)text(ctx, exit.label, label.x, label.y, 21, color.light, 'center');
   }
-  const south = dockPosition(geometry.entry, geometry), blocked = entryBlocked(state, view);
+  const south = dockPosition(geometry.entry, geometry);
+  drawThemedGateShell(ctx,theme,{x:south.x-49*scale,y:south.y-15*scale,w:98*scale,h:37*scale});
   panel(ctx, { x: south.x - 42 * scale, y: south.y - 15 * scale, w: 84 * scale, h: 30 * scale }, blocked ? '#65342f' : '#1c4962', blocked ? '#ffac83' : ACCESS_COLOR, 6);
   arrowhead(ctx, { x: south.x, y: south.y + 27 * scale }, { x: south.x, y: south.y - 27 * scale }, blocked ? '#ffb293' : ACCESS_COLOR, 12 * scale);
-  text(ctx, blocked ? '入口堵塞' : '叉车入口', 540, 1443, 21, blocked ? '#ffc0a3' : ACCESS_COLOR, 'center');
+  if(labels)text(ctx, blocked ? '入口堵塞' : '叉车入口', 540, 1443, 21, blocked ? '#ffc0a3' : ACCESS_COLOR, 'center');
   ctx.restore();
 }
 

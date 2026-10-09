@@ -1,0 +1,81 @@
+{
+  "kind": "Read-only inventory of v21 UI assumptions requiring intentional v22 migration",
+  "baselineCommit": "f8e8b83d1b7dc3dda023e000fbdb18181552f8ad",
+  "status": "INVENTORY_ONLY_NO_OLD_TEST_EDITS",
+  "tests": [
+    {
+      "path": "tests/cosmetic-set-shop.test.ts",
+      "assumptions": "Replace Sets/Items tabs, four-card pages, page controls, current detail retains global tabs, old list/detail geometry. Preserve explicit-equipping, zero-write, cache/pixel and ownership assertions."
+    },
+    {
+      "path": "tests/cosmetic-shop-ui.test.ts",
+      "assumptions": "Fixture currently selects an item in the list and expects its detail CTA. Supply shopItemDetail; assert list vs separate detail intentionally."
+    },
+    {
+      "path": "tests/cosmetic-shop-session.test.ts",
+      "assumptions": "Old category actions and back-to-menu assumption; state worker owns migration."
+    },
+    {
+      "path": "tests/cosmetic-set-purchase-ui.test.ts",
+      "assumptions": "Back action changes closeCosmeticSet to closeShopDetail; details have no tabs and switching away requires Back first. Preserve all atomic quoting/receipt/rollback assertions."
+    },
+    {
+      "path": "tests/playtest-shop-policy.test.ts",
+      "assumptions": "getShopControls fixture expects item CTA from cosmeticCategory/cosmeticPreview alone; migrate to explicit item detail."
+    },
+    {
+      "path": "tests/fixed-rush-cosmetics-host-protocol.test.ts",
+      "assumptions": "Four-card pages, selected gold card and preview title within list are historical. Preserve independent crop/ledger checks only with new detail/list fixtures."
+    },
+    {
+      "path": "tests/base-rush-music-host-protocol.test.ts",
+      "assumptions": "Five pages and cosmeticNavigationPages derive old native pointer routes; legacy page source-oracle tests cannot claim v22 acceptance."
+    },
+    {
+      "path": "tests/raster-set-host-cases.test.ts",
+      "assumptions": "returnRasterSetListToFirstPage targets page controls removed by the new UI. Historical helper test should be explicitly historical or replaced with scroll traversal."
+    },
+    {
+      "path": "tests/raster-navigation-rerun.test.ts",
+      "assumptions": "Merges prior v21 page-routing failures; historical only, never include its merged case identities in v22 current counts."
+    },
+    {
+      "path": "tests/cargo-atlas.test.ts",
+      "assumptions": "Use section selection and explicit item detail for native ice preview; retain pixel/crop and ownership assertions."
+    },
+    {
+      "path": "tests/economy-ui.test.ts",
+      "assumptions": "Section selection no longer opens an item CTA; explicitly preview selected item."
+    },
+    {
+      "path": "tests/playful-cosmetics.test.ts",
+      "assumptions": "Third/fifth-page traversal and fixed page card counts/next-page control replaced by native scroll and detail traversal."
+    },
+    {
+      "path": "tests/reference-series-cosmetics.test.ts",
+      "assumptions": "Five-page selected-item visibility replaced by list reachability and separate item detail."
+    },
+    {
+      "path": "tests/whole-crate-cosmetics.test.ts",
+      "assumptions": "Ice original third-page grouping is no longer a UI requirement; retain catalog order/source art while test detail explicitly."
+    },
+    {
+      "path": "tests/tools-help-and-maxorders.test.ts",
+      "assumptions": "Large shop block requires intentional rewrite: fixed preview heights, 2x2 pages, next/previous buttons, selected page persistence, restore equipped page, old 44px targets. Preserve unrelated tool/gameplay cases.",
+      "migrationStatus": "Input worker migrated all four shop blocks; focused file 16/16 PASS reported 2026-10-09. Unrelated cases preserved."
+    }
+  ],
+  "historicalHostRuntimes": [
+    "scripts/dialog-feedback-host-runtime.mjs",
+    "scripts/material-feedback-host-runtime.mjs",
+    "scripts/host-base-rush-music.mjs",
+    "scripts/host-cosmetic-stage15.mjs",
+    "scripts/host-daily-guides.mjs",
+    "scripts/host-fixed-rush-cosmetics.mjs",
+    "scripts/raster-art-host-runtime.mjs",
+    "scripts/raster-set-host-runtime.mjs",
+    "scripts/raster-art-host-rerun.mjs"
+  ],
+  "reuseRule": "v21 148 native cases remain historical. Exact unchanged assets, immutable catalog, account/receipt and gameplay sources may supply preservation proof, but old page-navigation or old pass identities are never counted as a fresh v22 run.",
+  "displayScopeUpdate": "Display now includes16 set cards: pinned configurable classic plus15 fixed bundles. Catalog remains53. Classic is not a discounted new catalog item."
+}

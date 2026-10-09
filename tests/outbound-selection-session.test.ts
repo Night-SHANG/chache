@@ -29,11 +29,11 @@ test('all four difficulty starts retain selected mode and all preparations omit 
  }
 });
 
-test('back from ordinary or endless preparation preserves mode without saving any selection',()=>{
+test('preparation Back preserves mode but a fresh home entry resets ordinary without saving any selection',()=>{
  const {session:s,storage}=host();s.action({type:'chooseColorTier'});const before=[...storage.values];
  choose(s,'easy');assert.equal(s.view.screen,'prepareTools');s.action({type:'back'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.view.outboundSelectionMode,'normal');
  s.action({type:'selectOutboundMode',mode:'endless'});choose(s,'easy');assert.equal(s.view.screen,'prepareTools');s.action({type:'back'});assert.equal(s.view.screen,'colorTiers');assert.equal(s.view.outboundSelectionMode,'endless');
- s.action({type:'home'});s.action({type:'chooseColorTier'});assert.equal(s.view.outboundSelectionMode,'endless');
+ s.action({type:'home'});s.action({type:'chooseColorTier'});assert.equal(s.view.outboundSelectionMode,'normal');
  assert.deepEqual([...storage.values],before);assert.equal(reopen(storage).view.outboundSelectionMode,'normal','a menu preference is not persisted');
 });
 

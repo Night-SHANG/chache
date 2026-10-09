@@ -63,7 +63,7 @@ test('mirror failure hides new paid rights until repair and restart retains the 
   assert.equal(restarted.getSnapshot()?.wallet, 1500);
 });
 
-test('paid ownership survives a later tool purchase, active reservation, equip and result reset without board changes', () => {
+test('paid ownership survives tool purchase, active reservation and classic outline selection without board changes', () => {
   const { service } = setup(2);
   let op = 0;
   const transact = (request: Record<string, unknown>) => service.transact({ operationId: `isolation.${++op}`, ...request } as AccountRequest, service.getSnapshot()!.generation);
@@ -80,7 +80,7 @@ test('paid ownership survives a later tool purchase, active reservation, equip a
     assert.equal(service.getSnapshot()?.wallet, before.wallet);
   }
   const reset = transact({ type: 'resetResults' }); assert.equal(reset.status, 'acknowledged');
-  assert.equal(reset.account?.profile.cosmetics.cargo, 'wood'); assert.equal(reset.account?.profile.cargoOutline, true);
+  assert.equal(reset.account?.profile.cosmetics.cargo, 'classic'); assert.equal(reset.account?.profile.cargoOutline, true);
   assert.ok(reset.account?.profile.ownedCosmetics?.includes('cargo.wood'));
   assert.deepEqual(reset.account?.run?.identity, before.run?.identity);
   assert.deepEqual(reset.account?.run?.state, before.run?.state);

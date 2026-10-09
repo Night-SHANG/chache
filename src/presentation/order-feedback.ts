@@ -8,12 +8,13 @@ import {inboundGroups,inboundOrderGroup,inboundDocks} from './inbound-helpers.ts
 import {collectGroupsV6,findRouteV6} from '../domain/v6/board.ts';
 import {OUTBOUND_DOCKS,OUTBOUND_ENTRY} from '../domain/v6/content.ts';
 import type { ViewState } from './view-types.ts';
+import {orderPresentation} from './order-presentation.ts';
 
 export interface OrderFeedback {
   /** Quantity and availability on the committed board, or the animation snapshot. */
-  status: OrderStatus;
+  status: OrderStatus | (Omit<OrderStatus,'status'|'reason'> & {status:'completed';reason:'completed'});
   label: string;
-  /** Real shipment occupying this card's Dock, even if the order was refreshed. */
+  /** Real shipment of this exact old order. */
   shipping?: GameShipment;
   /** Predicted shipment of this exact order, never inferred from cargo or Dock. */
   previewShipment?: GameShipment;
@@ -29,13 +30,17 @@ const baseHint = '';
 
 /** Presentation-only explanations; dispatch eligibility remains owned by Domain. */
 export function orderFeedback(state: GameRun, order: Order, view: ViewState): OrderFeedback {
+  const presentation=orderPresentation(state,view);
+  if(presentation.completedOrderIds.includes(order.id))return {status:{count:order.amount,status:'completed',path:[],reason:'completed'},label:'已出货'};
   const visibleState:GameRun = view.animation ? isInboundRun(state)?{...state,board:view.animation.board,cellTraits:view.animation.cellTraits??Array(state.board.length).fill(null)}:(isOutboundEndlessV10(state)||isOutboundToolsRun(state))?{...state,board:view.animation.board}:{...state,board:view.animation.board,cellTraits:view.animation.cellTraits} : state;
   const status = playableOrderStatus(visibleState, order);
-  const shipping = view.animation?.shipment.dockId === order.dockId ? view.animation.shipment : undefined;
+  const active=view.animation?.shipment;
+  const shipping = active&&(state.mode==='color_exit'?active.dockId===order.dockId:active.orderId===order.id) ? active : undefined;
   if (shipping) return { status, label: `出货中 · +${shipping.score}`, shipping };
   const previewShipment = !view.animation && view.preview?.valid ? view.preview.shipments.find(shipment => shipment.orderId === order.id) : undefined;
   if (previewShipment) return { status, label: '预计出货', previewShipment };
   if (status.status === 'ready') {
+    if(view.animation&&presentation.queuedOrderIds.includes(order.id))return {status,label:'待出货'};
     const label = !view.animation && view.preview
       ? view.preview.valid ? '暂不出货' : '这里放不下'
       : '已就绪 · 等待放置';

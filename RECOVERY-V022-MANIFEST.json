@@ -1,0 +1,174 @@
+{
+  "project": "爆仓：最后一格",
+  "applicationVersion": "0.22.0",
+  "status": "RECOVERED_PRODUCT_VERIFIED_DEVELOPMENT_HISTORY_INCOMPLETE",
+  "checkedAtBeijing": "2026-10-10T03:17:20.855464+08:00",
+  "recoverySource": {
+    "fileName": "v022-work-in-progress.zip",
+    "version": 2,
+    "bytes": 27793390,
+    "sha256": "9c47881afd37854bc257f85c99bc36b10edba234ed61c9f77f5d8fee6d49e331",
+    "recordedOriginalCommit": "bb71dd7310e9ea232e7c5220f8f092ec1a67ecaf",
+    "sourceSha256": "3d107151bd01ad7a1328c312dab1b905ae1353c608df452b5f42bae814c593ee"
+  },
+  "comparisonTarget": {
+    "fileName": "爆仓-最后一格-v0.22.0-试玩包(1).zip",
+    "bytes": 5346034,
+    "sha256": "118abb8c60edd52adec79732eb177d0a816244e384c1f89830440696e9dfeed3",
+    "recordedFinalQaCommit": "33ea314709066c4d343333026b12a2ebd7d7c511",
+    "recordedFinalSourceSha256": "426cc774647b3c780cf02356b05821cc7c4494573b02ceff4e3bd555853f9f25"
+  },
+  "verification": {
+    "freeOutputsAndAssets": [
+      {
+        "path": "build/browser/app.js",
+        "bytes": 881665,
+        "equal": true,
+        "rebuiltSha256": "562a1e01505eedae845a3e8fdc15ee46b51a7669555420ba8fab89d3e1e60de2",
+        "deliveredSha256": "562a1e01505eedae845a3e8fdc15ee46b51a7669555420ba8fab89d3e1e60de2"
+      },
+      {
+        "path": "build/wechat/game.js",
+        "bytes": 880993,
+        "equal": true,
+        "rebuiltSha256": "d17a5ac001d6f54dad2ccc04c057c252a70e79570ad7613f4abed9af937d0fa1",
+        "deliveredSha256": "d17a5ac001d6f54dad2ccc04c057c252a70e79570ad7613f4abed9af937d0fa1"
+      },
+      {
+        "path": "build/browser/assets/cargo-materials.png",
+        "bytes": 351513,
+        "equal": true,
+        "rebuiltSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+        "deliveredSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+      },
+      {
+        "path": "build/browser/assets/board-materials.png",
+        "bytes": 166727,
+        "equal": true,
+        "rebuiltSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+        "deliveredSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+      },
+      {
+        "path": "build/browser/assets/scene-materials.png",
+        "bytes": 219775,
+        "equal": true,
+        "rebuiltSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+        "deliveredSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+      },
+      {
+        "path": "build/browser/assets/themed-forklifts.png",
+        "bytes": 61052,
+        "equal": true,
+        "rebuiltSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+        "deliveredSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+      }
+    ],
+    "productionOutputHashes": [
+      {
+        "path": "build/browser/app.js",
+        "sha256": "41e6a8a69471be5870804a6ed401c2e62faa33812b3cbf2d176f9db42987696c",
+        "expectedSha256": "41e6a8a69471be5870804a6ed401c2e62faa33812b3cbf2d176f9db42987696c",
+        "equal": true
+      },
+      {
+        "path": "build/wechat/game.js",
+        "sha256": "ffc2cd062baf12cee093a4b5afeae34fe16be947a41ecc6108bd1dc3159f9cb6",
+        "expectedSha256": "ffc2cd062baf12cee093a4b5afeae34fe16be947a41ecc6108bd1dc3159f9cb6",
+        "equal": true
+      }
+    ],
+    "frozenProductSource": {
+      "files": 175,
+      "mismatches": []
+    },
+    "documentComparisons": [
+      {
+        "path": "README.md",
+        "equal": true,
+        "checkpointBytes": 6083,
+        "deliveredBytes": 6083
+      },
+      {
+        "path": "CHECKPOINT.json",
+        "equal": false,
+        "checkpointBytes": 13952,
+        "deliveredBytes": 17151
+      },
+      {
+        "path": "docs/v0220-validation.md",
+        "equal": false,
+        "checkpointBytes": 1162,
+        "deliveredBytes": 3975
+      },
+      {
+        "path": "docs/v0220-playtest.md",
+        "equal": true,
+        "checkpointBytes": 1275,
+        "deliveredBytes": 1275
+      },
+      {
+        "path": "docs/next-platform-check.md",
+        "equal": true,
+        "checkpointBytes": 3612,
+        "deliveredBytes": 3612
+      }
+    ],
+    "builds": "Unmodified snapshot free and production builds succeeded using Node24.19.0 and matching declared dependency versions",
+    "staticChecks": "lint/typecheck/preflight execution did not yield terminal status due canceled polling; no success claim"
+  },
+  "limitations": [
+    "This is a recovered v22 product snapshot, not the complete final development archive.",
+    "Original Git history and old art masters are not contained in this checkpoint. Recorded commit IDs are provenance, not proof those commits are available in this snapshot.",
+    "Final QA script/report changes are not recovered; final and recovered source digests differ. Delivered CHECKPOINT documents QA-only post-snapshot changes.",
+    "No v23 appearance rollback changes have been made.",
+    "Real browser GUI, WeChat developer tools and physical-device verification were not run."
+  ],
+  "backupScopeRecommendation": [
+    "Include source, tests, scripts, qa tooling, required fixtures, runtime assets, dependency lock, licenses and project docs.",
+    "Exclude node_modules, generated build outputs unless explicitly desired, historical artifacts images, user original reference images and credentials.",
+    "Add this manifest without rewriting history or claiming unavailable historical commits."
+  ],
+  "supplementalFixtures": [
+    {
+      "path": "artifacts/v0120-host-scenarios/daily-real-date.json",
+      "bytes": 8082,
+      "sha256": "5ca11c505940a616345a8e30dd1aacbc67120daf9880f81608e1d74c0420ebef",
+      "source": "Previously restored v0.15 source and independently verified v0.15 backup directory; byte-identical copies",
+      "purpose": "Synthetic deterministic replay fixture required by existing host protocol tests"
+    },
+    {
+      "path": "artifacts/v0120-order-quantity-study/cases/A-greedy-s1.json",
+      "bytes": 325993,
+      "sha256": "a5968cc7ec1c755b1acc2a2e5d4f7d1abad7ac6a0291801360a2bb049e705d75",
+      "source": "Previously restored v0.15 source and independently verified v0.15 backup directory; byte-identical copies",
+      "purpose": "Synthetic deterministic replay fixture required by existing host protocol tests"
+    },
+    {
+      "path": "artifacts/v0120-order-quantity-study/cases/B-greedy-s21.json",
+      "bytes": 390097,
+      "sha256": "290df7688f1e282ebc51ee12c56b2a38d1ebec55a47ef70933f31adee60498ec",
+      "source": "Previously restored v0.15 source and independently verified v0.15 backup directory; byte-identical copies",
+      "purpose": "Synthetic deterministic replay fixture required by existing host protocol tests"
+    },
+    {
+      "path": "artifacts/v0120-order-quantity-study/cases/C-greedy-s15.json",
+      "bytes": 404396,
+      "sha256": "355faf2bfc21db7f1e1c4e0f296ebe77a4a51fadfa72408c253aadad00bef60f",
+      "source": "Previously restored v0.15 source and independently verified v0.15 backup directory; byte-identical copies",
+      "purpose": "Synthetic deterministic replay fixture required by existing host protocol tests"
+    }
+  ],
+  "backupScope": {
+    "excluded": [
+      "node_modules",
+      "build",
+      "historical QA screenshots and recordings",
+      "original art masters absent from recovered source",
+      "docs/research private references",
+      "internal implementation planning documents"
+    ],
+    "included": "Complete recovered src/tests/scripts/qa, package and lockfile, runtime assets and licenses, derived project documents, plus four verified synthetic historical replay fixtures",
+    "historyParent": "4df38e01fa34b21fd6877d6870fbe2e6bc9371e2",
+    "branch": "recovery/v0.22-2026-10-09"
+  }
+}

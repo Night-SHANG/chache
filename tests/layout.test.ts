@@ -77,7 +77,7 @@ test('renderer uses base Canvas2D APIs across gameplay and each blocking overlay
     if (phase === 'debug') {view.debug = true; view.developerMode = true;}
     render(ctx, state, view);
     // Active rule version now identifies debug builds; the rest of the v1 overlay contract stays intact.
-    const expected = { input: '待入库', upgrade: '选择一项升级', result: '爆仓了！', pause: '已暂停', resume: '继续上次游戏？', debug: '规则 v1 · 开发版' }[phase];
+    const expected = { input: '待放货件', upgrade: '选择一项升级', result: '爆仓了！', pause: '已暂停', resume: '继续上次游戏？', debug: '规则 v1 · 开发版' }[phase];
     assert.ok(labels.includes(expected), `${phase} label is rendered`);
   }
 });
@@ -91,10 +91,10 @@ test('chain announcement owns the status row without regular status text painted
   assert.equal(labels.includes(view.message), false);
 });
 
-test('animation Dock card describes the old shipment while authoritative orders have refreshed', () => {
+test('animation order snapshot describes the old shipment while authoritative orders have refreshed', () => {
   const state = createRun(10, 'tutorial'), view = baseView(), { ctx, labels } = canvasSurface();
   state.orders[0].cargo = 'cargo.machine';
-  view.animation = { board: state.board, progress: .3, shipment: { type: 'shipment', dockId: state.orders[0].dockId, orderId: 'old.order', cargo: 'cargo.cold', cells: [20, 21, 22, 23], path: [{ x: 3, y: 0 }], score: 125, chain: 1 } };
+  view.animation = { board: state.board, progress: .3,orders:[{...state.orders[0],id:'old.order',cargo:'cargo.cold'}],completedOrderIds:[],queuedOrderIds:['old.order'], shipment: { type: 'shipment', dockId: state.orders[0].dockId, orderId: 'old.order', cargo: 'cargo.cold', cells: [20, 21, 22, 23], path: [{ x: 3, y: 0 }], score: 125, chain: 1 } };
   render(ctx, state, view);
   assert.ok(labels.includes('冷藏'));
   assert.ok(labels.includes('4格'));

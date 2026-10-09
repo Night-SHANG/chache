@@ -98,7 +98,7 @@ test('legacy gameplay, pause, result and recovery retain tier and stage without 
 test('legacy mixed-cargo help shows same-color shipment and the surviving other half', () => {
   const out = surface(); render(out.ctx, run('middle'), view({ screen: 'colorIntro' }));
   assert.match(out.words(), /同类货物上下左右相连，至少4件/);assert.match(out.words(), /食品4件出货/);assert.match(out.words(), /机械2件留下/);assert.match(out.words(), /放置后[\s\S]*出货后/);assert.doesNotMatch(out.words(), /%|逐件概率|中段/);
-  assert.deepEqual(getUiControls(run('middle'),view({screen:'colorIntro'})).map(control=>control.action),[{type:'helpBack'}]);
+  assert.deepEqual(getUiControls(run('middle'),view({screen:'colorIntro'})).map(control=>control.action),[{type:'toolsHelp'},{type:'helpBack'}]);
 });
 
 // With the same board and shape, each mixed tile must match the corresponding pure-cargo tile artwork.

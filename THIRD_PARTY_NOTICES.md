@@ -61,3 +61,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## Background music
+
+“Cozy Puzzle In-Game 1” by MintoDog, released under CC0 1.0 Universal. Source: https://opengameart.org/content/cozy-puzzle-in-game-1 . The complete original loop is retained, level reduced by5.89dB, and converted to44.1kHz stereo96kbps MP3.
+
+License and provenance accompany the source in assets/audio/CC0-1.0.txt and assets/audio/NOTICE.txt; built targets include MUSIC_LICENSE.txt and MUSIC_NOTICE.txt. No endorsement is implied.
+
+## v0.19 original generated cosmetic assets
+
+Cargo sheets, six new forklift bodies and fifteen board materials were produced with OpenAI image generation for this project, based on user-provided visual references. Full developer backup preserves generated master images and compilation manifests. No external game skins were downloaded or bundled. Existing cargo symbols, dynamic state indicators and old forklift artwork remain project code. Reference-image rights are not independently verified; confirm rights before public commercial release.

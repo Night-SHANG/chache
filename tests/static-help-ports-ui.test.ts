@@ -39,34 +39,34 @@ test('home has one help entry between both modes and shop/settings',()=>{
  assert.ok(controls[3].rect.y>=controls[2].rect.y+controls[2].rect.h);
 });
 
-test('help chooser opens only the two existing help topics and returns home',()=>{
+test('help chooser opens all three help topics and returns home',()=>{
  const current=view({screen:'helpMenu'}),controls=getUiControls(neutral(),current);
- assert.deepEqual(controls.map(control=>control.action),[{type:'selectHelp',topic:'inbound'},{type:'selectHelp',topic:'outbound'},{type:'home'}]);
+ assert.deepEqual(controls.map(control=>control.action),[{type:'selectHelp',topic:'inbound'},{type:'selectHelp',topic:'outbound'},{type:'selectHelp',topic:'tools'},{type:'helpBack'}]);
  const labels=capture(neutral(),current,360,800,'help-chooser').words;
- assert.match(labels,/玩法说明/);assert.match(labels,/入库/);assert.match(labels,/出库/);
+ assert.match(labels,/玩法说明/);assert.match(labels,/入库/);assert.match(labels,/出库/);assert.match(labels,/道具说明/);
 });
 
 test('home help follows selected topic over the untouched neutral placeholder',()=>{
  const state=neutral(),before=playableChecksum(state);
  const inbound=view({screen:'colorIntro',helpFromHome:true,helpTopic:'inbound'}),outbound=view({screen:'colorIntro',helpFromHome:true,helpTopic:'outbound'});
- assert.deepEqual(getUiControls(state,inbound).map(control=>control.label),['返回','特殊货物与工具']);
+ assert.deepEqual(getUiControls(state,inbound).map(control=>control.label),['特殊货物与加急','返回']);
  assert.deepEqual(getUiControls(state,outbound).map(control=>control.label),['返回']);
  const first=capture(state,inbound,360,800,'inbound-help'),second=capture(state,outbound,360,800,'outbound-help');
- assert.match(first.words,/旋转工具/);assert.match(second.words,/放置后.*出货后.*机械2件留下/);
+ assert.match(first.words,/五班共30单，完成后可继续无限。/);assert.match(second.words,/放置后.*出货后.*机械2件留下/);
  // Nine-by-nine cells in both before/after diagrams, regardless of the 7×7 background.
  const pitches:number[]=[];const ctx=createCanvas(1080,1920).getContext('2d'),rect=ctx.fillRect.bind(ctx);
  ctx.fillRect=(x,y,w,h)=>{if(Math.abs(y-106)<.01&&Math.abs(h-(224/9-2))<.01)pitches.push(x);rect(x,y,w,h);};
  render(ctx as unknown as CanvasRenderingContext2D,state,outbound);assert.equal(pitches.length,18);
  assert.equal(playableChecksum(state),before);
- assert.equal(getUiControls(createRunV16({seed:1,mode:'standard'}),view({screen:'colorIntro',paused:true}))[0].label,'返回游戏');
+ assert.equal(getUiControls(createRunV16({seed:1,mode:'standard'}),view({screen:'colorIntro',paused:true})).find(c=>c.action.type==='helpBack')?.label,'返回游戏');
 });
 
-test('current inbound special help always includes shared tools and complete daily details',()=>{
+test('current inbound special help separates shared tools and retains complete rush details',()=>{
  for(const state of [neutral(),...(['standard','endless','daily'] as const).map(mode=>createRunV16({seed:1,mode}))]){
   const current=view({screen:'helpDetails',helpTopic:'inbound',helpFromHome:state.rulesetVersion===3,paused:state.rulesetVersion!==3}),before=playableChecksum(state);
   const result=capture(state,current,360,800,'special-daily-help');
-  for(const word of ['特殊货物与工具','双倍箱','万能','旋转','清障','同类1件','每日挑战','每2单','每6次成功放置',rushSentence,'末班新来的货品全部加急。','候选区','期限归零','只清旧废物','没有废物','货组旁1格废弃物','五班、无限没有加急和废物'])assert.ok(result.words.includes(word),`${state.mode}: ${word}`);
-  assert.ok(result.words.includes('仅每日生效'));assert.equal(playableChecksum(state),before);
+  for(const word of ['特殊货物与加急','双倍箱','万能','加急模式','每完成2单','每成功放置6次',rushSentence,'第5班新补充的货件全部加急。','待放区','归零变为废弃箱','清扫1格旧废弃箱','没有废弃箱','整组货物旁1格废弃箱'])assert.ok(result.words.includes(word),`${state.mode}: ${word}`);
+  assert.ok(result.words.includes('加急模式中'));assert.doesNotMatch(result.words,/旋转|清障|每种1件/);const tools=capture(state,{...current,screen:'toolsHelp'},360,800,'shared-tools-help');for(const word of ['道具说明','旋转','清障','万能','每种1件','未用的结束后退回'])assert.ok(tools.words.includes(word),word);assert.equal(playableChecksum(state),before);
  }
 });
 

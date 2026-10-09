@@ -35,7 +35,7 @@ const inSpec=(mode='standard',seed=1,tier='hard',guided=false,toolCharges=zero()
 export const verifyStaticHelpBinding=verifyFinalEconomyBinding;
 export const writeStaticHelpReport=writeHostReport;
 export function staticHelpPaintLabels(control,rulesetVersion){
- if(control.action.type==='chooseCleanup')return control.action.branch==='orders'?['按单清扫','每完成2单，','清除1格废弃物']:['定期清扫',[16,18].includes(rulesetVersion)?'每成功放置6次，':'每放置6次，','清除1格废弃物'];
+ if(control.action.type==='chooseCleanup')return control.action.branch==='orders'?['按单清扫','每完成2单，','清除1格废弃箱']:['定期清扫',[16,18].includes(rulesetVersion)?'每成功放置6次，':'每放置6次，','清除1格废弃箱'];
  return control.label.split(['purchase','purchaseCosmetic'].includes(control.action.type)?' · ':'\n');
 }
 const overlap=(a,b)=>Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>0.01&&Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>0.01;

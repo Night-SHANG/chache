@@ -1,0 +1,18 @@
+Background music asset notice
+
+Title: Cozy Puzzle In-Game 1
+Creator: MintoDog
+Creator publication: https://opengameart.org/content/cozy-puzzle-in-game-1
+Original file: https://opengameart.org/sites/default/files/cozy_puzzle_in-game_1_bpm118_0.ogg
+License: CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Legal code: https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+Retrieved: 2026-10-08
+
+Game-ready file: cozy-puzzle-1-96k.mp3
+Changes: the full 130.169501-second loop was preserved, its level was reduced by 5.89 dB, and it was converted from the creator's OGG to 44.1 kHz stereo, 96 kbps MP3 with gapless metadata.
+
+CC0 allows copying, adapting and redistributing, including commercial use. Attribution is not a condition of CC0; this notice is included for provenance and courtesy. Neither the creator nor OpenGameArt endorses this game. CC0 does not provide warranties or waive unrelated trademark or patent rights.
+
+Optional short credit:
+Music: “Cozy Puzzle In-Game 1” — MintoDog (CC0 1.0), OpenGameArt.org.

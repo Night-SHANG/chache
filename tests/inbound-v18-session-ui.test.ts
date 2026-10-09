@@ -14,7 +14,7 @@ import {dockPosition} from '../src/presentation/motion.ts';
 import {getUiControls} from '../src/presentation/ui.ts';
 import {render} from '../src/presentation/renderer.ts';
 import {L,mapClientPoint,hitTestPoint} from '../src/presentation/layout.ts';
-import type {GameRun} from '../src/domain/playable.ts';
+import {findPlayableMoves,type GameRun} from '../src/domain/playable.ts';
 import type {UiAction} from '../src/presentation/ui-types.ts';
 import type {ViewState} from '../src/presentation/view-types.ts';
 import {makeAccountRun} from './helpers/account-fixtures.ts';
@@ -45,9 +45,9 @@ test('current inbound menu has exactly two top tiers and one start in each of it
  assert.equal(h.session.view.inboundDifficulty,'hard');
  const controls=getUiControls(h.session.state,h.session.view),tiers=controls.filter(c=>c.action.type==='selectInboundDifficulty'),starts=controls.filter(c=>c.action.type==='newRun');
  assert.deepEqual(tiers.map(c=>c.label),['困难','专业']);assert.deepEqual(tiers.map(c=>c.selected),[true,false]);
- assert.deepEqual(starts.map(c=>c.action),[{type:'newRun',mode:'standard',inboundDifficulty:'hard'},{type:'newRun',mode:'endless',inboundDifficulty:'hard'},{type:'newRun',mode:'daily',inboundDifficulty:'hard'}]);
+ assert.deepEqual(starts.map(c=>c.action),[{type:'newRun',mode:'standard',inboundDifficulty:'hard'},{type:'newRun',mode:'endless',inboundDifficulty:'hard'},{type:'newRun',mode:'rush'}]);
  assert.ok(Math.max(...tiers.map(c=>c.rect.y+c.rect.h))<Math.min(...starts.map(c=>c.rect.y)));
- const words=capture(h.session.state,h.session.view).words;assert.match(words,/困难五班/);assert.match(words,/困难无限/);assert.match(words,/每日挑战 · 困难/);assert.doesNotMatch(words,/普通五班|倍率|×1\.5|×2|挑战开关/);
+ const words=capture(h.session.state,h.session.view).words;assert.match(words,/困难 · 五班/);assert.match(words,/困难 · 无限/);assert.match(words,/加急模式/);assert.doesNotMatch(words,/困难加急|专业加急/);assert.doesNotMatch(words,/普通五班|倍率|×1\.5|×2|挑战开关/);
 });
 
 test('tier selection changes only the view and rejects stale normal and malformed selections',()=>{
@@ -56,8 +56,8 @@ test('tier selection changes only the view and rejects stale normal and malforme
  for(const value of ['normal',null,['hard'],'bogus'])h.session.action({type:'selectInboundDifficulty',inboundDifficulty:value} as UiAction);
  assert.equal(h.session.view.inboundDifficulty,'expert');assert.equal(h.session.view.account,account);assert.equal(h.session.state,state);assert.deepEqual(h.session.state.rngState,rng);assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.filter(o=>o.kind==='set'||o.kind==='remove').length,0);
  const controls=getUiControls(state,h.session.view);assert.deepEqual(controls.filter(c=>c.action.type==='selectInboundDifficulty').map(c=>c.selected),[false,true]);
- assert.ok(controls.filter(c=>c.action.type==='newRun'&&c.action.mode!=='daily').every(c=>c.action.type==='newRun'&&c.action.inboundDifficulty==='expert'));
- const daily=controls.find(c=>c.action.type==='newRun'&&c.action.mode==='daily')?.action;assert.ok(daily?.type==='newRun');assert.equal(daily.inboundDifficulty,'hard');
+ assert.ok(controls.filter(c=>c.action.type==='newRun'&&c.action.mode!=='rush').every(c=>c.action.type==='newRun'&&c.action.inboundDifficulty==='expert'));
+ const rush=controls.find(c=>c.action.type==='newRun'&&c.action.mode==='rush')?.action;assert.ok(rush?.type==='newRun');assert.equal(rush.inboundDifficulty,undefined);
 });
 
 for(const mode of ['standard','endless'] as const)for(const tier of ['hard','expert'] as const)test(`new ${tier} ${mode} starts direct rules18 and restores its bound tier`,()=>{
@@ -70,24 +70,30 @@ for(const mode of ['standard','endless'] as const)for(const tier of ['hard','exp
 test('an explicit stale normal new-start action cannot close a run or create ordinary18',()=>{
  for(const active of [false,true]){
   const h=sessionHost();if(active)start(h.session,'standard','expert');const state=h.session.state,before=[...h.data];h.storage.resetFault();
-  for(const mode of ['standard','endless','daily'] as const)h.session.action({type:'newRun',mode,inboundDifficulty:'normal'});
+  for(const mode of ['standard','endless'] as const)h.session.action({type:'newRun',mode,inboundDifficulty:'normal'});
   assert.equal(h.session.state,state);assert.equal(h.session.view.confirmation,null);assert.equal(h.session.view.prepareIntent??null,null);assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.filter(o=>o.kind==='set'||o.kind==='remove').length,0);
+  h.session.action({type:'newRun',mode:'daily',inboundDifficulty:'normal'});
+  if(active){assert.equal((h.session.view as ViewState).confirmation?.mode,'rush');h.session.action({type:'cancel'});}
+  else {assert.equal(h.session.view.prepareIntent?.spec.rulesetVersion,21);assert.equal(h.session.view.prepareIntent?.spec.family==='inbound'&&h.session.view.prepareIntent.spec.inboundDifficulty,undefined);h.session.action({type:'back'});}
+  assert.equal(h.session.state,state);assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.filter(o=>o.kind==='set'||o.kind==='remove').length,0);
  }
 });
 
-test('daily selected under expert is hard rules18 and locks to its rules18 date seed',()=>{
- const h=sessionHost();h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:'expert'});const daily=accountDailyAvailability(h.session.view.account!,h.platform.wallTime!(),18);start(h.session,'daily');
- assert.equal(h.session.state.rulesetVersion,18);assert.equal('inboundDifficulty' in h.session.state&&h.session.state.inboundDifficulty,'hard');assert.equal(h.session.state.seed,daily.seed);assert.equal(h.session.view.account!.run!.identity.challengeDay,daily.day);assert.equal(h.session.state.phase,'cleanup');assert.deepEqual(h.session.state.candidates,[]);assert.deepEqual(h.session.view.account!.run!.reserved,[]);
- h.session.action({type:'chooseCleanup',branch:'placements'});assert.equal(h.session.state.phase,'input');assert.equal(h.session.state.commandIndex,1);assert.equal(h.session.view.guide,null);
- assert.equal(getUiControls(h.session.state,h.session.view).some(c=>c.action.type==='continueOvertime'),false);
+test('stale daily action selected under expert starts undated fixed rush21 with cleanup',()=>{
+ const h=sessionHost();h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:'expert'});start(h.session,'daily');
+ assert.equal(h.session.state.rulesetVersion,21);assert.equal(h.session.state.mode,'rush');assert.equal('inboundDifficulty' in h.session.state&&h.session.state.inboundDifficulty,'normal');assert.equal(h.session.view.account!.run!.identity.challengeDay,undefined);assert.equal(h.session.state.phase,'cleanup');assert.deepEqual(h.session.state.candidates,[]);assert.deepEqual(h.session.view.account!.run!.reserved,[]);
+ const seed=h.session.state.seed;h.session.action({type:'chooseCleanup',branch:'placements'});assert.equal(h.session.state.phase,'input');assert.equal(h.session.state.commandIndex,1);assert.equal(h.session.view.guide,null);
+ assert.equal(getUiControls(h.session.state,h.session.view).some(c=>c.action.type==='continueOvertime'),false);start(h.session,'daily');assert.notEqual(h.session.state.seed,seed);assert.equal(h.session.view.account!.run!.identity.inboundDifficulty,'normal');assert.equal(h.session.state.phase,'cleanup');
 });
 
-test('menu records are independent rules18 mode and tier buckets and daily stays hard',()=>{
+test('menu records isolate tiered rules18 and fixed20 from archived rules19 across tool buckets',()=>{
  const h=sessionHost();h.session.action({type:'chooseInbound'});const account=structuredClone(h.session.view.account!);
- const entries=[['standard.hard.plain',110],['standard.hard.tools',220],['standard.expert.plain',330],['standard.expert.tools',440],['endless.hard.plain',550],['endless.hard.tools',660],['endless.expert.plain',770],['endless.expert.tools',880],['daily.hard.plain',990]] as const;
- for(const [suffix,score] of entries){const [mode,tier,tools]=suffix.split('.');account.profile.results[`inbound.${mode}.v18.${tier}.${tools}`]={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};}
- account.profile.results['inbound.standard.v16.hard.plain']={runs:1,units:1,maxUnits:1,score:9999,wins:0,retirements:0,maxChain:1,best:{score:9999,units:1,chain:1}};
- for(const [tier,scores,absent] of [['hard',[110,220,550,660,990],[330,440,770,880]],['expert',[330,440,770,880,990],[110,220,550,660]]] as const){const out=capture(h.session.state,{...h.session.view,account,inboundDifficulty:tier});for(const score of scores)assert.match(out.words,new RegExp(`\\b${score}\\b`));for(const score of absent)assert.doesNotMatch(out.words,new RegExp(`\\b${score}\\b`));assert.doesNotMatch(out.words,/9,999/);assert.match(out.words,/每日挑战 · 困难/);}
+ const entries=[['standard',18,'hard','plain',110],['standard',18,'hard','tools',220],['standard',18,'expert','plain',330],['standard',18,'expert','tools',440],['endless',18,'hard','plain',550],['endless',18,'hard','tools',660],['endless',18,'expert','plain',770],['endless',18,'expert','tools',880],['rush',19,'hard','plain',990],['rush',19,'hard','tools',1010],['rush',19,'expert','plain',1110],['rush',19,'expert','tools',1220],['rush',20,'fixed','plain',1330],['rush',20,'fixed','tools',1440],['daily',18,'hard','plain',9999],['standard',16,'hard','plain',9999]] as const;
+ for(const [mode,version,tier,tools,score] of entries)account.profile.results[`inbound.${mode}.v${version}.${tier}.${tools}`]={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};
+ for(const [tier,scores,absent] of [['hard',[110,220,550,660,1330,1440],[330,440,770,880,990,1010,1110,1220]],['expert',[330,440,770,880,1330,1440],[110,220,550,660,990,1010,1110,1220]]] as const){
+  const out=capture(h.session.state,{...h.session.view,account,inboundDifficulty:tier}),shown=out.labels.filter(label=>/^无道具最高分 |^使用道具最高分 /.test(label.value)).map(label=>Number(label.value.replace(/^(?:使用道具|无道具)最高分 |,/g,'')));
+  assert.deepEqual(shown,scores);for(const score of absent)assert.equal(shown.includes(score),false);assert.doesNotMatch(out.words,/9,999|每日/);assert.match(out.words,/加急模式/);assert.doesNotMatch(out.words,/困难加急|专业加急/);
+ }
 });
 
 test('old16 normal resumes unchanged and restart creates default hard18 after confirmation',()=>{
@@ -96,9 +102,9 @@ test('old16 normal resumes unchanged and restart creates default hard18 after co
  h.session.restart();assert.equal(h.session.view.confirmation?.inboundDifficulty,'hard');assert.deepEqual(h.session.state,state);h.session.action({type:'confirm'});h.session.action({type:'prepareNext'});assert.equal(h.session.state.rulesetVersion,18);assert.equal(h.session.view.account!.run!.identity.inboundDifficulty,'hard');
 });
 
-test('current home help teaches four adjacent boxes and keeps exact reviewed daily copy',()=>{
+test('current home help teaches four adjacent boxes and keeps exact reviewed rush copy',()=>{
  const h=sessionHost();h.session.action({type:'helpMenu'});h.session.action({type:'selectHelp',topic:'inbound'});const out=capture(h.session.state,h.session.view);assert.match(out.words,/食品 4\/4件/);assert.doesNotMatch(out.words,/食品 3\/3件/);
- h.session.action({type:'helpDetails'});const details=capture(h.session.state,h.session.view).words;for(const sentence of [rushSentence,'末班新来的货品全部加急。','危险品：按货类凑单，可正常出货。','仅每日生效'])assert.ok(details.includes(sentence),sentence);
+ h.session.action({type:'helpDetails'});const details=capture(h.session.state,h.session.view).words;for(const sentence of [rushSentence,'第5班新补充的货件全部加急。','危险品：按货类凑单，可正常出货。','加急模式中'])assert.ok(details.includes(sentence),sentence);
 });
 
 test('two-tier controls and all current menu/help captions fit three viewports',()=>{
@@ -133,10 +139,10 @@ test('both tiers reserve at most two tools, cancel without inventory writes, and
  }
 });
 
-test('new daily cards honor a prior-version same-day win lock and reopen on the next Shanghai date',()=>{
+test('new rush cards remain available across Shanghai midnight while preserving the prior daily winner',()=>{
  const time={value:Date.parse('2026-10-06T15:59:59Z')},h=sessionHost({formatVersion:2,economyVersion:2,dailyRewards:{'2026-10-06':{completedRunId:'old16.daily.winner',bonusPaid:20}}});h.platform.wallTime=()=>time.value;h.session.show();h.session.action({type:'chooseInbound'});h.session.action({type:'selectInboundDifficulty',inboundDifficulty:'expert'});
- assert.equal(h.session.view.dailyLabel,'2026-10-06');assert.equal(h.session.view.dailyLocked,true);const daily=getUiControls(h.session.state,h.session.view).find(c=>c.action.type==='newRun'&&c.action.mode==='daily');assert.equal(daily?.disabled,true);assert.equal(daily?.label,'今日已完成');const before=[...h.data];h.session.action({type:'newRun',mode:'daily'});assert.deepEqual([...h.data],before);assert.equal(h.session.view.screen,'inboundMenu');
- time.value=Date.parse('2026-10-06T16:00:01Z');h.session.show();assert.equal(h.session.view.dailyLocked,false);assert.equal(h.session.view.dailyLabel,'2026-10-07');start(h.session,'daily');assert.equal(h.session.view.account?.run?.identity.rulesetVersion,18);assert.equal(h.session.view.account?.run?.identity.inboundDifficulty,'hard');assert.equal(h.session.view.account?.run?.identity.challengeDay,'2026-10-07');
+ assert.equal(h.session.view.dailyLabel,'2026-10-06');assert.equal(h.session.view.dailyLocked,true);const rush=getUiControls(h.session.state,h.session.view).find(c=>c.action.type==='newRun'&&c.action.mode==='rush');assert.ok(rush);assert.notEqual(rush.disabled,true);assert.equal(rush.label,'开始');const before=[...h.data],rewards=structuredClone(h.session.view.account!.dailyRewards);h.session.action(rush.action);assert.deepEqual([...h.data],before);assert.equal(h.session.view.screen,'prepareTools');h.session.action({type:'back'});
+ time.value=Date.parse('2026-10-06T16:00:01Z');h.session.show();assert.equal(h.session.view.dailyLocked,false);assert.equal(h.session.view.dailyLabel,'2026-10-07');start(h.session,'daily');assert.equal(h.session.view.account?.run?.identity.rulesetVersion,21);assert.equal(h.session.view.account?.run?.identity.inboundDifficulty,'normal');assert.equal(h.session.view.account?.run?.identity.challengeDay,undefined);assert.deepEqual(h.session.view.account?.dailyRewards,rewards);
 });
 
 test('old16 daily resume and closed-result labels retain their actual start date across midnight',()=>{
@@ -144,20 +150,21 @@ test('old16 daily resume and closed-result labels retain their actual start date
  h.session.action({type:'chooseCleanup',branch:'orders'});h.session.dispatch({type:'finish'});assert.equal(h.session.view.account?.run,null);assert.equal(h.session.view.account?.lastClosedResult?.identity.rulesetVersion,16);assert.match(capture(h.session.state,h.session.view).words,/每日挑战 · 2026-10-06/);assert.doesNotMatch(capture(h.session.state,h.session.view).words,/每日挑战 · 2026-10-07/);
 });
 
-test('new rules18 daily help keeps successful-placement wording, hazard explanation, and four visible ports',()=>{
- const h=sessionHost();start(h.session,'daily');const cleanup=capture(h.session.state,h.session.view).words;assert.match(cleanup,/每成功放置6次/);h.session.action({type:'chooseCleanup',branch:'orders'});h.session.action({type:'help'});h.session.action({type:'helpDetails'});const help=capture(h.session.state,h.session.view).words;for(const sentence of [rushSentence,'末班新来的货品全部加急。','危险品：按货类凑单，可正常出货。'])assert.ok(help.includes(sentence));h.session.action({type:'helpBack'});
+test('new rush help keeps successful-placement wording, hazard explanation, and four visible ports',()=>{
+ const h=sessionHost();start(h.session,'daily');const cleanup=capture(h.session.state,h.session.view).words;assert.match(cleanup,/每成功放置6次/);h.session.action({type:'chooseCleanup',branch:'orders'});h.session.action({type:'help'});h.session.action({type:'helpDetails'});const help=capture(h.session.state,h.session.view).words;for(const sentence of [rushSentence,'第5班新补充的货件全部加急。','危险品：按货类凑单，可正常出货。'])assert.ok(help.includes(sentence));h.session.action({type:'helpBack'});
  const opened=createRunV18({seed:1,mode:'standard'}),state=applyCommandV18(opened,{type:'place',...findLegalMovesV18(opened)[0]}).state;const out=capture(state,{...h.session.view,paused:false,screen:'game',account:null});const gray=[0x4b,0x53,0x5b];
  for(const dock of boardGeometry(state).docks){const p=dockPosition(dock,state),pixels=out.ctx.getImageData(p.x-38,p.y-38,76,76).data,order=state.orders.find(o=>o.dockId===dock.id),rgb=order?PALETTE[order.cargo].mid.replace('#','').match(/../g)!.map(c=>Number.parseInt(c,16)):gray;let found=false;for(let i=0;i<pixels.length;i+=4)if(rgb.every((c,j)=>pixels[i+j]===c))found=true;assert.equal(found,true,dock.id);}
 });
 
-test('daily18 cleanup wait does not accrue elapsed time or leak into the first placement',()=>{
+test('rush21 cleanup wait does not accrue elapsed time or leak into the first placement',()=>{
  const h=sessionHost();start(h.session,'daily');h.time(50000);h.session.tick(50000);assert.equal(h.session.view.elapsed,0);h.time(90000);h.session.action({type:'chooseCleanup',branch:'orders'});assert.equal(h.session.view.elapsed,0);
- const first=findLegalMovesV18(h.session.state as ReturnType<typeof createRunV18>)[0];h.session.dispatch({type:'place',...first});assert.equal(h.session.state.elapsedMs,0);h.time(91000);h.session.tick(91000);assert.equal(h.session.view.elapsed,1000);
+ const first=findPlayableMoves(h.session.state)[0];h.session.dispatch({type:'place',...first});assert.equal(h.session.state.elapsedMs,0);h.time(91000);h.session.tick(91000);assert.equal(h.session.view.elapsed,1000);
 });
 
-test('large rules18 records fit beside all three start buttons without truncating their scores',()=>{
+test('large current records fit beside all three start buttons without truncating their scores',()=>{
  const h=sessionHost();h.session.action({type:'chooseInbound'});const account=structuredClone(h.session.view.account!),score=Number.MAX_SAFE_INTEGER,bucket={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};
- for(const mode of ['standard','endless','daily'])for(const tools of mode==='daily'?['plain']:['plain','tools'])account.profile.results[`inbound.${mode}.v18.hard.${tools}`]=bucket;
+ for(const mode of ['standard','endless','rush'])for(const tools of ['plain','tools'])account.profile.results[mode==='rush'?`inbound.rush.v20.fixed.${tools}`:`inbound.${mode}.v18.hard.${tools}`]=bucket;
  const current={...h.session.view,account},out=capture(h.session.state,current),starts=getUiControls(h.session.state,current).filter(c=>c.action.type==='newRun');
- for(const label of out.labels.filter(l=>/^最高分 |^使用道具最高分 /.test(l.value))){const start=starts.find(c=>label.top<c.rect.y+c.rect.h&&label.bottom>c.rect.y);assert.ok(!start||label.right<=start.rect.x-16,JSON.stringify(label));assert.ok(label.value.includes('9,007,199,254,740,991'));}
+ const records=out.labels.filter(l=>/^无道具最高分 |^使用道具最高分 /.test(l.value));assert.equal(records.length,6);
+ for(const label of records){const start=starts.find(c=>label.top<c.rect.y+c.rect.h&&label.bottom>c.rect.y);assert.ok(!start||label.right<=start.rect.x-16,JSON.stringify(label));assert.ok(label.value.includes('9,007,199,254,740,991'));}
 });

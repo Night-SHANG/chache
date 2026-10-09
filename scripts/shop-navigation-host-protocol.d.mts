@@ -1,0 +1,10 @@
+export const SHOP_BASELINE_COMMIT:string;
+export const SHOP_V021_ASSET_HASHES:Readonly<Record<string,string>>;
+export const SHOP_NAVIGATION_MANIFEST:Readonly<Record<string,unknown>>;
+export const SHOP_NATIVE_VIEWPORTS:readonly {width:number;height:number;safeTop:number;dpr:number}[];
+export function shopViewportName(v:{width:number;height:number;safeTop:number;dpr:number}):string;
+export function assertShopNavigationBinding(binding:Record<string,unknown>):void;
+export function assertShopNavigationManifests(browser:Record<string,unknown>,wechat:Record<string,unknown>,binding:Record<string,unknown>,mode:string):Record<string,unknown>;
+export function shopNavigationCaseNames(mode:string):string[];
+export function assertShopNavigationCoverage(cases:{name:string;status:string}[],mode:string):{passed:number;failed:number;total:number;nativeCases:number;sourceChecks:number;inherited:number};
+export function assertShopRouteControls(controls:{rect:{x:number;y:number;w:number;h:number};action:{type:string;[key:string]:unknown}}[],options?:{detail?:boolean}):void;

@@ -29,17 +29,17 @@ export function resumeStoredLegacy(platform:Platform,options:{seed:number;mode:R
  session.resume();assert.equal(session.view.needsResume,false);return session;
 }
 
-export function startCurrentRun(session:GameSession,mode:'standard'|'daily'|'endless'|'color_exit',difficultyId:'easy'|'normal'='easy'):void {
+export function startCurrentRun(session:GameSession,mode:'standard'|'daily'|'rush'|'endless'|'color_exit',difficultyId:'easy'|'normal'='easy'):void {
  session.action({type:'newRun',mode,...(mode==='color_exit'?{difficultyId}:{})});
  if(session.view.confirmation)session.action({type:'confirm'});
  if(session.view.screen==='guideOffer')session.action({type:'directStart'});
  if(session.view.screen==='prepareTools')session.action({type:'prepareNext'});
- if(mode==='daily'){
-  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,18);assert.equal(session.state.phase,'cleanup');
+ if(mode==='daily'||mode==='rush'){
+  assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,21);assert.equal(session.state.mode,'rush');assert.equal(session.state.phase,'cleanup');
   assert.equal(session.state.commandIndex,0);assert.equal(session.view.account?.run?.state.phase,'cleanup');
   session.action({type:'chooseCleanup',branch:'orders'});assert.equal(session.state.commandIndex,1);
  }
- assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?12:18);
+ assert.equal(session.view.screen,'game');assert.equal(session.state.rulesetVersion,mode==='color_exit'?12:mode==='rush'||mode==='daily'?21:18);
 }
 
 export function inboundV9State(session:GameSession):InboundRunV9 {

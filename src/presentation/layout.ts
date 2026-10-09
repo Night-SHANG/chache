@@ -33,6 +33,11 @@ export const L = {
 
 export function getLayout() { return L; }
 
+/** Dialog stacks share the same geometry for drawing and hit testing. */
+export function verticalStackRects(count:number,first:Rect,gap:number):Rect[] {
+  return Array.from({length:count},(_,index)=>({...first,y:first.y+index*(first.h+gap)}));
+}
+
 /** Candidate count changes layout, never the board or logical coordinate system. */
 export function getTrayRects(count: number, toolSelection = false): Rect[] {
   if (toolSelection) return getTrayRects(count).map(rect=>({...rect,h:count===5?132:238,...(count===5?{y:rect.y>1600?1644:1500}:{})}));

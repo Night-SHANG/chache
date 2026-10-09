@@ -13,7 +13,7 @@ function surface(state:GameRun,v:ViewState){const canvas=createCanvas(1080,1920)
 
 test('shop has three explained illustrated item cards with owned quantities and independent prices',()=>{
  const s=createRunV9({seed:1,mode:'standard'}),v=view({screen:'shop'}),out=surface(s,v);
- assert.match(out.words,/旋转选中的货件/);assert.match(out.words,/清除1至2个占用格/);assert.match(out.words.replace(/\n/g,''),/将一件待放货换成万能箱/);assert.match(out.words,/占1格，可代替任意货类/);
+ assert.match(out.words,/旋转选中的货件/);assert.match(out.words,/清除1至2个占用格/);assert.match(out.words.replace(/\n/g,''),/将待放货件换成单格/);assert.match(out.words,/入库万能箱；出库自选货类/);
  assert.match(out.words,/库存 2/);assert.match(out.words,/库存 1/);assert.match(out.words,/库存 0/);
  const buy=getUiControls(s,v).filter(c=>c.action.type==='purchase');assert.equal(buy.length,3);assert.deepEqual(buy.map(c=>c.disabled),[false,false,false]);
  assert.ok(buy.every(c=>c.rect.x>600&&c.rect.h/3>=44&&c.rect.w/3>=44));
@@ -33,14 +33,14 @@ test('toolbox replaces candidate pixels but leaves board and gates exactly uncha
  assert.deepEqual(closed.ctx.getImageData(88,525,920,910).data,opened.ctx.getImageData(88,525,920,910).data);
  assert.notDeepEqual(closed.ctx.getImageData(48,1530,984,272).data,opened.ctx.getImageData(48,1530,984,272).data);
  assert.match(opened.words,/工具箱/);assert.match(opened.words,/可用 1/);assert.match(opened.words,/未携带/);
- assert.equal(opened.labels.includes('待入库'),false);
+ assert.equal(opened.labels.includes('待放货件'),false);
 });
 
 test('cleanup choice uses two equal side-by-side illustrated cards over the actual board',()=>{
  const s=createRunV9({seed:1,mode:'standard'}),v=view(),controls=getUiControls(s,v).filter(c=>c.action.type==='chooseCleanup'),out=surface(s,v);
  assert.equal(controls.length,2);assert.equal(controls[0].rect.y,controls[1].rect.y);assert.equal(controls[0].rect.w,controls[1].rect.w);assert.ok(controls[0].rect.x<controls[1].rect.x);
- assert.match(out.words.replace(/\n/g,''),/每完成2单，清除1格废弃物/);assert.match(out.words.replace(/\n/g,''),/每放置6次，清除1格废弃物/);assert.match(out.words,/本局只能选择一种清扫方式/);assert.doesNotMatch(out.words,/空触发/);
- assert.match(out.words,/出库订单/);
+ assert.match(out.words.replace(/\n/g,''),/每完成2单，清除1格废弃箱/);assert.match(out.words.replace(/\n/g,''),/每放置6次，清除1格废弃箱/);assert.match(out.words,/本局只能选择一种清扫方式/);assert.doesNotMatch(out.words,/空触发/);
+ assert.match(out.words,/当前订单/);
 });
 
 import {createRunV11,applyCommandV11} from '../src/domain/v11/engine.ts';
@@ -78,7 +78,7 @@ test('new inbound selector reads standard and endless hard18 buckets while keepi
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
  account.profile.results={'inbound.standard.v11.plain':bucket(222),'inbound.endless.v11.plain':bucket(333),'inbound.standard.v11.tools':bucket(444),'inbound.endless.v11.tools':bucket(555),'inbound.standard.v9.plain':bucket(999),'inbound.standard.v14.plain':bucket(888),'inbound.standard.v14.tools':bucket(777),'inbound.standard.v15.plain':bucket(666),'inbound.standard.v15.tools':bucket(555)};
  Object.assign(account.profile.results,{'inbound.standard.v18.hard.plain':bucket(122),'inbound.endless.v18.hard.plain':bucket(133),'inbound.standard.v18.hard.tools':bucket(144),'inbound.endless.v18.hard.tools':bucket(155),'inbound.standard.v16.normal.plain':bucket(991),'inbound.endless.v16.plain':bucket(992)});
- const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/困难五班/);assert.match(out.words,/最高分 122/);assert.match(out.words,/使用道具最高分 144/);assert.match(out.words,/最高分 133/);assert.match(out.words,/使用道具最高分 155/);assert.doesNotMatch(out.words,/222|333|444|555|777|888|999|991|992/);assert.equal(JSON.stringify(account),before);
+ const before=JSON.stringify(account),out=surface(createRunV14({seed:1,mode:'standard'}),view({screen:'inboundMenu',account}));assert.match(out.words,/困难 · 五班/);assert.match(out.words,/最高分 122/);assert.match(out.words,/使用道具最高分 144/);assert.match(out.words,/最高分 133/);assert.match(out.words,/使用道具最高分 155/);assert.doesNotMatch(out.words,/222|333|444|555|777|888|999|991|992/);assert.equal(JSON.stringify(account),before);
 });
 
 import {INBOUND_GUIDE_V11} from '../src/application/inbound-guide-v11.ts';
@@ -108,7 +108,7 @@ test('primary item and cleanup effect glyphs remain readable and contained at al
  for(const viewport of [{w:360,h:800},{w:540,h:960},{w:1200,h:900}])for(const screen of ['shop','prepareTools','toolbox','cleanup'] as const){
   const state=screen==='cleanup'?initial:playing,v=view(screen==='toolbox'?{toolboxOpen:true}:screen==='cleanup'?{}:{screen}),canvas=createCanvas(viewport.w,viewport.h),ctx=canvas.getContext('2d') as unknown as CanvasRenderingContext2D;
   const scale=Math.min(viewport.w/1080,viewport.h/1920),offset={x:(viewport.w-1080*scale)/2,y:(viewport.h-1920*scale)/2};ctx.setTransform(scale,0,0,scale,offset.x,offset.y);
-  const effects=screen==='cleanup'?[['每完成2单，','清除1格废弃物'],['每放置6次，','清除1格废弃物']]:screen==='toolbox'?[['旋转选中货件'],['清除1至2格'],['改单格万能货']]:[['旋转选中的货件'],['清除1至2个占用格'],['将一件待放货','换成万能箱']];
+  const effects=screen==='cleanup'?[['每完成2单，','清除1格废弃箱'],['每放置6次，','清除1格废弃箱']]:screen==='toolbox'?[['旋转选中货件'],['清除1至2格'],['换成单格万能箱']]:[['旋转选中的货件'],['清除1至2个占用格'],['将待放货件','换成单格']];
   const glyphs:{value:string;size:number;left:number;right:number;top:number;bottom:number}[]=[],draw=ctx.fillText.bind(ctx);
   ctx.fillText=(value,x,y)=>{if(effects.flat().includes(value)){const m=ctx.measureText(value);glyphs.push({value,size:Number(ctx.font.match(/([\d.]+)px/)![1]),left:x-m.actualBoundingBoxLeft,right:x+m.actualBoundingBoxRight,top:y-m.actualBoundingBoxAscent,bottom:y+m.actualBoundingBoxDescent});}draw(value,x,y);};
   render(ctx,state,v);assert.equal(glyphs.length,effects.flat().length);
@@ -129,7 +129,7 @@ test('wildcard main secondary and selected glyphs do not overlap in the carry ca
  const state=createRunV11({seed:1,mode:'standard'}),r=economyCardRect(2),ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D,draw=ctx.fillText.bind(ctx),glyphs:{value:string;top:number;bottom:number}[]=[];
  ctx.fillText=(value,x,y)=>{if(x===r.x+210&&y>=r.y+100){const m=ctx.measureText(value);glyphs.push({value,top:y-m.actualBoundingBoxAscent,bottom:y+m.actualBoundingBoxDescent});}draw(value,x,y);};
  render(ctx,state,view({screen:'prepareTools',prepareIntent:{spec:{family:'inbound',mode:'standard',rulesetVersion:11,seed:1,guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}},guide:'direct',items:['wildcard']}}));
- assert.deepEqual(glyphs.map(g=>g.value),['将一件待放货','换成万能箱','占1格，可代替任意货类','已选择']);
+ assert.deepEqual(glyphs.map(g=>g.value),['将待放货件','换成单格','占1格，可代替任意货类','已选择']);
  for(const [i,g] of glyphs.entries()){assert.ok(g.bottom<=r.y+r.h-12);if(i)assert.ok(g.top-glyphs[i-1].bottom>=8);}
- const help=surface(state,view({screen:'helpDetails'}));assert.doesNotMatch(help.words,/空触发/);assert.match(help.words,/没有废弃物时也会重新计数/);
+ const help=surface(state,view({screen:'helpDetails'}));assert.doesNotMatch(help.words,/空触发/);assert.match(help.words,/没有废弃箱时也会重新计数/);
 });

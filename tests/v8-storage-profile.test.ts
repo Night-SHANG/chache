@@ -109,13 +109,16 @@ test('real v8 reducer routes round trip every saved command including the early 
  assert.ok(commands>30);
 });
 
-test('v1 through v7 encoded snapshots and the default profile preserve their exact old bytes',()=>{
+test('v1 through v7 snapshots and legacy profile preserve old bytes while new profiles enable music',()=>{
  const hashes=['be7b4e0e4a5abd68939eca5a2dc46a0c1470c9bddd8fca6be3054c53fac1ca81','fbe1ee3f73d068ffbff6a25fff3d8c862ab0f2bc7eaeadcb4fd3b08cd40c99a5','cdba5797c9622a84d5d8072c3deb1791294aed1c3c9fe07a762b147d62c4ffe8','d26fafcf6c32691204a48b4e1e8e9c7be7b9e0f0b12690151a0f9015ac78f789','d59540f4129869b299cb5b0912d6a2adf700e5df2c431734a84f7dd888d2718c','52d3ca50d32689f885afdf28ec264a5eba3c9be83ee30277bdc58de30488da1e','4e1f9ee259ee3a87df79fb1a4c934585d79213c49784815d5f4acc1f36927bee'];
  for(let version=1;version<=7;version++){const state=createRun(19,version===4||version===5||version===6?'color_exit':version===7?'endless':'standard',version,version===5?'entry':version===6?'easy':undefined),raw=saves.encodeRun(state);assert.equal(createHash('sha256').update(raw).digest('hex'),hashes[version-1]);assert.equal(saves.encodeRun(saves.decodeRun(raw)),raw);}
  const raw='{"schemaVersion":1,"digest":"a64291e7","profile":{"schemaVersion":1,"settings":{"sound":true,"reducedMotion":false},"cosmetics":{"theme":"day","forklift":"yellow","cargo":"classic"},"tutorialComplete":false,"stats":{"runs":0,"orders":0,"wins":0,"maxChain":0},"bestScores":{},"dailyHistory":{},"achievements":[],"nextRunSerial":1,"lastRecordedRun":null}}';
- const profile=profiles.createProfile();assert.equal(profiles.encodeProfile(profile),raw);
+ const legacy=profiles.decodeProfile(raw),profile=profiles.createProfile(),canonical=profiles.encodeProfile(profile);
+ assert.equal(legacy.settings.music,undefined);assert.equal(profile.settings.music,true);
+ assert.deepEqual({...legacy,settings:{...legacy.settings,music:true}},profile);
+ assert.equal(profiles.encodeProfile(legacy),raw);
  for(const difficulty of difficulties){const first=profiles.getOutboundProfile(profile,difficulty,8),second=profiles.getOutboundProfile(profile,difficulty,8);assert.deepEqual(first.stats,{runs:0,batches:0,wins:0,maxChain:0});first.stats.runs=9;assert.equal(second.stats.runs,0);}
- assert.equal(profiles.encodeProfile(profile),raw);assert.equal(profiles.encodeProfile(profiles.decodeProfile(raw)),raw);
+ assert.equal(profiles.encodeProfile(profile),canonical);assert.equal(profiles.encodeProfile(profiles.decodeProfile(raw)),raw);
  assert.throws(()=>profiles.getOutboundProfile(profile,'easy',7 as never));
 });
 

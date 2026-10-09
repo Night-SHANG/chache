@@ -1,0 +1,10 @@
+import type {RunSpec,GameRun,GameCommand} from '../src/domain/playable.ts';
+export function verifyPermanentRushBinding(binding:Record<string,string>):void;
+export function permanentRushPaintLabels(control:{label:string;action:{type:string;branch?:string}},version:number):string[];
+export function isPermanentRushGridFill(fill:unknown):boolean;
+export function assertUniformStack(controls:readonly {rect:{x:number;y:number;w:number;h:number}}[],height:number,gap:number):unknown;
+export function permanentRushFixtureStorage(spec:RunSpec,commands?:GameCommand[],options?:{constructedState?:GameRun;label?:string;storage?:Map<string,string>;wallet?:number;inventory?:{rotate:number;clear:number;wildcard:number}}):Map<string,string>;
+export function constructedRushBoundary(tier?:'hard'|'expert',tools?:{rotate:0|1;clear:0|1;wildcard:0|1},seed?:number):{spec:RunSpec;state:GameRun;next:GameCommand;label:string};
+export function constructedRushToolFixture(kind:'clear'|'rotate'|'wildcard'|'rescue'|'failure',tier?:'hard'|'expert'):{spec:RunSpec;state:GameRun;next:GameCommand;rescuePlan?:GameCommand[];label:string};
+export function writePermanentRushReport(out:string,report:unknown):Promise<void>;
+export function runPermanentRushHostQA(options?:{out?:string;expectedCommit?:string;expectedSourceSha256?:string;expectedGameJsSha256?:string;only?:string}):Promise<unknown>;

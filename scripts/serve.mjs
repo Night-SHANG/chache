@@ -11,7 +11,7 @@ export function requestFile(root,pathname,path=paths){
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(paths.resolve(process.argv[1])).href){
  const root=paths.resolve('build/browser'),url='http://127.0.0.1:4173/';
- const types={'.html':'text/html; charset=utf-8','.js':'application/javascript','.wav':'audio/wav','.json':'application/json'};
+ const types={'.html':'text/html; charset=utf-8','.js':'application/javascript','.png':'image/png','.wav':'audio/wav','.mp3':'audio/mpeg','.txt':'text/plain; charset=utf-8','.json':'application/json'};
  const server=createServer(async(req,res)=>{try{
   const file=requestFile(root,decodeURIComponent(new URL(req.url,url).pathname)),body=await readFile(file);
   res.writeHead(200,{'Content-Type':types[paths.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(body);

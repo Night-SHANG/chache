@@ -32,11 +32,11 @@ test('home has two clear mode entries and settings regardless of existing saves'
   assert.doesNotMatch(out.words(),/继续进度|三档比例|订单模式|旧纯色最高分/);
  }
 });
-test('inbound submenu starts five shifts endless or daily without per-save continue controls',()=>{
+test('inbound submenu starts five shifts endless or rush without per-save continue controls',()=>{
  const current=view({screen:'inboundMenu',modeSlots:{orders:'saved',inbound_endless:'saved'}}),controls=getUiControls(inbound(),current);
- assert.deepEqual(controls.map(control=>control.action),[{type:'selectInboundDifficulty',inboundDifficulty:'hard'},{type:'selectInboundDifficulty',inboundDifficulty:'expert'},{type:'newRun',mode:'standard',inboundDifficulty:'hard'},{type:'newRun',mode:'endless',inboundDifficulty:'hard'},{type:'newRun',mode:'daily',inboundDifficulty:'hard'},{type:'home'}]);
- assert.equal(controls[2].label,'开始五班');assert.equal(controls[3].label,'开始无限');assert.equal(controls[4].label,'开始挑战');
- const out=surface();render(out.ctx,inbound(),current);assert.match(out.words(),/困难五班/);assert.match(out.words(),/困难无限/);assert.match(out.words(),/每日挑战/);
+ assert.deepEqual(controls.map(control=>control.action),[{type:'selectInboundDifficulty',inboundDifficulty:'hard'},{type:'selectInboundDifficulty',inboundDifficulty:'expert'},{type:'newRun',mode:'standard',inboundDifficulty:'hard'},{type:'newRun',mode:'endless',inboundDifficulty:'hard'},{type:'newRun',mode:'rush'},{type:'home'}]);
+ assert.deepEqual(controls.slice(2,5).map(control=>control.label),['开始','开始','开始']);
+ const out=surface();render(out.ctx,inbound(),current);assert.match(out.words(),/困难 · 五班/);assert.match(out.words(),/困难 · 无限/);assert.match(out.words(),/加急模式/);
  assert.ok(controls.slice(2,5).every(control=>/开始/.test(control.label)));
 });
 test('outbound selector starts four difficulties without probability seed or version details',()=>{
@@ -44,7 +44,7 @@ test('outbound selector starts four difficulties without probability seed or ver
  assert.deepEqual(controls.filter(control=>control.action.type==='newRun').map(control=>control.action),['easy','normal','hard','expert'].map(difficultyId=>({type:'newRun',mode:'color_exit',difficultyId,outboundMode:'normal'})));
  assert.equal(controls.some(control=>control.action.type==='switchMode'),false);
  for(const name of ['简单','中等','困难','专业'])assert.ok(out.labels.some(label=>label.text===name));
- assert.equal(out.labels.filter(label=>label.text.includes('最高分 暂无')).length,8);
+ assert.equal(out.labels.filter(label=>/(?:无道具|使用道具)最高分 暂无/.test(label.text)).length,8);
  assert.doesNotMatch(out.words(),/9×9|12345|种子|概率|%|形状等级|继续进度|自动.*升档|旧版/);
  assert.deepEqual(controls.filter(control=>control.action.type!=='newRun').map(control=>control.action),[{type:'selectOutboundMode',mode:'normal'},{type:'selectOutboundMode',mode:'endless'},{type:'home'}]);
 });
@@ -110,14 +110,14 @@ test('new mode profiles never display legacy or another-difficulty high scores',
  const profile=createProfile();profile.bestScores['standard.v3']={score:101,chain:1};profile.colorExit={stats:{runs:1,batches:1,wins:0,maxChain:1},bestScores:{v4:{score:9999,chain:1}},lastRecordedRun:null};
  profile.outboundV8={};profile.outboundDifficulties={};for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){const p=getOutboundProfile(profile,id,8);p.bestScores.v8={score:222+index*111,chain:1};profile.outboundV8[id]=p;const old=getOutboundProfile(profile,id,6);old.bestScores.v6={score:6666+index,chain:1};profile.outboundDifficulties[id]=old;}
  profile.endless=getEndlessProfile(profile);profile.endless.bestScores.v7={score:777,chain:1,orders:10};
- const unimported=surface();render(unimported.ctx,outbound(),view({screen:'colorTiers',profile}));assert.equal(unimported.labels.filter(label=>label.text==='最高分 暂无').length,4);assert.doesNotMatch(unimported.words(),/222|333|444|555|9,999|6,66[6-9]/);
+ const unimported=surface();render(unimported.ctx,outbound(),view({screen:'colorTiers',profile}));assert.equal(unimported.labels.filter(label=>label.text==='无道具最高分 暂无').length,4);assert.doesNotMatch(unimported.words(),/222|333|444|555|9,999|6,66[6-9]/);
  const account=makeAccountFixture();account.profile.legacyResults=profile;
  for(const [index,id] of (['easy','normal','hard','expert'] as const).entries()){
   const score=120+index*110;account.profile.results[`outbound.v12.${id}.plain`]={runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}};
  }
- const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`最高分 ${score}`&&label.y===outboundOut.labels.find(label=>label.text==='最高分 120')!.y+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
+ const outboundOut=surface();render(outboundOut.ctx,outbound(),view({screen:'colorTiers',profile,account}));for(const [index,score] of [120,230,340,450].entries())assert.ok(outboundOut.labels.some(label=>label.text===`无道具最高分 ${score}`&&label.y===outboundOut.labels.find(label=>label.text==='无道具最高分 120')!.y+index*244));assert.doesNotMatch(outboundOut.words(),/222|333|444|555|9,999|6,66[6-9]|777|101/);
  assert.deepEqual(account.profile.legacyResults,profile);
- const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/困难五班/);assert.match(inboundOut.words(),/最高分 暂无/);assert.match(inboundOut.words(),/使用道具最高分 暂无/);assert.doesNotMatch(inboundOut.words(),/777|101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
+ const inboundOut=surface();render(inboundOut.ctx,endless(),view({screen:'inboundMenu',profile}));assert.match(inboundOut.words(),/困难 · 五班/);assert.match(inboundOut.words(),/最高分 暂无/);assert.match(inboundOut.words(),/使用道具最高分 暂无/);assert.doesNotMatch(inboundOut.words(),/777|101/);assert.doesNotMatch(inboundOut.words(),/9,999|555/);
 });
 test('all new controls fit mobile and landscape viewport with readable labels and no overlaps',()=>{
  for(const current of [view({screen:'menu'}),view({screen:'inboundMenu'}),view({screen:'colorTiers',modeSlots:{color_exit:'saved'}}),view({screen:'legacyRuns',modeSlots:{color_exit:'saved',color_exit_entry:'saved',color_exit_middle:'result',color_exit_late:'corrupt'}}),view({paused:true}),view({confirmation:{kind:'leaveRun'}})]){

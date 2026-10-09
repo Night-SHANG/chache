@@ -1,6 +1,6 @@
 {
-  "appVersion": "0.13.0-dev",
-  "status": "LOCAL_VALIDATION_COMPLETE",
+  "appVersion": "0.22.0-dev",
+  "status": "VALIDATION_IN_PROGRESS",
   "rulesets": [
     1,
     2,
@@ -18,10 +18,14 @@
     14,
     15,
     16,
-    18
+    18,
+    19,
+    20,
+    21
   ],
   "currentRules": {
-    "inbound": 18,
+    "inboundFiveAndEndless": 18,
+    "permanentRush": 21,
     "outbound": 12,
     "outboundEndless": 13
   },
@@ -33,16 +37,11 @@
       "candidateCount": 3,
       "reservedEntries": 4,
       "placeableCells": 45,
-      "fiveAndEndlessDifficulties": [
+      "difficulties": [
         "hard",
         "expert"
       ],
       "defaultDifficulty": "hard",
-      "dailyDifficulty": "hard",
-      "overtimeDifficulties": [
-        "hard",
-        "expert"
-      ],
       "orderRanges": {
         "hard": [
           [
@@ -99,17 +98,55 @@
           1
         ]
       },
-      "scorePolicy": "floor cumulative rawScore once; coins use displayed score",
+      "scorePolicy": "floor cumulative rawScore once",
       "rushFiveAndEndless": 0,
-      "rushDailyByStage": [
+      "continuedInfinite": "same run identity/board/tier/score, fixed finite result and later cumulative infinite bucket; paid coin delta only"
+    },
+    "rush": {
+      "rulesetVersion": 21,
+      "mode": "rush",
+      "targetOrders": 30,
+      "probabilityByStage": [
         0.06,
         0.06,
         0.06,
         0.06,
         1
       ],
-      "cleanup": "daily opening mandatory:2 orders or6 successful placements",
-      "hazard": "retained unchanged from rules16; cancelled17 never active"
+      "cleanup": "mandatory opening:2 orders or6 successful placements",
+      "personalTools": true,
+      "maxToolTypes": 2,
+      "repeatable": true,
+      "dateLock": false,
+      "freshSeedPerStart": true,
+      "winCoinMultiplier": 1,
+      "inboundDifficulty": "normal",
+      "orderRanges": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "scoreMultiplier": [
+        1,
+        1
+      ]
     },
     "outbound": {
       "rules": [
@@ -123,59 +160,396 @@
         "hard",
         "expert"
       ],
-      "unchanged": true
+      "mechanicsUnchanged": true
     }
-  },
-  "help": {
-    "homeEntry": true,
-    "pauseEntry": true,
-    "topics": [
-      "inbound",
-      "outbound"
-    ],
-    "dailyDetails": true,
-    "interactiveTutorials": false,
-    "automatic": false,
-    "switchOrPractice": false,
-    "exactRushText": "加急数字按后续成功放置次数倒数，不是倒计时"
-  },
-  "ports": {
-    "allFourVisibleAtOpening": true,
-    "inactive": "gray closed shutter",
-    "dispatchUnchanged": true
   },
   "tools": {
     "maxTypes": 2,
     "each": 1,
-    "dailyPersonalTools": false
+    "usedNotCarriedScoreTag": true
   },
   "economy": {
     "inboundScoreDivisor": 120,
     "outboundScoreDivisor": 30,
-    "dailyWinTotalMultiplier": 3,
-    "dateLock": "global across rules versions; opening date bound"
+    "rushWinTotalMultiplier": 1,
+    "perRunCumulativeEntitlementMinusPaid": true,
+    "legacyDateLedgersPreserved": true
   },
-  "sourceSha256": "d5df34edd5c68754a5f9ccc4e2e3e48b9c59f2347497d487296555acc3a19142",
-  "gameJsSha256": "96c32399207d1a67cfe4c702d4360b6154b0159da56c83a3328504474256ad25",
-  "testsPassed": 1885,
-  "pythonTestsPassed": 22,
-  "focusedProtocolTestsPassed": 15,
-  "hostCasesPassed": 39,
-  "hostStaticImages": 124,
-  "validatedCodeCommit": "d744101ad58b3615453dbf965e16ae6e27d8f213",
-  "validationCommits": {
-    "full1885": "318f5d8744cb85e093566f9666e1c6e5accbbfa9",
-    "host": "478b6e03a2dcc7ab6c41fc3b4ae5376b8cada913",
-    "laterChanges": "Harness corrections and documents only; product JavaScript remained byte-identical. Protocol15/lint/typecheck/preflight rerun."
+  "presentation": {
+    "resultStack": {
+      "height": 132,
+      "gap": 28
+    },
+    "settingsStack": {
+      "height": 144,
+      "gap": 36
+    },
+    "continuationLabel": "继续无限",
+    "fourPortsRetained": true,
+    "groupAnimationMs": 1000,
+    "modeStartLabel": "开始",
+    "inboundEndlessMaxOrders": "independent ResultBucket.maxUnits, mode/tier/tool status separated",
+    "orderSnapshots": "historical order slots and doors per shipment; completed cards retained until batch end",
+    "confirmationEmphasis": "semantic action roles; safe cancellation remains primary for destructive actions"
   },
-  "productSource": {
-    "algorithm": "sha256(sorted relative POSIX path + NUL + bytes + NUL)",
-    "fileCount": 145,
-    "sha256": "5a9bba1ab8307421082a7a38de20f2cea6b12ec7b2cad800877d17df5aabbce2"
+  "help": {
+    "homeAndPause": true,
+    "interactiveTutorials": false,
+    "permanentRushCopy": true,
+    "exactRushText": "加急数字按后续成功放置次数倒数，不是倒计时",
+    "topics": [
+      "inbound",
+      "outbound",
+      "tools"
+    ],
+    "specialCargoOnly": true,
+    "wasteTerm": "废弃箱",
+    "outboundUniversal": "出库：换成单格，自选货类。"
   },
-  "simulation": "No new balance simulation. Existing16 C/B traces reused only for functional replay equivalence, not new win-rate claims.",
-  "runtimeStatus": "Actual unmodified game.js native Canvas/wx host passed; real browser, Windows GUI and WeChat device NOT RUN.",
-  "deliveryNotes": "docs/v0130-playtest.md",
-  "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2",
-  "updatedAtBeijing": "2026-10-07T22:06:37.224794+08:00"
+  "simulation": "No new balance simulations; replay prefixes and explicitly constructed reward/rescue fixtures are functional QA.",
+  "runtimeStatus": "Original free/paid game.js native Canvas/wx host passed 148 cases, 445 screenshots. Real browser/Windows GUI/WeChat device NOT RUN.",
+  "deliveryNotes": "v22 pending final native host, package and restore verification",
+  "updatedAtBeijing": "2026-10-09T21:45:29.683541+08:00",
+  "cosmetics": {
+    "catalogSize": 53,
+    "newItems": 6,
+    "pageSize": 4,
+    "newCratePrice": 300,
+    "newForkliftPrice": 600,
+    "newThemePrice": 900,
+    "materialShellsReworked": 4,
+    "newItemIds": [
+      "theme.forest_depot",
+      "theme.ice_vault",
+      "cargo.harbor_container",
+      "forklift.timber",
+      "forklift.ice",
+      "forklift.harbor"
+    ],
+    "newCargoNames": [
+      "海运集装箱"
+    ],
+    "newForkliftNames": [
+      "林务叉车",
+      "冰晶叉车",
+      "码头叉车"
+    ],
+    "setCount": 16,
+    "standaloneCount": 8,
+    "noninitialScenesRefined": 13,
+    "themedForkliftsRefined": 12,
+    "protected": [
+      "theme.day",
+      "theme.night",
+      "cargo.classic",
+      "forklift.yellow",
+      "forklift.blue",
+      "forklift.red",
+      "forklift.white"
+    ],
+    "outline": "Explicit enable uses classic body plus original rim; owned materials retained",
+    "newSets": [
+      "forest_depot",
+      "ice_vault",
+      "harbor"
+    ],
+    "previous47DefinitionsPreserved": true,
+    "newThemeNames": [
+      "林间货仓",
+      "冰晶货仓"
+    ],
+    "fixedPaidSetCount": 15
+  },
+  "remoteBackup": {
+    "status": "PAUSED_PREEXISTING_CANCELLATION",
+    "localBundlePreserved": true
+  },
+  "music": {
+    "asset": "assets/bgm.mp3",
+    "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+    "defaultVolume": 0.18,
+    "loop": true,
+    "license": "CC0 1.0 Universal"
+  },
+  "shop": {
+    "pricingMode": "playtest-free",
+    "explicitBuildFlag": "--playtest-free-shop",
+    "defaultAndProductionPricing": "paid",
+    "walletUnchangedByClaims": true,
+    "claimedRightsRetained": true,
+    "achievementClaimsDoNotAwardAchievements": true,
+    "setApply": "all three owned; explicit atomic account transaction",
+    "preview": "read-only real shared board",
+    "cache": {
+      "surfaces": 5,
+      "maxBytes": 5000000,
+      "coldWarmPixelExact": true,
+      "forcedUncachedEdgeDifferences": "Reviewed loaded fractional-scroll fixture: 3502 changed pixels, edge max93, interior max5; outside viewport0; cold/warm0. Direct per-primitive clipping versus cached composite edge antialiasing only.",
+      "reviewMetrics": "artifacts/v022-review/cache-comparison-metrics.json"
+    },
+    "setPurchase": "ceil(missing original prices * 4 / 5); free playtest zero; atomic rights and debit; idempotent; stale quote rejects; no automatic equip",
+    "navigation": "four peer sections; two-column scroll list; independent detail; origin Back retention",
+    "displaySetCount": 16,
+    "fixedPaidSetCount": 15,
+    "classicPreset": {
+      "choices": 16,
+      "newCosmeticIds": 0,
+      "theme": [
+        "day",
+        "night"
+      ],
+      "cargo": [
+        "classic",
+        "outline"
+      ],
+      "forklift": [
+        "yellow",
+        "blue",
+        "red",
+        "white"
+      ],
+      "apply": "owned-only atomic three-slot and outline; explicit separate from acquire",
+      "rootPreviewDefault": {
+        "theme": "day",
+        "cargo": "classic",
+        "forklift": "yellow"
+      }
+    }
+  },
+  "soundEffects": {
+    "browserVolume": 0.45,
+    "wechatVolume": 1,
+    "sourceAssetsUnchanged": true
+  },
+  "artSource": "Reference-driven built-in imagegen, full masters retained; crop/resize/encode pipeline, original runtime semantic glyphs",
+  "artValidation": "Same-theme and cross-theme29/37px visual fixtures are not gameplay examples",
+  "cargoAtlas": {
+    "src": "assets/cargo-materials.png",
+    "width": 670,
+    "height": 2010,
+    "tileSize": 134,
+    "padding": 3,
+    "bodySize": 128,
+    "styles": [
+      "wood",
+      "insulated",
+      "reinforced",
+      "taped",
+      "toy_brick",
+      "paper_fold",
+      "space_case",
+      "ice_crystal",
+      "steam_brass",
+      "neon_circuit",
+      "lava_core",
+      "ocean_relic",
+      "royal_gold",
+      "field_supply",
+      "harbor_container"
+    ],
+    "cargos": [
+      "cargo.food",
+      "cargo.machine",
+      "cargo.chem",
+      "cargo.electronic",
+      "cargo.cold"
+    ],
+    "bytes": 351513,
+    "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+  },
+  "boardMaterialAtlas": {
+    "src": "assets/board-materials.png",
+    "width": 512,
+    "height": 512,
+    "tileSize": 128,
+    "themes": [
+      "day",
+      "night",
+      "harbor",
+      "cold_chain",
+      "rail_freight",
+      "express_sorting",
+      "toy_workshop",
+      "paper_warehouse",
+      "space_cargo",
+      "steam_foundry",
+      "neon_depot",
+      "lava_forge",
+      "ocean_vault",
+      "royal_store",
+      "field_station"
+    ],
+    "bytes": 166727,
+    "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+  },
+  "themedForkliftAtlas": {
+    "src": "assets/themed-forklifts.png",
+    "width": 2048,
+    "height": 128,
+    "tileSize": 128,
+    "tileColumns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15
+    ],
+    "paints": [
+      "electric",
+      "heavy",
+      "compact",
+      "toy",
+      "paper",
+      "space",
+      "steam",
+      "neon",
+      "lava",
+      "diving",
+      "royal",
+      "field",
+      "timber",
+      "ice",
+      "harbor"
+    ],
+    "bytes": 61052,
+    "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+  },
+  "artSourceMasters": [
+    "artifacts/v0190-art-source",
+    "artifacts/v0200-art-source",
+    "artifacts/v0200-scene-source",
+    "artifacts/v0210-art-source",
+    "artifacts/v0210-scene-source"
+  ],
+  "originalUserReferences": "artifacts/v0190-user-reference",
+  "sourceCacheExcluded": true,
+  "sceneMaterialAtlas": {
+    "src": "assets/scene-materials.png",
+    "width": 512,
+    "height": 960,
+    "tileSize": 64,
+    "frameSize": 128,
+    "variants": 3,
+    "tileBaseY": 512,
+    "tileColumns": 8,
+    "frameColumns": 4,
+    "extensionThemeStart": 13,
+    "extensionTileBaseY": 896,
+    "themes": [
+      "harbor",
+      "cold_chain",
+      "rail_freight",
+      "express_sorting",
+      "toy_workshop",
+      "paper_warehouse",
+      "space_cargo",
+      "steam_foundry",
+      "neon_depot",
+      "lava_forge",
+      "ocean_vault",
+      "royal_store",
+      "field_station",
+      "forest_depot",
+      "ice_vault"
+    ],
+    "bytes": 219775,
+    "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+  },
+  "priorReleaseValidation": {
+    "appVersion": "0.21.0-dev",
+    "sourceSha256": "139288c7940e2038943a5a541edac91850a1b44ff5f4fe1e98de50381b9d7ddd",
+    "validatedCodeCommit": "3845b299e570816f0d4c17d64467001353b3c6d2",
+    "testsPassed": 2395,
+    "hostCasesPassed": 148,
+    "hostStaticImages": 445,
+    "validationCommits": {
+      "aggregate": "ea49b39127332beebdd7d2c9051fd8c3cf33d26c",
+      "nativeHost": "3845b299e570816f0d4c17d64467001353b3c6d2",
+      "laterChanges": "Only QA navigation/filter and report aggregation changes after aggregate; all four product JS and four PNG hashes preserved; documentation and CHECKPOINT may follow"
+    },
+    "restoration": {
+      "status": "PASS",
+      "testsPassed": 2335,
+      "testExecution": "complete serial suite; prior parallel watchdog timing failure retained",
+      "freeAndPaidJsExact": true,
+      "allFourPngExact": true,
+      "sourceHashExact": true,
+      "httpBytesVerified": true
+    },
+    "restoreVerification": {
+      "status": "PASS",
+      "sourceSha256": "139288c7940e2038943a5a541edac91850a1b44ff5f4fe1e98de50381b9d7ddd",
+      "gitHistoryRestored": true,
+      "allArchivedFileHashes": true,
+      "focusedTestsPassed": 64,
+      "freeAndPaidJavaScriptExact": true,
+      "fourPngExact": true,
+      "httpBytesVerified": 7,
+      "scope": "Separate restored checkout lint/typecheck/preflight and new feature regressions; complete original run and isolated legacy watchdog evidence retained"
+    },
+    "uniqueTestsVerified": 2397,
+    "isolatedBaselineTestsPassed": 38,
+    "singleRunAllGreen": false,
+    "packageBudget": {
+      "wechatBytes": 3375943,
+      "budget": 4194304,
+      "remaining": 818361,
+      "gameJsBytes": 868329
+    }
+  },
+  "menuEntryDefaults": {
+    "inboundDifficulty": "hard",
+    "outboundSelectionMode": "normal",
+    "shopTab": "tools",
+    "activeRunUnaffected": true
+  },
+  "unitValidation": {
+    "fullRun": {
+      "total": 2479,
+      "passed": 2477,
+      "failed": 2,
+      "skipped": 0,
+      "log": "full-serial.log"
+    },
+    "resolvedCases": [
+      {
+        "file": "tests/audio-assets.test.ts",
+        "reason": "obsolete four-item pageSize assertion replaced with exact approved scroll manifest; audio hashes unchanged"
+      },
+      {
+        "file": "tests/permanent-rush-session-ui.test.ts",
+        "reason": "obsolete root expert retention assertion replaced with approved hard default; current-run assertions unchanged"
+      }
+    ],
+    "targetedRerun": {
+      "total": 30,
+      "passed": 30,
+      "failed": 0,
+      "log": "final-resolution-focused.log",
+      "includesNewSupplementTests": 3
+    },
+    "productSourceAfterFullRun": "175 src files exact against frozen Library v1",
+    "unresolvedUnitFailures": 0,
+    "claim": "Complete first run plus explicit focused resolutions; not a one-shot all-green full run"
+  },
+  "singleRunAllGreen": false,
+  "restoreVerification": {
+    "status": "PENDING_V022"
+  },
+  "nativeHostVerification": {
+    "status": "PENDING_V022",
+    "plannedChecks": 56,
+    "plannedGameJsCases": 54,
+    "sourceProtectionChecks": 2
+  }
 }

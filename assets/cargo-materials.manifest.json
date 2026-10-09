@@ -1,0 +1,598 @@
+{
+  "generation": "built-in imagegen; original references inspected; runtime icons composited separately",
+  "compiler": "compile-raster-cargo.py",
+  "width": 670,
+  "height": 2010,
+  "tileSize": 134,
+  "bodySize": 128,
+  "padding": 3,
+  "styles": [
+    "wood",
+    "insulated",
+    "reinforced",
+    "taped",
+    "toy_brick",
+    "paper_fold",
+    "space_case",
+    "ice_crystal",
+    "steam_brass",
+    "neon_circuit",
+    "lava_core",
+    "ocean_relic",
+    "royal_gold",
+    "field_supply",
+    "harbor_container"
+  ],
+  "cargos": [
+    "cargo.food",
+    "cargo.machine",
+    "cargo.chem",
+    "cargo.electronic",
+    "cargo.cold"
+  ],
+  "sources": [
+    {
+      "style": "wood",
+      "path": "artifacts/v0200-art-source/cargo-wood-generated.png",
+      "sha256": "fa9d05582676e0bb66d41aa9c0aa10f9addb92e45927c3a205774211ff9b63bd",
+      "cropRects": [
+        [
+          48,
+          61,
+          498,
+          481
+        ],
+        [
+          541,
+          61,
+          990,
+          481
+        ],
+        [
+          1035,
+          61,
+          1483,
+          481
+        ],
+        [
+          48,
+          536,
+          499,
+          956
+        ],
+        [
+          541,
+          537,
+          991,
+          956
+        ]
+      ]
+    },
+    {
+      "style": "insulated",
+      "path": "artifacts/v0190-art-source/insulated-generated.png",
+      "sha256": "4afe6e4ac0dead9febe97c8b2b9d31df6ec71576f17d7e64fca9393666f8132b",
+      "cropRects": [
+        [
+          65,
+          37,
+          483,
+          475
+        ],
+        [
+          549,
+          37,
+          964,
+          475
+        ],
+        [
+          1052,
+          37,
+          1467,
+          475
+        ],
+        [
+          65,
+          530,
+          483,
+          965
+        ],
+        [
+          549,
+          530,
+          964,
+          965
+        ]
+      ]
+    },
+    {
+      "style": "reinforced",
+      "path": "artifacts/v0190-art-source/reinforced-generated.png",
+      "sha256": "e1719a8b68b2c600085542129f73b8b1becf220b1534dd802fdc0f676afc3068",
+      "cropRects": [
+        [
+          42,
+          55,
+          491,
+          474
+        ],
+        [
+          547,
+          55,
+          994,
+          474
+        ],
+        [
+          1052,
+          56,
+          1501,
+          474
+        ],
+        [
+          42,
+          534,
+          491,
+          954
+        ],
+        [
+          547,
+          534,
+          995,
+          953
+        ]
+      ]
+    },
+    {
+      "style": "taped",
+      "path": "artifacts/v0190-art-source/taped-generated.png",
+      "sha256": "ab859bcd19af53d5358e1aabbd73679a31d25d44976051ab8094b0297b4c7f9d",
+      "cropRects": [
+        [
+          49,
+          58,
+          502,
+          475
+        ],
+        [
+          551,
+          58,
+          1000,
+          475
+        ],
+        [
+          1048,
+          57,
+          1499,
+          475
+        ],
+        [
+          49,
+          538,
+          503,
+          955
+        ],
+        [
+          551,
+          537,
+          1000,
+          954
+        ]
+      ]
+    },
+    {
+      "style": "toy_brick",
+      "path": "artifacts/v0190-art-source/toy_brick-generated.png",
+      "sha256": "1bd3c97d63642555bf45091f0971b02d308fdf7c108c84529b58ed556f70d80e",
+      "cropRects": [
+        [
+          41,
+          49,
+          504,
+          500
+        ],
+        [
+          541,
+          49,
+          1001,
+          500
+        ],
+        [
+          1039,
+          49,
+          1504,
+          500
+        ],
+        [
+          41,
+          534,
+          503,
+          982
+        ],
+        [
+          541,
+          534,
+          1002,
+          982
+        ]
+      ]
+    },
+    {
+      "style": "paper_fold",
+      "path": "artifacts/v0190-art-source/paper_fold-generated.png",
+      "sha256": "ec4cb95251da90e0bdcf43ce3ae19883bb68b41c710be13dcf7de72ce37c720b",
+      "cropRects": [
+        [
+          38,
+          32,
+          511,
+          478
+        ],
+        [
+          549,
+          32,
+          1020,
+          478
+        ],
+        [
+          1058,
+          33,
+          1527,
+          478
+        ],
+        [
+          37,
+          529,
+          513,
+          975
+        ],
+        [
+          549,
+          529,
+          1019,
+          976
+        ]
+      ]
+    },
+    {
+      "style": "space_case",
+      "path": "artifacts/v0190-art-source/space_case-generated.png",
+      "sha256": "ef98ae709d052812fdd1537ab27b5d6908607aa8a87a55bb0d160747817a5ffe",
+      "cropRects": [
+        [
+          40,
+          43,
+          510,
+          483
+        ],
+        [
+          536,
+          43,
+          1005,
+          483
+        ],
+        [
+          1032,
+          43,
+          1501,
+          483
+        ],
+        [
+          40,
+          532,
+          510,
+          974
+        ],
+        [
+          537,
+          532,
+          1005,
+          974
+        ]
+      ]
+    },
+    {
+      "style": "ice_crystal",
+      "path": "artifacts/v0190-art-source/ice_crystal-generated.png",
+      "sha256": "565f2bf36d01f119649d54ab04281c4bf733d87b4f1ce83dfd01f259707ba6bb",
+      "cropRects": [
+        [
+          49,
+          48,
+          526,
+          482
+        ],
+        [
+          533,
+          48,
+          1009,
+          482
+        ],
+        [
+          1013,
+          48,
+          1493,
+          482
+        ],
+        [
+          50,
+          529,
+          526,
+          967
+        ],
+        [
+          533,
+          529,
+          1012,
+          968
+        ]
+      ]
+    },
+    {
+      "style": "steam_brass",
+      "path": "artifacts/v0190-art-source/steam_brass-generated.png",
+      "sha256": "ed0e120d8f9c02a8fe0426b8318d3afaf6ca3b77976851c48c3f0d5776cfe8ee",
+      "cropRects": [
+        [
+          41,
+          6,
+          525,
+          467
+        ],
+        [
+          555,
+          6,
+          1031,
+          466
+        ],
+        [
+          1069,
+          6,
+          1534,
+          466
+        ],
+        [
+          42,
+          505,
+          525,
+          969
+        ],
+        [
+          555,
+          505,
+          1033,
+          969
+        ]
+      ]
+    },
+    {
+      "style": "neon_circuit",
+      "path": "artifacts/v0200-art-source/cargo-neon_circuit-generated.png",
+      "sha256": "9f9f7c51325f16f05d72473690950b4ada479b8d2568d60ae4cdaa80e73bcada",
+      "cropRects": [
+        [
+          46,
+          38,
+          504,
+          485
+        ],
+        [
+          537,
+          38,
+          1003,
+          485
+        ],
+        [
+          1036,
+          39,
+          1490,
+          485
+        ],
+        [
+          46,
+          525,
+          504,
+          972
+        ],
+        [
+          537,
+          525,
+          1003,
+          972
+        ]
+      ]
+    },
+    {
+      "style": "lava_core",
+      "path": "artifacts/v0200-art-source/cargo-lava_core-generated.png",
+      "sha256": "af900a3f69881c20cfc30dc623a94963e9517a7856f14b6e04816e5c2d578676",
+      "cropRects": [
+        [
+          28,
+          50,
+          509,
+          491
+        ],
+        [
+          537,
+          49,
+          1017,
+          492
+        ],
+        [
+          1038,
+          49,
+          1513,
+          491
+        ],
+        [
+          28,
+          526,
+          509,
+          970
+        ],
+        [
+          538,
+          526,
+          1018,
+          971
+        ]
+      ]
+    },
+    {
+      "style": "ocean_relic",
+      "path": "artifacts/v0200-art-source/cargo-ocean_relic-generated.png",
+      "sha256": "ccf13b3baa74b9e059bd12dd84a044e537c194e92bdf7e0b8f49b34f47fb2568",
+      "cropRects": [
+        [
+          51,
+          56,
+          511,
+          491
+        ],
+        [
+          544,
+          54,
+          991,
+          490
+        ],
+        [
+          1030,
+          54,
+          1486,
+          491
+        ],
+        [
+          55,
+          536,
+          512,
+          971
+        ],
+        [
+          542,
+          534,
+          992,
+          970
+        ]
+      ]
+    },
+    {
+      "style": "royal_gold",
+      "path": "artifacts/v0190-art-source/royal_gold-generated.png",
+      "sha256": "532c9a67ea526401e26226d106ed11408865a38cf13786e3da4637a0e3d9b62f",
+      "cropRects": [
+        [
+          32,
+          15,
+          481,
+          454
+        ],
+        [
+          543,
+          15,
+          990,
+          454
+        ],
+        [
+          1059,
+          15,
+          1508,
+          455
+        ],
+        [
+          32,
+          529,
+          482,
+          969
+        ],
+        [
+          544,
+          529,
+          992,
+          969
+        ]
+      ]
+    },
+    {
+      "style": "field_supply",
+      "path": "artifacts/v0190-art-source/field_supply-generated.png",
+      "sha256": "657519b2494a14bcec972f20e0b0b788a3a108d39b9a28359923a220935546e3",
+      "cropRects": [
+        [
+          34,
+          70,
+          496,
+          489
+        ],
+        [
+          530,
+          70,
+          992,
+          489
+        ],
+        [
+          1028,
+          70,
+          1495,
+          489
+        ],
+        [
+          34,
+          553,
+          499,
+          972
+        ],
+        [
+          529,
+          552,
+          993,
+          972
+        ]
+      ]
+    },
+    {
+      "style": "harbor_container",
+      "path": "artifacts/v0210-art-source/cargo-harbor_container-generated.png",
+      "sha256": "729011593908bc555c12c777cbb1064061909c7cb32a17f8f51f9c3111f8d8c5",
+      "cropRects": [
+        [
+          55,
+          33,
+          501,
+          467
+        ],
+        [
+          547,
+          33,
+          991,
+          467
+        ],
+        [
+          1037,
+          33,
+          1482,
+          467
+        ],
+        [
+          290,
+          506,
+          739,
+          940
+        ],
+        [
+          785,
+          506,
+          1236,
+          940
+        ]
+      ]
+    }
+  ],
+  "bytes": 351513,
+  "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+  "preservation": {
+    "path": "artifacts/v0210-art-source/cargo-v020-protected.png",
+    "sha256": "8b5dddd5c36fa3dc53da6f22b794dfa79d1a20c015199050e39e79b78d49646f",
+    "rows": 14,
+    "encoding": "Original palette/index buffer retained; appended row nearest premultiplied RGBA palette encoding only"
+  }
+}

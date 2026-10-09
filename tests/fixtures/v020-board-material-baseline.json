@@ -1,0 +1,65 @@
+{
+  "source": "c837a00 before v0.20 scene edits",
+  "canvas": [
+    1080,
+    1920
+  ],
+  "entries": [
+    {
+      "name": "day-7-fallback",
+      "theme": "day",
+      "dimension": 7,
+      "loaded": false,
+      "pixelSha256": "b758cfe4b5202ed208cf7efb7da013a4c02f3c469370702ef002cb7dbdbe64dd"
+    },
+    {
+      "name": "day-9-fallback",
+      "theme": "day",
+      "dimension": 9,
+      "loaded": false,
+      "pixelSha256": "4265c099bd1996f099153a585081a77115344e751837e4baf9e8aebd1f7c42c0"
+    },
+    {
+      "name": "night-7-fallback",
+      "theme": "night",
+      "dimension": 7,
+      "loaded": false,
+      "pixelSha256": "1ff68b58b92d804f6ba5c989945b32a2c4357fd213ab1758dbee6ef34a2bb1f3"
+    },
+    {
+      "name": "night-9-fallback",
+      "theme": "night",
+      "dimension": 9,
+      "loaded": false,
+      "pixelSha256": "cbd6d50bd19637bf699813899d79f1291c36f540440cbf42b9bfd083614d4faa"
+    },
+    {
+      "name": "day-7-loaded",
+      "theme": "day",
+      "dimension": 7,
+      "loaded": true,
+      "pixelSha256": "4fe6725fc7e60dbfd86bc579540971c3fe3c08b3e892efdb83a35dbd346427b6"
+    },
+    {
+      "name": "day-9-loaded",
+      "theme": "day",
+      "dimension": 9,
+      "loaded": true,
+      "pixelSha256": "48aa8d17708c2905f24bbf294f503c833e4911a6ce4f8cf94251108cbf7890b4"
+    },
+    {
+      "name": "night-7-loaded",
+      "theme": "night",
+      "dimension": 7,
+      "loaded": true,
+      "pixelSha256": "b2a30e1ff4c8acfce97f49c8c2bf2de353ad2f56c5b25ad14e5437bf9ecc8161"
+    },
+    {
+      "name": "night-9-loaded",
+      "theme": "night",
+      "dimension": 9,
+      "loaded": true,
+      "pixelSha256": "37fa85fcb6e31dbc44dd05b3bc54db14cfe447cddd0fec01f999d64e48800a01"
+    }
+  ]
+}

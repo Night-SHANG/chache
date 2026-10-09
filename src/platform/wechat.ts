@@ -1,11 +1,13 @@
+import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
+import { createMusicController } from './music.ts';
 import { L, mapClientPoint } from '../presentation/layout.ts';
 interface MiniCanvas {width:number;height:number;getContext(type:'2d'):CanvasRenderingContext2D|null}
 interface WindowInfo {windowWidth:number;windowHeight:number;pixelRatio:number;safeArea?:{left:number;top:number;width:number;height:number}}
 interface MiniTouch {identifier:number;clientX:number;clientY:number}
 interface TouchEvent {changedTouches:MiniTouch[]}
-interface MiniAudio {src:string;play():void|Promise<void>;stop():void;destroy():void;onError?(callback:()=>void):void}
+interface MiniAudio {src:string;loop?:boolean;volume?:number;pause?():void;play():void|Promise<void>;stop():void;destroy():void;onError?(callback:()=>void):void}
 interface MiniImage {src:string;onload:(()=>void)|null;onerror:((error:unknown)=>void)|null}
 export interface WechatHost {
  createCanvas():MiniCanvas;getWindowInfo?():WindowInfo;getSystemInfoSync?():WindowInfo;
@@ -34,8 +36,17 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  };
  resize();host.onWindowResize?.(resize);
  const sounds=new Map<SoundName,MiniAudio>();
+ const activeTouches=new Set<number>();
+ const showCallbacks:(()=>void)[]=[];
+ let soundtrack:MiniAudio|undefined;
+ const music=createMusicController(onError=>{
+  if(!soundtrack){soundtrack=host.createInnerAudioContext();try{soundtrack.onError?.(onError);}catch{/* Optional host error listener. */}}
+  soundtrack.src='assets/bgm.mp3';soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;
+  const audio=soundtrack;return {play:()=>audio.play(),pause:()=>{if(audio.pause)audio.pause();else audio.stop();}};
+ });
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
  const platform:Platform={
+  createCanvasSurface:()=>{const surface=host.createCanvas();if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
   writerLease:{status:context==='main'?'held':'unsupported',release(){this.status='unsupported';}},
   storage:{get:key=>{const value=host.getStorageSync(key);if(value===''||value===undefined||value===null)return null;if(typeof value!=='string')throw Error('存储格式无效');return value;},set:(key,value)=>host.setStorageSync(key,value),remove:key=>host.removeStorageSync(key),
    ...(host.getStorageInfoSync?{listKeys:(prefix:string)=>host.getStorageInfoSync!().keys.filter(key=>key.startsWith(prefix)).sort(),capacity:()=>{
@@ -47,13 +58,17 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
   frame:callback=>clock.requestAnimationFrame(()=>callback(clock.now())),now:clock.now,wallTime:()=>Date.now(),
   onPointer:callback=>{
    const convert=(type:PointerEvent['type'])=>(event:TouchEvent)=>{
-    if(type==='cancel'){callback({type,point:{x:-1,y:-1},id:event.changedTouches[0]?.identifier??0});return;}
-    for(const touch of event.changedTouches){const point=mapClientPoint({x:touch.clientX,y:touch.clientY},viewport)??{x:-1,y:-1};callback({type,point,id:touch.identifier});}
+    if(type==='cancel'){
+     const ids=event.changedTouches.length?event.changedTouches.map(touch=>touch.identifier):[...activeTouches];
+     for(const id of ids){activeTouches.delete(id);callback({type,point:{x:-1,y:-1},id});}return;
+    }
+    const dispatch=()=>{for(const touch of event.changedTouches){if(type==='down')activeTouches.add(touch.identifier);else if(type==='up')activeTouches.delete(touch.identifier);const point=mapClientPoint({x:touch.clientX,y:touch.clientY},viewport)??{x:-1,y:-1};callback({type,point,id:touch.identifier});}};
+    if(type==='down'&&event.changedTouches.length)music.gesture(dispatch);else dispatch();
    };
    host.onTouchStart(convert('down'));host.onTouchMove(convert('move'));host.onTouchEnd(convert('up'));host.onTouchCancel(convert('cancel'));
   },
-  onHide:callback=>host.onHide(()=>{stopSounds();callback();}),
-  onShow:callback=>host.onShow(()=>{resize();callback();}),
+  onHide:callback=>host.onHide(()=>{activeTouches.clear();music.hide();stopSounds();callback();}),
+  onShow:callback=>{showCallbacks.push(callback);if(showCallbacks.length===1)host.onShow(()=>{resize();for(const listener of showCallbacks)listener();music.show();});},
   playSound:name=>{
    if(!SOUND_NAMES.includes(name))return;
    try{
@@ -63,10 +78,10 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
      try{sound.onError?.(()=>{});}catch{/* Error listeners are optional and registered at most once per handle. */}
     }
     const path=`assets/${name}.wav`;if(sound.src!==path)sound.src=path;
-    sound.stop();const playing=sound.play();if(playing)void playing.catch(()=>{});
+    sound.volume=AUDIO_LEVELS.wechatEffects;sound.stop();const playing=sound.play();if(playing)void playing.catch(()=>{});
    }catch{/* Audio never gates offline gameplay. */}
   },
-  stopSounds,
+  stopSounds,setMusicState:music.setState,
   loadImage:path=>new Promise((resolve,reject)=>{const image=host.createImage();image.onload=()=>resolve(image as unknown as CanvasImageSource);image.onerror=reject;image.src=path;}),
  };
  return platform;

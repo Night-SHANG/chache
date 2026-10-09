@@ -1,0 +1,79 @@
+{
+  "entries": [
+    {
+      "theme": "day",
+      "result": false,
+      "pixelSha256": "538fc88a7e6ff735ad41ddf0f0065267004add5bf141ceed4587ddf0c8514d95"
+    },
+    {
+      "theme": "night",
+      "result": false,
+      "pixelSha256": "538fc88a7e6ff735ad41ddf0f0065267004add5bf141ceed4587ddf0c8514d95"
+    },
+    {
+      "theme": "harbor",
+      "result": false,
+      "pixelSha256": "538fc88a7e6ff735ad41ddf0f0065267004add5bf141ceed4587ddf0c8514d95"
+    },
+    {
+      "theme": "cold_chain",
+      "result": true,
+      "pixelSha256": "6b3194f9f3fa8b5e4be51bbff68fc3a43004c6850a54d9498090544f49799dcb"
+    },
+    {
+      "theme": "rail_freight",
+      "result": true,
+      "pixelSha256": "142b2d9202059e72c80d58176073bc1b31888c3b2e49a30b0dfecec29a60d877"
+    },
+    {
+      "theme": "express_sorting",
+      "result": true,
+      "pixelSha256": "4a427ea13e0a85161e1594322f78ca91512a310cd89a7f0563d7c6815a50d317"
+    },
+    {
+      "theme": "toy_workshop",
+      "result": true,
+      "pixelSha256": "8b306227a0720110474ea05dd6cc81676e82b2025668d7b2aa03049bfc916936"
+    },
+    {
+      "theme": "paper_warehouse",
+      "result": true,
+      "pixelSha256": "7b2b93dba03e1be5aa341a3cc249bdedcdc10f95f2dc966629cfab200280a489"
+    },
+    {
+      "theme": "space_cargo",
+      "result": true,
+      "pixelSha256": "ef0210b51de60b9508cc408621c3a081f3805b19cabaeca4f756c484b7e39d85"
+    },
+    {
+      "theme": "steam_foundry",
+      "result": true,
+      "pixelSha256": "c81b218e16371e6c5458408821127d03b2c54ad5fdbede1ce29cd53885e1c7e7"
+    },
+    {
+      "theme": "neon_depot",
+      "result": true,
+      "pixelSha256": "2fdcf251f9d06d264e2910fda5dc44fd4c902923060b586139f6b40f4c4603eb"
+    },
+    {
+      "theme": "lava_forge",
+      "result": true,
+      "pixelSha256": "805504dd91497b45c7394575a00a8883d06f40705f5ffeebeaba565fbff2e90e"
+    },
+    {
+      "theme": "ocean_vault",
+      "result": true,
+      "pixelSha256": "5aa2a584cc8971a1c1a6a24a900e3b06a907aeb5bd9a5fbe6d11e63fe7fa234f"
+    },
+    {
+      "theme": "royal_store",
+      "result": true,
+      "pixelSha256": "e1c676f1320fe86984083cd16935b51dd88e01afe1ee194e811891ca75dba975"
+    },
+    {
+      "theme": "field_station",
+      "result": true,
+      "pixelSha256": "44c40ea652f0fc1f58e2e9cbdc49ac870c779fb81255e850d01f4d62b9bde46e"
+    }
+  ]
+}

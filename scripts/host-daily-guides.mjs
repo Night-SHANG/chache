@@ -36,7 +36,7 @@ const inSpec=(mode='standard',seed=1,inboundDifficulty='normal',guided=false,too
 const words=d=>d.h.labels.map(g=>g.text),rush=s=>s.cellTraits?.some(t=>t?.kind==='rush');
 const paidAppearance={ownedCosmetics:[...FREE_COSMETICS,'cargo.wood','forklift.white','theme.harbor'].sort(),cosmetics:{theme:'harbor',cargo:'wood',forklift:'white'},cargoOutline:true};
 export function hostControlPaintLabels(control,rulesetVersion){
- if(control.action.type==='chooseCleanup')return control.action.branch==='orders'?['按单清扫','每完成2单，','清除1格废弃物']:['定期清扫',rulesetVersion===16?'每成功放置6次，':'每放置6次，','清除1格废弃物'];
+ if(control.action.type==='chooseCleanup')return control.action.branch==='orders'?['按单清扫','每完成2单，','清除1格废弃箱']:['定期清扫',rulesetVersion===16?'每成功放置6次，':'每放置6次，','清除1格废弃箱'];
  return control.label.split(['purchase','purchaseCosmetic'].includes(control.action.type)?' · ':'\n');
 }
 export function practiceAnimationExitTarget(practice,animationActive){const control=getUiControls(practice.state,{practice:{kind:practice.kind,completed:practice.completed},paused:false,animation:animationActive?{}:null}).find(c=>c.action.type==='exitPractice');return control?center(control.rect):null;}

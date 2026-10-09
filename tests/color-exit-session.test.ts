@@ -86,10 +86,10 @@ test('failed mode-pointer write never overwrites an existing target order save',
   switchTo(s,'color_exit');assert.equal(s.view.needsResume,true);const before=checksum(legacyState(s));s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(checksum(legacyState(s)),before);
   s.resume();assert.equal(s.view.needsResume,false);s.dispatch({type:'place',...findLegalMoves(legacyState(s))[0]});assert.equal(s.view.saveStatus,'已保存');assert.ok([...h.data.values()].includes('broken-main'));
  });
- // Immediate daily start reads the old slot once for the menu and twice for preparation before the account transaction.
+ // Rush preparation is reversible; inject the old-slot read failure at the actual start transaction.
  test('unavailable target read cannot silently bypass new-run confirmation',()=>{
   const h=host(),s=resumeStoredLegacy(h.port,{seed:1,mode:'tutorial'});color(s);s.hide();const before=JSON.stringify([...h.data]),order=h.data.get(SAVE_KEYS.main),oldColor=h.data.get(COLOR);h.failReadOnce(SAVE_KEYS.main);s.action({type:'newRun',mode:'daily'});
-  assert.equal(s.view.confirmation?.kind,'newRun');assert.equal(s.state.mode,'color_exit');assert.equal(JSON.stringify([...h.data]),before);s.action({type:'cancel'});assert.equal(JSON.stringify([...h.data]),before);s.action({type:'newRun',mode:'daily'});assert.equal(s.view.confirmation?.kind,'newRun');h.failReadOnce(SAVE_KEYS.main,3);s.action({type:'confirm'});assert.equal(s.view.accountBlocked,true);assert.equal(s.view.account,null);assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),oldColor);
+  assert.equal(s.view.confirmation?.kind,'newRun');assert.equal(s.state.mode,'color_exit');assert.equal(JSON.stringify([...h.data]),before);s.action({type:'cancel'});assert.equal(JSON.stringify([...h.data]),before);s.action({type:'newRun',mode:'daily'});assert.equal(s.view.confirmation?.kind,'newRun');s.action({type:'confirm'});assert.equal(s.view.screen,'prepareTools');h.failReadOnce(SAVE_KEYS.main);s.action({type:'prepareNext'});assert.equal(s.view.accountBlocked,true);assert.equal(s.view.account,null);assert.equal(h.data.get(SAVE_KEYS.main),order);assert.equal(h.data.get(COLOR),oldColor);
  });
  test('profile reset stops on unreadable inactive progress without touching either store',()=>{
   const h=host(),s=resumeStoredLegacy(h.port,{seed:1,mode:'tutorial'});color(s);s.action({type:'settings'});const before=JSON.stringify([...h.data]);h.failReadOnce(SAVE_KEYS.main);s.action({type:'resetProfile'});s.action({type:'confirm'});

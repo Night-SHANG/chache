@@ -49,10 +49,16 @@ test('previews and refresh leave account1/2 bytes unchanged until the requested 
   }
 });
 
-test('format3 includes exactly five free rights and all identifiers and catalog prices are unique', () => {
+test('current catalog retains five free rights, 53 unique identifiers and exact independent prices', () => {
   assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 10);
-  assert.deepEqual(COSMETIC_CATALOG.filter(item => item.price > 0).map(item => [item.key, item.price]).sort(), [['cargo.wood', 300], ['forklift.white', 600], ['theme.harbor', 900]]);
+  assert.equal(COSMETIC_CATALOG.length, 53);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
+  assert.deepEqual(COSMETIC_CATALOG.filter(item => item.price > 0).map(item => [item.key, item.price]).sort(), [
+    ['cargo.harbor_container', 300], ['forklift.timber', 600], ['forklift.ice', 600], ['forklift.harbor', 600], ['theme.forest_depot', 900], ['theme.ice_vault', 900],
+    ['cargo.field_supply', 300], ['cargo.ice_crystal', 300], ['cargo.lava_core', 300], ['cargo.neon_circuit', 300], ['cargo.ocean_relic', 300], ['cargo.royal_gold', 300], ['cargo.steam_brass', 300], ['cargo.insulated', 300], ['cargo.paper_fold', 300], ['cargo.reinforced', 300], ['cargo.space_case', 300], ['cargo.taped', 300], ['cargo.toy_brick', 300], ['cargo.wood', 300],
+    ['forklift.diving', 600], ['forklift.field', 600], ['forklift.lava', 600], ['forklift.neon', 600], ['forklift.royal', 600], ['forklift.steam', 600], ['forklift.compact', 600], ['forklift.electric', 600], ['forklift.heavy', 600], ['forklift.paper', 600], ['forklift.space', 600], ['forklift.toy', 600], ['forklift.white', 600],
+    ['theme.field_station', 900], ['theme.lava_forge', 900], ['theme.neon_depot', 900], ['theme.ocean_vault', 900], ['theme.royal_store', 900], ['theme.steam_foundry', 900], ['theme.cold_chain', 900], ['theme.express_sorting', 900], ['theme.harbor', 900], ['theme.paper_warehouse', 900], ['theme.rail_freight', 900], ['theme.space_cargo', 900], ['theme.toy_workshop', 900],
+  ].sort());
 });
 
 test('inbound formal proof unlocks blue, only standard win unlocks red, and erased history stays erased', () => {

@@ -1,0 +1,114 @@
+{
+  "id": "cozy-puzzle-1",
+  "title": "Cozy Puzzle In-Game 1",
+  "creator": "MintoDog",
+  "page": "https://opengameart.org/content/cozy-puzzle-in-game-1",
+  "original_url": "https://opengameart.org/sites/default/files/cozy_puzzle_in-game_1_bpm118_0.ogg",
+  "original_file": "source/cozy-puzzle-1-original.ogg",
+  "ready_file": "ready/cozy-puzzle-1-96k.mp3",
+  "bpm": 118,
+  "source_tags": [
+    "cozy",
+    "Puzzle",
+    "stage",
+    "saxophone",
+    "flute",
+    "mallets",
+    "bossa nova",
+    "Relax",
+    "loopable"
+  ],
+  "recommendation": "Primary candidate: creator tags fit a relaxed, warm puzzle game. Complete original loop is retained; 130 seconds is longer than preferred but its 1.49 MiB MP3 fits the size budget.",
+  "license": "CC0 1.0 Universal",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "legal_code_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+  "attribution_required": false,
+  "commercial_use_and_redistribution": "Permitted under CC0, including bundling the audio in a commercial game and a source repository. The creator supplies the music under CC0; this is not a warranty that all third-party rights have been cleared.",
+  "retrieved_utc": "2026-10-08",
+  "human_listening_performed": false,
+  "game_runtime_loop_test_performed": false,
+  "technical": {
+    "gain_db": -5.89,
+    "measurements": [
+      {
+        "filename": "cozy-puzzle-1-original.ogg",
+        "sha256": "afa440cb8814907b215b285a0503d39b125b6c83d9fca3f686c969107f04c7f7",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "44100",
+              "channels": 2
+            }
+          ],
+          "format": {
+            "duration": "130.169501",
+            "size": "4036007",
+            "bit_rate": "248046"
+          }
+        },
+        "decoded_samples": 5740475,
+        "decoded_seconds": 130.16950113378684,
+        "sample_peak_dbfs": -1.138,
+        "overall_rms_dbfs": -14.216,
+        "boundary_jump_linear": [
+          0.008973169140517712,
+          0.009035974740982056
+        ],
+        "boundary_jump_dbfs": -40.881,
+        "first_10ms_rms_dbfs": -13.731,
+        "last_10ms_rms_dbfs": -20.341,
+        "first_50ms_rms_dbfs": -11.296,
+        "last_50ms_rms_dbfs": -19.552,
+        "first_1s_rms_dbfs": -14.411,
+        "last_1s_rms_dbfs": -15.353,
+        "near_zero_start_samples": 0,
+        "near_zero_end_samples": 0
+      },
+      {
+        "filename": "cozy-puzzle-1-96k.mp3",
+        "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "mp3",
+              "sample_rate": "44100",
+              "channels": 2
+            }
+          ],
+          "format": {
+            "duration": "130.220408",
+            "size": "1563002",
+            "bit_rate": "96021"
+          }
+        },
+        "decoded_samples": 5740475,
+        "decoded_seconds": 130.16950113378684,
+        "sample_peak_dbfs": -6.862,
+        "overall_rms_dbfs": -20.548,
+        "boundary_jump_linear": [
+          0.007361330091953278,
+          0.006211286410689354
+        ],
+        "boundary_jump_dbfs": -42.661,
+        "first_10ms_rms_dbfs": -20.359,
+        "last_10ms_rms_dbfs": -26.82,
+        "first_50ms_rms_dbfs": -17.641,
+        "last_50ms_rms_dbfs": -25.952,
+        "first_1s_rms_dbfs": -20.744,
+        "last_1s_rms_dbfs": -21.705,
+        "near_zero_start_samples": 0,
+        "near_zero_end_samples": 0
+      }
+    ]
+  },
+  "ready_size_bytes": 1563002,
+  "ready_sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+  "changes": "Full duration retained. Static level reduction and 44.1 kHz stereo, 96 kbps CBR MP3 encoding with Xing/LAME gapless metadata; no cut, crossfade, rearrangement or other musical edit.",
+  "ready_loudness_lufs": -18.44,
+  "ready_true_peak_dbtp": -6.85
+}

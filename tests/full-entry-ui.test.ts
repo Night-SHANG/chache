@@ -69,7 +69,7 @@ test('confirmation is the only actionable layer even above settings, pause and a
 
 test('menu and settings controls take precedence over paused and terminal runs', () => {
   assert.equal(getUiControls(result(), view({ screen: 'menu', paused: true }))[0]?.action.type, 'chooseInbound');
-  assert.equal(getUiControls(result(), view({ screen: 'settings', paused: true }))[0]?.action.type, 'toggleSound');
+  assert.equal(getUiControls(result(), view({ screen: 'settings', paused: true }))[0]?.action.type, 'toggleMusic');
   assert.deepEqual(getUiControls(result(), view({ paused: true })), getUiControls(result(), view()));
   const output=surface();render(output.ctx,result(),view({paused:true}));assert.match(output.words(),/完美收工/);assert.doesNotMatch(output.words(),/已暂停|玩法说明/);
 });
@@ -77,14 +77,15 @@ test('menu and settings controls take precedence over paused and terminal runs',
 test('settings show real Profile toggles and record recovery while appearance lives in the shop', () => {
   const profile = createProfile(); profile.settings.sound = false; profile.settings.reducedMotion = true;
   let controls = getUiControls(run(), view({ screen: 'settings', profile }));
+  assert.equal(controls.find(c => c.action.type === 'toggleMusic')?.selected, true);
   assert.equal(controls.find(c => c.action.type === 'toggleSound')?.selected, false);
   assert.equal(controls.find(c => c.action.type === 'toggleMotion')?.selected, true);
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleMotion', 'resetProfile', 'back']);
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', profile }));
   assert.doesNotMatch(output.words(), /仓库主题|叉车涂装|货箱样式/);
   profile.achievements = ['first_shipment', 'five_shifts'];
   controls = getUiControls(run(), view({ screen: 'settings', profile, profileStatus: '主记录不可用，可恢复上一份长期记录备份', profileNeedsRecovery: true }));
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
   assert.ok(controls.some(c => c.action.type === 'recoverProfile'));
   assert.ok(controls.some(c => c.action.type === 'resetProfile'));
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);
@@ -103,7 +104,7 @@ test('only v3 five-shift standard victory offers overtime; every terminal mode o
     assert.ok(controls.some(c => c.action.type === 'home'));
   }
   const daily = getUiControls(result({ mode: 'daily' }), view()).find(c => c.action.type === 'newRun');
-  assert.deepEqual(daily?.action, { type: 'newRun', mode: 'daily' });
+  assert.deepEqual(daily?.action, { type: 'newRun', mode: 'rush' });
   assert.equal(getUiControls(result({ mode: 'tutorial' }), view()).find(c => c.action.type === 'newRun')?.label, '开始正式值班');
 });
 
@@ -115,7 +116,7 @@ test('controls are pure geometry and their visible captions share hit-test cente
   for (const control of controls) for(const line of control.label.split('\n')) assert.ok(output.labels.some(label => label.value === line && label.x === control.rect.x + control.rect.w / 2 && label.y > control.rect.y && label.y < control.rect.y + control.rect.h));
 });
 
-test('home shows achievements and real save status while inbound submenu owns scores and daily date', () => {
+test('home shows achievements and real save status while inbound submenu owns scores and undated rush entry', () => {
   const profile = createProfile(); profile.bestScores['standard.v3'] = { score: 7654, chain: 3 }; profile.bestScores['overtime.v3'] = { score: 19876, chain: 5 }; profile.achievements = ['first_shipment'];
   const account=upgradeAccountGuides(retainAccountCosmetics(upgradeEconomy(makeAccountFixture()))),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
   account.profile.results={'inbound.standard.v18.hard.plain':bucket(1234),'inbound.standard.v18.hard.tools':bucket(2456),'inbound.endless.v18.hard.plain':bucket(3456),'inbound.endless.v18.hard.tools':bucket(4567),'inbound.standard.v16.normal.plain':bucket(9911),'inbound.endless.v16.plain':bucket(9922)};
@@ -123,15 +124,15 @@ test('home shows achievements and real save status while inbound submenu owns sc
   const current=view({screen:'menu',profile,account,dailyLabel:'2031-04-07',profileStatus:'保存失败，尚未持久化'}),home=surface(),inbound=surface();
   render(home.ctx,run(),current);render(inbound.ctx,run(),{...current,screen:'inboundMenu',inboundDifficulty:'hard'});
   assert.match(home.words(), /首次出货/);assert.doesNotMatch(home.words(), /无在线排行|本地记录模式/);
-  assert.match(inbound.words(), /困难五班/);assert.match(inbound.words(), /最高分 1,234/);assert.match(inbound.words(), /使用道具最高分 2,456/);assert.match(inbound.words(), /最高分 3,456/);assert.match(inbound.words(), /使用道具最高分 4,567/);assert.doesNotMatch(inbound.words(), /7,654|19,876|9,911|9,922|加班最高分/);assert.match(inbound.words(), /2031-04-07/);
-  const legacyOnly=surface();render(legacyOnly.ctx,run(),{...current,account:null,screen:'inboundMenu',inboundDifficulty:'hard'});assert.match(legacyOnly.words(),/困难五班/);assert.match(legacyOnly.words(),/最高分 暂无/);assert.doesNotMatch(legacyOnly.words(),/7,654|19,876/);
-  assert.match(inbound.words(), /每日挑战/);assert.doesNotMatch(inbound.words(), /北京时间|本地每日/);
+  assert.match(inbound.words(), /困难 · 五班/);assert.match(inbound.words(), /最高分 1,234/);assert.match(inbound.words(), /使用道具最高分 2,456/);assert.match(inbound.words(), /最高分 3,456/);assert.match(inbound.words(), /使用道具最高分 4,567/);assert.doesNotMatch(inbound.words(), /7,654|19,876|9,911|9,922|加班最高分/);assert.doesNotMatch(inbound.words(), /2031-04-07/);
+  const legacyOnly=surface();render(legacyOnly.ctx,run(),{...current,account:null,screen:'inboundMenu',inboundDifficulty:'hard'});assert.match(legacyOnly.words(),/困难 · 五班/);assert.match(legacyOnly.words(),/最高分 暂无/);assert.doesNotMatch(legacyOnly.words(),/7,654|19,876/);
+  assert.match(inbound.words(), /加急模式/);assert.doesNotMatch(inbound.words(), /北京时间|本地每日/);
   for(const output of [home,inbound]){assert.match(output.words(), /保存失败，尚未持久化/);assert.doesNotMatch(output.words(), /云同步/);}
 });
 
 test('confirmation copy explains resets and retains two explicit cancel/confirm buttons', () => {
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', confirmation: { kind: 'resetProfile' } }));
-  assert.match(output.words(), /清空显示的成绩记录/); assert.match(output.words(), /金币、库存、日奖励记录、设置和外观会保留/);
+  assert.match(output.words(), /清空成绩和成就记录/); assert.match(output.words(), /金币、道具库存、已领奖励、设置和已拥有外观会保留/);
   assert.match(output.words(), /取消/); assert.match(output.words(), /确认重置/);
 });
 
@@ -238,9 +239,9 @@ test('pause keeps the current goal concise and moves basic and special rules int
   const help=surface();render(help.ctx,state,view({screen:'colorIntro'}));
   assert.match(help.words(),/按订单配货，同类货物上下左右相连/);assert.match(help.words(),/数量达标.*留出空路/);assert.match(help.words(),/货件不能旋转/);
   assert.doesNotMatch(help.words(),/托盘：占1格|加急：/);
-  assert.deepEqual(getUiControls(state,view({screen:'colorIntro'})).map(control=>control.action.type),['helpBack','helpDetails']);
+  assert.deepEqual(getUiControls(state,view({screen:'colorIntro'})).map(control=>control.action.type),['helpDetails','toolsHelp','helpBack']);
   const details=surface();render(details.ctx,state,view({screen:'helpDetails'}));
-  assert.match(details.words(),/托盘：占1格，计2件/);assert.match(details.words(),/加急：.*废弃物/);assert.match(details.words(),/新单等下一次放置/);
+  assert.match(details.words(),/托盘：占1格，计2件/);assert.match(details.words(),/加急：.*废弃箱/);assert.match(details.words(),/新单等下一次放置/);
   assert.deepEqual(getUiControls(state,view({screen:'helpDetails'})).map(control=>control.action.type),['help']);
  }
 });

@@ -1,0 +1,897 @@
+{
+  "schema": "warehouse-scene-art-v021",
+  "generator": "OpenAI built-in image_gen",
+  "source": "artifacts/v0200-scene-source/coherent-scene-panels-generated.png",
+  "sourceSha256": "6eea78a95b7c7826bfd938c2191f2a7b4ba619994570905271d253736f1f4eff",
+  "prompt": "artifacts/v0200-scene-source/generation-prompt.txt",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "sourceColumnBounds": [
+    0,
+    314,
+    627,
+    940,
+    1254
+  ],
+  "sourceRowBounds": [
+    0,
+    302,
+    598,
+    897,
+    1254
+  ],
+  "width": 512,
+  "height": 960,
+  "frameSize": 128,
+  "tileSize": 64,
+  "variants": 3,
+  "themes": [
+    "harbor",
+    "cold_chain",
+    "rail_freight",
+    "express_sorting",
+    "toy_workshop",
+    "paper_warehouse",
+    "space_cargo",
+    "steam_foundry",
+    "neon_depot",
+    "lava_forge",
+    "ocean_vault",
+    "royal_store",
+    "field_station",
+    "forest_depot",
+    "ice_vault"
+  ],
+  "entries": [
+    {
+      "theme": "harbor",
+      "sourcePanelCrop": [
+        0,
+        0,
+        314,
+        302
+      ],
+      "frameAtlasOrigin": [
+        0,
+        0
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            76,
+            188,
+            181
+          ],
+          "atlasOrigin": [
+            0,
+            512
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            76,
+            236,
+            181
+          ],
+          "atlasOrigin": [
+            64,
+            512
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            121,
+            212,
+            226
+          ],
+          "atlasOrigin": [
+            128,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "sourcePanelCrop": [
+        314,
+        0,
+        627,
+        302
+      ],
+      "frameAtlasOrigin": [
+        128,
+        0
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            76,
+            188,
+            181
+          ],
+          "atlasOrigin": [
+            192,
+            512
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            76,
+            235,
+            181
+          ],
+          "atlasOrigin": [
+            256,
+            512
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            121,
+            211,
+            226
+          ],
+          "atlasOrigin": [
+            320,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "sourcePanelCrop": [
+        627,
+        0,
+        940,
+        302
+      ],
+      "frameAtlasOrigin": [
+        256,
+        0
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            76,
+            188,
+            181
+          ],
+          "atlasOrigin": [
+            384,
+            512
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            76,
+            235,
+            181
+          ],
+          "atlasOrigin": [
+            448,
+            512
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            121,
+            211,
+            226
+          ],
+          "atlasOrigin": [
+            0,
+            576
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "express_sorting",
+      "sourcePanelCrop": [
+        940,
+        0,
+        1254,
+        302
+      ],
+      "frameAtlasOrigin": [
+        384,
+        0
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            76,
+            188,
+            181
+          ],
+          "atlasOrigin": [
+            64,
+            576
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            76,
+            236,
+            181
+          ],
+          "atlasOrigin": [
+            128,
+            576
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            121,
+            212,
+            226
+          ],
+          "atlasOrigin": [
+            192,
+            576
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "sourcePanelCrop": [
+        0,
+        302,
+        314,
+        598
+      ],
+      "frameAtlasOrigin": [
+        0,
+        128
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            74,
+            188,
+            178
+          ],
+          "atlasOrigin": [
+            256,
+            576
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            74,
+            236,
+            178
+          ],
+          "atlasOrigin": [
+            320,
+            576
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            118,
+            212,
+            222
+          ],
+          "atlasOrigin": [
+            384,
+            576
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "sourcePanelCrop": [
+        314,
+        302,
+        627,
+        598
+      ],
+      "frameAtlasOrigin": [
+        128,
+        128
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            74,
+            188,
+            178
+          ],
+          "atlasOrigin": [
+            448,
+            576
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            74,
+            235,
+            178
+          ],
+          "atlasOrigin": [
+            0,
+            640
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            118,
+            211,
+            222
+          ],
+          "atlasOrigin": [
+            64,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "sourcePanelCrop": [
+        627,
+        302,
+        940,
+        598
+      ],
+      "frameAtlasOrigin": [
+        256,
+        128
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            74,
+            188,
+            178
+          ],
+          "atlasOrigin": [
+            128,
+            640
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            74,
+            235,
+            178
+          ],
+          "atlasOrigin": [
+            192,
+            640
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            118,
+            211,
+            222
+          ],
+          "atlasOrigin": [
+            256,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "sourcePanelCrop": [
+        940,
+        302,
+        1254,
+        598
+      ],
+      "frameAtlasOrigin": [
+        384,
+        128
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            74,
+            188,
+            178
+          ],
+          "atlasOrigin": [
+            320,
+            640
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            74,
+            236,
+            178
+          ],
+          "atlasOrigin": [
+            384,
+            640
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            118,
+            212,
+            222
+          ],
+          "atlasOrigin": [
+            448,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "neon_depot",
+      "sourcePanelCrop": [
+        0,
+        598,
+        314,
+        897
+      ],
+      "frameAtlasOrigin": [
+        0,
+        256
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            75,
+            188,
+            179
+          ],
+          "atlasOrigin": [
+            0,
+            704
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            75,
+            236,
+            179
+          ],
+          "atlasOrigin": [
+            64,
+            704
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            120,
+            212,
+            224
+          ],
+          "atlasOrigin": [
+            128,
+            704
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "lava_forge",
+      "sourcePanelCrop": [
+        314,
+        598,
+        627,
+        897
+      ],
+      "frameAtlasOrigin": [
+        128,
+        256
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            75,
+            188,
+            179
+          ],
+          "atlasOrigin": [
+            192,
+            704
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            75,
+            235,
+            179
+          ],
+          "atlasOrigin": [
+            256,
+            704
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            120,
+            211,
+            224
+          ],
+          "atlasOrigin": [
+            320,
+            704
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "sourcePanelCrop": [
+        627,
+        598,
+        940,
+        897
+      ],
+      "frameAtlasOrigin": [
+        256,
+        256
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            75,
+            188,
+            179
+          ],
+          "atlasOrigin": [
+            384,
+            704
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            125,
+            75,
+            235,
+            179
+          ],
+          "atlasOrigin": [
+            448,
+            704
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            120,
+            211,
+            224
+          ],
+          "atlasOrigin": [
+            0,
+            768
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "royal_store",
+      "sourcePanelCrop": [
+        940,
+        598,
+        1254,
+        897
+      ],
+      "frameAtlasOrigin": [
+        384,
+        256
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            75,
+            188,
+            179
+          ],
+          "atlasOrigin": [
+            64,
+            768
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            75,
+            236,
+            179
+          ],
+          "atlasOrigin": [
+            128,
+            768
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            120,
+            212,
+            224
+          ],
+          "atlasOrigin": [
+            192,
+            768
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "field_station",
+      "sourcePanelCrop": [
+        0,
+        897,
+        314,
+        1254
+      ],
+      "frameAtlasOrigin": [
+        0,
+        384
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            78,
+            89,
+            188,
+            214
+          ],
+          "atlasOrigin": [
+            256,
+            768
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            126,
+            89,
+            236,
+            214
+          ],
+          "atlasOrigin": [
+            320,
+            768
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            102,
+            143,
+            212,
+            268
+          ],
+          "atlasOrigin": [
+            384,
+            768
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "forest_depot",
+      "source": "artifacts/v0210-scene-source/forest_depot-generated.png",
+      "sourcePanelCrop": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "frameAtlasOrigin": [
+        128,
+        384
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            314,
+            314,
+            752,
+            752
+          ],
+          "atlasOrigin": [
+            0,
+            896
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            502,
+            314,
+            940,
+            752
+          ],
+          "atlasOrigin": [
+            64,
+            896
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            408,
+            502,
+            846,
+            940
+          ],
+          "atlasOrigin": [
+            128,
+            896
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "ice_vault",
+      "source": "artifacts/v0210-scene-source/ice_vault-generated.png",
+      "sourcePanelCrop": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "frameAtlasOrigin": [
+        256,
+        384
+      ],
+      "variants": [
+        {
+          "variant": 0,
+          "panelCrop": [
+            314,
+            314,
+            752,
+            752
+          ],
+          "atlasOrigin": [
+            192,
+            896
+          ]
+        },
+        {
+          "variant": 1,
+          "panelCrop": [
+            502,
+            314,
+            940,
+            752
+          ],
+          "atlasOrigin": [
+            256,
+            896
+          ]
+        },
+        {
+          "variant": 2,
+          "panelCrop": [
+            408,
+            502,
+            846,
+            940
+          ],
+          "atlasOrigin": [
+            320,
+            896
+          ]
+        }
+      ]
+    }
+  ],
+  "compilation": "Protected v0.20 palette and decoded crops retained exactly. New source artwork only: crop, LANCZOS resize, existing-palette PNG encoding without dithering, append-only atlas packing. No redraw, recoloring, mirroring, rotation, generated noise, or changes to previous material crops.",
+  "protectedOriginalAtlasSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+  "bytes": 219775,
+  "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+  "tileBaseY": 512,
+  "tileColumns": 8,
+  "frameColumns": 4,
+  "extensionTileBaseY": 896,
+  "extensionThemeStart": 13,
+  "newFramePadding": 1,
+  "legacyBottomClampRow": 832,
+  "extensionSources": [
+    {
+      "theme": "forest_depot",
+      "path": "artifacts/v0210-scene-source/forest_depot-generated.png",
+      "sha256": "e951031391bc56e73a2b68dc3465c0f1b78990ce97a90eed9b98b0e764b16330",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "theme": "ice_vault",
+      "path": "artifacts/v0210-scene-source/ice_vault-generated.png",
+      "sha256": "060b1d16e322ea2e883e1fbbd0d4e216d1663423f902450969cbd4220b38396e",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    }
+  ],
+  "extensionPrompt": "artifacts/v0210-scene-source/generation-prompts.json",
+  "protectedSceneAtlas": "artifacts/v0210-scene-source/scene-materials-v020-protected.png",
+  "protectedSceneAtlasSha256": "f3a186b12d2fcee8ea1013413569018aa5672ef39aac0e604c9bcf777d3bfa1f",
+  "protectedSceneAtlasBytes": 203986,
+  "addedBytes": 15789
+}

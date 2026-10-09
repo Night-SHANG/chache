@@ -18,7 +18,7 @@ test('legacy active state still opens the two new mode selectors without a legac
 test('optional color help explains all three conditions and returns without a new-run side effect',()=>{
  const s=createRun(1,'color_exit',4),v=view({screen:'colorIntro'}),out=surface();render(out.ctx,s,v);
  assert.match(out.words(),/至少4件/);assert.match(out.words(),/同色出口/);assert.match(out.words(),/南入口/);assert.match(out.words(),/30批/);
- assert.deepEqual(getUiControls(s,v).map(c=>c.action.type),['helpBack']);
+ assert.deepEqual(getUiControls(s,v).map(c=>c.action.type),['toolsHelp','helpBack']);
 });
 
 test('color gameplay and pause show gate identities and batches with optional mode-specific help',()=>{

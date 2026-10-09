@@ -67,7 +67,7 @@ test('v2 renderer displays the fourth tray at its shared hit-test center', () =>
   assert.equal(label.x, rect.x + rect.w / 2);
 });
 
-for (const [kind, expected] of [['pallet', '×2'], ['rush', '余3次'], ['hazard', '危险'], ['wildcard', '万能'], ['waste', '废弃物']] as const) {
+for (const [kind, expected] of [['pallet', '×2'], ['rush', '余3次'], ['hazard', '危险'], ['wildcard', '万能'], ['waste', '废弃箱']] as const) {
   test(`special cargo ${kind} has a non-color-only symbol/label`, () => {
     const surface = canvasSurface();
     cargoBox(surface.ctx, 'cargo.food', 0, 0, 110, 1, { kind, remaining: 3 });
@@ -96,7 +96,7 @@ test('animation uses its cell-trait snapshot instead of authoritative expired me
   view.animation = { shipment: shipment({ cells: [9] }), progress: .2, board: state.board.slice(), cellTraits };
   render(surface.ctx, state, view);
   assert.ok(labelsOf(surface).includes('余1次'));
-  assert.equal(labelsOf(surface).includes('废弃物'), false);
+  assert.equal(labelsOf(surface).includes('废弃箱'), false);
 });
 
 test('legacy animation without a trait snapshot does not borrow final cell metadata', () => {
@@ -104,13 +104,14 @@ test('legacy animation without a trait snapshot does not borrow final cell metad
   state.board[8] = 'cargo.food'; state.cellTraits![8] = { kind: 'waste' };
   view.animation = { shipment: shipment({ cells: [9] }), progress: .2, board: state.board.slice() };
   render(surface.ctx, state, view);
-  assert.equal(labelsOf(surface).includes('废弃物'), false);
+  assert.equal(labelsOf(surface).includes('废弃箱'), false);
 });
 
 test('pallet shipment reports order units separately from occupied cells', () => {
   const state = v2State(), surface = canvasSurface(), view = baseView();
   state.orders = [{ id: 'order.new', dockId: 'dock.north', cargo: 'cargo.machine', amount: 3, baseScore: 100 }];
-  view.animation = { shipment: shipment({ units: 2 }), progress: .3, board: state.board.slice(), cellTraits: state.cellTraits };
+  const active=shipment({units:2});
+  view.animation = { shipment: active, progress: .3, board: state.board.slice(), cellTraits: state.cellTraits,orders:[{...state.orders[0],id:active.orderId,cargo:active.cargo}],completedOrderIds:[],queuedOrderIds:[active.orderId] };
   render(surface.ctx, state, view);
   assert.ok(labelsOf(surface).includes('2件·1格'));
 });
@@ -141,7 +142,7 @@ test('failure explains placement exhaustion while optional details retain expiry
   const failed = canvasSurface(); render(failed.ctx, state, view);
   assert.ok(labelsOf(failed).includes('所有货件都放不下了'));
   state.phase = 'input'; view.paused = true; view.screen = 'helpDetails'; const paused = canvasSurface(); render(paused.ctx, state, view);
-  assert.ok(labelsOf(paused).some(value => value.includes('有效放置') && value.includes('废弃物')));
+  assert.ok(labelsOf(paused).some(value => value.includes('有效放置') && value.includes('废弃箱')));
   assert.ok(labelsOf(paused).some(value => value.includes('不计分')));
 });
 

@@ -14,17 +14,16 @@ import type {GameRun} from '../src/domain/playable.ts';
 
 const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile(),dailyLabel:'2026-10-07',...patch});
 const current=()=>applyCommandV14(createRunV14({seed:1,mode:'daily'}),{type:'chooseCleanup',branch:'orders'}).state;
-const dailyButton=(state:GameRun,value:ViewState)=>getUiControls(state,value).find(c=>c.action.type==='newRun'&&c.action.mode==='daily')!;
+const rushButton=(state:GameRun,value:ViewState)=>getUiControls(state,value).find(c=>c.action.type==='newRun'&&c.action.mode==='rush')!;
 
-test('completed daily start and retry are visibly disabled while navigation remains available',()=>{
+test('historical daily completion keeps rush start and retry available with navigation',()=>{
  const state=current(),locked=view({dailyLocked:true,screen:'inboundMenu'});
- assert.equal(dailyButton(state,locked).disabled,true);
- assert.equal(dailyButton(state,locked).label,'今日已完成');
+ assert.notEqual(rushButton(state,locked).disabled,true);
+ assert.equal(rushButton(state,locked).label,'开始');
  const result={...state,phase:'result' as const,result:'won' as const,endReason:'completed' as const};
- assert.equal(dailyButton(result,{...locked,screen:'game'}).disabled,true);
+ assert.notEqual(rushButton(result,{...locked,screen:'game'}).disabled,true);
  assert.ok(getUiControls(result,{...locked,screen:'game'}).some(c=>c.action.type==='home'&&!c.disabled));
- assert.equal(dailyButton(result,view({screen:'game',dailyLocked:false})).label,'挑战今日');
- assert.notEqual(dailyButton(result,view({screen:'game',dailyLocked:false})).disabled,true);
+ for(const dailyLocked of [false,true]){assert.equal(rushButton(result,view({screen:'game',dailyLocked})).label,'再来一局');assert.notEqual(rushButton(result,view({screen:'game',dailyLocked})).disabled,true);}
 });
 
 test('locked daily preparations cannot expose an enabled next step or cleanup choice',()=>{
@@ -49,12 +48,12 @@ function capture(state:GameRun,value:ViewState,index:number,name:string){
 }
 
 for(let index=0;index<sizes.length;index++){
- test(`daily gray label and selected outbound mode fit viewport ${sizes[index].w}`,()=>{
+ test(`unlocked rush label and selected outbound mode fit viewport ${sizes[index].w}`,()=>{
   const state=current(),labels=capture(state,view({screen:'inboundMenu',dailyLocked:true}),index,'daily-locked');
-  const gray=labels.find(l=>l.value==='今日已完成');assert.ok(gray);assert.equal(gray.color,'#a2b1be');
+  const starts=labels.filter(l=>l.value==='开始');assert.equal(starts.length,3);const rush=starts[2];assert.ok(rush);assert.notEqual(rush.color,'#a2b1be');assert.equal(labels.some(l=>/每日|今日已完成|2026-10-07/.test(l.value)),false);
   const choices=capture(state,view({screen:'colorTiers'}),index,'difficulty');
   assert.equal(choices.some(l=>/×1|×1.25|×1.5|×2/.test(l.value)),false);const mode=choices.find(l=>l.value==='普通');assert.ok(mode);assert.ok(choices.some(l=>l.value==='无限'));
-  for(const label of [gray,mode]){assert.ok(label.left>=0&&label.right<=sizes[index].w);assert.ok(label.top>=0&&label.bottom<=sizes[index].h);}
+  for(const label of [rush,mode]){assert.ok(label.left>=0&&label.right<=sizes[index].w);assert.ok(label.top>=0&&label.bottom<=sizes[index].h);}
   assert.equal(choices.some(l=>/概率|种子|%/.test(l.value)),false);
  });
  test(`multi-cell rush countdowns and candidate timer stay readable at viewport ${sizes[index].w}`,()=>{
@@ -103,8 +102,8 @@ for(let index=0;index<sizes.length;index++)test(`resolved scores and actual dail
 test('new selector record buckets keep both tool policy and rules version separate',()=>{
  const account=makeAccountFixture(),bucket=(score:number)=>({runs:1,units:1,maxUnits:1,score,wins:0,retirements:0,maxChain:1,best:{score,units:1,chain:1}});
  account.profile.results={'outbound.v12.normal.plain':bucket(625),'outbound.v12.normal.tools':bucket(875),'outbound.v8.normal.plain':bucket(999999),'inbound.standard.v18.hard.plain':bucket(1200),'inbound.standard.v18.hard.tools':bucket(2400),'inbound.standard.v16.normal.plain':bucket(999999),'inbound.standard.v16.normal.tools':bucket(999999),'inbound.standard.v14.plain':bucket(999999),'inbound.standard.v14.tools':bucket(999999),'inbound.standard.v15.plain':bucket(999999),'inbound.standard.v15.tools':bucket(999999),'inbound.standard.v11.plain':bucket(999999)};
- const out=capture(current(),view({screen:'colorTiers',account}),1,'records-outbound');assert.ok(out.some(l=>l.value==='最高分 625'));assert.ok(out.some(l=>l.value==='使用道具最高分 875'));assert.equal(out.some(l=>/999,999/.test(l.value)),false);
- const inbound=capture(current(),view({screen:'inboundMenu',account}),1,'records-inbound');assert.ok(inbound.some(l=>l.value==='最高分 1,200'));assert.ok(inbound.some(l=>l.value==='使用道具最高分 2,400'));assert.equal(inbound.some(l=>/999,999/.test(l.value)),false);
+ const out=capture(current(),view({screen:'colorTiers',account}),1,'records-outbound');assert.ok(out.some(l=>l.value==='无道具最高分 625'));assert.ok(out.some(l=>l.value==='使用道具最高分 875'));assert.equal(out.some(l=>/999,999/.test(l.value)),false);
+ const inbound=capture(current(),view({screen:'inboundMenu',account}),1,'records-inbound');assert.ok(inbound.some(l=>l.value==='无道具最高分 1,200'));assert.ok(inbound.some(l=>l.value==='使用道具最高分 2,400'));assert.equal(inbound.some(l=>/999,999/.test(l.value)),false);
 });
 
 import {createRunV9} from '../src/domain/v9/engine.ts';

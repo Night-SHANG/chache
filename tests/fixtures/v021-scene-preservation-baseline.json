@@ -1,0 +1,189 @@
+{
+  "source": "v0.20 assets/scene-materials.png",
+  "width": 512,
+  "height": 832,
+  "entries": [
+    {
+      "theme": "harbor",
+      "index": 0,
+      "framePixelSha256": "1c297dd73aca29baaffc38f86dd5d5a99050bba5ea49e60691884fba93159b07",
+      "tilePixelSha256": [
+        "86248aa1d91fc2367ed6c95e912e1ee8e3da7f7e411957b87a105eea2b25ce65",
+        "438f58994cd036176abe5b95ced43b68884ecdb891cc36b3f93345a1a3b29b92",
+        "a03f67e69c2c85cfb6240c25f0d21448b4d8abcd31a6ebf70298dcc79eab2589"
+      ],
+      "renders": {
+        "loaded": "cbd603d395c9d66ba52bdf4a1412a831d946a2b308323b888b989d5a505e70ab",
+        "fallback": "29eb2652d2e46289dfd6718ae96c0dddb59128f040d87392534d7e845e6072c6"
+      }
+    },
+    {
+      "theme": "cold_chain",
+      "index": 1,
+      "framePixelSha256": "823e34d3617c610bc054cd69e782e344fd562465d4c400b411c2e67099567c12",
+      "tilePixelSha256": [
+        "80f0e0215731ada737e9f9b979ac4175ca82cc58e0d4ee0c60f92d22e8b5b936",
+        "5614f3cd908dee22b8b39a8d33806ea21d376f23c50154e9e875ce2d3b4bc0ed",
+        "b005a019ed168913f01eaaf135111f17faa3df41d254aa4e008c63bb57a5e367"
+      ],
+      "renders": {
+        "loaded": "b1c6f30647588c2e1a90ecf5deebf8d873effa56d5255f9fc75e7cfc4421f187",
+        "fallback": "8acef3cd107ea9d9971b5bf2a8fd69ff2ff707da74d5a8ef02eb992007da856b"
+      }
+    },
+    {
+      "theme": "rail_freight",
+      "index": 2,
+      "framePixelSha256": "c4cd1f4516ca42f18d13c097de03c84b26eae6ad94a04153777e19bbc38562a3",
+      "tilePixelSha256": [
+        "513a8285f13bbe41ea2bb79bdde8f32d2a23734f667448c5e030afe4aeab7656",
+        "b558cdd566bb8ea3985099d044e215a3c7eb1520310b63606b96d76ce6b2b37f",
+        "f2c21471da2e5ba0d20a959285a58785675daded13e59c9e52d01e61fd2e57bb"
+      ],
+      "renders": {
+        "loaded": "3fb78dde8225a92ac9dfe2d430cdac969f478cc71eb9fca742ae61f77a1826d9",
+        "fallback": "bec08407cf19ece62ba840483d5dab1c4657b98f51537b9268e71fb5cd813194"
+      }
+    },
+    {
+      "theme": "express_sorting",
+      "index": 3,
+      "framePixelSha256": "5a9f50d15cd16977a43769444a60dc05fc713942a63b05256a4ae1ef4800dac2",
+      "tilePixelSha256": [
+        "45634a9bca6a7917e9d8fa0adf8baba0a1b002648f65ccb9004198253bdeac57",
+        "3b7014e17f57645cdc6163c70ce9f68254e9fb7a7aeb7ea5d554e8ec81dc4bc3",
+        "4f43773a85e17712d514fbbf38de9082a4a22db6fafb79f8e0cfc2b96816f6cf"
+      ],
+      "renders": {
+        "loaded": "c5c3bc51bf9784b1a8db5cc6f66638b8a0800b297964ef25a8f8b3799b240cb3",
+        "fallback": "3d84e878fa1a37a82c51977f05505076a20dfc7e8a469352521dd8668b2df755"
+      }
+    },
+    {
+      "theme": "toy_workshop",
+      "index": 4,
+      "framePixelSha256": "7595e7f8139da50296c9adc3f98d8c8869b1fdb6403197f422a9a10315be4624",
+      "tilePixelSha256": [
+        "a97a1a49a70df20bdddbb709249cbc02ce415a2592278c73d006d1b9a6eaf898",
+        "9271a134122526b75cf672a1fb062c1341d733998c4ec9afe30107bb395669a2",
+        "a1395b92b3929a4ba8314c5ed6312723db6588b042c5a192ed3913b499e43d4a"
+      ],
+      "renders": {
+        "loaded": "8a1e8b61903144646b04aaf3e8d597c374e64d49555cfc4270ef894c4e40eb91",
+        "fallback": "5b9674e553e30cfd18643dca66f900c252f5bc61745820a5dc62e5d04e1735b3"
+      }
+    },
+    {
+      "theme": "paper_warehouse",
+      "index": 5,
+      "framePixelSha256": "99269f31f5a8a73ea2dfa1eecc8d7ab77d410cb1d15f08c043dae0eae1ca01c8",
+      "tilePixelSha256": [
+        "1454c0446eff8baee769fe966e1ea4b622f31d435f256c73d1bdaad5fec7e9c1",
+        "ac56e9c64e42741b82c0901e8c8a87de8aa7a88c048125e75408e74f0b548225",
+        "252a96994aa64563f03262ef865e5855dcc0f8cc93815236e38f6bfbbaa88e86"
+      ],
+      "renders": {
+        "loaded": "374050c635156dbb393b6c9841095b0d545af5593de72b36e908a5061ae7e081",
+        "fallback": "2594a515a449a45633090dbcd6b55f4baabc4122d46d9ec3a0209d5d7a9f7d52"
+      }
+    },
+    {
+      "theme": "space_cargo",
+      "index": 6,
+      "framePixelSha256": "dae6fc67ade12c009444f301c40f7550cdeda97c7e312a37aba325767dcf1a2e",
+      "tilePixelSha256": [
+        "8494a67e3876e3e771624c119ead2b020ae0f526617429d5e625bba4c2686c30",
+        "e6bbac6720795edfbe99041352cb29364babf2fb2314075f022845c54324b718",
+        "d45e26bdcaf469b7d517a2ffbde2a670870aecd4e9aa07aae008cdccdab169f1"
+      ],
+      "renders": {
+        "loaded": "a6dea6bcda8f69400902460d984b412e552dfc5915e18af98c756278c57c70a4",
+        "fallback": "fa4ddb31e778de29257f4e4f5ec0dd377c40159370a917e49409563376e6dd96"
+      }
+    },
+    {
+      "theme": "steam_foundry",
+      "index": 7,
+      "framePixelSha256": "e3bfb043fa3e870f19eae3b45fe0afd0dde964076781a02046b3a77ef478e310",
+      "tilePixelSha256": [
+        "dd495a6b3d77658291f3f6841e6362b68acf0d0a8ee90201507a836ee1df4934",
+        "1b84b13a696cd822ec23db9efb5e277107d4e038491881cfdd42689a5ee3593b",
+        "662be43fb780712144d9de933d3a8b16d01a93ac0991c3b9d02a1071981bdd9f"
+      ],
+      "renders": {
+        "loaded": "c86278f1d7f0a3112bee68b27964408cbfa14e2d1ae72953cb42c803c17b3b8b",
+        "fallback": "b0765bd8f334fdaa23f094b7c2f2cd002ba35cc339b2c7e2eba07883bd00f83a"
+      }
+    },
+    {
+      "theme": "neon_depot",
+      "index": 8,
+      "framePixelSha256": "583da99dd2e14d90eeb5462b4468c7eaa9b032963072d97770d5a91c1428e633",
+      "tilePixelSha256": [
+        "f2d6aec37bb6210609e556b12050be1cfc01c6a7ef12267f139c0539339f0493",
+        "08a987d5dadca91d15dfcb333c73eef5e16cdfca59cc93270469e52fcfc83d1e",
+        "0ecec36ea56771f311409856f28ca1a84585a554e4f424e765f85899a687b183"
+      ],
+      "renders": {
+        "loaded": "cc7c286fd20a62339a5d26ebbcb68bdc1765abfe0cf6143fe063a8359ee50970",
+        "fallback": "9ebe7c2fd8524047b90a066c79bdaedf921e0dfc6e694bcb78531522e3eeb1f0"
+      }
+    },
+    {
+      "theme": "lava_forge",
+      "index": 9,
+      "framePixelSha256": "08cdd10c9791d16aca1fff67b98e83475c720ca5bfc46ce96e14968fa1a3fcdf",
+      "tilePixelSha256": [
+        "aac6bf955f2b277e3954900895a290de4f82e438c5cedbcd088d03a97359e9dd",
+        "9f28a354e578d044d6349d1ba9dc83c6ebe028197d719474e00d2dea1236c23a",
+        "da45f075d433ad2e6e28c455de53c2fd74058aa0cfc4ed80cf8a4c4623f97fe5"
+      ],
+      "renders": {
+        "loaded": "0f5c92815ca529bb2c5e3e13d30b2aa843b96e2a2295ad026628366e0e53deed",
+        "fallback": "ae2782b298238bd874a86b69c28ce80674999b0acab2a6023ee2e9af830cdbb8"
+      }
+    },
+    {
+      "theme": "ocean_vault",
+      "index": 10,
+      "framePixelSha256": "54fc61245275d34fc4a4fd558dc46885dfb2aafd92defde1e78cff3f1dd7f77d",
+      "tilePixelSha256": [
+        "3ec31947b68ef4613c622e6006a7f866c9895cd90f40af2901205c65ca70cbcb",
+        "5ad200155ce980deb4be863cfd06c3e68a97fde42a9689017635c9d2e9159737",
+        "31434f34a07115d00fa617cf44e2bf4e6dc06725674e9ecba44fd3a5390695d7"
+      ],
+      "renders": {
+        "loaded": "47d5206f932d44919c613c3e1520a9aca95474c860c3526c2dd2548d7e7f2424",
+        "fallback": "7bfc70f1260fdc50b2c3cabb1216a779c045c5cbfae413104af06ea60307076f"
+      }
+    },
+    {
+      "theme": "royal_store",
+      "index": 11,
+      "framePixelSha256": "b3d765439c9964b0ed6abdde62d4bf061e8f57cbd45def9ecd6358370cf60121",
+      "tilePixelSha256": [
+        "b6a415ceae5695b073864bf0577c89870d0cb958106784ae7a379e4de7ac0ac0",
+        "2afe403badfa72f128d46106e6036b37ac80e7881df27042f4c255e054463f8a",
+        "289ceb5f345ed9929979875538d3156658a2e0c5d899fc0e9e44300a7bc0d7d1"
+      ],
+      "renders": {
+        "loaded": "86145b368e24df9420f8b0db23b0f3e892f525902e3335fa29a11f9e7881c897",
+        "fallback": "469c6a94f6a5c2c255ac2be393a583f553c89647439252d2cc308e3f26261e9e"
+      }
+    },
+    {
+      "theme": "field_station",
+      "index": 12,
+      "framePixelSha256": "4d489ee32dc49a34091a6a970261b7e6db53ecf3312379a60a24464459436d7f",
+      "tilePixelSha256": [
+        "73302a74f0d447dddd4f0373ba24cc16723426bac06f53fd8eef288437e840e4",
+        "cd4e984803ea70ef1d98b72bb90ac9e402e792e87a1229f1c0a6d5f6a62c4d71",
+        "0a83648108dd36400a958d4a2633d7d8fd75790024c0e099bba8f2cd84deacde"
+      ],
+      "renders": {
+        "loaded": "f7763e46bebfc5dadcfe65f8c7cc34acff891b1188bfb889e5100914c6b282ec",
+        "fallback": "0b02a2aef61425d8e480bb7a89ffa54156a7cc9db429a78aa53cbefa5d706982"
+      }
+    }
+  ]
+}
