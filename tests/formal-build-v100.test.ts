@@ -5,14 +5,14 @@ import {tmpdir} from 'node:os';
 import {resolve,join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 
-test('formal v1.0.1 production artifacts are paid, non-debug and carry the release version',async()=>{
+test('formal v1.0.2 production artifacts are paid, non-debug and carry the release version',async()=>{
  const root=process.cwd(),dir=await mkdtemp(join(tmpdir(),'warehouse-formal-build-'));
  try{
   for(const path of ['src','scripts','assets','node_modules','package.json','package-lock.json','THIRD_PARTY_NOTICES.md'])await symlink(resolve(root,path),join(dir,path));
   const built=spawnSync(process.execPath,[resolve(root,'scripts/build.mjs'),'--production'],{cwd:dir,encoding:'utf8'});
   assert.equal(built.status,0,built.stdout+built.stderr);
   const manifest=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.1');
+  assert.equal(manifest.version,'1.0.2');
   assert.equal(manifest.shopPricingMode,'paid');assert.equal(manifest.developerDiagnostics,false);
   assert.deepEqual(manifest,JSON.parse(await readFile(join(dir,'build/wechat/build-manifest.json'),'utf8')));
   for(const args of [['--production','--playtest-free-shop'],['--production','--diagnostics']]){

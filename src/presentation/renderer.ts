@@ -1,6 +1,6 @@
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
-import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
+import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawHarborBackground,drawLogisticsBackground,drawCosmeticSetPreview,drawCosmeticPreview} from './cosmetic-art.ts';
 import {MODE_MENU_CARD} from './mode-menu-layout.ts';
@@ -751,7 +751,7 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
     text(ctx,count,540,1067,size,CREAM,'center',700);drawControls(ctx,state,view);return;
   }
   const target=confirmation?.variant?runSlotLabel(confirmation.variant):'入库模式';
-  const lines=kind==='purchaseCosmeticSet'&&quote?[`补齐 ${quote.missingKeys.length} 件未拥有外观。`,PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`未拥有原价 ${quote.originalPrice} 金币 · 8折 ${quote.price} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.price)}。`]:kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
+  const lines=kind==='purchaseCosmeticSet'&&quote?[`补齐 ${quote.missingKeys.length} 件未拥有外观。`,PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`未拥有原价 ${quote.originalPrice} 金币 · ${cosmeticSetDiscountLabel(quote.missingKeys.length)} ${quote.price} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.price)}。`]:kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
     :kind==='resetProfile'?['清空成绩和成就记录。','金币、道具库存、已领奖励、设置和已拥有外观会保留。']
     :kind==='finishOvertime'||kind==='finishEndless'?['将记录当前分数。','结束后不能继续本局。']
     :view.recoveryError?['本局进度将丢失。','原存档仅留作恢复备份。','历史成绩和设置会保留。']
@@ -800,11 +800,11 @@ function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
    const status=cosmeticSetStatus(set,appearance),quote=quoteCosmeticSetPurchase(set.id,appearance);
    text(ctx,`${set.name} · 已拥有 ${status.ownedCount}/3`,540,608,35,'#ffe8b4','center');
    drawCosmeticSetPreview(ctx,COSMETIC_SET_PREVIEW_RECT,{theme:set.theme,cargoStyle:set.cargo,forklift:set.forklift,cargoOutline:appearance.cargoOutline});
-   if(quote?.missingKeys.length&&!PLAYTEST_FREE_SHOP)text(ctx,`原价${quote.originalPrice} · 8折`,540,1674,24,'#c6d8d4','center');
+   if(quote?.missingKeys.length&&!PLAYTEST_FREE_SHOP)text(ctx,quote.missingKeys.length===1?`剩余1件 · 原价${quote.price}`:`原价${quote.originalPrice} · ${cosmeticSetDiscountLabel(quote.missingKeys.length)}`,540,1674,24,'#c6d8d4','center');
   }else{
    text(ctx,'场景 · 货箱 · 叉车',540,596,28,'#c6d8d4','center');const pagination=cosmeticSetShopPage(view);
    text(ctx,`${pagination.page+1} / ${pagination.pages}`,540,1505,30,'#c6d8d4','center');
-   text(ctx,PLAYTEST_FREE_SHOP?'领取套装，自由搭配':'未拥有的套装成员，打包8折',540,1630,28,'#c6d8d4','center');
+   text(ctx,PLAYTEST_FREE_SHOP?'领取套装，自由搭配':'补齐3件8折、2件9折、1件原价',540,1630,28,'#c6d8d4','center');
   }
  }else{
   const item=selectedShopCosmetic(view),pagination=cosmeticShopPage(view);

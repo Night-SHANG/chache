@@ -93,7 +93,7 @@ test('standalone outline preview always shows classic outline after ice selectio
 test('each partial ownership count selects purchase or equip from a read-only derived badge',()=>{
  for(let count=0;count<=3;count++){
   const account=owned();account.wallet=3000;account.profile.ownedCosmetics=account.profile.ownedCosmetics!.filter(key=>!['theme.cold_chain','cargo.insulated','forklift.electric'].slice(count).includes(key));
-  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`${[1440,720,480][count]}金币 · 购买套装`);assert.ok(capture(v).labels.some(label=>label.endsWith(`已拥有 ${count}/3`)));assert.equal(JSON.stringify(account),before);
+  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`${[1440,810,600][count]}金币 · 购买套装`);assert.ok(capture(v).labels.some(label=>label.endsWith(`已拥有 ${count}/3`)));assert.equal(JSON.stringify(account),before);
  }
 });
 

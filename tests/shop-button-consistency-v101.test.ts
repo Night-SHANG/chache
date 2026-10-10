@@ -38,7 +38,7 @@ test('v101 classic white purchase uses the same price-first single line and narr
 });
 test('v101 insufficient bundles show original price and discount without a deficit annotation',()=>{
  const set=COSMETIC_SETS.find(s=>s.theme==='harbor')!,a=account(684);a.profile.ownedCosmetics!.push('theme.harbor');a.profile.ownedCosmetics!.sort();const v=view({account:a,shopSection:'sets',cosmeticSetPreview:set.id});
- assert.equal(primary(v).label,'720金币 · 购买套装');const rows=paints(v);assert.ok(rows.some(p=>p.text==='原价900 · 8折'));assert.ok(rows.every(p=>!p.text.includes('还差')));
+ assert.equal(primary(v).label,'810金币 · 购买套装');const rows=paints(v);assert.ok(rows.some(p=>p.text==='原价900 · 9折'));assert.ok(rows.every(p=>!p.text.includes('还差')));
 });
 test('v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers',()=>{
  assert.ok(GlobalFonts.families.some(f=>f.family==='Noto Sans CJK SC'),'Chinese font must really be available');

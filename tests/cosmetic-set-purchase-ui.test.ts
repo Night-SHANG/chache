@@ -28,24 +28,24 @@ test('set details put blue return on the left and yellow purchase on the right',
  assert.equal(controls(s).filter(c=>c.action.type==='previewCosmeticSetMember').length,3);
 });
 
-for(const [owned,original,price] of [[[],1800,1440],[['cargo.insulated'],1500,1200],[['theme.cold_chain'],900,720],[['forklift.electric'],1200,960]] as const)test(`bundle confirmation quotes only missing members: ${owned.join(',')||'all three'}`,()=>{
+for(const [owned,original,price] of [[[],1800,1440],[['cargo.insulated'],1500,1350],[['theme.cold_chain'],900,810],[['forklift.electric'],1200,1080]] as const)test(`bundle confirmation quotes only missing members: ${owned.join(',')||'all three'}`,()=>{
  const h=host([...owned]),s=h.session;open(s);const before=[...h.data];act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});
  assert.equal(s.view.confirmation?.kind,'purchaseCosmeticSet');assert.deepEqual(s.view.confirmation?.cosmeticSetQuote,{missingKeys:setKeys.filter(key=>!(owned as readonly string[]).includes(key)),originalPrice:original,price});
- const copy=words(s);assert.match(copy,new RegExp(`补齐 ${3-owned.length} 件`));assert.match(copy,new RegExp(`未拥有原价 ${original} 金币`));assert.match(copy,new RegExp(`8折 ${price} 金币`));assert.match(copy,new RegExp(`余额 3000 → ${3000-price}`));assert.doesNotMatch(copy,/单独搭配|另行装备/);
+ const copy=words(s);assert.match(copy,new RegExp(`补齐 ${3-owned.length} 件`));assert.match(copy,new RegExp(`未拥有原价 ${original} 金币`));assert.match(copy,new RegExp(`${owned.length===0?'8折':'9折'} ${price} 金币`));assert.match(copy,new RegExp(`余额 3000 → ${3000-price}`));assert.doesNotMatch(copy,/单独搭配|另行装备/);
  assert.equal(controls(s).find(c=>c.action.type==='confirm')?.label,'确认购买');act(s,{type:'cancel'});assert.equal(s.view.confirmation,null);assert.deepEqual([...h.data],before);assert.equal(s.view.cosmeticSetPreview,'cold_chain');
 });
 
 test('confirmed bundle buys once without equipping and separate equip remains explicit and mixable',()=>{
  const h=host(['cargo.insulated']),s=h.session;open(s);const before=structuredClone(s.view.account!),checksum=playableChecksum(s.state),sounds=[...h.sounds];
  act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});act(s,{type:'confirm'});act(s,{type:'confirm'});act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});
- assert.equal(s.view.account!.wallet,1800);assert.equal(s.view.account!.generation,before.generation+1);assert.deepEqual(s.view.account!.profile.cosmetics,before.profile.cosmetics);assert.ok(setKeys.every(key=>s.view.account!.profile.ownedCosmetics!.includes(key)));assert.equal(s.view.confirmation,null);assert.equal(s.view.cosmeticSetPreview,'cold_chain');
+ assert.equal(s.view.account!.wallet,1650);assert.equal(s.view.account!.generation,before.generation+1);assert.deepEqual(s.view.account!.profile.cosmetics,before.profile.cosmetics);assert.ok(setKeys.every(key=>s.view.account!.profile.ownedCosmetics!.includes(key)));assert.equal(s.view.confirmation,null);assert.equal(s.view.cosmeticSetPreview,'cold_chain');
  const equip=controls(s).find(c=>c.action.type==='equipCosmeticSet');assert.equal(equip?.label,'装备整套');assert.equal(equip?.disabled,false);assert.equal(controls(s).some(c=>c.action.type==='purchaseCosmeticSet'),false);
- act(s,{type:'equipCosmeticSet',id:'cold_chain'});assert.deepEqual(s.view.account!.profile.cosmetics,{theme:'cold_chain',cargo:'insulated',forklift:'electric'});assert.equal(s.view.account!.wallet,1800);assert.equal(controls(s).find(c=>c.action.type==='equipCosmeticSet')?.label,'使用中');
+ act(s,{type:'equipCosmeticSet',id:'cold_chain'});assert.deepEqual(s.view.account!.profile.cosmetics,{theme:'cold_chain',cargo:'insulated',forklift:'electric'});assert.equal(s.view.account!.wallet,1650);assert.equal(controls(s).find(c=>c.action.type==='equipCosmeticSet')?.label,'使用中');
  act(s,{type:'previewCosmeticSetMember',kind:'cargo'});act(s,{type:'equipCosmetic',kind:'cargo',id:'classic'});assert.deepEqual(s.view.account!.profile.cosmetics,{theme:'cold_chain',cargo:'classic',forklift:'electric'});assert.equal(playableChecksum(s.state),checksum);assert.deepEqual(h.sounds,sounds);
 });
 
 test('insufficient balance retains the required price and cannot open a purchase confirmation',()=>{
- const h=host(['cargo.insulated'],1199),s=h.session;open(s);const before=[...h.data],buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'1200金币 · 购买套装');assert.doesNotMatch(words(s),/还差/);
+ const h=host(['cargo.insulated'],1349),s=h.session;open(s);const before=[...h.data],buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'1350金币 · 购买套装');assert.doesNotMatch(words(s),/还差/);
  act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});act(s,{type:'confirm'});assert.equal(s.view.confirmation,null);assert.deepEqual([...h.data],before);
 });
 
@@ -59,7 +59,7 @@ test('stale bundle ownership refreshes detail and requires a new explicit confir
  const service=createAccountService(h.storage,{status:'held',release(){}},()=>Date.parse('2026-10-06T12:01:00Z'));
  const change=service.transact({type:'purchaseCosmetic',kind:'cargo',id:'insulated',operationId:'external.single'},service.getSnapshot()!.generation);assert.equal(change.status,'acknowledged',change.message);const afterSingle=[...h.data];
  act(s,{type:'confirm'});assert.equal(s.view.confirmation,null);assert.equal(s.view.account!.wallet,2700);assert.ok(s.view.account!.profile.ownedCosmetics!.includes('cargo.insulated'));assert.equal(s.view.account!.profile.ownedCosmetics!.includes('theme.cold_chain'),false);assert.deepEqual([...h.data],afterSingle);assert.match(words(s),/报价已变化，请重新确认/);
- act(s,{type:'confirm'});assert.deepEqual([...h.data],afterSingle);act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});assert.equal(confirmationQuote(s)?.price,1200);assert.equal(confirmationQuote(s)?.originalPrice,1500);act(s,{type:'confirm'});assert.equal(s.view.account!.wallet,1500);
+ act(s,{type:'confirm'});assert.deepEqual([...h.data],afterSingle);act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});assert.equal(confirmationQuote(s)?.price,1350);assert.equal(confirmationQuote(s)?.originalPrice,1500);act(s,{type:'confirm'});assert.equal(s.view.account!.wallet,1350);
 });
 
 test('unconfirmed bundle storage retries one original transaction without exposing partial ownership',()=>{

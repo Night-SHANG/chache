@@ -1,4 +1,4 @@
-import {SHOP_COSMETIC_SETS,getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,classicSetStatus,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
+import {SHOP_COSMETIC_SETS,getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import type {CosmeticSetDefinition} from '../application/cosmetic-sets.ts';
 import {COSMETIC_CATALOG,accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import type {CosmeticDefinition} from '../application/cosmetics.ts';
@@ -52,7 +52,7 @@ export function cosmeticStatus(item:CosmeticDefinition,view:ViewState):string {
 export function cosmeticSetCardStatus(set:CosmeticSetDefinition,view:ViewState):string {
  const appearance=accountCosmeticState(view.account??null,view.profile),status=cosmeticSetStatus(set,appearance),quote=quoteCosmeticSetPurchase(set.id,appearance);
  if(set.id==='classic'){const classic=classicSetStatus(view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION,appearance);return classic.equipped?'使用中':classic.complete?'已拥有':'自由搭配';}
- return status.equipped?'使用中':status.complete?'已拥有':PLAYTEST_FREE_SHOP?'试玩免费':`${quote?.price??0}金币 · 8折`;
+ return status.equipped?'使用中':status.complete?'已拥有':PLAYTEST_FREE_SHOP?'试玩免费':`${quote?.price??0}金币 · ${cosmeticSetDiscountLabel(quote?.missingKeys.length??0)}`;
 }
 /** Every paired shop footer keeps navigation left and the committing action right. */
 const shopFooterRects=(y:number,backWidth:number)=>({back:{x:132,y,w:backWidth,h:150},primary:{x:156+backWidth,y,w:792-backWidth,h:150}});

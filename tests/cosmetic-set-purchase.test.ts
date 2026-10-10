@@ -83,7 +83,7 @@ for (const [label, api, freeShop] of [['source paid', cosmeticSets, false], ['co
       Object.freeze(state.ownedCosmetics); Object.freeze(state);
       const missingKeys = all.filter(key => !owned.includes(key));
       const originalPrice = missingKeys.reduce((sum, key) => sum + COSMETIC_CATALOG.find(item => item.key === key)!.price, 0);
-      assert.deepEqual(api.quoteCosmeticSetPurchase(set.id, state), { missingKeys, originalPrice, price: freeShop ? 0 : Math.ceil(originalPrice * 4 / 5) }, `${set.id}/${mask}`);
+      assert.deepEqual(api.quoteCosmeticSetPurchase(set.id, state), { missingKeys, originalPrice, price: freeShop ? 0 : Math.ceil(originalPrice * (missingKeys.length === 3 ? 80 : missingKeys.length === 2 ? 90 : 100) / 100) }, `${set.id}/${mask}`);
       assert.deepEqual(state, before);
     }
     for (const id of ['', 'missing', '__proto__', 'day', 'night', 'classic', 'outline']) assert.equal(api.quoteCosmeticSetPurchase(id, { ownedCosmetics: [] }), null);
@@ -106,7 +106,7 @@ for (const [label, api, freeShop] of [['paid', paid, false], ['free', free, true
         expected.profile.ownedCosmetics = [...new Set([...expected.profile.ownedCosmetics!, ...memberKeys(set)])].sort();
       }
       assert.deepEqual(service.getSnapshot(), expected);
-      assert.equal(expected.wallet, freeShop ? account.wallet : account.wallet - Math.ceil(quote.originalPrice * 4 / 5));
+      assert.equal(expected.wallet, freeShop ? account.wallet : account.wallet - Math.ceil(quote.originalPrice * (quote.missingKeys.length === 3 ? 80 : quote.missingKeys.length === 2 ? 90 : 100) / 100));
       assert.equal(storage.operations.filter(op => op.kind === 'set').length, mask === 7 ? 0 : 2);
       assert.equal(storage.values.get(ACCOUNT_KEYS.a), storage.values.get(ACCOUNT_KEYS.b));
       assert.deepEqual(request, beforeRequest);
@@ -156,7 +156,7 @@ for (const [label, api, freeShop] of [['paid', paid, false], ['free', free, true
     assert.deepEqual(service.getSnapshot(), before); assert.equal(storage.operations.some(op => op.kind === 'set'), false);
     const fresh = purchase(api, before, 'cold_chain', 'fresh.quote');
     assert.equal(service.transact(fresh, before.generation).status, 'acknowledged');
-    assert.equal(service.getSnapshot()!.wallet, freeShop ? 5000 : 3500, 'prior full-price single purchase is neither repeated nor retroactively refunded');
+    assert.equal(service.getSnapshot()!.wallet, freeShop ? 5000 : 3350, 'prior full-price single purchase is neither repeated nor retroactively refunded');
     assert.deepEqual(service.getSnapshot()!.profile.cosmetics, account.profile.cosmetics);
   });
 

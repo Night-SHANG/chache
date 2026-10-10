@@ -56,6 +56,15 @@ export function getCosmeticSet(id: string): CosmeticSetDefinition | undefined {
   return id==='classic'?CLASSIC_COSMETIC_SET:COSMETIC_SETS.find(set => set.id === id);
 }
 
+/** The current purchase quantity alone selects the fixed-set tier; owned items never count. */
+export function cosmeticSetDiscountPercent(missingCount: number): 80 | 90 | 100 {
+  return missingCount >= 3 ? 80 : missingCount === 2 ? 90 : 100;
+}
+export function cosmeticSetDiscountLabel(missingCount: number): string {
+  const percent = cosmeticSetDiscountPercent(missingCount);
+  return percent === 100 ? '原价' : `${percent / 10}折`;
+}
+
 /** Only missing members are discounted; previous purchases are never charged or refunded. */
 export function quoteCosmeticSetPurchase(id: string, state: Pick<AccountCosmeticState, 'ownedCosmetics'>): { missingKeys: string[]; originalPrice: number; price: number } | null {
   const set = COSMETIC_SETS.find(set => set.id === id);
@@ -64,7 +73,7 @@ export function quoteCosmeticSetPurchase(id: string, state: Pick<AccountCosmetic
     .map(kind => getCosmetic(kind, set[kind])!)
     .filter(item => !state.ownedCosmetics.includes(item.key));
   const originalPrice = missing.reduce((sum, item) => sum + item.price, 0);
-  return { missingKeys: missing.map(item => item.key), originalPrice, price: shopPrice(Math.ceil(originalPrice * 4 / 5)) };
+  return { missingKeys: missing.map(item => item.key), originalPrice, price: shopPrice(Math.ceil(originalPrice * cosmeticSetDiscountPercent(missing.length) / 100)) };
 }
 
 export interface CosmeticSetStatus { ownedCount: number; complete: boolean; equipped: boolean }
