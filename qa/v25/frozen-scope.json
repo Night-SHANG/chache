@@ -1,0 +1,44 @@
+[
+  {
+    "path": "src/application/cosmetics.ts",
+    "bytes": 15361,
+    "sha256": "6efa309b17cf5a880c1dcc6dec693a6e8bd1cb088242883992abffa78ca102a9",
+    "identicalToV24": true
+  },
+  {
+    "path": "src/application/cosmetic-sets.ts",
+    "bytes": 5661,
+    "sha256": "c6a802e9c445ebd84e070570f3075f67717ab01921c18f5fa1e7aadf04a37613",
+    "identicalToV24": true
+  },
+  {
+    "path": "src/presentation/themed-forklift-art.ts",
+    "bytes": 1588,
+    "sha256": "170f012308c90876b647754d887379a89b0b58fa3cad918eb3ba187f8b1ee955",
+    "identicalToV24": true
+  },
+  {
+    "path": "assets/cargo-materials.png",
+    "bytes": 351513,
+    "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+    "identicalToV24": true
+  },
+  {
+    "path": "assets/themed-forklifts.png",
+    "bytes": 61052,
+    "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+    "identicalToV24": true
+  },
+  {
+    "path": "assets/board-materials.png",
+    "bytes": 166727,
+    "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+    "identicalToV24": true
+  },
+  {
+    "path": "assets/scene-materials.png",
+    "bytes": 219775,
+    "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+    "identicalToV24": true
+  }
+]

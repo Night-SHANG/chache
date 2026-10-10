@@ -1,0 +1,52 @@
+{
+  "version": "0.25.0",
+  "verifiedAt": "2026-10-10 18:49 北京时间（UTC+08:00）",
+  "productCommit": "692573585ec0757ab52dec2e3a214b71560430f1",
+  "sourceSha256": "2bf499e0f46105cf23ee546698ad3ce63d9d3db6526987a54aebc8cdc86463ae",
+  "fullTests": {
+    "total": 2589,
+    "passed": 2587,
+    "failed": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "knownFailures": [
+      "cargo-atlas.test.ts: missing cargo-wood-generated.png historical source",
+      "v021-cargo-forklift-art.test.ts: missing cargo-harbor_container-generated.png historical source"
+    ]
+  },
+  "host": {
+    "passed": 62,
+    "failed": 0,
+    "nativeCases": 34,
+    "browserEventCases": 26,
+    "sourceChecks": 2
+  },
+  "extraStaleFeedbackCases": 4,
+  "hostScreenshots": 98,
+  "extraStaleScreenshots": 4,
+  "lintExit": 0,
+  "typecheckExit": 0,
+  "preflightExit": 0,
+  "freeBuildExit": 0,
+  "paidBuildExit": 0,
+  "freeDelivered": true,
+  "realBrowserOrDeviceTested": false,
+  "browserStorageFaultsTested": false,
+  "remoteProduct": {
+    "sha": "8647ce45bee3387b4ef46aef58e0cfe284be3b4a",
+    "tree": "de4e3bf7852bdd0c1b8bdbb3a7940e80bcec4666",
+    "pathModeBlobCount": 888,
+    "exactReadback": true
+  },
+  "evidence": {
+    "qa/v25/full-frozen.txt": "71e0445e1d4d4aca5eb5ffbfc6e9f3e2cfa0e5d41cc34d419535cb59372eac3e",
+    "qa/v25/host-final/report.json": "a1d50f17498201b025b4d8338f164e35ee1986636b8285338f46c9f979473aa9",
+    "qa/v25/host-initial/report.json": "bda8e1968ac4966988da5623c57f539414a8ecd3d31e58b6d167508513f53deb"
+  },
+  "independentReview": {
+    "commit": "692573585ec0757ab52dec2e3a214b71560430f1",
+    "tests": 132,
+    "passed": 132,
+    "unresolvedBlockers": 0
+  }
+}
