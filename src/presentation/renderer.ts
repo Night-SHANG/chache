@@ -141,7 +141,7 @@ function drawWarehouse(ctx: Context, view: ViewState): void {
 
 function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 58, 35, 16, '#b6aa90', 'left', 600);
-  outlinedText(ctx, '爆仓', 49, 112, 115);
+  outlinedText(ctx, '货箱', 49, 112, 115);
   outlinedText(ctx, '最后一格', 63, 206, 57);
   hazard(ctx, { x: 55, y: 249, w: 425, h: 15 });
   if(!view.practice&&isToolRun(state))drawToolboxEntry(ctx,state,view);
@@ -636,7 +636,7 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
 
 function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
   if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, 120, 22, '#b7b098', 'center', 600);
-  outlinedText(ctx, '爆仓', 540, 267, 151, CREAM, 'center');
+  outlinedText(ctx, '货箱', 540, 267, 151, CREAM, 'center');
   outlinedText(ctx, '最后一格', 540, 387, 79, '#ffe3a3', 'center');
   hazard(ctx, { x: 314, y: 448, w: 452, h: 14 });
   ctx.fillStyle = 'rgba(255,230,159,.07)'; ctx.beginPath(); ctx.ellipse(540, 601, 180, 33, 0, 0, Math.PI * 2); ctx.fill();
