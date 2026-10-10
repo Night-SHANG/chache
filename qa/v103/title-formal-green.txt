@@ -1,0 +1,11 @@
+✔ formal v1.0.3 production artifacts are paid, non-debug and carry the release version (616.651698ms)
+✔ menu paints the renamed title in the existing two-plus-four layout (17.589738ms)
+✔ game paints the renamed title in the existing two-plus-four layout (19.637412ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 739.558097

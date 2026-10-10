@@ -1,0 +1,10 @@
+✔ menu paints the renamed title in the existing two-plus-four layout (17.316857ms)
+✔ game paints the renamed title in the existing two-plus-four layout (22.561071ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 583.563323

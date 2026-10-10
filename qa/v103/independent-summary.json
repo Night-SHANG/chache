@@ -1,0 +1,57 @@
+{
+  "status": "PASS_SCOPED_RENAME_WITH_TWO_DISCLOSED_HISTORICAL_ART_MASTER_FAILURES",
+  "baselineCommit": "46ca486a0ae32de5208863d757ada984a2cdde7f",
+  "productCommit": "4cb19bfe7d2fe7d495d7edffdd7803dc5c0f4b64",
+  "sourceSha256": "95899b666cab3d65ec8cd86af3734a01195c560623c862406021a221754b4a1e",
+  "buildHashes": {
+    "build/browser/app.js": "c26bfca8442b1b1f769e4f90edd19bbb46e0c010e3e8a396c6443961f7391b2c",
+    "build/wechat/game.js": "b8817b4136b98eb17381870d21d32a29b37da814e2bf875cee4fe3c7a3b06cd7",
+    "build/browser/index.html": "89f21ab37441317144fe95a4c0cb70e3ee7a5ef62460bdffaa7154cfeaeada22",
+    "build/browser/build-manifest.json": "e0f8b129578e8c88358e38313d8b6699389992aed3dc03db0bfb0b2e3e1e183e"
+  },
+  "scopeChecks": {
+    "passed": 30,
+    "failed": 0
+  },
+  "compiledContinuityChecks": {
+    "passed": 12,
+    "failed": 0
+  },
+  "focusedTests": {
+    "tests": 234,
+    "passed": 234,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "unchangedProtectedFiles": 188,
+  "unchangedRuntimeSources": 176,
+  "unchangedCommittedAssets": 12,
+  "unchangedShippedAssetAndProjectFiles": 36,
+  "frozenPaidFiles": 48,
+  "fullSuiteOwnerEvidence": {
+    "passed": 2717,
+    "tests": 2719,
+    "failed": 2,
+    "independentlyRerun": false,
+    "knownFailures": [
+      "cargo-wood-generated.png historical source missing",
+      "cargo-harbor_container-generated.png historical source missing"
+    ]
+  },
+  "title": "货箱最后一格",
+  "layout": "Existing upper 货箱 / lower 最后一格 2+4 geometry unchanged.",
+  "continuity": "The entire compiled WeChat bundle matches shipped v1.0.2 bytes after reversing only two title literals; browser bundle additionally reverses its single version marker. No gameplay, storage, identifiers, catalogue, account, pricing, or audio code changes remain.",
+  "testGuardReview": "Original whole-canvas fixture unchanged. Only exact game-title fill call at 49,112 and stroke calls at 49,112 / 51,118 with 115px font are normalized; expected count 1 fill and 2 strokes is asserted. Separate tests assert actual new title and existing geometry.",
+  "freeComparator": "1.0.3-dev, playtest-free, developerDiagnostics=false. It is not a diagnostics-enabled build or the paid release.",
+  "blockingFindings": [],
+  "limitations": [
+    "Read-only source/artifact inspection and isolated automated tests; no screenshots, real browser GUI, Windows GUI, WeChat tools or physical-device verification.",
+    "Original art-source missing checks are preserved; known missing cargo-wood and harbor-container master files are not restored by this change."
+  ],
+  "evidenceFiles": {
+    "scope-report.json": "4aa9acb8be86306caf799c5568400d88e93444948fc8694ff918977831cf52fb",
+    "compiled-continuity-report.json": "b4f1b71efb5b81c38d66ef3e021f1d38e9c1db67d5b2ff747f989a7008dfab48",
+    "focused-tests.txt": "842571fc341f3d7bd8e3491135217764c31f3b665f9bbd2208bb859ea2d0557d"
+  }
+}

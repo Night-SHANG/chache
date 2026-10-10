@@ -1,0 +1,28 @@
+✖ formal v1.0.3 production artifacts are paid, non-debug and carry the release version (348.622631ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 454.368323
+
+✖ failing tests:
+
+test at tests/formal-build-v100.test.ts:8:1
+✖ formal v1.0.3 production artifacts are paid, non-debug and carry the release version (348.622631ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '1.0.2' !== '1.0.3'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/game-rename-20261010/source/tests/formal-build-v100.test.ts:15:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1.0.2',
+    expected: '1.0.3',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

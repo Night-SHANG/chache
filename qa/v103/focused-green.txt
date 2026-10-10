@@ -1,0 +1,12 @@
+✔ formal v1.0.3 production artifacts are paid, non-debug and carry the release version (574.393375ms)
+✔ menu paints the renamed title in the existing two-plus-four layout (15.71686ms)
+✔ game paints the renamed title in the existing two-plus-four layout (24.375621ms)
+✔ v0.20 scenes preserve all historical pixels after normalizing only the approved v1.0.3 title rename (103.241744ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 678.858997

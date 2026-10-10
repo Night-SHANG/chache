@@ -1,0 +1,81 @@
+{
+  "recordedAtUtc": "2026-10-10T23:43:14.936373+00:00",
+  "sourceSha256": "95899b666cab3d65ec8cd86af3734a01195c560623c862406021a221754b4a1e",
+  "checks": [
+    {
+      "name": "browser exactly one intended title at 49,112,115",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "browser exactly one intended title at 540,267,151",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Browser exactly one release version substitution",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "browser compiled bytes equal shipped v1.0.2 except only authorized title/version",
+      "passed": true,
+      "detail": {
+        "oldSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea",
+        "currentSha256": "c26bfca8442b1b1f769e4f90edd19bbb46e0c010e3e8a396c6443961f7391b2c",
+        "normalizedSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea",
+        "currentBytes": 896497
+      }
+    },
+    {
+      "name": "wechat exactly one intended title at 49,112,115",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wechat exactly one intended title at 540,267,151",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wechat compiled bytes equal shipped v1.0.2 except only authorized title/version",
+      "passed": true,
+      "detail": {
+        "oldSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+        "currentSha256": "b8817b4136b98eb17381870d21d32a29b37da814e2bf875cee4fe3c7a3b06cd7",
+        "normalizedSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+        "currentBytes": 895823
+      }
+    },
+    {
+      "name": "Paid frozen copy has exact matching inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Paid frozen copy byte-identical to final source build",
+      "passed": true,
+      "detail": {
+        "files": 48,
+        "mismatches": []
+      }
+    },
+    {
+      "name": "Paid release is 1.0.3 paid non-debug",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Free-shop comparator isolated and explicitly dev/free with diagnostics off",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Comparator source same as paid final",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": 12,
+  "failed": 0
+}
