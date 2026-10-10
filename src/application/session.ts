@@ -1,4 +1,4 @@
-import {toolPurchaseQuote} from './tool-purchase.ts';
+import {toolPurchaseQuote,confirmToolPurchase} from './tool-purchase.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,DEFAULT_CLASSIC_SET_SELECTION,isClassicSetSelection,classicSetStatus} from './cosmetic-sets.ts';
 import {COSMETICS_PER_PAGE,cosmeticShopPage,selectedShopCosmetic,cosmeticSetShopPage,selectedShopCosmeticSet} from '../presentation/economy-ui.ts';
 import {shopListViewport,shopScrollLimit} from '../presentation/shop-layout.ts';
@@ -265,6 +265,7 @@ export class GameSession {
    const pending=this.view.confirmation;if(pending?.kind==='purchase'&&pending.item&&(action.delta===-1||action.delta===1)){
     const quantity=pending.quantity??1,quote=toolPurchaseQuote(this.view.account,pending.item,quantity);
     pending.quantity=Math.max(1,Math.min(Math.max(1,quote.maxQuantity),quantity+action.delta));
+    if(pending.quantity!==quantity)this.input.cancel();
    }return true;
   }
   if(this.view.confirmation&&action.type!=='confirm'&&action.type!=='cancel')return true;
@@ -300,15 +301,7 @@ export class GameSession {
     return true;
    }
    if(pending.kind==='purchaseCosmetic'){this.view.confirmation=null;if(pending.cosmeticKind&&pending.cosmeticId)this.requestAccount({type:'purchaseCosmetic',kind:pending.cosmeticKind,id:pending.cosmeticId});return true;}
-   if(pending.kind==='purchase'){
-    this.view.confirmation=null;
-    if(pending.item){
-     if(pending.purchaseGeneration!==undefined&&pending.purchaseGeneration!==(this.view.account?.generation??0)){this.view.message='账户已变化，请重新确认';return true;}
-     const quantity=pending.quantity??1,quote=toolPurchaseQuote(this.view.account,pending.item,quantity);
-     if(!quote.valid){this.view.message=quote.reason;return true;}
-     this.requestAccount({type:'purchase',item:pending.item,quantity,quotedPrice:quote.total});
-    }return true;
-   }
+   if(pending.kind==='purchase'){confirmToolPurchase(this.view,this.accountService,request=>this.requestAccount(request),account=>this.publishAccount(account));return true;}
    if(pending.kind==='newRun'&&!pending.colorTier){this.view.confirmation=null;const start=()=>this.beginNewGame({type:'newRun',mode:pending.mode??'standard',inboundDifficulty:pending.inboundDifficulty,difficultyId:pending.difficultyId,outboundMode:pending.outboundMode});if(this.accountOwned)this.closeAccount('home',start);else {if(this.state.phase==='result'&&!this.recordFinal())return true;this.closeConfirmed(this.prepareReturn);if(!this.hasRun)start();}return true;}
    if(this.accountOwned){this.view.confirmation=null;if(pending.kind==='leaveRun')this.closeAccount(pending.nextScreen==='colorTiers'&&this.state.endReason==='completed'?'decline_overtime':'home',()=>this.openSelection(pending.nextScreen??'menu'));else if(pending.kind==='finishEndless'||pending.kind==='finishOvertime'){const before=this.state,run=this.view.account?.run;if(run){this.view.paused=false;this.requestAccount({type:'close',runId:run.identity.runId,reason:'retired',elapsedMs:Math.floor(this.view.elapsed)},ack=>{this.view.screen='game';this.animateAccountStep(before,[10,13].includes(before.rulesetVersion)?{type:'finishOutboundEndless'}:{type:'finish'},ack.events??[]);});}}else if(pending.kind==='resetProfile')this.requestAccount({type:'resetResults'});return true;}
    if(pending.kind==='resetProfile'){this.view.confirmation=null;if(this.hasRun&&this.state.phase==='result'&&(!this.persist()||!this.recordFinal())){this.view.profileStatus='本局结算尚未确认保存，请重试后再重置';return true;}this.requestAccount({type:'resetResults'});return true;}

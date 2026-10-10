@@ -16,6 +16,8 @@ export class InputController {
  private port:InputPort;
  private dismissedPurchase:{rect:Rect;at:number}|null=null;
  private active:number|null=null;
+ private buttonModal:ViewState['confirmation']=null;
+ private buttonQuantity:number|undefined;
  private start:Point|null=null;
  private dragging=false;
  private routeReady=false;
@@ -29,6 +31,7 @@ export class InputController {
   if(this.dismissedPurchase){if(Date.now()-this.dismissedPurchase.at<350&&hitTestPoint(point,this.dismissedPurchase.rect))return;this.dismissedPurchase=null;}
   this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;this.shopGesture=null;
   const v=this.port.getView(),s=this.port.getState();
+  this.buttonModal=v.confirmation??null;this.buttonQuantity=v.confirmation?.quantity;
   const shopViewport=shopListViewport(v);
   if(shopViewport&&hitTestPoint(point,shopViewport)){
    this.shopGesture={last:point,section:shopSection(v)};
@@ -84,6 +87,8 @@ export class InputController {
  }
  up(point:Point,id=0):void {
   if(this.active!==id)return;
+  const modal=this.port.getView().confirmation??null;
+  if(this.button&&(modal!==this.buttonModal||modal?.quantity!==this.buttonQuantity)){this.cancel(id);return;}
   if(this.shopGesture){
    const button=this.button,viewport=shopListViewport(this.port.getView()),tap=this.validShopGesture()&&!this.dragging&&!!this.start&&Math.hypot(point.x-this.start.x,point.y-this.start.y)<=14;
    this.active=null;this.button=null;this.start=null;this.shopGesture=null;this.dragging=false;

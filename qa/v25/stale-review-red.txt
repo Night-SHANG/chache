@@ -1,0 +1,31 @@
+✖ stale storage refreshes visible account and requires a fresh explicit quantity confirmation (18.117199ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 620.665366
+
+✖ failing tests:
+
+test at tests/tool-quantity-ui.test.ts:34:1
+✖ stale storage refreshes visible account and requires a fresh explicit quantity confirmation (18.117199ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1000 !== 880
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-ui.test.ts:34:573)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1000,
+    expected: 880,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
