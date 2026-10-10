@@ -47,7 +47,7 @@ test('generated body sampling maps only to the existing body envelope and leaves
  assert.equal(drawThemedForkliftBody(ctx as unknown as CanvasRenderingContext2D, 'steam'), false);
 });
 
-test('actual generated forklift PNG retains the complete shared forward forks and original envelope at 32 headings and five sizes', async () => {
+test('current native forklift dispatch with atlas loaded retains complete shared forward forks and original envelope at 32 headings and five sizes', async () => {
  const { loadThemedForkliftAtlas, THEMED_FORKLIFT_ATLAS } = await art();
  function vehicle(paint: ForkliftId, size = 110, angle = 0) {
   const ctx = createCanvas(200, 200).getContext('2d');
@@ -69,7 +69,7 @@ test('actual generated forklift PNG retains the complete shared forward forks an
   const angle = step * Math.PI / 16, original = vehicle('yellow', size, angle), limit = bounds(original);
   for (const paint of THEMED_FORKLIFT_ATLAS.paints) {
    const next = vehicle(paint, size, angle), extent = bounds(next);
-   assert.ok(extent.left >= limit.left && extent.right <= limit.right && extent.top >= limit.top && extent.bottom <= limit.bottom, `${paint}/${size}/${step}: generated body must stay inside the original footprint`);
+   assert.ok(extent.left >= limit.left && extent.right <= limit.right && extent.top >= limit.top && extent.bottom <= limit.bottom, `${paint}/${size}/${step}: active body must stay inside the original footprint`);
    let forkPixels = 0, changed = 0;
    for (let y = 0; y < 200; y++) for (let x = 0; x < 200; x++) {
     const pixel = (y * 200 + x) * 4;
@@ -80,7 +80,7 @@ test('actual generated forklift PNG retains the complete shared forward forks an
     if (original[pixel + 3] >= 64) forkPixels++;
    }
    assert.ok(forkPixels > 2, 'comparison includes visible front-fork pixels');
-   assert.ok(changed > size * size / 12, `${paint}/${size}/${step}: actual PNG body is visibly installed`);
+   assert.ok(changed > size * size / 12, `${paint}/${size}/${step}: style body is visibly distinct`);
   }
  }
 });

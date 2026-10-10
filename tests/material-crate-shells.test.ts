@@ -39,10 +39,12 @@ test('actual waste crates paint the new label at the existing position and font 
  }
 });
 
-test('all ten forklifts retain exact pixels at 32 headings and four display sizes',()=>{
+test('nine retained vector forklifts keep frozen pixels while the approved v024 heavy structure changes at 32 headings and four display sizes',()=>{
  for(const paint of PAINTS){const hash=createHash('sha256');for(const size of [...SIZES,80])for(let heading=0;heading<32;heading++){
   const out=surface(200,200);forklift(out.context,100,100,size,heading*Math.PI/16,paint);hash.update(pixels(out));
- }assert.equal(hash.digest('hex'),hashes.forklifts[paint],paint);}
+ }const actual=hash.digest('hex');
+ if(paint==='heavy')assert.notEqual(actual,hashes.forklifts[paint],'approved v024 heavy structure replaces old heavy body');
+ else assert.equal(actual,hashes.forklifts[paint],paint);}
 });
 
 test('each approved shell replaces substantial old shell pixels with the same cargo and icon at actual board sizes',async()=>{

@@ -8,7 +8,8 @@ export interface CosmeticDefinition {
   price: number; achievementId?: 'first_shipment' | 'five_shifts'; overlay?: boolean;
 }
 export function cosmeticKey(kind: CosmeticKind, id: string): string { return `${kind}.${id}`; }
-export const COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze([
+/** Historical identifiers remain valid save data even after shop retirement. */
+export const HISTORICAL_COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze([
   { kind: 'theme', id: 'day', key: 'theme.day', name: '日班仓库', description: '明亮的日班色调', price: 0 },
   { kind: 'theme', id: 'night', key: 'theme.night', name: '夜班仓库', description: '深色夜班色调', price: 0 },
   { kind: 'theme', id: 'harbor', key: 'theme.harbor', name: '海港仓库', description: '海港钢梁与低对比仓库结构', price: 900 },
@@ -63,12 +64,22 @@ export const COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze([
   { kind: 'forklift', id: 'ice', key: 'forklift.ice', name: '冰晶叉车', description: '冰晶车壳、霜雪护顶与透明切面', price: 600 },
   { kind: 'forklift', id: 'harbor', key: 'forklift.harbor', name: '码头叉车', description: '海港钢壳、加固护顶与码头配重', price: 600 },
 ].map(item => Object.freeze(item)) as CosmeticDefinition[]);
+const RETIRED_COSMETIC_KEYS: ReadonlySet<string> = new Set(['theme.express_sorting', 'cargo.taped', 'forklift.compact']);
+export const COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze(HISTORICAL_COSMETIC_CATALOG.filter(item => !RETIRED_COSMETIC_KEYS.has(item.key)));
 export const FREE_COSMETICS: readonly string[] = Object.freeze(COSMETIC_CATALOG.filter(item => item.price === 0 && !item.achievementId).map(item => item.key).sort());
 export function getCosmetic(kind: string, id: string): CosmeticDefinition | undefined {
   return COSMETIC_CATALOG.find(item => item.kind === kind && item.id === id);
 }
 export interface AccountCosmeticState {
   ownedCosmetics: string[]; cosmetics: Profile['cosmetics']; cargoOutline: boolean;
+}
+/** Retired slots use free defaults; every other slot and the independent outline stay intact. */
+function activeCosmetics(cosmetics: Profile['cosmetics']): Profile['cosmetics'] {
+  return {
+    theme: cosmetics.theme === 'express_sorting' ? 'day' : cosmetics.theme,
+    cargo: cosmetics.cargo === 'taped' || cosmetics.cargo === 'outline' ? 'classic' : cosmetics.cargo,
+    forklift: cosmetics.forklift === 'compact' ? 'yellow' : cosmetics.forklift,
+  };
 }
 /** A pure projection: previews never migrate an account or write storage. */
 export function accountCosmeticState(account: Readonly<AccountSnapshot> | null, legacyProfile?: Profile): AccountCosmeticState {
@@ -81,7 +92,7 @@ export function accountCosmeticState(account: Readonly<AccountSnapshot> | null, 
     }
     if (legacyProfile && (legacyProfile.stats.orders > 0 || legacyProfile.achievements.includes('first_shipment'))) owned.add('forklift.blue');
     if (legacyProfile?.achievements.includes('five_shifts')) owned.add('forklift.red');
-    return { ownedCosmetics: [...owned].sort(), cosmetics: { ...cosmetics, cargo: cosmetics.cargo === 'outline' ? 'classic' : cosmetics.cargo }, cargoOutline: cosmetics.cargo === 'outline' };
+    return { ownedCosmetics: [...owned].sort(), cosmetics: activeCosmetics(cosmetics), cargoOutline: cosmetics.cargo === 'outline' };
   }
   const profile = account.profile, legacy = profile.legacyResults;
   const owned = new Set([...FREE_COSMETICS, ...(profile.ownedCosmetics ?? [])]);
@@ -105,7 +116,7 @@ export function accountCosmeticState(account: Readonly<AccountSnapshot> | null, 
   }
   if (blue) owned.add('forklift.blue');
   if (red) owned.add('forklift.red');
-  return { ownedCosmetics: [...owned].sort(), cosmetics: { ...profile.cosmetics, cargo: profile.cosmetics.cargo === 'outline' ? 'classic' : profile.cosmetics.cargo }, cargoOutline: profile.cargoOutline ?? profile.cosmetics.cargo === 'outline' };
+  return { ownedCosmetics: [...owned].sort(), cosmetics: activeCosmetics(profile.cosmetics), cargoOutline: profile.cargoOutline ?? profile.cosmetics.cargo === 'outline' };
 }
 /** The caller prepares this and the requested mutation inside the same A/B transaction. */
 export function retainAccountCosmetics(account: AccountSnapshot): AccountSnapshot {
@@ -119,15 +130,15 @@ export function assertAccountCosmetics(value: unknown): void {
   const profileKeys = ['settings', 'cosmetics', 'legacyResults', 'results', 'ownedCosmetics', 'cargoOutline'];
   if (Object.keys(profile).length !== profileKeys.length || Object.keys(profile).some(key => !profileKeys.includes(key))) throw new InvalidCosmeticState('外观拥有或装备记录结构无效，原记录已保留');
   const owned = profile.ownedCosmetics, equipped = profile.cosmetics;
-  const valid = Array.isArray(owned) && owned.length <= COSMETIC_CATALOG.length
-    && owned.every((key, index) => typeof key === 'string' && COSMETIC_CATALOG.some(item => item.key === key) && (index === 0 || owned[index - 1] < key))
+  const valid = Array.isArray(owned) && owned.length <= HISTORICAL_COSMETIC_CATALOG.length
+    && owned.every((key, index) => typeof key === 'string' && HISTORICAL_COSMETIC_CATALOG.some(item => item.key === key) && (index === 0 || owned[index - 1] < key))
     && FREE_COSMETICS.every(key => owned.includes(key)) && typeof profile.cargoOutline === 'boolean'
     && equipped !== null && typeof equipped === 'object' && !Array.isArray(equipped)
     && Object.keys(equipped).length === 3 && Object.keys(equipped).every(kind => ['theme', 'cargo', 'forklift'].includes(kind))
     && (['theme', 'cargo', 'forklift'] as const).every(kind => {
       const id = (equipped as Record<string, unknown>)[kind];
       if (typeof id !== 'string') return false;
-      const item = getCosmetic(kind, id);
+      const item = HISTORICAL_COSMETIC_CATALOG.find(item => item.kind === kind && item.id === id);
       return item !== undefined && !item.overlay && owned.includes(item.key);
     });
   if (!valid) throw new InvalidCosmeticState('外观拥有或装备记录无效，原记录已保留');

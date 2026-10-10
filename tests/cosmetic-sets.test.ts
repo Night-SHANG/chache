@@ -13,7 +13,6 @@ import { FaultStorage, makeAccountFixture, makeAccountRun } from './helpers/acco
 const TRIPLES = [
   ['cold_chain', 'insulated', 'electric'],
   ['rail_freight', 'reinforced', 'heavy'],
-  ['express_sorting', 'taped', 'compact'],
   ['toy_workshop', 'toy_brick', 'toy'],
   ['paper_warehouse', 'paper_fold', 'paper'],
   ['space_cargo', 'space_case', 'space'],
@@ -45,7 +44,7 @@ function setup(owned = members(TRIPLES[0]), factory = createAccountService, acti
 }
 const request = (id: string, operationId = 'set.once'): AccountRequest => ({ type: 'equipCosmeticSet', id, operationId });
 
-test('the immutable set catalogue names exactly fifteen triples and leaves eight independent entries', () => {
+test('the immutable set catalogue names exactly fourteen triples and leaves eight independent entries', () => {
   assert.deepEqual(cosmeticSets.COSMETIC_SETS.map(set => [set.theme, set.cargo, set.forklift]), TRIPLES);
   assert.ok(Object.isFrozen(cosmeticSets.COSMETIC_SETS));
   const used = new Set<string>();
@@ -61,8 +60,8 @@ test('the immutable set catalogue names exactly fifteen triples and leaves eight
       used.add(item.key);
     }
   }
-  assert.equal(COSMETIC_CATALOG.length, 53);
-  assert.equal(used.size, 45);
+  assert.equal(COSMETIC_CATALOG.length, 50);
+  assert.equal(used.size, 42);
   assert.equal(COSMETIC_CATALOG.filter(item => !used.has(item.key)).length, 8);
   for (const id of ['', 'unknown', '__proto__', 'day', 'outline']) assert.equal(cosmeticSets.getCosmeticSet(id), undefined);
 });

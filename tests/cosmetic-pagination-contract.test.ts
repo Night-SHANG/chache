@@ -24,12 +24,12 @@ test('v23 set member Back restores originating set and page after member page ch
  assert.equal(s.view.shopItemDetail,undefined);s.action({type:'selectCosmeticPage',page:0});s.action({type:'back'});
  assert.equal(s.view.cosmeticSetPreview,set.id);s.action({type:'closeCosmeticSet'});assert.equal(cosmeticSetShopPage(s.view).page,3);
 });
-test('v23 paginates all sixteen sets including classic in four old-size cards',()=>{
+test('v23 paginates all fifteen active sets including classic in four old-size cards',()=>{
  const page=cosmeticSetShopPage({cosmeticSetPage:0} as ViewState);
  assert.equal(page.pages,4);assert.equal(page.items.length,4);assert.equal(page.items[0].id,'classic');
  assert.deepEqual(cosmeticSetCardRect(3),{x:552,y:1032,w:396,h:366});
  const ids=Array.from({length:page.pages},(_,cosmeticSetPage)=>cosmeticSetShopPage({cosmeticSetPage} as ViewState).items).flat().map(item=>item.id);
- assert.equal(ids.length,16);assert.equal(new Set(ids).size,16);
+ assert.equal(ids.length,15);assert.equal(new Set(ids).size,15);
 });
 test('v23 page navigation cancels a pending old-page pointer in the same section',()=>{
  for(const section of ['sets','cargo'] as const){

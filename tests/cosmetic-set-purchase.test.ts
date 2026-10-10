@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import test from 'node:test';
 import { build } from 'esbuild';
 import * as cosmeticSets from '../src/application/cosmetic-sets.ts';
-import { COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState, getCosmetic, retainAccountCosmetics } from '../src/application/cosmetics.ts';
+import { COSMETIC_CATALOG, HISTORICAL_COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState, getCosmetic, retainAccountCosmetics } from '../src/application/cosmetics.ts';
 import { createAccountService, type AccountRequest } from '../src/application/account-service.ts';
 import { upgradeAccountGuides } from '../src/application/account-guides.ts';
 import { assertAccountSnapshot } from '../src/application/account-profile.ts';
@@ -49,25 +49,25 @@ function purchase(api: Pick<API, 'quoteCosmeticSetPurchase'>, account: AccountSn
 }
 
 test('three completed series add exactly six cosmetics while preserving every original item and right', () => {
-  assert.equal(COSMETIC_CATALOG.length, 53);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
-  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [17, 17, 19]);
+  assert.equal(COSMETIC_CATALOG.length, 50);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
+  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [16, 16, 18]);
   for (const [kind, id, name, price] of ADDITIONS) {
     const item = getCosmetic(kind, id);
     assert.ok(item); assert.equal(item.name, name); assert.equal(item.price, price);
     assert.equal(item.overlay, undefined); assert.equal(item.achievementId, undefined);
   }
-  const oldCatalog = COSMETIC_CATALOG.slice(0, 47);
+  const oldCatalog = HISTORICAL_COSMETIC_CATALOG.slice(0, 47);
   assert.equal(createHash('sha256').update(JSON.stringify(oldCatalog)).digest('hex'), 'deeb6101976258546aea1ec4e7b0b7d15b9897fcdacf0554a0b1de17ce425d78');
-  assert.deepEqual(COSMETIC_CATALOG.slice(47).map(item => item.key), ADDITIONS.map(([kind, id]) => `${kind}.${id}`));
+  assert.deepEqual(COSMETIC_CATALOG.slice(44).map(item => item.key), ADDITIONS.map(([kind, id]) => `${kind}.${id}`));
   assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
-  assert.equal(cosmeticSets.COSMETIC_SETS.length, 15);
+  assert.equal(cosmeticSets.COSMETIC_SETS.length, 14);
   for (const [theme, cargo, forklift] of TRIPLES) {
     const set = cosmeticSets.getCosmeticSet(theme);
     assert.deepEqual(set, { id: theme, name: getCosmetic('theme', theme)!.name, theme, cargo, forklift });
   }
   const used = new Set(cosmeticSets.COSMETIC_SETS.flatMap(memberKeys));
-  assert.equal(used.size, 45);
+  assert.equal(used.size, 42);
   assert.deepEqual(COSMETIC_CATALOG.filter(item => !used.has(item.key)).map(item => item.key).sort(), [
     'cargo.classic', 'cargo.outline', 'forklift.blue', 'forklift.red', 'forklift.white', 'forklift.yellow', 'theme.day', 'theme.night',
   ]);
@@ -91,7 +91,7 @@ for (const [label, api, freeShop] of [['source paid', cosmeticSets, false], ['co
 }
 
 for (const [label, api, freeShop] of [['paid', paid, false], ['free', free, true]] as const) {
-  test(`${label} bundle transactions atomically acquire only missing members for all eight subsets of all fifteen sets`, () => {
+  test(`${label} bundle transactions atomically acquire only missing members for all eight subsets of all fourteen sets`, () => {
     for (const set of cosmeticSets.COSMETIC_SETS) for (let mask = 0; mask < 8; mask++) {
       const owned = memberKeys(set).filter((_, index) => mask & (1 << index));
       const { account, service, storage } = setup(api.createAccountService, owned, freeShop ? 0 : 5000);

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState } from '../src/application/cosmetics.ts';
+import { COSMETIC_CATALOG, HISTORICAL_COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState } from '../src/application/cosmetics.ts';
 import { createAccountService, type AccountRequest } from '../src/application/account-service.ts';
 import { ACCOUNT_KEYS, encodeAccount } from '../src/application/account-store.ts';
 import { createProfile, setProfileCosmetic } from '../src/application/profile.ts';
@@ -21,12 +21,12 @@ function setup(wallet = 5400) {
 }
 
 test('nine independent playful cosmetics extend the exact old catalog in category order at existing price anchors', () => {
-  assert.equal(COSMETIC_CATALOG.length, 53);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
+  assert.equal(COSMETIC_CATALOG.length, 50);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
   for (const [kind, ids] of [
-    ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
-    ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'taped', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
-    ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'compact', 'toy', 'paper', 'space']],
+    ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
+    ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
+    ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'toy', 'paper', 'space']],
   ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
   for (const [kind, id, price] of NEW) {
     const item = COSMETIC_CATALOG.find(item => item.key === `${kind}.${id}`);
@@ -133,10 +133,10 @@ test('v23 paginated item previews cancel, buy, equip, reload and reset each new 
  }
 });
 
-test('v23 all 53 rights coexist and every paginated item retains read-only 44 CSS pixel disjoint controls at 320px',()=>{
+test('all 53 historical rights coexist and every active paginated item retains read-only 44 CSS pixel disjoint controls at 320px',()=>{
  const {service,transact}=setup(COSMETIC_CATALOG.reduce((sum,item)=>sum+item.price,0));
  for(const item of COSMETIC_CATALOG.filter(item=>item.price>0))assert.equal(transact({type:'purchaseCosmetic',kind:item.kind,id:item.id}).status,'acknowledged');
- const account=service.getSnapshot()!;account.profile.ownedCosmetics!.push('forklift.blue','forklift.red');account.profile.ownedCosmetics!.sort();
+ const account=service.getSnapshot()!;account.profile.ownedCosmetics!.push(...HISTORICAL_COSMETIC_CATALOG.filter(item=>!COSMETIC_CATALOG.includes(item)).map(item=>item.key),'forklift.blue','forklift.red');account.profile.ownedCosmetics!.sort();
  assert.equal(accountCosmeticState(account).ownedCosmetics.length,53);
  const h=sessionHost(account),s=h.session;assert.equal(s.view.account?.profile.ownedCosmetics?.length,53,'all 53 rights reload through real account validation');const before=[...h.data],initialAccount=structuredClone(s.view.account),checksum=playableChecksum(s.state);h.storage.resetFault();s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
  const seen=new Set<string>();
@@ -150,12 +150,12 @@ test('v23 all 53 rights coexist and every paginated item retains read-only 44 CS
  };
  for(const kind of ['theme','cargo','forklift'] as const){
   s.action({type:'selectShopSection',section:kind});const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),seenCategory=new Set<string>();
-  assert.equal(options.length,kind==='forklift'?19:17);
-  for(let page=0;page<5;page++){
+  assert.equal(options.length,kind==='forklift'?18:16);
+  for(let page=0;page<Math.ceil(options.length/4);page++){
    s.action({type:'selectCosmeticPage',page});assert.equal(cosmeticShopPage(s.view).page,page);
    const controls=checkControls(),tiles=controls.filter(c=>c.action.type==='previewCosmetic'),expected=options.slice(page*4,page*4+4);
    assert.equal(tiles.length,expected.length);assert.deepEqual(tiles.map(c=>c.action.type==='previewCosmetic'&&c.action.id),expected.map(item=>item.id));
-   assert.deepEqual(controls.filter(c=>c.action.type==='selectCosmeticPage').map(c=>[c.label,!!c.disabled]),[['上一页',page===0],['下一页',page===4]]);
+   assert.deepEqual(controls.filter(c=>c.action.type==='selectCosmeticPage').map(c=>[c.label,!!c.disabled]),[['上一页',page===0],['下一页',page===Math.ceil(options.length/4)-1]]);
    for(const [index,control] of tiles.entries()){
     assert.equal(control.action.type,'previewCosmetic');if(control.action.type!=='previewCosmetic')throw Error('Expected a same-screen item tile');
     assert.equal(control.action.kind,kind);assert.ok(control.label.startsWith(`${expected[index].name}\n`));assert.deepEqual(control.rect,{x:132+index%2*420,y:1110+Math.floor(index/2)*170,w:396,h:150});
@@ -165,5 +165,5 @@ test('v23 all 53 rights coexist and every paginated item retains read-only 44 CS
   }
   assert.deepEqual([...seenCategory].sort(),options.map(item=>item.id).sort());
  }
- assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());assert.equal(seen.size,53);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+ assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());assert.equal(seen.size,50);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });

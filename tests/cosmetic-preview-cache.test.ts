@@ -76,7 +76,7 @@ test('320, 360 and 540 CSS pixel render scales use native-resolution surfaces wi
  }
 });
 
-test('each actual atlas readiness change replaces stale fallback artwork and loaded warm frames stay identical',async()=>{
+test('actual atlas readiness invalidates caches while native forklift art stays stable and loaded warm frames remain identical',async()=>{
  const {loadImage}=await import('@napi-rs/canvas'),{loadCargoAtlas}=await import('../src/presentation/cargo-atlas.ts'),{loadBoardMaterialAtlas}=await import('../src/presentation/board-material-atlas.ts'),{loadSceneMaterialAtlas}=await import('../src/presentation/scene-frame-atlas.ts'),{loadThemedForkliftAtlas}=await import('../src/presentation/themed-forklift-art.ts');
  const loaders=[loadCargoAtlas,loadBoardMaterialAtlas,loadSceneMaterialAtlas,loadThemedForkliftAtlas];for(const load of loaders)await load(async()=>{throw Error('not ready');});
  const f=fixture(),canvas=createCanvas(420,300),ctx=asContext(canvas);
@@ -86,7 +86,8 @@ test('each actual atlas readiness change replaces stale fallback artwork and loa
   ctx.clearRect(0,0,420,300);draw(ctx,patch);const before=canvas.getContext('2d').getImageData(0,0,420,300).data,allocations=f.surfaces.length;
   assert.equal(await load(async path=>await loadImage(path) as unknown as CanvasImageSource).then(result=>{cacheModule.invalidateCosmeticPreviewCache();return result;}),true);
   assert.ok(f.surfaces.every(s=>s.width===1&&s.height===1));
-  ctx.clearRect(0,0,420,300);draw(ctx,patch);assert.equal(f.surfaces.length,allocations+1);const ready=canvas.getContext('2d').getImageData(0,0,420,300).data;assert.notDeepEqual(ready,before,'a ready actual atlas must replace its cached fallback');
+  ctx.clearRect(0,0,420,300);draw(ctx,patch);assert.equal(f.surfaces.length,allocations+1);const ready=canvas.getContext('2d').getImageData(0,0,420,300).data;if(load===loadThemedForkliftAtlas)assert.deepEqual(ready,before,'native electric art must remain exact when the historical raster atlas loads');
+  else assert.notDeepEqual(ready,before,'a ready actual atlas must replace its cached fallback');
   ctx.clearRect(0,0,420,300);draw(ctx,patch);assert.deepEqual(canvas.getContext('2d').getImageData(0,0,420,300).data,ready);
  }
  assert.equal(f.surfaces.filter(s=>s.width>1).length,1);cacheModule.configureCosmeticPreviewCache();

@@ -10,7 +10,7 @@ const view=(patch:Partial<ViewState>={}):ViewState=>({screen:'shop',shopTab:'cos
 test('v24 every ordinary and set-member cosmetic state has Back left and primary right',()=>{
  for(const item of COSMETIC_CATALOG)for(const wallet of [0,9000])for(const owned of [false,true])for(const equipped of [false,true])for(const parent of [undefined,'cold_chain']){
   const account=retainAccountCosmetics(makeAccountFixture({wallet}));
-  if(owned){account.profile.ownedCosmetics=[...new Set([...account.profile.ownedCosmetics!,item.key])].sort();if(equipped&&!item.overlay)account.profile.cosmetics[item.kind]=item.id;}
+  if(owned){account.profile.ownedCosmetics=[...new Set([...account.profile.ownedCosmetics!,item.key])].sort();if(equipped&&item.overlay)account.profile.cargoOutline=true;if(equipped&&!item.overlay)account.profile.cosmetics={...account.profile.cosmetics,[item.kind]:item.id};}
   const controls=getShopControls(view({account,shopSection:item.kind,cosmeticPreview:{[item.kind]:item.id},cosmeticReturnSet:parent}));
   const back=controls.find(c=>c.action.type==='back')!,primary=controls.find(c=>c.buttonRole==='primary')!;
   assert.ok(back&&primary,item.key);assert.deepEqual(back.rect,{x:132,y:1640,w:264,h:150});assert.deepEqual(primary.rect,{x:420,y:1640,w:528,h:150});

@@ -23,8 +23,8 @@ function setup(wallet=900, factory=createAccountService) {
 
 test('whole-body catalog upgrades two stable rights and appends independent 300-coin ice crystals',()=>{
  const cargo=COSMETIC_CATALOG.filter(item=>item.kind==='cargo');
- assert.equal(COSMETIC_CATALOG.length,53);assert.equal(new Set(COSMETIC_CATALOG.map(item=>item.key)).size,53);
- assert.deepEqual(cargo.slice(0,10).map(item=>item.id),['classic','outline','wood','insulated','reinforced','taped','toy_brick','paper_fold','space_case','ice_crystal']);
+ assert.equal(COSMETIC_CATALOG.length,50);assert.equal(new Set(COSMETIC_CATALOG.map(item=>item.key)).size,50);
+ assert.deepEqual(cargo.slice(0,9).map(item=>item.id),['classic','outline','wood','insulated','reinforced','toy_brick','paper_fold','space_case','ice_crystal']);
  for(const [id,name] of [['wood','原木藤箱'],['reinforced','铆接钢箱'],['ice_crystal','冰晶货箱']]){
   const item=cargo.find(item=>item.id===id);assert.ok(item);assert.equal(item.key,`cargo.${id}`);assert.equal(item.name,name);assert.equal(item.price,300);assert.equal(item.overlay,undefined);assert.equal(item.achievementId,undefined);
  }
@@ -47,9 +47,9 @@ test('ice ownership buys once, equips independently, retains old rights and wall
  assert.ok(setProfileCosmetic(createProfile(),'cargo','ice_crystal').error,'legacy profiles cannot acquire paid rights');
 });
 
-test('legacy recorded cargo pagination retains the original ice catalog position',()=>{
+test('active cargo pagination retains ice selection after express retirement',()=>{
  const {service}=setup(),account=service.getSnapshot()!,view={account,profile:createProfile(),shopTab:'cosmetics',cosmeticCategory:'cargo',cosmeticPreview:{cargo:'ice_crystal'}} as ViewState;
- assert.deepEqual(cosmeticShopPage(view).items.map(item=>item.id),['space_case','ice_crystal','steam_brass','neon_circuit']);assert.equal(cosmeticShopPage(view).page,2);assert.equal(cosmeticShopPage(view).pages,5);
+ assert.deepEqual(cosmeticShopPage(view).items.map(item=>item.id),['ice_crystal','steam_brass','neon_circuit','lava_core']);assert.equal(cosmeticShopPage(view).page,2);assert.equal(cosmeticShopPage(view).pages,4);
 });
 
 test('ice is selected from its cargo page without changing account or wallet or adding a Back layer',()=>{

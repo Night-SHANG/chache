@@ -171,12 +171,12 @@ const OLD_PREVIEW_HASHES:Record<string,string>={
  'forklift.heavy':'8adbd6686830b445b42ed3a980bef49f15dacd500eb8327607dd3915438abb68',
  'forklift.compact':'e00554e8191c7dcfca263d3c37b713c193aca44e12b25f87a20e680e19b6ac7d',
 };
-test('vehicle previews retain their baselines while approved material and theme previews change',()=>{
+test('retained vehicle previews stay exact while approved material, theme and v024 heavy previews change',()=>{
  for(const [key,hash] of Object.entries(OLD_PREVIEW_HASHES)){
   const [kind,id]=key.split('.'),out=surface(720,250);
   art.drawCosmeticPreview(out.context,{x:0,y:0,w:720,h:250},{category:kind as 'cargo'|'theme'|'forklift',[kind==='cargo'?'cargoStyle':kind]:id});
   const actual = digest(out.ctx.getImageData(0,0,720,250).data);
-  if (key.startsWith('theme.') || ['cargo.wood', 'cargo.insulated', 'cargo.reinforced', 'cargo.taped'].includes(key)) assert.notEqual(actual, hash, key);
+  if (key === 'forklift.heavy' || key.startsWith('theme.') || ['cargo.wood', 'cargo.insulated', 'cargo.reinforced', 'cargo.taped'].includes(key)) assert.notEqual(actual, hash, key);
   else assert.equal(actual,hash,key);
  }
 });

@@ -14,7 +14,6 @@ export interface CosmeticSetDefinition {
 export const COSMETIC_SETS: readonly CosmeticSetDefinition[] = Object.freeze([
   { id: 'cold_chain', name: '冷链仓库', theme: 'cold_chain', cargo: 'insulated', forklift: 'electric' },
   { id: 'rail_freight', name: '铁路货站', theme: 'rail_freight', cargo: 'reinforced', forklift: 'heavy' },
-  { id: 'express_sorting', name: '快递分拣中心', theme: 'express_sorting', cargo: 'taped', forklift: 'compact' },
   { id: 'toy_workshop', name: '积木工坊', theme: 'toy_workshop', cargo: 'toy_brick', forklift: 'toy' },
   { id: 'paper_warehouse', name: '折纸仓库', theme: 'paper_warehouse', cargo: 'paper_fold', forklift: 'paper' },
   { id: 'space_cargo', name: '太空货舱', theme: 'space_cargo', cargo: 'space_case', forklift: 'space' },

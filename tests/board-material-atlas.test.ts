@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createCanvas } from '@napi-rs/canvas';
 import { drawThemedBoard } from '../src/presentation/board-theme.ts';
 import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
+import { HISTORICAL_COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
 
 async function art() {
  try { return await import('../src/presentation/board-material-atlas.ts'); }
@@ -14,8 +14,8 @@ test('board material atlas keeps all fifteen theme slots and rejects missing or 
  const { BOARD_MATERIAL_ATLAS, loadBoardMaterialAtlas, drawBoardMaterialTile } = await art();
  assert.equal(BOARD_MATERIAL_ATLAS.src, 'assets/board-materials.png');
  assert.deepEqual([BOARD_MATERIAL_ATLAS.width, BOARD_MATERIAL_ATLAS.height, BOARD_MATERIAL_ATLAS.tileSize], [512, 512, 128]);
- assert.deepEqual(BOARD_MATERIAL_ATLAS.themes, COSMETIC_CATALOG.slice(0, 47).filter(item => item.kind === 'theme').map(item => item.id));
- assert.deepEqual(COSMETIC_CATALOG.slice(47).filter(item => item.kind === 'theme').map(item => item.id), ['forest_depot', 'ice_vault']);
+ assert.deepEqual(BOARD_MATERIAL_ATLAS.themes, HISTORICAL_COSMETIC_CATALOG.slice(0, 47).filter(item => item.kind === 'theme').map(item => item.id));
+ assert.deepEqual(HISTORICAL_COSMETIC_CATALOG.slice(47).filter(item => item.kind === 'theme').map(item => item.id), ['forest_depot', 'ice_vault']);
  const ctx = createCanvas(160, 160).getContext('2d') as unknown as CanvasRenderingContext2D;
  assert.equal(await loadBoardMaterialAtlas(async () => { throw Error('unavailable'); }), false);
  assert.equal(drawBoardMaterialTile(ctx, 'day', 10, 10, 120), false);

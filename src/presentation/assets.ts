@@ -3,6 +3,7 @@ import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import type { Rect } from './layout.ts';
 import { CARGO_ATLAS, drawCargoAtlas } from './cargo-atlas.ts';
 import { drawThemedForkliftBody } from './themed-forklift-art.ts';
+import { drawStructuralForkliftBody } from './structural-forklift-art.ts';
 
 type Context = CanvasRenderingContext2D;
 export const INK = '#111b27';
@@ -278,7 +279,10 @@ export function forklift(ctx: Context, x: number, y: number, size: number, angle
   for (const xx of [-32, 19]) for (const yy of [-36, 23]) { roundedPath(ctx, xx, yy, 23, 17, 4); ctx.fill(); }
   const logistics = paint === 'electric' || paint === 'heavy' || paint === 'compact';
   const playful = paint === 'toy' || paint === 'paper' || paint === 'space';
-  const themed = drawThemedForkliftBody(ctx, paint);
+  // Arrow-selected electric/toy/paper/space use their unchanged native vector bodies.
+  // All other active premium models have structurally distinct native bodies.
+  const structural = drawStructuralForkliftBody(ctx, paint);
+  const themed = structural || (!logistics && !playful && drawThemedForkliftBody(ctx, paint));
   if (themed) { /* Verified static body; shared transport geometry follows below. */ }
   else if (playful) drawPlayfulForkliftBody(ctx, paint);
   else if (logistics) drawLogisticsForkliftBody(ctx, paint);

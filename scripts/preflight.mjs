@@ -18,7 +18,7 @@ check(RULES_V19_CONFIG.rulesetVersion===19,'legacy permanent rush identity');
 check(RULES_V21_CONFIG.rulesetVersion===21&&RULES_V21_CONFIG.runConfigId==='run.rush_v21.base','base-reward rush identity');
 check(RULES_V20_CONFIG.rulesetVersion===20&&RULES_V20_CONFIG.runConfigId==='run.rush_v20.fixed','fixed rush identity');
 check(JSON.stringify(RULES_V20_CONFIG.orderMinByShift)==='[3,3,4,4,5]'&&JSON.stringify(RULES_V20_CONFIG.orderMaxByShift)==='[4,5,5,6,7]','fixed rush baseline orders');
-check(COSMETIC_CATALOG.length===53&&new Set(COSMETIC_CATALOG.map(item=>item.key)).size===53,'logistics cosmetic catalog');
+check(COSMETIC_CATALOG.length===50&&new Set(COSMETIC_CATALOG.map(item=>item.key)).size===50,'logistics cosmetic catalog');
 check(RULES_V18_CONFIG.rulesetVersion===18&&RULES_V18_CONFIG.candidateCount===3,'v18 identity and candidates');
 check(JSON.stringify(INBOUND_ORDER_RANGES_V18)==='{"hard":[[4,4],[4,5],[5,5],[5,6],[6,7]],"expert":[[4,5],[4,6],[5,6],[5,7],[6,8]]}', 'v18 approved two-tier order ranges');
 check(UPGRADES_V9.length===10&&UPGRADES_V9.reduce((sum,u)=>sum+u.maxStack,0)===20&&UPGRADES_V9.filter(u=>u.functional).length===7,'v9 upgrade catalogue');

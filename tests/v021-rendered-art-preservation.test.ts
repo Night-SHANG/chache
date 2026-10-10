@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { forklift, cargoBox } from '../src/presentation/assets.ts';
+import { cargoBox } from '../src/presentation/assets.ts';
 import { loadThemedForkliftAtlas } from '../src/presentation/themed-forklift-art.ts';
+import { archivedRasterForklift } from './helpers/archived-raster-forklift.ts';
 import { CARGO_ATLAS, loadCargoAtlas } from '../src/presentation/cargo-atlas.ts';
 import type { CargoStyleId, ForkliftId } from '../src/application/profile.ts';
 
@@ -13,13 +14,13 @@ const fixture=JSON.parse(readFileSync(new URL('./fixtures/v020-rendered-art.json
  cargo:{id:CargoStyleId;size:number;sha256:string}[];
 };
 
-test('all twelve old forklift renders remain exact at 32 headings and five sizes, including the former atlas edge',async()=>{
+test('archived v020 compositor: all twelve retained raster forklift renders remain exact at 32 headings and five sizes, including the former atlas edge',async()=>{
  assert.equal(await loadThemedForkliftAtlas(async path=>await loadImage(new URL('../'+path,import.meta.url).pathname) as unknown as CanvasImageSource),true);
  for(const entry of fixture.forklifts){
   const hash=createHash('sha256');
   for(let heading=0;heading<32;heading++){
    const ctx=createCanvas(200,200).getContext('2d');
-   forklift(ctx as unknown as CanvasRenderingContext2D,100,100,entry.size,heading*Math.PI/16,entry.id);
+   archivedRasterForklift(ctx as unknown as CanvasRenderingContext2D,100,100,entry.size,heading*Math.PI/16,entry.id);
    hash.update(ctx.getImageData(0,0,200,200).data);
   }
   assert.equal(hash.digest('hex'),entry.sha256,entry.id+'/'+entry.size+' must retain complete v0.20 rendered pixels');

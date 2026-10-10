@@ -29,7 +29,7 @@ test('appearance lists four peer sections, four page-scoped set cards and four c
  assert.equal(itemControls.filter(c=>c.action.type==='selectCosmeticPage').length,2);assert.deepEqual(COSMETIC_PREVIEW_RECT,{x:132,y:750,w:816,h:232});
 });
 
-test('standard set detail keeps global tabs and member links while ordinary items keep action left and Back right',()=>{
+test('standard set detail keeps global tabs and member links while ordinary items keep Back left and action right',()=>{
  const set=getShopControls(view({cosmeticSetPreview:'cold_chain'}));
  assert.equal(set.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(set.filter(c=>c.action.type==='selectShopSection').length,4);
  assert.equal(set.some(c=>['previewCosmetic','previewCosmeticSet'].includes(c.action.type)),false);
@@ -37,7 +37,7 @@ test('standard set detail keeps global tabs and member links while ordinary item
  assert.ok(setBack);assert.ok(setAction);assert.ok(setBack.rect.x+setBack.rect.w<setAction.rect.x);assert.equal(setBack.buttonRole,'secondary');assert.equal(setAction.buttonRole,'primary');assert.equal(set.filter(c=>c.action.type==='previewCosmeticSetMember').length,3);
  const item=getShopControls(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}})),back=item.find(c=>c.action.type==='back'),action=item.find(c=>c.action.type==='purchaseCosmetic');
  assert.equal(item.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(item.filter(c=>c.action.type==='selectShopSection').length,4);assert.equal(item.filter(c=>c.action.type==='previewCosmetic').length,4);assert.equal(item.some(c=>c.action.type==='closeShopDetail'||c.action.type==='previewCosmeticSetMember'),false);
- assert.ok(back);assert.ok(action);assert.ok(action.rect.x+action.rect.w<back.rect.x);assert.equal(back.buttonRole,'secondary');assert.equal(action.buttonRole,'primary');
+ assert.ok(back);assert.ok(action);assert.ok(back.rect.x+back.rect.w<action.rect.x);assert.equal(back.buttonRole,'secondary');assert.equal(action.buttonRole,'primary');
 });
 
 test('every section pages through every catalog entry with disabled bounds, disjoint controls and 44px targets',async()=>{
@@ -67,14 +67,14 @@ test('page artwork cache stays bounded, reuses current cards and keeps wallet an
   const v=view();render(ctx,state,v);const allocated=surfaces.length;assert.equal(allocated,4,'four visible set previews fit the bounded cache');
   for(let i=0;i<5;i++)render(ctx,state,v);assert.equal(surfaces.length,allocated);
   const labels:string[]=[],original=ctx.fillText.bind(ctx);ctx.fillText=(value,x,y)=>{labels.push(value);original(value,x,y);};render(ctx,state,{...v,account:makeAccountFixture({wallet:1234})});assert.ok(labels.includes('金币 1234'));assert.equal(surfaces.length,allocated);
-  for(let page=1;page<4;page++){const before:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,before+4);const cold:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,cold);bounded();}
+  for(let page=1;page<4;page++){const before:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,before+Math.min(4,15-page*4));const cold:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,cold);bounded();}
   const before:number=surfaces.length;render(ctx,state,view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.ok(labels.includes('原木藤箱'));render(ctx,state,view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}));assert.ok(labels.includes('保温周转箱'));assert.equal(surfaces.length,before,'same-screen item banners use their direct painter');bounded();
   render(ctx,state,view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));const selected=surfaces.length;render(ctx,state,view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));assert.equal(surfaces.length,selected);bounded();
  }finally{configureCosmeticPreviewCache();}
 });
 
-test('classic preset is pinned before the fifteen paid sets without expanding the 53-item catalog',()=>{
- const cards=sectionCards(view());assert.equal(cards[0].action.type,'previewCosmeticSet');assert.equal('id'in cards[0].action?cards[0].action.id:undefined,'classic');assert.match(cards[0].label,/经典套装/);assert.equal(COSMETIC_CATALOG.length,53);assert.equal(COSMETIC_SETS.length,15);
+test('classic preset is pinned before the fourteen paid sets without expanding the 50-item catalog',()=>{
+ const cards=sectionCards(view());assert.equal(cards[0].action.type,'previewCosmeticSet');assert.equal('id'in cards[0].action?cards[0].action.id:undefined,'classic');assert.match(cards[0].label,/经典套装/);assert.equal(COSMETIC_CATALOG.length,50);assert.equal(COSMETIC_SETS.length,14);
 });
 
 test('classic detail has compact preview-only variants and owned-state primary route with 44px targets',()=>{

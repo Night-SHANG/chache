@@ -54,16 +54,16 @@ test('v23 keeps four direct peer sections and never reintroduces the singles int
  }
 });
 
-test('v23 set pagination includes classic and all fifteen fixed sets once in four pages',()=>{
+test('v23 set pagination includes classic and all fourteen active fixed sets once in four pages',()=>{
  const {session:s}=sessionHost();open(s);const seen:string[]=[];
- assert.equal(SHOP_COSMETIC_SETS.length,16);
+ assert.equal(SHOP_COSMETIC_SETS.length,15);
  for(let page=0;page<4;page++){
   act(s,{type:'selectCosmeticSetPage',page});const result=cosmeticSetShopPage(s.view);
   assert.equal(result.page,page);assert.equal(result.pages,4);
   assert.deepEqual(result.items.map(item=>item.id),SHOP_COSMETIC_SETS.slice(page*4,page*4+4).map(item=>item.id));
   seen.push(...result.items.map(item=>item.id));
  }
- assert.equal(seen[0],'classic');assert.equal(new Set(seen).size,16);
+ assert.equal(seen[0],'classic');assert.equal(new Set(seen).size,15);
  assert.deepEqual(seen,SHOP_COSMETIC_SETS.map(item=>item.id));
 });
 
@@ -71,11 +71,11 @@ test('v23 restores exactly four set cards in the old two-by-two geometry',()=>{
  const {session:s}=sessionHost();open(s);
  for(let page=0;page<4;page++){
   act(s,{type:'selectCosmeticSetPage',page});const cards=setCards(s);
-  assert.equal(cards.length,4,`page ${page+1} must not show a third card row`);
+  assert.equal(cards.length,Math.min(4,15-page*4),`page ${page+1} must not show a third card row`);
   assert.deepEqual(cards.map(c=>c.rect),[
    {x:132,y:630,w:396,h:366},{x:552,y:630,w:396,h:366},
    {x:132,y:1032,w:396,h:366},{x:552,y:1032,w:396,h:366},
-  ]);
+  ].slice(0,cards.length));
   assert.deepEqual(ids(cards),SHOP_COSMETIC_SETS.slice(page*4,page*4+4).map(item=>item.id));
   const previous=find(s,'selectCosmeticSetPage','上一页'),next=find(s,'selectCosmeticSetPage','下一页');
   assert.deepEqual(previous.rect,{x:132,y:1430,w:240,h:150});assert.deepEqual(next.rect,{x:708,y:1430,w:240,h:150});
@@ -85,12 +85,12 @@ test('v23 restores exactly four set cards in the old two-by-two geometry',()=>{
  }
 });
 
-for(const kind of kinds)test(`v23 ${kind} exposes all catalog items through five four-text-tile pages`,()=>{
+for(const kind of kinds)test(`v23 ${kind} exposes all catalog items through four-text-tile pages`,()=>{
  const {session:s}=sessionHost();open(s,kind);const catalog=COSMETIC_CATALOG.filter(item=>item.kind===kind),seen:string[]=[];
- assert.equal(catalog.length,kind==='forklift'?19:17);
- for(let page=0;page<5;page++){
+ assert.equal(catalog.length,kind==='forklift'?18:16);
+ for(let page=0;page<Math.ceil(COSMETIC_CATALOG.filter(item=>item.kind===kind).length/4);page++){
   act(s,{type:'selectCosmeticPage',page});const result=cosmeticShopPage(s.view),tiles=itemTiles(s),expected=catalog.slice(page*4,page*4+4);
-  assert.equal(result.page,page);assert.equal(result.pages,5);
+  assert.equal(result.page,page);assert.equal(result.pages,Math.ceil(catalog.length/4));
   assert.deepEqual(result.items.map(item=>item.id),expected.map(item=>item.id));
   assert.equal(tiles.length,expected.length);assert.deepEqual(ids(tiles),expected.map(item=>item.id));
   assert.deepEqual(tiles.map(c=>c.rect),[
@@ -100,7 +100,7 @@ for(const kind of kinds)test(`v23 ${kind} exposes all catalog items through five
   for(const [index,tile] of tiles.entries())assert.ok(tile.label.startsWith(`${expected[index].name}\n`));
   const previous=find(s,'selectCosmeticPage','上一页'),next=find(s,'selectCosmeticPage','下一页');
   assert.deepEqual(previous.rect,{x:132,y:1450,w:240,h:150});assert.deepEqual(next.rect,{x:708,y:1450,w:240,h:150});
-  assert.equal(!!previous.disabled,page===0);assert.equal(!!next.disabled,page===4);
+  assert.equal(!!previous.disabled,page===0);assert.equal(!!next.disabled,page===Math.ceil(catalog.length/4)-1);
   assert.deepEqual(previous.action,{type:'selectCosmeticPage',page:page-1});
   assert.deepEqual(next.action,{type:'selectCosmeticPage',page:page+1});
   seen.push(...expected.map(item=>item.id));
@@ -159,7 +159,7 @@ test('v23 previews and paging every catalog entry neither persist nor create a f
   }
   for(const kind of kinds){
    act(s,{type:'selectShopSection',section:kind});
-   for(let page=0;page<5;page++){
+   for(let page=0;page<Math.ceil(COSMETIC_CATALOG.filter(item=>item.kind===kind).length/4);page++){
     act(s,{type:'selectCosmeticPage',page});
     for(const item of COSMETIC_CATALOG.filter(item=>item.kind===kind).slice(page*4,page*4+4))act(s,{type:'previewCosmetic',kind,id:item.id});
    }
@@ -184,7 +184,7 @@ test('v23 set-member browsing can turn pages and select another item before Back
  const h=sessionHost(),s=h.session;open(s);act(s,{type:'selectCosmeticSetPage',page:2});
  const set=SHOP_COSMETIC_SETS[8];act(s,{type:'previewCosmeticSet',id:set.id});act(s,{type:'previewCosmeticSetMember',kind:'cargo'});
  assert.equal(s.view.shopItemDetail,undefined);assert.equal(selectedShopCosmetic(s.view).id,set.cargo);
- const oldPage=cosmeticShopPage(s.view).page,targetPage=oldPage===4?0:4;
+ const oldPage=cosmeticShopPage(s.view).page,targetPage=oldPage===3?0:3;
  act(s,{type:'selectCosmeticPage',page:targetPage});assert.equal(cosmeticShopPage(s.view).page,targetPage,'origin must not pin selectedShopCosmetic to the old member');
  const pageItems=cosmeticShopPage(s.view).items,replacement=pageItems[pageItems.length-1];act(s,{type:'previewCosmetic',kind:'cargo',id:replacement.id});
  assert.equal(selectedShopCosmetic(s.view).id,replacement.id);

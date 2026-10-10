@@ -38,10 +38,10 @@ test('appearance opens four coordinated paginated cards and four peer categories
 test('set pagination visits every unique visual card without equipping or persisting',()=>{
  const h=sessionHost(),s=h.session;open(s);const before=[...h.data],original=structuredClone(s.view.account!.profile.cosmetics),ids=new Set<string>();h.storage.resetFault();
  for(let page=0;page<4;page++){
-  act(s,{type:'selectCosmeticSetPage',page});const cards=controls(s.view).filter(c=>c.action.type==='previewCosmeticSet');assert.equal(cards.length,4);
+  act(s,{type:'selectCosmeticSetPage',page});const cards=controls(s.view).filter(c=>c.action.type==='previewCosmeticSet');assert.equal(cards.length,Math.min(4,15-page*4));
   for(const c of cards){assert.equal(c.action.type,'previewCosmeticSet');if(c.action.type==='previewCosmeticSet'){ids.add(c.action.id);s.action(c.action);assert.equal(controls(s.view).filter(c=>c.action.type==='selectShopSection').length,c.action.id==='classic'?0:4);}act(s,{type:'closeShopDetail'});assert.equal(s.view.cosmeticSetPage,page);}
  }
- assert.equal(ids.size,16);assert.deepEqual(s.view.account?.profile.cosmetics,original);assert.deepEqual([...h.data],before);act(s,{type:'back'});assert.equal(s.view.screen,'menu');assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+ assert.equal(ids.size,15);assert.deepEqual(s.view.account?.profile.cosmetics,original);assert.deepEqual([...h.data],before);act(s,{type:'back'});assert.equal(s.view.screen,'menu');assert.deepEqual([...h.data],before);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });
 
 test('coherent preview uses all three set members irrespective of worn appearance and never writes on cancel',()=>{

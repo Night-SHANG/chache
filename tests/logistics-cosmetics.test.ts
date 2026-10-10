@@ -7,11 +7,11 @@ import { createProfile, setProfileCosmetic } from '../src/application/profile.ts
 import { FaultStorage, makeAccountFixture } from './helpers/account-fixtures.ts';
 
 const NEW = [
-  ['theme', 'cold_chain', 900], ['theme', 'rail_freight', 900], ['theme', 'express_sorting', 900],
-  ['cargo', 'insulated', 300], ['cargo', 'reinforced', 300], ['cargo', 'taped', 300],
-  ['forklift', 'electric', 600], ['forklift', 'heavy', 600], ['forklift', 'compact', 600],
+  ['theme', 'cold_chain', 900], ['theme', 'rail_freight', 900],
+  ['cargo', 'insulated', 300], ['cargo', 'reinforced', 300],
+  ['forklift', 'electric', 600], ['forklift', 'heavy', 600],
 ] as const;
-function setup(wallet = 5400) {
+function setup(wallet = 3600) {
   const storage = new FaultStorage(), account = makeAccountFixture({ wallet });
   const raw = encodeAccount(account); storage.values.set(ACCOUNT_KEYS.a, raw); storage.values.set(ACCOUNT_KEYS.b, raw);
   const service = createAccountService(storage, { status: 'held', release() {} }, () => 0);
@@ -20,13 +20,13 @@ function setup(wallet = 5400) {
   return { storage, service, transact, raw };
 }
 
-test('current 53-item catalog preserves all 19 earlier items and logistics price anchors', () => {
-  assert.equal(COSMETIC_CATALOG.length, 53);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
+test('current 50-item catalog preserves active earlier items and logistics price anchors', () => {
+  assert.equal(COSMETIC_CATALOG.length, 50);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
   for (const [kind, ids] of [
-    ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'express_sorting']],
-    ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'taped']],
-    ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'compact']],
+    ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight']],
+    ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced']],
+    ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy']],
   ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
   for (const [kind, id, price] of NEW) {
     const item = COSMETIC_CATALOG.find(item => item.key === `${kind}.${id}`);
@@ -79,18 +79,18 @@ test('new paid styles cannot be equipped unowned, bought with insufficient funds
   }
 });
 
-test('a mixed logistics loadout retains all nine separately owned items without adding account fields', () => {
+test('a mixed logistics loadout retains all six separately owned items without adding account fields', () => {
   const { service, transact } = setup();
   for (const [kind, id] of NEW) assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged');
   assert.equal(service.getSnapshot()?.wallet, 0);
-  for (const [kind, id] of [['theme', 'cold_chain'], ['cargo', 'reinforced'], ['forklift', 'compact']] as const) assert.equal(transact({ type: 'setCosmetic', kind, id }).status, 'acknowledged');
-  assert.deepEqual(service.getSnapshot()?.profile.cosmetics, { theme: 'cold_chain', cargo: 'reinforced', forklift: 'compact' });
-  assert.equal(service.getSnapshot()?.profile.ownedCosmetics?.length, 14);
+  for (const [kind, id] of [['theme', 'cold_chain'], ['cargo', 'reinforced'], ['forklift', 'electric']] as const) assert.equal(transact({ type: 'setCosmetic', kind, id }).status, 'acknowledged');
+  assert.deepEqual(service.getSnapshot()?.profile.cosmetics, { theme: 'cold_chain', cargo: 'reinforced', forklift: 'electric' });
+  assert.equal(service.getSnapshot()?.profile.ownedCosmetics?.length, 11);
   assert.deepEqual(Object.keys(service.getSnapshot()!.profile).sort(), ['settings', 'cosmetics', 'legacyResults', 'results', 'ownedCosmetics', 'cargoOutline'].sort());
 });
 
 test('each new category keeps purchase rights private until a failed mirror is repaired and retry charges once', () => {
-  for (const [kind, id, price] of [NEW[0], NEW[3], NEW[6]]) {
+  for (const [kind, id, price] of [NEW[0], NEW[2], NEW[4]]) {
     const { storage, service } = setup(); const set = storage.set.bind(storage);
     storage.set = (key, value) => { if (key === ACCOUNT_KEYS.a) throw Error('mirror offline'); set(key, value); };
     const request: AccountRequest = { type: 'purchaseCosmetic', operationId: 'logistics.retry', kind, id };
@@ -99,8 +99,8 @@ test('each new category keeps purchase rights private until a failed mirror is r
     const restored = createAccountService(storage, { status: 'held', release() {} }, () => 0);
     assert.equal(restored.getSnapshot(), null); storage.set = set;
     assert.equal(restored.retryPending('logistics.retry').status, 'acknowledged');
-    assert.equal(restored.getSnapshot()?.wallet, 5400 - price);
+    assert.equal(restored.getSnapshot()?.wallet, 3600 - price);
     assert.equal(restored.transact(request, 0).status, 'acknowledged');
-    assert.equal(restored.getSnapshot()?.wallet, 5400 - price);
+    assert.equal(restored.getSnapshot()?.wallet, 3600 - price);
   }
 });

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState, assertAccountCosmetics, getCosmetic, retainAccountCosmetics } from '../src/application/cosmetics.ts';
+import { COSMETIC_CATALOG, HISTORICAL_COSMETIC_CATALOG, FREE_COSMETICS, accountCosmeticState, assertAccountCosmetics, getCosmetic, retainAccountCosmetics } from '../src/application/cosmetics.ts';
 import { createAccountService, type AccountRequest } from '../src/application/account-service.ts';
 import { ACCOUNT_KEYS, encodeAccount } from '../src/application/account-store.ts';
 import { createProfile, setProfileCosmetic } from '../src/application/profile.ts';
@@ -32,12 +32,12 @@ function setup(wallet = 10800) {
 }
 
 test('six image-reference sets append 18 independently priced cosmetics without removing old entitlements', () => {
- const original47 = COSMETIC_CATALOG.slice(0, 47);
+ const original47 = HISTORICAL_COSMETIC_CATALOG.slice(0, 47);
  assert.equal(original47.length, 47);
  assert.equal(new Set(original47.map(item => item.key)).size, 47);
  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => original47.filter(item => item.kind === kind).length), [15, 16, 16]);
- assert.equal(COSMETIC_CATALOG.length, 53);
- assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 53);
+ assert.equal(COSMETIC_CATALOG.length, 50);
+ assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
  for (const [kind, id, name, price] of NEW) {
   const item = getCosmetic(kind, id);
   assert.ok(item, `${kind}.${id}`); assert.equal(item.name, name); assert.equal(item.price, price);
@@ -45,9 +45,9 @@ test('six image-reference sets append 18 independently priced cosmetics without 
  }
  assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
  for (const [kind, ids] of [
-  ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
-  ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'taped', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
-  ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'compact', 'toy', 'paper', 'space']],
+  ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
+  ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
+  ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'toy', 'paper', 'space']],
  ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
 });
 

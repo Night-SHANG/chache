@@ -19,10 +19,10 @@ function setup(owned:string[]=[],factory=createAccountService,active=false){
 }
 const request=(selection:unknown={theme:'night',cargo:'outline',forklift:'yellow'},operationId='classic.once')=>({type:'equipClassicSet',selection,operationId}) as AccountRequest;
 
-test('classic is one pinned configurable display preset over the unchanged 53 items and fifteen fixed bundles',()=>{
- assert.equal(COSMETIC_CATALOG.length,53);assert.equal(sets.COSMETIC_SETS.length,15);
+test('classic is one pinned configurable display preset over the active 50 items and fourteen fixed bundles',()=>{
+ assert.equal(COSMETIC_CATALOG.length,50);assert.equal(sets.COSMETIC_SETS.length,14);
  assert.deepEqual(sets.CLASSIC_COSMETIC_SET,{id:'classic',name:'经典套装',theme:'day',cargo:'classic',forklift:'yellow'});
- assert.deepEqual(sets.SHOP_COSMETIC_SETS,[sets.CLASSIC_COSMETIC_SET,...sets.COSMETIC_SETS]);assert.equal(sets.SHOP_COSMETIC_SETS.length,16);
+ assert.deepEqual(sets.SHOP_COSMETIC_SETS,[sets.CLASSIC_COSMETIC_SET,...sets.COSMETIC_SETS]);assert.equal(sets.SHOP_COSMETIC_SETS.length,15);
  assert.equal(sets.getCosmeticSet('classic'),sets.CLASSIC_COSMETIC_SET);assert.equal(sets.quoteCosmeticSetPurchase('classic',{ownedCosmetics:[]}),null);
  assert.deepEqual(sets.DEFAULT_CLASSIC_SET_SELECTION,{theme:'day',cargo:'classic',forklift:'yellow'});
  assert.ok(Object.isFrozen(sets.CLASSIC_COSMETIC_SET));assert.ok(Object.isFrozen(sets.SHOP_COSMETIC_SETS));assert.ok(Object.isFrozen(sets.DEFAULT_CLASSIC_SET_SELECTION));
