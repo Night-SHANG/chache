@@ -1,0 +1,30 @@
+{
+  "snapshot": {
+    "source": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d"
+  },
+  "counts": {
+    "quotes": 224,
+    "transactions": 224,
+    "balances": 294,
+    "storageFaults": 532,
+    "legacyReceipts": 196
+  },
+  "limits": [
+    "Independent source-domain and compiled paid/free service testing with isolated QA accounts. Actual original app.js/game.js host testing is reported separately."
+  ],
+  "ending": {
+    "source": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d"
+  },
+  "status": "PASS",
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "quotes": 224,
+    "transactions": 224,
+    "balances": 294,
+    "storageFaults": 532,
+    "legacyReceipts": 196
+  }
+}

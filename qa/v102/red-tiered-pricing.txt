@@ -1,0 +1,1886 @@
+✔ v102 cold_chain/0: missing quantity controls quote, displayed price, cancellation and actual debit (134.389743ms)
+✖ v102 cold_chain/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.120435ms)
+✖ v102 cold_chain/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.26448ms)
+✖ v102 cold_chain/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.261906ms)
+✖ v102 cold_chain/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.167464ms)
+✖ v102 cold_chain/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.162606ms)
+✖ v102 cold_chain/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.166752ms)
+✔ v102 cold_chain/7: missing quantity controls quote, displayed price, cancellation and actual debit (9.632168ms)
+✔ v102 rail_freight/0: missing quantity controls quote, displayed price, cancellation and actual debit (44.134908ms)
+✖ v102 rail_freight/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.45583ms)
+✖ v102 rail_freight/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.26404ms)
+✖ v102 rail_freight/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.19162ms)
+✖ v102 rail_freight/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.276028ms)
+✖ v102 rail_freight/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.148254ms)
+✖ v102 rail_freight/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.361718ms)
+✔ v102 rail_freight/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.832293ms)
+✔ v102 toy_workshop/0: missing quantity controls quote, displayed price, cancellation and actual debit (72.965323ms)
+✖ v102 toy_workshop/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.648752ms)
+✖ v102 toy_workshop/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.446416ms)
+✖ v102 toy_workshop/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.446776ms)
+✖ v102 toy_workshop/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.318743ms)
+✖ v102 toy_workshop/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.201786ms)
+✖ v102 toy_workshop/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.150127ms)
+✔ v102 toy_workshop/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.756939ms)
+✔ v102 paper_warehouse/0: missing quantity controls quote, displayed price, cancellation and actual debit (68.422396ms)
+✖ v102 paper_warehouse/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.283579ms)
+✖ v102 paper_warehouse/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.189718ms)
+✖ v102 paper_warehouse/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.139271ms)
+✖ v102 paper_warehouse/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.121865ms)
+✖ v102 paper_warehouse/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.192591ms)
+✖ v102 paper_warehouse/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.187474ms)
+✔ v102 paper_warehouse/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.564337ms)
+✔ v102 space_cargo/0: missing quantity controls quote, displayed price, cancellation and actual debit (70.170933ms)
+✖ v102 space_cargo/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.338973ms)
+✖ v102 space_cargo/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.177017ms)
+✖ v102 space_cargo/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.13819ms)
+✖ v102 space_cargo/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.160744ms)
+✖ v102 space_cargo/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.146311ms)
+✖ v102 space_cargo/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.210759ms)
+✔ v102 space_cargo/7: missing quantity controls quote, displayed price, cancellation and actual debit (2.257257ms)
+✔ v102 steam_foundry/0: missing quantity controls quote, displayed price, cancellation and actual debit (59.509557ms)
+✖ v102 steam_foundry/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.328998ms)
+✖ v102 steam_foundry/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.138349ms)
+✖ v102 steam_foundry/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.135665ms)
+✖ v102 steam_foundry/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.117678ms)
+✖ v102 steam_foundry/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.114874ms)
+✖ v102 steam_foundry/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.134173ms)
+✔ v102 steam_foundry/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.582735ms)
+✔ v102 neon_depot/0: missing quantity controls quote, displayed price, cancellation and actual debit (82.840208ms)
+✖ v102 neon_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.348116ms)
+✖ v102 neon_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.146292ms)
+✖ v102 neon_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.139882ms)
+✖ v102 neon_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.15203ms)
+✖ v102 neon_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.131068ms)
+✖ v102 neon_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.143067ms)
+✔ v102 neon_depot/7: missing quantity controls quote, displayed price, cancellation and actual debit (2.683492ms)
+✔ v102 lava_forge/0: missing quantity controls quote, displayed price, cancellation and actual debit (100.084537ms)
+✖ v102 lava_forge/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.444153ms)
+✖ v102 lava_forge/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.144248ms)
+✖ v102 lava_forge/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.09246ms)
+✖ v102 lava_forge/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.079099ms)
+✖ v102 lava_forge/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.078849ms)
+✖ v102 lava_forge/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.09237ms)
+✔ v102 lava_forge/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.942917ms)
+✔ v102 ocean_vault/0: missing quantity controls quote, displayed price, cancellation and actual debit (38.215309ms)
+✖ v102 ocean_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.21125ms)
+✖ v102 ocean_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.094272ms)
+✖ v102 ocean_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.07917ms)
+✖ v102 ocean_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.075785ms)
+✖ v102 ocean_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.080983ms)
+✖ v102 ocean_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.071649ms)
+✔ v102 ocean_vault/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.847743ms)
+✔ v102 royal_store/0: missing quantity controls quote, displayed price, cancellation and actual debit (33.276325ms)
+✖ v102 royal_store/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.217569ms)
+✖ v102 royal_store/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.326024ms)
+✖ v102 royal_store/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.106592ms)
+✖ v102 royal_store/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.239823ms)
+✖ v102 royal_store/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.19194ms)
+✖ v102 royal_store/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.088835ms)
+✔ v102 royal_store/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.135228ms)
+✔ v102 field_station/0: missing quantity controls quote, displayed price, cancellation and actual debit (90.283675ms)
+✖ v102 field_station/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.31667ms)
+✖ v102 field_station/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.111529ms)
+✖ v102 field_station/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.082875ms)
+✖ v102 field_station/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.074884ms)
+✖ v102 field_station/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.080412ms)
+✖ v102 field_station/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.199772ms)
+✔ v102 field_station/7: missing quantity controls quote, displayed price, cancellation and actual debit (4.564559ms)
+✔ v102 forest_depot/0: missing quantity controls quote, displayed price, cancellation and actual debit (80.340165ms)
+✖ v102 forest_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.258912ms)
+✖ v102 forest_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.11228ms)
+✖ v102 forest_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.086771ms)
+✖ v102 forest_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.481799ms)
+✖ v102 forest_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.105364ms)
+✖ v102 forest_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.146251ms)
+✔ v102 forest_depot/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.151212ms)
+✔ v102 ice_vault/0: missing quantity controls quote, displayed price, cancellation and actual debit (49.345695ms)
+✖ v102 ice_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.393986ms)
+✖ v102 ice_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.185621ms)
+✖ v102 ice_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.385654ms)
+✖ v102 ice_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.870387ms)
+✖ v102 ice_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.318311ms)
+✖ v102 ice_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.173423ms)
+✔ v102 ice_vault/7: missing quantity controls quote, displayed price, cancellation and actual debit (10.72388ms)
+✔ v102 harbor/0: missing quantity controls quote, displayed price, cancellation and actual debit (100.233845ms)
+✖ v102 harbor/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.941298ms)
+✖ v102 harbor/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.217199ms)
+✖ v102 harbor/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.103146ms)
+✖ v102 harbor/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.081334ms)
+✖ v102 harbor/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.103808ms)
+✖ v102 harbor/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.114513ms)
+✔ v102 harbor/7: missing quantity controls quote, displayed price, cancellation and actual debit (8.307243ms)
+ℹ tests 112
+ℹ suites 0
+ℹ pass 28
+ℹ fail 84
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2443.733287
+
+✖ failing tests:
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.120435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.26448ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.261906ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.167464ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.162606ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 cold_chain/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.166752ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.45583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.26404ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.19162ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.276028ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.148254ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 rail_freight/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.361718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.648752ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.446416ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.446776ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.318743ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.201786ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 toy_workshop/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.150127ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.283579ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.189718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.139271ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.121865ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.192591ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 paper_warehouse/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.187474ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.338973ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.177017ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.13819ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.160744ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.146311ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 space_cargo/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.210759ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.328998ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.138349ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.135665ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.117678ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.114874ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 steam_foundry/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.134173ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.348116ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.146292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.139882ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.15203ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.131068ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 neon_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.143067ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.444153ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.144248ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.09246ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.079099ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.078849ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 lava_forge/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.09237ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.21125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.094272ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.07917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.075785ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.080983ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ocean_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.071649ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.217569ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.326024ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.106592ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.239823ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.19194ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 royal_store/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.088835ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.31667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.111529ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.082875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.074884ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.080412ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 field_station/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.199772ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.258912ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.11228ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.086771ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.481799ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.105364ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 forest_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.146251ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.393986ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.185621ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.385654ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.870387ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.318311ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 ice_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.173423ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.941298ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 810
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 810,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.217199ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1200 !== 1350
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1200,
+    expected: 1350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.103146ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  480 !== 600
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 480,
+    expected: 600,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.081334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  960 !== 1080
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 960,
+    expected: 1080,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.103808ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  240 !== 300
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 240,
+    expected: 300,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:18:61
+✖ v102 harbor/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.114513ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  720 !== 900
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:21:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 720,
+    expected: 900,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

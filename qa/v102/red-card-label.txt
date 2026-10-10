@@ -1,0 +1,2138 @@
+✔ v102 cold_chain/0: missing quantity controls quote, displayed price, cancellation and actual debit (59.953273ms)
+✖ v102 cold_chain/1: missing quantity controls quote, displayed price, cancellation and actual debit (3.694491ms)
+✖ v102 cold_chain/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.778041ms)
+✖ v102 cold_chain/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.407931ms)
+✖ v102 cold_chain/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.422683ms)
+✖ v102 cold_chain/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.862092ms)
+✖ v102 cold_chain/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.897581ms)
+✔ v102 cold_chain/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.715446ms)
+✔ v102 rail_freight/0: missing quantity controls quote, displayed price, cancellation and actual debit (36.31738ms)
+✖ v102 rail_freight/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.564187ms)
+✖ v102 rail_freight/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.483195ms)
+✖ v102 rail_freight/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.167577ms)
+✖ v102 rail_freight/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.899571ms)
+✖ v102 rail_freight/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.047736ms)
+✖ v102 rail_freight/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.032652ms)
+✔ v102 rail_freight/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.815143ms)
+✔ v102 toy_workshop/0: missing quantity controls quote, displayed price, cancellation and actual debit (31.780423ms)
+✖ v102 toy_workshop/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.027245ms)
+✖ v102 toy_workshop/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.800882ms)
+✖ v102 toy_workshop/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.207517ms)
+✖ v102 toy_workshop/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.475814ms)
+✖ v102 toy_workshop/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.114476ms)
+✖ v102 toy_workshop/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.358355ms)
+✔ v102 toy_workshop/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.842989ms)
+✔ v102 paper_warehouse/0: missing quantity controls quote, displayed price, cancellation and actual debit (32.091029ms)
+✖ v102 paper_warehouse/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.216731ms)
+✖ v102 paper_warehouse/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.035447ms)
+✖ v102 paper_warehouse/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.99766ms)
+✖ v102 paper_warehouse/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.793851ms)
+✖ v102 paper_warehouse/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.879801ms)
+✖ v102 paper_warehouse/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.073053ms)
+✔ v102 paper_warehouse/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.067075ms)
+✔ v102 space_cargo/0: missing quantity controls quote, displayed price, cancellation and actual debit (39.959973ms)
+✖ v102 space_cargo/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.344625ms)
+✖ v102 space_cargo/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.057641ms)
+✖ v102 space_cargo/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.079243ms)
+✖ v102 space_cargo/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.977319ms)
+✖ v102 space_cargo/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.296662ms)
+✖ v102 space_cargo/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.628164ms)
+✔ v102 space_cargo/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.721612ms)
+✔ v102 steam_foundry/0: missing quantity controls quote, displayed price, cancellation and actual debit (36.355046ms)
+✖ v102 steam_foundry/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.902816ms)
+✖ v102 steam_foundry/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.792009ms)
+✖ v102 steam_foundry/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.079053ms)
+✖ v102 steam_foundry/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.797908ms)
+✖ v102 steam_foundry/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.743985ms)
+✖ v102 steam_foundry/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.986783ms)
+✔ v102 steam_foundry/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.871358ms)
+✔ v102 neon_depot/0: missing quantity controls quote, displayed price, cancellation and actual debit (37.442643ms)
+✖ v102 neon_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (3.362278ms)
+✖ v102 neon_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.821554ms)
+✖ v102 neon_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.124642ms)
+✖ v102 neon_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.78603ms)
+✖ v102 neon_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.742894ms)
+✖ v102 neon_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.826411ms)
+✔ v102 neon_depot/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.716454ms)
+✔ v102 lava_forge/0: missing quantity controls quote, displayed price, cancellation and actual debit (25.003458ms)
+✖ v102 lava_forge/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.919371ms)
+✖ v102 lava_forge/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.044711ms)
+✖ v102 lava_forge/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.218544ms)
+✖ v102 lava_forge/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.909447ms)
+✖ v102 lava_forge/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.84576ms)
+✖ v102 lava_forge/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.719539ms)
+✔ v102 lava_forge/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.764687ms)
+✔ v102 ocean_vault/0: missing quantity controls quote, displayed price, cancellation and actual debit (36.441607ms)
+✖ v102 ocean_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.979713ms)
+✖ v102 ocean_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.94496ms)
+✖ v102 ocean_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.857848ms)
+✖ v102 ocean_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.802585ms)
+✖ v102 ocean_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.846051ms)
+✖ v102 ocean_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.110841ms)
+✔ v102 ocean_vault/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.777727ms)
+✔ v102 royal_store/0: missing quantity controls quote, displayed price, cancellation and actual debit (26.357457ms)
+✖ v102 royal_store/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.013173ms)
+✖ v102 royal_store/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.076059ms)
+✖ v102 royal_store/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.267708ms)
+✖ v102 royal_store/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.850487ms)
+✖ v102 royal_store/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.969361ms)
+✖ v102 royal_store/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.804708ms)
+✔ v102 royal_store/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.77061ms)
+✔ v102 field_station/0: missing quantity controls quote, displayed price, cancellation and actual debit (51.239963ms)
+✖ v102 field_station/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.080815ms)
+✖ v102 field_station/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.969667ms)
+✖ v102 field_station/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.887002ms)
+✖ v102 field_station/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.803546ms)
+✖ v102 field_station/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.937429ms)
+✖ v102 field_station/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.930869ms)
+✔ v102 field_station/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.065693ms)
+✔ v102 forest_depot/0: missing quantity controls quote, displayed price, cancellation and actual debit (25.855658ms)
+✖ v102 forest_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.24205ms)
+✖ v102 forest_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.038361ms)
+✖ v102 forest_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.258334ms)
+✖ v102 forest_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.152854ms)
+✖ v102 forest_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.90491ms)
+✖ v102 forest_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.935146ms)
+✔ v102 forest_depot/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.668525ms)
+✔ v102 ice_vault/0: missing quantity controls quote, displayed price, cancellation and actual debit (30.742874ms)
+✖ v102 ice_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.12333ms)
+✖ v102 ice_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.861393ms)
+✖ v102 ice_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.113895ms)
+✖ v102 ice_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.754445ms)
+✖ v102 ice_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.961235ms)
+✖ v102 ice_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (2.078145ms)
+✔ v102 ice_vault/7: missing quantity controls quote, displayed price, cancellation and actual debit (1.577518ms)
+✔ v102 harbor/0: missing quantity controls quote, displayed price, cancellation and actual debit (35.192327ms)
+✖ v102 harbor/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.218103ms)
+✖ v102 harbor/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.884589ms)
+✖ v102 harbor/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.989277ms)
+✖ v102 harbor/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.818919ms)
+✖ v102 harbor/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.903257ms)
+✖ v102 harbor/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.132704ms)
+✔ v102 harbor/7: missing quantity controls quote, displayed price, cancellation and actual debit (0.99785ms)
+ℹ tests 112
+ℹ suites 0
+ℹ pass 28
+ℹ fail 84
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1396.287549
+
+✖ failing tests:
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/1: missing quantity controls quote, displayed price, cancellation and actual debit (3.694491ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.778041ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.407931ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.422683ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.862092ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 cold_chain/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.897581ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.564187ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.483195ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.167577ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.899571ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.047736ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 rail_freight/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.032652ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.027245ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.800882ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.207517ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.475814ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.114476ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 toy_workshop/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.358355ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.216731ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.035447ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.99766ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.793851ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.879801ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 paper_warehouse/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.073053ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.344625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.057641ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.079243ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.977319ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.296662ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 space_cargo/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.628164ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.902816ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.792009ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.079053ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.797908ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.743985ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 steam_foundry/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.986783ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (3.362278ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.821554ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.124642ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.78603ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.742894ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 neon_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.826411ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.919371ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.044711ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.218544ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.909447ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.84576ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 lava_forge/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.719539ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (0.979713ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.94496ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.857848ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.802585ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.846051ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ocean_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.110841ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.013173ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.076059ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.267708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.850487ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/5: missing quantity controls quote, displayed price, cancellation and actual debit (1.969361ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 royal_store/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.804708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.080815ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.969667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.887002ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.803546ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.937429ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 field_station/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.930869ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.24205ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/2: missing quantity controls quote, displayed price, cancellation and actual debit (1.038361ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.258334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.152854ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.90491ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 forest_depot/6: missing quantity controls quote, displayed price, cancellation and actual debit (0.935146ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.12333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.861393ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/3: missing quantity controls quote, displayed price, cancellation and actual debit (1.113895ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/4: missing quantity controls quote, displayed price, cancellation and actual debit (1.754445ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.961235ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 ice_vault/6: missing quantity controls quote, displayed price, cancellation and actual debit (2.078145ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/1: missing quantity controls quote, displayed price, cancellation and actual debit (1.218103ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '810金币 · 8折'
+  - '810金币 · 9折'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '810金币 · 8折',
+    expected: '810金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/2: missing quantity controls quote, displayed price, cancellation and actual debit (0.884589ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1350金币 · 8折'
+  - '1350金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1350金币 · 8折',
+    expected: '1350金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/3: missing quantity controls quote, displayed price, cancellation and actual debit (0.989277ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '600金币 · 8折'
+  - '600金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '600金币 · 8折',
+    expected: '600金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/4: missing quantity controls quote, displayed price, cancellation and actual debit (0.818919ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1080金币 · 8折'
+  - '1080金币 · 9折'
+              ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1080金币 · 8折',
+    expected: '1080金币 · 9折',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/5: missing quantity controls quote, displayed price, cancellation and actual debit (0.903257ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '300金币 · 8折'
+  - '300金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '300金币 · 8折',
+    expected: '300金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/bundle-discount-v102.test.ts:19:61
+✖ v102 harbor/6: missing quantity controls quote, displayed price, cancellation and actual debit (1.132704ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '900金币 · 8折'
+  - '900金币 · 原价'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v102/tests/bundle-discount-v102.test.ts:26:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 8折',
+    expected: '900金币 · 原价',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

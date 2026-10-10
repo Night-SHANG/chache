@@ -1,0 +1,3695 @@
+{
+  "status": "PASS",
+  "kind": "Original v25 game.js wx/Canvas and original app.js DOM-event simulation",
+  "mode": "paid",
+  "binding": {
+    "ownerFrozen": true,
+    "expectedVersion": "1.0.2",
+    "expectedCommit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+    "expectedSourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "expectedGameJsSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+    "expectedBrowserJsSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea",
+    "expectedPaidGameJsSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+    "expectedPaidBrowserJsSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea",
+    "paidBuildRoot": "/workspace/scratch/e6b59ff34222/v102/artifacts/v102-frozen/paid",
+    "freeBuildRoot": "/workspace/scratch/e6b59ff34222/v102/artifacts/v102-frozen/paid"
+  },
+  "manifest": {
+    "cargoAtlas": {
+      "src": "assets/cargo-materials.png",
+      "width": 670,
+      "height": 2010,
+      "tileSize": 134,
+      "padding": 3,
+      "bodySize": 128,
+      "styles": [
+        "wood",
+        "insulated",
+        "reinforced",
+        "taped",
+        "toy_brick",
+        "paper_fold",
+        "space_case",
+        "ice_crystal",
+        "steam_brass",
+        "neon_circuit",
+        "lava_core",
+        "ocean_relic",
+        "royal_gold",
+        "field_supply",
+        "harbor_container"
+      ],
+      "cargos": [
+        "cargo.food",
+        "cargo.machine",
+        "cargo.chem",
+        "cargo.electronic",
+        "cargo.cold"
+      ],
+      "bytes": 351513,
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    "sceneMaterialAtlas": {
+      "src": "assets/scene-materials.png",
+      "width": 512,
+      "height": 960,
+      "tileSize": 64,
+      "frameSize": 128,
+      "variants": 3,
+      "tileBaseY": 512,
+      "tileColumns": 8,
+      "frameColumns": 4,
+      "extensionThemeStart": 13,
+      "extensionTileBaseY": 896,
+      "themes": [
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station",
+        "forest_depot",
+        "ice_vault"
+      ],
+      "bytes": 219775,
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    "boardMaterialAtlas": {
+      "src": "assets/board-materials.png",
+      "width": 512,
+      "height": 512,
+      "tileSize": 128,
+      "themes": [
+        "day",
+        "night",
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station"
+      ],
+      "bytes": 166727,
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    "themedForkliftAtlas": {
+      "src": "assets/themed-forklifts.png",
+      "width": 2048,
+      "height": 128,
+      "tileSize": 128,
+      "tileColumns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15
+      ],
+      "paints": [
+        "electric",
+        "heavy",
+        "compact",
+        "toy",
+        "paper",
+        "space",
+        "steam",
+        "neon",
+        "lava",
+        "diving",
+        "royal",
+        "field",
+        "timber",
+        "ice",
+        "harbor"
+      ],
+      "bytes": 61052,
+      "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+    },
+    "developerDiagnostics": false,
+    "shopPricingMode": "paid",
+    "soundEffects": {
+      "browserVolume": 0.45,
+      "wechatVolume": 1
+    },
+    "version": "1.0.2",
+    "rulesetVersion": 21,
+    "backgroundMusic": {
+      "src": "assets/bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "bytes": 1563002,
+      "loop": true,
+      "defaultVolume": 0.18,
+      "license": "CC0 1.0 Universal"
+    },
+    "accountFormatVersion": 4,
+    "economyVersion": 2,
+    "interactiveTutorials": false,
+    "help": {
+      "entry": "home_and_pause",
+      "topics": [
+        "inbound",
+        "outbound",
+        "tools"
+      ],
+      "rushDetails": true,
+      "specialCargoOnly": true,
+      "automatic": false
+    },
+    "cosmetics": {
+      "catalogSize": 50,
+      "setCount": 15,
+      "navigation": "sections-pagination-inline-preview",
+      "sections": [
+        "sets",
+        "theme",
+        "cargo",
+        "forklift"
+      ],
+      "columns": 2,
+      "pageSize": 4,
+      "setPageSize": 4
+    },
+    "supportedRulesets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21
+    ],
+    "modes": {
+      "orders": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "candidates": [
+          3
+        ],
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "economyVersion": 2,
+        "finalStageRush": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "orderRanges": {
+          "hard": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ],
+          "expert": [
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              8
+            ]
+          ]
+        },
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        },
+        "overtimeDifficulties": [
+          "hard",
+          "expert"
+        ],
+        "continuedRecordScope": "endless"
+      },
+      "legacy_daily": {
+        "rulesetVersion": 18,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "inboundDifficulty": "hard",
+        "scoreMultiplier": [
+          3,
+          2
+        ]
+      },
+      "rush": {
+        "rulesetVersion": 21,
+        "runConfigId": "run.rush_v21.base",
+        "boardSize": 7,
+        "reservedEntries": 4,
+        "targetOrders": 30,
+        "inboundDifficulty": "normal",
+        "orderRanges": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            7
+          ]
+        ],
+        "scoreMultiplier": [
+          1,
+          1
+        ],
+        "tools": true,
+        "maxToolTypes": 2,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "repeatable": true,
+        "dated": false,
+        "seedPerRun": true,
+        "winCoinMultiplier": 1
+      },
+      "legacy_fixed_rush": {
+        "rulesetVersion": 20,
+        "winCoinMultiplier": 3
+      },
+      "legacy_rush": {
+        "rulesetVersion": 19,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_tiers": {
+        "rulesetVersion": 16
+      },
+      "legacy_final_stage": {
+        "rulesetVersion": 15
+      },
+      "legacy_multishape": {
+        "rulesetVersion": 14
+      },
+      "legacy_refinement": {
+        "rulesetVersion": 11
+      },
+      "legacy_growth": {
+        "rulesetVersion": 9,
+        "boardSizes": [
+          7,
+          8
+        ],
+        "candidates": [
+          3,
+          4,
+          5
+        ]
+      },
+      "legacy_orders": {
+        "rulesetVersion": 3
+      },
+      "color_exit": {
+        "rulesetVersion": 4,
+        "balanced": false
+      },
+      "color_exit_mixed": {
+        "rulesetVersion": 5,
+        "tiers": {
+          "entry": 20,
+          "middle": 30,
+          "late": 40
+        },
+        "balanced": false
+      },
+      "outbound": {
+        "rulesetVersion": 12,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "balanced": false
+      },
+      "inbound_endless": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "stageCap": 5,
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_endless": {
+        "rulesetVersion": 7
+      },
+      "outbound_endless": {
+        "rulesetVersion": 13,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "stageCap": 5,
+        "balanced": false
+      }
+    },
+    "sourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+    "builtAt": "2026-10-10T16:09:42.398Z",
+    "runtimeStatus": "WeChat developer tools and physical devices NOT RUN",
+    "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2"
+  },
+  "beginning": {
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+    "sourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "gameJsSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+    "browserJsSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea"
+  },
+  "cases": [
+    {
+      "name": "paid-v025-frozen-catalog-source",
+      "status": "PASS",
+      "sourceOnly": true,
+      "catalog": 50,
+      "sets": 15
+    },
+    {
+      "name": "paid-v025-game-320x720-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-game-320x720-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-game-320x720-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": false,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-game-320x720-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": false,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-app-320x720-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 97.77777777777777,
+                "h": 44.44444444444444
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  216,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 49.77777777777777,
+                "h": 48
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  60,
+                  83,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-app-320x720-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-app-320x720-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": true,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-app-320x720-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": true,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-game-360x800-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-game-360x800-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-game-360x800-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": false,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-game-360x800-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": false,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-app-360x800-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 110,
+                "h": 50
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  253,
+                  220,
+                  126,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 56,
+                "h": 54
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-app-360x800-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-app-360x800-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": true,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-app-360x800-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": true,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-game-540x960-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-game-540x960-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": false,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-game-540x960-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": false,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-game-540x960-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": false,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-app-540x960-all-tools-quantity-cancel-confirm",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "quantity": 3,
+          "total": 240,
+          "wallet": 19760,
+          "inventory": 5,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "clear",
+          "quantity": 3,
+          "total": 360,
+          "wallet": 19400,
+          "inventory": 6,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "item": "wildcard",
+          "quantity": 3,
+          "total": 480,
+          "wallet": 18920,
+          "inventory": 7,
+          "geometry": [
+            {
+              "action": {
+                "type": "cancel"
+              },
+              "rect": {
+                "x": 186,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "confirm"
+              },
+              "rect": {
+                "x": 564,
+                "y": 1160,
+                "w": 330,
+                "h": 150
+              },
+              "cssSize": {
+                "w": 165,
+                "h": 75
+              },
+              "expected": "primary",
+              "samples": [
+                [
+                  252,
+                  219,
+                  125,
+                  255
+                ],
+                [
+                  251,
+                  217,
+                  122,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": -1
+              },
+              "rect": {
+                "x": 210,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            },
+            {
+              "action": {
+                "type": "purchaseQuantity",
+                "delta": 1
+              },
+              "rect": {
+                "x": 702,
+                "y": 972,
+                "w": 168,
+                "h": 162
+              },
+              "cssSize": {
+                "w": 84,
+                "h": 81
+              },
+              "expected": "secondary",
+              "samples": [
+                [
+                  61,
+                  84,
+                  108,
+                  255
+                ],
+                [
+                  59,
+                  82,
+                  106,
+                  255
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "default": 1,
+      "lowerBound": 1,
+      "readonlyQuantityAndCancel": true,
+      "cancelReopenReset": true,
+      "oneBatchGeneration": true,
+      "doubleTapNoReopen": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-app-540x960-capacity-and-wallet-boundaries",
+      "status": "PASS",
+      "simulation": true,
+      "rows": [
+        {
+          "item": "rotate",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "clear",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "maximumStock": 9007199254740991,
+          "remainingCapacity": 2,
+          "fullConfirmationDisabled": true
+        },
+        {
+          "item": "rotate",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "clear",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        },
+        {
+          "item": "wildcard",
+          "exactWallet": true,
+          "affordabilityCap": 3,
+          "insufficientDisabled": true
+        }
+      ]
+    },
+    {
+      "name": "paid-v025-app-540x960-pointer-cancel-modal-isolation",
+      "status": "PASS",
+      "simulation": true,
+      "cancelledPointerInert": true,
+      "underlyingControlsBlocked": true
+    },
+    {
+      "name": "paid-v025-app-540x960-batch-stock-carry-two-types",
+      "status": "PASS",
+      "simulation": true,
+      "batchOwned": true,
+      "maxTypes": 2,
+      "onePerType": true
+    },
+    {
+      "name": "paid-v025-native-batch-save-before-first-root",
+      "status": "PASS",
+      "fault": {
+        "name": "before-first-root",
+        "timing": "before",
+        "key": "warehouse.account.s1.b"
+      },
+      "hits": 1,
+      "rootGenerations": [
+        1,
+        1
+      ],
+      "recoveredQuantity": 3,
+      "singleBatchGeneration": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-native-batch-save-before-mirror-root",
+      "status": "PASS",
+      "fault": {
+        "name": "before-mirror-root",
+        "timing": "before",
+        "key": "warehouse.account.s1.a"
+      },
+      "hits": 1,
+      "rootGenerations": [
+        1,
+        2
+      ],
+      "recoveredQuantity": 3,
+      "singleBatchGeneration": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-native-batch-save-after-first-root",
+      "status": "PASS",
+      "fault": {
+        "name": "after-first-root",
+        "timing": "after",
+        "key": "warehouse.account.s1.b"
+      },
+      "hits": 1,
+      "rootGenerations": [
+        2,
+        2
+      ],
+      "recoveredQuantity": 3,
+      "singleBatchGeneration": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-native-batch-save-after-mirror-root",
+      "status": "PASS",
+      "fault": {
+        "name": "after-mirror-root",
+        "timing": "after",
+        "key": "warehouse.account.s1.a"
+      },
+      "hits": 1,
+      "rootGenerations": [
+        2,
+        2
+      ],
+      "recoveredQuantity": 3,
+      "singleBatchGeneration": true,
+      "restart": true
+    },
+    {
+      "name": "paid-v025-game-stale-quantity-reconfirmed",
+      "status": "PASS",
+      "simulation": false,
+      "staleConfirmWrites": 0,
+      "reopenDefaults": 1,
+      "reconfirmedQuantity": 3
+    },
+    {
+      "name": "paid-v025-app-stale-quantity-reconfirmed",
+      "status": "PASS",
+      "simulation": true,
+      "staleConfirmWrites": 0,
+      "reopenDefaults": 1,
+      "reconfirmedQuantity": 3
+    }
+  ],
+  "images": [
+    {
+      "name": "paid-game-320x720-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-rotate-quantity3.png",
+      "sha256": "11ab6c2cf845e4ac75d5858b9eb804b47936060aeb0aaac7ec4e05fe571828bf",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-clear-quantity3.png",
+      "sha256": "73857dee51979b47dcaac0daa2579d178e97728263b0f719dc93f1bbd226a947",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-wildcard-quantity3.png",
+      "sha256": "8fe1e35e1a273b71eaa5e07b82369a50cef92ef46760f2e40a16d3e334c261ad",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-all-tools-after.png",
+      "sha256": "220d257117c5c7842419f1e841b076adf13b784374efe335c92aa5c2e60e8b37",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-full-stock-disabled-confirm.png",
+      "sha256": "4de743e623bdf5112c767326c11f9a4f16aca8e7c121c3ea135a72f8df502655",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-exact-wallet-quantity3.png",
+      "sha256": "d1be6e7ae58bd859b5ff0f8504b1934f6f7ee461b6d2b3001f037dbc659e2c20",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-boundary-account.png",
+      "sha256": "b55f0411ae31912672ffecd9f65bd4eac4fe9a3cef4587f37995f310356fb70a",
+      "failure": false
+    },
+    {
+      "name": "paid-game-320x720-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-320x720-carry-two-types.png",
+      "sha256": "96b84061b76e7efa9173bef3d05839d79580e63bcfdf0fc166e72fc760071ac2",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-rotate-quantity3.png",
+      "sha256": "3b190c3c6ff52dce492bf620f6682dfa0eba452c07f00886502107b45b661001",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-clear-quantity3.png",
+      "sha256": "656fc907df31233f890bc74f0eea090ad8ecfd9eb5432a5a1bddeccb5be02815",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-wildcard-quantity3.png",
+      "sha256": "0410971c9e7c87775406a7571b776e0a6ed6e1d866ca7290d6d0f3dcfa68dc21",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-all-tools-after.png",
+      "sha256": "02458910a38f213472007526fdaae17c4a52c0bbae3c7fd2e07579865cef49e9",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-full-stock-disabled-confirm.png",
+      "sha256": "ac72f95114deee115a419b8fb0c6257c14e8024ba6d16db2484102654a7edd52",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-exact-wallet-quantity3.png",
+      "sha256": "5fb05eebb12ce98d24d50b7c900317695b68b08539ac55638fca4add2fe34419",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-boundary-account.png",
+      "sha256": "83c9b35672a388b2c3a9876f6be9fbabe149384a82b319b7ef9bc4cfbddda8d6",
+      "failure": false
+    },
+    {
+      "name": "paid-app-320x720-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-320x720-carry-two-types.png",
+      "sha256": "ea841b9611ef3ccdde52c305bf7ed1882bd2cd76e2ac1e554247cc6f4199b1a4",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-rotate-quantity3.png",
+      "sha256": "bddc66638ff55b0c699a2473ef7a925da29e67e68fab4862c9ff0986e47543ed",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-clear-quantity3.png",
+      "sha256": "fb476c7ff0461e9a84e7cc7a3dad439eeeb91abb5f0f36e958ced90f51f4dadf",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-wildcard-quantity3.png",
+      "sha256": "943aebfc02d765d4a0c28ced918352f746a10a5532e5285826b301166a6e3559",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-all-tools-after.png",
+      "sha256": "f14b914b185a9fde501dd3a4dfb1e19eba9cbbc54f1b03c17ff5e2d70ad8281f",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-full-stock-disabled-confirm.png",
+      "sha256": "d1347338f06b1ec283d4a38397c6d0bc39cc8f654993046e8d31b9f64150e753",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-exact-wallet-quantity3.png",
+      "sha256": "c615e2b432b2711f4641672b22c0023399042057b218c3ab60a438a9939b7c02",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-boundary-account.png",
+      "sha256": "9c3504220e2459adc8bafa8c5dc88bb85eaf322c5a53f73b7c6101bc358de26b",
+      "failure": false
+    },
+    {
+      "name": "paid-game-360x800-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-360x800-carry-two-types.png",
+      "sha256": "5df5f788857f2d2ec8bb95346cb11d3da1db019d064b538eb9a03cd3bd5dc4b9",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-rotate-quantity3.png",
+      "sha256": "c1285af4122f9aa86e821d01d5e67204bbb1abe68a143a8dfab003491f8f2c94",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-clear-quantity3.png",
+      "sha256": "c91e8cb91713539bd7e27879efe549a813d18fefa1a53c7d2a241f3e1e2d8f3b",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-wildcard-quantity3.png",
+      "sha256": "4175317cacf4d9b6b724afe1e30d8483e7c1b6c2962a90dd7ff30b7d5cbde595",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-all-tools-after.png",
+      "sha256": "65e86be1c6a62140410fb09169e5528d9ac6109c87b8af139b353105bf9d55db",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-full-stock-disabled-confirm.png",
+      "sha256": "8c16f132a854cde27efe176a6e96a40749ba5320ce1f604174c95c0e0f406137",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-exact-wallet-quantity3.png",
+      "sha256": "d82b33e96eab9bf3f90815f22e8bd88372973e520e98cac8de21fce84467a6bb",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-boundary-account.png",
+      "sha256": "75cb29848db78fc0e62f09c5ef3699176d77af61ecb4853183fdaa5a18868992",
+      "failure": false
+    },
+    {
+      "name": "paid-app-360x800-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-360x800-carry-two-types.png",
+      "sha256": "8cb1de98b963429396505339fe7dfaaf8cbc0b41ce91f7e03de6744e8aa4f91b",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-rotate-quantity3.png",
+      "sha256": "28186ef4e39945e0a183d9d6bb6341d2fad49cf2a99b6b13858a91a5dc7a3ddf",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-clear-quantity3.png",
+      "sha256": "c4850320c01154c24c3248eb5ab3a000f45650c316d73c6cc3010afe9c18ab33",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-wildcard-quantity3.png",
+      "sha256": "99e1fa2dd374ded3d82c3a19b2f6f3e55e76adcebdebc853cb7debb544a4f820",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-all-tools-after.png",
+      "sha256": "d458d672a162c140c8674ed81b8f712c73feb0a6b1425aebe86d30827fb06e99",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-full-stock-disabled-confirm.png",
+      "sha256": "60d3c3ed72f402d0c26454947efe648205c3d0b05f553b1a1524ec7dadae25a9",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-exact-wallet-quantity3.png",
+      "sha256": "d9250e3e4fd16420e0a8d3c7f5f47b56dbcf5b9adf4cc4ee73078d5596fd94cd",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-boundary-account.png",
+      "sha256": "91f07b4e752a208571e017f72b1c5255337e7a7dac6175c869c19d67a4ff832a",
+      "failure": false
+    },
+    {
+      "name": "paid-game-540x960-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-game-540x960-carry-two-types.png",
+      "sha256": "7f45c6329e8cbe9a618434c96bc0fc43fd6ca6336737db81f73b6136db19ef43",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-rotate-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-rotate-quantity3.png",
+      "sha256": "28186ef4e39945e0a183d9d6bb6341d2fad49cf2a99b6b13858a91a5dc7a3ddf",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-clear-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-clear-quantity3.png",
+      "sha256": "c4850320c01154c24c3248eb5ab3a000f45650c316d73c6cc3010afe9c18ab33",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-wildcard-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-wildcard-quantity3.png",
+      "sha256": "99e1fa2dd374ded3d82c3a19b2f6f3e55e76adcebdebc853cb7debb544a4f820",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-all-tools-after",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-all-tools-after.png",
+      "sha256": "d458d672a162c140c8674ed81b8f712c73feb0a6b1425aebe86d30827fb06e99",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-full-stock-disabled-confirm",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-full-stock-disabled-confirm.png",
+      "sha256": "60d3c3ed72f402d0c26454947efe648205c3d0b05f553b1a1524ec7dadae25a9",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-exact-wallet-quantity3",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-exact-wallet-quantity3.png",
+      "sha256": "d9250e3e4fd16420e0a8d3c7f5f47b56dbcf5b9adf4cc4ee73078d5596fd94cd",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-boundary-account",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-boundary-account.png",
+      "sha256": "91f07b4e752a208571e017f72b1c5255337e7a7dac6175c869c19d67a4ff832a",
+      "failure": false
+    },
+    {
+      "name": "paid-app-540x960-carry-two-types",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-app-540x960-carry-two-types.png",
+      "sha256": "7f45c6329e8cbe9a618434c96bc0fc43fd6ca6336737db81f73b6136db19ef43",
+      "failure": false
+    },
+    {
+      "name": "paid-batch-before-first-root",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-batch-before-first-root.png",
+      "sha256": "3f9e6b812333d3e2b39578dbe3eb81bde3dbbebc448322bc03c03cb4c6a04124",
+      "failure": false
+    },
+    {
+      "name": "paid-batch-before-mirror-root",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-batch-before-mirror-root.png",
+      "sha256": "4fc7fec203fb62815308421c42f8948df28d628a0fbd3550d517e95219e691da",
+      "failure": false
+    },
+    {
+      "name": "paid-batch-after-first-root",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-batch-after-first-root.png",
+      "sha256": "25de525f171faacc54346c0d1bcd7cf6e326c173f9bf698f181f6ba0f7baf7fb",
+      "failure": false
+    },
+    {
+      "name": "paid-batch-after-mirror-root",
+      "picture": "/workspace/scratch/e6b59ff34222/v102/qa/v102/host-final/quantity/paid-batch-after-mirror-root.png",
+      "sha256": "25de525f171faacc54346c0d1bcd7cf6e326c173f9bf698f181f6ba0f7baf7fb",
+      "failure": false
+    }
+  ],
+  "limitations": [
+    "These native Canvas and DOM-event hosts are not a real browser GUI, WeChat developer tools, or a physical device.",
+    "Accounts with wallet/stock values are validated isolated QA fixtures, never player earnings.",
+    "No app/session export, state global, or transformed product bundle is injected. Host-side input intent locates pointers only.",
+    "Storage fault before/after-write coverage uses native wx callbacks; browser storage-fault behavior is not claimed.",
+    "Catalog and carry-limit preservation are bounded checks, not a rerun of all historical gameplay/cosmetic suites.",
+    "Historical evidence contributes zero fresh passes."
+  ],
+  "coverage": {
+    "passed": 31,
+    "failed": 0,
+    "total": 31,
+    "nativeCases": 17,
+    "browserEventCases": 13,
+    "sourceChecks": 1,
+    "inherited": 0
+  }
+}

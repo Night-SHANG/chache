@@ -1,0 +1,4421 @@
+{
+  "version": "1.0.2",
+  "recordedAtUtc": "2026-10-10T16:14:45.353296+00:00",
+  "recordedTimezone": "Asia/Shanghai",
+  "scope": "Only approved fixed-set missing-member-count pricing: 3=80%,2=90%,1=100%,0=no purchase; synchronized quotes, labels, confirmations and debit.",
+  "baselineNativeCommit": "fc0d90626f99dc8ee940e64fe59c81b1f1cbf50d",
+  "frozen": {
+    "ownerFrozen": true,
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+    "sourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+    "gameJsSha256": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+    "browserJsSha256": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea"
+  },
+  "productTree": "8c18920b7b4bcf6addffba72e74ba2b755cd84aa",
+  "fullTests": {
+    "tests": 2717,
+    "pass": 2715,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "knownFailures": [
+    "artifacts/v0200-art-source/cargo-wood-generated.png missing historically",
+    "artifacts/v0210-art-source/cargo-harbor_container-generated.png missing historically"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "tdd": {
+    "initialCases": 112,
+    "originalCodeFailed": 84,
+    "originalCodePassed": 28,
+    "cardLabelFailedBeforeFix": 84,
+    "finalNewMatrixPassed": 112
+  },
+  "originalPaidHost": {
+    "cataloguePassed": 327,
+    "catalogueFailed": 0,
+    "quantity": {
+      "passed": 31,
+      "failed": 0,
+      "total": 31,
+      "nativeCases": 17,
+      "browserEventCases": 13,
+      "sourceChecks": 1,
+      "inherited": 0
+    },
+    "inherited": 0
+  },
+  "independentDomain": {
+    "passed": 9,
+    "failed": 0,
+    "quotes": 224,
+    "transactions": 224,
+    "balances": 294,
+    "storageFaults": 532,
+    "legacyReceipts": 196
+  },
+  "independentUi": {
+    "passed": 14,
+    "failed": 0,
+    "screens": 86
+  },
+  "scopeProof": {
+    "baseline": "fc0d90626f99dc8ee940e64fe59c81b1f1cbf50d",
+    "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+    "unchangedProtectedFiles": 126,
+    "dependenciesUnchanged": true,
+    "runtimeChanged": [
+      "src/application/cosmetic-sets.ts",
+      "src/presentation/economy-ui.ts",
+      "src/presentation/renderer.ts"
+    ],
+    "status": "PASS"
+  },
+  "limitations": [
+    "Two known historical missing-art-master tests remain failed; no checks weakened or skipped.",
+    "Real browser GUI, Windows launcher GUI, WeChat developer tools and physical devices not run.",
+    "Native Canvas and DOM event hosts use original production bundles and isolated QA accounts.",
+    "No public game deployment or WeChat submission.",
+    "Restore uses installed pinned dependencies, not a new registry installation."
+  ],
+  "continuity-report.json": {
+    "status": "PASS",
+    "snapshot": {
+      "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+      "tree": "8c18920b7b4bcf6addffba72e74ba2b755cd84aa",
+      "source": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+      "game": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+      "app": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea",
+      "manifests": {
+        "wechat": {
+          "cargoAtlas": {
+            "src": "assets/cargo-materials.png",
+            "width": 670,
+            "height": 2010,
+            "tileSize": 134,
+            "padding": 3,
+            "bodySize": 128,
+            "styles": [
+              "wood",
+              "insulated",
+              "reinforced",
+              "taped",
+              "toy_brick",
+              "paper_fold",
+              "space_case",
+              "ice_crystal",
+              "steam_brass",
+              "neon_circuit",
+              "lava_core",
+              "ocean_relic",
+              "royal_gold",
+              "field_supply",
+              "harbor_container"
+            ],
+            "cargos": [
+              "cargo.food",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.electronic",
+              "cargo.cold"
+            ],
+            "bytes": 351513,
+            "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+          },
+          "sceneMaterialAtlas": {
+            "src": "assets/scene-materials.png",
+            "width": 512,
+            "height": 960,
+            "tileSize": 64,
+            "frameSize": 128,
+            "variants": 3,
+            "tileBaseY": 512,
+            "tileColumns": 8,
+            "frameColumns": 4,
+            "extensionThemeStart": 13,
+            "extensionTileBaseY": 896,
+            "themes": [
+              "harbor",
+              "cold_chain",
+              "rail_freight",
+              "express_sorting",
+              "toy_workshop",
+              "paper_warehouse",
+              "space_cargo",
+              "steam_foundry",
+              "neon_depot",
+              "lava_forge",
+              "ocean_vault",
+              "royal_store",
+              "field_station",
+              "forest_depot",
+              "ice_vault"
+            ],
+            "bytes": 219775,
+            "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+          },
+          "boardMaterialAtlas": {
+            "src": "assets/board-materials.png",
+            "width": 512,
+            "height": 512,
+            "tileSize": 128,
+            "themes": [
+              "day",
+              "night",
+              "harbor",
+              "cold_chain",
+              "rail_freight",
+              "express_sorting",
+              "toy_workshop",
+              "paper_warehouse",
+              "space_cargo",
+              "steam_foundry",
+              "neon_depot",
+              "lava_forge",
+              "ocean_vault",
+              "royal_store",
+              "field_station"
+            ],
+            "bytes": 166727,
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+          },
+          "themedForkliftAtlas": {
+            "src": "assets/themed-forklifts.png",
+            "width": 2048,
+            "height": 128,
+            "tileSize": 128,
+            "tileColumns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              13,
+              14,
+              15
+            ],
+            "paints": [
+              "electric",
+              "heavy",
+              "compact",
+              "toy",
+              "paper",
+              "space",
+              "steam",
+              "neon",
+              "lava",
+              "diving",
+              "royal",
+              "field",
+              "timber",
+              "ice",
+              "harbor"
+            ],
+            "bytes": 61052,
+            "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+          },
+          "developerDiagnostics": false,
+          "shopPricingMode": "paid",
+          "soundEffects": {
+            "browserVolume": 0.45,
+            "wechatVolume": 1
+          },
+          "version": "1.0.2",
+          "rulesetVersion": 21,
+          "backgroundMusic": {
+            "src": "assets/bgm.mp3",
+            "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+            "bytes": 1563002,
+            "loop": true,
+            "defaultVolume": 0.18,
+            "license": "CC0 1.0 Universal"
+          },
+          "accountFormatVersion": 4,
+          "economyVersion": 2,
+          "interactiveTutorials": false,
+          "help": {
+            "entry": "home_and_pause",
+            "topics": [
+              "inbound",
+              "outbound",
+              "tools"
+            ],
+            "rushDetails": true,
+            "specialCargoOnly": true,
+            "automatic": false
+          },
+          "cosmetics": {
+            "catalogSize": 50,
+            "setCount": 15,
+            "navigation": "sections-pagination-inline-preview",
+            "sections": [
+              "sets",
+              "theme",
+              "cargo",
+              "forklift"
+            ],
+            "columns": 2,
+            "pageSize": 4,
+            "setPageSize": 4
+          },
+          "supportedRulesets": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            18,
+            19,
+            20,
+            21
+          ],
+          "modes": {
+            "orders": {
+              "rulesetVersion": 18,
+              "boardSizes": [
+                7
+              ],
+              "candidates": [
+                3
+              ],
+              "reservedEntries": 4,
+              "upgradePool": false,
+              "economyVersion": 2,
+              "finalStageRush": false,
+              "rushPercent": 0,
+              "cleanup": false,
+              "orderRanges": {
+                "hard": [
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    5,
+                    5
+                  ],
+                  [
+                    5,
+                    6
+                  ],
+                  [
+                    6,
+                    7
+                  ]
+                ],
+                "expert": [
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    5,
+                    6
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    6,
+                    8
+                  ]
+                ]
+              },
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              },
+              "overtimeDifficulties": [
+                "hard",
+                "expert"
+              ],
+              "continuedRecordScope": "endless"
+            },
+            "legacy_daily": {
+              "rulesetVersion": 18,
+              "initialRushPercent": 6,
+              "finalStageRushPercent": 100,
+              "cleanupAtStart": true,
+              "inboundDifficulty": "hard",
+              "scoreMultiplier": [
+                3,
+                2
+              ]
+            },
+            "rush": {
+              "rulesetVersion": 21,
+              "runConfigId": "run.rush_v21.base",
+              "boardSize": 7,
+              "reservedEntries": 4,
+              "targetOrders": 30,
+              "inboundDifficulty": "normal",
+              "orderRanges": [
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  7
+                ]
+              ],
+              "scoreMultiplier": [
+                1,
+                1
+              ],
+              "tools": true,
+              "maxToolTypes": 2,
+              "initialRushPercent": 6,
+              "finalStageRushPercent": 100,
+              "cleanupAtStart": true,
+              "repeatable": true,
+              "dated": false,
+              "seedPerRun": true,
+              "winCoinMultiplier": 1
+            },
+            "legacy_fixed_rush": {
+              "rulesetVersion": 20,
+              "winCoinMultiplier": 3
+            },
+            "legacy_rush": {
+              "rulesetVersion": 19,
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              }
+            },
+            "legacy_inbound_tiers": {
+              "rulesetVersion": 16
+            },
+            "legacy_final_stage": {
+              "rulesetVersion": 15
+            },
+            "legacy_multishape": {
+              "rulesetVersion": 14
+            },
+            "legacy_refinement": {
+              "rulesetVersion": 11
+            },
+            "legacy_growth": {
+              "rulesetVersion": 9,
+              "boardSizes": [
+                7,
+                8
+              ],
+              "candidates": [
+                3,
+                4,
+                5
+              ]
+            },
+            "legacy_orders": {
+              "rulesetVersion": 3
+            },
+            "color_exit": {
+              "rulesetVersion": 4,
+              "balanced": false
+            },
+            "color_exit_mixed": {
+              "rulesetVersion": 5,
+              "tiers": {
+                "entry": 20,
+                "middle": 30,
+                "late": 40
+              },
+              "balanced": false
+            },
+            "outbound": {
+              "rulesetVersion": 12,
+              "boardSize": 9,
+              "reservedEntries": 1,
+              "tools": true,
+              "difficulties": {
+                "easy": 20,
+                "normal": 30,
+                "hard": 40,
+                "expert": 50
+              },
+              "balanced": false
+            },
+            "inbound_endless": {
+              "rulesetVersion": 18,
+              "boardSizes": [
+                7
+              ],
+              "stageCap": 5,
+              "reservedEntries": 4,
+              "upgradePool": false,
+              "rushPercent": 0,
+              "cleanup": false,
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              }
+            },
+            "legacy_inbound_endless": {
+              "rulesetVersion": 7
+            },
+            "outbound_endless": {
+              "rulesetVersion": 13,
+              "boardSize": 9,
+              "reservedEntries": 1,
+              "tools": true,
+              "difficulties": {
+                "easy": 20,
+                "normal": 30,
+                "hard": 40,
+                "expert": 50
+              },
+              "stageCap": 5,
+              "balanced": false
+            }
+          },
+          "sourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+          "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+          "builtAt": "2026-10-10T16:09:42.398Z",
+          "runtimeStatus": "WeChat developer tools and physical devices NOT RUN",
+          "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2"
+        },
+        "browser": {
+          "cargoAtlas": {
+            "src": "assets/cargo-materials.png",
+            "width": 670,
+            "height": 2010,
+            "tileSize": 134,
+            "padding": 3,
+            "bodySize": 128,
+            "styles": [
+              "wood",
+              "insulated",
+              "reinforced",
+              "taped",
+              "toy_brick",
+              "paper_fold",
+              "space_case",
+              "ice_crystal",
+              "steam_brass",
+              "neon_circuit",
+              "lava_core",
+              "ocean_relic",
+              "royal_gold",
+              "field_supply",
+              "harbor_container"
+            ],
+            "cargos": [
+              "cargo.food",
+              "cargo.machine",
+              "cargo.chem",
+              "cargo.electronic",
+              "cargo.cold"
+            ],
+            "bytes": 351513,
+            "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+          },
+          "sceneMaterialAtlas": {
+            "src": "assets/scene-materials.png",
+            "width": 512,
+            "height": 960,
+            "tileSize": 64,
+            "frameSize": 128,
+            "variants": 3,
+            "tileBaseY": 512,
+            "tileColumns": 8,
+            "frameColumns": 4,
+            "extensionThemeStart": 13,
+            "extensionTileBaseY": 896,
+            "themes": [
+              "harbor",
+              "cold_chain",
+              "rail_freight",
+              "express_sorting",
+              "toy_workshop",
+              "paper_warehouse",
+              "space_cargo",
+              "steam_foundry",
+              "neon_depot",
+              "lava_forge",
+              "ocean_vault",
+              "royal_store",
+              "field_station",
+              "forest_depot",
+              "ice_vault"
+            ],
+            "bytes": 219775,
+            "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+          },
+          "boardMaterialAtlas": {
+            "src": "assets/board-materials.png",
+            "width": 512,
+            "height": 512,
+            "tileSize": 128,
+            "themes": [
+              "day",
+              "night",
+              "harbor",
+              "cold_chain",
+              "rail_freight",
+              "express_sorting",
+              "toy_workshop",
+              "paper_warehouse",
+              "space_cargo",
+              "steam_foundry",
+              "neon_depot",
+              "lava_forge",
+              "ocean_vault",
+              "royal_store",
+              "field_station"
+            ],
+            "bytes": 166727,
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+          },
+          "themedForkliftAtlas": {
+            "src": "assets/themed-forklifts.png",
+            "width": 2048,
+            "height": 128,
+            "tileSize": 128,
+            "tileColumns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              13,
+              14,
+              15
+            ],
+            "paints": [
+              "electric",
+              "heavy",
+              "compact",
+              "toy",
+              "paper",
+              "space",
+              "steam",
+              "neon",
+              "lava",
+              "diving",
+              "royal",
+              "field",
+              "timber",
+              "ice",
+              "harbor"
+            ],
+            "bytes": 61052,
+            "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+          },
+          "developerDiagnostics": false,
+          "shopPricingMode": "paid",
+          "soundEffects": {
+            "browserVolume": 0.45,
+            "wechatVolume": 1
+          },
+          "version": "1.0.2",
+          "rulesetVersion": 21,
+          "backgroundMusic": {
+            "src": "assets/bgm.mp3",
+            "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+            "bytes": 1563002,
+            "loop": true,
+            "defaultVolume": 0.18,
+            "license": "CC0 1.0 Universal"
+          },
+          "accountFormatVersion": 4,
+          "economyVersion": 2,
+          "interactiveTutorials": false,
+          "help": {
+            "entry": "home_and_pause",
+            "topics": [
+              "inbound",
+              "outbound",
+              "tools"
+            ],
+            "rushDetails": true,
+            "specialCargoOnly": true,
+            "automatic": false
+          },
+          "cosmetics": {
+            "catalogSize": 50,
+            "setCount": 15,
+            "navigation": "sections-pagination-inline-preview",
+            "sections": [
+              "sets",
+              "theme",
+              "cargo",
+              "forklift"
+            ],
+            "columns": 2,
+            "pageSize": 4,
+            "setPageSize": 4
+          },
+          "supportedRulesets": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            18,
+            19,
+            20,
+            21
+          ],
+          "modes": {
+            "orders": {
+              "rulesetVersion": 18,
+              "boardSizes": [
+                7
+              ],
+              "candidates": [
+                3
+              ],
+              "reservedEntries": 4,
+              "upgradePool": false,
+              "economyVersion": 2,
+              "finalStageRush": false,
+              "rushPercent": 0,
+              "cleanup": false,
+              "orderRanges": {
+                "hard": [
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    5,
+                    5
+                  ],
+                  [
+                    5,
+                    6
+                  ],
+                  [
+                    6,
+                    7
+                  ]
+                ],
+                "expert": [
+                  [
+                    4,
+                    5
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    5,
+                    6
+                  ],
+                  [
+                    5,
+                    7
+                  ],
+                  [
+                    6,
+                    8
+                  ]
+                ]
+              },
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              },
+              "overtimeDifficulties": [
+                "hard",
+                "expert"
+              ],
+              "continuedRecordScope": "endless"
+            },
+            "legacy_daily": {
+              "rulesetVersion": 18,
+              "initialRushPercent": 6,
+              "finalStageRushPercent": 100,
+              "cleanupAtStart": true,
+              "inboundDifficulty": "hard",
+              "scoreMultiplier": [
+                3,
+                2
+              ]
+            },
+            "rush": {
+              "rulesetVersion": 21,
+              "runConfigId": "run.rush_v21.base",
+              "boardSize": 7,
+              "reservedEntries": 4,
+              "targetOrders": 30,
+              "inboundDifficulty": "normal",
+              "orderRanges": [
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  7
+                ]
+              ],
+              "scoreMultiplier": [
+                1,
+                1
+              ],
+              "tools": true,
+              "maxToolTypes": 2,
+              "initialRushPercent": 6,
+              "finalStageRushPercent": 100,
+              "cleanupAtStart": true,
+              "repeatable": true,
+              "dated": false,
+              "seedPerRun": true,
+              "winCoinMultiplier": 1
+            },
+            "legacy_fixed_rush": {
+              "rulesetVersion": 20,
+              "winCoinMultiplier": 3
+            },
+            "legacy_rush": {
+              "rulesetVersion": 19,
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              }
+            },
+            "legacy_inbound_tiers": {
+              "rulesetVersion": 16
+            },
+            "legacy_final_stage": {
+              "rulesetVersion": 15
+            },
+            "legacy_multishape": {
+              "rulesetVersion": 14
+            },
+            "legacy_refinement": {
+              "rulesetVersion": 11
+            },
+            "legacy_growth": {
+              "rulesetVersion": 9,
+              "boardSizes": [
+                7,
+                8
+              ],
+              "candidates": [
+                3,
+                4,
+                5
+              ]
+            },
+            "legacy_orders": {
+              "rulesetVersion": 3
+            },
+            "color_exit": {
+              "rulesetVersion": 4,
+              "balanced": false
+            },
+            "color_exit_mixed": {
+              "rulesetVersion": 5,
+              "tiers": {
+                "entry": 20,
+                "middle": 30,
+                "late": 40
+              },
+              "balanced": false
+            },
+            "outbound": {
+              "rulesetVersion": 12,
+              "boardSize": 9,
+              "reservedEntries": 1,
+              "tools": true,
+              "difficulties": {
+                "easy": 20,
+                "normal": 30,
+                "hard": 40,
+                "expert": 50
+              },
+              "balanced": false
+            },
+            "inbound_endless": {
+              "rulesetVersion": 18,
+              "boardSizes": [
+                7
+              ],
+              "stageCap": 5,
+              "reservedEntries": 4,
+              "upgradePool": false,
+              "rushPercent": 0,
+              "cleanup": false,
+              "difficulties": [
+                "hard",
+                "expert"
+              ],
+              "scoreMultipliers": {
+                "hard": [
+                  3,
+                  2
+                ],
+                "expert": [
+                  2,
+                  1
+                ]
+              }
+            },
+            "legacy_inbound_endless": {
+              "rulesetVersion": 7
+            },
+            "outbound_endless": {
+              "rulesetVersion": 13,
+              "boardSize": 9,
+              "reservedEntries": 1,
+              "tools": true,
+              "difficulties": {
+                "easy": 20,
+                "normal": 30,
+                "hard": 40,
+                "expert": 50
+              },
+              "stageCap": 5,
+              "balanced": false
+            }
+          },
+          "sourceSha256": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+          "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+          "builtAt": "2026-10-10T16:09:42.398Z",
+          "runtimeStatus": "WeChat developer tools and physical devices NOT RUN",
+          "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2"
+        }
+      }
+    },
+    "fonts": {
+      "fontResolution": {
+        "production": {
+          "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "width": 395.04998779296875,
+          "pixelSha256": "a95345fef27e497ad291a8654198981ecae907ac780392699b9be688aeaf6bc3"
+        },
+        "explicitBoldFace": {
+          "font": "800 42px \"ReviewNotoBold\"",
+          "width": 395.04998779296875,
+          "pixelSha256": "a95345fef27e497ad291a8654198981ecae907ac780392699b9be688aeaf6bc3"
+        },
+        "boldFileSha256": "faa5f3656a78b2e2d450d27fe8382c778bc2b6bb5ea29c986664a6a435056ceb"
+      },
+      "originalFontAvailable": false,
+      "registeredPaths": [
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
+      ],
+      "hasNotoSC": true,
+      "registry": [
+        {
+          "family": "Noto Sans CJK SC",
+          "styles": [
+            {
+              "weight": 400,
+              "width": "normal",
+              "style": "normal"
+            },
+            {
+              "weight": 700,
+              "width": "normal",
+              "style": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    "cases": [
+      {
+        "name": "app-original-v101-paid-purchase-to-original-v102-restart",
+        "status": "PASS",
+        "oldActualDebit": 720,
+        "oldWalletRetained": 6280,
+        "newActualDebit": 810,
+        "newWallet": 5470,
+        "byteIdenticalUpgrade": true,
+        "oldAndNewOriginalRuntime": true
+      },
+      {
+        "name": "game-original-v101-paid-purchase-to-original-v102-restart",
+        "status": "PASS",
+        "oldActualDebit": 720,
+        "oldWalletRetained": 6280,
+        "newActualDebit": 810,
+        "newWallet": 5470,
+        "byteIdenticalUpgrade": true,
+        "oldAndNewOriginalRuntime": true
+      }
+    ],
+    "screens": [
+      {
+        "name": "paid-app-320-v101-purchase-v102-owned",
+        "file": "paid-app-320-v101-purchase-v102-owned.png",
+        "viewport": {
+          "w": 320,
+          "h": 720,
+          "safe": 0,
+          "dpr": 2
+        },
+        "controls": [
+          {
+            "rect": {
+              "x": 132,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "道具",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "tools"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "外观",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "cosmetics"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "套装",
+            "action": {
+              "type": "selectShopSection",
+              "section": "sets"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 342,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "场景",
+            "action": {
+              "type": "selectShopSection",
+              "section": "theme"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "货箱",
+            "action": {
+              "type": "selectShopSection",
+              "section": "cargo"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 762,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "叉车",
+            "action": {
+              "type": "selectShopSection",
+              "section": "forklift"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "场景 · 已拥有\n冷链仓库",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "theme"
+            }
+          },
+          {
+            "rect": {
+              "x": 412,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "货箱 · 已拥有\n保温周转箱",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "cargo"
+            }
+          },
+          {
+            "rect": {
+              "x": 692,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "叉车 · 已拥有\n电驱叉车",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "forklift"
+            }
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1692,
+              "w": 264,
+              "h": 150
+            },
+            "label": "返回",
+            "action": {
+              "type": "closeShopDetail"
+            },
+            "buttonRole": "secondary"
+          },
+          {
+            "rect": {
+              "x": 420,
+              "y": 1692,
+              "w": 528,
+              "h": 150
+            },
+            "label": "装备整套",
+            "action": {
+              "type": "equipCosmeticSet",
+              "id": "cold_chain"
+            },
+            "disabled": false,
+            "buttonRole": "primary"
+          }
+        ],
+        "metrics": [
+          {
+            "text": "金币商店",
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 136,
+            "width": 256,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "金币 6280",
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 220,
+            "width": 142.1999969482422,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "冷链仓库 · 已拥有 3/3",
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 608,
+            "width": 344.3999938964844,
+            "bounds": {
+              "left": 217.95555898790008,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "道具",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 330,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "外观",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 750,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "套装",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 225,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 435,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 645,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 855,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "冷链仓库",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "保温周转箱",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "width": 160,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "电驱叉车",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 449.77778112888336,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "装备整套",
+            "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 144,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            },
+            "align": "center",
+            "maxWidth": null
+          }
+        ],
+        "labels": [
+          {
+            "text": "金币商店",
+            "logicalX": 540,
+            "logicalY": 136,
+            "alpha": 1,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            }
+          },
+          {
+            "text": "金币 6280",
+            "logicalX": 540,
+            "logicalY": 220,
+            "alpha": 1,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            }
+          },
+          {
+            "text": "冷链仓库 · 已拥有 3/3",
+            "logicalX": 540,
+            "logicalY": 608,
+            "alpha": 1,
+            "bounds": {
+              "left": 217.95555898790008,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            }
+          },
+          {
+            "text": "道具",
+            "logicalX": 330,
+            "logicalY": 323,
+            "alpha": 1,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "外观",
+            "logicalX": 750,
+            "logicalY": 323,
+            "alpha": 1,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "套装",
+            "logicalX": 225,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "场景",
+            "logicalX": 435,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "货箱",
+            "logicalX": 645,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "叉车",
+            "logicalX": 855,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "场景 · 已拥有",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "冷链仓库",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "货箱 · 已拥有",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "保温周转箱",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "叉车 · 已拥有",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "电驱叉车",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 449.77778112888336,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "返回",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "alpha": 1,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            }
+          },
+          {
+            "text": "装备整套",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "alpha": 1,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            }
+          }
+        ],
+        "footer": [
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "返回",
+              "pixels": 514,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 135,
+                "y": 1188,
+                "w": 42,
+                "h": 23
+              }
+            }
+          },
+          {
+            "text": "装备整套",
+            "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 144,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "装备整套",
+              "pixels": 1224,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 360,
+                "y": 1186,
+                "w": 91,
+                "h": 26
+              }
+            }
+          }
+        ],
+        "primary": {
+          "rect": {
+            "x": 420,
+            "y": 1692,
+            "w": 528,
+            "h": 150
+          },
+          "label": "装备整套",
+          "action": {
+            "type": "equipCosmeticSet",
+            "id": "cold_chain"
+          },
+          "disabled": false,
+          "buttonRole": "primary"
+        },
+        "fontRole": "equip"
+      },
+      {
+        "name": "paid-app-320-v102-next-two-piece-price",
+        "file": "paid-app-320-v102-next-two-piece-price.png",
+        "viewport": {
+          "w": 320,
+          "h": 720,
+          "safe": 0,
+          "dpr": 2
+        },
+        "controls": [
+          {
+            "rect": {
+              "x": 132,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "道具",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "tools"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "外观",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "cosmetics"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "套装",
+            "action": {
+              "type": "selectShopSection",
+              "section": "sets"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 342,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "场景",
+            "action": {
+              "type": "selectShopSection",
+              "section": "theme"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "货箱",
+            "action": {
+              "type": "selectShopSection",
+              "section": "cargo"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 762,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "叉车",
+            "action": {
+              "type": "selectShopSection",
+              "section": "forklift"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "场景 · 已拥有\n海港仓库",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "theme"
+            }
+          },
+          {
+            "rect": {
+              "x": 412,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "货箱 · 未拥有\n海运集装箱",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "cargo"
+            }
+          },
+          {
+            "rect": {
+              "x": 692,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "叉车 · 未拥有\n码头叉车",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "forklift"
+            }
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1692,
+              "w": 264,
+              "h": 150
+            },
+            "label": "返回",
+            "action": {
+              "type": "closeShopDetail"
+            },
+            "buttonRole": "secondary"
+          },
+          {
+            "rect": {
+              "x": 420,
+              "y": 1692,
+              "w": 528,
+              "h": 150
+            },
+            "label": "810金币 · 购买套装",
+            "action": {
+              "type": "purchaseCosmeticSet",
+              "id": "harbor"
+            },
+            "disabled": false,
+            "buttonRole": "primary"
+          }
+        ],
+        "metrics": [
+          {
+            "text": "金币商店",
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 136,
+            "width": 256,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "金币 6280",
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 220,
+            "width": 142.1999969482422,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海港仓库 · 已拥有 1/3",
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 608,
+            "width": 344.3999938964844,
+            "bounds": {
+              "left": 218.54815158490783,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "原价900 · 9折",
+            "font": "700 24px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1674,
+            "width": 153.74000549316406,
+            "bounds": {
+              "left": 274.44740782459576,
+              "right": 365.55473091369913,
+              "top": 1136.794084899249,
+              "bottom": 1151.016307227435
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "道具",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 330,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "外观",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 750,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "套装",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 225,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 435,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 645,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 855,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海港仓库",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱 · 未拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海运集装箱",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "width": 160,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车 · 未拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "码头叉车",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 448.0000033378601,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 370.2699890136719,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            },
+            "align": "center",
+            "maxWidth": null
+          }
+        ],
+        "labels": [
+          {
+            "text": "金币商店",
+            "logicalX": 540,
+            "logicalY": 136,
+            "alpha": 1,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            }
+          },
+          {
+            "text": "金币 6280",
+            "logicalX": 540,
+            "logicalY": 220,
+            "alpha": 1,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            }
+          },
+          {
+            "text": "海港仓库 · 已拥有 1/3",
+            "logicalX": 540,
+            "logicalY": 608,
+            "alpha": 1,
+            "bounds": {
+              "left": 218.54815158490783,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            }
+          },
+          {
+            "text": "原价900 · 9折",
+            "logicalX": 540,
+            "logicalY": 1674,
+            "alpha": 1,
+            "bounds": {
+              "left": 274.44740782459576,
+              "right": 365.55473091369913,
+              "top": 1136.794084899249,
+              "bottom": 1151.016307227435
+            }
+          },
+          {
+            "text": "道具",
+            "logicalX": 330,
+            "logicalY": 323,
+            "alpha": 1,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "外观",
+            "logicalX": 750,
+            "logicalY": 323,
+            "alpha": 1,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "套装",
+            "logicalX": 225,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "场景",
+            "logicalX": 435,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "货箱",
+            "logicalX": 645,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "叉车",
+            "logicalX": 855,
+            "logicalY": 489,
+            "alpha": 1,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "场景 · 已拥有",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "海港仓库",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "货箱 · 未拥有",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "海运集装箱",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "alpha": 1,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "叉车 · 未拥有",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "alpha": 1,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "码头叉车",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "alpha": 1,
+            "bounds": {
+              "left": 448.0000033378601,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "返回",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "alpha": 1,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            }
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "alpha": 1,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            }
+          }
+        ],
+        "footer": [
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "返回",
+              "pixels": 514,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 135,
+                "y": 1188,
+                "w": 42,
+                "h": 23
+              }
+            }
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 370.2699890136719,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "810金币 · 购买套装",
+              "pixels": 2621,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 294,
+                "y": 1185,
+                "w": 223,
+                "h": 29
+              }
+            }
+          }
+        ],
+        "primary": {
+          "rect": {
+            "x": 420,
+            "y": 1692,
+            "w": 528,
+            "h": 150
+          },
+          "label": "810金币 · 购买套装",
+          "action": {
+            "type": "purchaseCosmeticSet",
+            "id": "harbor"
+          },
+          "disabled": false,
+          "buttonRole": "primary"
+        },
+        "fontRole": "purchase"
+      },
+      {
+        "name": "paid-game-320-v101-purchase-v102-owned",
+        "file": "paid-game-320-v101-purchase-v102-owned.png",
+        "viewport": {
+          "w": 320,
+          "h": 720,
+          "safe": 0,
+          "dpr": 2
+        },
+        "controls": [
+          {
+            "rect": {
+              "x": 132,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "道具",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "tools"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "外观",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "cosmetics"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "套装",
+            "action": {
+              "type": "selectShopSection",
+              "section": "sets"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 342,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "场景",
+            "action": {
+              "type": "selectShopSection",
+              "section": "theme"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "货箱",
+            "action": {
+              "type": "selectShopSection",
+              "section": "cargo"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 762,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "叉车",
+            "action": {
+              "type": "selectShopSection",
+              "section": "forklift"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "场景 · 已拥有\n冷链仓库",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "theme"
+            }
+          },
+          {
+            "rect": {
+              "x": 412,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "货箱 · 已拥有\n保温周转箱",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "cargo"
+            }
+          },
+          {
+            "rect": {
+              "x": 692,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "叉车 · 已拥有\n电驱叉车",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "forklift"
+            }
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1692,
+              "w": 264,
+              "h": 150
+            },
+            "label": "返回",
+            "action": {
+              "type": "closeShopDetail"
+            },
+            "buttonRole": "secondary"
+          },
+          {
+            "rect": {
+              "x": 420,
+              "y": 1692,
+              "w": 528,
+              "h": 150
+            },
+            "label": "装备整套",
+            "action": {
+              "type": "equipCosmeticSet",
+              "id": "cold_chain"
+            },
+            "disabled": false,
+            "buttonRole": "primary"
+          }
+        ],
+        "metrics": [
+          {
+            "text": "金币商店",
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 136,
+            "width": 256,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "金币 6280",
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 220,
+            "width": 142.1999969482422,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "冷链仓库 · 已拥有 3/3",
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 608,
+            "width": 344.3999938964844,
+            "bounds": {
+              "left": 217.95555898790008,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "道具",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 330,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "外观",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 750,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "套装",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 225,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 435,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 645,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 855,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "冷链仓库",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "保温周转箱",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "width": 160,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "电驱叉车",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 449.77778112888336,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "装备整套",
+            "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 144,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            },
+            "align": "center",
+            "maxWidth": null
+          }
+        ],
+        "labels": [
+          {
+            "text": "金币商店",
+            "x": 320.0000023841858,
+            "y": 231.70370769500732,
+            "logicalX": 540,
+            "logicalY": 136,
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            }
+          },
+          {
+            "text": "金币 6280",
+            "x": 320.0000023841858,
+            "y": 281.48148584365845,
+            "logicalX": 540,
+            "logicalY": 220,
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            }
+          },
+          {
+            "text": "冷链仓库 · 已拥有 3/3",
+            "x": 320.0000023841858,
+            "y": 511.407413482666,
+            "logicalX": 540,
+            "logicalY": 608,
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 217.95555898790008,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            }
+          },
+          {
+            "text": "道具",
+            "x": 195.55555701255798,
+            "y": 342.51852333545685,
+            "logicalX": 330,
+            "logicalY": 323,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "外观",
+            "x": 444.4444477558136,
+            "y": 342.51852333545685,
+            "logicalX": 750,
+            "logicalY": 323,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "套装",
+            "x": 133.33333432674408,
+            "y": 440.8888944387436,
+            "logicalX": 225,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "场景",
+            "x": 257.7777796983719,
+            "y": 440.8888944387436,
+            "logicalX": 435,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "货箱",
+            "x": 382.2222250699997,
+            "y": 440.8888944387436,
+            "logicalX": 645,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "叉车",
+            "x": 506.6666704416275,
+            "y": 440.8888944387436,
+            "logicalX": 855,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "",
+            "x": 154.07407522201538,
+            "y": 1085.6296399831772,
+            "logicalX": 260,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "场景 · 已拥有",
+            "x": 154.07407522201538,
+            "y": 1070.8148250579834,
+            "logicalX": 260,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "冷链仓库",
+            "x": 154.07407522201538,
+            "y": 1100.444454908371,
+            "logicalX": 260,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "x": 320.0000023841858,
+            "y": 1085.6296399831772,
+            "logicalX": 540,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "货箱 · 已拥有",
+            "x": 320.0000023841858,
+            "y": 1070.8148250579834,
+            "logicalX": 540,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "保温周转箱",
+            "x": 320.0000023841858,
+            "y": 1100.444454908371,
+            "logicalX": 540,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "x": 485.9259295463562,
+            "y": 1085.6296399831772,
+            "logicalX": 820,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "叉车 · 已拥有",
+            "x": 485.9259295463562,
+            "y": 1070.8148250579834,
+            "logicalX": 820,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "电驱叉车",
+            "x": 485.9259295463562,
+            "y": 1100.444454908371,
+            "logicalX": 820,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 449.77778112888336,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "返回",
+            "x": 156.4444456100464,
+            "y": 1198.22223341465,
+            "logicalX": 264,
+            "logicalY": 1767,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            }
+          },
+          {
+            "text": "装备整套",
+            "x": 405.333336353302,
+            "y": 1198.22223341465,
+            "logicalX": 684,
+            "logicalY": 1767,
+            "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            }
+          }
+        ],
+        "footer": [
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "返回",
+              "pixels": 514,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 135,
+                "y": 1188,
+                "w": 42,
+                "h": 23
+              }
+            }
+          },
+          {
+            "text": "装备整套",
+            "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 144,
+            "bounds": {
+              "left": 362.6666693687439,
+              "right": 448.0000304645964,
+              "top": 1188.598528644597,
+              "bottom": 1209.9318621368761
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "装备整套",
+              "pixels": 1224,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 360,
+                "y": 1186,
+                "w": 91,
+                "h": 26
+              }
+            }
+          }
+        ],
+        "primary": {
+          "rect": {
+            "x": 420,
+            "y": 1692,
+            "w": 528,
+            "h": 150
+          },
+          "label": "装备整套",
+          "action": {
+            "type": "equipCosmeticSet",
+            "id": "cold_chain"
+          },
+          "disabled": false,
+          "buttonRole": "primary"
+        },
+        "fontRole": "equip"
+      },
+      {
+        "name": "paid-game-320-v102-next-two-piece-price",
+        "file": "paid-game-320-v102-next-two-piece-price.png",
+        "viewport": {
+          "w": 320,
+          "h": 720,
+          "safe": 0,
+          "dpr": 2
+        },
+        "controls": [
+          {
+            "rect": {
+              "x": 132,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "道具",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "tools"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 248,
+              "w": 396,
+              "h": 150
+            },
+            "label": "外观",
+            "action": {
+              "type": "selectShopTab",
+              "tab": "cosmetics"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "套装",
+            "action": {
+              "type": "selectShopSection",
+              "section": "sets"
+            },
+            "selected": true
+          },
+          {
+            "rect": {
+              "x": 342,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "场景",
+            "action": {
+              "type": "selectShopSection",
+              "section": "theme"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 552,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "货箱",
+            "action": {
+              "type": "selectShopSection",
+              "section": "cargo"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 762,
+              "y": 414,
+              "w": 186,
+              "h": 150
+            },
+            "label": "叉车",
+            "action": {
+              "type": "selectShopSection",
+              "section": "forklift"
+            },
+            "selected": false
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "场景 · 已拥有\n海港仓库",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "theme"
+            }
+          },
+          {
+            "rect": {
+              "x": 412,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "货箱 · 未拥有\n海运集装箱",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "cargo"
+            }
+          },
+          {
+            "rect": {
+              "x": 692,
+              "y": 1502,
+              "w": 256,
+              "h": 150
+            },
+            "label": "叉车 · 未拥有\n码头叉车",
+            "action": {
+              "type": "previewCosmeticSetMember",
+              "kind": "forklift"
+            }
+          },
+          {
+            "rect": {
+              "x": 132,
+              "y": 1692,
+              "w": 264,
+              "h": 150
+            },
+            "label": "返回",
+            "action": {
+              "type": "closeShopDetail"
+            },
+            "buttonRole": "secondary"
+          },
+          {
+            "rect": {
+              "x": 420,
+              "y": 1692,
+              "w": 528,
+              "h": 150
+            },
+            "label": "810金币 · 购买套装",
+            "action": {
+              "type": "purchaseCosmeticSet",
+              "id": "harbor"
+            },
+            "disabled": false,
+            "buttonRole": "primary"
+          }
+        ],
+        "metrics": [
+          {
+            "text": "金币商店",
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 136,
+            "width": 256,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "金币 6280",
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 220,
+            "width": 142.1999969482422,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海港仓库 · 已拥有 1/3",
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 608,
+            "width": 344.3999938964844,
+            "bounds": {
+              "left": 218.54815158490783,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "原价900 · 9折",
+            "font": "700 24px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1674,
+            "width": 153.74000549316406,
+            "bounds": {
+              "left": 274.44740782459576,
+              "right": 365.55473091369913,
+              "top": 1136.794084899249,
+              "bottom": 1151.016307227435
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "道具",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 330,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "外观",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 750,
+            "logicalY": 323,
+            "width": 64,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "套装",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 225,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 435,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 645,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 855,
+            "logicalY": 489,
+            "width": 64,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "场景 · 已拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海港仓库",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 260,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "货箱 · 未拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "海运集装箱",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 540,
+            "logicalY": 1602,
+            "width": 160,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1577,
+            "width": 0,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "叉车 · 未拥有",
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1552,
+            "width": 181.3800048828125,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "码头叉车",
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 820,
+            "logicalY": 1602,
+            "width": 128,
+            "bounds": {
+              "left": 448.0000033378601,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 370.2699890136719,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            },
+            "align": "center",
+            "maxWidth": null
+          }
+        ],
+        "labels": [
+          {
+            "text": "金币商店",
+            "x": 320.0000023841858,
+            "y": 231.70370769500732,
+            "logicalX": 540,
+            "logicalY": 136,
+            "font": "900 64px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 243.55555737018585,
+              "right": 395.25907231701603,
+              "top": 214.9570396376539,
+              "bottom": 252.88296584615
+            }
+          },
+          {
+            "text": "金币 6280",
+            "x": 320.0000023841858,
+            "y": 281.48148584365845,
+            "logicalX": 540,
+            "logicalY": 220,
+            "font": "700 31px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 277.8666696411592,
+              "right": 361.36687823492775,
+              "top": 273.45778153763877,
+              "bottom": 291.82815204487906
+            }
+          },
+          {
+            "text": "海港仓库 · 已拥有 1/3",
+            "x": 320.0000023841858,
+            "y": 511.407413482666,
+            "logicalX": 540,
+            "logicalY": 608,
+            "font": "700 35px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 218.54815158490783,
+              "right": 421.06714180906965,
+              "top": 501.9851902860182,
+              "bottom": 524.5037089723128
+            }
+          },
+          {
+            "text": "原价900 · 9折",
+            "x": 320.0000023841858,
+            "y": 1143.111121892929,
+            "logicalX": 540,
+            "logicalY": 1674,
+            "font": "700 24px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 274.44740782459576,
+              "right": 365.55473091369913,
+              "top": 1136.794084899249,
+              "bottom": 1151.016307227435
+            }
+          },
+          {
+            "text": "道具",
+            "x": 195.55555701255798,
+            "y": 342.51852333545685,
+            "logicalX": 330,
+            "logicalY": 323,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 176.59259390830994,
+              "right": 213.92596368878003,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "外观",
+            "x": 444.4444477558136,
+            "y": 342.51852333545685,
+            "logicalX": 750,
+            "logicalY": 323,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 425.48148465156555,
+              "right": 463.4074470290434,
+              "top": 334.2933374560321,
+              "bottom": 353.2563005602801
+            }
+          },
+          {
+            "text": "套装",
+            "x": 133.33333432674408,
+            "y": 440.8888944387436,
+            "logicalX": 225,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 114.37037122249603,
+              "right": 152.29633359997388,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "场景",
+            "x": 257.7777796983719,
+            "y": 440.8888944387436,
+            "logicalX": 435,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 238.81481659412384,
+              "right": 276.14818637459393,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "货箱",
+            "x": 382.2222250699997,
+            "y": 440.8888944387436,
+            "logicalX": 645,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 363.8518545627594,
+              "right": 400.59263174622174,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "叉车",
+            "x": 506.6666704416275,
+            "y": 440.8888944387436,
+            "logicalX": 855,
+            "logicalY": 489,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 487.70370733737946,
+              "right": 525.0370771178495,
+              "top": 432.6637085593188,
+              "bottom": 451.62667166356687
+            }
+          },
+          {
+            "text": "",
+            "x": 154.07407522201538,
+            "y": 1085.6296399831772,
+            "logicalX": 260,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 154.07407522201538,
+              "right": 154.07407522201538,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "场景 · 已拥有",
+            "x": 154.07407522201538,
+            "y": 1070.8148250579834,
+            "logicalX": 260,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 100.33185115262313,
+              "right": 207.2236162719455,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "海港仓库",
+            "x": 154.07407522201538,
+            "y": 1100.444454908371,
+            "logicalX": 260,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 116.14814901351929,
+              "right": 191.40751734044898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "x": 320.0000023841858,
+            "y": 1085.6296399831772,
+            "logicalX": 540,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 320.0000023841858,
+              "right": 320.0000023841858,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "货箱 · 未拥有",
+            "x": 320.0000023841858,
+            "y": 1070.8148250579834,
+            "logicalX": 540,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 266.25777831479354,
+              "right": 373.1495434341159,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "海运集装箱",
+            "x": 320.0000023841858,
+            "y": 1100.444454908371,
+            "logicalX": 540,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 272.5925946235657,
+              "right": 366.81496222372516,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "",
+            "x": 485.9259295463562,
+            "y": 1085.6296399831772,
+            "logicalX": 820,
+            "logicalY": 1577,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 485.9259295463562,
+              "right": 485.9259295463562,
+              "top": 1085.6296399831772,
+              "bottom": 1085.6296399831772
+            }
+          },
+          {
+            "text": "叉车 · 未拥有",
+            "x": 485.9259295463562,
+            "y": 1070.8148250579834,
+            "logicalX": 820,
+            "logicalY": 1552,
+            "font": "700 30px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 432.18370547696395,
+              "right": 539.0754705962863,
+              "top": 1063.2888986238727,
+              "bottom": 1081.0666765341052
+            }
+          },
+          {
+            "text": "码头叉车",
+            "x": 485.9259295463562,
+            "y": 1100.444454908371,
+            "logicalX": 820,
+            "logicalY": 1602,
+            "font": "600 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 448.0000033378601,
+              "right": 523.2593716647898,
+              "top": 1092.2192690289462,
+              "bottom": 1111.1822321331942
+            }
+          },
+          {
+            "text": "返回",
+            "x": 156.4444456100464,
+            "y": 1198.22223341465,
+            "logicalX": 264,
+            "logicalY": 1767,
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            }
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "x": 405.333336353302,
+            "y": 1198.22223341465,
+            "logicalX": 684,
+            "logicalY": 1767,
+            "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "align": "center",
+            "alpha": 1,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            }
+          }
+        ],
+        "footer": [
+          {
+            "text": "返回",
+            "font": "800 32px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 264,
+            "logicalY": 1767,
+            "width": 64,
+            "bounds": {
+              "left": 137.48148250579834,
+              "right": 174.22225968926068,
+              "top": 1190.589640132233,
+              "bottom": 1208.9600106394732
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "返回",
+              "pixels": 514,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 135,
+                "y": 1188,
+                "w": 42,
+                "h": 23
+              }
+            }
+          },
+          {
+            "text": "810金币 · 购买套装",
+            "font": "800 42px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+            "logicalX": 684,
+            "logicalY": 1767,
+            "width": 370.2699890136719,
+            "bounds": {
+              "left": 296.21630175848804,
+              "right": 514.4518357918769,
+              "top": 1187.0933429056627,
+              "bottom": 1211.9822319799882
+            },
+            "align": "center",
+            "maxWidth": null,
+            "visible": {
+              "text": "810金币 · 购买套装",
+              "pixels": 2621,
+              "visibleRatio": 1,
+              "rect": {
+                "x": 294,
+                "y": 1185,
+                "w": 223,
+                "h": 29
+              }
+            }
+          }
+        ],
+        "primary": {
+          "rect": {
+            "x": 420,
+            "y": 1692,
+            "w": 528,
+            "h": 150
+          },
+          "label": "810金币 · 购买套装",
+          "action": {
+            "type": "purchaseCosmeticSet",
+            "id": "harbor"
+          },
+          "disabled": false,
+          "buttonRole": "primary"
+        },
+        "fontRole": "purchase"
+      }
+    ],
+    "limits": [
+      "Original production app.js DOM-event/native-Canvas simulation and game.js wx/native-Canvas simulation, not actual Chromium, WeChat developer tools or physical-device testing.",
+      "Isolated validated fixture accounts; no actual player account touched.",
+      "Font resolution verified for available Noto CJK host font; PingFang and Microsoft YaHei on physical devices are not tested."
+    ],
+    "legacyBundle": {
+      "game": "b92a973cee70aa1ab0fe3aea12987fb55eb59c487d24957855109af487085c52",
+      "app": "6866c68644c95b7f89088d84a098274ccd90ed14219c4441e3fc4d55f43b6d1d"
+    },
+    "ending": {
+      "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+      "source": "fe2a288bbbed4abd4a9d47214454173e64493faf60c9b0fc71d12630cdbc745e",
+      "game": "d7e5e2237839780799137198a0420fe851ed0753a0dedcef0721219fe323d395",
+      "app": "2216a2e14530208d13da51f04820505cf87303f64f27383ea42c6b1ac479a4ea"
+    },
+    "summary": {
+      "passed": 2,
+      "failed": 0,
+      "screens": 4
+    }
+  }
+}

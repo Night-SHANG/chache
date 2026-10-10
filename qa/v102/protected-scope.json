@@ -1,0 +1,12 @@
+{
+  "baseline": "fc0d90626f99dc8ee940e64fe59c81b1f1cbf50d",
+  "commit": "27f59a44b280add90a346c2ac560b75e36a7093d",
+  "unchangedProtectedFiles": 126,
+  "dependenciesUnchanged": true,
+  "runtimeChanged": [
+    "src/application/cosmetic-sets.ts",
+    "src/presentation/economy-ui.ts",
+    "src/presentation/renderer.ts"
+  ],
+  "status": "PASS"
+}
