@@ -827,6 +827,7 @@ function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
    text(ctx,status,r.x+r.w/2,r.y+r.h/2-25,30,CREAM,'center');text(ctx,name,r.x+r.w/2,r.y+r.h/2+25,32,CREAM,'center',600);
   }else drawControl(ctx,control,control.buttonRole==='primary'||['purchase','purchaseCosmetic','purchaseCosmeticSet','equipCosmetic','equipCosmeticSet','setCargoOutline'].includes(control.action.type));
  }
+ if((view.shopTab??'tools')==='tools'&&view.toolPurchaseNotice&&!persistenceWarnings(view).length)text(ctx,view.toolPurchaseNotice,540,1740,27,'#ffe3a3','center',500);
  if(view.shopTab==='cosmetics'&&set&&view.cosmeticSetNotice&&!persistenceWarnings(view).length)text(ctx,view.cosmeticSetNotice,540,1876,24,'#ffe3a3','center',500);
  drawPersistenceWarnings(ctx,view,1876,540,816);
 }

@@ -17,13 +17,20 @@ export function confirmToolPurchase(view:ViewState,service:AccountService,reques
  const pending=view.confirmation;if(pending?.kind!=='purchase')return;
  view.confirmation=null;
  if(!pending.item)return;
- if(pending.purchaseGeneration!==undefined&&pending.purchaseGeneration!==(view.account?.generation??0)){view.message='账户已变化，请重新确认';return;}
+ if(pending.purchaseGeneration!==undefined&&pending.purchaseGeneration!==(view.account?.generation??0)){view.toolPurchaseNotice=view.message='账户已变化，请重新确认';return;}
  const quantity=pending.quantity??1,quote=toolPurchaseQuote(view.account,pending.item,quantity);
- if(!quote.valid){view.message=quote.reason;return;}
+ if(!quote.valid){view.toolPurchaseNotice=view.message=quote.reason;return;}
  const committed=request({type:'purchase',item:pending.item,quantity,quotedPrice:quote.total});
+ if(!committed)view.toolPurchaseNotice=view.message;
  if(!committed&&!view.accountBlocked&&(view.message==='账户已更新，请重新读取'||view.message==='工具报价已变化，请重新确认')){
   const fresh=service.refresh();view.accountStatus=fresh.status;
-  if(fresh.status==='ready'&&fresh.account){publish(fresh.account);view.message='账户已变化，请重新确认';}
+  if(fresh.status==='ready'&&fresh.account){publish(fresh.account);view.toolPurchaseNotice=view.message='账户已变化，请重新确认';}
   else {view.accountBlocked=true;view.saveStatus=fresh.message;}
+ }
+}
+
+export function openToolPurchase(view:ViewState,item:ItemId):void {
+ if(view.screen==='shop'&&!view.account?.run&&['rotate','clear','wildcard'].includes(item)){
+  view.toolPurchaseNotice=undefined;view.confirmation={kind:'purchase',item,quantity:1,purchaseGeneration:view.account?.generation??0};
  }
 }

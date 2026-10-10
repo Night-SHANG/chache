@@ -25,6 +25,7 @@ export interface ViewState {
   cosmeticSetPage?:number;
   cosmeticSetPreview?:string;
   cosmeticSetNotice?:string;
+  toolPurchaseNotice?:string;
   cosmeticReturnSet?:string;
   cosmeticCategory?:CosmeticKind;
   cosmeticPreview?:Partial<Record<CosmeticKind,string>>;

@@ -1,0 +1,31 @@
+✖ stale quantity rejection paints a visible shop notice and a new modal clears it (35.989067ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.068357
+
+✖ failing tests:
+
+test at tests/tool-quantity-ui.test.ts:36:1
+✖ stale quantity rejection paints a visible shop notice and a new modal clears it (35.989067ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(words.includes('账户已变化，请重新确认'))
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-ui.test.ts:36:682)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

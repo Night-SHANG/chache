@@ -1,4 +1,4 @@
-import {toolPurchaseQuote,confirmToolPurchase} from './tool-purchase.ts';
+import {toolPurchaseQuote,confirmToolPurchase,openToolPurchase} from './tool-purchase.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,DEFAULT_CLASSIC_SET_SELECTION,isClassicSetSelection,classicSetStatus} from './cosmetic-sets.ts';
 import {COSMETICS_PER_PAGE,cosmeticShopPage,selectedShopCosmetic,cosmeticSetShopPage,selectedShopCosmeticSet} from '../presentation/economy-ui.ts';
 import {shopListViewport,shopScrollLimit} from '../presentation/shop-layout.ts';
@@ -307,7 +307,7 @@ export class GameSession {
    if(pending.kind==='resetProfile'){this.view.confirmation=null;if(this.hasRun&&this.state.phase==='result'&&(!this.persist()||!this.recordFinal())){this.view.profileStatus='本局结算尚未确认保存，请重试后再重置';return true;}this.requestAccount({type:'resetResults'});return true;}
    return false;
   }
-  if(action.type==='shop'){if(this.view.account?.run){this.view.message='请先结束本局，再进入商店';return true;}if(this.view.screen==='shop')return true;this.shopReturn=this.view.screen;if(this.view.screen==='menu')this.resetShopVisit();this.view.screen='shop';return true;}
+  if(action.type==='shop'){if(this.view.account?.run){this.view.message='请先结束本局，再进入商店';return true;}if(this.view.screen==='shop')return true;this.shopReturn=this.view.screen;this.view.toolPurchaseNotice=undefined;if(this.view.screen==='menu')this.resetShopVisit();this.view.screen='shop';return true;}
   if(action.type==='selectShopTab'){if(this.view.screen==='shop'&&(action.tab==='tools'||action.tab==='cosmetics'))this.view.shopTab=action.tab;return true;}
   if(action.type==='selectShopSection'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&['sets','theme','cargo','forklift'].includes(action.section))this.selectShopSection(action.section);return true;}
   if(action.type==='scrollShop'){
@@ -340,7 +340,7 @@ export class GameSession {
   if(action.type==='purchaseCosmetic'){const item=getCosmetic(action.kind,action.id),owned=accountCosmeticState(this.view.account??null,this.profile).ownedCosmetics;if(this.view.screen==='shop'&&!this.view.account?.run&&item&&(PLAYTEST_FREE_SHOP||item.price>0)&&!owned.includes(item.key)&&(this.view.account?.wallet??0)>=shopPrice(item.price))this.view.confirmation={kind:'purchaseCosmetic',cosmeticKind:item.kind,cosmeticId:item.id};return true;}
   if(action.type==='equipCosmetic'){if(this.view.screen==='shop')this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
   if(action.type==='setCargoOutline'){if(this.view.screen==='shop')this.requestAccount({type:'setCargoOutline',enabled:action.enabled});return true;}
-  if(action.type==='purchase'){if(this.view.screen==='shop'&&!this.view.account?.run&&['rotate','clear','wildcard'].includes(action.item))this.view.confirmation={kind:'purchase',item:action.item,quantity:1,purchaseGeneration:this.view.account?.generation??0};return true;}
+  if(action.type==='purchase'){openToolPurchase(this.view,action.item);return true;}
   if(action.type==='toggleItem'){const intent=this.view.prepareIntent;if(!intent||intent.guide!=='direct'||intent.spec.family==='inbound'&&intent.spec.mode==='daily')return true;const index=intent.items.indexOf(action.item);if(index>=0)intent.items=intent.items.filter(i=>i!==action.item);else if(intent.items.length<2&&(this.view.account?.inventory[action.item]??0)>0)intent.items=[...intent.items,action.item];return true;}
   if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
   if(action.type==='prepareNext'){if(this.view.screen==='prepareTools'){if(this.view.prepareIntent&&[11,12,13,14,15,16,18,19,20,21].includes(this.view.prepareIntent.spec.rulesetVersion))this.startAccountIntent();else this.view.screen='prepareCleanup';}return true;}
