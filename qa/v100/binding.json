@@ -1,0 +1,10 @@
+{
+  "ownerFrozen": true,
+  "commit": "e85010efdd647787d2bf4c0b7d8bf31738bde814",
+  "sourceSha256": "a06040d0adbc587069ad8f87c4a5643dba46e976a70717540583035ec4def8a3",
+  "gameJsSha256": "4ddfe2dbd57f7b42a315491c10ce7ef951ccb9fa92c169ebb7661235cb58636c",
+  "browserJsSha256": "8c0c5d8db5c16da6d2f599c7d1b09f4254d3089a5581cb7465081d2bc18a7051",
+  "version": "1.0.0",
+  "pricing": "paid",
+  "knownFullTestFailures": 2
+}

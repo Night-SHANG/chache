@@ -1,0 +1,30 @@
+✖ formal v1.0.0 production artifacts are paid, non-debug and carry the release version (344.340274ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 467.686497
+
+✖ failing tests:
+
+test at tests/formal-build-v100.test.ts:8:1
+✖ formal v1.0.0 production artifacts are paid, non-debug and carry the release version (344.340274ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '0.25.0-dev'
+  - '1.0.0'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/tests/formal-build-v100.test.ts:15:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '0.25.0-dev',
+    expected: '1.0.0',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

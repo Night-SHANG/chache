@@ -1,0 +1,114 @@
+✖ single confirm: rapid repeat does not hit the shop underneath; intentional later input works (23.533768ms)
+✖ single cancel: rapid repeat does not hit the shop underneath; intentional later input works (2.115512ms)
+✔ bundle confirm: rapid repeat does not hit the shop underneath; intentional later input works (5.875932ms)
+✔ bundle cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.428972ms)
+✖ classic confirm: rapid repeat does not hit the shop underneath; intentional later input works (4.346207ms)
+✔ classic cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.111573ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 3
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 303.576697
+
+✖ failing tests:
+
+test at tests/shop-confirmation-input-v100.test.ts:7:109
+✖ single confirm: rapid repeat does not hit the shop underneath; intentional later input works (23.533768ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      classic: {
+        cargo: 'classic',
+        forklift: 'yellow',
+        theme: 'day'
+      },
+      preview: {
+  +     theme: 'toy_workshop'
+  -     theme: 'paper_warehouse'
+      },
+      section: 'theme',
+      set: undefined
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/tests/shop-confirmation-input-v100.test.ts:16:123)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { preview: { theme: 'toy_workshop' }, set: undefined, section: 'theme', classic: { theme: 'day', cargo: 'classic', forklift: 'yellow' } },
+    expected: { preview: { theme: 'paper_warehouse' }, set: undefined, section: 'theme', classic: { theme: 'day', cargo: 'classic', forklift: 'yellow' } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-confirmation-input-v100.test.ts:7:109
+✖ single cancel: rapid repeat does not hit the shop underneath; intentional later input works (2.115512ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      classic: {
+        cargo: 'classic',
+        forklift: 'yellow',
+        theme: 'day'
+      },
+      preview: {
+  +     theme: 'rail_freight'
+  -     theme: 'paper_warehouse'
+      },
+      section: 'theme',
+      set: undefined
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/tests/shop-confirmation-input-v100.test.ts:16:123)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { preview: { theme: 'rail_freight' }, set: undefined, section: 'theme', classic: { theme: 'day', cargo: 'classic', forklift: 'yellow' } },
+    expected: { preview: { theme: 'paper_warehouse' }, set: undefined, section: 'theme', classic: { theme: 'day', cargo: 'classic', forklift: 'yellow' } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-confirmation-input-v100.test.ts:7:109
+✖ classic confirm: rapid repeat does not hit the shop underneath; intentional later input works (4.346207ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      classic: {
+        cargo: 'classic',
+        forklift: 'white',
+  +     theme: 'night'
+  -     theme: 'day'
+      },
+      preview: undefined,
+      section: 'sets',
+      set: 'classic'
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/tests/shop-confirmation-input-v100.test.ts:16:123)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { preview: undefined, set: 'classic', section: 'sets', classic: { theme: 'night', cargo: 'classic', forklift: 'white' } },
+    expected: { preview: undefined, set: 'classic', section: 'sets', classic: { theme: 'day', cargo: 'classic', forklift: 'white' } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

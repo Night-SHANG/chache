@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "target": "game",
+      "status": "PASS",
+      "oldCommit": "692573585ec0757ab52dec2e3a214b71560430f1",
+      "oldBundleSha256": "4017799de140dbe83d759972c69b3504e525537d5b50c036ad6ce6db6c0feaac",
+      "newCommit": "e85010efdd647787d2bf4c0b7d8bf31738bde814",
+      "newBundleSha256": "4ddfe2dbd57f7b42a315491c10ce7ef951ccb9fa92c169ebb7661235cb58636c",
+      "oldWallet": 1234,
+      "paidPrice": 300,
+      "newWallet": 934,
+      "freeRightsPreserved": true,
+      "equippedAndRecordsPreserved": true,
+      "namespaceUnchanged": true,
+      "originalRootsByteExactBeforeNewPurchase": true,
+      "restart": true
+    },
+    {
+      "target": "app",
+      "status": "PASS",
+      "oldCommit": "692573585ec0757ab52dec2e3a214b71560430f1",
+      "oldBundleSha256": "cce34324583fc54778f1713ae6cb2209b5935edc1805b92cd06eb38b5e7d7c8f",
+      "newCommit": "e85010efdd647787d2bf4c0b7d8bf31738bde814",
+      "newBundleSha256": "8c0c5d8db5c16da6d2f599c7d1b09f4254d3089a5581cb7465081d2bc18a7051",
+      "oldWallet": 1234,
+      "paidPrice": 300,
+      "newWallet": 934,
+      "freeRightsPreserved": true,
+      "equippedAndRecordsPreserved": true,
+      "namespaceUnchanged": true,
+      "originalRootsByteExactBeforeNewPurchase": true,
+      "restart": true
+    }
+  ],
+  "oldRoot": "/workspace/scratch/e6b59ff34222/v25/artifacts/v0250-frozen/free",
+  "newRoot": "/workspace/scratch/e6b59ff34222/v100/artifacts/v100-frozen/paid",
+  "limitations": [
+    "Isolated funded fixture; no real player save accessed.",
+    "Original bundle host evidence, not real browser or WeChat device."
+  ],
+  "completedAt": "2026-10-10T11:23:20.109Z"
+}

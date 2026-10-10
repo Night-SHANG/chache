@@ -1,0 +1,39 @@
+✔ single confirm: rapid repeat does not hit the shop underneath; intentional later input works (21.020718ms)
+✔ single cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.737018ms)
+✔ bundle confirm: rapid repeat does not hit the shop underneath; intentional later input works (7.551767ms)
+✔ bundle cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.161267ms)
+✔ classic confirm: rapid repeat does not hit the shop underneath; intentional later input works (4.826104ms)
+✔ classic cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.715446ms)
+✔ free rotate: quantity stepper is transient, bounded, resettable and commits one batch (19.09175ms)
+✔ free rotate: full stock and reduced balance disable confirmation without zero quantity (1.371676ms)
+✔ free clear: quantity stepper is transient, bounded, resettable and commits one batch (5.831173ms)
+✔ free clear: full stock and reduced balance disable confirmation without zero quantity (1.211984ms)
+✔ free wildcard: quantity stepper is transient, bounded, resettable and commits one batch (4.084261ms)
+✔ free wildcard: full stock and reduced balance disable confirmation without zero quantity (1.044861ms)
+✔ paid rotate: quantity stepper is transient, bounded, resettable and commits one batch (14.078193ms)
+✔ paid rotate: full stock and reduced balance disable confirmation without zero quantity (1.290824ms)
+✔ paid clear: quantity stepper is transient, bounded, resettable and commits one batch (6.168875ms)
+✔ paid clear: full stock and reduced balance disable confirmation without zero quantity (1.154968ms)
+✔ paid wildcard: quantity stepper is transient, bounded, resettable and commits one batch (3.89235ms)
+✔ paid wildcard: full stock and reduced balance disable confirmation without zero quantity (0.747482ms)
+✔ free quantity controls paint and remain 48px touch targets at narrow sizes (23.833085ms)
+✔ paid quantity controls paint and remain 48px touch targets at narrow sizes (20.286608ms)
+✔ stale modal generation cannot silently transact a fresh quote (1.184983ms)
+✔ touch confirmation consumes the modal and rapid second tap cannot open underlying item (4.415371ms)
+✔ free last inventory slot clamps plus and exactly reaches existing safe ceiling (4.505157ms)
+✔ paid last inventory slot clamps plus and exactly reaches existing safe ceiling (3.969436ms)
+✔ paid zero wallet retains quantity one and shows disabled confirm (1.048677ms)
+✔ free maximum safe quantity remains readable and commits without overflow or artificial cap (11.313921ms)
+✔ captured confirm cannot authorize a quantity changed before pointer release (1.306637ms)
+✔ captured confirm cannot authorize a different reopened modal before pointer release (0.932261ms)
+✔ stale storage refreshes visible account and requires a fresh explicit quantity confirmation (7.476824ms)
+✔ captured confirmation is invalidated even if quantity changes away and back (0.868284ms)
+✔ stale quantity rejection paints a visible shop notice and a new modal clears it (17.2481ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 795.238425

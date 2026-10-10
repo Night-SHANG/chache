@@ -1,0 +1,70 @@
+{
+  "appVersion": "0.24.0",
+  "status": "HOST_VERIFIED_WITH_TWO_HISTORICAL_INPUT_BLOCKERS",
+  "productCommit": "88b04391bebb7b633e15ac6ef3baec900c58c0cc",
+  "sourceSha256": "f4ff61c6f97094f02880cafded62a8907f3313e609a9f212b739c155ab736c75",
+  "rulesets": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    18,
+    19,
+    20,
+    21
+  ],
+  "currentRules": {
+    "inboundFiveAndEndless": 18,
+    "permanentRush": 21,
+    "outbound": 12,
+    "outboundEndless": 13
+  },
+  "cosmetics": {
+    "activeItems": 50,
+    "historicalIds": 53,
+    "fixedSets": 14,
+    "displaySetsIncludingClassic": 15,
+    "activeForklifts": 18,
+    "nativeNonBasicForklifts": 14,
+    "retired": [
+      "theme.express_sorting",
+      "cargo.taped",
+      "forklift.compact"
+    ]
+  },
+  "verification": {
+    "fullTests": 2539,
+    "pass": 2537,
+    "historicalMissingMasterFailures": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "lint": true,
+    "typecheck": true,
+    "preflight": true,
+    "freeAndPaidBuilds": true,
+    "host": {
+      "passed": 80,
+      "failed": 0,
+      "sourceChecks": 2,
+      "nativeCases": 66,
+      "browserEventCases": 12,
+      "inherited": 0
+    },
+    "realBrowserGui": false,
+    "wechatDeveloperTools": false,
+    "physicalDevice": false
+  },
+  "recordedAt": "2026-10-10 13:19 北京时间（UTC+08:00）"
+}
