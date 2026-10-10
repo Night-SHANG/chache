@@ -1,0 +1,38 @@
+✔ free tool confirms on the right in gold and cancels on the left in blue without rebinding actions (60.67827ms)
+✔ free cosmetic confirms on the right in gold and cancels on the left in blue without rebinding actions (42.590802ms)
+✔ paid tool confirms on the right in gold and cancels on the left in blue without rebinding actions (50.044961ms)
+✔ paid cosmetic confirms on the right in gold and cancels on the left in blue without rebinding actions (34.285025ms)
+✔ every active confirmation declares its intent while destructive dialogs keep the safe choice gold (205.582408ms)
+✔ tool confirmation is gold only when actionable, and blue cancel preserves reserved tools (313.938641ms)
+✔ preparation uses explicit cancel and next roles without changing tool selection or target geometry (19.497571ms)
+✔ help removes only the two requested lines, uses waste crates, and preserves both wildcard explanations (46.56765ms)
+✔ cleanup choices, preview expiry, actual crate labels and committed status consistently say waste crate (97.591291ms)
+✔ reachable legacy upgrade descriptions normalize waste copy without mutating frozen domain content (18.844993ms)
+✔ free rotate: quantity stepper is transient, bounded, resettable and commits one batch (21.162369ms)
+✔ free rotate: full stock and reduced balance disable confirmation without zero quantity (1.582224ms)
+✔ free clear: quantity stepper is transient, bounded, resettable and commits one batch (13.009299ms)
+✔ free clear: full stock and reduced balance disable confirmation without zero quantity (2.271266ms)
+✔ free wildcard: quantity stepper is transient, bounded, resettable and commits one batch (5.294501ms)
+✔ free wildcard: full stock and reduced balance disable confirmation without zero quantity (1.393118ms)
+✔ paid rotate: quantity stepper is transient, bounded, resettable and commits one batch (16.408767ms)
+✔ paid rotate: full stock and reduced balance disable confirmation without zero quantity (1.241799ms)
+✔ paid clear: quantity stepper is transient, bounded, resettable and commits one batch (6.506955ms)
+✔ paid clear: full stock and reduced balance disable confirmation without zero quantity (0.945561ms)
+✔ paid wildcard: quantity stepper is transient, bounded, resettable and commits one batch (4.121455ms)
+✔ paid wildcard: full stock and reduced balance disable confirmation without zero quantity (1.20952ms)
+✔ free quantity controls paint and remain 48px touch targets at narrow sizes (26.13908ms)
+✔ paid quantity controls paint and remain 48px touch targets at narrow sizes (21.6055ms)
+✔ stale modal generation cannot silently transact a fresh quote (1.964482ms)
+✔ touch confirmation consumes the modal and rapid second tap cannot open underlying item (4.019972ms)
+✔ free last inventory slot clamps plus and exactly reaches existing safe ceiling (3.412764ms)
+✔ paid last inventory slot clamps plus and exactly reaches existing safe ceiling (4.695365ms)
+✔ paid zero wallet retains quantity one and shows disabled confirm (0.962497ms)
+✔ free maximum safe quantity remains readable and commits without overflow or artificial cap (11.158808ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1708.005498

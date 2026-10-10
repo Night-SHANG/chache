@@ -1,0 +1,33 @@
+✔ source paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (67.644354ms)
+✔ source paid rejects invalid quantities and quotes without coercion, writes, or a pending operation (18.688488ms)
+✔ source paid fills the last inventory slot and refuses any overflow for each item (36.914527ms)
+✔ source paid batches remain forbidden during an active run (6.597422ms)
+✔ source paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (4.287187ms)
+✔ compiled paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (67.013789ms)
+✔ compiled paid rejects invalid quantities and quotes without coercion, writes, or a pending operation (16.72734ms)
+✔ compiled paid fills the last inventory slot and refuses any overflow for each item (31.472913ms)
+✔ compiled paid batches remain forbidden during an active run (5.568255ms)
+✔ compiled paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (4.058862ms)
+✔ compiled free atomically buys exact quantities of all three tools with one receipt and one mirrored commit (68.342431ms)
+✔ compiled free rejects invalid quantities and quotes without coercion, writes, or a pending operation (17.538047ms)
+✔ compiled free fills the last inventory slot and refuses any overflow for each item (36.197832ms)
+✔ compiled free batches remain forbidden during an active run (6.413154ms)
+✔ compiled free duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (4.443883ms)
+✔ paid batches require the whole total and allow exact funds for every tool (8.524518ms)
+✔ paid price multiplication accepts the largest safe batch total and rejects overflow (9.92648ms)
+✔ free batches preserve zero wallet and support the existing safe-integer inventory ceiling (8.201079ms)
+✔ legacy single-tool requests retain their original digest and replay after restart without default-field mutation (8.613964ms)
+✔ paid every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (362.85021ms)
+✔ paid a failed mirror remains unpublished and restart repairs the complete receipt once (3.709553ms)
+✔ paid either corrupt mirror recovers the persisted whole batch without reinterpreting its price (7.361679ms)
+✔ free every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (345.124295ms)
+✔ free a failed mirror remains unpublished and restart repairs the complete receipt once (3.620358ms)
+✔ free either corrupt mirror recovers the persisted whole batch without reinterpreting its price (6.060711ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1530.050404

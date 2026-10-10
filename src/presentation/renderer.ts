@@ -1,3 +1,4 @@
+import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
@@ -23,7 +24,7 @@ import { CARGO, DOCKS, SHAPES, UPGRADES, RULES_V4_CONFIG } from '../domain/conte
 import { colorExitCargoPose } from './color-exit-motion.ts';
 import {drawColorExitCards,colorExitBoardHint,drawColorExitGates,drawColorExitRoutes,drawColorExitShipment,drawMixedRemainder} from './color-exit-renderer.ts';
 import {growthFeedback} from './growth-feedback.ts';
-import {TOOL_ITEMS,TOOLBOX_RECT,CLEANUP_RECTS,ITEM_EFFECTS,economyCardRect,toolboxVisible,toolStatus,ITEM_NAMES,ITEM_PRICES,resultEarnedCoins,dailyChallengeDay,COSMETIC_PREVIEW_RECT,COSMETIC_SET_PREVIEW_RECT,CLASSIC_SET_PREVIEW_RECT,selectedShopCosmetic,cosmeticStatus,selectedShopCosmeticSet,cosmeticBrowseMode,cosmeticSetShopPage,cosmeticShopPage} from './economy-ui.ts';
+import {TOOL_ITEMS,TOOLBOX_RECT,CLEANUP_RECTS,ITEM_EFFECTS,economyCardRect,toolboxVisible,toolStatus,ITEM_NAMES,resultEarnedCoins,dailyChallengeDay,COSMETIC_PREVIEW_RECT,COSMETIC_SET_PREVIEW_RECT,CLASSIC_SET_PREVIEW_RECT,selectedShopCosmetic,cosmeticStatus,selectedShopCosmeticSet,cosmeticBrowseMode,cosmeticSetShopPage,cosmeticShopPage} from './economy-ui.ts';
 import {UPGRADES_V9} from '../domain/v9/content.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
@@ -741,8 +742,16 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
   const confirmation=view.confirmation,kind=confirmation?.kind,set=confirmation?.cosmeticSetId?getCosmeticSet(confirmation.cosmeticSetId):undefined,quote=confirmation?.cosmeticSetQuote,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
   const title=kind==='purchaseCosmeticSet'&&set?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${set.name}套装？`:kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置成绩记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
   outlinedText(ctx,title,540,747,kind==='purchaseCosmeticSet'||kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center');
+  if(kind==='purchase'&&confirmation?.item){
+    const quantity=confirmation.quantity??1,quote=toolPurchaseQuote(view.account,confirmation.item,quantity);
+    text(ctx,PLAYTEST_FREE_SHOP?`免费领取 ${quantity} 件`:`单价 ${quote.unitPrice} 金币 · 合计 ${quote.total} 金币`,540,845,27,'#d1dde1','center',500);
+    const balance=`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.total)}`;
+    text(ctx,quote.reason||balance,540,913,quote.reason?29:25,quote.reason?'#ffbd9a':'#d1dde1','center',500);
+    const count=`${quantity} 件`,size=Math.min(44,288/(count.length*.65));
+    text(ctx,count,540,1067,size,CREAM,'center',700);drawControls(ctx,state,view);return;
+  }
   const target=confirmation?.variant?runSlotLabel(confirmation.variant):'入库模式';
-  const lines=kind==='purchaseCosmeticSet'&&quote?[`补齐 ${quote.missingKeys.length} 件未拥有外观。`,PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`未拥有原价 ${quote.originalPrice} 金币 · 8折 ${quote.price} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.price)}。`]:kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='purchase'&&confirmation?.item?[PLAYTEST_FREE_SHOP?'免费领取1件。':`花费 ${ITEM_PRICES[confirmation.item]} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(ITEM_PRICES[confirmation.item]))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
+  const lines=kind==='purchaseCosmeticSet'&&quote?[`补齐 ${quote.missingKeys.length} 件未拥有外观。`,PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`未拥有原价 ${quote.originalPrice} 金币 · 8折 ${quote.price} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.price)}。`]:kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
     :kind==='resetProfile'?['清空成绩和成就记录。','金币、道具库存、已领奖励、设置和已拥有外观会保留。']
     :kind==='finishOvertime'||kind==='finishEndless'?['将记录当前分数。','结束后不能继续本局。']
     :view.recoveryError?['本局进度将丢失。','原存档仅留作恢复备份。','历史成绩和设置会保留。']

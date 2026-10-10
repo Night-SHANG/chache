@@ -34,7 +34,7 @@ export type AccountRequest = { operationId: string } & (
   | { type: 'start'; intent: StartIntent }
   | { type: 'command'; runId: string; command: GameCommand; elapsedMs?: number }
   | { type: 'saveElapsed'; runId: string; elapsedMs: number }
-  | { type: 'purchase'; item: ItemId }
+  | { type: 'purchase'; item: ItemId; quantity?: number; quotedPrice?: number }
   | { type: 'purchaseCosmetic'; kind: 'theme' | 'forklift' | 'cargo'; id: string }
   | { type: 'setCargoOutline'; enabled: boolean }
   | { type: 'skipGuide'; runId: string; track: GuideTrack }
@@ -133,8 +133,13 @@ function validateRequest(request: unknown, generation: number): asserts request 
     close: ['runId', 'reason'], resetResults: [], setTutorialsEnabled:['enabled'], setSettings: ['patch'], setCosmetic: ['kind', 'id'], recordLegacyResult: ['slot'],
   };
   requireValue(typeof request.type === 'string' && owns(fields, request.type) && keys(request, ['operationId', 'type', ...fields[request.type],
-    ...(request.type === 'command' || request.type === 'close' ? ['elapsedMs'] : [])])
+    ...(request.type === 'command' || request.type === 'close' ? ['elapsedMs'] : []),
+    ...(request.type === 'purchase' ? ['quantity', 'quotedPrice'] : [])])
     && fields[request.type].every(field => owns(request, field)), '账户请求结构无效');
+  if (request.type === 'purchase') {
+    requireValue(!owns(request, 'quantity') || safe(request.quantity) && request.quantity > 0, '购买数量无效');
+    requireValue(!owns(request, 'quotedPrice') || safe(request.quotedPrice), '工具报价无效');
+  }
   if ('runId' in request) requireValue(identifier(request.runId), '本局标识无效');
 }
 function dailyIdentity(time: number, version: 9 | 11 | 14 | 15 | 16 | 18): { day: string; seed: number } {
@@ -314,9 +319,12 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
     }
     if (request.type === 'purchase') {
       requireValue(ITEM_IDS.includes(request.item) && account.run === null, '当前不能购买工具');
-      const price = shopPrice(ITEM_PRICES[request.item]);
+      // Keep omitted legacy fields out of the receipt digest; defaults apply only here.
+      const quantity = request.quantity ?? 1, price = shopPrice(ITEM_PRICES[request.item]) * quantity;
+      requireValue(safe(price), '工具总价超出范围');
+      requireValue(!owns(request, 'quotedPrice') || request.quotedPrice === price, '工具报价已变化，请重新确认');
       requireValue(account.wallet >= price, '金币不足');
-      return { ...account, wallet: account.wallet - price, inventory: { ...account.inventory, [request.item]: add(account.inventory[request.item], 1) } };
+      return { ...account, wallet: account.wallet - price, inventory: { ...account.inventory, [request.item]: add(account.inventory[request.item], quantity) } };
     }
     if(request.type==='setTutorialsEnabled'){requireValue(typeof request.enabled==='boolean','教程偏好无效');return {...account,tutorialsEnabled:request.enabled};}
     if (request.type === 'setSettings') {

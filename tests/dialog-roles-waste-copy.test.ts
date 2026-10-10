@@ -47,7 +47,7 @@ function tap(host:ReturnType<typeof sessionHost>,type:UiAction['type'],api:Pick<
 for(const [name,api,isFree] of [['free',free,true],['paid',paid,false]] as const)for(const product of ['tool','cosmetic'] as const)test(`${name} ${product} confirms on the right in gold and cancels on the left in blue without rebinding actions`,()=>{
  const h=api.sessionHost({wallet:1000}),s=h.session;s.action({type:'shop'});
  const open=()=>s.action(product==='tool'?{type:'purchase',item:'rotate'}:{type:'purchaseCosmetic',kind:'cargo',id:'wood'}),before=[...h.data],account=structuredClone(s.view.account);
- open();const controls=api.getUiControls(s.state,s.view);assert.deepEqual(controls.map(c=>c.action),[{type:'cancel'},{type:'confirm'}]);assert.deepEqual(controls.map(c=>c.rect),[{x:186,y:1160,w:330,h:150},{x:564,y:1160,w:330,h:150}]);
+ open();const controls=api.getUiControls(s.state,s.view).filter(c=>c.action.type==='cancel'||c.action.type==='confirm');assert.deepEqual(controls.map(c=>c.action),[{type:'cancel'},{type:'confirm'}]);assert.deepEqual(controls.map(c=>c.rect),[{x:186,y:1160,w:330,h:150},{x:564,y:1160,w:330,h:150}]);
  for(const size of viewports){const out=capture(s.state,s.view,`${name}-${product}-confirmation`,size,api.render);expectButton(out,controls[0],'secondary');expectButton(out,controls[1],'primary');assert.ok(out.words.includes(isFree?'确认领取':'确认购买'));assert.ok(controls.every(c=>c.rect.w/3>=44&&c.rect.h/3>=44));}
  tap(h,'cancel',api);assert.equal(s.view.confirmation,null);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,account);
  open();tap(h,'confirm',api,viewports[2]);assert.equal(s.view.confirmation,null);assert.equal(s.view.account?.wallet,1000-(isFree?0:product==='tool'?80:300));

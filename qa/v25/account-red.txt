@@ -1,0 +1,463 @@
+✖ source paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (7.023707ms)
+✔ source paid rejects invalid quantities and quotes without coercion, writes, or a pending operation (31.759607ms)
+✖ source paid fills the last inventory slot and refuses any overflow for each item (5.34668ms)
+✔ source paid batches remain forbidden during an active run (5.32022ms)
+✖ source paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (1.106254ms)
+✖ compiled paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (4.338355ms)
+✔ compiled paid rejects invalid quantities and quotes without coercion, writes, or a pending operation (20.617848ms)
+✖ compiled paid fills the last inventory slot and refuses any overflow for each item (2.441444ms)
+✔ compiled paid batches remain forbidden during an active run (3.301706ms)
+✖ compiled paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (1.09725ms)
+✖ compiled free atomically buys exact quantities of all three tools with one receipt and one mirrored commit (4.1244ms)
+✔ compiled free rejects invalid quantities and quotes without coercion, writes, or a pending operation (36.754585ms)
+✖ compiled free fills the last inventory slot and refuses any overflow for each item (3.814581ms)
+✔ compiled free batches remain forbidden during an active run (3.736464ms)
+✖ compiled free duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (0.789945ms)
+✖ paid batches require the whole total and allow exact funds for every tool (0.853791ms)
+✖ paid price multiplication accepts the largest safe batch total and rejects overflow (0.882986ms)
+✖ free batches preserve zero wallet and support the existing safe-integer inventory ceiling (0.710245ms)
+✔ legacy single-tool requests retain their original digest and replay after restart without default-field mutation (13.847383ms)
+✖ paid every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (1.328841ms)
+✖ paid a failed mirror remains unpublished and restart repairs the complete receipt once (1.187757ms)
+✖ paid either corrupt mirror recovers the persisted whole batch without reinterpreting its price (1.41428ms)
+✖ free every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (0.992532ms)
+✖ free a failed mirror remains unpublished and restart repairs the complete receipt once (0.921304ms)
+✖ free either corrupt mirror recovers the persisted whole batch without reinterpreting its price (0.635292ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 7
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 552.226467
+
+✖ failing tests:
+
+test at tests/tool-quantity-account.test.ts:40:3
+✖ source paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (7.023707ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/false: 账户请求结构无效
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:45:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:75:3
+✖ source paid fills the last inventory slot and refuses any overflow for each item (5.34668ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/1
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:80:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:93:3
+✖ source paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (1.106254ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:95:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:40:3
+✖ compiled paid atomically buys exact quantities of all three tools with one receipt and one mirrored commit (4.338355ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/false: 账户请求结构无效
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:45:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:75:3
+✖ compiled paid fills the last inventory slot and refuses any overflow for each item (2.441444ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/1
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:80:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:93:3
+✖ compiled paid duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (1.09725ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:95:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:40:3
+✖ compiled free atomically buys exact quantities of all three tools with one receipt and one mirrored commit (4.1244ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/false: 账户请求结构无效
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:45:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:75:3
+✖ compiled free fills the last inventory slot and refuses any overflow for each item (3.814581ms)
+  AssertionError [ERR_ASSERTION]: rotate/1/1
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:80:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:93:3
+✖ compiled free duplicate operation IDs reject changed quantity, quote, item, and generation without charging again (0.789945ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:95:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:110:1
+✖ paid batches require the whole total and allow exact funds for every tool (0.853791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '账户请求结构无效' !== '金币不足'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:117:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '账户请求结构无效',
+    expected: '金币不足',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:121:1
+✖ paid price multiplication accepts the largest safe batch total and rejects overflow (0.882986ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:126:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:132:1
+✖ free batches preserve zero wallet and support the existing safe-integer inventory ceiling (0.710245ms)
+  AssertionError [ERR_ASSERTION]: 账户请求结构无效
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:136:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:161:3
+✖ paid every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (1.328841ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:164:69)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:184:3
+✖ paid a failed mirror remains unpublished and restart repairs the complete receipt once (1.187757ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'committed_unmirrored'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:187:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'committed_unmirrored',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:199:3
+✖ paid either corrupt mirror recovers the persisted whole batch without reinterpreting its price (1.41428ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:202:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:161:3
+✖ free every before/after I/O fault keeps whole batch state and exact retry charges and grants only once (0.992532ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:164:69)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:184:3
+✖ free a failed mirror remains unpublished and restart repairs the complete receipt once (0.921304ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'committed_unmirrored'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:187:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'committed_unmirrored',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/tool-quantity-account.test.ts:199:3
+✖ free either corrupt mirror recovers the persisted whole batch without reinterpreting its price (0.635292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v25/tests/tool-quantity-account.test.ts:202:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

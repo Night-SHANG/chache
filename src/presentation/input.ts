@@ -14,6 +14,7 @@ export interface InputPort { getState():GameRun;getView():ViewState;patchView(pa
 /** Both drag/drop and tap/tap end at the same immutable domain command. */
 export class InputController {
  private port:InputPort;
+ private dismissedPurchase:{rect:Rect;at:number}|null=null;
  private active:number|null=null;
  private start:Point|null=null;
  private dragging=false;
@@ -25,6 +26,7 @@ export class InputController {
  private captureButton(point:Point,rect:Rect,act:()=>void):boolean { if(!hitTestPoint(point,rect))return false;this.button={rect,act};return true; }
  down(point:Point,id=0):void {
   if(this.active!==null)return;
+  if(this.dismissedPurchase){if(Date.now()-this.dismissedPurchase.at<350&&hitTestPoint(point,this.dismissedPurchase.rect))return;this.dismissedPurchase=null;}
   this.active=id;this.start=point;this.dragging=false;this.button=null;this.routeReady=false;this.shopGesture=null;
   const v=this.port.getView(),s=this.port.getState();
   const shopViewport=shopListViewport(v);
@@ -89,7 +91,7 @@ export class InputController {
    return;
   }
   const button=this.button;this.active=null;this.button=null;this.start=null;
-  if(button){if(hitTestPoint(point,button.rect))button.act();return;}
+  if(button){if(hitTestPoint(point,button.rect)){const wasPurchase=this.port.getView().confirmation?.kind==='purchase';button.act();if(wasPurchase&&!this.port.getView().confirmation)this.dismissedPurchase={rect:button.rect,at:Date.now()};}return;}
   const pieceId=this.port.getView().selectedPieceId,origin=pointToCell(point,this.port.getState());
   if(pieceId&&origin&&this.canPlace()){
    const preview=this.port.preview(pieceId,origin);

@@ -1,3 +1,4 @@
+import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import type { ColorTier, OutboundDifficulty } from '../domain/types.ts';
 import {PLAYTEST_FREE_SHOP} from '../shared/build-policy.ts';
 import { difficultyForSlot, tierForSlot, type RunSlot } from '../application/run-slots.ts';
@@ -51,7 +52,13 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     const cancel=kind==='startPractice'?'取消':kind==='resetProfile'||kind==='switchMode'||kind==='purchase'||kind==='purchaseCosmetic'||kind==='purchaseCosmeticSet'?'取消':'继续游戏';
     const height=view.screen==='shop'?150:kind==='startPractice'?144:kind==='purchase'||kind==='purchaseCosmetic'||kind==='purchaseCosmeticSet'?132:118;
     const confirmPrimary=CONFIRMATION_PRIMARY_ACTION[kind]==='confirm';
-    return [control({ x:186,y:1160,w:330,h:height },cancel,{type:'cancel'},confirmPrimary?'secondary':'primary'),control({ x:564,y:1160,w:330,h:height },label,{type:'confirm'},confirmPrimary?'primary':'secondary')];
+    const buttons=[control({ x:186,y:1160,w:330,h:height },cancel,{type:'cancel'},confirmPrimary?'secondary':'primary'),control({ x:564,y:1160,w:330,h:height },label,{type:'confirm'},confirmPrimary?'primary':'secondary')];
+    if(kind==='purchase'&&view.confirmation.item){
+      const quantity=view.confirmation.quantity??1,quote=toolPurchaseQuote(view.account,view.confirmation.item,quantity);
+      buttons[1].disabled=!quote.valid;
+      return [...buttons,{...control({x:210,y:972,w:168,h:162},'−',{type:'purchaseQuantity',delta:-1},'secondary'),disabled:quantity<=1},{...control({x:702,y:972,w:168,h:162},'+',{type:'purchaseQuantity',delta:1},'secondary'),disabled:quantity>=quote.maxQuantity}];
+    }
+    return buttons;
   }
   // The interrupted-save recovery flow owns L.resume/L.restart, above every menu.
   if (view.needsResume) return [];
