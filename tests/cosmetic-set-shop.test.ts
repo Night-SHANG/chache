@@ -54,7 +54,7 @@ test('coherent preview uses all three set members irrespective of worn appearanc
 
 test('unaffordable missing set members disable bundle purchase and member link retains single-item purchase',()=>{
  const h=sessionHost({wallet:300}),s=h.session;open(s);act(s,{type:'previewCosmeticSet',id:'cold_chain'});const before=[...h.data];
- const buy=controls(s.view).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'购买套装\n1440金币');assert.ok(capture(s.view).labels.some(label=>label.includes('还差1140金币')));assert.equal(controls(s.view).some(c=>c.action.type==='equipCosmeticSet'),false);act(s,{type:'equipCosmeticSet',id:'cold_chain'});assert.deepEqual([...h.data],before);
+ const buy=controls(s.view).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'1440金币 · 购买套装');assert.ok(capture(s.view).labels.every(label=>!label.includes('还差')));assert.equal(controls(s.view).some(c=>c.action.type==='equipCosmeticSet'),false);act(s,{type:'equipCosmeticSet',id:'cold_chain'});assert.deepEqual([...h.data],before);
  act(s,{type:'previewCosmeticSetMember',kind:'cargo'});assert.equal(s.view.cosmeticBrowse,'items');assert.equal(s.view.cosmeticPreview?.cargo,'insulated');assert.equal(controls(s.view).find(c=>c.action.type==='purchaseCosmetic')?.label,'300金币 · 购买');
  act(s,{type:'purchaseCosmetic',kind:'cargo',id:'insulated'});assert.equal(s.view.confirmation?.kind,'purchaseCosmetic');act(s,{type:'cancel'});assert.deepEqual([...h.data],before);
 });
@@ -93,7 +93,7 @@ test('standalone outline preview always shows classic outline after ice selectio
 test('each partial ownership count selects purchase or equip from a read-only derived badge',()=>{
  for(let count=0;count<=3;count++){
   const account=owned();account.wallet=3000;account.profile.ownedCosmetics=account.profile.ownedCosmetics!.filter(key=>!['theme.cold_chain','cargo.insulated','forklift.electric'].slice(count).includes(key));
-  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`购买套装\n${[1440,720,480][count]}金币`);assert.ok(capture(v).labels.some(label=>label.endsWith(`已拥有 ${count}/3`)));assert.equal(JSON.stringify(account),before);
+  const before=JSON.stringify(account),v=view({account,cosmeticSetPreview:'cold_chain'}),button=controls(v).find(c=>c.action.type===(count===3?'equipCosmeticSet':'purchaseCosmeticSet'));assert.ok(button);assert.equal(button.disabled,false);assert.equal(button.label,count===3?'装备整套':`${[1440,720,480][count]}金币 · 购买套装`);assert.ok(capture(v).labels.some(label=>label.endsWith(`已拥有 ${count}/3`)));assert.equal(JSON.stringify(account),before);
  }
 });
 

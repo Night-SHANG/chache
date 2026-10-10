@@ -327,7 +327,7 @@ export class GameSession {
   if(action.type==='purchaseCosmeticSet'){
    if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&!this.view.account?.run){
     const quote=quoteCosmeticSetPurchase(action.id,accountCosmeticState(this.view.account??null,this.profile));
-    if(quote?.missingKeys.length){const short=Math.max(0,quote.price-(this.view.account?.wallet??0));this.view.cosmeticSetNotice=short?`金币不足，还差${short}金币`:undefined;if(!short)this.view.confirmation={kind:'purchaseCosmeticSet',cosmeticSetId:action.id,cosmeticSetQuote:quote};}
+    if(quote?.missingKeys.length){const short=Math.max(0,quote.price-(this.view.account?.wallet??0));this.view.cosmeticSetNotice=short?'金币不足':undefined;if(!short)this.view.confirmation={kind:'purchaseCosmeticSet',cosmeticSetId:action.id,cosmeticSetQuote:quote};}
    }
    return true;
   }

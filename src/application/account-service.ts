@@ -362,7 +362,8 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       const item = getCosmetic(request.kind, request.id);
       requireValue(item && account.profile.ownedCosmetics!.includes(item.key), '外观尚未拥有');
       if (item.overlay) return { ...account, profile: { ...account.profile, cosmetics: { ...account.profile.cosmetics, cargo: 'classic' }, cargoOutline: true } };
-      return { ...account, profile: { ...account.profile, cosmetics: { ...account.profile.cosmetics, [request.kind]: request.id } } };
+      return { ...account, profile: { ...account.profile, cosmetics: { ...account.profile.cosmetics, [request.kind]: request.id },
+        ...(item.kind === 'cargo' && item.id === 'classic' ? { cargoOutline: false } : {}) } };
     }
     if(request.type==='equipClassicSet') {
       requireValue(isClassicSetSelection(request.selection),'经典套装选项无效');

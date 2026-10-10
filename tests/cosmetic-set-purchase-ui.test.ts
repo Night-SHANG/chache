@@ -24,7 +24,7 @@ function words(s:GameSession,renderer=render){const ctx=createCanvas(1080,1920).
 
 test('set details put blue return on the left and yellow purchase on the right',()=>{
  const {session:s}=host();open(s);const back=controls(s).find(c=>c.action.type==='closeShopDetail'),buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');
- assert.ok(back);assert.ok(buy);assert.equal(back.label,'返回套装');assert.equal(back.buttonRole,'secondary');assert.equal(buy.label,'购买套装\n1440金币');assert.equal(buy.buttonRole,'primary');assert.equal(buy.disabled,false);assert.ok(back.rect.x+back.rect.w<buy.rect.x);
+ assert.ok(back);assert.ok(buy);assert.equal(back.label,'返回');assert.equal(back.buttonRole,'secondary');assert.equal(buy.label,'1440金币 · 购买套装');assert.equal(buy.buttonRole,'primary');assert.equal(buy.disabled,false);assert.ok(back.rect.x+back.rect.w<buy.rect.x);
  assert.equal(controls(s).filter(c=>c.action.type==='previewCosmeticSetMember').length,3);
 });
 
@@ -44,8 +44,8 @@ test('confirmed bundle buys once without equipping and separate equip remains ex
  act(s,{type:'previewCosmeticSetMember',kind:'cargo'});act(s,{type:'equipCosmetic',kind:'cargo',id:'classic'});assert.deepEqual(s.view.account!.profile.cosmetics,{theme:'cold_chain',cargo:'classic',forklift:'electric'});assert.equal(playableChecksum(s.state),checksum);assert.deepEqual(h.sounds,sounds);
 });
 
-test('insufficient balance displays the exact shortage and cannot open a purchase confirmation',()=>{
- const h=host(['cargo.insulated'],1199),s=h.session;open(s);const before=[...h.data],buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'购买套装\n1200金币');assert.match(words(s),/还差1金币/);
+test('insufficient balance retains the required price and cannot open a purchase confirmation',()=>{
+ const h=host(['cargo.insulated'],1199),s=h.session;open(s);const before=[...h.data],buy=controls(s).find(c=>c.action.type==='purchaseCosmeticSet');assert.ok(buy?.disabled);assert.equal(buy.label,'1200金币 · 购买套装');assert.doesNotMatch(words(s),/还差/);
  act(s,{type:'purchaseCosmeticSet',id:'cold_chain'});act(s,{type:'confirm'});assert.equal(s.view.confirmation,null);assert.deepEqual([...h.data],before);
 });
 
@@ -89,9 +89,9 @@ test('set quote rejection notices stay on set details and do not leak into tools
 });
 
 
-test('paid bundle price uses two readable button lines at 320px and concise supporting copy',()=>{
+test('paid bundle price uses one readable button line at 320px and concise supporting copy',()=>{
  const {session:s}=host();open(s);const ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D,painted:{value:string;font:string}[]=[];ctx.fillText=value=>painted.push({value,font:ctx.font});render(ctx,s.state,s.view);
- for(const value of ['购买套装','1440金币']){const line=painted.find(item=>item.value===value);assert.ok(line,value);assert.ok(Number(line.font.match(/(\d+(?:\.\d+)?)px/)?.[1])*320/1080>=12,line.font);}
+ for(const value of ['1440金币 · 购买套装']){const line=painted.find(item=>item.value===value);assert.ok(line,value);assert.ok(Number(line.font.match(/(\d+(?:\.\d+)?)px/)?.[1])*320/1080>=12,line.font);}
  assert.ok(painted.some(item=>item.value==='原价1800 · 8折'));assert.equal(painted.some(item=>/未拥有3件/.test(item.value)),false);
 });
 

@@ -794,14 +794,13 @@ function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
  }else if(classic){
   const selection=view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION,definition=classicSetDefinition(selection),status=classicSetStatus(selection,appearance),fork=getCosmetic('forklift',selection.forklift)!;
   drawCosmeticSetPreview(ctx,CLASSIC_SET_PREVIEW_RECT,{theme:definition.theme,cargoStyle:'classic',forklift:definition.forklift,cargoOutline:selection.cargo==='outline'});
-  const short=!status.complete&&!PLAYTEST_FREE_SHOP?Math.max(0,fork.price-(view.account?.wallet??0)):0;
-  if(!status.complete)text(ctx,PLAYTEST_FREE_SHOP?'领取后可装备整套':fork.achievementId?fork.description:short?`还差${short}金币`:'工程白 · 600金币',540,1122,30,'#d0dedb','center');
+  if(!status.complete)text(ctx,PLAYTEST_FREE_SHOP?'领取后可装备整套':fork.achievementId?fork.description:'工程白 · 600金币',540,1122,30,'#d0dedb','center');
  }else if(cosmeticBrowseMode(view)==='sets'){
   if(set){
-   const status=cosmeticSetStatus(set,appearance),quote=quoteCosmeticSetPurchase(set.id,appearance),short=Math.max(0,(quote?.price??0)-(view.account?.wallet??0));
+   const status=cosmeticSetStatus(set,appearance),quote=quoteCosmeticSetPurchase(set.id,appearance);
    text(ctx,`${set.name} · 已拥有 ${status.ownedCount}/3`,540,608,35,'#ffe8b4','center');
    drawCosmeticSetPreview(ctx,COSMETIC_SET_PREVIEW_RECT,{theme:set.theme,cargoStyle:set.cargo,forklift:set.forklift,cargoOutline:appearance.cargoOutline});
-   if(quote?.missingKeys.length&&!PLAYTEST_FREE_SHOP)text(ctx,`原价${quote.originalPrice} · 8折${short?` · 还差${short}金币`:''}`,540,1674,24,'#c6d8d4','center');
+   if(quote?.missingKeys.length&&!PLAYTEST_FREE_SHOP)text(ctx,`原价${quote.originalPrice} · 8折`,540,1674,24,'#c6d8d4','center');
   }else{
    text(ctx,'场景 · 货箱 · 叉车',540,596,28,'#c6d8d4','center');const pagination=cosmeticSetShopPage(view);
    text(ctx,`${pagination.page+1} / ${pagination.pages}`,540,1505,30,'#c6d8d4','center');

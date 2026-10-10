@@ -55,17 +55,17 @@ test('duplicate cosmetic claims with fresh operation ids leave both durable root
  assert.deepEqual([...storage.values],roots);assert.equal(storage.operations.filter(op=>op.kind==='set'||op.kind==='remove').length,0);
 });
 
-test('compiled UI shows free claims at zero wallet, separate equip, and paid fallback shortages',()=>{
+test('compiled UI shows free claims at zero wallet, separate equip, and paid fallback disabled prices',()=>{
  const {service}=setup(free),account=service.getSnapshot()!;
  const tools=free.getShopControls(view(account)).filter(c=>c.action.type==='purchase');assert.equal(tools.length,3);for(const c of tools){assert.equal(c.label,'领取');assert.equal(c.disabled,false);}
  const state=paid.sessionHost({wallet:0}).session.state,ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D;
  for(const item of COSMETIC_CATALOG.filter(item=>!account.profile.ownedCosmetics!.includes(item.key))){
   const detail=view(account,{shopTab:'cosmetics',shopSection:item.kind,cosmeticPreview:{[item.kind]:item.id}}),controls=free.getShopControls(detail),button=controls.find(c=>c.action.type==='purchaseCosmetic');
   assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,4);assert.equal(controls.filter(c=>c.action.type==='selectShopTab').length,2);assert.ok(controls.filter(c=>c.action.type==='previewCosmetic').length>=1&&controls.filter(c=>c.action.type==='previewCosmetic').length<=4);assert.equal(controls.some(c=>c.action.type==='closeShopDetail'),false);assert.deepEqual(button?.action,{type:'purchaseCosmetic',kind:item.kind,id:item.id});assert.equal(button?.label,'领取');assert.equal(button?.disabled,false);assert.equal(free.cosmeticStatus(item,view(account)),'试玩免费');
-  const paidButton=paid.getShopControls(detail).find(c=>c.action.type==='purchaseCosmetic');assert.equal(paidButton?.disabled,true);assert.equal(paidButton?.label,item.achievementId?'成就解锁':`${item.price}金币 · 还差${item.price}`);
-  const labels:string[]=[];ctx.fillText=value=>labels.push(value);paid.render(ctx,state,detail);assert.ok(labels.includes(item.achievementId?item.description:`${item.price}金币 · 还差${item.price}`),`${item.key} keeps its visible purchase restriction`);
+  const paidButton=paid.getShopControls(detail).find(c=>c.action.type==='purchaseCosmetic');assert.equal(paidButton?.disabled,true);assert.equal(paidButton?.label,item.achievementId?'成就解锁':`${item.price}金币 · 购买`);
+  const labels:string[]=[];ctx.fillText=value=>labels.push(value);paid.render(ctx,state,detail);assert.ok(labels.includes(item.achievementId?item.description:`${item.price}金币 · 购买`),`${item.key} keeps its visible purchase restriction`);
  }
- assert.ok(paid.getShopControls(view(account)).filter(c=>c.action.type==='purchase').every(c=>c.disabled&&c.label.includes('还差')));
+ assert.ok(paid.getShopControls(view(account)).filter(c=>c.action.type==='purchase').every(c=>c.disabled&&/^\d+金币 · 购买$/.test(c.label)));
  assert.equal(send(service,claim).status,'acknowledged');const owned=service.getSnapshot()!,v=view(owned,{shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}});assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'装备');owned.profile.cosmetics.cargo='wood';assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'使用中');
 });
 
