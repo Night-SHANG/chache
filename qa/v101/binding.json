@@ -1,0 +1,14 @@
+{
+  "ownerFrozen": true,
+  "commit": "4659e28430bb70cf633a9c77cd2552d57d30167e",
+  "sourceSha256": "19b943271e3112342bde76585656f93bde47db4cd5655be1625dc095ac181ecf",
+  "gameJsSha256": "b92a973cee70aa1ab0fe3aea12987fb55eb59c487d24957855109af487085c52",
+  "browserJsSha256": "6866c68644c95b7f89088d84a098274ccd90ed14219c4441e3fc4d55f43b6d1d",
+  "freeGameJsSha256": "b0a9a0ce3d9d8cb9587c41784202fdff4f5a7caed84b1c07c9ade7f9fb46db5f",
+  "freeBrowserJsSha256": "d6f84f8c954df735345efb739d1ddba7f747c9ee2415abb1664859068a84ae64",
+  "productTree": "d19e0719561d363af8b7430d9104c643fc781303",
+  "paidBuildRoot": "/workspace/scratch/e6b59ff34222/v101/artifacts/v101-frozen/paid",
+  "freeBuildRoot": "/workspace/scratch/e6b59ff34222/v101/artifacts/v101-frozen/free",
+  "expectedVersion": "1.0.1",
+  "recordedAt": "2026-10-10T14:02:13.618Z"
+}

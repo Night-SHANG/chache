@@ -1,79 +1,110 @@
 {
-  "version": "1.0.0",
-  "verifiedAt": "2026-10-10 19:26 北京时间（UTC+08:00）",
-  "status": "LOCAL_FORMAL_PAID_BUILD_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
-  "productCommit": "e85010efdd647787d2bf4c0b7d8bf31738bde814",
-  "sourceSha256": "a06040d0adbc587069ad8f87c4a5643dba46e976a70717540583035ec4def8a3",
+  "version": "1.0.1",
+  "verifiedAt": "2026-10-10 22:08 北京时间（UTC+08:00）",
+  "productCommit": "4659e28430bb70cf633a9c77cd2552d57d30167e",
+  "productTree": "d19e0719561d363af8b7430d9104c643fc781303",
+  "sourceSha256": "19b943271e3112342bde76585656f93bde47db4cd5655be1625dc095ac181ecf",
+  "status": "SCOPED_SHOP_UI_VERIFIED_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
   "productionManifest": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "shopPricingMode": "paid",
     "developerDiagnostics": false,
     "accountFormatVersion": 4,
     "economyVersion": 2
   },
   "fullTests": {
-    "total": 2596,
-    "passed": 2594,
-    "failed": 2,
+    "tests": 2605,
+    "pass": 2603,
+    "fail": 2,
     "skipped": 0,
-    "cancelled": 0,
-    "knownFailures": [
-      "cargo-atlas.test.ts: missing historical cargo-wood-generated.png",
-      "v021-cargo-forklift-art.test.ts: missing historical cargo-harbor_container-generated.png"
-    ]
+    "cancelled": 0
   },
-  "host": {
-    "passed": 358,
+  "knownFailures": [
+    "cargo-atlas.test.ts: historical cargo-wood-generated.png missing",
+    "v021-cargo-forklift-art.test.ts: historical cargo-harbor_container-generated.png missing"
+  ],
+  "lint": 0,
+  "typecheck": 0,
+  "preflight": 0,
+  "paidCatalogueHost": {
+    "passed": 327,
+    "failed": 0
+  },
+  "paidQuantityHost": {
+    "passed": 31,
     "failed": 0,
-    "catalogue": 327,
-    "quantity": 31,
-    "nativeCases": 180,
-    "browserEventCases": 176,
-    "sourceChecks": 2,
+    "total": 31,
+    "nativeCases": 17,
+    "browserEventCases": 13,
+    "sourceChecks": 1,
     "inherited": 0
   },
-  "crossVersionOriginalBundles": {
-    "passed": 2,
-    "old": "0.25.0-dev playtest-free",
-    "new": "1.0.0 paid",
-    "sameRootsByteExactBeforeNewPurchase": true,
-    "chargedNewPurchase": 300
-  },
+  "hostScreenshots": 88,
   "independentReview": {
-    "frozenTests": 590,
-    "passed": 590,
-    "ioFaultInjections": 2280,
-    "manifestFileHashes": 94,
-    "unchangedPersistenceFiles": 8,
-    "unresolvedFunctionalBlockers": 0
+    "hostGroups": 15,
+    "passed": 15,
+    "screenshots": 116,
+    "focusedTests": 96,
+    "blockingFindings": 0,
+    "footerCropsVisuallyReviewed": 104,
+    "modalCropsVisuallyReviewed": 12,
+    "wholeScreensVisuallyReviewed": 12
   },
-  "lintExit": 0,
-  "typecheckExit": 0,
-  "preflightExit": 0,
-  "buildPaidExit": 0,
-  "buildFreeExit": 0,
-  "productionJs": {
-    "gameSha256": "4ddfe2dbd57f7b42a315491c10ce7ef951ccb9fa92c169ebb7661235cb58636c",
-    "browserSha256": "8c0c5d8db5c16da6d2f599c7d1b09f4254d3089a5581cb7465081d2bc18a7051"
+  "freeCompatibility": {
+    "groups": 6,
+    "screenshots": 18,
+    "deliveryDefault": false
   },
-  "artAndAudioChanged": false,
-  "sameSaveNamespace": true,
+  "upgradeCompatibility": {
+    "old": "1.0.0 paid",
+    "new": "1.0.1 paid",
+    "groups": 2,
+    "originalRootsByteExactBeforeNewPurchase": true,
+    "walletInventoryRightsEquipRecordsPreserved": true
+  },
+  "font": {
+    "purchase": "800 42px Noto Sans CJK SC, PingFang SC, Microsoft YaHei, sans-serif",
+    "back": "800 32px",
+    "equip": "800 36px",
+    "actualNotoRegistered": true,
+    "boldPixelIdentityVerified": true,
+    "longestLabelLogicalWidth": 395.05,
+    "availableLogicalWidth": 480
+  },
+  "footerGeometry": {
+    "backWidth": 264,
+    "primaryWidth": 528,
+    "height": 150,
+    "gap": 24
+  },
+  "outlineClassicAtomicExit": true,
+  "unchanged": [
+    "domain rules",
+    "catalogue prices",
+    "bundle quote math",
+    "account schema",
+    "v1 save keys",
+    "assets",
+    "audio",
+    "origin port4173"
+  ],
   "realBrowserGui": false,
-  "windowsLauncherGui": false,
   "wechatDeveloperTools": false,
   "physicalDevice": false,
   "publicPlatformPublished": false,
-  "screenshots": 88,
-  "priorCandidateAttempts": [
-    "host-initial: interrupted after genuine input click-through plus host expectation errors; retained",
-    "host-second: interrupted after correcting input fix, isolated achievement fixture lacked matching legacy statistics; retained",
-    "host-third: existing audio-assets test overwrote root build directory; hash guard rejected changed app.js; final uses immutable separate build root"
-  ],
+  "initialFull": {
+    "total": 2604,
+    "passed": 2592,
+    "failed": 12,
+    "staleApprovedUiExpectations": 10,
+    "historicalArtFailures": 2
+  },
   "evidence": {
-    "qa/v100/full-frozen.txt": "383b01deabce3105dd5f08f6a8698fc6be5abaa950f042a2542eb3fdc9654c82",
-    "qa/v100/host-final/report.json": "2886f4d9b9268fbe0f33e3627943633c04c29e29f6f24179be740f381768888b",
-    "qa/v100/cross-version-final/report.json": "8f3187493d38bee34720c44ff1f8c43767a422d8d87dfeece491d35d4c78266c",
-    "qa/v100-independent/frozen-integrity.json": "eb7cc4bd355fa24fd6698fee16672305600fb93560738b2fabb8363044404e9b",
-    "qa/v100-independent/frozen-matrix.tap": "262a77d0cc79c405085426c34b882080870238640b1f126b8dd7d296501a4479"
+    "qa/v101/full-final.txt": "60781da146eb293b8c17e37fa4274993c091d95716444ab42b691747f6180536",
+    "qa/v101/host-final/report.json": "70de971d77008bab945a4c863ee9eed9f4144e3f9bf2e46cce9b59cd1735bc10",
+    "qa/v101/cross-version-final/report.json": "da899f09385d761f135bb312ddf7968b340c9f12a4228b18b56db0108cc58f20",
+    "qa/v101/free-final/report.json": "cf0cf89c3567b85c08d70694d6c1731dc6d0ec648df76ba9e3818693e82252a9",
+    "qa/v101/independent-summary.json": "bfceb5be0dffdc2254d1a93eb29236983e3f0e153c9f40a1cc676beaff9def1e",
+    "qa/v101/independent-scoped.txt": "39a1c4d83190fd09832be2033eb2342913a27196dd0f7dac20ac825d4279894e"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "verifiedAt": "2026-10-10 19:26 北京时间（UTC+08:00）",
+  "status": "LOCAL_FORMAL_PAID_BUILD_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
+  "productCommit": "e85010efdd647787d2bf4c0b7d8bf31738bde814",
+  "sourceSha256": "a06040d0adbc587069ad8f87c4a5643dba46e976a70717540583035ec4def8a3",
+  "productionManifest": {
+    "version": "1.0.0",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "accountFormatVersion": 4,
+    "economyVersion": 2
+  },
+  "fullTests": {
+    "total": 2596,
+    "passed": 2594,
+    "failed": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "knownFailures": [
+      "cargo-atlas.test.ts: missing historical cargo-wood-generated.png",
+      "v021-cargo-forklift-art.test.ts: missing historical cargo-harbor_container-generated.png"
+    ]
+  },
+  "host": {
+    "passed": 358,
+    "failed": 0,
+    "catalogue": 327,
+    "quantity": 31,
+    "nativeCases": 180,
+    "browserEventCases": 176,
+    "sourceChecks": 2,
+    "inherited": 0
+  },
+  "crossVersionOriginalBundles": {
+    "passed": 2,
+    "old": "0.25.0-dev playtest-free",
+    "new": "1.0.0 paid",
+    "sameRootsByteExactBeforeNewPurchase": true,
+    "chargedNewPurchase": 300
+  },
+  "independentReview": {
+    "frozenTests": 590,
+    "passed": 590,
+    "ioFaultInjections": 2280,
+    "manifestFileHashes": 94,
+    "unchangedPersistenceFiles": 8,
+    "unresolvedFunctionalBlockers": 0
+  },
+  "lintExit": 0,
+  "typecheckExit": 0,
+  "preflightExit": 0,
+  "buildPaidExit": 0,
+  "buildFreeExit": 0,
+  "productionJs": {
+    "gameSha256": "4ddfe2dbd57f7b42a315491c10ce7ef951ccb9fa92c169ebb7661235cb58636c",
+    "browserSha256": "8c0c5d8db5c16da6d2f599c7d1b09f4254d3089a5581cb7465081d2bc18a7051"
+  },
+  "artAndAudioChanged": false,
+  "sameSaveNamespace": true,
+  "realBrowserGui": false,
+  "windowsLauncherGui": false,
+  "wechatDeveloperTools": false,
+  "physicalDevice": false,
+  "publicPlatformPublished": false,
+  "screenshots": 88,
+  "priorCandidateAttempts": [
+    "host-initial: interrupted after genuine input click-through plus host expectation errors; retained",
+    "host-second: interrupted after correcting input fix, isolated achievement fixture lacked matching legacy statistics; retained",
+    "host-third: existing audio-assets test overwrote root build directory; hash guard rejected changed app.js; final uses immutable separate build root"
+  ],
+  "evidence": {
+    "qa/v100/full-frozen.txt": "383b01deabce3105dd5f08f6a8698fc6be5abaa950f042a2542eb3fdc9654c82",
+    "qa/v100/host-final/report.json": "2886f4d9b9268fbe0f33e3627943633c04c29e29f6f24179be740f381768888b",
+    "qa/v100/cross-version-final/report.json": "8f3187493d38bee34720c44ff1f8c43767a422d8d87dfeece491d35d4c78266c",
+    "qa/v100-independent/frozen-integrity.json": "eb7cc4bd355fa24fd6698fee16672305600fb93560738b2fabb8363044404e9b",
+    "qa/v100-independent/frozen-matrix.tap": "262a77d0cc79c405085426c34b882080870238640b1f126b8dd7d296501a4479"
+  }
+}

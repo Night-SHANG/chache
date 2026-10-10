@@ -1,0 +1,110 @@
+{
+  "version": "1.0.1",
+  "verifiedAt": "2026-10-10 22:08 北京时间（UTC+08:00）",
+  "productCommit": "4659e28430bb70cf633a9c77cd2552d57d30167e",
+  "productTree": "d19e0719561d363af8b7430d9104c643fc781303",
+  "sourceSha256": "19b943271e3112342bde76585656f93bde47db4cd5655be1625dc095ac181ecf",
+  "status": "SCOPED_SHOP_UI_VERIFIED_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
+  "productionManifest": {
+    "version": "1.0.1",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "accountFormatVersion": 4,
+    "economyVersion": 2
+  },
+  "fullTests": {
+    "tests": 2605,
+    "pass": 2603,
+    "fail": 2,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: historical cargo-wood-generated.png missing",
+    "v021-cargo-forklift-art.test.ts: historical cargo-harbor_container-generated.png missing"
+  ],
+  "lint": 0,
+  "typecheck": 0,
+  "preflight": 0,
+  "paidCatalogueHost": {
+    "passed": 327,
+    "failed": 0
+  },
+  "paidQuantityHost": {
+    "passed": 31,
+    "failed": 0,
+    "total": 31,
+    "nativeCases": 17,
+    "browserEventCases": 13,
+    "sourceChecks": 1,
+    "inherited": 0
+  },
+  "hostScreenshots": 88,
+  "independentReview": {
+    "hostGroups": 15,
+    "passed": 15,
+    "screenshots": 116,
+    "focusedTests": 96,
+    "blockingFindings": 0,
+    "footerCropsVisuallyReviewed": 104,
+    "modalCropsVisuallyReviewed": 12,
+    "wholeScreensVisuallyReviewed": 12
+  },
+  "freeCompatibility": {
+    "groups": 6,
+    "screenshots": 18,
+    "deliveryDefault": false
+  },
+  "upgradeCompatibility": {
+    "old": "1.0.0 paid",
+    "new": "1.0.1 paid",
+    "groups": 2,
+    "originalRootsByteExactBeforeNewPurchase": true,
+    "walletInventoryRightsEquipRecordsPreserved": true
+  },
+  "font": {
+    "purchase": "800 42px Noto Sans CJK SC, PingFang SC, Microsoft YaHei, sans-serif",
+    "back": "800 32px",
+    "equip": "800 36px",
+    "actualNotoRegistered": true,
+    "boldPixelIdentityVerified": true,
+    "longestLabelLogicalWidth": 395.05,
+    "availableLogicalWidth": 480
+  },
+  "footerGeometry": {
+    "backWidth": 264,
+    "primaryWidth": 528,
+    "height": 150,
+    "gap": 24
+  },
+  "outlineClassicAtomicExit": true,
+  "unchanged": [
+    "domain rules",
+    "catalogue prices",
+    "bundle quote math",
+    "account schema",
+    "v1 save keys",
+    "assets",
+    "audio",
+    "origin port4173"
+  ],
+  "realBrowserGui": false,
+  "wechatDeveloperTools": false,
+  "physicalDevice": false,
+  "publicPlatformPublished": false,
+  "initialFull": {
+    "total": 2604,
+    "passed": 2592,
+    "failed": 12,
+    "staleApprovedUiExpectations": 10,
+    "historicalArtFailures": 2
+  },
+  "evidence": {
+    "qa/v101/full-final.txt": "60781da146eb293b8c17e37fa4274993c091d95716444ab42b691747f6180536",
+    "qa/v101/host-final/report.json": "70de971d77008bab945a4c863ee9eed9f4144e3f9bf2e46cce9b59cd1735bc10",
+    "qa/v101/cross-version-final/report.json": "da899f09385d761f135bb312ddf7968b340c9f12a4228b18b56db0108cc58f20",
+    "qa/v101/free-final/report.json": "cf0cf89c3567b85c08d70694d6c1731dc6d0ec648df76ba9e3818693e82252a9",
+    "qa/v101/independent-summary.json": "bfceb5be0dffdc2254d1a93eb29236983e3f0e153c9f40a1cc676beaff9def1e",
+    "qa/v101/independent-scoped.txt": "39a1c4d83190fd09832be2033eb2342913a27196dd0f7dac20ac825d4279894e"
+  }
+}
