@@ -1,0 +1,392 @@
+{
+  "date": "2026-10-10T11:15:03.010Z",
+  "catalogue": {
+    "cosmetics": 50,
+    "paidCosmetics": 43,
+    "freeCosmetics": 5,
+    "achievementCosmetics": 2,
+    "tools": 3,
+    "fixedSets": 14,
+    "classicCombinations": 16
+  },
+  "nodeTests": 472,
+  "faultInjectionCases": 2280,
+  "faultBoundaryCounts": [
+    19
+  ],
+  "rows": [
+    {
+      "kind": "cosmetic",
+      "id": "theme.harbor",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.cold_chain",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.rail_freight",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.toy_workshop",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.paper_warehouse",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.space_cargo",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.steam_foundry",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.neon_depot",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.lava_forge",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.ocean_vault",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.royal_store",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.field_station",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.wood",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.insulated",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.reinforced",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.toy_brick",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.paper_fold",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.space_case",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.ice_crystal",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.steam_brass",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.neon_circuit",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.lava_core",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.ocean_relic",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.royal_gold",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.field_supply",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.white",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.electric",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.heavy",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.toy",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.paper",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.space",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.steam",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.neon",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.lava",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.diving",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.royal",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.field",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.forest_depot",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "theme.ice_vault",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "cargo.harbor_container",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.timber",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.ice",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "cosmetic",
+      "id": "forklift.harbor",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "cold_chain",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "rail_freight",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "toy_workshop",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "paper_warehouse",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "space_cargo",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "steam_foundry",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "neon_depot",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "lava_forge",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "ocean_vault",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "royal_store",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "field_station",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "forest_depot",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "ice_vault",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "set",
+      "id": "harbor",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "tool",
+      "id": "rotate",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "tool",
+      "id": "clear",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    },
+    {
+      "kind": "tool",
+      "id": "wildcard",
+      "ioBoundaries": 19,
+      "injectedCases": 38
+    }
+  ],
+  "pointInputTests": 118,
+  "existingCriticalRegressionTests": 176,
+  "productionGateTests": 1,
+  "pointRegressionBefore": {
+    "tests": 114,
+    "passed": 48,
+    "failed": 66
+  },
+  "pointRegressionAfter": {
+    "tests": 118,
+    "passed": 118,
+    "failed": 0
+  }
+}

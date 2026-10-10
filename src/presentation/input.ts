@@ -96,7 +96,7 @@ export class InputController {
    return;
   }
   const button=this.button;this.active=null;this.button=null;this.start=null;
-  if(button){if(hitTestPoint(point,button.rect)){const wasPurchase=this.port.getView().confirmation?.kind==='purchase';button.act();if(wasPurchase&&!this.port.getView().confirmation)this.dismissedPurchase={rect:button.rect,at:Date.now()};}return;}
+  if(button){if(hitTestPoint(point,button.rect)){const wasPurchase=['purchase','purchaseCosmetic','purchaseCosmeticSet'].includes(this.port.getView().confirmation?.kind??'');button.act();if(wasPurchase&&!this.port.getView().confirmation)this.dismissedPurchase={rect:button.rect,at:Date.now()};}return;}
   const pieceId=this.port.getView().selectedPieceId,origin=pointToCell(point,this.port.getState());
   if(pieceId&&origin&&this.canPlace()){
    const preview=this.port.preview(pieceId,origin);

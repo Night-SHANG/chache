@@ -1,0 +1,1706 @@
+✖ theme.harbor/confirm/rapid same-coordinate taps preserve chosen item (19.744529ms)
+✖ theme.harbor/cancel/rapid same-coordinate taps preserve chosen item (1.588674ms)
+✖ theme.cold_chain/confirm/rapid same-coordinate taps preserve chosen item (4.824891ms)
+✖ theme.cold_chain/cancel/rapid same-coordinate taps preserve chosen item (0.998921ms)
+✖ theme.rail_freight/confirm/rapid same-coordinate taps preserve chosen item (3.499866ms)
+✔ theme.rail_freight/cancel/rapid same-coordinate taps preserve chosen item (1.771261ms)
+✔ theme.toy_workshop/confirm/rapid same-coordinate taps preserve chosen item (3.807733ms)
+✖ theme.toy_workshop/cancel/rapid same-coordinate taps preserve chosen item (0.909846ms)
+✖ theme.paper_warehouse/confirm/rapid same-coordinate taps preserve chosen item (2.69ms)
+✖ theme.paper_warehouse/cancel/rapid same-coordinate taps preserve chosen item (0.941334ms)
+✖ theme.space_cargo/confirm/rapid same-coordinate taps preserve chosen item (2.916985ms)
+✖ theme.space_cargo/cancel/rapid same-coordinate taps preserve chosen item (0.854273ms)
+✖ theme.steam_foundry/confirm/rapid same-coordinate taps preserve chosen item (2.727607ms)
+✔ theme.steam_foundry/cancel/rapid same-coordinate taps preserve chosen item (1.117952ms)
+✔ theme.neon_depot/confirm/rapid same-coordinate taps preserve chosen item (2.593334ms)
+✖ theme.neon_depot/cancel/rapid same-coordinate taps preserve chosen item (0.783646ms)
+✖ theme.lava_forge/confirm/rapid same-coordinate taps preserve chosen item (2.383096ms)
+✖ theme.lava_forge/cancel/rapid same-coordinate taps preserve chosen item (0.725758ms)
+✖ theme.ocean_vault/confirm/rapid same-coordinate taps preserve chosen item (2.46491ms)
+✖ theme.ocean_vault/cancel/rapid same-coordinate taps preserve chosen item (1.151722ms)
+✖ theme.royal_store/confirm/rapid same-coordinate taps preserve chosen item (2.850263ms)
+✔ theme.royal_store/cancel/rapid same-coordinate taps preserve chosen item (0.850487ms)
+✔ theme.field_station/confirm/rapid same-coordinate taps preserve chosen item (2.324598ms)
+✖ theme.field_station/cancel/rapid same-coordinate taps preserve chosen item (0.804187ms)
+✖ cargo.wood/confirm/rapid same-coordinate taps preserve chosen item (3.027962ms)
+✖ cargo.wood/cancel/rapid same-coordinate taps preserve chosen item (0.748303ms)
+✖ cargo.insulated/confirm/rapid same-coordinate taps preserve chosen item (2.694797ms)
+✖ cargo.insulated/cancel/rapid same-coordinate taps preserve chosen item (0.707921ms)
+✖ cargo.reinforced/confirm/rapid same-coordinate taps preserve chosen item (2.585392ms)
+✔ cargo.reinforced/cancel/rapid same-coordinate taps preserve chosen item (0.670284ms)
+✔ cargo.toy_brick/confirm/rapid same-coordinate taps preserve chosen item (2.014839ms)
+✖ cargo.toy_brick/cancel/rapid same-coordinate taps preserve chosen item (0.671847ms)
+✖ cargo.paper_fold/confirm/rapid same-coordinate taps preserve chosen item (2.448365ms)
+✖ cargo.paper_fold/cancel/rapid same-coordinate taps preserve chosen item (0.918289ms)
+✖ cargo.space_case/confirm/rapid same-coordinate taps preserve chosen item (2.22713ms)
+✖ cargo.space_case/cancel/rapid same-coordinate taps preserve chosen item (0.849466ms)
+✖ cargo.ice_crystal/confirm/rapid same-coordinate taps preserve chosen item (2.57044ms)
+✔ cargo.ice_crystal/cancel/rapid same-coordinate taps preserve chosen item (0.728162ms)
+✔ cargo.steam_brass/confirm/rapid same-coordinate taps preserve chosen item (2.04233ms)
+✖ cargo.steam_brass/cancel/rapid same-coordinate taps preserve chosen item (0.673019ms)
+✖ cargo.neon_circuit/confirm/rapid same-coordinate taps preserve chosen item (2.321793ms)
+✖ cargo.neon_circuit/cancel/rapid same-coordinate taps preserve chosen item (0.629142ms)
+✖ cargo.lava_core/confirm/rapid same-coordinate taps preserve chosen item (2.02197ms)
+✖ cargo.lava_core/cancel/rapid same-coordinate taps preserve chosen item (0.598856ms)
+✖ cargo.ocean_relic/confirm/rapid same-coordinate taps preserve chosen item (2.621697ms)
+✔ cargo.ocean_relic/cancel/rapid same-coordinate taps preserve chosen item (0.598465ms)
+✔ cargo.royal_gold/confirm/rapid same-coordinate taps preserve chosen item (2.06896ms)
+✖ cargo.royal_gold/cancel/rapid same-coordinate taps preserve chosen item (0.64716ms)
+✖ cargo.field_supply/confirm/rapid same-coordinate taps preserve chosen item (2.670791ms)
+✖ cargo.field_supply/cancel/rapid same-coordinate taps preserve chosen item (0.601961ms)
+✖ forklift.white/confirm/rapid same-coordinate taps preserve chosen item (2.262554ms)
+✖ forklift.white/cancel/rapid same-coordinate taps preserve chosen item (0.718948ms)
+✖ forklift.electric/confirm/rapid same-coordinate taps preserve chosen item (2.038515ms)
+✔ forklift.electric/cancel/rapid same-coordinate taps preserve chosen item (0.805058ms)
+✔ forklift.heavy/confirm/rapid same-coordinate taps preserve chosen item (1.872383ms)
+✖ forklift.heavy/cancel/rapid same-coordinate taps preserve chosen item (0.612076ms)
+✖ forklift.toy/confirm/rapid same-coordinate taps preserve chosen item (2.332289ms)
+✖ forklift.toy/cancel/rapid same-coordinate taps preserve chosen item (0.862104ms)
+✖ forklift.paper/confirm/rapid same-coordinate taps preserve chosen item (2.07463ms)
+✖ forklift.paper/cancel/rapid same-coordinate taps preserve chosen item (0.590623ms)
+✖ forklift.space/confirm/rapid same-coordinate taps preserve chosen item (2.021409ms)
+✔ forklift.space/cancel/rapid same-coordinate taps preserve chosen item (0.6146ms)
+✔ forklift.steam/confirm/rapid same-coordinate taps preserve chosen item (2.222924ms)
+✖ forklift.steam/cancel/rapid same-coordinate taps preserve chosen item (0.68072ms)
+✖ forklift.neon/confirm/rapid same-coordinate taps preserve chosen item (1.940587ms)
+✖ forklift.neon/cancel/rapid same-coordinate taps preserve chosen item (0.59525ms)
+✖ forklift.lava/confirm/rapid same-coordinate taps preserve chosen item (2.31277ms)
+✖ forklift.lava/cancel/rapid same-coordinate taps preserve chosen item (0.546997ms)
+✖ forklift.diving/confirm/rapid same-coordinate taps preserve chosen item (1.910962ms)
+✔ forklift.diving/cancel/rapid same-coordinate taps preserve chosen item (0.541139ms)
+✔ forklift.royal/confirm/rapid same-coordinate taps preserve chosen item (2.170214ms)
+✖ forklift.royal/cancel/rapid same-coordinate taps preserve chosen item (0.582091ms)
+✖ forklift.field/confirm/rapid same-coordinate taps preserve chosen item (1.984443ms)
+✖ forklift.field/cancel/rapid same-coordinate taps preserve chosen item (0.577654ms)
+✖ theme.forest_depot/confirm/rapid same-coordinate taps preserve chosen item (2.224586ms)
+✖ theme.forest_depot/cancel/rapid same-coordinate taps preserve chosen item (0.543703ms)
+✖ theme.ice_vault/confirm/rapid same-coordinate taps preserve chosen item (1.954467ms)
+✖ theme.ice_vault/cancel/rapid same-coordinate taps preserve chosen item (0.577644ms)
+✖ cargo.harbor_container/confirm/rapid same-coordinate taps preserve chosen item (2.492592ms)
+✖ cargo.harbor_container/cancel/rapid same-coordinate taps preserve chosen item (0.695793ms)
+✖ forklift.timber/confirm/rapid same-coordinate taps preserve chosen item (2.138977ms)
+✖ forklift.timber/cancel/rapid same-coordinate taps preserve chosen item (0.619657ms)
+✖ forklift.ice/confirm/rapid same-coordinate taps preserve chosen item (2.009321ms)
+✔ forklift.ice/cancel/rapid same-coordinate taps preserve chosen item (0.791027ms)
+✔ forklift.harbor/confirm/rapid same-coordinate taps preserve chosen item (2.108661ms)
+✖ forklift.harbor/cancel/rapid same-coordinate taps preserve chosen item (0.600679ms)
+✔ set.cold_chain/confirm/rapid same-coordinate taps preserve chosen set (2.893709ms)
+✔ set.cold_chain/cancel/rapid same-coordinate taps preserve chosen set (0.585055ms)
+✔ set.rail_freight/confirm/rapid same-coordinate taps preserve chosen set (2.282645ms)
+✔ set.rail_freight/cancel/rapid same-coordinate taps preserve chosen set (0.564254ms)
+✔ set.toy_workshop/confirm/rapid same-coordinate taps preserve chosen set (1.906335ms)
+✔ set.toy_workshop/cancel/rapid same-coordinate taps preserve chosen set (0.524313ms)
+✔ set.paper_warehouse/confirm/rapid same-coordinate taps preserve chosen set (2.539143ms)
+✔ set.paper_warehouse/cancel/rapid same-coordinate taps preserve chosen set (0.52888ms)
+✔ set.space_cargo/confirm/rapid same-coordinate taps preserve chosen set (2.004733ms)
+✔ set.space_cargo/cancel/rapid same-coordinate taps preserve chosen set (0.624135ms)
+✔ set.steam_foundry/confirm/rapid same-coordinate taps preserve chosen set (2.426672ms)
+✔ set.steam_foundry/cancel/rapid same-coordinate taps preserve chosen set (0.477192ms)
+✔ set.neon_depot/confirm/rapid same-coordinate taps preserve chosen set (1.994478ms)
+✔ set.neon_depot/cancel/rapid same-coordinate taps preserve chosen set (0.682453ms)
+✔ set.lava_forge/confirm/rapid same-coordinate taps preserve chosen set (2.422506ms)
+✔ set.lava_forge/cancel/rapid same-coordinate taps preserve chosen set (0.6409ms)
+✔ set.ocean_vault/confirm/rapid same-coordinate taps preserve chosen set (2.120309ms)
+✔ set.ocean_vault/cancel/rapid same-coordinate taps preserve chosen set (0.553417ms)
+✔ set.royal_store/confirm/rapid same-coordinate taps preserve chosen set (1.85685ms)
+✔ set.royal_store/cancel/rapid same-coordinate taps preserve chosen set (0.729163ms)
+✔ set.field_station/confirm/rapid same-coordinate taps preserve chosen set (1.875778ms)
+✔ set.field_station/cancel/rapid same-coordinate taps preserve chosen set (0.535951ms)
+✔ set.forest_depot/confirm/rapid same-coordinate taps preserve chosen set (1.933576ms)
+✔ set.forest_depot/cancel/rapid same-coordinate taps preserve chosen set (0.505525ms)
+✔ set.ice_vault/confirm/rapid same-coordinate taps preserve chosen set (2.301933ms)
+✔ set.ice_vault/cancel/rapid same-coordinate taps preserve chosen set (0.471884ms)
+✔ set.harbor/confirm/rapid same-coordinate taps preserve chosen set (1.971954ms)
+✔ set.harbor/cancel/rapid same-coordinate taps preserve chosen set (0.50209ms)
+ℹ tests 114
+ℹ suites 0
+ℹ pass 48
+ℹ fail 66
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 460.753704
+
+✖ failing tests:
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.harbor/confirm/rapid same-coordinate taps preserve chosen item (19.744529ms)
+  AssertionError [ERR_ASSERTION]: theme.harbor: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"night"}'
+  - '{"theme":"harbor"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"night"}',
+    expected: '{"theme":"harbor"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.harbor/cancel/rapid same-coordinate taps preserve chosen item (1.588674ms)
+  AssertionError [ERR_ASSERTION]: theme.harbor: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"day"}'
+  - '{"theme":"harbor"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"day"}',
+    expected: '{"theme":"harbor"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.cold_chain/confirm/rapid same-coordinate taps preserve chosen item (4.824891ms)
+  AssertionError [ERR_ASSERTION]: theme.cold_chain: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"night"}'
+  - '{"theme":"cold_chain"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"night"}',
+    expected: '{"theme":"cold_chain"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.cold_chain/cancel/rapid same-coordinate taps preserve chosen item (0.998921ms)
+  AssertionError [ERR_ASSERTION]: theme.cold_chain: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"day"}'
+  - '{"theme":"cold_chain"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"day"}',
+    expected: '{"theme":"cold_chain"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.rail_freight/confirm/rapid same-coordinate taps preserve chosen item (3.499866ms)
+  AssertionError [ERR_ASSERTION]: theme.rail_freight: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"toy_workshop"}'
+  - '{"theme":"rail_freight"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"toy_workshop"}',
+    expected: '{"theme":"rail_freight"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.toy_workshop/cancel/rapid same-coordinate taps preserve chosen item (0.909846ms)
+  AssertionError [ERR_ASSERTION]: theme.toy_workshop: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"rail_freight"}'
+  - '{"theme":"toy_workshop"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"rail_freight"}',
+    expected: '{"theme":"toy_workshop"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.paper_warehouse/confirm/rapid same-coordinate taps preserve chosen item (2.69ms)
+  AssertionError [ERR_ASSERTION]: theme.paper_warehouse: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"toy_workshop"}'
+  - '{"theme":"paper_warehouse"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"toy_workshop"}',
+    expected: '{"theme":"paper_warehouse"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.paper_warehouse/cancel/rapid same-coordinate taps preserve chosen item (0.941334ms)
+  AssertionError [ERR_ASSERTION]: theme.paper_warehouse: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"rail_freight"}'
+  - '{"theme":"paper_warehouse"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"rail_freight"}',
+    expected: '{"theme":"paper_warehouse"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.space_cargo/confirm/rapid same-coordinate taps preserve chosen item (2.916985ms)
+  AssertionError [ERR_ASSERTION]: theme.space_cargo: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"toy_workshop"}'
+  - '{"theme":"space_cargo"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"toy_workshop"}',
+    expected: '{"theme":"space_cargo"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.space_cargo/cancel/rapid same-coordinate taps preserve chosen item (0.854273ms)
+  AssertionError [ERR_ASSERTION]: theme.space_cargo: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"rail_freight"}'
+  - '{"theme":"space_cargo"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"rail_freight"}',
+    expected: '{"theme":"space_cargo"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.steam_foundry/confirm/rapid same-coordinate taps preserve chosen item (2.727607ms)
+  AssertionError [ERR_ASSERTION]: theme.steam_foundry: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"neon_depot"}'
+  - '{"theme":"steam_foundry"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"neon_depot"}',
+    expected: '{"theme":"steam_foundry"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.neon_depot/cancel/rapid same-coordinate taps preserve chosen item (0.783646ms)
+  AssertionError [ERR_ASSERTION]: theme.neon_depot: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"steam_foundry"}'
+  - '{"theme":"neon_depot"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"steam_foundry"}',
+    expected: '{"theme":"neon_depot"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.lava_forge/confirm/rapid same-coordinate taps preserve chosen item (2.383096ms)
+  AssertionError [ERR_ASSERTION]: theme.lava_forge: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"neon_depot"}'
+  - '{"theme":"lava_forge"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"neon_depot"}',
+    expected: '{"theme":"lava_forge"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.lava_forge/cancel/rapid same-coordinate taps preserve chosen item (0.725758ms)
+  AssertionError [ERR_ASSERTION]: theme.lava_forge: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"steam_foundry"}'
+  - '{"theme":"lava_forge"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"steam_foundry"}',
+    expected: '{"theme":"lava_forge"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.ocean_vault/confirm/rapid same-coordinate taps preserve chosen item (2.46491ms)
+  AssertionError [ERR_ASSERTION]: theme.ocean_vault: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"neon_depot"}'
+  - '{"theme":"ocean_vault"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"neon_depot"}',
+    expected: '{"theme":"ocean_vault"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.ocean_vault/cancel/rapid same-coordinate taps preserve chosen item (1.151722ms)
+  AssertionError [ERR_ASSERTION]: theme.ocean_vault: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"steam_foundry"}'
+  - '{"theme":"ocean_vault"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"steam_foundry"}',
+    expected: '{"theme":"ocean_vault"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.royal_store/confirm/rapid same-coordinate taps preserve chosen item (2.850263ms)
+  AssertionError [ERR_ASSERTION]: theme.royal_store: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"field_station"}'
+  - '{"theme":"royal_store"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"field_station"}',
+    expected: '{"theme":"royal_store"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.field_station/cancel/rapid same-coordinate taps preserve chosen item (0.804187ms)
+  AssertionError [ERR_ASSERTION]: theme.field_station: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"royal_store"}'
+  - '{"theme":"field_station"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"royal_store"}',
+    expected: '{"theme":"field_station"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.wood/confirm/rapid same-coordinate taps preserve chosen item (3.027962ms)
+  AssertionError [ERR_ASSERTION]: cargo.wood: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"outline"}'
+  - '{"cargo":"wood"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"outline"}',
+    expected: '{"cargo":"wood"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.wood/cancel/rapid same-coordinate taps preserve chosen item (0.748303ms)
+  AssertionError [ERR_ASSERTION]: cargo.wood: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"classic"}'
+  - '{"cargo":"wood"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"classic"}',
+    expected: '{"cargo":"wood"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.insulated/confirm/rapid same-coordinate taps preserve chosen item (2.694797ms)
+  AssertionError [ERR_ASSERTION]: cargo.insulated: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"outline"}'
+  - '{"cargo":"insulated"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"outline"}',
+    expected: '{"cargo":"insulated"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.insulated/cancel/rapid same-coordinate taps preserve chosen item (0.707921ms)
+  AssertionError [ERR_ASSERTION]: cargo.insulated: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"classic"}'
+  - '{"cargo":"insulated"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"classic"}',
+    expected: '{"cargo":"insulated"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.reinforced/confirm/rapid same-coordinate taps preserve chosen item (2.585392ms)
+  AssertionError [ERR_ASSERTION]: cargo.reinforced: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"toy_brick"}'
+  - '{"cargo":"reinforced"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"toy_brick"}',
+    expected: '{"cargo":"reinforced"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.toy_brick/cancel/rapid same-coordinate taps preserve chosen item (0.671847ms)
+  AssertionError [ERR_ASSERTION]: cargo.toy_brick: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"reinforced"}'
+  - '{"cargo":"toy_brick"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"reinforced"}',
+    expected: '{"cargo":"toy_brick"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.paper_fold/confirm/rapid same-coordinate taps preserve chosen item (2.448365ms)
+  AssertionError [ERR_ASSERTION]: cargo.paper_fold: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"toy_brick"}'
+  - '{"cargo":"paper_fold"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"toy_brick"}',
+    expected: '{"cargo":"paper_fold"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.paper_fold/cancel/rapid same-coordinate taps preserve chosen item (0.918289ms)
+  AssertionError [ERR_ASSERTION]: cargo.paper_fold: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"reinforced"}'
+  - '{"cargo":"paper_fold"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"reinforced"}',
+    expected: '{"cargo":"paper_fold"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.space_case/confirm/rapid same-coordinate taps preserve chosen item (2.22713ms)
+  AssertionError [ERR_ASSERTION]: cargo.space_case: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"toy_brick"}'
+  - '{"cargo":"space_case"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"toy_brick"}',
+    expected: '{"cargo":"space_case"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.space_case/cancel/rapid same-coordinate taps preserve chosen item (0.849466ms)
+  AssertionError [ERR_ASSERTION]: cargo.space_case: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"reinforced"}'
+  - '{"cargo":"space_case"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"reinforced"}',
+    expected: '{"cargo":"space_case"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.ice_crystal/confirm/rapid same-coordinate taps preserve chosen item (2.57044ms)
+  AssertionError [ERR_ASSERTION]: cargo.ice_crystal: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"steam_brass"}'
+  - '{"cargo":"ice_crystal"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"steam_brass"}',
+    expected: '{"cargo":"ice_crystal"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.steam_brass/cancel/rapid same-coordinate taps preserve chosen item (0.673019ms)
+  AssertionError [ERR_ASSERTION]: cargo.steam_brass: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ice_crystal"}'
+  - '{"cargo":"steam_brass"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ice_crystal"}',
+    expected: '{"cargo":"steam_brass"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.neon_circuit/confirm/rapid same-coordinate taps preserve chosen item (2.321793ms)
+  AssertionError [ERR_ASSERTION]: cargo.neon_circuit: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"steam_brass"}'
+  - '{"cargo":"neon_circuit"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"steam_brass"}',
+    expected: '{"cargo":"neon_circuit"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.neon_circuit/cancel/rapid same-coordinate taps preserve chosen item (0.629142ms)
+  AssertionError [ERR_ASSERTION]: cargo.neon_circuit: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ice_crystal"}'
+  - '{"cargo":"neon_circuit"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ice_crystal"}',
+    expected: '{"cargo":"neon_circuit"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.lava_core/confirm/rapid same-coordinate taps preserve chosen item (2.02197ms)
+  AssertionError [ERR_ASSERTION]: cargo.lava_core: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"steam_brass"}'
+  - '{"cargo":"lava_core"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"steam_brass"}',
+    expected: '{"cargo":"lava_core"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.lava_core/cancel/rapid same-coordinate taps preserve chosen item (0.598856ms)
+  AssertionError [ERR_ASSERTION]: cargo.lava_core: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ice_crystal"}'
+  - '{"cargo":"lava_core"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ice_crystal"}',
+    expected: '{"cargo":"lava_core"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.ocean_relic/confirm/rapid same-coordinate taps preserve chosen item (2.621697ms)
+  AssertionError [ERR_ASSERTION]: cargo.ocean_relic: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"royal_gold"}'
+  - '{"cargo":"ocean_relic"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"royal_gold"}',
+    expected: '{"cargo":"ocean_relic"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.royal_gold/cancel/rapid same-coordinate taps preserve chosen item (0.64716ms)
+  AssertionError [ERR_ASSERTION]: cargo.royal_gold: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ocean_relic"}'
+  - '{"cargo":"royal_gold"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ocean_relic"}',
+    expected: '{"cargo":"royal_gold"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.field_supply/confirm/rapid same-coordinate taps preserve chosen item (2.670791ms)
+  AssertionError [ERR_ASSERTION]: cargo.field_supply: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"royal_gold"}'
+  - '{"cargo":"field_supply"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"royal_gold"}',
+    expected: '{"cargo":"field_supply"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.field_supply/cancel/rapid same-coordinate taps preserve chosen item (0.601961ms)
+  AssertionError [ERR_ASSERTION]: cargo.field_supply: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ocean_relic"}'
+  - '{"cargo":"field_supply"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ocean_relic"}',
+    expected: '{"cargo":"field_supply"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.white/confirm/rapid same-coordinate taps preserve chosen item (2.262554ms)
+  AssertionError [ERR_ASSERTION]: forklift.white: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"blue"}'
+  - '{"forklift":"white"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"blue"}',
+    expected: '{"forklift":"white"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.white/cancel/rapid same-coordinate taps preserve chosen item (0.718948ms)
+  AssertionError [ERR_ASSERTION]: forklift.white: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"yellow"}'
+  - '{"forklift":"white"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"yellow"}',
+    expected: '{"forklift":"white"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.electric/confirm/rapid same-coordinate taps preserve chosen item (2.038515ms)
+  AssertionError [ERR_ASSERTION]: forklift.electric: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"heavy"}'
+  - '{"forklift":"electric"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"heavy"}',
+    expected: '{"forklift":"electric"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.heavy/cancel/rapid same-coordinate taps preserve chosen item (0.612076ms)
+  AssertionError [ERR_ASSERTION]: forklift.heavy: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"electric"}'
+  - '{"forklift":"heavy"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"electric"}',
+    expected: '{"forklift":"heavy"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.toy/confirm/rapid same-coordinate taps preserve chosen item (2.332289ms)
+  AssertionError [ERR_ASSERTION]: forklift.toy: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"heavy"}'
+  - '{"forklift":"toy"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"heavy"}',
+    expected: '{"forklift":"toy"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.toy/cancel/rapid same-coordinate taps preserve chosen item (0.862104ms)
+  AssertionError [ERR_ASSERTION]: forklift.toy: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"electric"}'
+  - '{"forklift":"toy"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"electric"}',
+    expected: '{"forklift":"toy"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.paper/confirm/rapid same-coordinate taps preserve chosen item (2.07463ms)
+  AssertionError [ERR_ASSERTION]: forklift.paper: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"heavy"}'
+  - '{"forklift":"paper"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"heavy"}',
+    expected: '{"forklift":"paper"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.paper/cancel/rapid same-coordinate taps preserve chosen item (0.590623ms)
+  AssertionError [ERR_ASSERTION]: forklift.paper: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"electric"}'
+  - '{"forklift":"paper"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"electric"}',
+    expected: '{"forklift":"paper"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.space/confirm/rapid same-coordinate taps preserve chosen item (2.021409ms)
+  AssertionError [ERR_ASSERTION]: forklift.space: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"steam"}'
+  - '{"forklift":"space"}'
+                   ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"steam"}',
+    expected: '{"forklift":"space"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.steam/cancel/rapid same-coordinate taps preserve chosen item (0.68072ms)
+  AssertionError [ERR_ASSERTION]: forklift.steam: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"space"}'
+  - '{"forklift":"steam"}'
+                   ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"space"}',
+    expected: '{"forklift":"steam"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.neon/confirm/rapid same-coordinate taps preserve chosen item (1.940587ms)
+  AssertionError [ERR_ASSERTION]: forklift.neon: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"steam"}'
+  - '{"forklift":"neon"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"steam"}',
+    expected: '{"forklift":"neon"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.neon/cancel/rapid same-coordinate taps preserve chosen item (0.59525ms)
+  AssertionError [ERR_ASSERTION]: forklift.neon: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"space"}'
+  - '{"forklift":"neon"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"space"}',
+    expected: '{"forklift":"neon"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.lava/confirm/rapid same-coordinate taps preserve chosen item (2.31277ms)
+  AssertionError [ERR_ASSERTION]: forklift.lava: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"steam"}'
+  - '{"forklift":"lava"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"steam"}',
+    expected: '{"forklift":"lava"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.lava/cancel/rapid same-coordinate taps preserve chosen item (0.546997ms)
+  AssertionError [ERR_ASSERTION]: forklift.lava: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"space"}'
+  - '{"forklift":"lava"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"space"}',
+    expected: '{"forklift":"lava"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.diving/confirm/rapid same-coordinate taps preserve chosen item (1.910962ms)
+  AssertionError [ERR_ASSERTION]: forklift.diving: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"royal"}'
+  - '{"forklift":"diving"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"royal"}',
+    expected: '{"forklift":"diving"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.royal/cancel/rapid same-coordinate taps preserve chosen item (0.582091ms)
+  AssertionError [ERR_ASSERTION]: forklift.royal: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"diving"}'
+  - '{"forklift":"royal"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"diving"}',
+    expected: '{"forklift":"royal"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.field/confirm/rapid same-coordinate taps preserve chosen item (1.984443ms)
+  AssertionError [ERR_ASSERTION]: forklift.field: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"royal"}'
+  - '{"forklift":"field"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"royal"}',
+    expected: '{"forklift":"field"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.field/cancel/rapid same-coordinate taps preserve chosen item (0.577654ms)
+  AssertionError [ERR_ASSERTION]: forklift.field: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"diving"}'
+  - '{"forklift":"field"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"diving"}',
+    expected: '{"forklift":"field"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.forest_depot/confirm/rapid same-coordinate taps preserve chosen item (2.224586ms)
+  AssertionError [ERR_ASSERTION]: theme.forest_depot: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"field_station"}'
+  - '{"theme":"forest_depot"}'
+                ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"field_station"}',
+    expected: '{"theme":"forest_depot"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.forest_depot/cancel/rapid same-coordinate taps preserve chosen item (0.543703ms)
+  AssertionError [ERR_ASSERTION]: theme.forest_depot: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"royal_store"}'
+  - '{"theme":"forest_depot"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"royal_store"}',
+    expected: '{"theme":"forest_depot"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.ice_vault/confirm/rapid same-coordinate taps preserve chosen item (1.954467ms)
+  AssertionError [ERR_ASSERTION]: theme.ice_vault: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"field_station"}'
+  - '{"theme":"ice_vault"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"field_station"}',
+    expected: '{"theme":"ice_vault"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ theme.ice_vault/cancel/rapid same-coordinate taps preserve chosen item (0.577644ms)
+  AssertionError [ERR_ASSERTION]: theme.ice_vault: same-point tap changed preview
+  + actual - expected
+  
+  + '{"theme":"royal_store"}'
+  - '{"theme":"ice_vault"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"theme":"royal_store"}',
+    expected: '{"theme":"ice_vault"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.harbor_container/confirm/rapid same-coordinate taps preserve chosen item (2.492592ms)
+  AssertionError [ERR_ASSERTION]: cargo.harbor_container: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"royal_gold"}'
+  - '{"cargo":"harbor_container"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"royal_gold"}',
+    expected: '{"cargo":"harbor_container"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ cargo.harbor_container/cancel/rapid same-coordinate taps preserve chosen item (0.695793ms)
+  AssertionError [ERR_ASSERTION]: cargo.harbor_container: same-point tap changed preview
+  + actual - expected
+  
+  + '{"cargo":"ocean_relic"}'
+  - '{"cargo":"harbor_container"}'
+               ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"cargo":"ocean_relic"}',
+    expected: '{"cargo":"harbor_container"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.timber/confirm/rapid same-coordinate taps preserve chosen item (2.138977ms)
+  AssertionError [ERR_ASSERTION]: forklift.timber: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"royal"}'
+  - '{"forklift":"timber"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"royal"}',
+    expected: '{"forklift":"timber"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.timber/cancel/rapid same-coordinate taps preserve chosen item (0.619657ms)
+  AssertionError [ERR_ASSERTION]: forklift.timber: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"diving"}'
+  - '{"forklift":"timber"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"diving"}',
+    expected: '{"forklift":"timber"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.ice/confirm/rapid same-coordinate taps preserve chosen item (2.009321ms)
+  AssertionError [ERR_ASSERTION]: forklift.ice: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"harbor"}'
+  - '{"forklift":"ice"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"harbor"}',
+    expected: '{"forklift":"ice"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/v100-independent/shop-modal-point.test.ts:8:110
+✖ forklift.harbor/cancel/rapid same-coordinate taps preserve chosen item (0.600679ms)
+  AssertionError [ERR_ASSERTION]: forklift.harbor: same-point tap changed preview
+  + actual - expected
+  
+  + '{"forklift":"ice"}'
+  - '{"forklift":"harbor"}'
+                  ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v100/qa/v100-independent/shop-modal-point.test.ts:12:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"forklift":"ice"}',
+    expected: '{"forklift":"harbor"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
