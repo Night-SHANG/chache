@@ -1,0 +1,43 @@
+✔ v101 all ordinary and set-member paid prices stay single-line whether affordable or disabled (20.60702ms)
+✔ v101 partial bundle quote keeps purchase-set wording and exactly reuses ordinary footer proportions (11.18224ms)
+✔ v101 classic white purchase uses the same price-first single line and narrow Back (22.27272ms)
+✔ v101 insufficient bundles show original price and discount without a deficit annotation (21.544549ms)
+✔ v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers (58.167643ms)
+✔ v101 outline equipment is labeled consistently and classic is available to remove it (0.554569ms)
+✔ v101 outline to classic through actual input is one durable transaction and survives restart (21.418809ms)
+✔ v101 tools keep the required price and purchase word when wallet is insufficient (0.509932ms)
+✖ v101 rejected set intent keeps a useful insufficient-wallet error without a deficit amount (1.944291ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 737.994969
+
+✖ failing tests:
+
+test at tests/shop-button-consistency-v101.test.ts:59:1
+✖ v101 rejected set intent keeps a useful insufficient-wallet error without a deficit amount (1.944291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '金币不足，还差756金币'
+  - '金币不足'
+         ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:60:268)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '金币不足，还差756金币',
+    expected: '金币不足',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

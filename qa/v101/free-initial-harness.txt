@@ -1,0 +1,12 @@
+file:///workspace/scratch/e6b59ff34222/v101/scripts/host-refinement.mjs:54
+ constructor(host,out,images){this.h=host;this.out=out;this.images=images;this.screen=host.account().account?.run?'game':'menu';this.paused=false;this.needsResume=!!host.account().account?.run;this.confirmation=null;this.toolSelection=null;this.supplyUpgrade=null;this.toolboxOpen=false;this.prepareIntent=null;this.guideTrack='inbound';this.stateFallback=createPlayableRun(plainSpec());const account=host.account().account;this.runWalletBeforeStart=(account?.wallet??0)-(account?.run?.earnedCoins??account?.run?.creditedBase??0);this.trace=[];host.frame(0);host.pixelWitness.enabled=false;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^
+
+TypeError: Cannot set properties of undefined (setting 'enabled')
+    at new Driver (file:///workspace/scratch/e6b59ff34222/v101/scripts/host-refinement.mjs:54:584)
+    at new ShopNavigationDriver (file:///workspace/scratch/e6b59ff34222/v101/scripts/shop-navigation-host-runtime.mjs:37:37)
+    at new PaginatedCosmeticsDriver (file:///workspace/scratch/e6b59ff34222/v101/scripts/paginated-cosmetics-host-runtime.mjs:33:23)
+    at open (file:///workspace/scratch/e6b59ff34222/v101/qa/v101/free-compatibility.mjs:16:680)
+    at async file:///workspace/scratch/e6b59ff34222/v101/qa/v101/free-compatibility.mjs:18:49
+
+Node.js v24.19.0

@@ -1,0 +1,16 @@
+✔ v101 all ordinary and set-member paid prices stay single-line whether affordable or disabled (20.87687ms)
+✔ v101 partial bundle quote keeps purchase-set wording and exactly reuses ordinary footer proportions (10.529272ms)
+✔ v101 classic white purchase uses the same price-first single line and narrow Back (21.694948ms)
+✔ v101 insufficient bundles show original price and discount without a deficit annotation (19.326995ms)
+✔ v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers (59.303205ms)
+✔ v101 outline equipment is labeled consistently and classic is available to remove it (0.64079ms)
+✔ v101 outline to classic through actual input is one durable transaction and survives restart (19.267124ms)
+✔ v101 tools keep the required price and purchase word when wallet is insufficient (0.418924ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 786.138008

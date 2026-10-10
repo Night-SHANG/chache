@@ -1,0 +1,33 @@
+✔ appearance opens four coordinated paginated cards and four peer categories (10.101074ms)
+✔ set pagination visits every unique visual card without equipping or persisting (3.933862ms)
+✔ coherent preview uses all three set members irrespective of worn appearance and never writes on cancel (101.0206ms)
+✔ unaffordable missing set members disable bundle purchase and member link retains single-item purchase (16.731808ms)
+✔ all-owned set applies all slots with one account generation and repeated activation is idempotent (14.395412ms)
+✔ uncertain whole-set storage exposes no partial preview equip and retry publishes all three once (12.064826ms)
+✔ set list detail and independent controls never overlap and retain 44px targets at 360px width (0.916127ms)
+✔ large coordinated preview is a bounded deterministic real 9x9 board and all three IDs affect pixels (102.073584ms)
+✔ standalone outline preview always shows classic outline after ice selection (57.875926ms)
+✔ each partial ownership count selects purchase or equip from a read-only derived badge (50.179679ms)
+✔ choosing classic outline after ice is explicit, free and durable; disabling stays classic (13.781133ms)
+✔ fresh-account set previews and invalid selectors create no account or durable writes (1.029248ms)
+✔ set cards show the same real-board floor and frame instead of unrelated product compositions (110.838146ms)
+✔ each set member shows its exact cosmetic name and independent equipped ownership state (0.713159ms)
+✔ every shop route keeps 44 CSS pixel targets and nonoverlapping footer at 320px width (5.202262ms)
+✔ small-screen set member names use at least 32 logical pixels with intact text (17.237934ms)
+✔ shop preserves tool purchases and selected root tabs while settings contains no appearance controls (19.730346ms)
+✔ cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip (25.505105ms)
+✔ all shop tabs categories cards actions and back are disjoint and at least 44 CSS pixels at three sizes (1.598289ms)
+✔ account-only source renders equipped cargo on real boards, trays and dragging without changing checksums (921.141895ms)
+✔ inbound loaded cargo uses wood and independent outlines on current 7 and retained 8 cell boards (194.25557ms)
+✔ outbound loaded cargo and white forklift apply source-account appearance on both transport sizes (55.835287ms)
+✔ legacy outline projection survives renderer normalization and harbor changes board material without changing cargo overlays (269.371251ms)
+✔ v24 every ordinary and set-member cosmetic state has Back left and primary right (40.719132ms)
+✔ v24 set and classic details keep Back left and primary right; lists never invent primary purchase (2.150274ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2180.333795

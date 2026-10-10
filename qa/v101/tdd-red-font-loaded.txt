@@ -1,0 +1,194 @@
+✖ v101 all ordinary and set-member paid prices stay single-line whether affordable or disabled (5.931866ms)
+✖ v101 partial bundle quote keeps purchase-set wording and exactly reuses ordinary footer proportions (1.135258ms)
+✖ v101 classic white purchase uses the same price-first single line and narrow Back (0.366876ms)
+✖ v101 insufficient bundles show original price and discount without a deficit annotation (0.345212ms)
+✖ v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers (84.803591ms)
+✖ v101 outline equipment is labeled consistently and classic is available to remove it (0.479085ms)
+✖ v101 outline to classic through actual input is one durable transaction and survives restart (16.955962ms)
+✖ v101 tools keep the required price and purchase word when wallet is insufficient (0.480588ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 796.131264
+
+✖ failing tests:
+
+test at tests/shop-button-consistency-v101.test.ts:21:1
+✖ v101 all ordinary and set-member paid prices stay single-line whether affordable or disabled (5.931866ms)
+  AssertionError [ERR_ASSERTION]: theme.harbor
+  + actual - expected
+  
+  + '900金币 · 还差900'
+  - '900金币 · 购买'
+             ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:24:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '900金币 · 还差900',
+    expected: '900金币 · 购买',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:27:1
+✖ v101 partial bundle quote keeps purchase-set wording and exactly reuses ordinary footer proportions (1.135258ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '购买套装\n1440金币'
+  - '1440金币 · 购买套装'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:31:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '购买套装\n1440金币',
+    expected: '1440金币 · 购买套装',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:35:1
+✖ v101 classic white purchase uses the same price-first single line and narrow Back (0.366876ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '购买\n600金币'
+  - '600金币 · 购买'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:36:161)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '购买\n600金币',
+    expected: '600金币 · 购买',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:39:1
+✖ v101 insufficient bundles show original price and discount without a deficit annotation (0.345212ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '购买套装\n720金币'
+  - '720金币 · 购买套装'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:41:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '购买套装\n720金币',
+    expected: '720金币 · 购买套装',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:43:1
+✖ v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers (84.803591ms)
+  AssertionError [ERR_ASSERTION]: 购买套装
+  1440金币
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:46:156)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:48:1
+✖ v101 outline equipment is labeled consistently and classic is available to remove it (0.479085ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '启用轮廓' !== '装备'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:49:186)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '启用轮廓',
+    expected: '装备',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:52:1
+✖ v101 outline to classic through actual input is one durable transaction and survives restart (16.955962ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '启用轮廓' !== '装备'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:55:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '启用轮廓',
+    expected: '装备',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-button-consistency-v101.test.ts:58:1
+✖ v101 tools keep the required price and purchase word when wallet is insufficient (0.480588ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^\d+金币 · 购买$/. Input:
+  
+  '80金币 · 还差80'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/v101/tests/shop-button-consistency-v101.test.ts:58:273)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '80金币 · 还差80',
+    expected: /^\d+金币 · 购买$/,
+    operator: 'match',
+    diff: 'simple'
+  }
