@@ -1,0 +1,73 @@
+✖ v024 four basic models and four arrow-selected old vector designs retain exact pixels with the atlas loaded (18.177697ms)
+✖ all fourteen active styled vehicles are native vector designs independent of optional raster loading (11.880784ms)
+✖ all fourteen active styles have distinct opaque silhouettes even without color or small surface details (9.996209ms)
+✔ v024 body art preserves forward forks and load space at board and preview sizes in all four directions (863.820538ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 1
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1311.615624
+
+✖ failing tests:
+
+test at tests/structural-forklift-art.test.ts:26:1
+✖ v024 four basic models and four arrow-selected old vector designs retain exact pixels with the atlas loaded (18.177697ms)
+  AssertionError [ERR_ASSERTION]: electric: immutable baseline pixels
+  + actual - expected
+  
+  + '21f2abd22a449c5c30ddb6961fb5455c9fd8bbcba196ad9da116a85198d40f2b'
+  - '326fd80275069f15f43e1d19e33ab8d9bc334a217926ba727d34a18ec52c6b31'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/forklift-inspection-20261010/v23/warehouse-v023-source/tests/structural-forklift-art.test.ts:31:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '21f2abd22a449c5c30ddb6961fb5455c9fd8bbcba196ad9da116a85198d40f2b',
+    expected: '326fd80275069f15f43e1d19e33ab8d9bc334a217926ba727d34a18ec52c6b31',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/structural-forklift-art.test.ts:34:1
+✖ all fourteen active styled vehicles are native vector designs independent of optional raster loading (11.880784ms)
+  AssertionError [ERR_ASSERTION]: electric: loading an empty atlas cannot replace the vehicle
+  + actual - expected
+  
+  + '2de928564f1442c1594d11b53b92d52bfebda975047321e17cd605215d4a01f9'
+  - '10280761252a58246629be4c7c6e2511854e19edea33c428379bdd5558456d70'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/forklift-inspection-20261010/v23/warehouse-v023-source/tests/structural-forklift-art.test.ts:38:52)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '2de928564f1442c1594d11b53b92d52bfebda975047321e17cd605215d4a01f9',
+    expected: '10280761252a58246629be4c7c6e2511854e19edea33c428379bdd5558456d70',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/structural-forklift-art.test.ts:40:1
+✖ all fourteen active styles have distinct opaque silhouettes even without color or small surface details (9.996209ms)
+  AssertionError [ERR_ASSERTION]: 29px: silhouettes must differ independently of paint
+  
+  1 !== 14
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/forklift-inspection-20261010/v23/warehouse-v023-source/tests/structural-forklift-art.test.ts:47:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 14,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

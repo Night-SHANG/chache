@@ -1,0 +1,19 @@
+PROVENANCE: Exact command and verbatim terminal-summary excerpt from the independently executed review test call, 2026-10-10 approximately 05:07 UTC. The full terminal stream was not separately saved; this file is an archival excerpt, not a rerun log.
+
+Working directory:
+/workspace/scratch/e6b59ff34222/forklift-inspection-20261010/v23/warehouse-v023-source
+
+Command:
+node --test tests/cosmetic-retirement-v024.test.ts tests/shop-actions-v024.test.ts tests/cosmetic-ownership-migration.test.ts tests/cosmetic-set-purchase.test.ts tests/cosmetic-sets.test.ts tests/cosmetic-set-shop.test.ts tests/classic-set-account.test.ts
+
+Captured summary:
+ℹ tests 79
+ℹ suites 0
+ℹ pass 79
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2157.713424
+
+Tool-reported exit code: 0

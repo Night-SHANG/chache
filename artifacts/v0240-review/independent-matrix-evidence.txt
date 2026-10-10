@@ -1,0 +1,14 @@
+PROVENANCE: Verbatim stdout from the independent matrix executed 2026-10-10 approximately 05:07:43 UTC. Archived from the inspected tool result, not a newly rerun log.
+
+Original command: node --input-type=module <<'NODE'
+[JavaScript body preserved in independent-matrix-command.mjs, excluding its two archival header comments]
+NODE
+
+Working directory: repository root.
+Reproduction command from repository root:
+node --input-type=module < artifacts/v0240-review/independent-matrix-command.mjs
+
+Captured stdout:
+Independent compiled paid/free retirement matrix passed: 64 accounts, 512 retired requests, 64 atomic no-refund settings commits, 3 confirmation layouts.
+
+Tool-reported exit code: 0

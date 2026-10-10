@@ -68,7 +68,7 @@
 - scripts/host-raster-art.mjs：原样 game.js 的原生 Canvas/wx 模拟宿主验证，覆盖按钮语义、免费／付费事务、帮助、图集加载与回退。
 - artifacts/v0210-host：最终同一构建的套装／单件操作、账户故障恢复、材质解码和旧玩法回归证据。
 - scripts/compile-raster-cargo.py / compile-themed-forklifts.py / compile-board-materials.py / compile-scene-materials.py：从保留的imagegen源图裁切、等比缩放和编码运行PNG；不重绘、调色或改变货类。generate-cargo-atlas.mjs核验运行图集的尺寸、材质清单和摘要。
-- 原始生成图在artifacts/v0190-art-source、artifacts/v0200-art-source、artifacts/v0200-scene-source、artifacts/v0210-art-source及artifacts/v0210-scene-source；完整开发备份保留，轻量试玩包只带运行图集。
+- 历史生成图曾位于artifacts/v0190-art-source、artifacts/v0200-art-source、artifacts/v0200-scene-source、artifacts/v0210-art-source及artifacts/v0210-scene-source；当前恢复备份仅包含实际找回的部分，不能声称全部母图齐全。轻量试玩包只带已验证运行图集。v0.24叉车使用仓库内原生Canvas矢量源码，可直接重建，不依赖缺失的历史叉车母图。
 
 npm run build和npm run build:production默认收费、关闭开发诊断；npm run build:playtest显式开启免费试玩商店，最终试玩包使用此命令。正式构建拒绝同时开启免费或诊断旗标。npm run build:debug仅供开发复现。build-manifest.json、CHECKPOINT.json和包内SHA256SUMS记录源与产物。完整开发备份保存源码、Git历史及验证证据。
 

@@ -1,0 +1,34 @@
+✔ board material atlas keeps all fifteen theme slots and rejects missing or mismatched images (3.977362ms)
+✔ all fifteen row-major tile samples keep exact source pixels while board compositing stays in its own layer (149.814805ms)
+✔ static set cache reuses one allocated artwork composite for unchanged warm frames (17.234068ms)
+✔ keys include every appearance component, dimensions, exact render scale and pixel phase (84.549764ms)
+✔ LRU retains recently used previews and releases evicted backing stores within count and byte limits (129.357841ms)
+✔ asset readiness invalidation frees fallback composites and redraws them with newly ready artwork (16.068445ms)
+✔ missing factory, thrown allocation and missing context use complete uncached artwork without retrying allocation every frame (62.596508ms)
+✔ restored offscreen context invalidates the blank cached surface and safely rebuilds (16.514246ms)
+✔ cached painting restores caller drawing state and unsupported transforms remain uncached (13.391124ms)
+✔ 320, 360 and 540 CSS pixel render scales use native-resolution surfaces with identical cold and warm pixels (133.797722ms)
+✔ actual atlas readiness invalidates caches while native forklift art stays stable and loaded warm frames remain identical (74.614792ms)
+✔ oversized DPR surfaces fall back without allocating or degrading source resolution (2.91228ms)
+✔ v024 four basic models and four arrow-selected old vector designs retain exact pixels with the atlas loaded (32.831735ms)
+✔ all fourteen active styled vehicles are native vector designs independent of optional raster loading (15.937468ms)
+✔ all fourteen active styles have distinct opaque silhouettes even without color or small surface details (26.207363ms)
+✔ all eighteen active v024 bodies preserve envelope, forward forks and load space at five sizes and 32 headings (11438.333983ms)
+✔ the fifteen-theme forklift atlas has stable order and rejects absent or incorrectly sized artwork (3.401746ms)
+✔ generated body sampling maps only to the existing body envelope and leaves the four protected models untouched (24.737052ms)
+✔ current native forklift dispatch with atlas loaded retains complete shared forward forks and original envelope at 32 headings and five sizes (12834.793024ms)
+✔ yellow: exact v0.19 protected pixels at four board sizes and four directions (42.152425ms)
+✔ blue: exact v0.19 protected pixels at four board sizes and four directions (4.007677ms)
+✔ red: exact v0.19 protected pixels at four board sizes and four directions (3.76975ms)
+✔ white: exact v0.19 protected pixels at four board sizes and four directions (3.813696ms)
+✔ shipped fifteen-body atlas has real alpha, coherent occupied widths, reproducible manifest and a 100KiB budget (10.380731ms)
+✔ archived v020 compositor: all twelve retained raster forklift renders remain exact at 32 headings and five sizes, including the former atlas edge (690.02598ms)
+✔ all fourteen old cargo renders remain exact with five semantic colors and live countdowns at five sizes (402.115539ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13371.207193

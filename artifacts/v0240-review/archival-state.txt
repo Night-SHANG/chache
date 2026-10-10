@@ -1,0 +1,15 @@
+ARCHIVAL STATE ONLY: captured after original review, not the original execution snapshot.
+Captured UTC: 2026-10-10T05:13:25Z
+
+HEAD:
+88b04391bebb7b633e15ac6ef3baec900c58c0cc
+
+Primary scope file SHA-256:
+6efa309b17cf5a880c1dcc6dec693a6e8bd1cb088242883992abffa78ca102a9  src/application/cosmetics.ts
+c6a802e9c445ebd84e070570f3075f67717ab01921c18f5fa1e7aadf04a37613  src/application/cosmetic-sets.ts
+ef6e10fb9c3cc38b66dbe78b66466d0f7d6bbdc3110e3d4263de40eb7f1b7317  src/presentation/economy-ui.ts
+4df5388fa9f58dc02e4c9cdba0d404c617790f1421dee7e2caa261ee3fc421d2  tests/cosmetic-retirement-v024.test.ts
+402a5e657fb1d223d6f6d64b6a50b331933d8d97b90d512afa8afbfc2ae47ede  tests/shop-actions-v024.test.ts
+
+SHA-256 of git diff c2d32b8 -- src/application/cosmetics.ts src/application/cosmetic-sets.ts src/presentation/economy-ui.ts:
+bd90fc7dded6e9407bec30014b3e40b2364fcf1e90a81b840d42a24516ff4a47  -
