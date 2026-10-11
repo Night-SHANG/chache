@@ -3,21 +3,18 @@ import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
 import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 import type {ThemeId} from '../src/application/profile.ts';
-import {drawScenerySides} from '../src/presentation/scenery-sides.ts';
+import {drawThemedSceneryFrame,CLASSIC_SCENERY_FRAME} from '../src/presentation/scenery-frame.ts';
+import {drawHarborBackground,drawLogisticsBackground} from '../src/presentation/cosmetic-art.ts';
 
-// The user's 1356×660 viewport exposed three repeated warehouses in v1.0.4.
-// A full-scene copy (mirrored or otherwise) breaks horizontal uniformity here.
-const width=1356,height=660,scale=height/1920,offset=(width-1080*scale)/2;
-for(const item of COSMETIC_CATALOG.filter(item=>item.kind==='theme'&&!['day','night'].includes(item.id)))test(`${item.id}: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture`,()=>{
- const ctx=createCanvas(width,height).getContext('2d');
- ctx.fillStyle='#ff00ff';ctx.fillRect(0,0,width,height);ctx.translate(offset,0);ctx.scale(scale,scale);
- drawScenerySides(ctx as unknown as CanvasRenderingContext2D,item.id as ThemeId,{x:-offset/scale,y:0,w:width/scale,h:1920});
- const pixels=ctx.getImageData(0,0,width,height).data;
- for(const [start,end] of [[0,Math.floor(offset)-2],[Math.ceil(width-offset)+2,width]])for(let y=0;y<height;y++){
-  const first=(y*width+start)*4;
-  assert.notDeepEqual([...pixels.slice(first,first+4)],[255,0,255,255],`unpainted margin y=${y}`);
-  for(let x=start+1;x<end;x++)for(let c=0;c<4;c++)assert.ok(Math.abs(pixels[(y*width+x)*4+c]-pixels[first+c])<=1,`${item.id}: repeated architecture or horizontal banding at x=${x}, y=${y}`);
- }
- // Central output is verified through the complete renderer in scenery-width;
- // this quiet underlay may cover its background before the original scene.
+// v106 supersedes v105's full-window wash: one finite original scene, not copies.
+// Independent reference uses the approved transform and the unmodified helper.
+for(const item of COSMETIC_CATALOG.filter(item=>item.kind==='theme'&&!['day','night'].includes(item.id)))test(`${item.id}: exactly one original background uses horizontal-only classic-frame transform`,()=>{
+ const canvases=[createCanvas(1356,660),createCanvas(1356,660)];
+ for(const canvas of canvases){const c=canvas.getContext('2d');c.fillStyle='#0c131c';c.fillRect(0,0,1356,660);c.translate(492.375,0);c.scale(660/1920,660/1920);}
+ drawThemedSceneryFrame(canvases[0].getContext('2d') as unknown as CanvasRenderingContext2D,item.id as ThemeId);
+ const c=canvases[1].getContext('2d');c.translate(-57,0);c.scale(1205/1080,1);
+ const rect={x:0,y:0,w:1080,h:1920},ctx=c as unknown as CanvasRenderingContext2D;
+ if(item.id==='harbor')drawHarborBackground(ctx,rect);else drawLogisticsBackground(ctx,rect,item.id);
+ assert.deepEqual(canvases[0].getContext('2d').getImageData(0,0,1356,660).data,canvases[1].getContext('2d').getImageData(0,0,1356,660).data);
+ assert.deepEqual(CLASSIC_SCENERY_FRAME,{x:-57,y:0,w:1205,h:1920});
 });

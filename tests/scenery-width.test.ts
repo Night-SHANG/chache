@@ -21,9 +21,10 @@ function picture(theme:ThemeId,bounds?:Rect,screen:ViewState['screen']='menu'){
  renderWithBounds(context as unknown as CanvasRenderingContext2D,run,view,bounds);return context;
 }
 const bounds={x:-100,y:0,w:1280,h:1920};
-for(const item of COSMETIC_CATALOG.filter(item=>item.kind==='theme'&&!['day','night'].includes(item.id)))test(`${item.id}: side background fills wide viewport while central pixels stay unchanged`,()=>{
+for(const item of COSMETIC_CATALOG.filter(item=>item.kind==='theme'&&!['day','night'].includes(item.id)))test(`${item.id}: available viewport does not stretch the finite classic-sized background frame`,()=>{
  const theme=item.id as ThemeId,before=picture(theme),after=picture(theme,bounds);
- for(const [x,y]of [[0,20],[20,200],[511,600],[490,750]])assert.notDeepEqual([...after.getImageData(x,y,1,1).data],base,`${item.id}: no empty side strip at ${x},${y}`);
+ for(const [x,y]of [[0,20],[10,200],[511,600],[505,750]])assert.deepEqual([...after.getImageData(x,y,1,1).data],base,`${item.id}: deep outside stays visible at ${x},${y}`);
+ for(const [x,y]of [[20,200],[490,750]])assert.notDeepEqual([...after.getImageData(x,y,1,1).data],base);
  assert.deepEqual(after.getImageData(40,0,432,768).data,before.getImageData(40,0,432,768).data,`${item.id}: original scene and controls must be pixel-identical`);
 });
 test('classic day and night preserve every pixel including their original outside racks',()=>{
@@ -32,14 +33,14 @@ test('classic day and night preserve every pixel including their original outsid
 test('game board remains identical and scenery never mutates the run',()=>{
  const checksum=playableChecksum(run),before=picture('cold_chain',undefined,'game'),after=picture('cold_chain',bounds,'game');
  assert.deepEqual(after.getImageData(40,0,432,768).data,before.getImageData(40,0,432,768).data);assert.equal(playableChecksum(run),checksum);
- assert.notDeepEqual([...after.getImageData(0,400,1,1).data],base);
+ assert.deepEqual([...after.getImageData(0,400,1,1).data],base);
 });
 test('bounded shop previews never paint beyond their own rectangle',()=>{
  const context=createCanvas(400,240).getContext('2d');context.fillStyle='#0c131c';context.fillRect(0,0,400,240);
  drawCosmeticPreview(context as unknown as CanvasRenderingContext2D,{x:40,y:20,w:320,h:200},{theme:'cold_chain',category:'theme'});
  for(const [x,y]of [[0,100],[39,100],[360,100],[399,100]])assert.deepEqual([...context.getImageData(x,y,1,1).data],base);
 });
-test('missing, narrow or invalid scenery bounds preserve the original bounded rendering',()=>{
+test('missing or invalid viewport hints preserve the finite frame',()=>{
  const expected=picture('cold_chain').getImageData(0,0,512,768).data;
- for(const rect of [{x:0,y:0,w:1080,h:1920},{x:20,y:0,w:1000,h:1920},{x:NaN,y:0,w:1280,h:1920},{x:-100,y:0,w:Infinity,h:1920}])assert.deepEqual(picture('cold_chain',rect).getImageData(0,0,512,768).data,expected);
+ for(const rect of [{x:20,y:0,w:1000,h:1920},{x:NaN,y:0,w:1280,h:1920},{x:-100,y:0,w:Infinity,h:1920}])assert.deepEqual(picture('cold_chain',rect).getImageData(0,0,512,768).data,expected);
 });

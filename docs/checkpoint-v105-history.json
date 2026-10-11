@@ -1,0 +1,35 @@
+{
+  "version": "1.0.5",
+  "verifiedAt": "2026-10-11T09:50:04.462859+08:00",
+  "status": "SCOPED_VISUAL_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
+  "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
+  "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
+  "fullTests": {
+    "tests": 2785,
+    "passCount": 2783,
+    "failCount": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "productionHost": {
+    "status": "PASS",
+    "cases": 170,
+    "images": 101,
+    "failures": 0,
+    "classicReferences": 4
+  },
+  "details": "qa/v105/summary.json",
+  "previousCheckpoint": "docs/checkpoint-v104-history.json",
+  "note": "Frozen code/QA only. Delivery and remote backup have separate final receipts."
+}

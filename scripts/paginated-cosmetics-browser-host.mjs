@@ -5,7 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 import {createCanvas} from '@napi-rs/canvas';
 import {authoritativeAccount,createPackagedImageLoader,sha256} from './growth-host-support.mjs';
-export async function createPaginatedBrowserHost({bundlePath,storage=new Map(),width=320,height=720,dpr=2,epoch=Date.parse('2026-10-09T12:00:00Z')}={}){
+export async function createPaginatedBrowserHost({audioFactory,bundlePath,storage=new Map(),width=320,height=720,dpr=2,epoch=Date.parse('2026-10-09T12:00:00Z')}={}){
  const bytes=await readFile(bundlePath),canvas=createCanvas(width,height),context=canvas.getContext('2d'),callbacks={},listeners={},frames=[],labels=[],operations=[],canvasObservers=[],captures=new Set();let now=0,hidden=false,surfaces=1;
  const loader=createPackagedImageLoader(dirname(resolve(bundlePath)),{defer:true});
  const fill=context.fillText.bind(context);context.fillText=(text,x,y,...rest)=>{const m=context.getTransform(),a=context.measureText(String(text));labels.push({text:String(text),logicalX:x,logicalY:y,alpha:context.globalAlpha,bounds:{left:m.a*(x-a.actualBoundingBoxLeft)+m.e,right:m.a*(x+a.actualBoundingBoxRight)+m.e,top:m.d*(y-a.actualBoundingBoxAscent)+m.f,bottom:m.d*(y+a.actualBoundingBoxDescent)+m.f}});return fill(text,x,y,...rest);};
@@ -15,7 +15,7 @@ export async function createPaginatedBrowserHost({bundlePath,storage=new Map(),w
  const window={devicePixelRatio:dpr,location:{search:''},localStorage:store,requestAnimationFrame:fn=>frames.push(fn),addEventListener:(name,fn)=>add(callbacks,name,fn)};
  const document={querySelector:selector=>selector==='#game'?canvas:null,get hidden(){return hidden;},addEventListener:(name,fn)=>add(callbacks,name,fn),createElement:tag=>{assert.equal(tag,'canvas');const surface=createCanvas(1,1);for(const observe of canvasObservers)observe(surface,++surfaces);return surface;}};
  class Clock extends Date{static now(){return epoch+now;}}
- class Audio{constructor(src){this.src=src;}play(){return Promise.resolve();}pause(){}addEventListener(){}}
+ class Audio{constructor(src){if(audioFactory)return audioFactory(src);this.src=src;}play(){return Promise.resolve();}pause(){}addEventListener(){}}
  function Image(){return loader.create();}
  vm.runInNewContext(bytes.toString('utf8'),{window,document,navigator:{locks:{request:async(_name,_options,fn)=>fn({name:'warehouse.account.s1.writer'})}},Date:Clock,performance:{now:()=>now},Image,Audio,URLSearchParams,console},{timeout:5000,filename:bundlePath});
  for(let n=0;n<12&&!frames.length;n++)await Promise.resolve();assert.ok(frames.length,'Original browser startup scheduled a frame');

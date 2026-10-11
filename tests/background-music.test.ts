@@ -17,13 +17,13 @@ class AudioHost {
 }
 function deferred(){let resolve!:()=>void,reject!:(error:Error)=>void;const promise=new Promise<void>((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};}
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
-type Fixture={platform:Platform;audio:AudioHost[];down:()=>void;move:()=>void;up:()=>void;hide:()=>void;show:()=>void;pagehide:()=>void;pageshow:()=>void;creationFails:boolean;creationAttempts:number;failSetup:boolean;restore:()=>void};
+type Fixture={platform:Platform;audio:AudioHost[];down:()=>void;move:()=>void;up:()=>void;hide:()=>void;show:()=>void;pagehide:()=>void;pageshow:()=>void;creationFails:boolean;creationAttempts:number;failSetup:boolean;initialPlay?:()=>void|Promise<void>;restore:()=>void};
 function fixture(kind:'browser'|'wechat',onPointer:(event:PointerEvent)=>void=()=>{}):Fixture {
  const audio:AudioHost[]=[];const events=new Map<string,(()=>void)[]>();
  const bind=(name:string,callback:()=>void)=>events.set(name,[...events.get(name)??[],callback]);
  const emit=(name:string)=>{for(const callback of events.get(name)??[])callback();};
  const f={audio,creationFails:false,creationAttempts:0,failSetup:false,restore:()=>{}} as Fixture;
- const create=(src='')=>{f.creationAttempts++;if(f.creationFails)throw Error('creation unavailable');const item=new AudioHost();item.src=src;audio.push(item);let volume=1;Object.defineProperty(item,'volume',{get:()=>volume,set:(value:number)=>{if(f.failSetup)throw Error('setup unavailable');volume=value;}});return item;};
+ const create=(src='')=>{f.creationAttempts++;if(f.creationFails)throw Error('creation unavailable');const item=new AudioHost();item.nextPlay=f.initialPlay;item.src=src;audio.push(item);let volume=1;Object.defineProperty(item,'volume',{get:()=>volume,set:(value:number)=>{if(f.failSetup)throw Error('setup unavailable');volume=value;}});return item;};
  const canvas={width:0,height:0,getContext:()=>({}),getBoundingClientRect:()=>({left:0,top:0,width:1080,height:1920}),setPointerCapture:()=>{},hasPointerCapture:()=>false,releasePointerCapture:()=>{},addEventListener:(name:string,callback:(event:unknown)=>void)=>bind(name,()=>callback({preventDefault:()=>{},pointerId:1,clientX:100,clientY:100}))};
  if(kind==='wechat'){
   const touch=(name:string)=>(callback:(event:unknown)=>void)=>bind(name,()=>callback({changedTouches:[{identifier:1,clientX:100,clientY:100}]}));
@@ -44,15 +44,37 @@ function fixture(kind:'browser'|'wechat',onPointer:(event:PointerEvent)=>void=()
 }
 function state(f:Fixture,enabled=true,paused=false):void{assert.equal(typeof f.platform.setMusicState,'function');f.platform.setMusicState!(enabled,paused);}
 for(const kind of ['browser','wechat'] as const){
- test(`${kind} starts one local looping music handle only after pointer down and never per frame`,()=>{
+ test(`${kind} starts one local looping music handle on initial enabled state without a gesture and never per frame`,()=>{
   const f=fixture(kind);try{
-   state(f);f.show();f.move();f.up();for(let i=0;i<30;i++)state(f);assert.equal(f.audio.length,0);
-   f.down();assert.equal(f.audio.length,1);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,0.18);assert.equal(music.plays,1);
+   state(f);assert.equal(f.audio.length,1);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,0.18);assert.equal(music.plays,1);
    for(let i=0;i<30;i++){state(f);f.down();}assert.equal(f.audio.length,1);assert.equal(music.plays,1);
   }finally{f.restore();}
  });
+ test(`${kind} disabled and paused startup do not create music until state allows it`,()=>{
+  const f=fixture(kind);try{
+   state(f,false);assert.equal(f.audio.length,0);state(f,true,true);assert.equal(f.audio.length,0);
+   state(f);assert.equal(f.audio.length,1);assert.equal(f.audio[0].plays,1);
+  }finally{f.restore();}
+ });
+ test(`${kind} initial creation failure waits for a real gesture and retries only once`,()=>{
+  const f=fixture(kind);try{
+   f.creationFails=true;state(f);assert.equal(f.creationAttempts,1);
+   f.creationFails=false;for(let i=0;i<30;i++)state(f);f.show();f.move();f.up();assert.equal(f.creationAttempts,1);
+   f.down();assert.equal(f.audio.length,1);assert.equal(f.audio[0].plays,1);
+   for(let i=0;i<30;i++){state(f);f.down();}assert.equal(f.audio[0].plays,1);
+  }finally{f.restore();}
+ });
+ test(`${kind} initial rejected play waits for a new gesture without duplicate contexts`,async()=>{
+  const f=fixture(kind);try{
+   f.initialPlay=()=>Promise.reject(Error('autoplay denied'));state(f);await settle();
+   const music=f.audio[0];assert.equal(music.plays,1);assert.equal(music.audible,false);
+   for(let i=0;i<30;i++)state(f);f.show();f.move();f.up();assert.equal(music.plays,1);
+   music.nextPlay=undefined;f.down();assert.equal(music.plays,2);assert.equal(music.audible,true);
+   for(let i=0;i<30;i++){state(f);f.down();}assert.equal(f.audio.length,1);assert.equal(music.plays,2);
+  }finally{f.restore();}
+ });
  test(`${kind} pointer callback applies a disabled setting before music can start`,()=>{
-  const f=fixture(kind,()=>f.platform.setMusicState!(false,false));try{state(f);f.down();assert.equal(f.audio.length,0);}finally{f.restore();}
+  const f=fixture(kind,()=>f.platform.setMusicState!(false,false));try{state(f,false);f.down();assert.equal(f.audio.length,0);}finally{f.restore();}
  });
  test(`${kind} a failure triggered by a pointer callback is retried only on a later interaction`,()=>{
   let enableOnDown=false;const f=fixture(kind,()=>{if(enableOnDown)state(f);});try{
@@ -122,7 +144,7 @@ for(const kind of ['browser','wechat'] as const){
  });
  test(`${kind} creation setup playback and pause failures stay optional and bounded`,()=>{
   const f=fixture(kind);try{
-   state(f);f.creationFails=true;assert.doesNotThrow(()=>f.down());for(let i=0;i<20;i++)state(f);assert.equal(f.audio.length,0);assert.equal(f.creationAttempts,1);
+   state(f,false);f.creationFails=true;assert.doesNotThrow(()=>state(f));for(let i=0;i<20;i++)state(f);assert.equal(f.audio.length,0);assert.equal(f.creationAttempts,1);
    f.creationFails=false;f.failSetup=true;assert.doesNotThrow(()=>f.down());assert.equal(f.audio.length,1);f.failSetup=false;for(let i=0;i<20;i++)state(f);assert.equal(f.audio[0].plays,0);f.down();const music=f.audio[0];assert.equal(music.plays,1);
    state(f,false);music.failPlay=true;assert.doesNotThrow(()=>state(f));for(let i=0;i<20;i++)state(f);assert.equal(music.plays,2);music.failPlay=false;f.down();assert.equal(music.plays,3);music.failPause=true;assert.doesNotThrow(()=>f.hide());assert.equal(f.audio.length,1);
   }finally{f.restore();}
