@@ -1,4 +1,5 @@
 import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
+import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
 import { createMusicController } from './music.ts';
@@ -54,7 +55,7 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
   },{passive:false}),
   onHide:callback=>{const hide=()=>{music.hide();stopSounds();callback();};document.addEventListener('visibilitychange',()=>{if(document.hidden)hide();});window.addEventListener('pagehide',hide);},
   onShow:callback=>{showCallbacks.push(callback);if(showCallbacks.length!==1)return;const show=()=>{for(const listener of showCallbacks)listener();music.show();};document.addEventListener('visibilitychange',()=>{if(!document.hidden)show();});window.addEventListener('pageshow',show);},
-  playSound:name=>{if(!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=AUDIO_LEVELS.browserEffects;audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio cannot block a move. */}},
+  playSound:name=>{if(!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=AUDIO_LEVELS.browserEffects*(name==='ui_click'?UI_CLICK_GAIN:1);audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio cannot block a move. */}},
   vibrate:()=>{try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate(15);}catch{/* Optional haptics never gate an action. */}},
   stopSounds,setMusicState:music.setState,
   loadImage:path=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=path;}),

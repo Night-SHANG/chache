@@ -1,4 +1,4 @@
-/** Offline PCM adaptation only: retain every source frame/channel, apply one gain, quantize to PCM16. */
+/** Offline PCM adaptation only: retain every source frame/channel, preserve original amplitude, quantize to PCM16. */
 import {readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve} from 'node:path';
@@ -9,7 +9,7 @@ export function prepareUiClick(source){
  let fmt,data;for(let offset=12;offset+8<=source.length;){const size=source.readUInt32LE(offset+4),chunk=source.subarray(offset+8,offset+8+size);if(chunk.length!==size)throw Error('Truncated source WAV');const id=source.toString('ascii',offset,offset+4);if(id==='fmt ')fmt=chunk;if(id==='data')data=chunk;offset+=8+size+(size%2);}
  if(!fmt||!data||fmt.readUInt16LE(0)!==1||fmt.readUInt16LE(2)!==2||fmt.readUInt32LE(4)!==44100||fmt.readUInt16LE(14)!==24||data.length!==8253*2*3)throw Error('Unexpected original PCM format');
  const values=Array.from({length:data.length/3},(_,i)=>data.readIntLE(i*3,3));let maximum=0;for(const sample of values)maximum=Math.max(maximum,Math.abs(sample));
- const gain=0.06/(maximum/8388608),out=Buffer.alloc(44+values.length*2);
+ const gain=1,out=Buffer.alloc(44+values.length*2);
  out.write('RIFF',0);out.writeUInt32LE(out.length-8,4);out.write('WAVEfmt ',8);out.writeUInt32LE(16,16);out.writeUInt16LE(1,20);out.writeUInt16LE(2,22);out.writeUInt32LE(44100,24);out.writeUInt32LE(176400,28);out.writeUInt16LE(4,32);out.writeUInt16LE(16,34);out.write('data',36);out.writeUInt32LE(values.length*2,40);
  for(let i=0;i<values.length;i++)out.writeInt16LE(Math.round(values[i]/8388608*gain*32768),44+i*2);
  return {wav:out,gain,sourcePeak:maximum/8388608};

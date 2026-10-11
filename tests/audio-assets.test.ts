@@ -5,6 +5,7 @@ import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {join} from 'node:path';
 import type {SoundName} from '../src/platform/types.ts';
+import {UI_CLICK_GAIN} from '../src/shared/ui-click-level.ts';
 import {loadSoundAsset} from '../scripts/sound-assets.ts';
 
 const names:SoundName[]=['pick','place','invalid','route_ready','forklift','ship','chain2','chain3','chain4','upgrade','shift','fail','ui_click'];
@@ -59,13 +60,15 @@ test('forklift movement remains lighter than shipment and chain signals',()=>{
  const forklift=samples(loadSoundAsset('forklift'));
  for(const name of ['ship','chain2','chain3','chain4'] as const){const other=samples(loadSoundAsset(name));assert.ok(peak(forklift)<peak(other)*0.5);assert.ok(energy(forklift)<energy(other)*0.4);}
 });
-test('licensed UI click retains peak and mean-energy headroom against pick and placement cues',()=>{
- const click=samples(loadSoundAsset('ui_click'));
- for(const name of ['pick','place'] as const){const other=samples(loadSoundAsset(name));assert.ok(peak(click)<peak(other)*0.6);assert.ok(energy(click)<energy(other)*0.4);}
+test('licensed UI click uses the approved effective 0.24 peak while legacy pick/place samples retain their mix',()=>{
+ const click=samples(loadSoundAsset('ui_click')).map(value=>value*UI_CLICK_GAIN);
+ assert.ok(Math.abs(peak(click)-0.24)<0.00001,`effective UI click peak ${peak(click)}`);
+ for(const [name,expectedPeak] of [['pick',0.16],['place',0.22]] as const){const other=samples(loadSoundAsset(name));assert.ok(Math.abs(peak(other)-expectedPeak)<0.00004,`${name}: original peak`);}
+ // Business cue priority is independently exercised by ui-feedback-policy-v107.test.ts; it does not depend on UI amplitude.
 });
 test('UI click is the selected short source recording in 44.1kHz stereo PCM',()=>{
  const wav=loadSoundAsset('ui_click');assert.equal(wav.readUInt32LE(24),44100);assert.equal(wav.readUInt16LE(22),2);assert.equal(wav.readUInt16LE(34),16);assert.equal(wav.length,44+8253*2*2);
- const click=samples(wav),maximum=peak(click);assert.ok(maximum>=0.0599&&maximum<=0.0601,`UI click peak ${maximum}`);assert.ok(Math.sqrt(energy(click))<0.0268);
+ const click=samples(wav),maximum=peak(click);assert.ok(maximum>0.98&&maximum<1,`original-amplitude UI click peak ${maximum}`);assert.ok(Math.abs(maximum*UI_CLICK_GAIN-0.24)<0.00001);assert.ok(Math.sqrt(energy(click))*UI_CLICK_GAIN<0.056);
 });
 test('both build targets contain exactly the same 13 verified local WAVs on repeated builds',()=>{
  const files=(dir:string):string[]=>readdirSync(dir,{withFileTypes:true}).filter(entry=>entry.name!=='__pycache__'&&!entry.name.endsWith('.pyc')).flatMap(entry=>entry.isDirectory()?files(join(dir,entry.name)):[join(dir,entry.name)]);

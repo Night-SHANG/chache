@@ -1,4 +1,5 @@
 import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
+import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
 import { createMusicController } from './music.ts';
@@ -80,7 +81,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
      try{sound.onError?.(()=>{});}catch{/* Error listeners are optional and registered at most once per handle. */}
     }
     const path=`assets/${name}.wav`;if(sound.src!==path)sound.src=path;
-    sound.volume=AUDIO_LEVELS.wechatEffects;sound.stop();const playing=sound.play();if(playing)void playing.catch(()=>{});
+    sound.volume=AUDIO_LEVELS.wechatEffects*(name==='ui_click'?UI_CLICK_GAIN:1);sound.stop();const playing=sound.play();if(playing)void playing.catch(()=>{});
    }catch{/* Audio never gates offline gameplay. */}
   },
   stopSounds,setMusicState:music.setState,
