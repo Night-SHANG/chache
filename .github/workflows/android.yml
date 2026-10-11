@@ -114,6 +114,11 @@ jobs:
             build/android-ci/sdk-report.json
             build/android-ci/font-report.json
             build/android-ci/emulator-report.json
+            build/android-ci/emulator-mode.json
+            build/android-ci/emulator-acceleration.log
+            build/android-ci/emulator-boot.log
+            build/android-ci/emulator-avd.log
+            build/android-ci/emulator-install.log
             build/android-ci/emulator-api.txt
             build/android-ci/emulator-release.txt
             build/android-ci/emulator-build.txt

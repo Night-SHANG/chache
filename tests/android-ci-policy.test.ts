@@ -253,7 +253,8 @@ test('official emulator bootstrap has bounded installation and boot with no lice
  assert.match(script,/SDKMANAGER.*--channel=0/);
  assert.match(script,/system-images;android-36;google_apis;x86_64/);
  assert.match(script,/<\/dev\/null/);
- assert.match(script,/-accel-check/);
+ assert.match(script,/android-emulator-mode\.mjs/);
+ assert.match(await read('scripts/android-emulator-mode.mjs'),/\['-accel-check'\]/);
  assert.match(script,/sys\.boot_completed/);
  assert.match(script,/connectedDebugAndroidTest/);
  assert.match(script,/trap .* EXIT/);
