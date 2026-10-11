@@ -55,6 +55,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
    }}:{}),
   },
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,offsetX*dpr,offsetY*dpr);return ctx;},
+  backgroundBounds:()=>scale>0&&Number.isFinite(viewport.w/scale)?{x:(L.width-viewport.w/scale)/2,y:0,w:viewport.w/scale,h:L.height}:undefined,
   frame:callback=>clock.requestAnimationFrame(()=>callback(clock.now())),now:clock.now,wallTime:()=>Date.now(),
   onPointer:callback=>{
    const convert=(type:PointerEvent['type'])=>(event:TouchEvent)=>{

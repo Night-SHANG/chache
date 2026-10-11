@@ -27,6 +27,7 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
    const store=window.localStorage,keys:string[]=[];for(let i=0;i<store.length;i++){const key=store.key(i);if(key!==null&&key.startsWith(prefix))keys.push(key);}return keys.sort();
   }},
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,(rect.w-L.width*scale)*dpr/2,(rect.h-L.height*scale)*dpr/2);return ctx;},
+  backgroundBounds:()=>scale>0&&Number.isFinite(rect.w/scale)?{x:(L.width-rect.w/scale)/2,y:0,w:rect.w/scale,h:L.height}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{
    const bind=(name:string,type:PointerEvent['type'])=>canvas.addEventListener(name,event=>{

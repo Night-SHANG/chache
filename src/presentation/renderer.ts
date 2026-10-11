@@ -3,6 +3,7 @@ import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawHarborBackground,drawLogisticsBackground,drawCosmeticSetPreview,drawCosmeticPreview} from './cosmetic-art.ts';
+import {drawScenerySides} from './scenery-sides.ts';
 import {MODE_MENU_CARD} from './mode-menu-layout.ts';
 import {shopItemPreviewOptions} from './shop-art.ts';
 import {drawReservedEntryMarkers} from './board-entry-markers.ts';
@@ -59,7 +60,7 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 }
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
-export function render(ctx: Context, state: GameRun, view: ViewState): void {
+export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect): void {
   view=staticPresentationView(view);
   const playerMessage=(value:string|undefined):string|undefined=>{
     if(value==='记录超出496KiB限制，请先结束本局')return view.account?.run&&view.accountRunId&&!view.accountBlocked&&!view.needsResume&&state.phase!=='result'?'本局记录已达保存上限，请先结束本局。':'记录已达保存上限，暂时无法保存。';
@@ -72,7 +73,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   view={...view,profile:{...(view.profile??createProfile()),cosmetics:view.account?appearance.cosmetics:(view.profile?.cosmetics??appearance.cosmetics)},cargoOutline:appearance.cargoOutline};
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, L.width, L.height);
-  drawWarehouse(ctx, view);
+  drawWarehouse(ctx, view, backgroundBounds);
   if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'当前无法保存':'保存结果尚未确认',view.readOnlyReason??'请点“重试”，确认保存后继续游戏。');ctx.restore();return;}
   if (view.confirmation) { drawConfirmation(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }
@@ -109,7 +110,8 @@ export function render(ctx: Context, state: GameRun, view: ViewState): void {
   ctx.restore();
 }
 
-function drawWarehouse(ctx: Context, view: ViewState): void {
+function drawWarehouse(ctx: Context, view: ViewState, backgroundBounds?:Rect): void {
+  drawScenerySides(ctx,view.profile?.cosmetics.theme??'day',backgroundBounds);
   if(view.profile?.cosmetics.theme==='harbor'){drawHarborBackground(ctx,{x:0,y:0,w:1080,h:1920});return;}
   if(drawLogisticsBackground(ctx,{x:0,y:0,w:1080,h:1920},view.profile?.cosmetics.theme??'day'))return;
   const night = view.profile?.cosmetics.theme === 'night';

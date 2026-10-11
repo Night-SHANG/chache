@@ -18,4 +18,4 @@ void loadThemedForkliftAtlas(platform.loadImage).then(invalidateCosmeticPreviewC
 const session=new GameSession(platform,{seed:20261005,mode:'tutorial',developerMode:__DEV_DIAGNOSTICS__});
 platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else session.input[event.type](event.point,event.id);});
 platform.onHide(()=>session.hide());platform.onShow(()=>{invalidateCosmeticPreviewCache();session.show();});
-function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view);platform.frame(frame);}platform.frame(frame);
+function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.());platform.frame(frame);}platform.frame(frame);
