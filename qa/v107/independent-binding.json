@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "sourceSha256": "e11f54d8e52a5921f37125c478a7420d20a6763fa0f767a56ed2bb571af8e026",
+  "bundles": {
+    "browser": "17c8c0be3336c9c09c9f899f23e95dae10b0c880d7d6b67505f3cfe5bf271828",
+    "wechat": "a66965ad64ab3bad2e521433ece7308cdec07c68330c28d08a0408e5f7432d96"
+  },
+  "unchangedDomainAndAssetFiles": 115,
+  "unchangedOldWavCount": 12,
+  "unchangedMusicSceneryLayout": true,
+  "version": "1.0.7",
+  "accountFormatVersion": 4,
+  "economyVersion": 2
+}

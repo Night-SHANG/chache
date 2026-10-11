@@ -1,7 +1,5 @@
 {
   "status": "COMMITTED_PRODUCT_FIRST_NATIVE_RUN_COMPLETE_QA_FIX_PENDING",
-  "baseLibraryId": "libfile_3d3e42de0e2081919dd1c9d197982789",
-  "baseLibraryVersion": 30,
   "commit": "bb71dd7310e9ea232e7c5220f8f092ec1a67ecaf",
   "nativeFirstRun": "30pass26QAhelperfail, retained evidence;not final acceptance",
   "sourceSha256": "3d107151bd01ad7a1328c312dab1b905ae1353c608df452b5f42bae814c593ee"

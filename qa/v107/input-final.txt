@@ -1,0 +1,24 @@
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (3.716063ms)
+✔ pressure cancel never commits stale control or acknowledges (0.59811ms)
+✔ pressure outside never commits stale control or acknowledges (0.290757ms)
+✔ pressure page-change never commits stale control or acknowledges (0.223376ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.615166ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.371539ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.400372ms)
+✔ multi-touch cannot steal or clear pressure (0.410749ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (1.191724ms)
+✔ legacy pause icon has pressure and one activation callback (0.356747ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.2389ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (82.638027ms)
+✔ shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels (1.407028ms)
+✔ refresh discards replaced modal and changed purchase quantity while held (0.244729ms)
+✔ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (0.786504ms)
+✔ disabled purchase controls never capture, sound or vibrate (0.729328ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 680.795009

@@ -1,0 +1,28 @@
+✔ browser caches at most the 13 known local audio cues and ignores unknown runtime names (3.075319ms)
+✔ browser explicit stopSounds stops and rewinds every cached cue without replay on show (0.449155ms)
+✔ browser setup failures reuse one bounded handle and recover only on an explicit retry (0.456105ms)
+✔ browser a failing stop cannot block other sounds or the hide lifecycle callback (0.329124ms)
+✔ browser play, callback, and creation failures never escape audio calls (5.431408ms)
+✔ wechat caches at most the 13 known local audio cues and ignores unknown runtime names (1.679072ms)
+✔ wechat explicit stopSounds stops and rewinds every cached cue without replay on show (0.300351ms)
+✔ wechat setup failures reuse one bounded handle and recover only on an explicit retry (0.198328ms)
+✔ wechat a failing stop cannot block other sounds or the hide lifecycle callback (0.207301ms)
+✔ wechat play, callback, and creation failures never escape audio calls (0.821564ms)
+✔ browser pagehide stops all cached sounds even when one pause fails (0.260451ms)
+✔ browser haptic asks for exactly one 15ms pulse with the native receiver (1.813274ms)
+✔ browser haptic safely tolerates absent, throwing and inaccessible capabilities (0.490247ms)
+✔ wechat haptic uses light vibrateShort and absorbs unsupported/failure outcomes without long fallback (0.533231ms)
+✔ browser blur cancels and releases only still-active pointers exactly once (0.628444ms)
+✔ vibration defaults enabled on new profiles while old profile bytes remain identical (2.938434ms)
+✔ profile vibration accepts only explicit booleans and rejects malformed optional fields (0.691518ms)
+✔ all four old account formats round-trip without setting normalization, writes or financial changes (12.755875ms)
+✔ vibration toggle persists independently through normal account transactions and restart (12.558794ms)
+✔ account validator rejects present nonboolean vibration without weakening unknown-field checks (0.595805ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 291.4326

@@ -1,0 +1,340 @@
+✔ verified legacy preferences, full results and serial/reset/closure boundaries copy with zero economy and unchanged source bytes (20.079349ms)
+✔ every frozen 1–8 snapshot remains byte-identical and can decode under its original identity after migration (6.179374ms)
+✔ corrupt or unknown legacy bytes and any failed read block initialization instead of creating an empty wallet (18.246012ms)
+✔ a legacy backup high serial or reset watermark survives authoritative main display statistics (0.926133ms)
+✔ an untouched legacy board suppresses another authored start without inventing learned mechanics (0.499832ms)
+✔ migration reserves legacy serials before the new epoch without rewriting old boards (0.976068ms)
+✔ backup reset and recorded boundaries remain attached to each legacy score namespace (1.159774ms)
+✔ an older ignored reset backup cannot make a counted continuation count twice (0.877139ms)
+✔ one run checkpoints add only new units and score and preserve independent maximum units (3.566954ms)
+✔ reset advances live result cursor while preserving economic proofs and guide records (1.085944ms)
+✔ difficulty and variant classify outbound results independently (0.621054ms)
+✔ resetting an active run permits one later result with only post-reset progress (3.034384ms)
+✔ an outbound endless retirement records retirement without a finite-mode win (1.245193ms)
+✔ using a reserved tool during overtime transfers the entire run contribution and restores prior plain best (6.264502ms)
+✔ guided outbound results stay separate and a cursor cannot be reused by another run (1.35645ms)
+✔ resetting legacy display keeps each old reset and recorded-run boundary (0.59888ms)
+✔ an already selected cosmetic remains a valid account setting after results reset (0.317587ms)
+✔ selected blue and red forklifts round trip after reset while invalid account ids are rejected (11.483661ms)
+✔ account profile does not admit excluded legacy schema fields or crossed run identities (0.57873ms)
+✔ an empty account is read-only until a free start commits migration and a fresh service-owned seed (37.338246ms)
+✔ purchase acknowledges exactly once and rejects reused IDs with different payload or stale generations (7.319939ms)
+✔ published snapshots and returned results cannot mutate authoritative state (9.196071ms)
+✔ every transact and retry requires a currently held writer lease (1.125854ms)
+✔ start reserves at most two distinct eligible items and home close refunds unused items once (28.889829ms)
+✔ real tool events consume reservations once and rejected or unreserved tools never consume stock (38.923931ms)
+✔ wrong run IDs, arbitrary domain result payloads and malformed commands cannot write (16.091541ms)
+✔ daily resolves fixed Beijing date and seed, locks date across midnight, and rejects personal tools (36.385002ms)
+✔ skip guide changes only progress and consumed authored starts cannot silently repeat (29.323581ms)
+✔ write and confirmation faults never publish speculative balances and exact retries charge once (122.537496ms)
+✔ failed new-account start leaves old legacy bytes and serial source untouched (7.031753ms)
+✔ legacy v8 result recording earns no coins and never overwrites the old source bytes (59.765399ms)
+✔ cosmetic and settings changes use the same account transaction and validate existing unlocks (7.077371ms)
+✔ non-data and cyclic request payloads reject safely without exposing exceptions or writing (1.133583ms)
+✔ unmirrored committed transactions freeze new requests and release facts only on the exact retry (7.064652ms)
+✔ real tutorial learning and board commands publish atomically after repair (28.682917ms)
+✔ legacy daily completion blocks new attempts across versions and survives score reset (12.43529ms)
+✔ a failed fresh seed commit preserves the closed run, allocated serial and inventory until retry (18.93289ms)
+✔ separately constructed stale services cannot both charge the same generation (3.024584ms)
+✔ degraded restart exposes only its validated receipt ID and repairs it before accepting any new operation (3.886098ms)
+✔ a definite 496KiB refusal still permits closing with reserved space and leaves all paid-day proofs intact (2803.834579ms)
+✔ real same-day attempts receive base income each time and only the daily best bonus difference (97.33335ms)
+✔ outbound guidance preserves the selected normal easy identity and teaches only its own track (38.220979ms)
+✔ daily, endless outbound, and ordinary outbound reject reserved items and incompatible version pairs (1.684435ms)
+✔ a digest-valid stored identity mismatch is unusable and cannot be overwritten with a fresh start (6.078274ms)
+✔ new starts initialize elapsed metadata and saveElapsed survives restart without changing gameplay or awards (10.566616ms)
+✔ equal elapsed saves acknowledge without writes or generation advancement and reject changed reuse (5.507692ms)
+✔ elapsed metadata validates safe integers, monotonic progress, run identity and the current writer lease (19.682358ms)
+✔ accepted command and formal close persist supplied elapsed in the same transaction (22.521598ms)
+✔ unmirrored elapsed updates keep the old timer published and exact retry saves the new timer once (13.491916ms)
+✔ wall-clock jumps and paused background time never advance saved elapsed without an explicit metadata request (15.669185ms)
+✔ earnedCoins starts at zero and remains separate from the wallet during purchases and metadata writes (17.195712ms)
+✔ strict account validation rejects missing, unsafe and impossible active or closed earned totals (9.388455ms)
+✔ daily cumulative earned credits publish once after mirror repair and retain their result total after restart (43.515469ms)
+✔ commit acknowledges only verified identical copies, and refuses malformed envelopes (11.451684ms)
+✔ one unreadable root blocks mutation and cannot become a new empty account (3.592253ms)
+✔ first verified newer generation commits and mirror failures never write the old generation back (7.574171ms)
+✔ retries recognize only the same operation and body and reject stale generation requests (10.295695ms)
+✔ before and after faults at every root I/O preserve an intact old or new account across six operation snapshots (274.918216ms)
+✔ known corrupt copy is repaired only from verified valid root while future formats remain untouched (1.432201ms)
+✔ an unreadable newest history cannot resurrect a readable older wallet (7.127907ms)
+✔ a future account payload version blocks repair even behind a valid envelope checksum (4.67303ms)
+✔ retaining a last closed result does not let later shop or settings transactions use closing-only bytes (50.437481ms)
+✔ a future referenced history format cannot roll back to the older readable wallet (11.670531ms)
+✔ a single stale-null history read cannot repair a newer paid wallet back to the older one (22.118922ms)
+✔ an intact newer ledger with a broken referenced chunk blocks old-wallet fallback (14.889597ms)
+✔ a committed operation retry with an uncertain reference never returns the older wallet (8.203934ms)
+✔ all 13 original WAVs have complete mono PCM headers and the specified short durations (77.476852ms)
+✔ short audio has silent endpoints, smooth attack/release and moderate unclipped peaks (68.842167ms)
+✔ audio generation is byte-deterministic, independent of order and distinct for each cue (54.155699ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (25.008622ms)
+✔ forklift movement remains lighter than shipment and chain signals (18.534075ms)
+✔ UI click is shorter and quieter than the existing pick and placement cues (1.831124ms)
+✔ both build targets contain exactly the same 13 generated local WAVs on repeated builds (957.686776ms)
+✔ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (9.423943ms)
+✔ browser disabled and paused startup do not create music until state allows it (0.290487ms)
+✔ browser initial creation failure waits for a real gesture and retries only once (0.684449ms)
+✔ browser initial rejected play waits for a new gesture without duplicate contexts (10.93718ms)
+✔ browser pointer callback applies a disabled setting before music can start (0.324177ms)
+✔ browser a failure triggered by a pointer callback is retried only on a later interaction (0.236075ms)
+✔ browser music pause preserves position and repeated setting changes are idempotent (15.417086ms)
+✔ browser repeated hide and show pauses before callbacks and resumes once (0.43238ms)
+✔ browser menu music resumes after Session includes hidden in its temporary paused state (0.223436ms)
+✔ browser toggling off while hidden prevents automatic resumption until a new gesture (0.395905ms)
+✔ browser show cannot start never-played music or resume a paused Session (0.337588ms)
+✔ browser music and cached sound effects stop independently (0.306842ms)
+✔ browser rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (1.943253ms)
+✔ browser a late resolved play is paused after hiding or disabling (0.746543ms)
+✔ browser pending and successful async play never duplicates the handle or retries each frame (0.863388ms)
+✔ browser native errors block frame retries and explicit interactions reuse the handle (0.19938ms)
+✔ browser creation setup playback and pause failures stay optional and bounded (0.604329ms)
+✔ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.723168ms)
+✔ wechat disabled and paused startup do not create music until state allows it (0.120401ms)
+✔ wechat initial creation failure waits for a real gesture and retries only once (0.191668ms)
+✔ wechat initial rejected play waits for a new gesture without duplicate contexts (1.713077ms)
+✔ wechat pointer callback applies a disabled setting before music can start (1.708359ms)
+✔ wechat a failure triggered by a pointer callback is retried only on a later interaction (0.111408ms)
+✔ wechat music pause preserves position and repeated setting changes are idempotent (0.122755ms)
+✔ wechat repeated hide and show pauses before callbacks and resumes once (0.262064ms)
+✔ wechat menu music resumes after Session includes hidden in its temporary paused state (0.116264ms)
+✔ wechat toggling off while hidden prevents automatic resumption until a new gesture (0.083666ms)
+✔ wechat show cannot start never-played music or resume a paused Session (0.092099ms)
+✔ wechat music and cached sound effects stop independently (0.152218ms)
+✔ wechat rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (2.508533ms)
+✔ wechat a late resolved play is paused after hiding or disabling (0.366771ms)
+✔ wechat pending and successful async play never duplicates the handle or retries each frame (1.168317ms)
+✔ wechat native errors block frame retries and explicit interactions reuse the handle (0.126209ms)
+✔ wechat creation setup playback and pause failures stay optional and bounded (0.124067ms)
+✔ browser pagehide pauses and pageshow resumes its existing music context (0.188273ms)
+✔ wechat safely falls back to stop when a host has no pause method (0.142304ms)
+✖ new profiles include separate enabled music while legacy two-setting records retain their shape (1.748971ms)
+✔ profile music validation rejects wrong types and unknown fields without schema changes (0.63885ms)
+✔ browser normal pointer capture release preserves tap selection and places on second tap (95.641742ms)
+✖ profile starts with independent local defaults and serial one (3.106443ms)
+✔ profile envelope round trips without depending on current gameplay rules (1.750112ms)
+✔ profile digest rejects changed settings (0.325599ms)
+✔ profile validation rejects invalid counts, serials and locked cosmetics (0.364719ms)
+✔ profile validation bounds payloads before expensive encoding or parsing (0.375936ms)
+✔ profile save uses separate keys and preserves previous valid backup (0.820173ms)
+✔ empty storage returns defaults but never persists implicitly (0.381033ms)
+✔ profile main corruption can read verified backup without modifying bytes (0.483036ms)
+✔ both corrupt copies and future schema return defaults with corrupt status (0.397018ms)
+✔ empty-string stored profile is corrupt rather than an absent save (0.391849ms)
+✔ save archives an invalid backup before replacing it (0.672091ms)
+✔ profile read denials and write denials never report success (0.416886ms)
+✔ temporary readback failure does not change stable profile copies (0.318139ms)
+✔ failed final write preserves exact previous main and backup (0.360522ms)
+✔ failed final readback restores old values rather than claiming a successful save (0.237047ms)
+✔ abandoned profile temp never supersedes stable main (0.144817ms)
+✔ explicit recovery archives exact originals before adopting the valid backup (0.304528ms)
+✔ explicit recovery of two corrupt copies preserves both and creates valid defaults (0.194683ms)
+✔ confirmed reset archives old values and leaves active Run keys untouched (4.992058ms)
+✔ reset preserves local serial high-water mark even when minimum is omitted (2.753131ms)
+✔ archive write failure cancels recovery and reset without changing old stable bytes (1.109759ms)
+✔ failed reset final write returns no profile and retains the original profile (0.894736ms)
+✔ allocation respects serial floor without mutation and rejects exhausted counters (0.673122ms)
+✔ nonterminal and unnumbered runs do not change the profile (1.221778ms)
+✔ formal results count exactly once and stale serials cannot reopen old results (0.565099ms)
+✔ standard victory and overtime retirement increment only additional orders and separate best scores (9.677724ms)
+✔ first observed overtime loss still represents one completed five-shift run (0.626422ms)
+✔ tutorial completion does not create formal statistics, bests or achievements (0.227722ms)
+✔ four achievements and pure cosmetic unlocks use explicit progress thresholds (0.408194ms)
+✔ cosmetics reject unknown and locked ids while default themes and cargo styles are selectable (0.188043ms)
+✖ settings patch validates booleans and leaves all other data unchanged (0.673393ms)
+✔ daily challenge uses client UTC+08 midnight and includes rules version in identity and seed (0.666162ms)
+✔ daily records stay grouped by original challenge day and rules, separate from standard scores (0.559532ms)
+✔ daily challenge best score does not regress across retries and merges successful completion (0.23302ms)
+✔ daily history retains recent sixty distinct dates with a bounded total across rulesets (13.39753ms)
+✔ malformed challenge metadata cannot forge a daily history record (0.209486ms)
+✔ profile reducers and date functions do not mutate gameplay RNG or commands (0.288564ms)
+✔ every single storage failure during reset preserves original stable bytes or reports verified success (2.256133ms)
+✔ corrupt-byte archive collision is fail closed without erasing the existing archive (0.185309ms)
+✔ daily version groups remain independently bounded on one day (142.656691ms)
+✔ record counters remain saveable at numeric limits (0.333511ms)
+✖ unknown settings properties and forged daily entries are rejected (0.234993ms)
+✔ fixed rush starts independent runs with independent serial seeds and ignores an already completed legacy daily date (101.512405ms)
+✔ rush codec round trips cleanup, legal two-tool states and actual tool use without weakening old daily18 (5.83126ms)
+✔ rush strict codec and account identity reject wrong mode, tier, score equality, date, tool counts and cursor buckets (6.961607ms)
+✔ invalid rush starts leave inventory wallet and both roots unchanged (9.142553ms)
+✔ rush start rejects invalid charge declarations and cannot count time before choosing cleanup (20.393164ms)
+✔ rush codec rejects impossible initial use, no-charge rescue and overtime history (5.068414ms)
+✔ each rush win awards only its own score-derived base once, including tools and two wins on the same day (96.063735ms)
+✔ failed and home-abandoned rush earn base and reset display cannot award twice (37.286791ms)
+✔ carried unused tools remain plain, actual use consumes once and the remaining reservation refunds once (63.934882ms)
+✔ rush uses the existing cleanup/timer guide and preserves prior achievement ownership (31.915693ms)
+✔ rush final shipment failure before or after every root I/O retries one entitlement and one result (55.056425ms)
+✔ real accepted rush prefix pays displayed score deltas and restore retains one-times raw score (281.065895ms)
+✔ a rush win pays only the difference from the base already credited during active play (8.990776ms)
+✔ rush start, consume and close recover every single I/O interruption with one seed, debit and refund (2851.50564ms)
+✔ rush result cursor stays in the shared fixed bucket and rejects forged cumulative earnings (10.088693ms)
+✔ a rush payout exceeding safe wallet range rejects atomically before writing either root (5.362753ms)
+✔ fixed rush reset rejected tools and restore preserve wallet inventory and purchased appearances (21.793569ms)
+✔ unknown fixed-rush roots block mutation and preserve both roots and cosmetics (4.234107ms)
+✔ fixed-rush strict boundaries reject expert scores dates malformed clocks and forged history (3.246215ms)
+✔ new21 and legacy20 share score buckets while active and closed20 retain their issued triple reward (30.430859ms)
+✔ failed21 score301 pays exactly two coins and reload cannot credit it twice (8.332369ms)
+✔ optional music restores old settings and persists both boolean values without resetting any account assets (6.90314ms)
+✔ v8 identities add four independent slots while default outbound routing stays v6 (4.617606ms)
+✔ v8 occupied-entry terminal snapshots round trip despite remaining legal placements (10.620955ms)
+✔ v8 rejects crossed schemas and incomplete outbound identity before storage changes (2.386305ms)
+✔ v8 retains frozen candidate geometry, terminal boundaries, and dimension validation (3.42189ms)
+✔ all fourteen saves coexist and foreign-slot writes preserve every byte (16.837062ms)
+✔ every v8 save fault either verifies success or keeps the previous stable bytes (168.069811ms)
+✔ v8 recovery reads only its own stable copies and archives foreign bytes before replacement (4.008712ms)
+✔ real v8 reducer routes round trip every saved command including the early occupied-entry result (65.749142ms)
+✖ v1 through v7 snapshots and legacy profile preserve old bytes while new profiles enable music (4.068752ms)
+✔ v8 results credit only their own difficulty and version without old achievements or statistics (1.455777ms)
+✔ v8 summary validators reject foreign version keys and malformed result identities (1.266673ms)
+✔ reset scans all fourteen slots and retains separate old and v8 terminal cutoffs (4.740661ms)
+✔ unreadable v8 slots prevent reset writes and reset write faults preserve all run bytes (95.857395ms)
+✔ v8 abandonment markers participate in serial floors without closing legacy runs (3.227428ms)
+ℹ tests 190
+ℹ suites 0
+ℹ pass 185
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4379.332788
+
+✖ failing tests:
+
+test at tests/background-music.test.ts:162:1
+✖ new profiles include separate enabled music while legacy two-setting records retain their shape (1.748971ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      music: true,
+      reducedMotion: false,
+      sound: true,
+  +   vibration: true
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/background-music.test.ts:163:37)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { sound: true, reducedMotion: false, music: true, vibration: true },
+    expected: { sound: true, reducedMotion: false, music: true },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/profile.test.ts:5:1
+✖ profile starts with independent local defaults and serial one (3.106443ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      achievements: [],
+      bestScores: {},
+      cosmetics: {
+        cargo: 'classic',
+  ...
+        sound: true,
+  +     vibration: true
+      },
+      stats: {
+        maxChain: 0,
+        orders: 0,
+        runs: 0,
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/profile.test.ts:7:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { schemaVersion: 1, settings: { sound: true, reducedMotion: false, music: true, vibration: true }, cosmetics: { theme: 'day', forklift: 'yellow', cargo: 'classic' }, tutorialComplete: false, stats: { runs: 0, orders: 0, wins: 0, maxChain: 0 }, bestScores: {}, dailyHistory: {}, achievements: [], nextRunSerial: 1, lastRecordedRun: null },
+    expected: { schemaVersion: 1, settings: { sound: true, reducedMotion: false, music: true }, cosmetics: { theme: 'day', forklift: 'yellow', cargo: 'classic' }, tutorialComplete: false, stats: { runs: 0, orders: 0, wins: 0, maxChain: 0 }, bestScores: {}, dailyHistory: {}, achievements: [], nextRunSerial: 1, lastRecordedRun: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/profile.test.ts:109:1
+✖ settings patch validates booleans and leaves all other data unchanged (0.673393ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      music: true,
+      reducedMotion: true,
+      sound: false,
+  +   vibration: true
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/profile.test.ts:110:117)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { sound: false, reducedMotion: true, music: true, vibration: true },
+    expected: { sound: false, reducedMotion: true, music: true },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/profile.test.ts:148:1
+✖ unknown settings properties and forged daily entries are rejected (0.234993ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/profile.test.ts:149:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests/v8-storage-profile.test.ts:112:1
+✖ v1 through v7 snapshots and legacy profile preserve old bytes while new profiles enable music (4.068752ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      achievements: [],
+      bestScores: {},
+      cosmetics: {
+        cargo: 'classic',
+  ...
+        sound: true,
+  -     vibration: true
+      },
+      stats: {
+        maxChain: 0,
+        orders: 0,
+        runs: 0,
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/v8-storage-profile.test.ts:118:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { schemaVersion: 1, settings: { sound: true, reducedMotion: false, music: true }, cosmetics: { theme: 'day', forklift: 'yellow', cargo: 'classic' }, tutorialComplete: false, stats: { runs: 0, orders: 0, wins: 0, maxChain: 0 }, bestScores: {}, dailyHistory: {}, achievements: [], nextRunSerial: 1, lastRecordedRun: null },
+    expected: { schemaVersion: 1, settings: { sound: true, reducedMotion: false, music: true, vibration: true }, cosmetics: { theme: 'day', forklift: 'yellow', cargo: 'classic' }, tutorialComplete: false, stats: { runs: 0, orders: 0, wins: 0, maxChain: 0 }, bestScores: {}, dailyHistory: {}, achievements: [], nextRunSerial: 1, lastRecordedRun: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

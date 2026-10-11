@@ -1,0 +1,33 @@
+✔ valid button at initial time zero emits one UI click after stopSounds, double up does not replay (12.087591ms)
+✔ turning sound off and back on is silent for that gesture, subsequent normal click sounds (13.338284ms)
+✔ vibration toggle persists and is never itself a vibration, major start obeys it (4.426421ms)
+✔ default major starts vibrate while ordinary navigation does not; cancel stays silent (1.673088ms)
+✔ ordinary fast taps are audio rate limited without dropping actions (1.267798ms)
+✔ pause icon retains audible click after gameplay feedback is cleared (13.310162ms)
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (10.167722ms)
+✔ pressure cancel never commits stale control or acknowledges (0.461545ms)
+✔ pressure outside never commits stale control or acknowledges (0.415265ms)
+✔ pressure page-change never commits stale control or acknowledges (0.291459ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.23929ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.461124ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.290718ms)
+✔ multi-touch cannot steal or clear pressure (0.230848ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (0.913104ms)
+✔ legacy pause icon has pressure and one activation callback (0.473032ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.227092ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (104.342786ms)
+✔ shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels (1.384424ms)
+✔ refresh discards replaced modal and changed purchase quantity while held (0.265269ms)
+✔ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (0.487754ms)
+✔ formal v1.0.7 production artifacts are paid, non-debug and carry the release version (771.901027ms)
+✔ result controls form a uniform stack using only the buttons present, with 44px minimum targets (262.301703ms)
+✔ settings controls stay together with and without a recovery row (68.11485ms)
+✔ v0.20 frozen gameplay and legacy audio remain identical; v107 adds only its UI cue (9.660989ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 904.795448

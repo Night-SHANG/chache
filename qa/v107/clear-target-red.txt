@@ -1,0 +1,30 @@
+✖ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (6.85581ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 546.440608
+
+✖ failing tests:
+
+test at tests/button-feedback-v107.test.ts:58:1
+✖ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (6.85581ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(!h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:61:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

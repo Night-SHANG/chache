@@ -1,0 +1,50 @@
+✖ wx host optionally observes the original short-haptic arguments without modifying bundle bytes (12.915108ms)
+✖ browser host exposes a real blur event and optional native vibration callback without modifying bundle bytes (5.991624ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 532.079031
+
+✖ failing tests:
+
+test at tests/button-feedback-host-instrumentation-v107.test.ts:10:1
+✖ wx host optionally observes the original short-haptic arguments without modifying bundle bytes (12.915108ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-host-instrumentation-v107.test.ts:15:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-host-instrumentation-v107.test.ts:19:1
+✖ browser host exposes a real blur event and optional native vibration callback without modifying bundle bytes (5.991624ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   15
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-host-instrumentation-v107.test.ts:24:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 15 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

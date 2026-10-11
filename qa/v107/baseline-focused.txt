@@ -1,0 +1,37 @@
+✔ browser caches at most the 12 known local audio cues and ignores unknown runtime names (4.970237ms)
+✔ browser explicit stopSounds stops and rewinds every cached cue without replay on show (0.763178ms)
+✔ browser setup failures reuse one bounded handle and recover only on an explicit retry (0.674395ms)
+✔ browser a failing stop cannot block other sounds or the hide lifecycle callback (0.540904ms)
+✔ browser play, callback, and creation failures never escape audio calls (12.314494ms)
+✔ wechat caches at most the 12 known local audio cues and ignores unknown runtime names (2.045798ms)
+✔ wechat explicit stopSounds stops and rewinds every cached cue without replay on show (0.347763ms)
+✔ wechat setup failures reuse one bounded handle and recover only on an explicit retry (0.315604ms)
+✔ wechat a failing stop cannot block other sounds or the hide lifecycle callback (0.338058ms)
+✔ wechat play, callback, and creation failures never escape audio calls (1.331443ms)
+✔ browser pagehide stops all cached sounds even when one pause fails (0.375135ms)
+✔ browser normal pointer capture release preserves tap selection and places on second tap (46.984057ms)
+✔ drag produces one placement command on release (2.749155ms)
+✔ tap candidate then tap board produces same placement command (0.243677ms)
+✔ drag off canvas cancels without a command (0.256236ms)
+✔ pointer cancellation cannot commit on later release (0.461965ms)
+✔ secondary finger cannot steal active placement (0.208955ms)
+✔ pause overlay blocks board taps (0.184348ms)
+✔ animation locks placement (0.138308ms)
+✔ recovery overlay only resumes from its explicit button (0.210617ms)
+✔ opening pause during drag cancels pending placement (0.186561ms)
+✔ four-candidate upgrade can select and place the fourth slot (0.9178ms)
+✔ debug overlay blocks hidden placements and paginates without gameplay commands (0.268043ms)
+✔ single confirm: rapid repeat does not hit the shop underneath; intentional later input works (21.302024ms)
+✔ single cancel: rapid repeat does not hit the shop underneath; intentional later input works (2.117425ms)
+✔ bundle confirm: rapid repeat does not hit the shop underneath; intentional later input works (5.861748ms)
+✔ bundle cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.112113ms)
+✔ classic confirm: rapid repeat does not hit the shop underneath; intentional later input works (3.876771ms)
+✔ classic cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.593407ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 391.231942

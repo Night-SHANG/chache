@@ -1,0 +1,70 @@
+✖ all 13 original WAVs have complete mono PCM headers and the specified short durations (37.733252ms)
+✖ UI click is shorter and quieter than the existing pick and placement cues (0.163165ms)
+✖ browser caches at most the 13 known local audio cues and ignores unknown runtime names (3.942889ms)
+✖ wechat caches at most the 13 known local audio cues and ignores unknown runtime names (2.856708ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 174.003839
+
+✖ failing tests:
+
+test at tests/audio-assets.test.ts:21:1
+✖ all 13 original WAVs have complete mono PCM headers and the specified short durations (37.733252ms)
+  Error: Unknown audio cue: ui_click
+      at generateSound (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/scripts/audio.ts:28:37)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/audio-assets.test.ts:23:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/audio-assets.test.ts:61:1
+✖ UI click is shorter and quieter than the existing pick and placement cues (0.163165ms)
+  Error: Unknown audio cue: ui_click
+      at generateSound (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/scripts/audio.ts:28:37)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/audio-assets.test.ts:62:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+
+test at tests/audio-platform.test.ts:40:2
+✖ browser caches at most the 13 known local audio cues and ignores unknown runtime names (3.942889ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  12 !== 13
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/audio-platform.test.ts:44:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 12,
+    expected: 13,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/audio-platform.test.ts:40:2
+✖ wechat caches at most the 13 known local audio cues and ignores unknown runtime names (2.856708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  12 !== 13
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/audio-platform.test.ts:44:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 12,
+    expected: 13,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

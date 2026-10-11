@@ -1,0 +1,428 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified production bundles, simulated DOM/wx input and native Canvas pixels",
+  "limitations": [
+    "No real browser GUI, WeChat developer tool or phone tested; sound play and haptic API requests do not prove actual audible/tactile quality."
+  ],
+  "cases": [
+    {
+      "name": "browser-whole-controls-and-settings",
+      "bundleSha256": "ec4fb0e4844a088d8b9021935bdbbb06339d892aaf7274b78c75efe53f892ccc",
+      "manifestSource": "ad9e46c0ef562bb358fe2caf037565cc531fa32128de67892750fb4c9c6dbfaf",
+      "controls": [
+        {
+          "name": "home-button",
+          "changedPixels": 15322,
+          "rect": {
+            "x": 210,
+            "y": 752,
+            "w": 660,
+            "h": 176
+          }
+        },
+        {
+          "name": "settings-toggleMusic",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 438,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleSound",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 618,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleVibration",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 798,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleMotion",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 978,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-resetProfile",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 1158,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-back",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 1338,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "tool-purchase",
+          "changedPixels": 4538,
+          "rect": {
+            "x": 688,
+            "y": 610,
+            "w": 228,
+            "h": 150
+          }
+        },
+        {
+          "name": "confirm-buy",
+          "changedPixels": 6572,
+          "rect": {
+            "x": 564,
+            "y": 1160,
+            "w": 330,
+            "h": 150
+          }
+        },
+        {
+          "name": "quantity-plus",
+          "changedPixels": 3579,
+          "rect": {
+            "x": 702,
+            "y": 972,
+            "w": 168,
+            "h": 162
+          }
+        },
+        {
+          "name": "set-card",
+          "changedPixels": 18994,
+          "rect": {
+            "x": 132,
+            "y": 630,
+            "w": 396,
+            "h": 366
+          }
+        },
+        {
+          "name": "set-member",
+          "changedPixels": 5123,
+          "rect": {
+            "x": 132,
+            "y": 1502,
+            "w": 256,
+            "h": 150
+          }
+        },
+        {
+          "name": "cargo-card",
+          "changedPixels": 7886,
+          "rect": {
+            "x": 132,
+            "y": 1110,
+            "w": 396,
+            "h": 150
+          }
+        },
+        {
+          "name": "pause-icon",
+          "changedPixels": 1264,
+          "rect": {
+            "x": 938,
+            "y": 54,
+            "w": 96,
+            "h": 100
+          }
+        },
+        {
+          "name": "toolbox-entry",
+          "changedPixels": 2770,
+          "rect": {
+            "x": 355,
+            "y": 105,
+            "w": 144,
+            "h": 144
+          }
+        },
+        {
+          "name": "tool-card",
+          "changedPixels": 11347,
+          "rect": {
+            "x": 48,
+            "y": 1530,
+            "w": 316,
+            "h": 272
+          }
+        },
+        {
+          "name": "tool-piece",
+          "changedPixels": 9965,
+          "rect": {
+            "x": 48,
+            "y": 1530,
+            "w": 316,
+            "h": 238
+          }
+        }
+      ],
+      "uiClicks": 20,
+      "hapticCalls": 2
+    },
+    {
+      "name": "browser-absent-haptics-safe",
+      "bundleSha256": "ec4fb0e4844a088d8b9021935bdbbb06339d892aaf7274b78c75efe53f892ccc",
+      "clicks": 2,
+      "hapticAttempts": 0
+    },
+    {
+      "name": "browser-throw-haptics-safe",
+      "bundleSha256": "ec4fb0e4844a088d8b9021935bdbbb06339d892aaf7274b78c75efe53f892ccc",
+      "clicks": 2,
+      "hapticAttempts": 1
+    },
+    {
+      "name": "wechat-whole-controls-and-settings",
+      "bundleSha256": "669836127a1340c438da4447ce1af7b6a3a0477f9af1793a8131005f9ef2b4fc",
+      "manifestSource": "ad9e46c0ef562bb358fe2caf037565cc531fa32128de67892750fb4c9c6dbfaf",
+      "controls": [
+        {
+          "name": "home-button",
+          "changedPixels": 15322,
+          "rect": {
+            "x": 210,
+            "y": 752,
+            "w": 660,
+            "h": 176
+          }
+        },
+        {
+          "name": "settings-toggleMusic",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 438,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleSound",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 618,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleVibration",
+          "changedPixels": 15650,
+          "rect": {
+            "x": 132,
+            "y": 798,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-toggleMotion",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 978,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-resetProfile",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 1158,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "settings-back",
+          "changedPixels": 15646,
+          "rect": {
+            "x": 132,
+            "y": 1338,
+            "w": 816,
+            "h": 144
+          }
+        },
+        {
+          "name": "tool-purchase",
+          "changedPixels": 4538,
+          "rect": {
+            "x": 688,
+            "y": 610,
+            "w": 228,
+            "h": 150
+          }
+        },
+        {
+          "name": "confirm-buy",
+          "changedPixels": 6572,
+          "rect": {
+            "x": 564,
+            "y": 1160,
+            "w": 330,
+            "h": 150
+          }
+        },
+        {
+          "name": "quantity-plus",
+          "changedPixels": 3579,
+          "rect": {
+            "x": 702,
+            "y": 972,
+            "w": 168,
+            "h": 162
+          }
+        },
+        {
+          "name": "set-card",
+          "changedPixels": 18994,
+          "rect": {
+            "x": 132,
+            "y": 630,
+            "w": 396,
+            "h": 366
+          }
+        },
+        {
+          "name": "set-member",
+          "changedPixels": 5123,
+          "rect": {
+            "x": 132,
+            "y": 1502,
+            "w": 256,
+            "h": 150
+          }
+        },
+        {
+          "name": "cargo-card",
+          "changedPixels": 7886,
+          "rect": {
+            "x": 132,
+            "y": 1110,
+            "w": 396,
+            "h": 150
+          }
+        },
+        {
+          "name": "pause-icon",
+          "changedPixels": 1264,
+          "rect": {
+            "x": 938,
+            "y": 54,
+            "w": 96,
+            "h": 100
+          }
+        },
+        {
+          "name": "toolbox-entry",
+          "changedPixels": 2770,
+          "rect": {
+            "x": 355,
+            "y": 105,
+            "w": 144,
+            "h": 144
+          }
+        },
+        {
+          "name": "tool-card",
+          "changedPixels": 11347,
+          "rect": {
+            "x": 48,
+            "y": 1530,
+            "w": 316,
+            "h": 272
+          }
+        },
+        {
+          "name": "tool-piece",
+          "changedPixels": 9965,
+          "rect": {
+            "x": 48,
+            "y": 1530,
+            "w": 316,
+            "h": 238
+          }
+        }
+      ],
+      "uiClicks": 20,
+      "hapticCalls": 2
+    },
+    {
+      "name": "wechat-absent-haptics-safe",
+      "bundleSha256": "669836127a1340c438da4447ce1af7b6a3a0477f9af1793a8131005f9ef2b4fc",
+      "clicks": 2,
+      "hapticAttempts": 0
+    },
+    {
+      "name": "wechat-throw-haptics-safe",
+      "bundleSha256": "669836127a1340c438da4447ce1af7b6a3a0477f9af1793a8131005f9ef2b4fc",
+      "clicks": 2,
+      "hapticAttempts": 1
+    }
+  ],
+  "images": [
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-home-button-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-home-button-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-settings-toggleVibration-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-settings-toggleVibration-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-tool-purchase-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-tool-purchase-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-confirm-buy-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-confirm-buy-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-set-card-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-set-card-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-pause-icon-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/browser-pause-icon-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-home-button-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-home-button-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-settings-toggleVibration-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-settings-toggleVibration-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-tool-purchase-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-tool-purchase-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-confirm-buy-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-confirm-buy-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-set-card-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-set-card-pressed.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-pause-icon-normal.png",
+    "/workspace/scratch/e6b59ff34222/feedback-v107/source/qa/v107/host-first/wechat-pause-icon-pressed.png"
+  ],
+  "failures": [],
+  "bundleFiles": [
+    {
+      "path": "browser/app.js",
+      "sha256": "ec4fb0e4844a088d8b9021935bdbbb06339d892aaf7274b78c75efe53f892ccc"
+    },
+    {
+      "path": "wechat/game.js",
+      "sha256": "669836127a1340c438da4447ce1af7b6a3a0477f9af1793a8131005f9ef2b4fc"
+    }
+  ]
+}

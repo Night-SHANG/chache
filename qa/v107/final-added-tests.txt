@@ -1,0 +1,29 @@
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (3.721032ms)
+✔ pressure cancel never commits stale control or acknowledges (0.360463ms)
+✔ pressure outside never commits stale control or acknowledges (0.656138ms)
+✔ pressure page-change never commits stale control or acknowledges (0.30508ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.347123ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.44545ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.390077ms)
+✔ multi-touch cannot steal or clear pressure (0.310858ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (0.891582ms)
+✔ legacy pause icon has pressure and one activation callback (0.52454ms)
+✔ disabled and blank taps do not show pressure or acknowledge (2.005459ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (74.812978ms)
+✔ shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels (1.516653ms)
+✔ refresh discards replaced modal and changed purchase quantity while held (0.230637ms)
+✔ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (0.409066ms)
+✔ disabled purchase controls never capture, sound or vibrate (0.369937ms)
+✔ business result cue wins over generic UI sound and does not consume future click availability (1.399747ms)
+✔ haptic rate limit starts at negative infinity, does not drop actions and remains independent of audio (0.216105ms)
+✔ setting off during its own activation prevents haptic; blocked transaction does not imply success (0.149525ms)
+✔ optional throwing haptic does not undo action or UI audio (0.27869ms)
+✔ shared toggle patch handles absent legacy preferences without altering unrelated fields (0.227302ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 622.906384

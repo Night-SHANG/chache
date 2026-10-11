@@ -1,0 +1,259 @@
+✖ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (4.504455ms)
+✖ pressure cancel never commits stale control or acknowledges (8.314656ms)
+✖ pressure outside never commits stale control or acknowledges (0.482715ms)
+✖ pressure page-change never commits stale control or acknowledges (0.315544ms)
+✖ pressure modal-replace never commits stale control or acknowledges (0.353121ms)
+✖ pressure disabled-change never commits stale control or acknowledges (0.410526ms)
+✖ refresh clears a held button when an external page update arrives before move/up (0.267973ms)
+✖ multi-touch cannot steal or clear pressure (0.859811ms)
+✖ major starts and purchase confirmation are classified; ordinary navigation is not (0.843296ms)
+✖ legacy pause icon has pressure and one activation callback (0.443215ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.332649ms)
+✖ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (58.401426ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 1
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 663.217655
+
+✖ failing tests:
+
+test at tests/button-feedback-v107.test.ts:20:1
+✖ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (4.504455ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 176,
+  -   w: 660,
+  -   x: 210,
+  -   y: 752
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:21:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 210, y: 752, w: 660, h: 176 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:25:96
+✖ pressure cancel never commits stale control or acknowledges (8.314656ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:28:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:25:96
+✖ pressure outside never commits stale control or acknowledges (0.482715ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:28:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:25:96
+✖ pressure page-change never commits stale control or acknowledges (0.315544ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:28:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:25:96
+✖ pressure modal-replace never commits stale control or acknowledges (0.353121ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:28:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:25:96
+✖ pressure disabled-change never commits stale control or acknowledges (0.410526ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:28:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:33:1
+✖ refresh clears a held button when an external page update arrives before move/up (0.267973ms)
+  TypeError: h.input.refresh is not a function
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:34:94)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/button-feedback-v107.test.ts:36:1
+✖ multi-touch cannot steal or clear pressure (0.859811ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.view.pressedControl)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:36:176)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:37:1
+✖ major starts and purchase confirmation are classified; ordinary navigation is not (0.843296ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   true
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:38:263)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ true ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:41:1
+✖ legacy pause icon has pressure and one activation callback (0.443215ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 100,
+  -   w: 96,
+  -   x: 938,
+  -   y: 54
+  - }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:41:158)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 938, y: 54, w: 96, h: 100 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-v107.test.ts:43:1
+✖ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (58.401426ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(diff>r.w*r.h/2)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-v107.test.ts:47:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

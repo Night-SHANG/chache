@@ -1,0 +1,133 @@
+{
+  "generatedFrom": "Unmodified paid v1.0.7 bundles in DOM/wx Canvas host",
+  "sourceSha256": "e11f54d8e52a5921f37125c478a7420d20a6763fa0f767a56ed2bb571af8e026",
+  "testAccountWallet": 20000,
+  "walletNotice": "Isolated funded QA account, not a player gift/default",
+  "images": [
+    {
+      "path": "qa/v107/host-review/browser-confirm-buy-normal.png",
+      "bytes": 40869,
+      "sha256": "eed7053c4e856c9ceb30836264c21a5b7352ff6b620ced38fb758484554f273b"
+    },
+    {
+      "path": "qa/v107/host-review/browser-confirm-buy-pressed.png",
+      "bytes": 40805,
+      "sha256": "219c78a2c51ef731cbbde0e879ae858e517bdc145724b60000f230bf52123af4"
+    },
+    {
+      "path": "qa/v107/host-review/browser-home-button-normal.png",
+      "bytes": 70588,
+      "sha256": "4f6ca33ad08933c231eb86bdb1de39d93f062346e056ea36953c9413cb45b6e6"
+    },
+    {
+      "path": "qa/v107/host-review/browser-home-button-pressed.png",
+      "bytes": 70431,
+      "sha256": "1ffe4260bc445eadb830c9990505721d52983535aff360490b39887f5d32d785"
+    },
+    {
+      "path": "qa/v107/host-review/browser-pause-icon-normal.png",
+      "bytes": 183731,
+      "sha256": "095dc6d5f054ace1e860a18e5b66c84e03437d20004f18e48a76d4157ea112ce"
+    },
+    {
+      "path": "qa/v107/host-review/browser-pause-icon-pressed.png",
+      "bytes": 183707,
+      "sha256": "76f49c4c8712f21d59525a7be4ca2a7288b98451a58036e9ab040c85a256bba4"
+    },
+    {
+      "path": "qa/v107/host-review/browser-set-card-normal.png",
+      "bytes": 140406,
+      "sha256": "a6364d96726f48c421485a1db1892a70c0c4961d33f74eadbc25dfbb208be2e6"
+    },
+    {
+      "path": "qa/v107/host-review/browser-set-card-pressed.png",
+      "bytes": 139781,
+      "sha256": "e64d924df394b534f5bad9b28b0b1586cee9817767f6bde980c53903d5a7518c"
+    },
+    {
+      "path": "qa/v107/host-review/browser-settings-toggleVibration-normal.png",
+      "bytes": 54517,
+      "sha256": "e6603d9a4489fd79013df9a7596709b2a283ec45ac3a4a026d4851df60effe30"
+    },
+    {
+      "path": "qa/v107/host-review/browser-settings-toggleVibration-pressed.png",
+      "bytes": 54465,
+      "sha256": "378d1efa13a0ab2a54a2385d58f8db9d4bfca7c040da5cfcd9968e101b15fd22"
+    },
+    {
+      "path": "qa/v107/host-review/browser-tool-purchase-normal.png",
+      "bytes": 91495,
+      "sha256": "0f6b7363bd0233b77163086bfffe25d5f8276069b45e428edc4417bc2adb4fc2"
+    },
+    {
+      "path": "qa/v107/host-review/browser-tool-purchase-pressed.png",
+      "bytes": 91471,
+      "sha256": "caff841e177d227a2b2a851ff0f612605595f7bf3b4d86453cded58d4ef6f293"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-confirm-buy-normal.png",
+      "bytes": 40869,
+      "sha256": "eed7053c4e856c9ceb30836264c21a5b7352ff6b620ced38fb758484554f273b"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-confirm-buy-pressed.png",
+      "bytes": 40805,
+      "sha256": "219c78a2c51ef731cbbde0e879ae858e517bdc145724b60000f230bf52123af4"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-home-button-normal.png",
+      "bytes": 70588,
+      "sha256": "4f6ca33ad08933c231eb86bdb1de39d93f062346e056ea36953c9413cb45b6e6"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-home-button-pressed.png",
+      "bytes": 70431,
+      "sha256": "1ffe4260bc445eadb830c9990505721d52983535aff360490b39887f5d32d785"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-pause-icon-normal.png",
+      "bytes": 183731,
+      "sha256": "095dc6d5f054ace1e860a18e5b66c84e03437d20004f18e48a76d4157ea112ce"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-pause-icon-pressed.png",
+      "bytes": 183707,
+      "sha256": "76f49c4c8712f21d59525a7be4ca2a7288b98451a58036e9ab040c85a256bba4"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-set-card-normal.png",
+      "bytes": 140406,
+      "sha256": "a6364d96726f48c421485a1db1892a70c0c4961d33f74eadbc25dfbb208be2e6"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-set-card-pressed.png",
+      "bytes": 139781,
+      "sha256": "e64d924df394b534f5bad9b28b0b1586cee9817767f6bde980c53903d5a7518c"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-settings-toggleVibration-normal.png",
+      "bytes": 54517,
+      "sha256": "e6603d9a4489fd79013df9a7596709b2a283ec45ac3a4a026d4851df60effe30"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-settings-toggleVibration-pressed.png",
+      "bytes": 54465,
+      "sha256": "378d1efa13a0ab2a54a2385d58f8db9d4bfca7c040da5cfcd9968e101b15fd22"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-tool-purchase-normal.png",
+      "bytes": 91495,
+      "sha256": "0f6b7363bd0233b77163086bfffe25d5f8276069b45e428edc4417bc2adb4fc2"
+    },
+    {
+      "path": "qa/v107/host-review/wechat-tool-purchase-pressed.png",
+      "bytes": 91471,
+      "sha256": "caff841e177d227a2b2a851ff0f612605595f7bf3b4d86453cded58d4ef6f293"
+    },
+    {
+      "path": "qa/v107/button-press-comparison.png",
+      "bytes": 88907,
+      "sha256": "f66f121e591377c67f7f4bac7acb795073085c0023428fe1e26d22f91f0a52a5"
+    }
+  ]
+}

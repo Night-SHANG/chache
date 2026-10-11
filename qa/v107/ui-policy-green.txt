@@ -1,0 +1,13 @@
+✔ business result cue wins over generic UI sound and does not consume future click availability (1.853219ms)
+✔ haptic rate limit starts at negative infinity, does not drop actions and remains independent of audio (0.177927ms)
+✔ setting off during its own activation prevents haptic; blocked transaction does not imply success (0.168604ms)
+✔ optional throwing haptic does not undo action or UI audio (0.233742ms)
+✔ shared toggle patch handles absent legacy preferences without altering unrelated fields (0.234624ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.337538

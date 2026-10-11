@@ -1,0 +1,193 @@
+✖ browser haptic asks for exactly one 15ms pulse with the native receiver (2.636987ms)
+✖ browser haptic safely tolerates absent, throwing and inaccessible capabilities (0.358188ms)
+✖ wechat haptic uses light vibrateShort and absorbs unsupported/failure outcomes without long fallback (0.663135ms)
+✖ browser blur cancels and releases only still-active pointers exactly once (1.777207ms)
+✖ vibration defaults enabled on new profiles while old profile bytes remain identical (1.395242ms)
+✖ profile vibration accepts only explicit booleans and rejects malformed optional fields (0.67359ms)
+✔ all four old account formats round-trip without setting normalization, writes or financial changes (8.377945ms)
+✖ vibration toggle persists independently through normal account transactions and restart (2.750735ms)
+✔ account validator rejects present nonboolean vibration without weakening unknown-field checks (0.967221ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 2
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 244.569539
+
+✖ failing tests:
+
+test at tests/button-feedback-platform-v107.test.ts:27:1
+✖ browser haptic asks for exactly one 15ms pulse with the native receiver (2.636987ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-platform-v107.test.ts:30:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-platform-v107.test.ts:33:1
+✖ browser haptic safely tolerates absent, throwing and inaccessible capabilities (0.358188ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-platform-v107.test.ts:35:53)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-platform-v107.test.ts:38:1
+✖ wechat haptic uses light vibrateShort and absorbs unsupported/failure outcomes without long fallback (0.663135ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-platform-v107.test.ts:41:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-platform-v107.test.ts:45:1
+✖ browser blur cancels and releases only still-active pointers exactly once (1.777207ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    [
+      {
+        id: 1,
+        type: 'down'
+      },
+  ...
+      },
+  -   {
+  -     id: 1,
+  -     type: 'cancel'
+  -   }
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-platform-v107.test.ts:49:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { type: 'down', id: 1 }, { type: 'down', id: 2 }, { type: 'up', id: 2 } ],
+    expected: [ { type: 'down', id: 1 }, { type: 'down', id: 2 }, { type: 'up', id: 2 }, { type: 'cancel', id: 1 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/vibration-settings-v107.test.ts:16:1
+✖ vibration defaults enabled on new profiles while old profile bytes remain identical (1.395242ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - true
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/vibration-settings-v107.test.ts:17:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/vibration-settings-v107.test.ts:22:1
+✖ profile vibration accepts only explicit booleans and rejects malformed optional fields (0.67359ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "设置无效"
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/vibration-settings-v107.test.ts:23:45)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: 设置无效
+        at requireValue (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/profile.ts:78:84)
+        at assertProfile (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/profile.ts:100:2)
+        at file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/vibration-settings-v107.test.ts:23:62
+        at getActual (node:assert:611:5)
+        at strict.doesNotThrow (node:assert:779:32)
+        at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/vibration-settings-v107.test.ts:23:45)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1382:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+        at Test.postRun (node:internal/test_runner/test:1522:19),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }
+
+test at tests/vibration-settings-v107.test.ts:45:1
+✖ vibration toggle persists independently through normal account transactions and restart (2.750735ms)
+  AssertionError [ERR_ASSERTION]: 设置无效
+  + actual - expected
+  
+  + 'not_committed'
+  - 'acknowledged'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/vibration-settings-v107.test.ts:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'not_committed',
+    expected: 'acknowledged',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,190 @@
+✔ binding requires exact final commit/source/game/music and rejects every missing or changed field (3.412565ms)
+✔ all win/failure/archive fixtures validate strict roots and history before bundle execution (48.168378ms)
+✔ tool witness consumes a real tool and carrying one preserves plain-run flags (9.041306ms)
+✔ all pending countdown prefixes and rotated/cancel candidate have strict codec-valid storage (24.906291ms)
+✔ both cosmetic fixture families produce one actual shipment and appearance mutation retains strict roots (43.256937ms)
+✔ funded and recovery fixtures state their purpose and recovery uses an actually valid backup (5.636402ms)
+✔ current controls and label splitting cover cleanup21 and all centered settings rows (8.888967ms)
+✔ archived v21 protocol fixture: 50 active cosmetics preserve anchors; all prior9 remain visible on category pages and no control overlaps (7.167025ms)
+✔ passive audio fake records handles, assignments and lifecycle exactly without touching game state (0.510899ms)
+✔ settings selected-marker oracle checks actual pixels at every native viewport and rejects wrong labels/state (114.455962ms)
+✔ archived v21 protocol fixture: native cosmetic title and gold-card oracle rejects same-page wrong title and wrong selection pixels (35.676769ms)
+✔ rush badge oracle requires actual large3 glyphs and final visible pixels, never only tray description (8.022583ms)
+✔ an unbound protocol executes no bundle and preserves its first failure (9.593637ms)
+✔ critical selection includes reward, music, settings, badges and both art families at the smallest viewport (0.263396ms)
+✔ archived v21 protocol fixture: preview navigation uses actual adjacent UI controls for every item from every starting page (21.950072ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/ui-feedback.ts:8
+ private soundSerial=0;
+ constructor(private platform:Platform,private settings:()=>Profile['settings'],private blocked:()=>boolean){}
+                     ^^^^^^^^^^^^^^^^^
+ sound(name:SoundName):void {if(this.settings().sound){this.soundSerial++;this.platform.playSound(name);}}
+
+SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript parameter property is not supported in strip-only mode
+    at parseTypeScript (node:internal/modules/typescript:68:40)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:434:20)
+    at afterLoad (node:internal/modules/esm/loader:502:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+    at afterResolve (node:internal/modules/esm/loader:607:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12) {
+  code: 'ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.19.0
+✖ tests/button-feedback-session-v107.test.ts (176.874743ms)
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (8.554682ms)
+✔ pressure cancel never commits stale control or acknowledges (0.41169ms)
+✔ pressure outside never commits stale control or acknowledges (0.258258ms)
+✔ pressure page-change never commits stale control or acknowledges (2.908526ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.241674ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.556998ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.296927ms)
+✔ multi-touch cannot steal or clear pressure (0.25935ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (0.881206ms)
+✔ legacy pause icon has pressure and one activation callback (0.479131ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.235865ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (83.716084ms)
+✔ shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels (1.776394ms)
+✔ refresh discards replaced modal and changed purchase quantity while held (0.269686ms)
+✔ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (0.423597ms)
+✔ shop preserves tool purchases and selected root tabs while settings contains no appearance controls (14.817346ms)
+✔ cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip (19.852492ms)
+✔ all shop tabs categories cards actions and back are disjoint and at least 44 CSS pixels at three sizes (1.868061ms)
+✔ account-only source renders equipped cargo on real boards, trays and dragging without changing checksums (712.656732ms)
+✔ inbound loaded cargo uses wood and independent outlines on current 7 and retained 8 cell boards (156.669874ms)
+✔ outbound loaded cargo and white forklift apply source-account appearance on both transport sizes (45.116635ms)
+✔ legacy outline projection survives renderer normalization and harbor changes board material without changing cargo overlays (198.475713ms)
+✔ menu exposes two mode selectors regardless of saved state (3.939047ms)
+✔ all screen controls are positive, nonoverlapping and inside the shared logical viewport (1.233586ms)
+✔ confirmation is the only actionable layer even above settings, pause and an old-save overlay (0.654255ms)
+✔ menu and settings controls take precedence over paused and terminal runs (15.867776ms)
+✔ settings show real Profile toggles and record recovery while appearance lives in the shop (1.906509ms)
+✔ pause offers safe continue, restart, home, settings and optional help with separate overtime settlement (0.28597ms)
+✔ only v3 five-shift standard victory offers overtime; every terminal mode offers home (1.262129ms)
+✔ controls are pure geometry and their visible captions share hit-test centers (1.184282ms)
+✔ home shows achievements and real save status while inbound submenu owns scores and undated rush entry (5.760438ms)
+✔ confirmation copy explains resets and retains two explicit cancel/confirm buttons (1.795232ms)
+✔ saved v3 tutorial board retains its shared tray and cargo through the historical prefix without teaching copy (11.042425ms)
+✔ terminal copy distinguishes tutorial, daily, standard and voluntary overtime without claiming five shifts for tutorial (5.418043ms)
+✔ theme, forklift color and cargo outline affect canvas output without changing the run (3.167186ms)
+✔ optional assets arguments preserve defaults and draw distinct red/blue paint and stronger cargo outlines (0.337688ms)
+✔ outline style follows single tray artwork and its dragged ghost, not only the board (1.411905ms)
+✔ terminal commands and result overlay stay hidden while the final shipment is animating (1.815683ms)
+✔ resumed daily gameplay labels its saved day instead of substituting the current menu day (3.13013ms)
+✔ overtime result leaves persistence claims to the actual Profile save status (2.836879ms)
+✔ result lists measured peak occupancy and key upgrades without inventing legacy history (2.775196ms)
+✔ debug overlay presents paginated formal fields without extending below its controls (4.766122ms)
+✔ each saved tutorial step hides retired board instructions and skip controls (3.680788ms)
+✔ pause keeps the current goal concise and moves basic and special rules into optional help (8.538342ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/ui-feedback.ts:8
+ private soundSerial=0;
+ constructor(private platform:Platform,private settings:()=>Profile['settings'],private blocked:()=>boolean){}
+                     ^^^^^^^^^^^^^^^^^
+ sound(name:SoundName):void {if(this.settings().sound){this.soundSerial++;this.platform.playSound(name);}}
+
+SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript parameter property is not supported in strip-only mode
+    at parseTypeScript (node:internal/modules/typescript:68:40)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:434:20)
+    at afterLoad (node:internal/modules/esm/loader:502:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+    at afterResolve (node:internal/modules/esm/loader:607:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12) {
+  code: 'ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.19.0
+✖ tests/full-session.test.ts (342.922206ms)
+✔ owner freeze, aggregates, distinct artifacts and exact hashes fail closed (4.632101ms)
+✔ actual manifest schema keeps both targets and paid policy separate (2.792031ms)
+✔ a host-only preload affects a subsequently imported oracle but cannot change a compile-time paid stub (238.441624ms)
+✔ original one-second wave timing includes 0/.35/.7 and refreshed settlement (0.341103ms)
+✔ independent semantic pixel oracle catches swapped cargo, double highlights and replayed completed card (6.591629ms)
+✖ independent natural75 oracle accepts actual source Canvas gate and old-card pixels across both1-second waves (574.410232ms)
+✖ source real input gates animation pause, then permits ordinary pause and hide cancellation without replay (10.634213ms)
+✔ permanent rush runner requires complete owner commit source and actual bytes (2.047842ms)
+✔ current cleanup witness includes rules19 and accepts non-string Canvas fills (0.676297ms)
+✔ actual result controls use one 132/28 stack and compact settings use 144/36 including recovery (7.285655ms)
+✔ constructed rush near-wins keep strict identity history score and honest provenance for both tiers (28.604276ms)
+✔ rush tool and blocked fixtures validate before native execution and have a finite rescue plan (41.869658ms)
+✔ all ordinary failure boundaries and carried-tool winning prefixes have strict account roots (264.043654ms)
+✔ two separately labeled rush boundaries preserve the first physical account history and pay independent rewards (69.809385ms)
+✔ unbound run refuses execution and preserves its first failure (4.844541ms)
+✔ result controls form a uniform stack using only the buttons present, with 44px minimum targets (197.542367ms)
+✔ settings controls stay together with and without a recovery row (33.056646ms)
+ℹ tests 78
+ℹ suites 0
+ℹ pass 74
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1933.759324
+
+✖ failing tests:
+
+test at tests/button-feedback-session-v107.test.ts:1:1
+✖ tests/button-feedback-session-v107.test.ts (176.874743ms)
+  'test failed'
+
+test at tests/full-session.test.ts:1:1
+✖ tests/full-session.test.ts (342.922206ms)
+  'test failed'
+
+test at tests/material-feedback-host-protocol.test.ts:23:1
+✖ independent natural75 oracle accepts actual source Canvas gate and old-card pixels across both1-second waves (574.410232ms)
+  file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/ui-feedback.ts:8
+   private soundSerial=0;
+   constructor(private platform:Platform,private settings:()=>Profile['settings'],private blocked:()=>boolean){}
+                       ^^^^^^^^^^^^^^^^^
+   sound(name:SoundName):void {if(this.settings().sound){this.soundSerial++;this.platform.playSound(name);}}
+  
+  SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript parameter property is not supported in strip-only mode
+      at parseTypeScript (node:internal/modules/typescript:68:40)
+      at processTypeScriptCode (node:internal/modules/typescript:146:42)
+      at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+      at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+      at #translate (node:internal/modules/esm/loader:434:20)
+      at afterLoad (node:internal/modules/esm/loader:502:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+      at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+      at afterResolve (node:internal/modules/esm/loader:607:52)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12) {
+    code: 'ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+  }
+
+test at tests/material-feedback-host-protocol.test.ts:43:1
+✖ source real input gates animation pause, then permits ordinary pause and hide cancellation without replay (10.634213ms)
+  file:///workspace/scratch/e6b59ff34222/feedback-v107/source/src/application/ui-feedback.ts:8
+   private soundSerial=0;
+   constructor(private platform:Platform,private settings:()=>Profile['settings'],private blocked:()=>boolean){}
+                       ^^^^^^^^^^^^^^^^^
+   sound(name:SoundName):void {if(this.settings().sound){this.soundSerial++;this.platform.playSound(name);}}
+  
+  SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript parameter property is not supported in strip-only mode
+      at parseTypeScript (node:internal/modules/typescript:68:40)
+      at processTypeScriptCode (node:internal/modules/typescript:146:42)
+      at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+      at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+      at #translate (node:internal/modules/esm/loader:434:20)
+      at afterLoad (node:internal/modules/esm/loader:502:29)
+      at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+      at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+      at afterResolve (node:internal/modules/esm/loader:607:52)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12) {
+    code: 'ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+  }

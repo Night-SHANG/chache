@@ -5,28 +5,6 @@
   "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
   "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
   "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
-  "userVisualApproval": {
-    "version": "1.0.6",
-    "messageId": "Sentinel_5d760f20c2188191880d65e71e0ec265",
-    "at": "2026-10-11T02:21:30Z",
-    "quote": "符合，，然后把音乐那个也改好，然后再给我发包",
-    "scope": "User accepted same-size classic/cold-chain screenshots; deliver final package after music startup change.",
-    "approvedScreenshotLibraryIds": [
-      "libfile_f31ff086247c81919b2e77b426e2fdb1",
-      "libfile_6009d6fbe46c8191b306e8713198b5d6",
-      "libfile_652df598a06c81918105a26db97c36ec"
-    ],
-    "v105DeliveryHistory": {
-      "formal32": "accepted send",
-      "source11": "explicit send failure: Library file exceeds ChatGPT upload limit; never delivered",
-      "sourceCompact": "local verification only, never uploaded"
-    },
-    "pendingAtThisRecord": [
-      "Final combined music/background bundle binding",
-      "Full tests and freeze",
-      "Package recovery and Library fixed-version verification"
-    ]
-  },
   "changes": [
     "Single non-default background mapped into derived classic finite frame [-57,1148], y unchanged; outside platform deep background preserved.",
     "Music initial enabled/unpaused session actively attempts play; host rejection is retried on real gesture."

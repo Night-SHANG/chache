@@ -1,0 +1,33 @@
+✔ valid button at initial time zero emits one UI click after stopSounds, double up does not replay (11.421512ms)
+✔ turning sound off and back on is silent for that gesture, subsequent normal click sounds (14.185683ms)
+✔ vibration toggle persists and is never itself a vibration, major start obeys it (5.090622ms)
+✔ default major starts vibrate while ordinary navigation does not; cancel stays silent (2.0929ms)
+✔ ordinary fast taps are audio rate limited without dropping actions (1.698677ms)
+✔ pause icon retains audible click after gameplay feedback is cleared (12.578824ms)
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (4.380472ms)
+✔ pressure cancel never commits stale control or acknowledges (0.406642ms)
+✔ pressure outside never commits stale control or acknowledges (0.318459ms)
+✔ pressure page-change never commits stale control or acknowledges (0.212961ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.23219ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.360202ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.25218ms)
+✔ multi-touch cannot steal or clear pressure (0.230196ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (0.726614ms)
+✔ legacy pause icon has pressure and one activation callback (0.481555ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.267772ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (87.691509ms)
+✔ shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels (1.421659ms)
+✔ refresh discards replaced modal and changed purchase quantity while held (0.238949ms)
+✔ clear tool captures only occupied eligible cells, not empty targets or a third selected cell (0.557038ms)
+✔ tool modal captures individual board cells and tray selection without placing behind it (6.893837ms)
+✔ real selected rotation cancels and four turns never consume an account tool (29.724093ms)
+✔ partial clear commits exactly selected two occupied cells without advancing placement cleanup or rush time (32.149313ms)
+✔ a real dense session reaches rescue and selected tool restores actual legal placement (273.800939ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 679.752047

@@ -1,0 +1,30 @@
+✔ wx host optionally observes the original short-haptic arguments without modifying bundle bytes (27.273788ms)
+✔ browser host exposes a real blur event and optional native vibration callback without modifying bundle bytes (5.479701ms)
+✔ native image loader decodes packaged PNG bytes and nine-argument drawing preserves transparent pixels (23.454024ms)
+✔ deferred image loading exposes a genuine not-ready phase then fires onload once for the same native object (11.607917ms)
+✔ missing, invalid, external and escaping images deliver onerror without pretending the atlas loaded (5.478199ms)
+✔ labelled load-failure injection reads and hashes the real local asset but emits only onerror (2.028571ms)
+✔ growth host requires both built-source and actual game byte hashes (2.614932ms)
+✔ corrupt and disagreeing roots are rejected rather than declared valid fixtures (5.076566ms)
+✔ actual VM exceptions and absent native callbacks are failing host evidence (22.949025ms)
+✔ strict actual game host uses native canvas and does not install compatibility globals (64.848073ms)
+✔ v23 host rejects non-owner, unverified and aliased package bindings (2.576606ms)
+✔ v23 independent reference oracle retains original v21 banner and four-card grid (0.793053ms)
+✔ v23 host tone witness takes two distinct actual interior pixel samples (0.359861ms)
+✔ v23 native runner is read-only and never transforms or injects product bundle exports (5.245179ms)
+✔ native host retains its first screen canvas when the actual bundle creates lazy offscreen surfaces (20.642044ms)
+✔ native raster witness follows actual cached composites without inventing new image requests or warm redraws (88.795065ms)
+✔ v24 host rejects non-owner, unverified and aliased package bindings (2.655103ms)
+✔ v24 independent reference oracle retains original v21 banner and four-card grid (1.007165ms)
+✔ v24 host tone witness takes two distinct actual interior pixel samples (0.365259ms)
+✔ v24 native runner is read-only and never transforms or injects product bundle exports (6.49637ms)
+✔ v24 host pins independent category counts, page totals, and footer coordinates (0.585531ms)
+✔ v24 host checks every active native forklift against atlas override (0.253311ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 904.414891

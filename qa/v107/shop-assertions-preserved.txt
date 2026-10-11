@@ -1,0 +1,25 @@
+✔ shop drag never scrolls, changes selection or page, previews or places game pieces (17.740238ms)
+✔ shop drag threshold keeps fourteen-pixel motion a tap and cancels larger diagonal motion (3.30944ms)
+✔ a captured shop swipe cannot activate a card after returning to its origin (1.2165ms)
+✔ shop dragging stays captured beyond the bottom viewport and cannot activate the footer (1.883284ms)
+✔ secondary shop fingers cannot steal, release, or cancel the primary gesture (2.522296ms)
+✔ shop cancellation releases its pending card and permits a fresh pointer tap (1.233957ms)
+✔ shop gesture is abandoned when a modal, blocked account, detail, tab, section or screen replaces its list (14.11333ms)
+✔ shop wheel is unclaimed at every viewport edge and for all finite or invalid deltas (1.735772ms)
+✔ wheel cannot change gameplay, tools, modals, blocked saves, ordinary previews or set details (4.697049ms)
+✔ a normal visible shop card tap retains its UI action (1.21568ms)
+✔ starting outside the list cannot activate a paginated card after moving into it (4.772061ms)
+✔ an unclaimed wheel event leaves a pending card tap unchanged (1.044232ms)
+✔ a large release without a move event cannot activate a captured shop card (2.759042ms)
+✔ leaving the logical canvas cancels shop dragging and a new pointer can still tap (3.673889ms)
+✔ real session hide cancels a pending shop card and a fresh pointer works after show (2.150657ms)
+✔ stale scrolling offsets never move or clip any of the four paginated card targets (1.722432ms)
+✔ real paginated shop drags preserve pages, previews, account data and game state in all four sections (2.285299ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 328.206679

@@ -1,0 +1,7 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.7 typecheck
+> tsc --noEmit
+
+tests/ui-feedback-policy-v107.test.ts(6,167): error TS2352: Conversion of type '{ now: () => number; playSound: (name: string) => number; vibrate: () => void; }' to type 'Platform' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ now: () => number; playSound: (name: string) => number; vibrate: () => void; }' is missing the following properties from type 'Platform': storage, beginFrame, frame, onPointer, and 3 more.

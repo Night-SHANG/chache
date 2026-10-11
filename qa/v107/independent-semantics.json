@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "readonly vibration action does not mutate account",
+      "status": "PASS"
+    },
+    {
+      "name": "accountBlocked vibration action does not mutate account",
+      "status": "PASS"
+    },
+    {
+      "name": "major haptic rate limit does not drop start or prepare actions",
+      "status": "PASS"
+    },
+    {
+      "name": "ui policy exact sound60ms haptic120ms boundaries",
+      "status": "PASS"
+    },
+    {
+      "name": "business cue wins without extra ui click; none on muted current activation",
+      "status": "PASS"
+    }
+  ]
+}

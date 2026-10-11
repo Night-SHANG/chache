@@ -1,0 +1,146 @@
+✖ valid button at initial time zero emits one UI click after stopSounds, double up does not replay (11.357694ms)
+✖ turning sound off and back on is silent for that gesture, subsequent normal click sounds (16.832643ms)
+✖ vibration toggle persists and is never itself a vibration, major start obeys it (1.370258ms)
+✖ default major starts vibrate while ordinary navigation does not; cancel stays silent (1.652492ms)
+✖ ordinary fast taps are audio rate limited without dropping actions (1.237879ms)
+✖ pause icon retains audible click after gameplay feedback is cleared (15.849535ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 0
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 296.743787
+
+✖ failing tests:
+
+test at tests/button-feedback-session-v107.test.ts:9:1
+✖ valid button at initial time zero emits one UI click after stopSounds, double up does not replay (11.357694ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'stop' !== 'ui_click'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:10:154)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'stop',
+    expected: 'ui_click',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-session-v107.test.ts:12:1
+✖ turning sound off and back on is silent for that gesture, subsequent normal click sounds (16.832643ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'ui_click'
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:13:314)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'ui_click' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-session-v107.test.ts:15:1
+✖ vibration toggle persists and is never itself a vibration, major start obeys it (1.370258ms)
+  AssertionError [ERR_ASSERTION]: toggleVibration
+      at click (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:8:172)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:16:56)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-session-v107.test.ts:18:1
+✖ default major starts vibrate while ordinary navigation does not; cancel stays silent (1.652492ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:19:110)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-session-v107.test.ts:22:1
+✖ ordinary fast taps are audio rate limited without dropping actions (1.237879ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:23:117)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/button-feedback-session-v107.test.ts:25:1
+✖ pause icon retains audible click after gameplay feedback is cleared (15.849535ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'ui_click'
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/button-feedback-session-v107.test.ts:26:226)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'ui_click' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

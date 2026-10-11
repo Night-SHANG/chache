@@ -1,0 +1,45 @@
+{
+  "version": "1.0.7",
+  "status": "technical-validation-complete-with-two-inherited-art-source-failures",
+  "recordedAt": "2026-10-11 17:34 北京时间（UTC+08:00）",
+  "baselineNativeCommit": "e5cedc8eda05850c2da5b3fd8591f473a76b7f92",
+  "sourceSha256": "e11f54d8e52a5921f37125c478a7420d20a6763fa0f767a56ed2bb571af8e026",
+  "bundles": [
+    {
+      "path": "browser/app.js",
+      "sha256": "17c8c0be3336c9c09c9f899f23e95dae10b0c880d7d6b67505f3cfe5bf271828"
+    },
+    {
+      "path": "wechat/game.js",
+      "sha256": "a66965ad64ab3bad2e521433ece7308cdec07c68330c28d08a0408e5f7432d96"
+    }
+  ],
+  "checks": {
+    "fullSerialSecond": {
+      "total": 2844,
+      "passed": 2842,
+      "failed": 2,
+      "skipped": 0,
+      "cancelled": 0,
+      "log": "full-serial-second.txt",
+      "note": "Only inherited missing historical source-art failures. One later disabled-control assertion is covered in input-final.txt 16/16; production code unchanged."
+    },
+    "inputFinal": 16,
+    "independentHost": 216,
+    "independentFocused": 58,
+    "independentSemantics": 5,
+    "productionHostCases": 6,
+    "productionHostControlVariants": 34,
+    "musicHostCases": 4,
+    "protectedSourcePaths": 123,
+    "legacyWavFilesUnchanged": 12,
+    "lint": "passed",
+    "typecheck": "passed",
+    "preflight": "passed"
+  },
+  "limits": [
+    "No real-browser GUI, WeChat developer-tool or physical-device verification.",
+    "Haptic and sound requests verified; audible/tactile feel remains device-specific.",
+    "Final archive and Library/Git identities are recorded separately in release receipts; no WeChat upload or public deployment."
+  ]
+}

@@ -1,0 +1,8 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.6 typecheck
+> tsc --noEmit
+
+tests/button-feedback-session-v107.test.ts(10,166): error TS2550: Property 'at' does not exist on type 'string[]'. Do you need to change your target library? Try changing the 'lib' compiler option to 'es2022' or later.
+tests/vibration-settings-v107.test.ts(50,107): error TS2540: Cannot assign to 'generation' because it is a read-only property.
+tests/vibration-settings-v107.test.ts(50,153): error TS2540: Cannot assign to 'lastOperation' because it is a read-only property.

@@ -5,7 +5,7 @@
 **Goal:** All actionable controls show immediate pressure, valid release gets one quiet UI click, and only major confirmations get optional short light haptics.
 **Architecture:** Preserve immutable domain rules and hit rectangles. Input owns ephemeral capture/pressure and validates current control identity. Renderer applies a bounded visual overlay on the captured visible control. Session emits UI acknowledgment after actions finish, respecting settings and suppressing duplicate business cues. Optional platform haptics fail safely.
 **Tech Stack:** Existing TypeScript, Canvas2D, node:test, deterministic WAV synthesis and browser/wx platform adapters. No new dependencies.
-**Spec:** User-approved scheme conveyed 2026-10-11 17:13 Beijing by parent, message Sentinel_6063b4117c5c81918b5dc53094facd4d; source baseline e5cedc8eda05850c2da5b3fd8591f473a76b7f92 (GitHub mapping 794cff14032584653ae78adf96f3d444ded1a49d).
+**Spec:** Immediate visual press feedback, one release acknowledgment and optional major-action haptics; source baseline e5cedc8eda05850c2da5b3fd8591f473a76b7f92 (GitHub mapping 794cff14032584653ae78adf96f3d444ded1a49d).
 
 ## Global Constraints
 - Do not alter v106 scenery, music autoplay, game rules, prices, save keys or ownership.

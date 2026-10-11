@@ -1,0 +1,438 @@
+✔ enabled control pressure appears on down, follows exit/reentry and clears on release without changing hitbox (3.361125ms)
+✔ pressure cancel never commits stale control or acknowledges (0.368393ms)
+✔ pressure outside never commits stale control or acknowledges (0.220381ms)
+✔ pressure page-change never commits stale control or acknowledges (0.192308ms)
+✔ pressure modal-replace never commits stale control or acknowledges (0.243896ms)
+✔ pressure disabled-change never commits stale control or acknowledges (0.265539ms)
+✔ refresh clears a held button when an external page update arrives before move/up (0.234372ms)
+✔ multi-touch cannot steal or clear pressure (0.208663ms)
+✔ major starts and purchase confirmation are classified; ordinary navigation is not (1.041263ms)
+✔ legacy pause icon has pressure and one activation callback (0.322264ms)
+✔ disabled and blank taps do not show pressure or acknowledge (0.228643ms)
+✔ pressed pixels are visible, bounded to control, and cancel restores exact idle frame (84.295063ms)
+✔ drag produces one placement command on release (3.716662ms)
+✔ tap candidate then tap board produces same placement command (0.376405ms)
+✔ drag off canvas cancels without a command (0.268564ms)
+✔ pointer cancellation cannot commit on later release (0.281583ms)
+✔ secondary finger cannot steal active placement (0.27264ms)
+✔ pause overlay blocks board taps (0.177567ms)
+✔ animation locks placement (0.174302ms)
+✔ recovery overlay only resumes from its explicit button (0.389836ms)
+✔ opening pause during drag cancels pending placement (0.298619ms)
+✔ four-candidate upgrade can select and place the fourth slot (0.474082ms)
+✔ debug overlay blocks hidden placements and paginates without gameplay commands (0.290816ms)
+✔ single confirm: rapid repeat does not hit the shop underneath; intentional later input works (24.086836ms)
+✔ single cancel: rapid repeat does not hit the shop underneath; intentional later input works (2.533064ms)
+✔ bundle confirm: rapid repeat does not hit the shop underneath; intentional later input works (5.914433ms)
+✔ bundle cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.490478ms)
+✔ classic confirm: rapid repeat does not hit the shop underneath; intentional later input works (4.94069ms)
+✔ classic cancel: rapid repeat does not hit the shop underneath; intentional later input works (1.499642ms)
+✖ shop drag never scrolls, changes selection or page, previews or places game pieces (16.178543ms)
+✖ shop drag threshold keeps fourteen-pixel motion a tap and cancels larger diagonal motion (3.391083ms)
+✖ a captured shop swipe cannot activate a card after returning to its origin (1.607645ms)
+✖ shop dragging stays captured beyond the bottom viewport and cannot activate the footer (1.609046ms)
+✖ secondary shop fingers cannot steal, release, or cancel the primary gesture (2.162497ms)
+✖ shop cancellation releases its pending card and permits a fresh pointer tap (2.2373ms)
+✔ shop gesture is abandoned when a modal, blocked account, detail, tab, section or screen replaces its list (16.398523ms)
+✔ shop wheel is unclaimed at every viewport edge and for all finite or invalid deltas (2.741728ms)
+✔ wheel cannot change gameplay, tools, modals, blocked saves, ordinary previews or set details (6.615256ms)
+✔ a normal visible shop card tap retains its UI action (1.19191ms)
+✖ starting outside the list cannot activate a paginated card after moving into it (1.557048ms)
+✖ an unclaimed wheel event leaves a pending card tap unchanged (1.087964ms)
+✖ a large release without a move event cannot activate a captured shop card (2.083199ms)
+✖ leaving the logical canvas cancels shop dragging and a new pointer can still tap (1.294765ms)
+✔ real session hide cancels a pending shop card and a fresh pointer works after show (2.009158ms)
+✔ stale scrolling offsets never move or clip any of the four paginated card targets (2.851412ms)
+✔ real paginated shop drags preserve pages, previews, account data and game state in all four sections (3.170211ms)
+ℹ tests 46
+ℹ suites 0
+ℹ pass 36
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 740.314972
+
+✖ failing tests:
+
+test at tests/shop-scroll-input.test.ts:30:1
+✖ shop drag never scrolls, changes selection or page, previews or places game pieces (16.178543ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:31:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:35:1
+✖ shop drag threshold keeps fourteen-pixel motion a tap and cancels larger diagonal motion (3.391083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: {
+  +     rect: {
+  +       h: 366,
+  +       w: 396,
+  +       x: 132,
+  +       y: 630
+  +     },
+  +     visible: true
+  +   },
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:36:100)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: { rect: [Object], visible: true } },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:41:1
+✖ a captured shop swipe cannot activate a card after returning to its origin (1.607645ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:42:69)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:45:1
+✖ shop dragging stays captured beyond the bottom viewport and cannot activate the footer (1.609046ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:46:70)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:49:1
+✖ secondary shop fingers cannot steal, release, or cancel the primary gesture (2.162497ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: {
+  +     rect: {
+  +       h: 366,
+  +       w: 396,
+  +       x: 132,
+  +       y: 630
+  +     },
+  +     visible: true
+  +   },
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:51:162)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: { rect: [Object], visible: true } },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:57:1
+✖ shop cancellation releases its pending card and permits a fresh pointer tap (2.2373ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:58:101)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:90:1
+✖ starting outside the list cannot activate a paginated card after moving into it (1.557048ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:92:80)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:96:1
+✖ an unclaimed wheel event leaves a pending card tap unchanged (1.087964ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: {
+  +     rect: {
+  +       h: 366,
+  +       w: 396,
+  +       x: 132,
+  +       y: 630
+  +     },
+  +     visible: true
+  +   },
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:97:100)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: { rect: [Object], visible: true } },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:101:1
+✖ a large release without a move event cannot activate a captured shop card (2.083199ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:103:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/shop-scroll-input.test.ts:107:1
+✖ leaving the logical canvas cancels shop dragging and a new pointer can still tap (1.294765ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      account: {
+        closedThroughSerial: 0,
+        dailyPaid: {},
+        economyVersion: 1,
+  ...
+      placementRisk: null,
+  +   pressedControl: null,
+      preview: null,
+      profile: {
+        achievements: [],
+        bestScores: {},
+        cosmetics: {
+  
+      at assertUnchanged (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:26:9)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/feedback-v107/source/tests/shop-scroll-input.test.ts:109:108)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null, pressedControl: null },
+    expected: { account: { closedThroughSerial: 0, dailyPaid: {}, economyVersion: 1, epoch: 'test.epoch', formatVersion: 1, generation: 1, guides: [Object], inventory: [Object], lastClosedResult: null, lastOperation: [Object], legacyImported: false, migration: [Object], nextRunSerial: 1, profile: [Object], resetCursor: [Object], run: null, wallet: 3000 }, developerMode: false, selectedPieceId: null, hoverOrigin: null, preview: null, dragPoint: null, paused: false, message: '', saveStatus: '每次操作自动保存', elapsed: 0, animation: null, debug: false, needsResume: false, recoveryError: undefined, screen: 'shop', profile: { achievements: [], bestScores: {}, dailyHistory: {}, lastRecordedRun: null, stats: [Object], schemaVersion: 1, settings: [Object], cosmetics: [Object], tutorialComplete: false, nextRunSerial: 1 }, profileStatus: '尚无长期记录', profileNeedsRecovery: false, dailyLabel: '2026-10-06', canContinue: false, confirmation: null, variant: 'orders', comparisonSeed: 71, modeSlots: { orders: 'empty', color_exit: 'empty', color_exit_entry: 'empty', color_exit_middle: 'empty', color_exit_late: 'empty', outbound_easy: 'empty', outbound_normal: 'empty', outbound_hard: 'empty', outbound_expert: 'empty', inbound_endless: 'empty', outbound8_easy: 'empty', outbound8_normal: 'empty', outbound8_hard: 'empty', outbound8_expert: 'empty' }, accountStatus: 'ready', accountBlocked: false, dailyLocked: false, accountRunId: undefined, guide: null, inboundDifficulty: 'hard', outboundSelectionMode: 'normal', shopTab: 'cosmetics', shopSection: 'sets', shopScroll: { sets: 0, theme: 0, cargo: 0, forklift: 0 }, cosmeticSetPreview: undefined, shopItemDetail: undefined, placementRisk: null },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
