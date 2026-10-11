@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "kind": "Minimal unchanged v109 gradient(ctx,...) repro at identical colors/height, translated y 1090 to 890. No product code modified.",
+  "maxChannelDifference": 1,
+  "totalDifferingChannels": 600,
+  "changes": [
+    {
+      "y": 45,
+      "channel": 0,
+      "before": 244,
+      "after": 245,
+      "delta": 1
+    }
+  ]
+}

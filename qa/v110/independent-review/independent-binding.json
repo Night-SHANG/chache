@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "productGitSha": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+  "productTree": "2e0c5f48d64dd8b96e257b5582a233bdb5fc41f6",
+  "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+  "baseGitSha": "d0e16ecac3b3d0b0386ac57d600a9fefbad59481",
+  "builds": {
+    "browser": {
+      "manifestCommit": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+      "manifestSha256": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade",
+      "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "placeSha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+      "uiClickSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "music": {
+        "src": "assets/bgm.mp3",
+        "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+        "bytes": 1563002,
+        "loop": true,
+        "defaultVolume": 0.14297908225037068,
+        "pausedVolume": 0.09531938816691378,
+        "gainDb": -2,
+        "license": "CC0 1.0 Universal"
+      },
+      "uiClick": {
+        "src": "assets/ui_click.wav",
+        "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+        "author": "Dustyroom",
+        "source": "DM-CGS-32.wav",
+        "license": "CC0-1.0",
+        "assetGain": 1,
+        "playbackGain": 0.2428740327036814,
+        "effectiveTargetPeak": 0.24
+      },
+      "placeSound": {
+        "src": "assets/place.wav",
+        "assetGain": 1.2589254117941673,
+        "gainDb": 2
+      },
+      "soundEffects": {
+        "browserVolume": 0.45,
+        "wechatVolume": 1
+      }
+    },
+    "wechat": {
+      "manifestCommit": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+      "manifestSha256": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade",
+      "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "placeSha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+      "uiClickSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "music": {
+        "src": "assets/bgm.mp3",
+        "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+        "bytes": 1563002,
+        "loop": true,
+        "defaultVolume": 0.14297908225037068,
+        "pausedVolume": 0.09531938816691378,
+        "gainDb": -2,
+        "license": "CC0 1.0 Universal"
+      },
+      "uiClick": {
+        "src": "assets/ui_click.wav",
+        "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+        "author": "Dustyroom",
+        "source": "DM-CGS-32.wav",
+        "license": "CC0-1.0",
+        "assetGain": 1,
+        "playbackGain": 0.2428740327036814,
+        "effectiveTargetPeak": 0.24
+      },
+      "placeSound": {
+        "src": "assets/place.wav",
+        "assetGain": 1.2589254117941673,
+        "gainDb": 2
+      },
+      "soundEffects": {
+        "browserVolume": 0.45,
+        "wechatVolume": 1
+      }
+    }
+  },
+  "unchangedProtectedSourceAndAssetFiles": 191,
+  "changedRuntimeSources": [
+    "src/browser-main.ts",
+    "src/platform/browser.ts",
+    "src/platform/music.ts",
+    "src/platform/types.ts",
+    "src/platform/wechat.ts",
+    "src/presentation/overlay.ts",
+    "src/presentation/renderer.ts",
+    "src/presentation/ui.ts",
+    "src/shared/music-levels.ts",
+    "src/wechat-main.ts"
+  ],
+  "original12CueGeneratorByteIdentical": true,
+  "allRawAssetsMasterLevelsAndClickGainUnchanged": true,
+  "sessionUiFeedbackInputImplementationBaseLayoutAndSceneryGeometryUnchanged": true
+}

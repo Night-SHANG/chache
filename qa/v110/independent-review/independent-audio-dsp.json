@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "place": {
+    "assetSha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+    "frames": 2536,
+    "sampleRate": 22050,
+    "channels": 1,
+    "gainLinear": 1.2589254117941673,
+    "peak": 0.2769775390625,
+    "peakIncreaseDb": 2.0003892337867173,
+    "rmsIncreaseDb": 2.000010401393368,
+    "clippedSamples": 0,
+    "maxQuantizationErrorLsb": 0.4998230604733749,
+    "allPcmSamplesMatchOnceAppliedGain": true
+  },
+  "music": {
+    "gainLinear": 0.7943282347242815,
+    "normalVolume": 0.14297908225037068,
+    "pausedVolume": 0.09531938816691378,
+    "normalChangeDb": -2.0,
+    "pausedChangeDb": -2.0,
+    "normalPausedRatioPreserved": true,
+    "assetUnchanged": true
+  },
+  "unchanged11BusinessEffectsAndClick": {
+    "chain2": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+    "chain3": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+    "chain4": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+    "fail": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+    "forklift": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+    "invalid": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+    "pick": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+    "route_ready": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+    "shift": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+    "ship": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+    "ui_click": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+    "upgrade": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+  },
+  "platforms": [
+    {
+      "target": "browser",
+      "effectMaster": 0.45,
+      "placePlaybackVolume": 0.45,
+      "effectivePlacePeak": 0.12463989257812501,
+      "clickPlaybackVolume": 0.10929331471665664,
+      "effectiveClickPeak": 0.1079991922157392,
+      "normalBgmPlusOnePlaceConservativeSamplePeakBound": 0.1895274380606925,
+      "normalBgmPlusOneClickConservativeSamplePeakBound": 0.1728867376983067
+    },
+    {
+      "target": "wechat",
+      "effectMaster": 1,
+      "placePlaybackVolume": 1,
+      "effectivePlacePeak": 0.2769775390625,
+      "clickPlaybackVolume": 0.2428740327036814,
+      "effectiveClickPeak": 0.23999820492386487,
+      "normalBgmPlusOnePlaceConservativeSamplePeakBound": 0.3418650845450675,
+      "normalBgmPlusOneClickConservativeSamplePeakBound": 0.30488575040643234
+    }
+  ],
+  "limitations": [
+    "Offline PCM and conservative sample-peak bounds, not physical-device listening.",
+    "Bounds cover one effect plus BGM, not arbitrary concurrent sound combinations."
+  ]
+}

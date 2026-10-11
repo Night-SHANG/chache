@@ -1,0 +1,1112 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified original bundles re-rendered in native Canvas/DOM-event/wx hosts; not real GUI or physical device.",
+  "candidate": {
+    "sourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+    "browser": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8",
+    "wechat": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+  },
+  "final": {
+    "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+    "browser": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+    "wechat": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9"
+  },
+  "hostCases": {
+    "passed": 40,
+    "failed": 0,
+    "images": 40
+  },
+  "matrixCases": {
+    "passed": 205,
+    "failed": 0,
+    "images": 12,
+    "themes": 16
+  },
+  "comparisons": [
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-inbound-endless-reference",
+      "candidateFile": "baseline-browser-inbound-endless-reference.png",
+      "finalFile": "baseline-browser-inbound-endless-reference.png",
+      "candidateSha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "finalSha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-inbound-endless-wide",
+      "candidateFile": "baseline-browser-inbound-endless-wide.png",
+      "finalFile": "baseline-browser-inbound-endless-wide.png",
+      "candidateSha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "finalSha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-inbound-standard-reference",
+      "candidateFile": "baseline-browser-inbound-standard-reference.png",
+      "finalFile": "baseline-browser-inbound-standard-reference.png",
+      "candidateSha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "finalSha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-outbound-endless-reference",
+      "candidateFile": "baseline-browser-outbound-endless-reference.png",
+      "finalFile": "baseline-browser-outbound-endless-reference.png",
+      "candidateSha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "finalSha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-outbound-endless-wide",
+      "candidateFile": "baseline-browser-outbound-endless-wide.png",
+      "finalFile": "baseline-browser-outbound-endless-wide.png",
+      "candidateSha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "finalSha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-browser-outbound-normal-reference",
+      "candidateFile": "baseline-browser-outbound-normal-reference.png",
+      "finalFile": "baseline-browser-outbound-normal-reference.png",
+      "candidateSha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "finalSha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-inbound-endless-reference",
+      "candidateFile": "baseline-wechat-inbound-endless-reference.png",
+      "finalFile": "baseline-wechat-inbound-endless-reference.png",
+      "candidateSha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "finalSha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-inbound-endless-wide",
+      "candidateFile": "baseline-wechat-inbound-endless-wide.png",
+      "finalFile": "baseline-wechat-inbound-endless-wide.png",
+      "candidateSha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "finalSha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-inbound-standard-reference",
+      "candidateFile": "baseline-wechat-inbound-standard-reference.png",
+      "finalFile": "baseline-wechat-inbound-standard-reference.png",
+      "candidateSha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "finalSha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-outbound-endless-reference",
+      "candidateFile": "baseline-wechat-outbound-endless-reference.png",
+      "finalFile": "baseline-wechat-outbound-endless-reference.png",
+      "candidateSha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "finalSha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-outbound-endless-wide",
+      "candidateFile": "baseline-wechat-outbound-endless-wide.png",
+      "finalFile": "baseline-wechat-outbound-endless-wide.png",
+      "candidateSha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "finalSha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "baseline-wechat-outbound-normal-reference",
+      "candidateFile": "baseline-wechat-outbound-normal-reference.png",
+      "finalFile": "baseline-wechat-outbound-normal-reference.png",
+      "candidateSha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "finalSha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-browser-inbound-endless-exact-dpr2",
+      "candidateFile": "pixel-baseline-browser-inbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-baseline-browser-inbound-endless-exact-dpr2.png",
+      "candidateSha256": "aa260c1946baed4dae57fa3eda787f30f319e2b3caaf428e7d9ca9b9ee456844",
+      "finalSha256": "aa260c1946baed4dae57fa3eda787f30f319e2b3caaf428e7d9ca9b9ee456844",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-browser-inbound-standard-exact-dpr2",
+      "candidateFile": "pixel-baseline-browser-inbound-standard-exact-dpr2.png",
+      "finalFile": "pixel-baseline-browser-inbound-standard-exact-dpr2.png",
+      "candidateSha256": "23034b754f9656eacf20076f0a5f4e1edbe7558d6bab25b90b4c9a435ab5fe94",
+      "finalSha256": "23034b754f9656eacf20076f0a5f4e1edbe7558d6bab25b90b4c9a435ab5fe94",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-browser-outbound-endless-exact-dpr2",
+      "candidateFile": "pixel-baseline-browser-outbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-baseline-browser-outbound-endless-exact-dpr2.png",
+      "candidateSha256": "a7e38e2441b21183116f8d39bf7804bf28de302de731c6adc5fddf886a2b5953",
+      "finalSha256": "a7e38e2441b21183116f8d39bf7804bf28de302de731c6adc5fddf886a2b5953",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-browser-outbound-normal-exact-dpr2",
+      "candidateFile": "pixel-baseline-browser-outbound-normal-exact-dpr2.png",
+      "finalFile": "pixel-baseline-browser-outbound-normal-exact-dpr2.png",
+      "candidateSha256": "dfc33b0a73295fe206f8c7504d1eaa4aec502dea1bfb9a8248dc4fdb27ba6898",
+      "finalSha256": "dfc33b0a73295fe206f8c7504d1eaa4aec502dea1bfb9a8248dc4fdb27ba6898",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-wechat-inbound-endless-exact-dpr2",
+      "candidateFile": "pixel-baseline-wechat-inbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-baseline-wechat-inbound-endless-exact-dpr2.png",
+      "candidateSha256": "aa260c1946baed4dae57fa3eda787f30f319e2b3caaf428e7d9ca9b9ee456844",
+      "finalSha256": "aa260c1946baed4dae57fa3eda787f30f319e2b3caaf428e7d9ca9b9ee456844",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-wechat-inbound-standard-exact-dpr2",
+      "candidateFile": "pixel-baseline-wechat-inbound-standard-exact-dpr2.png",
+      "finalFile": "pixel-baseline-wechat-inbound-standard-exact-dpr2.png",
+      "candidateSha256": "23034b754f9656eacf20076f0a5f4e1edbe7558d6bab25b90b4c9a435ab5fe94",
+      "finalSha256": "23034b754f9656eacf20076f0a5f4e1edbe7558d6bab25b90b4c9a435ab5fe94",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-wechat-outbound-endless-exact-dpr2",
+      "candidateFile": "pixel-baseline-wechat-outbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-baseline-wechat-outbound-endless-exact-dpr2.png",
+      "candidateSha256": "a7e38e2441b21183116f8d39bf7804bf28de302de731c6adc5fddf886a2b5953",
+      "finalSha256": "a7e38e2441b21183116f8d39bf7804bf28de302de731c6adc5fddf886a2b5953",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-baseline-wechat-outbound-normal-exact-dpr2",
+      "candidateFile": "pixel-baseline-wechat-outbound-normal-exact-dpr2.png",
+      "finalFile": "pixel-baseline-wechat-outbound-normal-exact-dpr2.png",
+      "candidateSha256": "dfc33b0a73295fe206f8c7504d1eaa4aec502dea1bfb9a8248dc4fdb27ba6898",
+      "finalSha256": "dfc33b0a73295fe206f8c7504d1eaa4aec502dea1bfb9a8248dc4fdb27ba6898",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-browser-inbound-endless-exact-dpr2",
+      "candidateFile": "pixel-v110-browser-inbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-v110-browser-inbound-endless-exact-dpr2.png",
+      "candidateSha256": "5cfb8621441226100c54e041269b2307377ba1d28b5a5387273a03e5834f6024",
+      "finalSha256": "5cfb8621441226100c54e041269b2307377ba1d28b5a5387273a03e5834f6024",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-browser-inbound-standard-exact-dpr2",
+      "candidateFile": "pixel-v110-browser-inbound-standard-exact-dpr2.png",
+      "finalFile": "pixel-v110-browser-inbound-standard-exact-dpr2.png",
+      "candidateSha256": "79626ff6d950f7ac4326bc392a0eff5b6698d3df6a9103ff58e329869cdcb891",
+      "finalSha256": "79626ff6d950f7ac4326bc392a0eff5b6698d3df6a9103ff58e329869cdcb891",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-browser-outbound-endless-exact-dpr2",
+      "candidateFile": "pixel-v110-browser-outbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-v110-browser-outbound-endless-exact-dpr2.png",
+      "candidateSha256": "d6d740a94eb59e04fefd6ef9a9f687253c8879f0428f323d7cd01fafc388543a",
+      "finalSha256": "d6d740a94eb59e04fefd6ef9a9f687253c8879f0428f323d7cd01fafc388543a",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-browser-outbound-normal-exact-dpr2",
+      "candidateFile": "pixel-v110-browser-outbound-normal-exact-dpr2.png",
+      "finalFile": "pixel-v110-browser-outbound-normal-exact-dpr2.png",
+      "candidateSha256": "9194be517d2bc4fa68637b8e6d1ff26f75421d574fd123272c48922dc3fe6409",
+      "finalSha256": "9194be517d2bc4fa68637b8e6d1ff26f75421d574fd123272c48922dc3fe6409",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-wechat-inbound-endless-exact-dpr2",
+      "candidateFile": "pixel-v110-wechat-inbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-v110-wechat-inbound-endless-exact-dpr2.png",
+      "candidateSha256": "5cfb8621441226100c54e041269b2307377ba1d28b5a5387273a03e5834f6024",
+      "finalSha256": "5cfb8621441226100c54e041269b2307377ba1d28b5a5387273a03e5834f6024",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-wechat-inbound-standard-exact-dpr2",
+      "candidateFile": "pixel-v110-wechat-inbound-standard-exact-dpr2.png",
+      "finalFile": "pixel-v110-wechat-inbound-standard-exact-dpr2.png",
+      "candidateSha256": "79626ff6d950f7ac4326bc392a0eff5b6698d3df6a9103ff58e329869cdcb891",
+      "finalSha256": "79626ff6d950f7ac4326bc392a0eff5b6698d3df6a9103ff58e329869cdcb891",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-wechat-outbound-endless-exact-dpr2",
+      "candidateFile": "pixel-v110-wechat-outbound-endless-exact-dpr2.png",
+      "finalFile": "pixel-v110-wechat-outbound-endless-exact-dpr2.png",
+      "candidateSha256": "d6d740a94eb59e04fefd6ef9a9f687253c8879f0428f323d7cd01fafc388543a",
+      "finalSha256": "d6d740a94eb59e04fefd6ef9a9f687253c8879f0428f323d7cd01fafc388543a",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "pixel-v110-wechat-outbound-normal-exact-dpr2",
+      "candidateFile": "pixel-v110-wechat-outbound-normal-exact-dpr2.png",
+      "finalFile": "pixel-v110-wechat-outbound-normal-exact-dpr2.png",
+      "candidateSha256": "9194be517d2bc4fa68637b8e6d1ff26f75421d574fd123272c48922dc3fe6409",
+      "finalSha256": "9194be517d2bc4fa68637b8e6d1ff26f75421d574fd123272c48922dc3fe6409",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-inbound-endless-reference",
+      "candidateFile": "v110-browser-inbound-endless-reference.png",
+      "finalFile": "v110-browser-inbound-endless-reference.png",
+      "candidateSha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "finalSha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-inbound-endless-wide",
+      "candidateFile": "v110-browser-inbound-endless-wide.png",
+      "finalFile": "v110-browser-inbound-endless-wide.png",
+      "candidateSha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "finalSha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-inbound-standard-reference",
+      "candidateFile": "v110-browser-inbound-standard-reference.png",
+      "finalFile": "v110-browser-inbound-standard-reference.png",
+      "candidateSha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "finalSha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-outbound-endless-reference",
+      "candidateFile": "v110-browser-outbound-endless-reference.png",
+      "finalFile": "v110-browser-outbound-endless-reference.png",
+      "candidateSha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "finalSha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-outbound-endless-wide",
+      "candidateFile": "v110-browser-outbound-endless-wide.png",
+      "finalFile": "v110-browser-outbound-endless-wide.png",
+      "candidateSha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "finalSha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-browser-outbound-normal-reference",
+      "candidateFile": "v110-browser-outbound-normal-reference.png",
+      "finalFile": "v110-browser-outbound-normal-reference.png",
+      "candidateSha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "finalSha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-inbound-endless-reference",
+      "candidateFile": "v110-wechat-inbound-endless-reference.png",
+      "finalFile": "v110-wechat-inbound-endless-reference.png",
+      "candidateSha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "finalSha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-inbound-endless-wide",
+      "candidateFile": "v110-wechat-inbound-endless-wide.png",
+      "finalFile": "v110-wechat-inbound-endless-wide.png",
+      "candidateSha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "finalSha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-inbound-standard-reference",
+      "candidateFile": "v110-wechat-inbound-standard-reference.png",
+      "finalFile": "v110-wechat-inbound-standard-reference.png",
+      "candidateSha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "finalSha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-outbound-endless-reference",
+      "candidateFile": "v110-wechat-outbound-endless-reference.png",
+      "finalFile": "v110-wechat-outbound-endless-reference.png",
+      "candidateSha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "finalSha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-outbound-endless-wide",
+      "candidateFile": "v110-wechat-outbound-endless-wide.png",
+      "finalFile": "v110-wechat-outbound-endless-wide.png",
+      "candidateSha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "finalSha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "independent-host",
+      "name": "v110-wechat-outbound-normal-reference",
+      "candidateFile": "v110-wechat-outbound-normal-reference.png",
+      "finalFile": "v110-wechat-outbound-normal-reference.png",
+      "candidateSha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "finalSha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-cold_chain-reference",
+      "candidateFile": "v110-source-wechat-cold_chain-reference.png",
+      "finalFile": "v110-source-wechat-cold_chain-reference.png",
+      "candidateSha256": "841aff3b1ab62719b1b11380058bb3d2274d03ca64d3a79ac25ada96aa44c613",
+      "finalSha256": "841aff3b1ab62719b1b11380058bb3d2274d03ca64d3a79ac25ada96aa44c613",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-cold_chain-safe-offset",
+      "candidateFile": "v110-source-wechat-cold_chain-safe-offset.png",
+      "finalFile": "v110-source-wechat-cold_chain-safe-offset.png",
+      "candidateSha256": "fa6ae24cc3d24f2f5cfc7215f17af18dabe8c5c4490bc29245a47fb9ddd8d159",
+      "finalSha256": "fa6ae24cc3d24f2f5cfc7215f17af18dabe8c5c4490bc29245a47fb9ddd8d159",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-cold_chain-wide",
+      "candidateFile": "v110-source-wechat-cold_chain-wide.png",
+      "finalFile": "v110-source-wechat-cold_chain-wide.png",
+      "candidateSha256": "2f16ec3f9f8ee89e0a7df407f2fd60474ff6fff848fa1aeb8d2e31ff0ac76fde",
+      "finalSha256": "2f16ec3f9f8ee89e0a7df407f2fd60474ff6fff848fa1aeb8d2e31ff0ac76fde",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-day-reference",
+      "candidateFile": "v110-source-wechat-day-reference.png",
+      "finalFile": "v110-source-wechat-day-reference.png",
+      "candidateSha256": "fca03c8fca6671da913e6fed7aba6f048b4830e14ef09f8ef1c7417170c342d9",
+      "finalSha256": "fca03c8fca6671da913e6fed7aba6f048b4830e14ef09f8ef1c7417170c342d9",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-day-safe-offset",
+      "candidateFile": "v110-source-wechat-day-safe-offset.png",
+      "finalFile": "v110-source-wechat-day-safe-offset.png",
+      "candidateSha256": "1ba1ec81bc43e15c184ac29048a5d567b58634bc5061865af6bf311ba59c6993",
+      "finalSha256": "1ba1ec81bc43e15c184ac29048a5d567b58634bc5061865af6bf311ba59c6993",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-day-wide",
+      "candidateFile": "v110-source-wechat-day-wide.png",
+      "finalFile": "v110-source-wechat-day-wide.png",
+      "candidateSha256": "b6256cac6ed4687be30de647f4d76cc8c41f0717f10a8bbb27670de9815cd6c4",
+      "finalSha256": "b6256cac6ed4687be30de647f4d76cc8c41f0717f10a8bbb27670de9815cd6c4",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-night-reference",
+      "candidateFile": "v110-source-wechat-night-reference.png",
+      "finalFile": "v110-source-wechat-night-reference.png",
+      "candidateSha256": "6acd8ccb7c64c8dd915989d25862a8c38c4c558e22d7f3427b69a9821c3f22e2",
+      "finalSha256": "6acd8ccb7c64c8dd915989d25862a8c38c4c558e22d7f3427b69a9821c3f22e2",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-night-safe-offset",
+      "candidateFile": "v110-source-wechat-night-safe-offset.png",
+      "finalFile": "v110-source-wechat-night-safe-offset.png",
+      "candidateSha256": "0042b247a38fb0fa9c70c2c7bce29594e8cc790a0ea0abd5acf43ed6dbeb1547",
+      "finalSha256": "0042b247a38fb0fa9c70c2c7bce29594e8cc790a0ea0abd5acf43ed6dbeb1547",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-night-wide",
+      "candidateFile": "v110-source-wechat-night-wide.png",
+      "finalFile": "v110-source-wechat-night-wide.png",
+      "candidateSha256": "da5f2cc7111b6ca538dbabbd436edccb88bc214dd998c5167cec29814926d936",
+      "finalSha256": "da5f2cc7111b6ca538dbabbd436edccb88bc214dd998c5167cec29814926d936",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-steam_foundry-reference",
+      "candidateFile": "v110-source-wechat-steam_foundry-reference.png",
+      "finalFile": "v110-source-wechat-steam_foundry-reference.png",
+      "candidateSha256": "d38cea6cd3ef98121bc994b1db2b7c715e3b988965668d8f8756cb61f1e3bf04",
+      "finalSha256": "d38cea6cd3ef98121bc994b1db2b7c715e3b988965668d8f8756cb61f1e3bf04",
+      "dimensions": [
+        426,
+        674
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-steam_foundry-safe-offset",
+      "candidateFile": "v110-source-wechat-steam_foundry-safe-offset.png",
+      "finalFile": "v110-source-wechat-steam_foundry-safe-offset.png",
+      "candidateSha256": "e0aaf27f59aaeef65519addeba177a73d49f604641e35787c6774dd30190560c",
+      "finalSha256": "e0aaf27f59aaeef65519addeba177a73d49f604641e35787c6774dd30190560c",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "source-matrix",
+      "name": "v110-source-wechat-steam_foundry-wide",
+      "candidateFile": "v110-source-wechat-steam_foundry-wide.png",
+      "finalFile": "v110-source-wechat-steam_foundry-wide.png",
+      "candidateSha256": "08c70bde48caeafb55ca84bd1911a755be1e941c4bdf4114dc1000bbbd372650",
+      "finalSha256": "08c70bde48caeafb55ca84bd1911a755be1e941c4bdf4114dc1000bbbd372650",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-infinite-six-active",
+      "candidateFile": "inbound-infinite-six-active.png",
+      "finalFile": "inbound-infinite-six-active.png",
+      "candidateSha256": "bedc303c0543127d14f6e74ac5861ab2794c8c514b6669ed6076ed62491959f5",
+      "finalSha256": "bedc303c0543127d14f6e74ac5861ab2794c8c514b6669ed6076ed62491959f5",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-infinite-six-before",
+      "candidateFile": "inbound-infinite-six-before.png",
+      "finalFile": "inbound-infinite-six-before.png",
+      "candidateSha256": "a731eddf3ae7e3ae10d98ed831c0a9e89d91fa7afe79b0843020285fb199d52c",
+      "finalSha256": "a731eddf3ae7e3ae10d98ed831c0a9e89d91fa7afe79b0843020285fb199d52c",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-infinite-six-after",
+      "candidateFile": "inbound-infinite-six-after.png",
+      "finalFile": "inbound-infinite-six-after.png",
+      "candidateSha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8",
+      "finalSha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-normal-five-active",
+      "candidateFile": "inbound-normal-five-active.png",
+      "finalFile": "inbound-normal-five-active.png",
+      "candidateSha256": "2f63a55d30b17b177dc501071b7e6ef8ef7f1ed0dbf75bdecbd60e96975c2980",
+      "finalSha256": "2f63a55d30b17b177dc501071b7e6ef8ef7f1ed0dbf75bdecbd60e96975c2980",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-normal-five-before",
+      "candidateFile": "inbound-normal-five-before.png",
+      "finalFile": "inbound-normal-five-before.png",
+      "candidateSha256": "898561b9b63d5043c9b4d52faf745cbb1e27dbe34cf3a0ad3ad91afc0f94d36c",
+      "finalSha256": "898561b9b63d5043c9b4d52faf745cbb1e27dbe34cf3a0ad3ad91afc0f94d36c",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-normal-five-after",
+      "candidateFile": "inbound-normal-five-after.png",
+      "finalFile": "inbound-normal-five-after.png",
+      "candidateSha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177",
+      "finalSha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-infinite-six-active",
+      "candidateFile": "outbound-infinite-six-active.png",
+      "finalFile": "outbound-infinite-six-active.png",
+      "candidateSha256": "1c3eecd8f140b7ab60d28d1d72ddc09d4a2b5218d25049289edafb34302416ef",
+      "finalSha256": "1c3eecd8f140b7ab60d28d1d72ddc09d4a2b5218d25049289edafb34302416ef",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-infinite-six-before",
+      "candidateFile": "outbound-infinite-six-before.png",
+      "finalFile": "outbound-infinite-six-before.png",
+      "candidateSha256": "2842057581562408dc58c88d3be84abbd66e4e11eee9711e8f552d940c69259c",
+      "finalSha256": "2842057581562408dc58c88d3be84abbd66e4e11eee9711e8f552d940c69259c",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-infinite-six-after",
+      "candidateFile": "outbound-infinite-six-after.png",
+      "finalFile": "outbound-infinite-six-after.png",
+      "candidateSha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299",
+      "finalSha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-normal-five-active",
+      "candidateFile": "outbound-normal-five-active.png",
+      "finalFile": "outbound-normal-five-active.png",
+      "candidateSha256": "d0fb9fcbe23639cbe50b29acc527ec56cad1dae4d6a1635ffceb4f46bc8ab168",
+      "finalSha256": "d0fb9fcbe23639cbe50b29acc527ec56cad1dae4d6a1635ffceb4f46bc8ab168",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-normal-five-before",
+      "candidateFile": "outbound-normal-five-before.png",
+      "finalFile": "outbound-normal-five-before.png",
+      "candidateSha256": "924e620ad8542e5e2bfe66bcaf8e176c5198c81277e8e5d0cbb5e42b04b36b14",
+      "finalSha256": "924e620ad8542e5e2bfe66bcaf8e176c5198c81277e8e5d0cbb5e42b04b36b14",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-normal-five-after",
+      "candidateFile": "outbound-normal-five-after.png",
+      "finalFile": "outbound-normal-five-after.png",
+      "candidateSha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a",
+      "finalSha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "rush-five-safe-dpr2-active",
+      "candidateFile": "rush-five-safe-dpr2-active.png",
+      "finalFile": "rush-five-safe-dpr2-active.png",
+      "candidateSha256": "53157d6b08855b29dd66b1c3b9d445447d6d38a2eb6e8926224f857cb4a2612c",
+      "finalSha256": "53157d6b08855b29dd66b1c3b9d445447d6d38a2eb6e8926224f857cb4a2612c",
+      "dimensions": [
+        780,
+        1688
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "rush-five-safe-dpr2-before",
+      "candidateFile": "rush-five-safe-dpr2-before.png",
+      "finalFile": "rush-five-safe-dpr2-before.png",
+      "candidateSha256": "17cfcf46f4cd24f112fd0e4b17f05144f14ea0a6bac8530291c89833309f6468",
+      "finalSha256": "17cfcf46f4cd24f112fd0e4b17f05144f14ea0a6bac8530291c89833309f6468",
+      "dimensions": [
+        780,
+        1688
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "rush-five-safe-dpr2-after",
+      "candidateFile": "rush-five-safe-dpr2-after.png",
+      "finalFile": "rush-five-safe-dpr2-after.png",
+      "candidateSha256": "b320511e36b4900f315bc3319f37e17133c34246d4660d9ddd93a5827db5215d",
+      "finalSha256": "b320511e36b4900f315bc3319f37e17133c34246d4660d9ddd93a5827db5215d",
+      "dimensions": [
+        780,
+        1688
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "safe-theme-infinite-dpr3-active",
+      "candidateFile": "safe-theme-infinite-dpr3-active.png",
+      "finalFile": "safe-theme-infinite-dpr3-active.png",
+      "candidateSha256": "90f994b58b6416cad5ed21dfa31e84528c48c1441ae408b8e1f5c37ad9e1df61",
+      "finalSha256": "90f994b58b6416cad5ed21dfa31e84528c48c1441ae408b8e1f5c37ad9e1df61",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "safe-theme-infinite-dpr3-before",
+      "candidateFile": "safe-theme-infinite-dpr3-before.png",
+      "finalFile": "safe-theme-infinite-dpr3-before.png",
+      "candidateSha256": "c133d889a773f9a46680460062a1291432787a5d6487ab06a6435ca0fda5de7e",
+      "finalSha256": "c133d889a773f9a46680460062a1291432787a5d6487ab06a6435ca0fda5de7e",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "safe-theme-infinite-dpr3-after",
+      "candidateFile": "safe-theme-infinite-dpr3-after.png",
+      "finalFile": "safe-theme-infinite-dpr3-after.png",
+      "candidateSha256": "f26764c389fcea61a6e78fb1cf789ce37f04a8c0af51354fff09f4562bf30798",
+      "finalSha256": "f26764c389fcea61a6e78fb1cf789ce37f04a8c0af51354fff09f4562bf30798",
+      "dimensions": [
+        1680,
+        2520
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "wide-classic-infinite-active",
+      "candidateFile": "wide-classic-infinite-active.png",
+      "finalFile": "wide-classic-infinite-active.png",
+      "candidateSha256": "dd25185a5c07ded80ef9dddf15d798cb4b35b85ab70aaa68bda956f85b32a8ed",
+      "finalSha256": "dd25185a5c07ded80ef9dddf15d798cb4b35b85ab70aaa68bda956f85b32a8ed",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "wide-classic-infinite-before",
+      "candidateFile": "wide-classic-infinite-before.png",
+      "finalFile": "wide-classic-infinite-before.png",
+      "candidateSha256": "799070b2f2e5219683e4c99c540abc711a8932794f938d12eab257c0db1cd7f1",
+      "finalSha256": "799070b2f2e5219683e4c99c540abc711a8932794f938d12eab257c0db1cd7f1",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "wide-classic-infinite-after",
+      "candidateFile": "wide-classic-infinite-after.png",
+      "finalFile": "wide-classic-infinite-after.png",
+      "candidateSha256": "145dcb98b124fcb347e74d71213f38743e598382bf4571b7123442b0886ebb14",
+      "finalSha256": "145dcb98b124fcb347e74d71213f38743e598382bf4571b7123442b0886ebb14",
+      "dimensions": [
+        1356,
+        660
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    }
+  ],
+  "counts": {
+    "totalPngs": 73,
+    "identicalPngBytes": 73,
+    "identicalPixelBuffers": 73
+  },
+  "approvedFourAfter": [
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-infinite-six-after",
+      "candidateFile": "inbound-infinite-six-after.png",
+      "finalFile": "inbound-infinite-six-after.png",
+      "candidateSha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8",
+      "finalSha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "inbound-normal-five-after",
+      "candidateFile": "inbound-normal-five-after.png",
+      "finalFile": "inbound-normal-five-after.png",
+      "candidateSha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177",
+      "finalSha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-infinite-six-after",
+      "candidateFile": "outbound-infinite-six-after.png",
+      "finalFile": "outbound-infinite-six-after.png",
+      "candidateSha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299",
+      "finalSha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    },
+    {
+      "group": "approved-scene-replay",
+      "name": "outbound-normal-five-after",
+      "candidateFile": "outbound-normal-five-after.png",
+      "finalFile": "outbound-normal-five-after.png",
+      "candidateSha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a",
+      "finalSha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a",
+      "dimensions": [
+        512,
+        768
+      ],
+      "pngBytesIdentical": true,
+      "rgbaPixelsIdentical": true
+    }
+  ]
+}

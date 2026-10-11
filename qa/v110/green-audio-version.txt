@@ -1,0 +1,13 @@
+✔ v110 attenuates normal and paused music by exactly 2dB without restarting the same handle (2.009805ms)
+✔ v110 place gains 2dB only in PCM, with exact header/duration/tone and no clipped samples (9.462773ms)
+✔ v110 preserves all other cue bytes, selected UI gain and unchanged BGM asset (57.337143ms)
+✔ v110 WeChat keeps legal per-handle volumes and reuses place at master 1 (0.906504ms)
+✔ formal v1.0.10 production artifacts are paid, non-debug and carry the release version (641.98238ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 748.040331

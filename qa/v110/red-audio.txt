@@ -1,0 +1,333 @@
+✖ v110 attenuates normal and paused music by exactly 2dB without restarting the same handle (1.689964ms)
+✖ v110 place gains 2dB only in PCM, with exact header/duration/tone and no clipped samples (7.626689ms)
+✔ v110 preserves all other cue bytes, selected UI gain and unchanged BGM asset (68.52999ms)
+✔ v110 WeChat keeps legal per-handle volumes and reuses place at master 1 (1.093206ms)
+✖ browser pause-menu ducking preserves one continuous music player and only changes gain (4.893435ms)
+✖ browser initially ducked music and retries apply pause-menu gain before playing (0.67078ms)
+✖ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.537959ms)
+✖ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.528445ms)
+✖ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (0.395145ms)
+✔ browser disabled and paused startup do not create music until state allows it (0.324899ms)
+✔ browser initial creation failure waits for a real gesture and retries only once (0.70411ms)
+✔ browser initial rejected play waits for a new gesture without duplicate contexts (8.764342ms)
+✔ browser pointer callback applies a disabled setting before music can start (0.513933ms)
+✔ browser a failure triggered by a pointer callback is retried only on a later interaction (0.303517ms)
+✔ browser music pause preserves position and repeated setting changes are idempotent (0.229095ms)
+✔ browser repeated hide and show pauses before callbacks and resumes once (0.220021ms)
+✔ browser menu music resumes after Session includes hidden in its temporary paused state (0.138348ms)
+✔ browser toggling off while hidden prevents automatic resumption until a new gesture (0.150416ms)
+✔ browser show cannot start never-played music or resume a paused Session (0.216806ms)
+✔ browser music and cached sound effects stop independently (0.250167ms)
+✔ browser rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (2.220241ms)
+✔ browser a late resolved play is paused after hiding or disabling (0.640944ms)
+✔ browser pending and successful async play never duplicates the handle or retries each frame (0.435025ms)
+✔ browser native errors block frame retries and explicit interactions reuse the handle (0.303056ms)
+✔ browser creation setup playback and pause failures stay optional and bounded (0.340833ms)
+✖ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.814075ms)
+✖ wechat initially ducked music and retries apply pause-menu gain before playing (0.351509ms)
+✖ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.457718ms)
+✖ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.340593ms)
+✖ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.21936ms)
+✔ wechat disabled and paused startup do not create music until state allows it (0.141573ms)
+✔ wechat initial creation failure waits for a real gesture and retries only once (0.460463ms)
+✔ wechat initial rejected play waits for a new gesture without duplicate contexts (4.49108ms)
+✔ wechat pointer callback applies a disabled setting before music can start (0.185449ms)
+✔ wechat a failure triggered by a pointer callback is retried only on a later interaction (0.101262ms)
+✔ wechat music pause preserves position and repeated setting changes are idempotent (0.062704ms)
+✔ wechat repeated hide and show pauses before callbacks and resumes once (0.055133ms)
+✔ wechat menu music resumes after Session includes hidden in its temporary paused state (0.042644ms)
+✔ wechat toggling off while hidden prevents automatic resumption until a new gesture (0.065889ms)
+✔ wechat show cannot start never-played music or resume a paused Session (0.108533ms)
+✔ wechat music and cached sound effects stop independently (0.270377ms)
+✔ wechat rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (1.143772ms)
+✔ wechat a late resolved play is paused after hiding or disabling (0.371639ms)
+✔ wechat pending and successful async play never duplicates the handle or retries each frame (0.421554ms)
+✔ wechat native errors block frame retries and explicit interactions reuse the handle (0.156486ms)
+✔ wechat creation setup playback and pause failures stay optional and bounded (0.171628ms)
+✔ browser pagehide pauses and pageshow resumes its existing music context (0.272951ms)
+✔ wechat safely falls back to stop when a host has no pause method (0.189996ms)
+✔ new profiles include separate enabled music while legacy two-setting records retain their shape (1.671556ms)
+✔ profile music validation rejects wrong types and unknown fields without schema changes (0.370257ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 38
+ℹ fail 12
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 232.001663
+
+✖ failing tests:
+
+test at tests/audio-balance-v110.test.ts:16:1
+✖ v110 attenuates normal and paused music by exactly 2dB without restarting the same handle (1.689964ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.18
+  - 0.14297908225037068
+       ^
+  
+      at TestContext.<anonymous> (file://<project>/tests/audio-balance-v110.test.ts:19:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.14297908225037068,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/audio-balance-v110.test.ts:25:1
+✖ v110 place gains 2dB only in PCM, with exact header/duration/tone and no clipped samples (7.626689ms)
+  AssertionError [ERR_ASSERTION]: place sample 14
+  
+  2 !== 3
+  
+      at TestContext.<anonymous> (file://<project>/tests/audio-balance-v110.test.ts:28:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:47:2
+✖ browser pause-menu ducking preserves one continuous music player and only changes gain (4.893435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:55:2
+✖ browser initially ducked music and retries apply pause-menu gain before playing (0.67078ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:61:2
+✖ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.537959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:68:2
+✖ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.528445ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:72:63)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:75:2
+✖ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (0.395145ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.18
+  - 0.14297908225037068
+       ^
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:77:145)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.14297908225037068,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:47:2
+✖ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.814075ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:55:2
+✖ wechat initially ducked music and retries apply pause-menu gain before playing (0.351509ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:61:2
+✖ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.457718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:68:2
+✖ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.340593ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.12
+  - 0.09531938816691378
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:72:63)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.12,
+    expected: 0.09531938816691378,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:75:2
+✖ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.21936ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 0.18
+  - 0.14297908225037068
+       ^
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:77:145)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.14297908225037068,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,6104 @@
+{
+  "kind": "Independent unmodified app.js/game.js DOM-event and native Canvas wx host. Not browser GUI, WeChat tools or physical-device evidence.",
+  "initial": {
+    "sourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+    "browser": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8",
+    "wechat": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+  },
+  "manifest": {
+    "placeSound": {
+      "src": "assets/place.wav",
+      "assetGain": 1.2589254117941673,
+      "gainDb": 2
+    },
+    "uiClick": {
+      "src": "assets/ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "author": "Dustyroom",
+      "source": "DM-CGS-32.wav",
+      "license": "CC0-1.0",
+      "assetGain": 1,
+      "playbackGain": 0.2428740327036814,
+      "effectiveTargetPeak": 0.24
+    },
+    "cargoAtlas": {
+      "src": "assets/cargo-materials.png",
+      "width": 670,
+      "height": 2010,
+      "tileSize": 134,
+      "padding": 3,
+      "bodySize": 128,
+      "styles": [
+        "wood",
+        "insulated",
+        "reinforced",
+        "taped",
+        "toy_brick",
+        "paper_fold",
+        "space_case",
+        "ice_crystal",
+        "steam_brass",
+        "neon_circuit",
+        "lava_core",
+        "ocean_relic",
+        "royal_gold",
+        "field_supply",
+        "harbor_container"
+      ],
+      "cargos": [
+        "cargo.food",
+        "cargo.machine",
+        "cargo.chem",
+        "cargo.electronic",
+        "cargo.cold"
+      ],
+      "bytes": 351513,
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    "sceneMaterialAtlas": {
+      "src": "assets/scene-materials.png",
+      "width": 512,
+      "height": 960,
+      "tileSize": 64,
+      "frameSize": 128,
+      "variants": 3,
+      "tileBaseY": 512,
+      "tileColumns": 8,
+      "frameColumns": 4,
+      "extensionThemeStart": 13,
+      "extensionTileBaseY": 896,
+      "themes": [
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station",
+        "forest_depot",
+        "ice_vault"
+      ],
+      "bytes": 219775,
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    "boardMaterialAtlas": {
+      "src": "assets/board-materials.png",
+      "width": 512,
+      "height": 512,
+      "tileSize": 128,
+      "themes": [
+        "day",
+        "night",
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station"
+      ],
+      "bytes": 166727,
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    "themedForkliftAtlas": {
+      "src": "assets/themed-forklifts.png",
+      "width": 2048,
+      "height": 128,
+      "tileSize": 128,
+      "tileColumns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15
+      ],
+      "paints": [
+        "electric",
+        "heavy",
+        "compact",
+        "toy",
+        "paper",
+        "space",
+        "steam",
+        "neon",
+        "lava",
+        "diving",
+        "royal",
+        "field",
+        "timber",
+        "ice",
+        "harbor"
+      ],
+      "bytes": 61052,
+      "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+    },
+    "developerDiagnostics": false,
+    "shopPricingMode": "paid",
+    "soundEffects": {
+      "browserVolume": 0.45,
+      "wechatVolume": 1
+    },
+    "version": "1.0.10",
+    "rulesetVersion": 21,
+    "backgroundMusic": {
+      "src": "assets/bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "bytes": 1563002,
+      "loop": true,
+      "defaultVolume": 0.14297908225037068,
+      "pausedVolume": 0.09531938816691378,
+      "gainDb": -2,
+      "license": "CC0 1.0 Universal"
+    },
+    "accountFormatVersion": 4,
+    "economyVersion": 2,
+    "interactiveTutorials": false,
+    "help": {
+      "entry": "home_and_pause",
+      "topics": [
+        "inbound",
+        "outbound",
+        "tools"
+      ],
+      "rushDetails": true,
+      "specialCargoOnly": true,
+      "automatic": false
+    },
+    "cosmetics": {
+      "catalogSize": 50,
+      "setCount": 15,
+      "navigation": "sections-pagination-inline-preview",
+      "sections": [
+        "sets",
+        "theme",
+        "cargo",
+        "forklift"
+      ],
+      "columns": 2,
+      "pageSize": 4,
+      "setPageSize": 4
+    },
+    "supportedRulesets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21
+    ],
+    "modes": {
+      "orders": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "candidates": [
+          3
+        ],
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "economyVersion": 2,
+        "finalStageRush": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "orderRanges": {
+          "hard": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ],
+          "expert": [
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              8
+            ]
+          ]
+        },
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        },
+        "overtimeDifficulties": [
+          "hard",
+          "expert"
+        ],
+        "continuedRecordScope": "endless"
+      },
+      "legacy_daily": {
+        "rulesetVersion": 18,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "inboundDifficulty": "hard",
+        "scoreMultiplier": [
+          3,
+          2
+        ]
+      },
+      "rush": {
+        "rulesetVersion": 21,
+        "runConfigId": "run.rush_v21.base",
+        "boardSize": 7,
+        "reservedEntries": 4,
+        "targetOrders": 30,
+        "inboundDifficulty": "normal",
+        "orderRanges": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            7
+          ]
+        ],
+        "scoreMultiplier": [
+          1,
+          1
+        ],
+        "tools": true,
+        "maxToolTypes": 2,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "repeatable": true,
+        "dated": false,
+        "seedPerRun": true,
+        "winCoinMultiplier": 1
+      },
+      "legacy_fixed_rush": {
+        "rulesetVersion": 20,
+        "winCoinMultiplier": 3
+      },
+      "legacy_rush": {
+        "rulesetVersion": 19,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_tiers": {
+        "rulesetVersion": 16
+      },
+      "legacy_final_stage": {
+        "rulesetVersion": 15
+      },
+      "legacy_multishape": {
+        "rulesetVersion": 14
+      },
+      "legacy_refinement": {
+        "rulesetVersion": 11
+      },
+      "legacy_growth": {
+        "rulesetVersion": 9,
+        "boardSizes": [
+          7,
+          8
+        ],
+        "candidates": [
+          3,
+          4,
+          5
+        ]
+      },
+      "legacy_orders": {
+        "rulesetVersion": 3
+      },
+      "color_exit": {
+        "rulesetVersion": 4,
+        "balanced": false
+      },
+      "color_exit_mixed": {
+        "rulesetVersion": 5,
+        "tiers": {
+          "entry": 20,
+          "middle": 30,
+          "late": 40
+        },
+        "balanced": false
+      },
+      "outbound": {
+        "rulesetVersion": 12,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "balanced": false
+      },
+      "inbound_endless": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "stageCap": 5,
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_endless": {
+        "rulesetVersion": 7
+      },
+      "outbound_endless": {
+        "rulesetVersion": 13,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "stageCap": 5,
+        "balanced": false
+      }
+    },
+    "sourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+    "commit": "d0e16ecac3b3d0b0386ac57d600a9fefbad59481",
+    "builtAt": "2026-10-11T12:39:09.655Z",
+    "runtimeStatus": "WeChat developer tools and physical devices NOT RUN",
+    "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2"
+  },
+  "baseline": {
+    "browser": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+    "wechat": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+  },
+  "cases": [
+    {
+      "name": "browser-inbound-standard-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-inbound-standard-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-inbound-standard-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-inbound-endless-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-inbound-endless-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-inbound-endless-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-normal-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-normal-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-normal-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-endless-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-endless-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "browser-outbound-endless-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "wechat-inbound-standard-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-inbound-standard-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-inbound-standard-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-standard",
+        "family": "inbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-inbound-endless-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-inbound-endless-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-inbound-endless-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "inbound-endless",
+        "family": "inbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-normal-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-normal-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-normal-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-normal",
+        "family": "outbound",
+        "endless": false
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-endless-reference",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "reference",
+        "width": 426,
+        "height": 674,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 337,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 337,
+          "before": [
+            44,
+            67,
+            77,
+            255
+          ],
+          "after": [
+            11,
+            20,
+            27,
+            255
+          ],
+          "expected": [
+            11,
+            20,
+            27,
+            255
+          ]
+        },
+        {
+          "x": 425,
+          "y": 673,
+          "before": [
+            21,
+            44,
+            54,
+            255
+          ],
+          "after": [
+            7,
+            16,
+            24,
+            255
+          ],
+          "expected": [
+            8,
+            16,
+            24,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-endless-wide",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "wide",
+        "width": 1356,
+        "height": 660,
+        "dpr": 1,
+        "safeTop": 0
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "wechat-outbound-endless-safe-dpr3",
+      "status": "PASS",
+      "mode": {
+        "name": "outbound-endless",
+        "family": "outbound",
+        "endless": true
+      },
+      "cfg": {
+        "name": "safe-dpr3",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "safeTop": 24
+      },
+      "newLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 942,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1072,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1202,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1332,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1462,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1592,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "oldLabels": [
+        {
+          "text": "继续游戏",
+          "x": 540,
+          "y": 1142,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#49361b",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "重新开始",
+          "x": 540,
+          "y": 1272,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "返回主页",
+          "x": 540,
+          "y": 1402,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "设置",
+          "x": 540,
+          "y": 1532,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "玩法说明",
+          "x": 540,
+          "y": 1662,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        },
+        {
+          "text": "结束并结算",
+          "x": 540,
+          "y": 1792,
+          "font": "800 36px \"Noto Sans CJK SC\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "color": "#fff0cf",
+          "align": "center",
+          "baseline": "middle",
+          "alpha": 1
+        }
+      ],
+      "sample": [
+        {
+          "x": 0,
+          "y": 0,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 1266,
+          "before": [
+            56,
+            82,
+            92,
+            255
+          ],
+          "after": [
+            13,
+            22,
+            30,
+            255
+          ],
+          "expected": [
+            13,
+            22,
+            30,
+            255
+          ]
+        },
+        {
+          "x": 1169,
+          "y": 2531,
+          "before": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "after": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expected": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "allActionsThroughNativeEvents": true,
+      "blankAndCanceledInputsBlocked": true,
+      "unpausedFullPixelsIdentical": true,
+      "modalHeaderPixelsIdentical": true,
+      "buttonPixelsIdentical": false,
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    }
+  ],
+  "images": [
+    {
+      "name": "baseline-browser-inbound-standard-reference",
+      "path": "baseline-browser-inbound-standard-reference.png",
+      "sha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-inbound-standard-reference",
+      "path": "v110-browser-inbound-standard-reference.png",
+      "sha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-browser-inbound-endless-reference",
+      "path": "baseline-browser-inbound-endless-reference.png",
+      "sha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-inbound-endless-reference",
+      "path": "v110-browser-inbound-endless-reference.png",
+      "sha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-browser-inbound-endless-wide",
+      "path": "baseline-browser-inbound-endless-wide.png",
+      "sha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-inbound-endless-wide",
+      "path": "v110-browser-inbound-endless-wide.png",
+      "sha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-browser-outbound-normal-reference",
+      "path": "baseline-browser-outbound-normal-reference.png",
+      "sha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-outbound-normal-reference",
+      "path": "v110-browser-outbound-normal-reference.png",
+      "sha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-browser-outbound-endless-reference",
+      "path": "baseline-browser-outbound-endless-reference.png",
+      "sha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-outbound-endless-reference",
+      "path": "v110-browser-outbound-endless-reference.png",
+      "sha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-browser-outbound-endless-wide",
+      "path": "baseline-browser-outbound-endless-wide.png",
+      "sha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "name": "v110-browser-outbound-endless-wide",
+      "path": "v110-browser-outbound-endless-wide.png",
+      "sha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "name": "baseline-wechat-inbound-standard-reference",
+      "path": "baseline-wechat-inbound-standard-reference.png",
+      "sha256": "bc9155986425d2c5f9c5d08062dee0a7e6060638fd82b38081f351968b9ce274",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-inbound-standard-reference",
+      "path": "v110-wechat-inbound-standard-reference.png",
+      "sha256": "2e46f1c735a064ce6fcf1dc448a6332be99c2de908ec861d9177da3c01eb3916",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "baseline-wechat-inbound-endless-reference",
+      "path": "baseline-wechat-inbound-endless-reference.png",
+      "sha256": "79f58f04c646272f64c9f31f24c750577a1d8160bce2aa9ca7891d72300dbb59",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-inbound-endless-reference",
+      "path": "v110-wechat-inbound-endless-reference.png",
+      "sha256": "e3f742941ec2023e0e23c2344f2e8c78450d1ec8d0f6306fd79caa0fd90d4402",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "baseline-wechat-inbound-endless-wide",
+      "path": "baseline-wechat-inbound-endless-wide.png",
+      "sha256": "4c29d5281b9618d9f747783e5fadc0dd4c45b63243f656f8c9daa204c104af03",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-inbound-endless-wide",
+      "path": "v110-wechat-inbound-endless-wide.png",
+      "sha256": "2fb94298a3d9a57b19463ba5e98086f5457ffa73728b5f82d88c676919f7633d",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "baseline-wechat-outbound-normal-reference",
+      "path": "baseline-wechat-outbound-normal-reference.png",
+      "sha256": "575d9eb99671387925d1a4e63033697f8b39013c2dc39acc9384dfbb175d41e2",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-outbound-normal-reference",
+      "path": "v110-wechat-outbound-normal-reference.png",
+      "sha256": "c1272a00d551be7e5ca18792ebeb2102010826f1c177c0eddaa0eb3036d442a4",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "baseline-wechat-outbound-endless-reference",
+      "path": "baseline-wechat-outbound-endless-reference.png",
+      "sha256": "f755ae72c2bfc3bc84c9c76642174767a6aea670c2c42716f65e3692d7f147e1",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-outbound-endless-reference",
+      "path": "v110-wechat-outbound-endless-reference.png",
+      "sha256": "3028700447ae3efc112fea7df4ea25e4778f06e1d0849cb5d4aa938704428488",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "name": "baseline-wechat-outbound-endless-wide",
+      "path": "baseline-wechat-outbound-endless-wide.png",
+      "sha256": "3cdafa722a6f5fa6bc74edacd335637318450dee22f6e7c6d8a12d23ef47d5dc",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "name": "v110-wechat-outbound-endless-wide",
+      "path": "v110-wechat-outbound-endless-wide.png",
+      "sha256": "ded9ed230d4232bc01ba7da60a59ff10d5bff31e52a6bea14b25b5e81a71918f",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    }
+  ],
+  "failures": [
+    {
+      "name": "browser-inbound-standard-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "browser-inbound-endless-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "browser-outbound-normal-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "browser-outbound-endless-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "wechat-inbound-standard-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "wechat-inbound-endless-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "wechat-outbound-normal-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    },
+    {
+      "name": "wechat-outbound-endless-exact-dpr2",
+      "error": "AssertionError [ERR_ASSERTION]: Moved button interior pixels differ\n+ actual - expected\n\n+ '10fcd41c99a08f564ea37704e06c61add92d644368ee536bb55bcfca3eada209'\n- 'd7f264e5a8bbe41e441479331757c5514d6c366ee2ae34efb09a9a53a8d3697a'\n"
+    }
+  ],
+  "ending": {
+    "sourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+    "browser": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8",
+    "wechat": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+  },
+  "status": "FAIL",
+  "counts": {
+    "passed": 24,
+    "failed": 8,
+    "images": 24
+  }
+}

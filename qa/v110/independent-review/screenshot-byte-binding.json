@@ -1,0 +1,157 @@
+{
+  "status": "PASS",
+  "candidateSourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+  "files": [
+    {
+      "scene": "inbound-normal-five",
+      "stage": "active",
+      "file": "inbound-normal-five-active.png",
+      "sha256": "2f63a55d30b17b177dc501071b7e6ef8ef7f1ed0dbf75bdecbd60e96975c2980",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "inbound-normal-five",
+      "stage": "before",
+      "file": "inbound-normal-five-before.png",
+      "sha256": "898561b9b63d5043c9b4d52faf745cbb1e27dbe34cf3a0ad3ad91afc0f94d36c",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "scene": "inbound-normal-five",
+      "stage": "after",
+      "file": "inbound-normal-five-after.png",
+      "sha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "inbound-infinite-six",
+      "stage": "active",
+      "file": "inbound-infinite-six-active.png",
+      "sha256": "bedc303c0543127d14f6e74ac5861ab2794c8c514b6669ed6076ed62491959f5",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "inbound-infinite-six",
+      "stage": "before",
+      "file": "inbound-infinite-six-before.png",
+      "sha256": "a731eddf3ae7e3ae10d98ed831c0a9e89d91fa7afe79b0843020285fb199d52c",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "scene": "inbound-infinite-six",
+      "stage": "after",
+      "file": "inbound-infinite-six-after.png",
+      "sha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "outbound-normal-five",
+      "stage": "active",
+      "file": "outbound-normal-five-active.png",
+      "sha256": "d0fb9fcbe23639cbe50b29acc527ec56cad1dae4d6a1635ffceb4f46bc8ab168",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "outbound-normal-five",
+      "stage": "before",
+      "file": "outbound-normal-five-before.png",
+      "sha256": "924e620ad8542e5e2bfe66bcaf8e176c5198c81277e8e5d0cbb5e42b04b36b14",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "scene": "outbound-normal-five",
+      "stage": "after",
+      "file": "outbound-normal-five-after.png",
+      "sha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "outbound-infinite-six",
+      "stage": "active",
+      "file": "outbound-infinite-six-active.png",
+      "sha256": "1c3eecd8f140b7ab60d28d1d72ddc09d4a2b5218d25049289edafb34302416ef",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "outbound-infinite-six",
+      "stage": "before",
+      "file": "outbound-infinite-six-before.png",
+      "sha256": "2842057581562408dc58c88d3be84abbd66e4e11eee9711e8f552d940c69259c",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "scene": "outbound-infinite-six",
+      "stage": "after",
+      "file": "outbound-infinite-six-after.png",
+      "sha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "rush-five-safe-dpr2",
+      "stage": "active",
+      "file": "rush-five-safe-dpr2-active.png",
+      "sha256": "53157d6b08855b29dd66b1c3b9d445447d6d38a2eb6e8926224f857cb4a2612c",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "rush-five-safe-dpr2",
+      "stage": "before",
+      "file": "rush-five-safe-dpr2-before.png",
+      "sha256": "17cfcf46f4cd24f112fd0e4b17f05144f14ea0a6bac8530291c89833309f6468",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "scene": "rush-five-safe-dpr2",
+      "stage": "after",
+      "file": "rush-five-safe-dpr2-after.png",
+      "sha256": "b320511e36b4900f315bc3319f37e17133c34246d4660d9ddd93a5827db5215d",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "wide-classic-infinite",
+      "stage": "active",
+      "file": "wide-classic-infinite-active.png",
+      "sha256": "dd25185a5c07ded80ef9dddf15d798cb4b35b85ab70aaa68bda956f85b32a8ed",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "wide-classic-infinite",
+      "stage": "before",
+      "file": "wide-classic-infinite-before.png",
+      "sha256": "799070b2f2e5219683e4c99c540abc711a8932794f938d12eab257c0db1cd7f1",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5"
+    },
+    {
+      "scene": "wide-classic-infinite",
+      "stage": "after",
+      "file": "wide-classic-infinite-after.png",
+      "sha256": "145dcb98b124fcb347e74d71213f38743e598382bf4571b7123442b0886ebb14",
+      "bundleSha256": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8"
+    },
+    {
+      "scene": "safe-theme-infinite-dpr3",
+      "stage": "active",
+      "file": "safe-theme-infinite-dpr3-active.png",
+      "sha256": "90f994b58b6416cad5ed21dfa31e84528c48c1441ae408b8e1f5c37ad9e1df61",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    },
+    {
+      "scene": "safe-theme-infinite-dpr3",
+      "stage": "before",
+      "file": "safe-theme-infinite-dpr3-before.png",
+      "sha256": "c133d889a773f9a46680460062a1291432787a5d6487ab06a6435ca0fda5de7e",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+    },
+    {
+      "scene": "safe-theme-infinite-dpr3",
+      "stage": "after",
+      "file": "safe-theme-infinite-dpr3-after.png",
+      "sha256": "f26764c389fcea61a6e78fb1cf789ce37f04a8c0af51354fff09f4562bf30798",
+      "bundleSha256": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+    }
+  ],
+  "limitations": [
+    "Frozen native-Canvas production-host images; not physical-device screenshots.",
+    "Image contents are not included in public technical evidence."
+  ]
+}

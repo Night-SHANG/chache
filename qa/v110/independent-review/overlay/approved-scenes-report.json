@@ -1,0 +1,1331 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified production bundles executed by native Canvas/DOM-event or wx host; no scene injection",
+  "limitations": [
+    "Not a real browser GUI, WeChat developer tool or physical-device test.",
+    "Isolated owned-theme QA fixture, not user data."
+  ],
+  "cases": [
+    {
+      "name": "inbound-normal-five",
+      "target": "wechat",
+      "mode": "standard",
+      "theme": "harbor",
+      "width": 512,
+      "height": 768,
+      "dpr": 1,
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "baselineBundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "active": {
+        "path": "inbound-normal-five-active.png",
+        "sha256": "2f63a55d30b17b177dc501071b7e6ef8ef7f1ed0dbf75bdecbd60e96975c2980"
+      },
+      "before": {
+        "path": "inbound-normal-five-before.png",
+        "sha256": "898561b9b63d5043c9b4d52faf745cbb1e27dbe34cf3a0ad3ad91afc0f94d36c"
+      },
+      "after": {
+        "path": "inbound-normal-five-after.png",
+        "sha256": "d45be779ee25c81db983d0fc9807ddd64bfe6514553654058fedc0a5d04fe177"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "standard",
+            "inboundDifficulty": "hard"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        }
+      ],
+      "buttonPixelEquality": 5,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 767,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "inbound-infinite-six",
+      "target": "wechat",
+      "mode": "endless",
+      "theme": "harbor",
+      "width": 512,
+      "height": 768,
+      "dpr": 1,
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "baselineBundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "active": {
+        "path": "inbound-infinite-six-active.png",
+        "sha256": "bedc303c0543127d14f6e74ac5861ab2794c8c514b6669ed6076ed62491959f5"
+      },
+      "before": {
+        "path": "inbound-infinite-six-before.png",
+        "sha256": "a731eddf3ae7e3ae10d98ed831c0a9e89d91fa7afe79b0843020285fb199d52c"
+      },
+      "after": {
+        "path": "inbound-infinite-six-after.png",
+        "sha256": "dec509130af58f75b8efb8a13c64a22fb9293b873b6d55f0978997dd3f9cbca8"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "endless",
+            "inboundDifficulty": "hard"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1540,
+            "w": 588,
+            "h": 104
+          },
+          "label": "结束并结算",
+          "action": {
+            "type": "finishEndless"
+          }
+        }
+      ],
+      "buttonPixelEquality": 6,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 767,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "outbound-normal-five",
+      "target": "browser",
+      "mode": "normal",
+      "outbound": true,
+      "theme": "day",
+      "width": 512,
+      "height": 768,
+      "dpr": 1,
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "baselineBundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "active": {
+        "path": "outbound-normal-five-active.png",
+        "sha256": "d0fb9fcbe23639cbe50b29acc527ec56cad1dae4d6a1635ffceb4f46bc8ab168"
+      },
+      "before": {
+        "path": "outbound-normal-five-before.png",
+        "sha256": "924e620ad8542e5e2bfe66bcaf8e176c5198c81277e8e5d0cbb5e42b04b36b14"
+      },
+      "after": {
+        "path": "outbound-normal-five-after.png",
+        "sha256": "a85462778f1c8576ae96c0f7acb454a759558324fa32c89ba77e747b7a54c00a"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "color_exit",
+            "difficultyId": "normal",
+            "outboundMode": "normal"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        }
+      ],
+      "buttonPixelEquality": 5,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 767,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "outbound-infinite-six",
+      "target": "browser",
+      "mode": "endless",
+      "outbound": true,
+      "theme": "cold_chain",
+      "width": 512,
+      "height": 768,
+      "dpr": 1,
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "baselineBundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "active": {
+        "path": "outbound-infinite-six-active.png",
+        "sha256": "1c3eecd8f140b7ab60d28d1d72ddc09d4a2b5218d25049289edafb34302416ef"
+      },
+      "before": {
+        "path": "outbound-infinite-six-before.png",
+        "sha256": "2842057581562408dc58c88d3be84abbd66e4e11eee9711e8f552d940c69259c"
+      },
+      "after": {
+        "path": "outbound-infinite-six-after.png",
+        "sha256": "d984dd0e2fe869e13d8863443017ca64bade4ccc28ed92f5556158f2e1138299"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "color_exit",
+            "difficultyId": "normal",
+            "outboundMode": "endless"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1540,
+            "w": 588,
+            "h": 104
+          },
+          "label": "结束并结算",
+          "action": {
+            "type": "finishEndless"
+          }
+        }
+      ],
+      "buttonPixelEquality": 6,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 384,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 511,
+          "y": 767,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "rush-five-safe-dpr2",
+      "target": "wechat",
+      "mode": "rush",
+      "theme": "steam_foundry",
+      "width": 390,
+      "height": 844,
+      "safeTop": 24,
+      "dpr": 2,
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "baselineBundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "active": {
+        "path": "rush-five-safe-dpr2-active.png",
+        "sha256": "53157d6b08855b29dd66b1c3b9d445447d6d38a2eb6e8926224f857cb4a2612c"
+      },
+      "before": {
+        "path": "rush-five-safe-dpr2-before.png",
+        "sha256": "17cfcf46f4cd24f112fd0e4b17f05144f14ea0a6bac8530291c89833309f6468"
+      },
+      "after": {
+        "path": "rush-five-safe-dpr2-after.png",
+        "sha256": "b320511e36b4900f315bc3319f37e17133c34246d4660d9ddd93a5827db5215d"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "rush",
+            "inboundDifficulty": "hard"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        }
+      ],
+      "buttonPixelEquality": 0,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 844,
+          "pre": [
+            70,
+            70,
+            64,
+            255
+          ],
+          "post": [
+            15,
+            20,
+            25,
+            255
+          ],
+          "expect": [
+            15,
+            20,
+            25,
+            255
+          ]
+        },
+        {
+          "x": 779,
+          "y": 844,
+          "pre": [
+            159,
+            139,
+            104,
+            255
+          ],
+          "post": [
+            30,
+            31,
+            32,
+            255
+          ],
+          "expect": [
+            30,
+            31,
+            32,
+            255
+          ]
+        },
+        {
+          "x": 779,
+          "y": 1687,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "wide-classic-infinite",
+      "target": "browser",
+      "mode": "endless",
+      "theme": "day",
+      "width": 1356,
+      "height": 660,
+      "dpr": 1,
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "baselineBundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "active": {
+        "path": "wide-classic-infinite-active.png",
+        "sha256": "dd25185a5c07ded80ef9dddf15d798cb4b35b85ab70aaa68bda956f85b32a8ed"
+      },
+      "before": {
+        "path": "wide-classic-infinite-before.png",
+        "sha256": "799070b2f2e5219683e4c99c540abc711a8932794f938d12eab257c0db1cd7f1"
+      },
+      "after": {
+        "path": "wide-classic-infinite-after.png",
+        "sha256": "145dcb98b124fcb347e74d71213f38743e598382bf4571b7123442b0886ebb14"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "endless",
+            "inboundDifficulty": "hard"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1540,
+            "w": 588,
+            "h": 104
+          },
+          "label": "结束并结算",
+          "action": {
+            "type": "finishEndless"
+          }
+        }
+      ],
+      "buttonPixelEquality": 0,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 330,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 330,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1355,
+          "y": 659,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    },
+    {
+      "name": "safe-theme-infinite-dpr3",
+      "target": "wechat",
+      "mode": "endless",
+      "theme": "cold_chain",
+      "width": 560,
+      "height": 840,
+      "safeTop": 24,
+      "dpr": 3,
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "baselineBundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "active": {
+        "path": "safe-theme-infinite-dpr3-active.png",
+        "sha256": "90f994b58b6416cad5ed21dfa31e84528c48c1441ae408b8e1f5c37ad9e1df61"
+      },
+      "before": {
+        "path": "safe-theme-infinite-dpr3-before.png",
+        "sha256": "c133d889a773f9a46680460062a1291432787a5d6487ab06a6435ca0fda5de7e"
+      },
+      "after": {
+        "path": "safe-theme-infinite-dpr3-after.png",
+        "sha256": "f26764c389fcea61a6e78fb1cf789ce37f04a8c0af51354fff09f4562bf30798"
+      },
+      "controls": [
+        {
+          "rect": {
+            "x": 246,
+            "y": 890,
+            "w": 588,
+            "h": 104
+          },
+          "label": "继续游戏",
+          "action": {
+            "type": "continue"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1020,
+            "w": 588,
+            "h": 104
+          },
+          "label": "重新开始",
+          "action": {
+            "type": "newRun",
+            "mode": "endless",
+            "inboundDifficulty": "hard"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1150,
+            "w": 588,
+            "h": 104
+          },
+          "label": "返回主页",
+          "action": {
+            "type": "home"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1280,
+            "w": 588,
+            "h": 104
+          },
+          "label": "设置",
+          "action": {
+            "type": "settings"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1410,
+            "w": 588,
+            "h": 104
+          },
+          "label": "玩法说明",
+          "action": {
+            "type": "help"
+          }
+        },
+        {
+          "rect": {
+            "x": 246,
+            "y": 1540,
+            "w": 588,
+            "h": 104
+          },
+          "label": "结束并结算",
+          "action": {
+            "type": "finishEndless"
+          }
+        }
+      ],
+      "buttonPixelEquality": 0,
+      "edgeSamples": [
+        {
+          "x": 0,
+          "y": 0,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 0,
+          "y": 1260,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1679,
+          "y": 1260,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        },
+        {
+          "x": 1679,
+          "y": 2519,
+          "pre": [
+            12,
+            19,
+            28,
+            255
+          ],
+          "post": [
+            6,
+            12,
+            20,
+            255
+          ],
+          "expect": [
+            6,
+            12,
+            20,
+            255
+          ]
+        }
+      ],
+      "unpausedPixelsIdentical": true,
+      "blockedOutsideTaps": true,
+      "resumeAndRepeatedPause": true
+    }
+  ]
+}

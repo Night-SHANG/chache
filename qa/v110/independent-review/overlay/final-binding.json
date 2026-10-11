@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "finalSourceAndBundles": {
+    "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+    "browser": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+    "wechat": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9"
+  },
+  "finalEndBinding": {
+    "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+    "browser": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+    "wechat": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9"
+  },
+  "candidateSourceAndBundles": {
+    "sourceSha256": "78365d5545c4120564fb150aa077d01f31e7f37a088cb90469e4e3517749a3c7",
+    "browser": "5581f1c5788af39df7d290ab4b569eeefb3c50bccc4bd2c75f8d7275b218bcf8",
+    "wechat": "c25ec9161958c15528f7a6c5d3e5f0496773e2cae21395c8325c11da446faf9e"
+  },
+  "hostExitCode": 0,
+  "matrixExitCode": 0,
+  "approvedScenesExitCode": 0,
+  "pixelComparisonExitCode": 0,
+  "counts": {
+    "host": 40,
+    "matrix": 205,
+    "approvedScenes": 7,
+    "equivalentPNGs": 73
+  },
+  "uiReviewScripts": {
+    "independent-ui-host.mjs": "f9c54ddb5cc8f8992b11799ce507144b863f67a2b242d2b51b8278febc324758",
+    "independent-source-matrix.mjs": "4823244e05557318f95f9748a6e08546cb1e7fff464616bd18afaa5e954db625",
+    "capture-approved-scenes.mjs": "2ef16f138d9bb59cb70783aa2e79937c9e8668e6c54ee82f03fb03296a4c3155",
+    "compare-evidence.py": "de4946ab5f78b8884e7c09f66599c33f8be67ddafba35297e51a24b2595a8fdf"
+  }
+}

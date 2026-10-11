@@ -1,19 +1,21 @@
 {
-  "version": "1.0.9",
-  "verifiedAt": "2026-10-11T11:59:22.818639+00:00",
+  "version": "1.0.10",
+  "verifiedAt": "2026-10-11T13:25:17.923362+00:00",
   "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
-  "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
-  "productTree": "7f451260ba04331838b234b1ed6b6092cf548337",
-  "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+  "productCommit": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+  "productTree": "2e0c5f48d64dd8b96e257b5582a233bdb5fc41f6",
+  "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
   "fullTests": {
     "command": "node --test --test-concurrency=1 tests/*.test.ts",
-    "tests": 2864,
-    "pass": 2862,
+    "tests": 2921,
+    "pass": 2919,
     "fail": 2,
     "cancelled": 0,
     "skipped": 0,
+    "durationMs": 292568.130831,
     "log": "full-tests-serial.txt",
-    "testedProductCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255"
+    "testedSourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+    "productCodeMatchesTestedSource": true
   },
   "knownFailures": [
     "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
@@ -24,24 +26,25 @@
     "typecheck": "PASS",
     "preflight": "PASS"
   },
-  "audioHost": {
-    "status": "PASS",
-    "cases": 6,
-    "failures": 0,
-    "report": "production-audio-host.json"
-  },
   "independentReview": {
     "status": "PASS",
-    "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+    "productCommit": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
     "browserProductionCases": 6,
     "wechatProductionCases": 6,
-    "focusedTests": 90,
+    "focusedTests": 94,
     "semanticTests": 5,
-    "protectedSourceAssetFiles": 193,
+    "protectedSourceAssetFiles": 191,
+    "uiHostCases": 40,
+    "uiMatrixCases": 205,
+    "approvedSceneReplays": 7,
+    "equivalentPngAndRgbaFrames": 73,
+    "approvedPrimaryFrames": 4,
     "report": "independent-review/REVIEW.md",
-    "checksums": "independent-review/SHA256SUMS"
+    "checksums": "independent-review/SHA256SUMS",
+    "screenshotByteBinding": "independent-review/screenshot-byte-binding.json",
+    "visualEquivalence": "independent-review/overlay/visual-equivalence.json"
   },
-  "details": "qa/v109/summary.json",
-  "previousCheckpoint": "docs/checkpoint-pre-v109-history.json",
-  "note": "Only the selected click playback gain and original-amplitude PCM asset changed. Prior concurrent watchdog timing failure is retained in QA; final serial run has only the two inherited art-source failures."
+  "previousCheckpoint": "docs/checkpoint-pre-v110-history.json",
+  "details": "qa/v110/summary.json",
+  "note": "Only the approved two audio changes and pause layout/full-viewport shade changes are included. Source-budget extraction and exact dependency metadata restoration passed new regression gates. Final images are byte/pixel-equivalent to approved scenes. Physical devices NOT RUN."
 }

@@ -1,0 +1,1590 @@
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (6.180413ms)
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (1.22904ms)
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (3.737686ms)
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.864381ms)
+✖ pause moves every {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (2.913165ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.863991ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.388184ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.29269ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.397829ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.422736ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.329256ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.327332ms)
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.259571ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.145824ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.582066ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.561214ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.620524ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.543643ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.230688ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.263167ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.191328ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.23239ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19951ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19281ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.154573ms)
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.150536ms)
+✔ pause shades full actual viewport for day {"width":540,"height":960,"dpr":1} (75.189561ms)
+✖ pause shades full actual viewport for day {"width":390,"height":844,"dpr":2} (65.018456ms)
+✖ pause shades full actual viewport for day {"width":512,"height":768,"dpr":3} (95.77223ms)
+✖ pause shades full actual viewport for day {"width":1356,"height":660,"dpr":1} (48.422432ms)
+✖ pause shades full actual viewport for day {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (66.503276ms)
+✔ pause shades full actual viewport for night {"width":540,"height":960,"dpr":1} (55.821669ms)
+✖ pause shades full actual viewport for night {"width":390,"height":844,"dpr":2} (58.271416ms)
+✖ pause shades full actual viewport for night {"width":512,"height":768,"dpr":3} (89.128691ms)
+✖ pause shades full actual viewport for night {"width":1356,"height":660,"dpr":1} (46.237294ms)
+✖ pause shades full actual viewport for night {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (61.565114ms)
+✔ pause shades full actual viewport for cold_chain {"width":540,"height":960,"dpr":1} (47.466092ms)
+✖ pause shades full actual viewport for cold_chain {"width":390,"height":844,"dpr":2} (46.492668ms)
+✖ pause shades full actual viewport for cold_chain {"width":512,"height":768,"dpr":3} (85.564146ms)
+✖ pause shades full actual viewport for cold_chain {"width":1356,"height":660,"dpr":1} (50.193969ms)
+✖ pause shades full actual viewport for cold_chain {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (105.001301ms)
+✔ pause shades full actual viewport for steam_foundry {"width":540,"height":960,"dpr":1} (73.197342ms)
+✖ pause shades full actual viewport for steam_foundry {"width":390,"height":844,"dpr":2} (61.364342ms)
+✖ pause shades full actual viewport for steam_foundry {"width":512,"height":768,"dpr":3} (88.737652ms)
+✖ pause shades full actual viewport for steam_foundry {"width":1356,"height":660,"dpr":1} (44.861153ms)
+✖ pause shades full actual viewport for steam_foundry {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (66.06722ms)
+✔ two wrapped save warnings remain above the shifted five/six-button group (29.103594ms)
+✖ platform supplies distinct full-canvas modal bounds at DPR 1 (1.1425ms)
+✖ platform supplies distinct full-canvas modal bounds at DPR 2 (0.322665ms)
+✖ platform supplies distinct full-canvas modal bounds at DPR 3 (0.241764ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 5
+ℹ fail 45
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1942.387188
+
+✖ failing tests:
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (6.180413ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (1.22904ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (3.737686ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.864381ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (2.913165ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.863991ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.388184ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.29269ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.397829ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.422736ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.329256ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.327332ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:31:25
+✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.259571ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1090
+  -     y: 890
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1220
+  -     y: 1020
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1350
+  -     y: 1150
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1480
+  -     y: 1280
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1610
+  -     y: 1410
+      },
+      {
+        h: 104,
+        w: 588,
+        x: 246,
+  +     y: 1740
+  -     y: 1540
+      }
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { x: 246, y: 1090, w: 588, h: 104 }, { x: 246, y: 1220, w: 588, h: 104 }, { x: 246, y: 1350, w: 588, h: 104 }, { x: 246, y: 1480, w: 588, h: 104 }, { x: 246, y: 1610, w: 588, h: 104 }, { x: 246, y: 1740, w: 588, h: 104 } ],
+    expected: [ { x: 246, y: 890, w: 588, h: 104 }, { x: 246, y: 1020, w: 588, h: 104 }, { x: 246, y: 1150, w: 588, h: 104 }, { x: 246, y: 1280, w: 588, h: 104 }, { x: 246, y: 1410, w: 588, h: 104 }, { x: 246, y: 1540, w: 588, h: 104 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.145824ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.582066ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.561214ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.620524ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.543643ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.230688ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.263167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.191328ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.23239ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19951ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19281ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.154573ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:38:25
+✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.150536ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 104,
+  -   w: 588,
+  -   x: 246,
+  -   y: 1090
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: 246, y: 1090, w: 588, h: 104 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for day {"width":390,"height":844,"dpr":2} (65.018456ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for day {"width":512,"height":768,"dpr":3} (95.77223ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for day {"width":1356,"height":660,"dpr":1} (48.422432ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for day {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (66.503276ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for night {"width":390,"height":844,"dpr":2} (58.271416ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for night {"width":512,"height":768,"dpr":3} (89.128691ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for night {"width":1356,"height":660,"dpr":1} (46.237294ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for night {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (61.565114ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for cold_chain {"width":390,"height":844,"dpr":2} (46.492668ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for cold_chain {"width":512,"height":768,"dpr":3} (85.564146ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for cold_chain {"width":1356,"height":660,"dpr":1} (50.193969ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for cold_chain {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (105.001301ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for steam_foundry {"width":390,"height":844,"dpr":2} (61.364342ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for steam_foundry {"width":512,"height":768,"dpr":3} (88.737652ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for steam_foundry {"width":1356,"height":660,"dpr":1} (44.861153ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:67:104
+✖ pause shades full actual viewport for steam_foundry {"width":560,"height":840,"dpr":2,"safe":{"left":17,"top":24,"width":512,"height":768}} (66.06722ms)
+  AssertionError [ERR_ASSERTION]: Unshaded viewport pixel 0,0: 12,19,28,255 vs 6,12,20,255
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:70:99)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:82:26
+✖ platform supplies distinct full-canvas modal bounds at DPR 1 (1.1425ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 2100,
+  -   w: 1400,
+  -   x: -142.5,
+  -   y: -60
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: -142.5, y: -60, w: 1400, h: 2100 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:82:26
+✖ platform supplies distinct full-canvas modal bounds at DPR 2 (0.322665ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 2100,
+  -   w: 1400,
+  -   x: -142.5,
+  -   y: -60
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: -142.5, y: -60, w: 1400, h: 2100 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/pause-overlay-v110.test.ts:82:26
+✖ platform supplies distinct full-canvas modal bounds at DPR 3 (0.241764ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - {
+  -   h: 2100,
+  -   w: 1400,
+  -   x: -142.5,
+  -   y: -60
+  - }
+  
+      at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: { x: -142.5, y: -60, w: 1400, h: 2100 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

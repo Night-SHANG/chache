@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified production bundles with native Canvas and simulated audio outcomes",
+  "limitations": [
+    "Not a real browser, WeChat developer tool, physical phone or APK test. Audio play requests and lifecycle are verified; audible output is not."
+  ],
+  "cases": [
+    {
+      "name": "browser-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gamePausedWithDuckedMusic": true,
+      "pauseDoesNotRestartOrRewind": true
+    },
+    {
+      "name": "browser-startup-rejection-gesture-retry",
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    },
+    {
+      "name": "browser-click-first-repeat-throttle-mute",
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "firstAndRepeatedPlaybackVolume": 0.10929331471665664,
+      "clickHandles": 1,
+      "continuousClicks": 51,
+      "totalClicks": 52,
+      "throttlePreserved": true,
+      "mutePreserved": true,
+      "bgmLifecycleUnchanged": true,
+      "ordinaryHapticCalls": 0
+    },
+    {
+      "name": "browser-place-playback-stays-at-legal-master-with-business-priority",
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "placePlays": 1,
+      "placePlaybackVolume": 0.45,
+      "pickPlaybackVolume": 0.45,
+      "allVolumesLegal": true,
+      "noExtraUiClick": true,
+      "bgmNormalVolume": 0.14297908225037068
+    },
+    {
+      "name": "wechat-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gamePausedWithDuckedMusic": true,
+      "pauseDoesNotRestartOrRewind": true
+    },
+    {
+      "name": "wechat-startup-rejection-gesture-retry",
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    },
+    {
+      "name": "wechat-click-first-repeat-throttle-mute",
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "firstAndRepeatedPlaybackVolume": 0.2428740327036814,
+      "clickHandles": 1,
+      "continuousClicks": 51,
+      "totalClicks": 52,
+      "throttlePreserved": true,
+      "mutePreserved": true,
+      "bgmLifecycleUnchanged": true,
+      "ordinaryHapticCalls": 0
+    },
+    {
+      "name": "wechat-place-playback-stays-at-legal-master-with-business-priority",
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "placePlays": 1,
+      "placePlaybackVolume": 1,
+      "pickPlaybackVolume": 1,
+      "allVolumesLegal": true,
+      "noExtraUiClick": true,
+      "bgmNormalVolume": 0.14297908225037068
+    }
+  ],
+  "failures": []
+}

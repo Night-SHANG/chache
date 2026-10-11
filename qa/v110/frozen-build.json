@@ -1,0 +1,297 @@
+{
+  "status": "PASS",
+  "productCommit": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+  "productTree": "2e0c5f48d64dd8b96e257b5582a233bdb5fc41f6",
+  "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+  "targets": {
+    "browser": {
+      "bundle": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "manifest": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade",
+      "version": "1.0.10",
+      "production": true
+    },
+    "wechat": {
+      "bundle": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "manifest": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade",
+      "version": "1.0.10",
+      "production": true
+    }
+  },
+  "files": [
+    {
+      "path": "browser/MUSIC_LICENSE.txt",
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "browser/MUSIC_NOTICE.txt",
+      "bytes": 1067,
+      "sha256": "e77dfbe1c5f3a401ba69f725f9ec35568085dff479e08ddf9b6038a5e1bfa6e8"
+    },
+    {
+      "path": "browser/THIRD_PARTY_NOTICES.md",
+      "bytes": 5002,
+      "sha256": "5b58966589c99ae427c87b4109c62992e7c118ffbf3a584aa9640864d05f912f"
+    },
+    {
+      "path": "browser/UI_SOUND_CC0.txt",
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "browser/UI_SOUND_LICENSE.pdf",
+      "bytes": 334540,
+      "sha256": "fa3693afc38aac134361b33d0b73cd7bc1300fdca8c87af813c64fa91b218cca"
+    },
+    {
+      "path": "browser/UI_SOUND_NOTICE.txt",
+      "bytes": 762,
+      "sha256": "1509e55cfd7023fbd282b9c2daa6fa6dd1c92f0ea6c93f28af1ee79d46820551"
+    },
+    {
+      "path": "browser/app.js",
+      "bytes": 903969,
+      "sha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae"
+    },
+    {
+      "path": "browser/assets/bgm.mp3",
+      "bytes": 1563002,
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "path": "browser/assets/board-materials.png",
+      "bytes": 166727,
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    {
+      "path": "browser/assets/cargo-materials.png",
+      "bytes": 351513,
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    {
+      "path": "browser/assets/chain2.wav",
+      "bytes": 12392,
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd"
+    },
+    {
+      "path": "browser/assets/chain3.wav",
+      "bytes": 12392,
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1"
+    },
+    {
+      "path": "browser/assets/chain4.wav",
+      "bytes": 12392,
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489"
+    },
+    {
+      "path": "browser/assets/fail.wav",
+      "bytes": 11070,
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "path": "browser/assets/forklift.wav",
+      "bytes": 11952,
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827"
+    },
+    {
+      "path": "browser/assets/invalid.wav",
+      "bytes": 6218,
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "path": "browser/assets/pick.wav",
+      "bytes": 3792,
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "path": "browser/assets/place.wav",
+      "bytes": 5116,
+      "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc"
+    },
+    {
+      "path": "browser/assets/route_ready.wav",
+      "bytes": 7542,
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f"
+    },
+    {
+      "path": "browser/assets/scene-materials.png",
+      "bytes": 219775,
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    {
+      "path": "browser/assets/shift.wav",
+      "bytes": 16802,
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f"
+    },
+    {
+      "path": "browser/assets/ship.wav",
+      "bytes": 11510,
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1"
+    },
+    {
+      "path": "browser/assets/themed-forklifts.png",
+      "bytes": 61052,
+      "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+    },
+    {
+      "path": "browser/assets/ui_click.wav",
+      "bytes": 33056,
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "path": "browser/assets/upgrade.wav",
+      "bytes": 13274,
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "path": "browser/build-manifest.json",
+      "bytes": 9062,
+      "sha256": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade"
+    },
+    {
+      "path": "browser/index.html",
+      "bytes": 734,
+      "sha256": "89f21ab37441317144fe95a4c0cb70e3ee7a5ef62460bdffaa7154cfeaeada22"
+    },
+    {
+      "path": "wechat/MUSIC_LICENSE.txt",
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "wechat/MUSIC_NOTICE.txt",
+      "bytes": 1067,
+      "sha256": "e77dfbe1c5f3a401ba69f725f9ec35568085dff479e08ddf9b6038a5e1bfa6e8"
+    },
+    {
+      "path": "wechat/THIRD_PARTY_NOTICES.md",
+      "bytes": 5002,
+      "sha256": "5b58966589c99ae427c87b4109c62992e7c118ffbf3a584aa9640864d05f912f"
+    },
+    {
+      "path": "wechat/UI_SOUND_CC0.txt",
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "wechat/UI_SOUND_LICENSE.pdf",
+      "bytes": 334540,
+      "sha256": "fa3693afc38aac134361b33d0b73cd7bc1300fdca8c87af813c64fa91b218cca"
+    },
+    {
+      "path": "wechat/UI_SOUND_NOTICE.txt",
+      "bytes": 762,
+      "sha256": "1509e55cfd7023fbd282b9c2daa6fa6dd1c92f0ea6c93f28af1ee79d46820551"
+    },
+    {
+      "path": "wechat/assets/bgm.mp3",
+      "bytes": 1563002,
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "path": "wechat/assets/board-materials.png",
+      "bytes": 166727,
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    {
+      "path": "wechat/assets/cargo-materials.png",
+      "bytes": 351513,
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    {
+      "path": "wechat/assets/chain2.wav",
+      "bytes": 12392,
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd"
+    },
+    {
+      "path": "wechat/assets/chain3.wav",
+      "bytes": 12392,
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1"
+    },
+    {
+      "path": "wechat/assets/chain4.wav",
+      "bytes": 12392,
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489"
+    },
+    {
+      "path": "wechat/assets/fail.wav",
+      "bytes": 11070,
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "path": "wechat/assets/forklift.wav",
+      "bytes": 11952,
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827"
+    },
+    {
+      "path": "wechat/assets/invalid.wav",
+      "bytes": 6218,
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "path": "wechat/assets/pick.wav",
+      "bytes": 3792,
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "path": "wechat/assets/place.wav",
+      "bytes": 5116,
+      "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc"
+    },
+    {
+      "path": "wechat/assets/route_ready.wav",
+      "bytes": 7542,
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f"
+    },
+    {
+      "path": "wechat/assets/scene-materials.png",
+      "bytes": 219775,
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    {
+      "path": "wechat/assets/shift.wav",
+      "bytes": 16802,
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f"
+    },
+    {
+      "path": "wechat/assets/ship.wav",
+      "bytes": 11510,
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1"
+    },
+    {
+      "path": "wechat/assets/themed-forklifts.png",
+      "bytes": 61052,
+      "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+    },
+    {
+      "path": "wechat/assets/ui_click.wav",
+      "bytes": 33056,
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "path": "wechat/assets/upgrade.wav",
+      "bytes": 13274,
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "path": "wechat/build-manifest.json",
+      "bytes": 9062,
+      "sha256": "78c65fc6441fe51b4b2e3c3fc65c92554f50428f6a585a10984ad635ca8c9ade"
+    },
+    {
+      "path": "wechat/game.js",
+      "bytes": 902842,
+      "sha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9"
+    },
+    {
+      "path": "wechat/game.json",
+      "bytes": 64,
+      "sha256": "82526622d158db584fe0783eb469d01eaaa33a85360c28d83bf2b01cb031b8ec"
+    },
+    {
+      "path": "wechat/project.config.json",
+      "bytes": 268,
+      "sha256": "b226c7c19e98341a5805bb80c4716e08c528d2767fdd9ded3adb463d15a7eb67"
+    }
+  ]
+}

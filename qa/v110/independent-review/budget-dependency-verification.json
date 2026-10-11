@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "rendererChangesOnlyImportedShadeExtraction": true,
+  "shadeImplementationAndDefaultsExactlyPreserved": true,
+  "rendererBytes": 79979,
+  "rendererStrictBudget": 80000,
+  "underBudget": true,
+  "lockedThirdPartyPackageEntriesUnchangedFromV109": 138,
+  "estreeVersion": "1.0.9",
+  "estreeResolved": "https://registry.npmjs.org/@types/estree/-/estree-1.0.9.tgz"
+}

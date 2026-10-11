@@ -1,0 +1,47 @@
+{
+  "version": "1.0.9",
+  "verifiedAt": "2026-10-11T11:59:22.818639+00:00",
+  "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+  "productTree": "7f451260ba04331838b234b1ed6b6092cf548337",
+  "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+  "fullTests": {
+    "command": "node --test --test-concurrency=1 tests/*.test.ts",
+    "tests": 2864,
+    "pass": 2862,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "full-tests-serial.txt",
+    "testedProductCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "audioHost": {
+    "status": "PASS",
+    "cases": 6,
+    "failures": 0,
+    "report": "production-audio-host.json"
+  },
+  "independentReview": {
+    "status": "PASS",
+    "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+    "browserProductionCases": 6,
+    "wechatProductionCases": 6,
+    "focusedTests": 90,
+    "semanticTests": 5,
+    "protectedSourceAssetFiles": 193,
+    "report": "independent-review/REVIEW.md",
+    "checksums": "independent-review/SHA256SUMS"
+  },
+  "details": "qa/v109/summary.json",
+  "previousCheckpoint": "docs/checkpoint-pre-v109-history.json",
+  "note": "Only the selected click playback gain and original-amplitude PCM asset changed. Prior concurrent watchdog timing failure is retained in QA; final serial run has only the two inherited art-source failures."
+}

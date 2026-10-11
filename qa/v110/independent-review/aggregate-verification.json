@@ -1,0 +1,35 @@
+{
+  "status": "COMPLETE_WITH_TWO_INHERITED_FAILURES",
+  "productGitSha": "fe9e0b8e565a12f87d74dcd22b1c31c683dc44c8",
+  "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23",
+  "serialSuite": {
+    "tests": 2921,
+    "pass": 2919,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "serialLogFile": "full-tests-serial.txt (outer QA folder)",
+  "serialLogSha256": "fe39e7797347128490fb34a29366d1031c116838bfab27c6bfa6a388076aaf69",
+  "inheritedMissingInputs": [
+    "artifacts/v0200-art-source/cargo-wood-generated.png",
+    "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "finalIndependentAudio": {
+    "focusedTests": 94,
+    "semanticCases": 5,
+    "browserHostGroups": 6,
+    "wechatHostGroups": 6
+  },
+  "finalIndependentUi": {
+    "hostCases": 40,
+    "matrixCases": 205,
+    "approvedSceneReplays": 7,
+    "identicalPngs": 73,
+    "approvedAfterImages": 4
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "preflight": "PASS",
+  "realBrowserGuiWechatToolsPhysicalDeviceListening": "NOT_RUN"
+}

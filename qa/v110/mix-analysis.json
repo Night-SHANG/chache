@@ -1,0 +1,101 @@
+{
+  "status": "PASS",
+  "kind": "Exact PCM16 place gain plus full-track decoded BGM peak bounds",
+  "limits": [
+    "No physical-device or real-browser audition. Sample peak bounds concern one effect plus BGM, not arbitrary simultaneous effects. PCM16 quantization introduces sub-LSB relative rounding differences."
+  ],
+  "bgm": {
+    "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+    "gain": 0.7943282347242815,
+    "normalVolume": 0.14297908225037068,
+    "pausedVolume": 0.09531938816691378,
+    "normalGainDb": -1.9999999999999991,
+    "pausedGainDb": -2,
+    "decodedFrames": 5740475,
+    "decodedPeak": 0.453825443983078
+  },
+  "place": {
+    "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+    "baselineSha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+    "assetGain": 1.2589254117941673,
+    "measuredRmsGainDb": 2.000010401393368,
+    "peak": 0.2769775390625,
+    "frames": 2536,
+    "sampleRate": 22050,
+    "channels": 1,
+    "clippedSamples": 0,
+    "headerIdentical": true,
+    "everySampleMatchesSingleGain": true
+  },
+  "uiClick": {
+    "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+    "gain": 0.2428740327036814,
+    "unchanged": true
+  },
+  "unchangedOtherCues": [
+    {
+      "name": "pick",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "name": "invalid",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "name": "route_ready",
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f"
+    },
+    {
+      "name": "forklift",
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827"
+    },
+    {
+      "name": "ship",
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1"
+    },
+    {
+      "name": "chain2",
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd"
+    },
+    {
+      "name": "chain3",
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1"
+    },
+    {
+      "name": "chain4",
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489"
+    },
+    {
+      "name": "upgrade",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "name": "shift",
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f"
+    },
+    {
+      "name": "fail",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    }
+  ],
+  "platforms": [
+    {
+      "target": "browser",
+      "placeRuntimeVolume": 0.45,
+      "uiClickRuntimeVolume": 0.10929331471665664,
+      "placePlusBgmPeakBound": 0.1895274380606925,
+      "headroomDb": 14.446558158693714,
+      "bundleSha256": "2b412d1e6f92eac1fec1f10f3806c071c94b493d14ea57e43339e6fca291a0ae",
+      "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23"
+    },
+    {
+      "target": "wechat",
+      "placeRuntimeVolume": 1,
+      "uiClickRuntimeVolume": 0.2428740327036814,
+      "placePlusBgmPeakBound": 0.3418650845450675,
+      "headroomDb": 9.322905048340107,
+      "bundleSha256": "b96a82c48de58b96c21a36d40081364f22c1008fa978680337496b99ce5a67f9",
+      "sourceSha256": "5603337328565937fc52115a15cd7396228d22ea422a38955ee0e7fe762e7b23"
+    }
+  ]
+}
