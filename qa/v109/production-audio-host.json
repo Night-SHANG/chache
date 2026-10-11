@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified production bundles with native Canvas and simulated audio outcomes",
+  "limitations": [
+    "Not a real browser, WeChat developer tool, physical phone or APK test. Audio play requests and lifecycle are verified; audible output is not."
+  ],
+  "cases": [
+    {
+      "name": "browser-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gamePausedWithDuckedMusic": true,
+      "pauseDoesNotRestartOrRewind": true
+    },
+    {
+      "name": "browser-startup-rejection-gesture-retry",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    },
+    {
+      "name": "browser-click-first-repeat-throttle-mute",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "firstAndRepeatedPlaybackVolume": 0.10929331471665664,
+      "clickHandles": 1,
+      "continuousClicks": 51,
+      "totalClicks": 52,
+      "throttlePreserved": true,
+      "mutePreserved": true,
+      "bgmUnchanged": true,
+      "ordinaryHapticCalls": 0
+    },
+    {
+      "name": "wechat-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gamePausedWithDuckedMusic": true,
+      "pauseDoesNotRestartOrRewind": true
+    },
+    {
+      "name": "wechat-startup-rejection-gesture-retry",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    },
+    {
+      "name": "wechat-click-first-repeat-throttle-mute",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "firstAndRepeatedPlaybackVolume": 0.2428740327036814,
+      "clickHandles": 1,
+      "continuousClicks": 51,
+      "totalClicks": 52,
+      "throttlePreserved": true,
+      "mutePreserved": true,
+      "bgmUnchanged": true,
+      "ordinaryHapticCalls": 0
+    }
+  ],
+  "failures": []
+}

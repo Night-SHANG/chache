@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "productGitSha": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+  "productTree": "7f451260ba04331838b234b1ed6b6092cf548337",
+  "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+  "baseGitSha": "7e187152d47ecbf35cccfafe4a6fede88999323b",
+  "builds": {
+    "browser": {
+      "manifestCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+      "manifestSha256": "8864b8ed71fa7657ff307bddfc87cab8fbedc0da7224aa642716196f687b14a6",
+      "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+      "bundleSha256": "927aa753e29bd9dd6001de51e44d0bc9b2506d84e987a20e8ddf4fbd950797c5",
+      "uiClickSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "uiClick": {
+        "src": "assets/ui_click.wav",
+        "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+        "author": "Dustyroom",
+        "source": "DM-CGS-32.wav",
+        "license": "CC0-1.0",
+        "assetGain": 1,
+        "playbackGain": 0.2428740327036814,
+        "effectiveTargetPeak": 0.24
+      },
+      "soundEffects": {
+        "browserVolume": 0.45,
+        "wechatVolume": 1
+      }
+    },
+    "wechat": {
+      "manifestCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+      "manifestSha256": "8864b8ed71fa7657ff307bddfc87cab8fbedc0da7224aa642716196f687b14a6",
+      "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+      "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e",
+      "uiClickSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "uiClick": {
+        "src": "assets/ui_click.wav",
+        "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+        "author": "Dustyroom",
+        "source": "DM-CGS-32.wav",
+        "license": "CC0-1.0",
+        "assetGain": 1,
+        "playbackGain": 0.2428740327036814,
+        "effectiveTargetPeak": 0.24
+      },
+      "soundEffects": {
+        "browserVolume": 0.45,
+        "wechatVolume": 1
+      }
+    }
+  },
+  "unchangedProtectedSourceAndAssetFiles": 193,
+  "changedRuntimeSources": [
+    "src/platform/browser.ts",
+    "src/platform/wechat.ts"
+  ],
+  "addedRuntimeSources": [
+    "src/shared/ui-click-level.ts"
+  ],
+  "original12CueGeneratorByteIdentical": true,
+  "musicControllerSessionUiFeedbackUiLayoutGameRulesAccountStorageAndMasterLevelsUnchanged": true
+}

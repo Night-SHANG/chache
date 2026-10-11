@@ -1,0 +1,9 @@
+✔ scan supervisor external watchdog stops a synchronously hung engine and preserves the exact command (329.964097ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 444.797722

@@ -1,0 +1,268 @@
+{
+  "status": "PASS",
+  "baselineCommit": "7e187152d47ecbf35cccfafe4a6fede88999323b",
+  "changedAssets": [
+    "ui_click.wav"
+  ],
+  "unchangedProtectedSources": [
+    "src/shared/audio-levels.ts",
+    "scripts/audio.ts",
+    "assets/audio/ui-click/DM-CGS-32.wav",
+    "assets/audio/ui-click/LICENSE.pdf",
+    "assets/audio/bgm.mp3"
+  ],
+  "assets": [
+    {
+      "target": "browser",
+      "path": "assets/bgm.mp3",
+      "baselineSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "newSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/board-materials.png",
+      "baselineSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "newSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/cargo-materials.png",
+      "baselineSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "newSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/chain2.wav",
+      "baselineSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "newSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/chain3.wav",
+      "baselineSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "newSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/chain4.wav",
+      "baselineSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "newSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/fail.wav",
+      "baselineSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "newSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/forklift.wav",
+      "baselineSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "newSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/invalid.wav",
+      "baselineSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "newSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/pick.wav",
+      "baselineSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "newSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/place.wav",
+      "baselineSha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+      "newSha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/route_ready.wav",
+      "baselineSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "newSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/scene-materials.png",
+      "baselineSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "newSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/shift.wav",
+      "baselineSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "newSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/ship.wav",
+      "baselineSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "newSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/themed-forklifts.png",
+      "baselineSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+      "newSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+      "unchanged": true
+    },
+    {
+      "target": "browser",
+      "path": "assets/ui_click.wav",
+      "baselineSha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+      "newSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "unchanged": false
+    },
+    {
+      "target": "browser",
+      "path": "assets/upgrade.wav",
+      "baselineSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "newSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/bgm.mp3",
+      "baselineSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "newSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/board-materials.png",
+      "baselineSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "newSha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/cargo-materials.png",
+      "baselineSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "newSha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/chain2.wav",
+      "baselineSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "newSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/chain3.wav",
+      "baselineSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "newSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/chain4.wav",
+      "baselineSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "newSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/fail.wav",
+      "baselineSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "newSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/forklift.wav",
+      "baselineSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "newSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/invalid.wav",
+      "baselineSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "newSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/pick.wav",
+      "baselineSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "newSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/place.wav",
+      "baselineSha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+      "newSha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/route_ready.wav",
+      "baselineSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "newSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/scene-materials.png",
+      "baselineSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "newSha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/shift.wav",
+      "baselineSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "newSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/ship.wav",
+      "baselineSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "newSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/themed-forklifts.png",
+      "baselineSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+      "newSha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db",
+      "unchanged": true
+    },
+    {
+      "target": "wechat",
+      "path": "assets/ui_click.wav",
+      "baselineSha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+      "newSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "unchanged": false
+    },
+    {
+      "target": "wechat",
+      "path": "assets/upgrade.wav",
+      "baselineSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "newSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "unchanged": true
+    }
+  ]
+}

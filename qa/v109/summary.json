@@ -1,0 +1,125 @@
+{
+  "version": "1.0.9",
+  "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "baselineCommit": "7e187152d47ecbf35cccfafe4a6fede88999323b",
+  "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+  "productTree": "7f451260ba04331838b234b1ed6b6092cf548337",
+  "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+  "change": "Original-amplitude full licensed PCM16 click; apply click-only gain once before playback. All original masters and business sounds preserved.",
+  "audio": {
+    "assetSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+    "conversionGain": 1,
+    "clickPlaybackGain": 0.2428740327036814,
+    "effectivePeak": 0.23999820492386487,
+    "browserPlaybackVolume": 0.10929331471665664,
+    "wechatPlaybackVolume": 0.2428740327036814,
+    "relativeGainDb": 12.041199826559248,
+    "auditionNote": "The original-amplitude WAV at volume 1 is not final game loudness: it bypasses both the click-only gain and platform master. Audition the game with BGM."
+  },
+  "baselineTests": {
+    "tests": 2859,
+    "pass": 2857,
+    "fail": 2
+  },
+  "regressionTests": {
+    "red": {
+      "tests": 5,
+      "pass": 0,
+      "fail": 5
+    },
+    "initialFocused": {
+      "tests": 43,
+      "pass": 43,
+      "fail": 0
+    },
+    "finalFocused": {
+      "tests": 25,
+      "pass": 25,
+      "fail": 0
+    }
+  },
+  "completeRuns": [
+    {
+      "log": "full-tests-first-pass.txt",
+      "tests": 2864,
+      "pass": 2860,
+      "fail": 4,
+      "explanation": "Two inherited art-source failures, an obsolete UI-quietness expectation, and a frozen master-file hash. Resolved the latter two by exact new UI expectation and a separate gain module; protected master hash assertion retained."
+    },
+    {
+      "log": "full-tests-final-precommit.txt",
+      "tests": 2864,
+      "pass": 2862,
+      "fail": 2,
+      "explanation": "Only the two inherited art-source failures."
+    },
+    {
+      "log": "full-tests-concurrent-postcommit.txt",
+      "tests": 2864,
+      "pass": 2861,
+      "fail": 3,
+      "explanation": "Two inherited art-source failures and the unchanged scan-supervisor 200ms timing test (currentRun was null). The same test passed on isolated rerun; final complete serial run follows."
+    },
+    {
+      "log": "full-tests-serial.txt",
+      "tests": 2864,
+      "pass": 2862,
+      "fail": 2,
+      "explanation": "Final full serial run on committed product: only inherited art-source failures; unchanged watchdog test passed."
+    }
+  ],
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "productionHost": {
+    "status": "PASS",
+    "cases": 6,
+    "failures": 0,
+    "report": "production-audio-host.json"
+  },
+  "assetInvariants": {
+    "status": "PASS",
+    "targetFilesCompared": 36,
+    "onlyChangedAsset": "ui_click.wav",
+    "report": "asset-invariants.json"
+  },
+  "mix": {
+    "status": "PASS",
+    "report": "mix-analysis.json",
+    "oversampledReport": "oversampled-headroom.json"
+  },
+  "limits": [
+    "No real browser GUI, WeChat developer-tool, or physical-device audible/tactile test.",
+    "PCM/RMS numerical evidence is not a subjective loudness measurement.",
+    "No upload, submission or public release was performed by this implementation task."
+  ],
+  "evidencePrivacy": "Technical reports and logs only; no private conversation identifiers or screenshots.",
+  "independentReview": {
+    "status": "PASS",
+    "productCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+    "browserProductionCases": 6,
+    "wechatProductionCases": 6,
+    "focusedTests": 90,
+    "semanticTests": 5,
+    "protectedSourceAssetFiles": 193,
+    "report": "independent-review/REVIEW.md",
+    "checksums": "independent-review/SHA256SUMS"
+  },
+  "verifiedAt": "2026-10-11T11:59:22.818639+00:00",
+  "fullTests": {
+    "command": "node --test --test-concurrency=1 tests/*.test.ts",
+    "tests": 2864,
+    "pass": 2862,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "full-tests-serial.txt",
+    "testedProductCommit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255"
+  }
+}

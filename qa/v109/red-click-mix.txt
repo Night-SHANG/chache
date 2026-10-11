@@ -1,0 +1,113 @@
+✖ v109 preserves original amplitude during exact full-source PCM24 to PCM16 conversion (8.272074ms)
+✖ v109 keeps fixed masters and exposes one bounded click-only gain (0.743059ms)
+✖ v109 reaches effective peak 0.24 without clipping the original-amplitude asset (2.742309ms)
+✖ browser assigns click-only gain before first and every repeated play without changing other cues (2.563419ms)
+✖ wechat assigns click-only gain before first and every repeated play without changing other cues (1.788052ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 146.602279
+
+✖ failing tests:
+
+test at tests/click-mix-v109.test.ts:16:1
+✖ v109 preserves original amplitude during exact full-source PCM24 to PCM16 conversion (8.272074ms)
+  AssertionError [ERR_ASSERTION]: PCM conversion must not bake in a gain
+  + actual - expected
+  
+  + 0.06071850817592035
+  - 1
+  
+      at TestContext.<anonymous> (file://<project>/tests/click-mix-v109.test.ts:17:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0.06071850817592035,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/click-mix-v109.test.ts:22:1
+✖ v109 keeps fixed masters and exposes one bounded click-only gain (0.743059ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 0.2428740327036814
+  
+      at TestContext.<anonymous> (file://<project>/tests/click-mix-v109.test.ts:23:96)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 0.2428740327036814,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/click-mix-v109.test.ts:25:1
+✖ v109 reaches effective peak 0.24 without clipping the original-amplitude asset (2.742309ms)
+  AssertionError [ERR_ASSERTION]: original asset peak 0.05999755859375
+      at TestContext.<anonymous> (file://<project>/tests/click-mix-v109.test.ts:27:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/click-mix-v109.test.ts:39:49
+✖ browser assigns click-only gain before first and every repeated play without changing other cues (2.563419ms)
+  AssertionError [ERR_ASSERTION]: assets/ui_click.wav playback volumes 0.45,0.45,0.45,0.45
+      at TestContext.<anonymous> (file://<project>/tests/click-mix-v109.test.ts:44:172)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/click-mix-v109.test.ts:39:49
+✖ wechat assigns click-only gain before first and every repeated play without changing other cues (1.788052ms)
+  AssertionError [ERR_ASSERTION]: assets/ui_click.wav playback volumes 1,1,1,1
+      at TestContext.<anonymous> (file://<project>/tests/click-mix-v109.test.ts:44:172)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

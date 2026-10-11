@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "lost-writer-causes-real-accountBlocked-and-suspends-paused-music",
+      "status": "PASS"
+    },
+    {
+      "name": "volume-failure-never-restarts-and-tries-only-new-desired-volume",
+      "status": "PASS"
+    },
+    {
+      "name": "pending-play-duck-transitions-remain-single-request",
+      "status": "PASS"
+    },
+    {
+      "name": "UI-click-existing-60ms-rate-limit-prevents-self-overlap-and-preserves-actions",
+      "status": "PASS"
+    },
+    {
+      "name": "business-cue-priority-and-mute-unmute-gestures-stay-silent",
+      "status": "PASS"
+    }
+  ]
+}

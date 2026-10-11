@@ -1,0 +1,55 @@
+{
+  "kind": "Offline PCM math, full decoded BGM, aligned 187.143ms windows every 10ms",
+  "limitations": [
+    "No physical-device or real-browser audition. RMS ratios do not determine perceived loudness. Single-click+BGM bounds do not certify arbitrary simultaneous business sounds."
+  ],
+  "sourceClickSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+  "bgmSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+  "frames": 8253,
+  "sampleRate": 44100,
+  "bgmFrames": 5740475,
+  "bgmSeconds": 130.16950113378684,
+  "assetGain": 1,
+  "clickOnlyPlaybackGain": 0.2428740327036814,
+  "effectiveClickPeak": 0.23999820492386487,
+  "effectiveClickRms": 0.05533191452665695,
+  "gainVsV108Amplitude": 4,
+  "gainVsV108Db": 12.041199826559248,
+  "musicVolume": 0.18,
+  "bgmMixedPeak": 0.08168857991695404,
+  "musicWindowRms": {
+    "p50": 0.01679234653844893,
+    "p90": 0.01968863876665074,
+    "p99": 0.02211398405112685,
+    "max": 0.02711234315754953
+  },
+  "platforms": [
+    {
+      "platform": "browser",
+      "master": 0.45,
+      "assignedPlaybackVolume": 0.10929331471665664,
+      "clickRmsVsMusicDb": {
+        "p50": 3.4215364620812734,
+        "p90": 2.0394504050527487,
+        "max": -0.7395768300761141
+      },
+      "conservativeMixedPeakUpperBound": 0.18968777213269322,
+      "headroomDb": 14.439213283803836,
+      "sampledMixedPeak": 0.18543113639844394
+    },
+    {
+      "platform": "wechat",
+      "master": 1,
+      "assignedPlaybackVolume": 0.2428740327036814,
+      "clickRmsVsMusicDb": {
+        "p50": 10.357286186574402,
+        "p90": 8.975200129545875,
+        "max": 6.196172894417014
+      },
+      "conservativeMixedPeakUpperBound": 0.3216867848408189,
+      "headroomDb": 9.851335598161734,
+      "sampledMixedPeak": 0.31652922934719663
+    }
+  ],
+  "status": "PASS"
+}

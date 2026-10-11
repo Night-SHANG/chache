@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "sourceSha256": "718a8f04c9eecc0466dd865fcc64884988df66e18f3fd96ad7e291f2b9b0bd9a",
+  "outputSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+  "originalPcmAmplitudePreserved": true,
+  "conversionAllSamplesExactlyMatchIndependentPcm24Math": true,
+  "quantizationErrorMaxPcm16Units": 0.5,
+  "assetGain": 1,
+  "clickOnlyPlaybackGain": 0.2428740327036814,
+  "rawAsset": {
+    "frames": 8253,
+    "durationMs": 187.14285714285714,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peak": 0.9881591796875,
+    "rms": 0.2278214509418605,
+    "energySecondsMeanChannels": 0.00971320338530335,
+    "firstFrame": [
+      -3.0517578125e-05,
+      -3.0517578125e-05
+    ],
+    "lastFrame": [
+      3.0517578125e-05,
+      0.0
+    ],
+    "maxAdjacentDeltaPerChannel": 0.088836669921875,
+    "powerCentroidHz": 362.21183186158885,
+    "middle95EnergyDurationMs": 26.984126984126984,
+    "clippedSamples": 0
+  },
+  "effectiveClickBeforePlatformMaster": {
+    "frames": 8253,
+    "durationMs": 187.14285714285714,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peak": 0.23999820492386487,
+    "rms": 0.05533191452665358,
+    "energySecondsMeanChannels": 0.0005729604574846021,
+    "firstFrame": [
+      -7.411927267568402e-06,
+      -7.411927267568402e-06
+    ],
+    "lastFrame": [
+      7.411927267568402e-06,
+      0.0
+    ],
+    "maxAdjacentDeltaPerChannel": 0.02157612027589162,
+    "powerCentroidHz": 362.21183186158885,
+    "middle95EnergyDurationMs": 26.984126984126984,
+    "clippedSamples": 0
+  },
+  "oldV108ClickBeforePlatformMaster": {
+    "frames": 8253,
+    "durationMs": 187.14285714285714,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peak": 0.05999755859375,
+    "rms": 0.013833133488247188,
+    "energySecondsMeanChannels": 3.5810830365114604e-05,
+    "firstFrame": [
+      0.0,
+      0.0
+    ],
+    "lastFrame": [
+      0.0,
+      0.0
+    ],
+    "maxAdjacentDeltaPerChannel": 0.005401611328125,
+    "powerCentroidHz": 362.21430759167555,
+    "middle95EnergyDurationMs": 26.984126984126984,
+    "clippedSamples": 0
+  },
+  "effectivePeakIncreaseDb": 12.041488297289511,
+  "effectiveRmsIncreaseDb": 12.041102590837022,
+  "tailAfter60ms": {
+    "remainingEnergyFraction": 1.500842239851141e-06,
+    "maxPeak": 0.000756016581291977,
+    "worstPossibleRestartJumpAfter60ms": 0.0007634285085595454,
+    "exact60ms8TapsBoundaryMax": 2.223578180270521e-05,
+    "noSelfOverlapInCachedHandleModel": true
+  },
+  "platforms": [
+    {
+      "target": "browser",
+      "master": 0.45,
+      "assignedPlayVolume": 0.10929331471665664,
+      "effectiveClickPeak": 0.1079991922157392,
+      "normalBgmPlusOneClickConservativePeakBound": 0.18968777213269322,
+      "headroomDb": 14.439213283803836
+    },
+    {
+      "target": "wechat",
+      "master": 1,
+      "assignedPlayVolume": 0.2428740327036814,
+      "effectiveClickPeak": 0.23999820492386487,
+      "normalBgmPlusOneClickConservativePeakBound": 0.3216867848408189,
+      "headroomDb": 9.851335598161734
+    }
+  ],
+  "original12EffectsUnchanged": {
+    "chain4": {
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "peak": 0.279998779296875,
+      "energySecondsMeanChannels": 0.0021727856992830494,
+      "uiPeakRatio": 0.8571401829913029,
+      "uiIntegratedEnergyRatio": 0.26369855880111
+    },
+    "chain3": {
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "peak": 0.259979248046875,
+      "energySecondsMeanChannels": 0.001678120508418332,
+      "uiPeakRatio": 0.9231436998409677,
+      "uiIntegratedEnergyRatio": 0.34142986430970373
+    },
+    "place": {
+      "sha256": "83c616328ed73a70bc14800f82161f1dba2a7234e48a7d3644e87a9e14c73c1e",
+      "peak": 0.220001220703125,
+      "energySecondsMeanChannels": 0.0007218746734516962,
+      "uiPeakRatio": 1.0908948784776258,
+      "uiIntegratedEnergyRatio": 0.7937118153002239
+    },
+    "upgrade": {
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "peak": 0.25,
+      "energySecondsMeanChannels": 0.0019387237328081445,
+      "uiPeakRatio": 0.9599928196954595,
+      "uiIntegratedEnergyRatio": 0.29553486543165053
+    },
+    "pick": {
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "peak": 0.160003662109375,
+      "energySecondsMeanChannels": 0.0002863672303454,
+      "uiPeakRatio": 1.499954449541332,
+      "uiIntegratedEnergyRatio": 2.0007891852483595
+    },
+    "invalid": {
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "peak": 0.16998291015625,
+      "energySecondsMeanChannels": 0.0005297318715475449,
+      "uiPeakRatio": 1.4118960823959072,
+      "uiIntegratedEnergyRatio": 1.0816046537105088
+    },
+    "fail": {
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "peak": 0.16998291015625,
+      "energySecondsMeanChannels": 0.0010261000003538975,
+      "uiPeakRatio": 1.4118960823959072,
+      "uiIntegratedEnergyRatio": 0.5583865678656958
+    },
+    "ship": {
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "peak": 0.259979248046875,
+      "energySecondsMeanChannels": 0.0016769709629840862,
+      "uiPeakRatio": 0.9231436998409677,
+      "uiIntegratedEnergyRatio": 0.3416639107841483
+    },
+    "chain2": {
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "peak": 0.239990234375,
+      "energySecondsMeanChannels": 0.002005140423909877,
+      "uiPeakRatio": 1.0000332119716688,
+      "uiIntegratedEnergyRatio": 0.28574580146729633
+    },
+    "route_ready": {
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "peak": 0.17999267578125,
+      "energySecondsMeanChannels": 0.0005223976476476981,
+      "uiPeakRatio": 1.3333776159622253,
+      "uiIntegratedEnergyRatio": 1.0967898880566997
+    },
+    "shift": {
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "peak": 0.269989013671875,
+      "energySecondsMeanChannels": 0.001961378245709502,
+      "uiPeakRatio": 0.8889184106414835,
+      "uiIntegratedEnergyRatio": 0.29212134820907093
+    },
+    "forklift": {
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "peak": 0.06500244140625,
+      "energySecondsMeanChannels": 0.0001291337543823957,
+      "uiPeakRatio": 3.6921413985658234,
+      "uiIntegratedEnergyRatio": 4.436953453610047
+    }
+  },
+  "bgmUnchanged": true,
+  "normalBgmMixedPeak": 0.08168857991695404,
+  "limitations": [
+    "Offline PCM and peak-bound calculations only, not real-browser, WeChat developer-tool or physical-device listening.",
+    "Click is intentionally louder and can exceed pick/place peaks. Same-event business-sound priority remains a separate runtime requirement.",
+    "One-click+BGM conservative bounds do not certify arbitrary concurrent business-effect combinations."
+  ]
+}

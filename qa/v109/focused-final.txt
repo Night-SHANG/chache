@@ -1,0 +1,33 @@
+✔ all 12 original WAVs retain complete mono PCM headers and their exact short durations (62.248613ms)
+✔ 12 legacy cues retain silent endpoints, smooth attack/release and moderate unclipped peaks (30.389831ms)
+✔ audio asset loading is byte-deterministic, independent of order and distinct for each cue (44.321181ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (13.668409ms)
+✔ forklift movement remains lighter than shipment and chain signals (13.198642ms)
+✔ licensed UI click uses the approved effective 0.24 peak while legacy pick/place samples retain their mix (4.497528ms)
+✔ UI click is the selected short source recording in 44.1kHz stereo PCM (1.833068ms)
+✔ both build targets contain exactly the same 13 verified local WAVs on repeated builds (729.15413ms)
+✔ v109 preserves original amplitude during exact full-source PCM24 to PCM16 conversion (18.811718ms)
+✔ v109 keeps fixed masters and exposes one bounded click-only gain (0.366592ms)
+✔ v109 reaches effective peak 0.24 without clipping the original-amplitude asset (5.73511ms)
+✔ browser assigns click-only gain before first and every repeated play without changing other cues (3.317813ms)
+✔ wechat assigns click-only gain before first and every repeated play without changing other cues (2.002102ms)
+✔ selected Dustyroom recording and original pack license are preserved with verified bytes (2.65198ms)
+✔ click provenance binds source and final waveform with constant gain only and no repeated audition (0.616458ms)
+✔ licensed conversion is deterministic constant-gain adaptation of every original frame (15.807897ms)
+✔ full original tail fits the existing 60ms retrigger policy without delaying actions or editing audio (5.923915ms)
+✔ browser keeps all original cue assets and their relative mix while raising the fixed SFX gain modestly (2.561555ms)
+✔ WeChat explicitly retains the old full SFX level for all existing cues (0.857811ms)
+✔ business result cue wins over generic UI sound and does not consume future click availability (1.951316ms)
+✔ haptic rate limit starts at negative infinity, does not drop actions and remains independent of audio (0.276667ms)
+✔ setting off during its own activation prevents haptic; blocked transaction does not imply success (0.260993ms)
+✔ optional throwing haptic does not undo action or UI audio (0.368264ms)
+✔ shared toggle patch handles absent legacy preferences without altering unrelated fields (0.320342ms)
+✔ v0.20 frozen gameplay and 12 legacy cue synthesis remain byte-identical after type-only narrowing (11.10441ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1063.034198

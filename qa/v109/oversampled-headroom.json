@@ -1,0 +1,8 @@
+{
+  "method": "scipy resample_poly, 4x oversampling; approximate reconstructed peak bound, not device audition",
+  "uiClickReconstructedPeak": 0.24015097940256896,
+  "bgmReconstructedPeak": 0.08178800365138737,
+  "browserConservativeMixedBound": 0.1898559443825434,
+  "wechatConservativeMixedBound": 0.32193898305395635,
+  "status": "PASS"
+}

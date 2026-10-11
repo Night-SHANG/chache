@@ -1,0 +1,524 @@
+{
+  "status": "PASS",
+  "target": "wechat",
+  "source": "<reviewed-checkout>",
+  "build": "<reviewed-production-build>",
+  "cases": [
+    {
+      "name": "startup-pause-help-settings-return-background-fast-toggle-home",
+      "status": "PASS",
+      "sameTrackPosition": 123.456,
+      "oneMusicHandle": true,
+      "pauseGain": 0.12,
+      "normalGain": 0.18,
+      "rapidPauseResumeCycles": 12,
+      "rapidClickReplaysAt60ms": 8,
+      "musicPlayCalls": 3,
+      "sourceReassignments": 0
+    },
+    {
+      "name": "cold-saved-run-needs-resume-is-silent",
+      "status": "PASS",
+      "silentUntilExplicitResume": true
+    },
+    {
+      "name": "music-disabled-cold-start-and-enable-in-pause",
+      "status": "PASS",
+      "disabledDoesNotCreate": true,
+      "pausedEnableVolume": 0.12
+    },
+    {
+      "name": "autoplay-rejection-no-frame-or-show-loop-and-one-gesture-retry",
+      "status": "PASS",
+      "autoplayAttempts": 1,
+      "gestureRetries": 1
+    },
+    {
+      "name": "corrupt-account-root-blocker-overrides-foreground-and-gestures",
+      "status": "PASS",
+      "blockedRootStatus": "corrupt",
+      "noPlayback": true,
+      "noStorageWrites": true
+    },
+    {
+      "name": "UI-volume-setter-failure-never-plays-full-scale-and-does-not-block-actions",
+      "status": "PASS",
+      "noFullScalePlayAfterSetterFailure": true,
+      "recoveredInSameHandle": true,
+      "firstSuccessfulPlayVolume": 0.2428740327036814
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "Unmodified production bundles executed in simulated DOM/wx hosts with native Canvas. No real-device listening or WeChat developer-tools claim."
+  ],
+  "manifest": {
+    "uiClick": {
+      "src": "assets/ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "author": "Dustyroom",
+      "source": "DM-CGS-32.wav",
+      "license": "CC0-1.0",
+      "assetGain": 1,
+      "playbackGain": 0.2428740327036814,
+      "effectiveTargetPeak": 0.24
+    },
+    "cargoAtlas": {
+      "src": "assets/cargo-materials.png",
+      "width": 670,
+      "height": 2010,
+      "tileSize": 134,
+      "padding": 3,
+      "bodySize": 128,
+      "styles": [
+        "wood",
+        "insulated",
+        "reinforced",
+        "taped",
+        "toy_brick",
+        "paper_fold",
+        "space_case",
+        "ice_crystal",
+        "steam_brass",
+        "neon_circuit",
+        "lava_core",
+        "ocean_relic",
+        "royal_gold",
+        "field_supply",
+        "harbor_container"
+      ],
+      "cargos": [
+        "cargo.food",
+        "cargo.machine",
+        "cargo.chem",
+        "cargo.electronic",
+        "cargo.cold"
+      ],
+      "bytes": 351513,
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    "sceneMaterialAtlas": {
+      "src": "assets/scene-materials.png",
+      "width": 512,
+      "height": 960,
+      "tileSize": 64,
+      "frameSize": 128,
+      "variants": 3,
+      "tileBaseY": 512,
+      "tileColumns": 8,
+      "frameColumns": 4,
+      "extensionThemeStart": 13,
+      "extensionTileBaseY": 896,
+      "themes": [
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station",
+        "forest_depot",
+        "ice_vault"
+      ],
+      "bytes": 219775,
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    "boardMaterialAtlas": {
+      "src": "assets/board-materials.png",
+      "width": 512,
+      "height": 512,
+      "tileSize": 128,
+      "themes": [
+        "day",
+        "night",
+        "harbor",
+        "cold_chain",
+        "rail_freight",
+        "express_sorting",
+        "toy_workshop",
+        "paper_warehouse",
+        "space_cargo",
+        "steam_foundry",
+        "neon_depot",
+        "lava_forge",
+        "ocean_vault",
+        "royal_store",
+        "field_station"
+      ],
+      "bytes": 166727,
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    "themedForkliftAtlas": {
+      "src": "assets/themed-forklifts.png",
+      "width": 2048,
+      "height": 128,
+      "tileSize": 128,
+      "tileColumns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15
+      ],
+      "paints": [
+        "electric",
+        "heavy",
+        "compact",
+        "toy",
+        "paper",
+        "space",
+        "steam",
+        "neon",
+        "lava",
+        "diving",
+        "royal",
+        "field",
+        "timber",
+        "ice",
+        "harbor"
+      ],
+      "bytes": 61052,
+      "sha256": "41ea1d21d9638603c79ac830cba877c35a6b085afd458527243ad605b9eef3db"
+    },
+    "developerDiagnostics": false,
+    "shopPricingMode": "paid",
+    "soundEffects": {
+      "browserVolume": 0.45,
+      "wechatVolume": 1
+    },
+    "version": "1.0.9",
+    "rulesetVersion": 21,
+    "backgroundMusic": {
+      "src": "assets/bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "bytes": 1563002,
+      "loop": true,
+      "defaultVolume": 0.18,
+      "license": "CC0 1.0 Universal"
+    },
+    "accountFormatVersion": 4,
+    "economyVersion": 2,
+    "interactiveTutorials": false,
+    "help": {
+      "entry": "home_and_pause",
+      "topics": [
+        "inbound",
+        "outbound",
+        "tools"
+      ],
+      "rushDetails": true,
+      "specialCargoOnly": true,
+      "automatic": false
+    },
+    "cosmetics": {
+      "catalogSize": 50,
+      "setCount": 15,
+      "navigation": "sections-pagination-inline-preview",
+      "sections": [
+        "sets",
+        "theme",
+        "cargo",
+        "forklift"
+      ],
+      "columns": 2,
+      "pageSize": 4,
+      "setPageSize": 4
+    },
+    "supportedRulesets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21
+    ],
+    "modes": {
+      "orders": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "candidates": [
+          3
+        ],
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "economyVersion": 2,
+        "finalStageRush": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "orderRanges": {
+          "hard": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ],
+          "expert": [
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              8
+            ]
+          ]
+        },
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        },
+        "overtimeDifficulties": [
+          "hard",
+          "expert"
+        ],
+        "continuedRecordScope": "endless"
+      },
+      "legacy_daily": {
+        "rulesetVersion": 18,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "inboundDifficulty": "hard",
+        "scoreMultiplier": [
+          3,
+          2
+        ]
+      },
+      "rush": {
+        "rulesetVersion": 21,
+        "runConfigId": "run.rush_v21.base",
+        "boardSize": 7,
+        "reservedEntries": 4,
+        "targetOrders": 30,
+        "inboundDifficulty": "normal",
+        "orderRanges": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            7
+          ]
+        ],
+        "scoreMultiplier": [
+          1,
+          1
+        ],
+        "tools": true,
+        "maxToolTypes": 2,
+        "initialRushPercent": 6,
+        "finalStageRushPercent": 100,
+        "cleanupAtStart": true,
+        "repeatable": true,
+        "dated": false,
+        "seedPerRun": true,
+        "winCoinMultiplier": 1
+      },
+      "legacy_fixed_rush": {
+        "rulesetVersion": 20,
+        "winCoinMultiplier": 3
+      },
+      "legacy_rush": {
+        "rulesetVersion": 19,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_tiers": {
+        "rulesetVersion": 16
+      },
+      "legacy_final_stage": {
+        "rulesetVersion": 15
+      },
+      "legacy_multishape": {
+        "rulesetVersion": 14
+      },
+      "legacy_refinement": {
+        "rulesetVersion": 11
+      },
+      "legacy_growth": {
+        "rulesetVersion": 9,
+        "boardSizes": [
+          7,
+          8
+        ],
+        "candidates": [
+          3,
+          4,
+          5
+        ]
+      },
+      "legacy_orders": {
+        "rulesetVersion": 3
+      },
+      "color_exit": {
+        "rulesetVersion": 4,
+        "balanced": false
+      },
+      "color_exit_mixed": {
+        "rulesetVersion": 5,
+        "tiers": {
+          "entry": 20,
+          "middle": 30,
+          "late": 40
+        },
+        "balanced": false
+      },
+      "outbound": {
+        "rulesetVersion": 12,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "balanced": false
+      },
+      "inbound_endless": {
+        "rulesetVersion": 18,
+        "boardSizes": [
+          7
+        ],
+        "stageCap": 5,
+        "reservedEntries": 4,
+        "upgradePool": false,
+        "rushPercent": 0,
+        "cleanup": false,
+        "difficulties": [
+          "hard",
+          "expert"
+        ],
+        "scoreMultipliers": {
+          "hard": [
+            3,
+            2
+          ],
+          "expert": [
+            2,
+            1
+          ]
+        }
+      },
+      "legacy_inbound_endless": {
+        "rulesetVersion": 7
+      },
+      "outbound_endless": {
+        "rulesetVersion": 13,
+        "boardSize": 9,
+        "reservedEntries": 1,
+        "tools": true,
+        "difficulties": {
+          "easy": 20,
+          "normal": 30,
+          "hard": 40,
+          "expert": 50
+        },
+        "stageCap": 5,
+        "balanced": false
+      }
+    },
+    "sourceSha256": "c5b84f0fbd7439ce3778b7ee1d290f87040d10280de6e837cb2e4b59a269f347",
+    "commit": "c454dce197c8ba2ebc3a7e8ed54ed5aaf565c255",
+    "builtAt": "2026-10-11T11:51:25.943Z",
+    "runtimeStatus": "WeChat developer tools and physical devices NOT RUN",
+    "referenceCommit": "ad99e35a0200d4548cd879aa218ce845fd1e9fa2"
+  },
+  "bundleSha256": "857ec06c984b6364d863b26b63798c2f14c63d3b49198beb736e843ff6e2c79e"
+}
