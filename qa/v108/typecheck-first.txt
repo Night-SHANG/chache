@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.7 typecheck
+> tsc --noEmit
+
+tests/rush-base21-session-music.test.ts(22,2): error TS2322: Type '"Read-only test blocker"' is not assignable to type 'boolean | undefined'.

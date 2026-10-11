@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "sourceSha256": "718a8f04c9eecc0466dd865fcc64884988df66e18f3fd96ad7e291f2b9b0bd9a",
+  "outputSha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+  "licensedSourceAndBothTargetsMatch": true,
+  "conversionAllSamplesExactlyMatchIndependentPcm24Math": true,
+  "constantGainLinear": 0.06071850817592035,
+  "constantGainDb": -24.333578147694496,
+  "newClick": {
+    "frames": 8253,
+    "durationMs": 187.14285714285714,
+    "channels": 2,
+    "sampleRate": 44100,
+    "peak": 0.05999755859375,
+    "rms": 0.013833133488247188,
+    "energySecondsMeanChannels": 3.5810830365114604e-05,
+    "firstFrame": [
+      0.0,
+      0.0
+    ],
+    "lastFrame": [
+      0.0,
+      0.0
+    ],
+    "maxAdjacentDeltaPerChannel": 0.005401611328125,
+    "powerCentroidHz": 362.21430759167555,
+    "energyAbove4kFraction": 3.463078688863376e-05,
+    "middle95EnergyDurationMs": 26.984126984126984,
+    "clippedSamples": 0
+  },
+  "oldV107Click": {
+    "frames": 992,
+    "durationMs": 44.98866213151928,
+    "channels": 1,
+    "sampleRate": 22050,
+    "peak": 0.07501220703125,
+    "rms": 0.026755985421229523,
+    "energySecondsMeanChannels": 3.220660742921353e-05,
+    "firstFrame": [
+      0.0
+    ],
+    "lastFrame": [
+      0.0
+    ],
+    "maxAdjacentDeltaPerChannel": 0.020538330078125,
+    "powerCentroidHz": 683.4740910269257,
+    "energyAbove4kFraction": 6.496482775549207e-08,
+    "middle95EnergyDurationMs": 21.088435374149658,
+    "clippedSamples": 0
+  },
+  "newToOldPeakDb": -1.939967301086369,
+  "newToOldIntegratedEnergyDb": 0.46069411714082276,
+  "browserAppliedClickPeak": 0.0269989013671875,
+  "wechatAppliedClickPeak": 0.05999755859375,
+  "tailAfter60ms": {
+    "remainingEnergyFraction": 1.5530322415953756e-06,
+    "maxPeak": 0.00018310546875,
+    "worstPossibleRestartJumpAfter60ms": 0.00018310546875,
+    "exact60ms8TapsBoundaryMax": 0.0,
+    "noSelfOverlapInCachedHandleModel": true
+  },
+  "original12EffectsUnchanged": {
+    "chain4": {
+      "peak": 0.279998779296875,
+      "rms": 0.08809057228790657,
+      "energySecondsMeanChannels": 0.0021727856992830494,
+      "uiPeakRatio": 0.21427792915531335,
+      "uiIntegratedEnergyRatio": 0.016481528931698623
+    },
+    "chain3": {
+      "peak": 0.259979248046875,
+      "rms": 0.07741632599177947,
+      "energySecondsMeanChannels": 0.001678120508418332,
+      "uiPeakRatio": 0.2307782603591971,
+      "uiIntegratedEnergyRatio": 0.021339844299303128
+    },
+    "place": {
+      "peak": 0.220001220703125,
+      "rms": 0.07922469480658371,
+      "energySecondsMeanChannels": 0.0007218746734516962,
+      "uiPeakRatio": 0.27271466222777085,
+      "uiIntegratedEnergyRatio": 0.04960809913704621
+    },
+    "upgrade": {
+      "peak": 0.25,
+      "rms": 0.08038913137168366,
+      "energySecondsMeanChannels": 0.0019387237328081445,
+      "uiPeakRatio": 0.239990234375,
+      "uiIntegratedEnergyRatio": 0.018471342646249243
+    },
+    "pick": {
+      "peak": 0.160003662109375,
+      "rms": 0.0580471849667085,
+      "energySecondsMeanChannels": 0.0002863672303454,
+      "uiPeakRatio": 0.3749761586877742,
+      "uiIntegratedEnergyRatio": 0.12505212388275572
+    },
+    "invalid": {
+      "peak": 0.16998291015625,
+      "rms": 0.06151259287725127,
+      "energySecondsMeanChannels": 0.0005297318715475449,
+      "uiPeakRatio": 0.3529622980251346,
+      "uiIntegratedEnergyRatio": 0.06760180440058812
+    },
+    "fail": {
+      "peak": 0.16998291015625,
+      "rms": 0.06406268612851214,
+      "energySecondsMeanChannels": 0.0010261000003538975,
+      "uiPeakRatio": 0.3529622980251346,
+      "uiIntegratedEnergyRatio": 0.03489994186995771
+    },
+    "ship": {
+      "peak": 0.259979248046875,
+      "rms": 0.08031119672355506,
+      "energySecondsMeanChannels": 0.0016769709629840862,
+      "uiPeakRatio": 0.2307782603591971,
+      "uiIntegratedEnergyRatio": 0.021354472531468893
+    },
+    "chain2": {
+      "peak": 0.239990234375,
+      "rms": 0.0846239670523554,
+      "energySecondsMeanChannels": 0.002005140423909877,
+      "uiPeakRatio": 0.25,
+      "uiIntegratedEnergyRatio": 0.017859512450148555
+    },
+    "route_ready": {
+      "peak": 0.17999267578125,
+      "rms": 0.055430294119462424,
+      "energySecondsMeanChannels": 0.0005223976476476981,
+      "uiPeakRatio": 0.3333333333333333,
+      "uiIntegratedEnergyRatio": 0.06855090279668567
+    },
+    "shift": {
+      "peak": 0.269989013671875,
+      "rms": 0.07184373110602991,
+      "energySecondsMeanChannels": 0.001961378245709502,
+      "uiPeakRatio": 0.2222222222222222,
+      "uiIntegratedEnergyRatio": 0.018257993043132036
+    },
+    "forklift": {
+      "peak": 0.06500244140625,
+      "rms": 0.021868539054039463,
+      "energySecondsMeanChannels": 0.0001291337543823957,
+      "uiPeakRatio": 0.9230046948356807,
+      "uiIntegratedEnergyRatio": 0.2773157997023012
+    }
+  },
+  "bgmUnchanged": true,
+  "limitations": [
+    "No physical-device listening. Energy/peak margins and same-event business-cue precedence support the mix but do not guarantee subjective non-masking.",
+    "Full source retained. The original 60ms cached-cue restart discards only near-silent residual tail; lifecycle stops retain prior behavior."
+  ]
+}

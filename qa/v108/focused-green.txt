@@ -1,0 +1,114 @@
+✔ all 13 original WAVs have complete mono PCM headers and the specified short durations (73.792131ms)
+✔ short audio has silent endpoints, smooth attack/release and moderate unclipped peaks (95.86072ms)
+✔ audio generation is byte-deterministic, independent of order and distinct for each cue (31.658453ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (8.820838ms)
+✔ forklift movement remains lighter than shipment and chain signals (9.767251ms)
+✔ UI click is shorter and quieter than the existing pick and placement cues (1.577375ms)
+✔ UI click uses a quiet low rounded tone without the old upper harmonic edge (10.991344ms)
+✔ both build targets contain exactly the same 13 generated local WAVs on repeated builds (687.775967ms)
+✔ browser caches at most the 13 known local audio cues and ignores unknown runtime names (5.44084ms)
+✔ browser explicit stopSounds stops and rewinds every cached cue without replay on show (0.66496ms)
+✔ browser setup failures reuse one bounded handle and recover only on an explicit retry (0.692312ms)
+✔ browser a failing stop cannot block other sounds or the hide lifecycle callback (0.460904ms)
+✔ browser play, callback, and creation failures never escape audio calls (14.287997ms)
+✔ wechat caches at most the 13 known local audio cues and ignores unknown runtime names (2.346942ms)
+✔ wechat explicit stopSounds stops and rewinds every cached cue without replay on show (0.37852ms)
+✔ wechat setup failures reuse one bounded handle and recover only on an explicit retry (0.34538ms)
+✔ wechat a failing stop cannot block other sounds or the hide lifecycle callback (0.381223ms)
+✔ wechat play, callback, and creation failures never escape audio calls (2.369516ms)
+✔ browser pagehide stops all cached sounds even when one pause fails (0.37851ms)
+✔ browser pause-menu ducking preserves one continuous music player and only changes gain (4.335736ms)
+✔ browser initially ducked music and retries apply pause-menu gain before playing (7.931248ms)
+✔ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.738241ms)
+✔ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.429868ms)
+✔ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (0.521435ms)
+✔ browser disabled and paused startup do not create music until state allows it (0.204998ms)
+✔ browser initial creation failure waits for a real gesture and retries only once (0.356076ms)
+✔ browser initial rejected play waits for a new gesture without duplicate contexts (2.385671ms)
+✔ browser pointer callback applies a disabled setting before music can start (0.356537ms)
+✔ browser a failure triggered by a pointer callback is retried only on a later interaction (0.558671ms)
+✔ browser music pause preserves position and repeated setting changes are idempotent (0.317117ms)
+✔ browser repeated hide and show pauses before callbacks and resumes once (0.356797ms)
+✔ browser menu music resumes after Session includes hidden in its temporary paused state (0.181974ms)
+✔ browser toggling off while hidden prevents automatic resumption until a new gesture (0.155654ms)
+✔ browser show cannot start never-played music or resume a paused Session (0.217608ms)
+✔ browser music and cached sound effects stop independently (0.396236ms)
+✔ browser rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (3.703054ms)
+✔ browser a late resolved play is paused after hiding or disabling (0.722667ms)
+✔ browser pending and successful async play never duplicates the handle or retries each frame (0.521575ms)
+✔ browser native errors block frame retries and explicit interactions reuse the handle (0.251308ms)
+✔ browser creation setup playback and pause failures stay optional and bounded (0.368384ms)
+✔ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.806574ms)
+✔ wechat initially ducked music and retries apply pause-menu gain before playing (1.869534ms)
+✔ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.503088ms)
+✔ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.1461ms)
+✔ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.249926ms)
+✔ wechat disabled and paused startup do not create music until state allows it (0.115123ms)
+✔ wechat initial creation failure waits for a real gesture and retries only once (0.397989ms)
+✔ wechat initial rejected play waits for a new gesture without duplicate contexts (1.964778ms)
+✔ wechat pointer callback applies a disabled setting before music can start (0.188193ms)
+✔ wechat a failure triggered by a pointer callback is retried only on a later interaction (0.138188ms)
+✔ wechat music pause preserves position and repeated setting changes are idempotent (0.096476ms)
+✔ wechat repeated hide and show pauses before callbacks and resumes once (0.090105ms)
+✔ wechat menu music resumes after Session includes hidden in its temporary paused state (0.075614ms)
+✔ wechat toggling off while hidden prevents automatic resumption until a new gesture (0.123887ms)
+✔ wechat show cannot start never-played music or resume a paused Session (0.102855ms)
+✔ wechat music and cached sound effects stop independently (0.209436ms)
+✔ wechat rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (4.993756ms)
+✔ wechat a late resolved play is paused after hiding or disabling (0.602026ms)
+✔ wechat pending and successful async play never duplicates the handle or retries each frame (0.455245ms)
+✔ wechat native errors block frame retries and explicit interactions reuse the handle (0.512922ms)
+✔ wechat creation setup playback and pause failures stay optional and bounded (0.17259ms)
+✔ browser pagehide pauses and pageshow resumes its existing music context (0.197277ms)
+✔ wechat safely falls back to stop when a host has no pause method (0.175274ms)
+✔ new profiles include separate enabled music while legacy two-setting records retain their shape (2.15878ms)
+✔ profile music validation rejects wrong types and unknown fields without schema changes (0.441805ms)
+✔ valid button at initial time zero emits one UI click after stopSounds, double up does not replay (15.943778ms)
+✔ turning sound off and back on is silent for that gesture, subsequent normal click sounds (12.484342ms)
+✔ vibration toggle persists and is never itself a vibration, major start obeys it (3.641762ms)
+✔ default major starts vibrate while ordinary navigation does not; cancel stays silent (1.894272ms)
+✔ ordinary fast taps are audio rate limited without dropping actions (0.939545ms)
+✔ pause icon retains audible click after gameplay feedback is cleared (10.270519ms)
+✔ hard selector starts reward21 and no extra multiplier without changing prepare or cleanup (40.222523ms)
+✔ expert selector starts reward21 and no extra multiplier without changing prepare or cleanup (15.178316ms)
+✔ music preference is independent, persisted and leaves game/wallet/appearance unchanged (10.413925ms)
+✔ pause/settings/help duck music immediately; background still suspends without advancing rules (8.970693ms)
+✔ music off and recovery/account blockers override the pause-menu music policy (21.03367ms)
+✔ menu hide/show and muted restore do not turn music on or change SFX preference (3.778998ms)
+✔ business result cue wins over generic UI sound and does not consume future click availability (2.459492ms)
+✔ haptic rate limit starts at negative infinity, does not drop actions and remains independent of audio (0.237938ms)
+✔ setting off during its own activation prevents haptic; blocked transaction does not imply success (0.188664ms)
+✔ optional throwing haptic does not undo action or UI audio (0.3056ms)
+✔ shared toggle patch handles absent legacy preferences without altering unrelated fields (2.967517ms)
+✖ v0.20 frozen gameplay and legacy audio remain identical; v107 adds only its UI cue (6.260223ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 82
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1092.918137
+
+✖ failing tests:
+
+test at tests/v020-frozen-gameplay.test.ts:6:1
+✖ v0.20 frozen gameplay and legacy audio remain identical; v107 adds only its UI cue (6.260223ms)
+  AssertionError [ERR_ASSERTION]: src/shared/audio-levels.ts
+  + actual - expected
+  
+  + '8638efeefbc627552e7fa1112dc46bf6b70bd999f9cd11edd0f2502fcefab1b1'
+  - 'b99427464d2d528ca4cdfec20f278b42ae2dbb932007b9809e6e24993af44dcb'
+  
+      at TestContext.<anonymous> (file://<project>/tests/v020-frozen-gameplay.test.ts:10:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '8638efeefbc627552e7fa1112dc46bf6b70bd999f9cd11edd0f2502fcefab1b1',
+    expected: 'b99427464d2d528ca4cdfec20f278b42ae2dbb932007b9809e6e24993af44dcb',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

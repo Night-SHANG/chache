@@ -1,17 +1,18 @@
 {
-  "version": "1.0.6",
-  "verifiedAt": "2026-10-11T10:31:47.137317+08:00",
-  "status": "USER_APPROVED_VISUAL_AND_AUDIO_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
-  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
-  "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
-  "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
+  "version": "1.0.8",
+  "verifiedAt": "2026-10-11T11:05:29.184450+00:00",
+  "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+  "productTree": "2357552095afacc857b98d226ec2b898633857b8",
+  "sourceSha256": "5b4501f44c9c735a3e32cb79d7f8a4077f13928bfb183d1f6b60cb53a3e114d2",
   "fullTests": {
-    "tests": 2806,
-    "passCount": 2804,
-    "failCount": 2,
+    "command": "node --test --test-concurrency=1 tests/*.test.ts",
+    "tests": 2859,
+    "pass": 2857,
+    "fail": 2,
     "cancelled": 0,
     "skipped": 0,
-    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+    "log": "full-serial-dustyroom.txt"
   },
   "knownFailures": [
     "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
@@ -22,18 +23,13 @@
     "typecheck": "PASS",
     "preflight": "PASS"
   },
-  "productionHost": {
-    "cases": 178,
-    "failures": 0,
-    "images": 129
-  },
   "musicHost": {
     "status": "PASS",
     "cases": 4,
     "failures": 0,
-    "report": "qa/v106/music-final-host-report.json"
+    "report": "music-host-dustyroom/report.json"
   },
-  "details": "qa/v106/summary.json",
-  "previousCheckpoint": "docs/checkpoint-v105-history.json",
-  "note": "User approved screenshot candidate. Final paid bundle matches approved visual pixels; archive/remote/delivery have separate receipts."
+  "details": "qa/v108/summary.json",
+  "previousCheckpoint": "docs/checkpoint-pre-v108-history.json",
+  "note": "Only the selected licensed UI click and paused music policy changed. Formal packaging and delivery are recorded separately."
 }

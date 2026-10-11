@@ -1,0 +1,19 @@
+✔ UI click uses a quiet low rounded tone without the old upper harmonic edge (25.67167ms)
+✔ browser pause-menu ducking preserves one continuous music player and only changes gain (2.176245ms)
+✔ browser initially ducked music and retries apply pause-menu gain before playing (3.915154ms)
+✔ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.735988ms)
+✔ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.505762ms)
+✔ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.91004ms)
+✔ wechat initially ducked music and retries apply pause-menu gain before playing (1.651907ms)
+✔ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.348796ms)
+✔ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.220912ms)
+✔ pause/settings/help duck music immediately; background still suspends without advancing rules (29.961276ms)
+✔ music off and recovery/account blockers override the pause-menu music policy (25.180451ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 333.22766

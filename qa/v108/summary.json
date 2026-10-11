@@ -1,0 +1,152 @@
+{
+  "version": "1.0.8",
+  "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "verifiedAt": "2026-10-11T11:05:29.184450+00:00",
+  "baseCommit": "958e270007163ce3efd0f02bcc9e745b88e900e1",
+  "productCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+  "productTree": "2357552095afacc857b98d226ec2b898633857b8",
+  "sourceSha256": "5b4501f44c9c735a3e32cb79d7f8a4077f13928bfb183d1f6b60cb53a3e114d2",
+  "fullTests": {
+    "command": "node --test --test-concurrency=1 tests/*.test.ts",
+    "tests": 2859,
+    "pass": 2857,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "full-serial-dustyroom.txt"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "focused": {
+    "tests": 87,
+    "pass": 87,
+    "fail": 0,
+    "log": "focused-final-dustyroom.txt"
+  },
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "productionBuild": {
+    "version": "1.0.8",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "manifestCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+    "log": "build-final-product.txt",
+    "runtimeBytes": {
+      "browser": {
+        "path": "browser/app.js",
+        "bytes": 903070,
+        "sha256": "3aaf2a8dc620acf2f49c97f13e31200a808f137bc338521bc4e3703b08181917"
+      },
+      "wechat": {
+        "path": "wechat/game.js",
+        "bytes": 901970,
+        "sha256": "cac1ce0e31888666f10bd65613a5d0e51c81c1c59fa626a5c9d518251f2d9c09"
+      }
+    }
+  },
+  "licensedClick": {
+    "source": {
+      "author": "Dustyroom",
+      "pack": "Free Casual Game Sounds",
+      "filename": "DM-CGS-32.wav",
+      "url": "https://dustyroom.com/free-casual-game-sounds/",
+      "download": "https://dustyroom.com/casualgamesounds/DM-CGS.zip",
+      "archiveSha256": "7ffc649a641a8b8ee0136d431b5dd69bcf9eeabc250a18285ad984ad09bd4a4f",
+      "sha256": "718a8f04c9eecc0466dd865fcc64884988df66e18f3fd96ad7e291f2b9b0bd9a",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 24,
+      "samples": 8253
+    },
+    "license": {
+      "spdx": "CC0-1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "originalLicenseSha256": "fa3693afc38aac134361b33d0b73cd7bc1300fdca8c87af813c64fa91b218cca"
+    },
+    "processing": {
+      "constantGainOnly": true,
+      "targetPeak": 0.06,
+      "gainLinear": 0.06071850817592035,
+      "gainDb": -24.333578147694496,
+      "algorithm": "Full source PCM24 frames scaled once and rounded to signed PCM16. No EQ, pitch shift, synthesis, fade, truncation or repeated audition.",
+      "rebuild": "node scripts/prepare-ui-click.mjs"
+    },
+    "output": {
+      "filename": "ui_click.wav",
+      "sha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "samples": 8253,
+      "bytes": 33056
+    }
+  },
+  "musicHost": {
+    "status": "PASS",
+    "cases": 4,
+    "failures": 0,
+    "report": "music-host-dustyroom/report.json"
+  },
+  "independentReview": {
+    "status": "PASS_NO_BLOCKING_DEFECT",
+    "productionCases": 10,
+    "focusedTests": 85,
+    "additionalSemanticCases": 5,
+    "protectedSourceAndAssetPaths": 187,
+    "report": "independent-review/REVIEW.md",
+    "publicEvidenceFiles": 13,
+    "reviewedProductCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+    "reviewedRebuild": true
+  },
+  "assetComparison": "audio-and-asset-comparison-dustyroom.json",
+  "tdd": {
+    "licensedAssetRed": {
+      "tests": 3,
+      "fail": 3,
+      "log": "dustyroom-tdd-red.txt"
+    },
+    "licensedAssetAndLegacyGuardGreen": {
+      "tests": 4,
+      "pass": 4,
+      "log": "dustyroom-tdd-green.txt"
+    },
+    "reproducibleConversionAndTail": {
+      "tests": 4,
+      "pass": 4,
+      "log": "licensed-regression.txt"
+    },
+    "pausePolicy": "Initial red/green logs contain ten BGM/session assertions and one superseded synthesized-click assertion. Final licensed-click checks are separate."
+  },
+  "supersededEvidence": {
+    "syntheticClick": {
+      "status": "NOT_FOR_RELEASE",
+      "fullTests": 2855,
+      "pass": 2853,
+      "fail": 2,
+      "log": "full-serial-first.txt"
+    },
+    "otherLicensedOption": {
+      "status": "NOT_INTEGRATED",
+      "log": "licensed-tdd-red.txt"
+    }
+  },
+  "limitations": [
+    "Physical browsers, WeChat developer tools, Windows GUI and mobile devices not run.",
+    "Host API and waveform evidence do not establish subjective in-game sound comfort or device loudness.",
+    "Two historical generated artwork sources remain missing; assertions were not relaxed."
+  ],
+  "publicSnapshotPrivateIdentifierMatchCount": 0,
+  "delivery": "Packaging, public Git backup and file delivery have separate receipts.",
+  "buildVariants": {
+    "paid": "build-final-paid.txt",
+    "free": "build-final-free.txt",
+    "exactPaidCandidateMatchExceptBuildMetadata": true,
+    "selectedClickVerifiedInBothVariants": true
+  },
+  "evidenceNote": "Public logs replace local execution roots with stable placeholders. Original logs are retained in the separate complete QA archive."
+}

@@ -1,0 +1,12 @@
+✔ UI click is the selected short source recording in 44.1kHz stereo PCM (7.85636ms)
+✔ selected Dustyroom recording and original pack license are preserved with verified bytes (2.253089ms)
+✔ click provenance binds source and final waveform with constant gain only and no repeated audition (0.631199ms)
+✔ v0.20 frozen gameplay and 12 legacy cue synthesis remain byte-identical after type-only narrowing (10.013645ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 136.428228

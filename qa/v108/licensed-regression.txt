@@ -1,0 +1,12 @@
+✔ selected Dustyroom recording and original pack license are preserved with verified bytes (1.657484ms)
+✔ click provenance binds source and final waveform with constant gain only and no repeated audition (0.462195ms)
+✔ licensed conversion is deterministic constant-gain adaptation of every original frame (11.617304ms)
+✔ full original tail fits the existing 60ms retrigger policy without delaying actions or editing audio (3.669109ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 135.476019

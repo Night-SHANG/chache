@@ -1,0 +1,39 @@
+{
+  "version": "1.0.6",
+  "verifiedAt": "2026-10-11T10:31:47.137317+08:00",
+  "status": "USER_APPROVED_VISUAL_AND_AUDIO_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+  "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
+  "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
+  "fullTests": {
+    "tests": 2806,
+    "passCount": 2804,
+    "failCount": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "productionHost": {
+    "cases": 178,
+    "failures": 0,
+    "images": 129
+  },
+  "musicHost": {
+    "status": "PASS",
+    "cases": 4,
+    "failures": 0,
+    "report": "qa/v106/music-final-host-report.json"
+  },
+  "details": "qa/v106/summary.json",
+  "previousCheckpoint": "docs/checkpoint-v105-history.json",
+  "note": "User approved screenshot candidate. Final paid bundle matches approved visual pixels; archive/remote/delivery have separate receipts."
+}

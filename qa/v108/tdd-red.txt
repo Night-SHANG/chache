@@ -1,0 +1,252 @@
+✖ UI click uses a quiet low rounded tone without the old upper harmonic edge (4.197928ms)
+✖ browser pause-menu ducking preserves one continuous music player and only changes gain (3.597164ms)
+✖ browser initially ducked music and retries apply pause-menu gain before playing (0.422296ms)
+✖ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.452341ms)
+✖ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.375245ms)
+✖ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.779353ms)
+✖ wechat initially ducked music and retries apply pause-menu gain before playing (0.255575ms)
+✖ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.217897ms)
+✖ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.184458ms)
+✖ pause/settings/help duck music immediately; background still suspends without advancing rules (31.258655ms)
+✖ music off and recovery/account blockers override the pause-menu music policy (20.100812ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 0
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 330.753857
+
+✖ failing tests:
+
+test at tests/audio-assets.test.ts:65:1
+✖ UI click uses a quiet low rounded tone without the old upper harmonic edge (4.197928ms)
+  AssertionError [ERR_ASSERTION]: UI click peak 0.07501220703125
+      at TestContext.<anonymous> (file://<project>/tests/audio-assets.test.ts:67:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:47:2
+✖ browser pause-menu ducking preserves one continuous music player and only changes gain (3.597164ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:55:2
+✖ browser initially ducked music and retries apply pause-menu gain before playing (0.422296ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:61:2
+✖ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.452341ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:68:2
+✖ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.375245ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:71:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:47:2
+✖ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.779353ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:55:2
+✖ wechat initially ducked music and retries apply pause-menu gain before playing (0.255575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:61:2
+✖ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.217897ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:68:2
+✖ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.184458ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0.18 !== 0.12
+  
+      at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:71:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0.18,
+    expected: 0.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/rush-base21-session-music.test.ts:11:1
+✖ pause/settings/help duck music immediately; background still suspends without advancing rules (31.258655ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      true,
+  +   true,
+      false,
+  -   true
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/rush-base21-session-music.test.ts:13:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ true, true, false ],
+    expected: [ true, false, true ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/rush-base21-session-music.test.ts:17:1
+✖ music off and recovery/account blockers override the pause-menu music policy (20.100812ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      false,
+  +   true,
+      false,
+  -   true
+    ]
+  
+      at TestContext.<anonymous> (file://<project>/tests/rush-base21-session-music.test.ts:19:48)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ false, true, false ],
+    expected: [ false, false, true ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

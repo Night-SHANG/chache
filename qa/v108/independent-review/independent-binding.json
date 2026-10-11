@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "sourceSha256": "5b4501f44c9c735a3e32cb79d7f8a4077f13928bfb183d1f6b60cb53a3e114d2",
+  "builds": {
+    "browser": {
+      "sourceSha256": "5b4501f44c9c735a3e32cb79d7f8a4077f13928bfb183d1f6b60cb53a3e114d2",
+      "bundleSha256": "3aaf2a8dc620acf2f49c97f13e31200a808f137bc338521bc4e3703b08181917",
+      "uiClickSha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+      "version": "1.0.8",
+      "developerDiagnostics": false,
+      "shopPricingMode": "paid",
+      "manifestCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+      "manifestSha256": "561daa316f3c03c72ef1ce114332e23b6dd91bdc4d693ac51c62b2500db6895c"
+    },
+    "wechat": {
+      "sourceSha256": "5b4501f44c9c735a3e32cb79d7f8a4077f13928bfb183d1f6b60cb53a3e114d2",
+      "bundleSha256": "cac1ce0e31888666f10bd65613a5d0e51c81c1c59fa626a5c9d518251f2d9c09",
+      "uiClickSha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88",
+      "version": "1.0.8",
+      "developerDiagnostics": false,
+      "shopPricingMode": "paid",
+      "manifestCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+      "manifestSha256": "561daa316f3c03c72ef1ce114332e23b6dd91bdc4d693ac51c62b2500db6895c"
+    }
+  },
+  "unchangedProtectedSourceAndAssetFiles": 187,
+  "legacy12GeneratorIdenticalAfterOnlyUiRemovalAndTypeNarrowing": true,
+  "newAssets": [
+    {
+      "path": "assets/audio/ui-click/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "assets/audio/ui-click/DM-CGS-32.wav",
+      "sha256": "718a8f04c9eecc0466dd865fcc64884988df66e18f3fd96ad7e291f2b9b0bd9a"
+    },
+    {
+      "path": "assets/audio/ui-click/LICENSE.pdf",
+      "sha256": "fa3693afc38aac134361b33d0b73cd7bc1300fdca8c87af813c64fa91b218cca"
+    },
+    {
+      "path": "assets/audio/ui-click/NOTICE.txt",
+      "sha256": "27a82b31adeefa4dc8f8beac81bee110683007af472dfe21867e62b08b5feabb"
+    },
+    {
+      "path": "assets/audio/ui-click/provenance.json",
+      "sha256": "ebdfde64b7d9ce3073e7bd1023337a9ad06b520965bd1dfbfdeda0356ead5166"
+    },
+    {
+      "path": "assets/audio/ui-click/ui_click.wav",
+      "sha256": "539e8b026387c21867af9beb295c5dc018bc7078aec7c5d7f4901c34307e9e88"
+    }
+  ],
+  "intentionalRuntimeSourceChanges": [
+    "src/application/session.ts",
+    "src/platform/music.ts",
+    "src/platform/types.ts",
+    "src/platform/browser.ts",
+    "src/platform/wechat.ts"
+  ],
+  "baseGitSha": "958e270007163ce3efd0f02bcc9e745b88e900e1",
+  "productGitCommit": "882238d02515687fa724ce5efad8ad062a20f8e2",
+  "productGitTree": "2357552095afacc857b98d226ec2b898633857b8",
+  "finalProductionRebuildByteIdenticalToReviewedCandidate": true,
+  "aggregateResult": {
+    "tests": 2859,
+    "pass": 2857,
+    "fail": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "reviewedRawLog": true,
+    "failureCause": "Two historical source-artwork inputs absent in both baseline and final checkout",
+    "missingInputs": [
+      "artifacts/v0200-art-source/cargo-wood-generated.png",
+      "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+    ]
+  }
+}

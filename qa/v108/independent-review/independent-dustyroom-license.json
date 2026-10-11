@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "officialPage": "https://dustyroom.com/free-casual-game-sounds/",
+  "officialDownload": "https://dustyroom.com/casualgamesounds/DM-CGS.zip",
+  "archiveSha256": "7ffc649a641a8b8ee0136d431b5dd69bcf9eeabc250a18285ad984ad09bd4a4f",
+  "license": "CC0-1.0",
+  "commercialUse": true,
+  "attributionRequired": false,
+  "licensePdfSha256": "fa3693afc38aac134361b33d0b73cd7bc1300fdca8c87af813c64fa91b218cca",
+  "assets": [
+    {
+      "name": "DM-CGS-32.wav",
+      "sha256": "718a8f04c9eecc0466dd865fcc64884988df66e18f3fd96ad7e291f2b9b0bd9a",
+      "matchesOriginalArchive": true
+    },
+    {
+      "name": "DM-CGS-07.wav",
+      "sha256": "2b8ffec7c0eb499c8c7f860b16ae418028ba0a13f62b015d2ee16322e44dd230",
+      "matchesOriginalArchive": true
+    }
+  ]
+}
