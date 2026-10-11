@@ -1,0 +1,1 @@
+Built browser + real WeChat game.js/game.json (896975 B JS). Source fe61b16502ec. WeChat runtime NOT RUN.

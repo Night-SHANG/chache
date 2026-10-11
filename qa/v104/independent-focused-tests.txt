@@ -1,0 +1,48 @@
+✔ static set cache reuses one allocated artwork composite for unchanged warm frames (20.216283ms)
+✔ keys include every appearance component, dimensions, exact render scale and pixel phase (83.32965ms)
+✔ LRU retains recently used previews and releases evicted backing stores within count and byte limits (147.17952ms)
+✔ asset readiness invalidation frees fallback composites and redraws them with newly ready artwork (26.119293ms)
+✔ missing factory, thrown allocation and missing context use complete uncached artwork without retrying allocation every frame (69.110094ms)
+✔ restored offscreen context invalidates the blank cached surface and safely rebuilds (19.796878ms)
+✔ cached painting restores caller drawing state and unsupported transforms remain uncached (14.330649ms)
+✔ 320, 360 and 540 CSS pixel render scales use native-resolution surfaces with identical cold and warm pixels (136.12046ms)
+✔ actual atlas readiness invalidates caches while native forklift art stays stable and loaded warm frames remain identical (68.845744ms)
+✔ oversized DPR surfaces fall back without allocating or degrading source resolution (2.82942ms)
+✔ six reference worlds have distinct bounded scenery with no animation or unpainted areas (41.26173ms)
+✔ every theme shop preview includes its real board floor and rim while retaining the selected cargo and vehicle composition (195.885121ms)
+✔ browser side bounds follow resize without changing input transform at DPR 1 (2.835771ms)
+✔ browser side bounds follow resize without changing input transform at DPR 2 (0.461579ms)
+✔ browser side bounds follow resize without changing input transform at DPR 3 (2.014878ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 1 (0.753931ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 2 (4.562573ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 3 (3.517641ms)
+✔ harbor: side background fills wide viewport while central pixels stay unchanged (23.509015ms)
+✔ cold_chain: side background fills wide viewport while central pixels stay unchanged (10.012737ms)
+✔ rail_freight: side background fills wide viewport while central pixels stay unchanged (7.161363ms)
+✔ toy_workshop: side background fills wide viewport while central pixels stay unchanged (9.856931ms)
+✔ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (7.497652ms)
+✔ space_cargo: side background fills wide viewport while central pixels stay unchanged (8.997472ms)
+✔ steam_foundry: side background fills wide viewport while central pixels stay unchanged (8.647382ms)
+✔ neon_depot: side background fills wide viewport while central pixels stay unchanged (8.194006ms)
+✔ lava_forge: side background fills wide viewport while central pixels stay unchanged (9.196162ms)
+✔ ocean_vault: side background fills wide viewport while central pixels stay unchanged (9.963853ms)
+✔ royal_store: side background fills wide viewport while central pixels stay unchanged (6.548867ms)
+✔ field_station: side background fills wide viewport while central pixels stay unchanged (7.871257ms)
+✔ forest_depot: side background fills wide viewport while central pixels stay unchanged (4.994004ms)
+✔ ice_vault: side background fills wide viewport while central pixels stay unchanged (5.007225ms)
+✔ classic day and night preserve every pixel including their original outside racks (39.150486ms)
+✔ game board remains identical and scenery never mutates the run (36.626498ms)
+✔ bounded shop previews never paint beyond their own rectangle (4.704578ms)
+✔ missing, narrow or invalid scenery bounds preserve the original bounded rendering (19.617206ms)
+✔ archived v020 compositor: all twelve retained raster forklift renders remain exact at 32 headings and five sizes, including the former atlas edge (684.851031ms)
+✔ all fourteen old cargo renders remain exact with five semantic colors and live countdowns at five sizes (385.152312ms)
+✔ forest and ice provide their own bounded, quiet distant backdrops with optional art (53.295564ms)
+✔ new distant scene branches keep all fifteen previous background results and pixels exact (33.277387ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1612.058429

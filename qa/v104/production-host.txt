@@ -1,0 +1,21 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '1.0.4-dev'
+- '1.0.4'
+        ^
+
+    at file:///workspace/scratch/e6b59ff34222/scene-width-current/source/scripts/host-v104-scene-width.mjs:20:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '1.0.4-dev',
+  expected: '1.0.4',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

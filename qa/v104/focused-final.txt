@@ -1,0 +1,33 @@
+✔ formal v1.0.4 production artifacts are paid, non-debug and carry the release version (810.87505ms)
+✔ browser side bounds follow resize without changing input transform at DPR 1 (2.509527ms)
+✔ browser side bounds follow resize without changing input transform at DPR 2 (0.545435ms)
+✔ browser side bounds follow resize without changing input transform at DPR 3 (1.782927ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 1 (0.682402ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 2 (2.391118ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 3 (1.023999ms)
+✔ harbor: side background fills wide viewport while central pixels stay unchanged (30.490541ms)
+✔ cold_chain: side background fills wide viewport while central pixels stay unchanged (10.565856ms)
+✔ rail_freight: side background fills wide viewport while central pixels stay unchanged (8.555704ms)
+✔ toy_workshop: side background fills wide viewport while central pixels stay unchanged (11.105482ms)
+✔ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (7.760832ms)
+✔ space_cargo: side background fills wide viewport while central pixels stay unchanged (9.757903ms)
+✔ steam_foundry: side background fills wide viewport while central pixels stay unchanged (10.835734ms)
+✔ neon_depot: side background fills wide viewport while central pixels stay unchanged (9.228253ms)
+✔ lava_forge: side background fills wide viewport while central pixels stay unchanged (10.292973ms)
+✔ ocean_vault: side background fills wide viewport while central pixels stay unchanged (10.583091ms)
+✔ royal_store: side background fills wide viewport while central pixels stay unchanged (7.393256ms)
+✔ field_station: side background fills wide viewport while central pixels stay unchanged (8.85685ms)
+✔ forest_depot: side background fills wide viewport while central pixels stay unchanged (5.820677ms)
+✔ ice_vault: side background fills wide viewport while central pixels stay unchanged (6.362958ms)
+✔ classic day and night preserve every pixel including their original outside racks (43.107681ms)
+✔ game board remains identical and scenery never mutates the run (46.412501ms)
+✔ bounded shop previews never paint beyond their own rectangle (8.688115ms)
+✔ missing, narrow or invalid scenery bounds preserve the original bounded rendering (23.080591ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 934.998646

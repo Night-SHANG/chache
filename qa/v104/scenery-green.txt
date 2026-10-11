@@ -1,0 +1,26 @@
+✔ harbor: side background fills wide viewport while central pixels stay unchanged (21.171909ms)
+✔ cold_chain: side background fills wide viewport while central pixels stay unchanged (10.344514ms)
+✔ rail_freight: side background fills wide viewport while central pixels stay unchanged (7.355972ms)
+✔ toy_workshop: side background fills wide viewport while central pixels stay unchanged (9.752768ms)
+✔ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (7.002096ms)
+✔ space_cargo: side background fills wide viewport while central pixels stay unchanged (9.376809ms)
+✔ steam_foundry: side background fills wide viewport while central pixels stay unchanged (8.380412ms)
+✔ neon_depot: side background fills wide viewport while central pixels stay unchanged (10.56084ms)
+✔ lava_forge: side background fills wide viewport while central pixels stay unchanged (10.813984ms)
+✔ ocean_vault: side background fills wide viewport while central pixels stay unchanged (13.114675ms)
+✔ royal_store: side background fills wide viewport while central pixels stay unchanged (7.307699ms)
+✔ field_station: side background fills wide viewport while central pixels stay unchanged (9.176536ms)
+✔ forest_depot: side background fills wide viewport while central pixels stay unchanged (6.098348ms)
+✔ ice_vault: side background fills wide viewport while central pixels stay unchanged (5.155992ms)
+✔ classic day and night preserve every pixel including their original outside racks (45.620514ms)
+✔ game board remains identical and scenery never mutates the run (39.940459ms)
+✔ bounded shop previews never paint beyond their own rectangle (5.489397ms)
+✔ missing, narrow or invalid scenery bounds preserve the original bounded rendering (19.980395ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 865.583676

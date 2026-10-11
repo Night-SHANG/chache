@@ -1,0 +1,12 @@
+{
+  "ownerFrozen": true,
+  "productCommit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
+  "productTree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
+  "sourceSha256": "26ea0297c29736396c8264299ccd15ee74cbbfec1477b92d5d47c93369122870",
+  "builds": {
+    "paid/browser/app.js": "4e1da08bca45be5525a8204bf62bf4584c3851db17769d83f2adb5b5e8ece64d",
+    "paid/wechat/game.js": "ba904bb23da1e5a7eb07e5ce328b4db1fa09ffc64b2db48fc2087b29cf213f6d",
+    "free/browser/app.js": "5dffc07858d786f91f8c686ac5c8d584329ca52b9e9f990e96efc9ca3b1f0e7a",
+    "free/wechat/game.js": "e585c0c213f7da93e6ea81da92d6bfd57845b8e163433bf0a16b7aeff908bfab"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "version": "1.0.4",
+  "officialTitle": "货箱最后一格",
+  "recordedAt": "2026-10-11 09:07 北京时间（UTC+08:00）",
+  "status": "SCOPED_BACKGROUND_WIDTH_VERIFIED_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
+  "scope": "Only non-default scenery fills horizontal safe-viewport margins. Classic day/night, central composition, board/buttons/input geometry, shop previews, account format, saves, economy, assets and gameplay unchanged. No ads.",
+  "frozen": {
+    "ownerFrozen": true,
+    "commit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
+    "tree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
+    "sourceSha256": "26ea0297c29736396c8264299ccd15ee74cbbfec1477b92d5d47c93369122870",
+    "gameJsSha256": "ba904bb23da1e5a7eb07e5ce328b4db1fa09ffc64b2db48fc2087b29cf213f6d",
+    "browserJsSha256": "4e1da08bca45be5525a8204bf62bf4584c3851db17769d83f2adb5b5e8ece64d"
+  },
+  "builds": {
+    "paid/browser/app.js": "4e1da08bca45be5525a8204bf62bf4584c3851db17769d83f2adb5b5e8ece64d",
+    "paid/wechat/game.js": "ba904bb23da1e5a7eb07e5ce328b4db1fa09ffc64b2db48fc2087b29cf213f6d",
+    "free/browser/app.js": "5dffc07858d786f91f8c686ac5c8d584329ca52b9e9f990e96efc9ca3b1f0e7a",
+    "free/wechat/game.js": "e585c0c213f7da93e6ea81da92d6bfd57845b8e163433bf0a16b7aeff908bfab"
+  },
+  "fullTests": {
+    "tests": 2743,
+    "pass": 2741,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing historical cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing historical cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "tdd": {
+    "initialRegressionTests": 18,
+    "initialFailed": 15,
+    "initialPassed": 3,
+    "finalFocusedTests": 25,
+    "finalFailed": 0
+  },
+  "productionHost": {
+    "status": "PASS",
+    "cases": 136,
+    "failures": 0,
+    "screens": 69,
+    "preservedCentralPixels": true,
+    "preservedLabelsAndAccounts": true
+  },
+  "independent": {
+    "status": "PASS_WITH_DISCLOSED_ENVIRONMENT_AND_HISTORICAL_ASSET_LIMITS",
+    "productCommit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
+    "productTree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
+    "paidBundleSha256": {
+      "browser": "4e1da08bca45be5525a8204bf62bf4584c3851db17769d83f2adb5b5e8ece64d",
+      "wechat": "ba904bb23da1e5a7eb07e5ce328b4db1fa09ffc64b2db48fc2087b29cf213f6d"
+    },
+    "kind": "Independent production-bundle native Canvas/DOM-event host simulation and source review",
+    "sceneCases": 70,
+    "previewCases": 32,
+    "focusedTestsPassed": 40,
+    "focusedTestsFailed": 0,
+    "nonDefaultSideCoverageCases": 44,
+    "centralPixelDifferences": 0,
+    "defaultFullFrameDifferences": 0,
+    "labelBoundsDifferences": 0,
+    "accountSnapshotDifferences": 0,
+    "unchangedPackagedAssets": 34,
+    "realBrowser": "NOT RUN: Chromium startup aborted with process_singleton_posix.cc socket() failed: Operation not permitted (1); sandbox was not disabled",
+    "physicalWechat": "NOT RUN",
+    "fullSuiteLogReviewed": {
+      "tests": 2743,
+      "passed": 2741,
+      "failed": 2,
+      "cause": "Missing historical source artwork. Both referenced masters confirmed absent in supplied v1.0.3 archive."
+    },
+    "visualReview": [
+      "compare-cold_chain.png",
+      "compare-forest_depot.png",
+      "compare-harbor.png",
+      "browser-forest_depot-844x390-d1-s0-menu.png",
+      "browser-cold_chain-844x390-d1-s0-menu.png"
+    ],
+    "limitations": [
+      "Native host simulation is not physical-device or real-browser validation.",
+      "Fractional central crop excludes 2 physical pixels at each edge to avoid raster boundary ambiguity; focused integer-aligned rendering test covers full central rectangle.",
+      "Extreme landscape side copies can be horizontally expanded and show duplicated architecture; central scene and UI remain identical."
+    ]
+  },
+  "protectedSourceFiles": 145,
+  "productionManifest": {
+    "version": "1.0.4",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "accountFormatVersion": 4,
+    "economyVersion": 2
+  },
+  "limitations": [
+    "Not a real browser GUI, WeChat developer tool, Windows GUI or physical-device test.",
+    "All owned-theme/funded accounts are isolated fixtures.",
+    "Only horizontal scenery is extended. Tall-window top and bottom letterboxing is intentionally unchanged.",
+    "Real Chromium startup blocked by socket EPERM; no browser sandbox bypass attempted.",
+    "Two historical generated master images remain absent; runtime atlases preserved."
+  ],
+  "earlierAttempts": [
+    {
+      "log": "full-tests-interrupted.txt",
+      "status": "INCOMPLETE_TOOL_SESSION_INTERRUPTED",
+      "countsAsPass": false
+    },
+    {
+      "log": "production-host.txt",
+      "status": "REJECTED_DEV_BUILD_FROM_CONCURRENT_HISTORICAL_TEST",
+      "countsAsPass": false
+    }
+  ],
+  "delivery": "Not yet packaged, backed up remotely or delivered at this evidence checkpoint."
+}

@@ -1,0 +1,40 @@
+{
+  "status": "PASS_WITH_DISCLOSED_ENVIRONMENT_AND_HISTORICAL_ASSET_LIMITS",
+  "productCommit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
+  "productTree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
+  "paidBundleSha256": {
+    "browser": "4e1da08bca45be5525a8204bf62bf4584c3851db17769d83f2adb5b5e8ece64d",
+    "wechat": "ba904bb23da1e5a7eb07e5ce328b4db1fa09ffc64b2db48fc2087b29cf213f6d"
+  },
+  "kind": "Independent production-bundle native Canvas/DOM-event host simulation and source review",
+  "sceneCases": 70,
+  "previewCases": 32,
+  "focusedTestsPassed": 40,
+  "focusedTestsFailed": 0,
+  "nonDefaultSideCoverageCases": 44,
+  "centralPixelDifferences": 0,
+  "defaultFullFrameDifferences": 0,
+  "labelBoundsDifferences": 0,
+  "accountSnapshotDifferences": 0,
+  "unchangedPackagedAssets": 34,
+  "realBrowser": "NOT RUN: Chromium startup aborted with process_singleton_posix.cc socket() failed: Operation not permitted (1); sandbox was not disabled",
+  "physicalWechat": "NOT RUN",
+  "fullSuiteLogReviewed": {
+    "tests": 2743,
+    "passed": 2741,
+    "failed": 2,
+    "cause": "Missing historical source artwork. Both referenced masters confirmed absent in supplied v1.0.3 archive."
+  },
+  "visualReview": [
+    "compare-cold_chain.png",
+    "compare-forest_depot.png",
+    "compare-harbor.png",
+    "browser-forest_depot-844x390-d1-s0-menu.png",
+    "browser-cold_chain-844x390-d1-s0-menu.png"
+  ],
+  "limitations": [
+    "Native host simulation is not physical-device or real-browser validation.",
+    "Fractional central crop excludes 2 physical pixels at each edge to avoid raster boundary ambiguity; focused integer-aligned rendering test covers full central rectangle.",
+    "Extreme landscape side copies can be horizontally expanded and show duplicated architecture; central scene and UI remain identical."
+  ]
+}

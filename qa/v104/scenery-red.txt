@@ -1,0 +1,304 @@
+✖ harbor: side background fills wide viewport while central pixels stay unchanged (20.266838ms)
+✖ cold_chain: side background fills wide viewport while central pixels stay unchanged (8.052542ms)
+✖ rail_freight: side background fills wide viewport while central pixels stay unchanged (4.046902ms)
+✖ toy_workshop: side background fills wide viewport while central pixels stay unchanged (6.145256ms)
+✖ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (3.840538ms)
+✖ space_cargo: side background fills wide viewport while central pixels stay unchanged (5.470262ms)
+✖ steam_foundry: side background fills wide viewport while central pixels stay unchanged (5.25181ms)
+✖ neon_depot: side background fills wide viewport while central pixels stay unchanged (4.869941ms)
+✖ lava_forge: side background fills wide viewport while central pixels stay unchanged (4.865775ms)
+✖ ocean_vault: side background fills wide viewport while central pixels stay unchanged (5.110425ms)
+✖ royal_store: side background fills wide viewport while central pixels stay unchanged (4.642777ms)
+✖ field_station: side background fills wide viewport while central pixels stay unchanged (6.405291ms)
+✖ forest_depot: side background fills wide viewport while central pixels stay unchanged (3.13674ms)
+✖ ice_vault: side background fills wide viewport while central pixels stay unchanged (2.862234ms)
+✔ classic day and night preserve every pixel including their original outside racks (42.121617ms)
+✖ game board remains identical and scenery never mutates the run (36.685657ms)
+✔ bounded shop previews never paint beyond their own rectangle (5.818371ms)
+✔ missing, narrow or invalid scenery bounds preserve the original bounded rendering (25.544148ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 3
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 750.045988
+
+✖ failing tests:
+
+test at tests/scenery-width.test.ts:24:106
+✖ harbor: side background fills wide viewport while central pixels stay unchanged (20.266838ms)
+  AssertionError [ERR_ASSERTION]: harbor: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ cold_chain: side background fills wide viewport while central pixels stay unchanged (8.052542ms)
+  AssertionError [ERR_ASSERTION]: cold_chain: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ rail_freight: side background fills wide viewport while central pixels stay unchanged (4.046902ms)
+  AssertionError [ERR_ASSERTION]: rail_freight: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ toy_workshop: side background fills wide viewport while central pixels stay unchanged (6.145256ms)
+  AssertionError [ERR_ASSERTION]: toy_workshop: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (3.840538ms)
+  AssertionError [ERR_ASSERTION]: paper_warehouse: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ space_cargo: side background fills wide viewport while central pixels stay unchanged (5.470262ms)
+  AssertionError [ERR_ASSERTION]: space_cargo: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ steam_foundry: side background fills wide viewport while central pixels stay unchanged (5.25181ms)
+  AssertionError [ERR_ASSERTION]: steam_foundry: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ neon_depot: side background fills wide viewport while central pixels stay unchanged (4.869941ms)
+  AssertionError [ERR_ASSERTION]: neon_depot: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ lava_forge: side background fills wide viewport while central pixels stay unchanged (4.865775ms)
+  AssertionError [ERR_ASSERTION]: lava_forge: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ ocean_vault: side background fills wide viewport while central pixels stay unchanged (5.110425ms)
+  AssertionError [ERR_ASSERTION]: ocean_vault: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ royal_store: side background fills wide viewport while central pixels stay unchanged (4.642777ms)
+  AssertionError [ERR_ASSERTION]: royal_store: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ field_station: side background fills wide viewport while central pixels stay unchanged (6.405291ms)
+  AssertionError [ERR_ASSERTION]: field_station: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ forest_depot: side background fills wide viewport while central pixels stay unchanged (3.13674ms)
+  AssertionError [ERR_ASSERTION]: forest_depot: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:24:106
+✖ ice_vault: side background fills wide viewport while central pixels stay unchanged (2.862234ms)
+  AssertionError [ERR_ASSERTION]: ice_vault: no empty side strip at 0,20
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:26:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-width.test.ts:32:1
+✖ game board remains identical and scenery never mutates the run (36.685657ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" not to be strictly deep-equal to:
+  
+  [
+    12,
+    19,
+    28,
+    255
+  ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-width.test.ts:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 12, 19, 28, 255 ],
+    expected: [ 12, 19, 28, 255 ],
+    operator: 'notDeepStrictEqual',
+    diff: 'simple'
+  }
