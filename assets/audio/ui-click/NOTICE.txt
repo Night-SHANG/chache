@@ -1,0 +1,9 @@
+UI click: DM-CGS-32 by Dustyroom
+Pack: Free Casual Game Sounds
+Source: https://dustyroom.com/free-casual-game-sounds/
+Download: https://dustyroom.com/casualgamesounds/DM-CGS.zip
+License: CC0 1.0 Universal (https://creativecommons.org/publicdomain/zero/1.0/)
+Commercial use permitted; attribution not required. No endorsement is implied.
+
+The complete 8253-frame, 44.1kHz stereo source is retained. The game asset is adapted from PCM24 to PCM16 with one constant gain only (peak 0.06). No pitch, EQ, fade, cut, synthesis or repeated audition is applied.
+Original WAV, publisher license PDF, CC0 text, reproducible conversion script and SHA-256 provenance are retained with the source.

@@ -10,7 +10,7 @@ License text: node_modules/pure-rand/LICENSE. Deterministic PRNG; state is persi
 MIT. Copyright 2010–2012 Tween.js authors. https://github.com/tweenjs/tween.js
 License text: node_modules/@tweenjs/tween.js/LICENSE. Stateless easing for presentation.
 
-The build concatenates full runtime license text below. Art and short PCM sound assets in this local development version are original code-generated assets. The four user-provided visual references remain reference-only and are not embedded in the game package.
+The build concatenates full runtime license text below. The twelve gameplay PCM cues are original code-generated assets. The UI click uses the licensed recording documented below. The four user-provided visual references remain reference-only and are not embedded in the game package.
 
 ## Reference documentation
 VaJoy/wx-minigame-helper, MIT, https://github.com/VaJoy/wx-minigame-helper
@@ -71,3 +71,9 @@ License and provenance accompany the source in assets/audio/CC0-1.0.txt and asse
 ## v0.19 original generated cosmetic assets
 
 Cargo sheets, six new forklift bodies and fifteen board materials were produced with OpenAI image generation for this project, based on user-provided visual references. Full developer backup preserves generated master images and compilation manifests. No external game skins were downloaded or bundled. Existing cargo symbols, dynamic state indicators and old forklift artwork remain project code. Reference-image rights are not independently verified; confirm rights before public commercial release.
+
+## UI click recording
+
+“DM-CGS-32” from Free Casual Game Sounds by Dustyroom, released under CC0 1.0 Universal. Source: https://dustyroom.com/free-casual-game-sounds/ . Commercial use is permitted and attribution is not required; no endorsement is implied.
+
+The complete original stereo recording is preserved at 44.1kHz and adapted from PCM24 to PCM16 with one constant gain (peak 0.06). No EQ, pitch shift, fade, synthesis, truncation, or audition repeats are used in the game. Source, original license, public provenance and reproducible conversion live in assets/audio/ui-click. Built targets carry UI_SOUND_NOTICE.txt, UI_SOUND_LICENSE.pdf and UI_SOUND_CC0.txt.

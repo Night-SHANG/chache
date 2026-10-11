@@ -14,7 +14,8 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
  let soundtrack:HTMLAudioElement|undefined;
  const music=createMusicController(onError=>{
   if(!soundtrack){soundtrack=new Audio('assets/bgm.mp3');try{soundtrack.addEventListener?.('error',onError);}catch{/* Optional host error listener. */}}
-  soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;return soundtrack;
+  soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;
+  const audio=soundtrack;return {play:()=>audio.play(),pause:()=>audio.pause(),setVolume:(volume:number)=>{audio.volume=volume;}};
  });
  const stopSounds=()=>{for(const audio of sounds.values()){
   try{audio.pause();}catch{/* A broken audio handle must not block lifecycle callbacks or the other cues. */}

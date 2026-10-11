@@ -29,7 +29,7 @@ export interface Platform {
  /** Optional short, light tactile acknowledgment; unsupported hosts silently ignore it. */
  vibrate?():void;
  stopSounds?():void;
- setMusicState?(enabled:boolean,paused:boolean):void;
+ setMusicState?(enabled:boolean,paused:boolean,ducked?:boolean):void;
  loadImage(path:string):Promise<CanvasImageSource>;
  now():number;
  wallTime?():number;

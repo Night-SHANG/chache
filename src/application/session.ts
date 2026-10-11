@@ -405,7 +405,7 @@ export class GameSession {
   const allocated=allocateRun(this.profile,floor);this.legacyState={...this.legacyState,runSerial:allocated.serial};this.updateProfile(allocated.profile);return true;
  }
  private recordFinal(run:RunState=this.legacyState):boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned||run.phase!=='result')return true;return this.requestAccount({type:'recordLegacyResult',slot:this.slot});}
- private syncMusic():void{this.platform.setMusicState?.(this.profile.settings.music!==false,this.musicHidden||this.view.paused||this.view.needsResume||!!this.view.accountBlocked);}
+ private syncMusic():void{this.platform.setMusicState?.(this.profile.settings.music!==false,this.musicHidden||this.view.needsResume||!!this.view.accountBlocked,this.view.paused);}
  private sound(name:SoundName):void{this.uiFeedback.sound(name);}
  private routeCue():void{const now=this.platform.now();if(now-this.lastRouteReady>=200){this.sound('route_ready');this.lastRouteReady=now;}}
  private feedback(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void{

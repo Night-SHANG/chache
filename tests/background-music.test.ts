@@ -6,7 +6,7 @@ import type {Platform,PointerEvent} from '../src/platform/types.ts';
 import {assertProfile,createProfile,decodeProfile,encodeProfile,setProfileSettings,type Profile} from '../src/application/profile.ts';
 
 class AudioHost {
- src='';loop=false;volume=1;currentTime=0;plays=0;pauses=0;stops=0;audible=false;failPlay=false;failPause=false;error:()=>void=()=>{};
+ src='';loop=false;volume=1;volumeChanges:number[]=[];volumeAttempts=0;currentTime=0;plays=0;pauses=0;stops=0;audible=false;failPlay=false;failPause=false;error:()=>void=()=>{};
  nextPlay:(()=>void|Promise<void>)|undefined;
  play():void|Promise<void>{this.plays++;if(this.failPlay)throw Error('audio unavailable');this.audible=true;return this.nextPlay?.();}
  pause():void{this.pauses++;this.audible=false;if(this.failPause)throw Error('pause unavailable');}
@@ -23,7 +23,7 @@ function fixture(kind:'browser'|'wechat',onPointer:(event:PointerEvent)=>void=()
  const bind=(name:string,callback:()=>void)=>events.set(name,[...events.get(name)??[],callback]);
  const emit=(name:string)=>{for(const callback of events.get(name)??[])callback();};
  const f={audio,creationFails:false,creationAttempts:0,failSetup:false,restore:()=>{}} as Fixture;
- const create=(src='')=>{f.creationAttempts++;if(f.creationFails)throw Error('creation unavailable');const item=new AudioHost();item.nextPlay=f.initialPlay;item.src=src;audio.push(item);let volume=1;Object.defineProperty(item,'volume',{get:()=>volume,set:(value:number)=>{if(f.failSetup)throw Error('setup unavailable');volume=value;}});return item;};
+ const create=(src='')=>{f.creationAttempts++;if(f.creationFails)throw Error('creation unavailable');const item=new AudioHost();item.nextPlay=f.initialPlay;item.src=src;audio.push(item);let volume=1;Object.defineProperty(item,'volume',{get:()=>volume,set:(value:number)=>{item.volumeAttempts++;if(f.failSetup)throw Error('setup unavailable');volume=value;item.volumeChanges.push(value);}});return item;};
  const canvas={width:0,height:0,getContext:()=>({}),getBoundingClientRect:()=>({left:0,top:0,width:1080,height:1920}),setPointerCapture:()=>{},hasPointerCapture:()=>false,releasePointerCapture:()=>{},addEventListener:(name:string,callback:(event:unknown)=>void)=>bind(name,()=>callback({preventDefault:()=>{},pointerId:1,clientX:100,clientY:100}))};
  if(kind==='wechat'){
   const touch=(name:string)=>(callback:(event:unknown)=>void)=>bind(name,()=>callback({changedTouches:[{identifier:1,clientX:100,clientY:100}]}));
@@ -42,8 +42,36 @@ function fixture(kind:'browser'|'wechat',onPointer:(event:PointerEvent)=>void=()
  }
  f.platform.onPointer(onPointer);f.platform.onHide(()=>{});f.platform.onShow(()=>{});return f;
 }
-function state(f:Fixture,enabled=true,paused=false):void{assert.equal(typeof f.platform.setMusicState,'function');f.platform.setMusicState!(enabled,paused);}
+function state(f:Fixture,enabled=true,paused=false,ducked=false):void{assert.equal(typeof f.platform.setMusicState,'function');f.platform.setMusicState!(enabled,paused,ducked);}
 for(const kind of ['browser','wechat'] as const){
+ test(`${kind} pause-menu ducking preserves one continuous music player and only changes gain`,()=>{
+  const f=fixture(kind);try{
+   state(f);const music=f.audio[0];music.currentTime=42;const plays=music.plays,pauses=music.pauses;
+   state(f,true,false,true);assert.equal(music.volume,0.12);assert.equal(music.audible,true);assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);
+   const writes=music.volumeChanges.length;for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.volumeChanges.length,writes);
+   state(f);assert.equal(music.volume,0.18);assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);assert.equal(f.audio.length,1);
+  }finally{f.restore();}
+ });
+ test(`${kind} initially ducked music and retries apply pause-menu gain before playing`,async()=>{
+  const f=fixture(kind);try{
+   f.initialPlay=()=>Promise.reject(Error('autoplay denied'));state(f,true,false,true);const music=f.audio[0];assert.equal(music.volume,0.12);await settle();assert.equal(music.audible,false);
+   music.nextPlay=undefined;f.down();assert.equal(music.volume,0.12);assert.equal(music.audible,true);assert.equal(f.audio.length,1);
+  }finally{f.restore();}
+ });
+ test(`${kind} hidden ducked music stays silent and returns at reduced gain without rewinding`,()=>{
+  const f=fixture(kind);try{
+   state(f,true,false,true);const music=f.audio[0];music.currentTime=23;f.hide();assert.equal(music.audible,false);
+   for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.plays,1);f.show();assert.equal(music.audible,true);assert.equal(music.volume,0.12);assert.equal(music.currentTime,23);assert.equal(music.plays,2);
+   state(f,false,false,true);assert.equal(music.audible,false);f.hide();f.show();assert.equal(music.plays,2);
+  }finally{f.restore();}
+ });
+ test(`${kind} an optional gain change failure cannot interrupt gameplay or continuous music`,()=>{
+  const f=fixture(kind);try{
+   state(f);const music=f.audio[0];f.failSetup=true;assert.doesNotThrow(()=>state(f,true,false,true));assert.equal(music.audible,true);assert.equal(music.plays,1);
+   const attempts=music.volumeAttempts;for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.volumeAttempts,attempts);
+   f.failSetup=false;state(f);state(f,true,false,true);assert.equal(music.volume,0.12);assert.equal(music.plays,1);assert.equal(music.pauses,0);
+  }finally{f.restore();}
+ });
  test(`${kind} starts one local looping music handle on initial enabled state without a gesture and never per frame`,()=>{
   const f=fixture(kind);try{
    state(f);assert.equal(f.audio.length,1);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,0.18);assert.equal(music.plays,1);

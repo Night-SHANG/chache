@@ -43,7 +43,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  const music=createMusicController(onError=>{
   if(!soundtrack){soundtrack=host.createInnerAudioContext();try{soundtrack.onError?.(onError);}catch{/* Optional host error listener. */}}
   soundtrack.src='assets/bgm.mp3';soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;
-  const audio=soundtrack;return {play:()=>audio.play(),pause:()=>{if(audio.pause)audio.pause();else audio.stop();}};
+  const audio=soundtrack;return {play:()=>audio.play(),pause:()=>{if(audio.pause)audio.pause();else audio.stop();},setVolume:(volume:number)=>{audio.volume=volume;}};
  });
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
  const platform:Platform={
