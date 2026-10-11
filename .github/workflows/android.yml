@@ -285,6 +285,11 @@ jobs:
             build/android-ci/emulator-release.txt
             build/android-ci/emulator-build.txt
             build/android-ci/emulator-webview.txt
+            build/android-ci/emulator-framework-probes.txt
+            build/android-ci/emulator-framework-services-early.txt
+            build/android-ci/emulator-framework-system-crash-early.txt
+            build/android-ci/emulator-framework-services-failure.txt
+            build/android-ci/emulator-framework-system-crash-failure.txt
             build/android-ci/product-smoke-report.json
             build/android-ci/product-cold-launch.png
             build/android-ci/product-install.txt

@@ -25,6 +25,7 @@ fi
 if [ -n "${ANDROID_PRODUCT_APK:-}" ]; then
   [ -f "$ANDROID_PRODUCT_APK" ] || { reason='Compiled product APK unavailable for independent capture'; exit 1; }
   if ! timeout 5 "$ADB" -s "$SERIAL" shell pm path io.github.nightshang.chache | grep -E '^package:' >/dev/null; then
+    [ "${ANDROID_PRODUCT_ALLOW_INSTALL:-true}" != false ] || { reason='Product absent or package service unavailable after planned APK installation; fallback installation suppressed'; exit 1; }
     timeout 20 "$ADB" -s "$SERIAL" install -r "$ANDROID_PRODUCT_APK" >"$OUT/product-install.txt" 2>&1 || { reason='Compiled product install for independent capture failed'; exit 1; }
   fi
 fi

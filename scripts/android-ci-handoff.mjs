@@ -193,7 +193,7 @@ async function joinRuntime(root){
  const runtime={status,source:binding.source,run:binding.run,manifestSha256:binding.manifestDigest,artifactId:binding.artifactId,archiveSha256:binding.artifactDigest,instrumentation,emulator,deviceAcceptance,resources,productColdLaunch:await read('product-smoke-report.json')};
  const receipt=joinBuildRuntime(await json(join(payload,'evidence/android-build-receipt.json')),runtime,binding);
  await writeFile(join(output,'android-build-receipt.json'),JSON.stringify(receipt,null,2)+'\n');
- const sums=[];for(const name of ['android-build-receipt.json','handoff-verification.json','native-instrumentation-report.json','native-instrumentation.txt','emulator-report.json','product-smoke-report.json',...await evidenceFiles(root)])try{sums.push(`${hash(await readFile(join(output,name)))}  ${name}`);}catch(error){if(error.code!=='ENOENT')throw error;}
+ const sums=[];for(const name of ['android-build-receipt.json','handoff-verification.json','native-instrumentation-report.json','native-instrumentation.txt','emulator-report.json','product-smoke-report.json','emulator-framework-probes.txt','emulator-framework-services-early.txt','emulator-framework-system-crash-early.txt','emulator-framework-services-failure.txt','emulator-framework-system-crash-failure.txt',...await evidenceFiles(root)])try{sums.push(`${hash(await readFile(join(output,name)))}  ${name}`);}catch(error){if(error.code!=='ENOENT')throw error;}
  await writeFile(join(output,'SHA256SUMS'),sums.join('\n')+'\n');
  console.log(`Joined current-run receipt: native acceptance ${receipt.acceptanceStatus}; delivery CLOSED_PENDING_ROOT_EVALUATION`);
  if(receipt.acceptanceStatus==='failed')process.exitCode=1;

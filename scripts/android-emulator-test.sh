@@ -11,9 +11,10 @@ ACCEPTANCE_SCOPE=full
 launch_attempts=0
 AVD_NAME=''
 HANDOFF="${ANDROID_CI_HANDOFF:-}"
+PRODUCT_CAPTURE_ALLOW_INSTALL=true
 owns_endpoint() {
   local identity
-  identity="$(timeout --signal=TERM --kill-after=1s 5s "$ADB" -s "$SERIAL" emu avd name 2>>"$OUT/emulator-identity.log")" || return 1
+  identity="$(timeout --signal=TERM --kill-after=1s "${1:-5}s" "$ADB" -s "$SERIAL" emu avd name 2>>"$OUT/emulator-identity.log")" || return 1
   identity="$(printf '%s' "$identity" | tr -d '\r')"
   printf '%s\n' "$identity" >>"$OUT/emulator-identity.log"
   [ "$identity" = "$AVD_NAME"$'\nOK' ] || return 2
@@ -27,9 +28,87 @@ reject_existing_endpoint() {
 report() {
   node --input-type=module -e 'import{readFileSync,writeFileSync}from"node:fs";let context={mode:"not-selected",phonePerformanceRepresentative:false};try{context=JSON.parse(readFileSync(process.argv[4],"utf8"))}catch{}writeFileSync(process.argv[1],JSON.stringify({...context,status:process.argv[2],reason:process.argv[3],launchAttempts:Number(process.argv[5]),acceptanceScope:process.argv[6],headless:true,audibleOutput:"not-verified",licenseChanges:false,securityPermissionChanges:false},null,2)+"\n")' "$OUT/emulator-report.json" "$1" "$2" "$OUT/emulator-mode.json" "$launch_attempts" "$ACCEPTANCE_SCOPE"
 }
+boot_probe_seconds() {
+  local remaining=$((deadline-SECONDS-1))
+  [ "$remaining" -gt 0 ] || return 1
+  if [ "$remaining" -gt "${1:-5}" ]; then remaining="${1:-5}"; fi
+  printf '%s' "$remaining"
+}
+bounded_adb() {
+  local file="$1" seconds="$2" bytes="$3" codes
+  shift 3
+  # Preserve adb's actual exit, including a hard-killed probe or output overflow.
+  # head bounds disk output even if a broken service floods stdout/stderr.
+  if timeout --signal=TERM --kill-after=1s "${seconds}s" "$ADB" -s "$SERIAL" "$@" 2>&1 | head -c "$bytes" >"$file"; then codes=("${PIPESTATUS[@]}"); else codes=("${PIPESTATUS[@]}"); fi
+  PROBE_EXIT="${codes[0]}"
+  [ "$PROBE_EXIT" -eq 0 ] && [ "${codes[1]}" -eq 0 ] && [ "$(wc -c <"$file")" -lt "$bytes" ]
+}
+framework_probe() {
+  local name="$1" seconds status=0 trace="$OUT/emulator-framework-probes.txt"
+  shift
+  seconds="$(boot_probe_seconds)" || return 1
+  bounded_adb "$OUT/.framework-probe.txt" "$seconds" 1024 "$@" || status=1
+  touch "$trace"
+  [ "$(wc -c <"$trace")" -lt 1040000 ] || blocked 'Bounded framework probe evidence limit reached; no installation attempted'
+  { printf '\nUTC=%s elapsed=%s deadline=%s probe=%s commandExit=%s accepted=%s\n' "$(date -u +%FT%TZ)" "$SECONDS" "$deadline" "$name" "$PROBE_EXIT" "$((1-status))"; cat "$OUT/.framework-probe.txt"; } >>"$trace"
+  [ "$status" -eq 0 ]
+}
+framework_ready() {
+  # A registered service is insufficient: require a real PackageManager reply
+  # and a read-only SettingsProvider reply, both with a successful adb exit.
+  framework_probe package shell cmd package path android || return 1
+  [[ "$(tr -d '\r' <"$OUT/.framework-probe.txt")" =~ ^package:/[A-Za-z0-9_./-]+\.apk$ ]] || return 1
+  framework_probe settings shell settings get global device_provisioned || return 1
+  [[ "$(tr -d '\r' <"$OUT/.framework-probe.txt")" =~ ^[01]$ ]]
+}
+capture_framework_diagnostics() {
+  local phase="$1" limit="$2" seconds kind file
+  # Fixed read-only commands on an already verified task-owned AVD. No app,
+  # radio/main buffer, environment, credentials or unbounded dumps are read.
+  for kind in system-crash services; do
+    file="$OUT/emulator-framework-$kind-$phase.txt"
+    seconds="$limit"
+    if [ "${boot_wait_active:-false}" = true ]; then seconds="$(boot_probe_seconds "$limit")" || { printf 'Not run: original boot deadline exhausted\n' >"$file"; continue; }; fi
+    if [ "$kind" = system-crash ]; then
+      bounded_adb "$file" "$seconds" 131072 shell logcat -b system -b crash -d -t 2000 -v threadtime || true
+    else
+      bounded_adb "$file" "$seconds" 16384 shell 'printf "boot="; getprop sys.boot_completed; printf "system_server="; pidof system_server; printf "zygote="; pidof zygote zygote64; service check package; service check settings' || true
+    fi
+    printf '\nUTC=%s commandExit=%s outputLimitBytes=%s\n' "$(date -u +%FT%TZ)" "$PROBE_EXIT" "$([ "$kind" = system-crash ] && printf 131072 || printf 16384)" >>"$file"
+  done
+}
+wait_for_framework() {
+  local early=false seconds identity_status remaining pause
+  boot_wait_active=true
+  while [ "$SECONDS" -lt "$deadline" ]; do
+    kill -0 "$PID" 2>/dev/null || blocked 'Emulator exited before framework readiness'
+    seconds="$(boot_probe_seconds)" || break
+    if owns_endpoint "$seconds"; then
+      if [ "$early" = false ]; then capture_framework_diagnostics early 2; early=true; fi
+      if framework_probe boot shell getprop sys.boot_completed && [ "$(tr -d '\r' <"$OUT/.framework-probe.txt")" = 1 ] && framework_ready; then
+        seconds="$(boot_probe_seconds)" || break
+        if owns_endpoint "$seconds"; then booted=true; boot_wait_active=false; return 0; fi
+      fi
+    else
+      identity_status=$?
+      [ "$identity_status" -ne 2 ] || blocked 'Reserved serial identifies an unrelated AVD; framework evidence rejected'
+    fi
+    remaining=$((deadline-SECONDS-1)); [ "$remaining" -gt 0 ] || break
+    pause=5; if [ "$remaining" -lt "$pause" ]; then pause="$remaining"; fi
+    sleep "$pause"
+  done
+  boot_wait_active=false
+  blocked "Android framework package/settings did not become responsive within the original $boot_timeout-second cold-boot deadline in $MODE mode; functional acceptance unverified"
+}
 cleanup() {
-  if [ "${booted:-false}" = true ] && owns_endpoint; then
-    ANDROID_PRODUCT_APK="$HANDOFF/apks/warehouse-vc2-temporary-debug.apk" ANDROID_EXPECTED_AVD_NAME="$AVD_NAME" ANDROID_SERIAL="$SERIAL" timeout --signal=TERM --kill-after=5s 60s bash "$ROOT/scripts/android-product-smoke.sh" || true
+  boot_wait_active=false
+  # Worst-case88s leaves2s reserve: ownership6, diagnostics4, capture65,
+  # ps3, stop10. Diagnostics retain partial bytes even on their short timeout.
+  if { [ "${booted:-false}" = true ] || [ "${exit_status:-0}" -ne 0 ]; } && owns_endpoint; then
+    if [ "${exit_status:-0}" -ne 0 ]; then capture_framework_diagnostics failure 1; fi
+    if [ "${booted:-false}" = true ]; then
+      ANDROID_PRODUCT_APK="$HANDOFF/apks/warehouse-vc2-temporary-debug.apk" ANDROID_PRODUCT_ALLOW_INSTALL="$PRODUCT_CAPTURE_ALLOW_INSTALL" ANDROID_EXPECTED_AVD_NAME="$AVD_NAME" ANDROID_SERIAL="$SERIAL" timeout --signal=TERM --kill-after=5s 60s bash "$ROOT/scripts/android-product-smoke.sh" || true
+    fi
   fi
   if [ -n "$PID" ]; then
     # No serial-based shutdown: emulator-5554 has no endpoint ownership proof.
@@ -96,17 +175,7 @@ fi
 PID=$!
 deadline=$((SECONDS+boot_timeout))
 booted=false
-while [ "$SECONDS" -lt "$deadline" ]; do
-  kill -0 "$PID" 2>/dev/null || blocked 'Emulator exited before boot'
-  if owns_endpoint; then
-    if [ "$(timeout 10 "$ADB" -s "$SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = 1 ]; then require_owned_endpoint; booted=true; break; fi
-  else
-    identity_status=$?
-    [ "$identity_status" -ne 2 ] || blocked 'Reserved serial identifies an unrelated AVD; boot evidence rejected'
-  fi
-  sleep 5
-done
-[ "$booted" = true ] || blocked "Emulator did not complete cold boot within $boot_timeout seconds in $MODE mode"
+wait_for_framework
 require_owned_endpoint
 node "$ROOT/scripts/android-ci-cache.mjs" space postboot || blocked 'Actual postboot resource inspection failed'
 node --input-type=module -e 'import{readFileSync}from"node:fs";const r=JSON.parse(readFileSync(process.argv[1])),c=JSON.parse(readFileSync(process.argv[2]));if(!Number.isSafeInteger(r.availableBytes)||!Number.isSafeInteger(c.releasedAllocatedBytes)||r.availableBytes<c.releasedAllocatedBytes+536870912)process.exit(1)' "$OUT/space-postboot.json" "$HANDOFF/evidence/cache-report.json" || blocked 'Actual postboot disk cannot cover measured released cache allocation plus512MiB conservative working headroom; no runtime cache re-download dependency'
@@ -117,8 +186,15 @@ timeout 10 "$ADB" -s "$SERIAL" shell dumpsys webviewupdate >"$OUT/emulator-webvi
 report running 'API36 cold-boot emulator is ready; instrumentation has not passed yet'
 # Only immutable prebuilt APKs are installed; this runner cannot compile or regenerate assets.
 require_owned_endpoint
-timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r "$HANDOFF/apks/warehouse-vc1-temporary-debug.apk" >"$OUT/native-install.txt" 2>&1
-timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r -t "$HANDOFF/apks/warehouse-androidTest.apk" >>"$OUT/native-install.txt" 2>&1
+# Once planned installation starts, cleanup may observe an installed app only.
+# It cannot retry/replace an APK after this or any later install failure.
+PRODUCT_CAPTURE_ALLOW_INSTALL=false
+if timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r "$HANDOFF/apks/warehouse-vc1-temporary-debug.apk" >"$OUT/native-install.txt" 2>&1; then :; else
+  status=$?; report failed "Immutable product vc1 installation failed (exit$status); raw native-install.txt preserved; no install retry"; exit "$status"
+fi
+if timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r -t "$HANDOFF/apks/warehouse-androidTest.apk" >>"$OUT/native-install.txt" 2>&1; then :; else
+  status=$?; report failed "Immutable test APK installation failed (exit$status); raw native-install.txt preserved; no install retry"; exit "$status"
+fi
 require_owned_endpoint
 set +e
 timeout --signal=TERM --kill-after=5s 1800s "$ADB" -s "$SERIAL" shell am instrument -w -r \

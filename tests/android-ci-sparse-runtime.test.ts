@@ -58,6 +58,18 @@ with zipfile.ZipFile(p/'apks'/'warehouse-androidTest.apk','w') as z:z.writestr('
    const partialJoin=run(root,process.execPath,['scripts/android-ci-handoff.mjs','join'],boundEnv);assert.equal(partialJoin.status,0,partialJoin.stderr);
    const partialReceipt=JSON.parse(await readFile(join(root,'build/android-ci/android-build-receipt.json'),'utf8'));assert.equal(partialReceipt.acceptanceStatus,'blocked');assert.equal(partialReceipt.verification.instrumentation.status,'blocked');
   }
+  // Real sparse CLI keeps framework-readiness exhaustion blocked, while an
+  // observed install failure has failed precedence with no native conclusion.
+  await writeFile(raw,'');
+  const diagnosticNames=['probes','services-early','system-crash-early','services-failure','system-crash-failure'].map(n=>`emulator-framework-${n}.txt`);
+  for(const name of diagnosticNames)await writeFile(join(root,'build/android-ci',name),'explicit bounded protocol fixture: '+name);
+  for(const [status,reason] of [['blocked','Original cold-boot deadline: framework unresponsive'],['failed','Immutable vc1 install: package Broken pipe']] as const){
+   await writeFile(join(root,'build/android-ci/emulator-report.json'),JSON.stringify({status,acceptanceScope:'functional-only',reason}));
+   const result=run(root,process.execPath,['scripts/android-ci-handoff.mjs','join'],{...boundEnv,ANDROID_CI_EMULATOR_OUTCOME:status==='failed'?'failure':'success'});assert.equal(result.status,status==='failed'?1:0,result.stderr);
+   const joined=JSON.parse(await readFile(join(root,'build/android-ci/android-build-receipt.json'),'utf8'));assert.equal(joined.acceptanceStatus,status);assert.equal(joined.verification.emulator.status,status);assert.equal(joined.verification.instrumentation.status,'blocked');assert.equal(joined.deliveryStatus,'CLOSED_PENDING_ROOT_EVALUATION');assert.equal(joined.publishApk,false);
+   const checksums=await readFile(join(root,'build/android-ci/SHA256SUMS'),'utf8');for(const name of diagnosticNames)assert.ok(checksums.includes(`${hash(await readFile(join(root,'build/android-ci',name),'utf8'))}  ${name}\n`));
+  }
+  await writeFile(join(root,'build/android-ci/emulator-report.json'),JSON.stringify({status:'blocked',acceptanceScope:'functional-only',reason:'Native evidence proceeds; driver/performance pending'}));
   await writeFile(raw,packet(1)+packet(0)+'INSTRUMENTATION_RESULT: stream=\nOK (1 test)\nINSTRUMENTATION_CODE: -1\n');
   const native=run(root,process.execPath,['scripts/android-native-instrumentation.mjs',raw,join(payload,'manifest.json'),nativeReport,'0'],boundEnv);assert.equal(native.status,0,native.stderr);
   const joined=run(root,process.execPath,['scripts/android-ci-handoff.mjs','join'],boundEnv);assert.equal(joined.status,0,joined.stderr);assert.equal(JSON.parse(await readFile(join(root,'build/android-ci/android-build-receipt.json'),'utf8')).verification.instrumentation.status,'passed');
