@@ -19,7 +19,10 @@
     "verify:accounts": "node scripts/verify-account-faults.mjs",
     "simulate:refinement": "node scripts/simulate-refinement.mjs",
     "build:playtest": "node scripts/build.mjs --playtest-free-shop",
-    "build:production": "node scripts/build.mjs --production"
+    "build:production": "node scripts/build.mjs --production",
+    "build:android": "node scripts/build-android.mjs",
+    "sync:android": "npm run build:android && npm --prefix android-shell run sync",
+    "verify:android": "node scripts/verify-android-build.mjs staging"
   },
   "dependencies": {
     "@tweenjs/tween.js": "25.0.0",

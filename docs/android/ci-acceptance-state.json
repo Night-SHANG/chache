@@ -1,0 +1,5 @@
+{
+  "phase": "bootstrap",
+  "publishApk": false,
+  "reason": "Native storage, geometry, lifecycle and acceptance integration remain required."
+}

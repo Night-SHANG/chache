@@ -1,0 +1,22 @@
+{
+  "appId": "io.github.nightshang.chache",
+  "appName": "货箱最后一格",
+  "webDir": "../build/android",
+  "server": {
+    "hostname": "localhost",
+    "androidScheme": "https",
+    "cleartext": false,
+    "allowNavigation": []
+  },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false,
+    "resolveServiceWorkerRequests": false,
+    "path": "../android"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "disable"
+    }
+  }
+}

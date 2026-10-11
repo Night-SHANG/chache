@@ -1,0 +1,19 @@
+{
+  "name": "warehouse-android-shell",
+  "version": "1.0.10",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

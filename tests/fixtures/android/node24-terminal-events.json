@@ -1,0 +1,318 @@
+{
+  "nodeVersion": "24.19.0",
+  "source": "Terminal records from verified full npm regression; root summary bounded to this five-test excerpt.",
+  "events": [
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "classic hundred-order achievement adds disjoint legacy sixty and new fifty formal orders",
+        "nesting": 0,
+        "testNumber": 1,
+        "testId": 1,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 2.455999,
+          "type": "test"
+        },
+        "tags": [],
+        "line": 32,
+        "column": 1,
+        "file": "$ROOT/tests/account-achievement-projection.test.ts"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "outbound direct endless and guided buckets preserve independent scores without unlocking classic inbound achievements",
+        "nesting": 0,
+        "testNumber": 2,
+        "testId": 2,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 0.394062,
+          "type": "test"
+        },
+        "tags": [],
+        "line": 41,
+        "column": 1,
+        "file": "$ROOT/tests/account-achievement-projection.test.ts"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "resetting a real standard thirty-order checkpoint clears active orders win chain and achievement projection",
+        "nesting": 0,
+        "testNumber": 5,
+        "testId": 1,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 131.249629,
+          "type": "test"
+        },
+        "tags": [],
+        "line": 30,
+        "column": 1,
+        "file": "$ROOT/tests/account-display-reset.test.ts"
+      }
+    },
+    {
+      "type": "test:fail",
+      "data": {
+        "name": "committed raster artwork verifies every generated source and exact encoded atlas",
+        "nesting": 0,
+        "testNumber": 373,
+        "testId": 3,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 2.202899,
+          "type": "test",
+          "error": {
+            "name": "Error",
+            "message": "ENOENT: no such file or directory, open '$ROOT/artifacts/v0200-art-source/cargo-wood-generated.png'",
+            "stack": "Error [ERR_TEST_FAILURE]: ENOENT: no such file or directory, open '$ROOT/artifacts/v0200-art-source/cargo-wood-generated.png'",
+            "code": "ERR_TEST_FAILURE",
+            "failureType": "testCodeFailure",
+            "cause": {
+              "name": "Error",
+              "message": "ENOENT: no such file or directory, open '$ROOT/artifacts/v0200-art-source/cargo-wood-generated.png'",
+              "stack": "Error: ENOENT: no such file or directory, open '$ROOT/artifacts/v0200-art-source/cargo-wood-generated.png'\n    at Object.openSync (node:fs:622:18)\n    at readFileSync (node:fs:488:35)\n    at generateCargoAtlas (file://$ROOT/scripts/generate-cargo-atlas.mjs:15:66)\n    at TestContext.<anonymous> (file://$ROOT/tests/cargo-atlas.test.ts:36:19)\n    at async Test.run (node:internal/test_runner/test:1389:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)",
+              "errno": -2,
+              "code": "ENOENT",
+              "syscall": "open",
+              "path": "$ROOT/artifacts/v0200-art-source/cargo-wood-generated.png"
+            }
+          }
+        },
+        "tags": [],
+        "line": 34,
+        "column": 1,
+        "file": "$ROOT/tests/cargo-atlas.test.ts"
+      }
+    },
+    {
+      "type": "test:fail",
+      "data": {
+        "name": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
+        "nesting": 0,
+        "testNumber": 2790,
+        "testId": 3,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 0.682585,
+          "type": "test",
+          "error": {
+            "name": "Error",
+            "message": "ENOENT: no such file or directory, open '$ROOT/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+            "stack": "Error [ERR_TEST_FAILURE]: ENOENT: no such file or directory, open '$ROOT/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+            "code": "ERR_TEST_FAILURE",
+            "failureType": "testCodeFailure",
+            "cause": {
+              "name": "Error",
+              "message": "ENOENT: no such file or directory, open '$ROOT/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+              "stack": "Error: ENOENT: no such file or directory, open '$ROOT/artifacts/v0210-art-source/cargo-harbor_container-generated.png'\n    at Object.openSync (node:fs:622:18)\n    at readFileSync (node:fs:488:35)\n    at TestContext.<anonymous> (file://$ROOT/tests/v021-cargo-forklift-art.test.ts:37:98)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)",
+              "errno": -2,
+              "code": "ENOENT",
+              "syscall": "open",
+              "path": "$ROOT/artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+            }
+          }
+        },
+        "tags": [],
+        "line": 28,
+        "column": 1,
+        "file": "$ROOT/tests/v021-cargo-forklift-art.test.ts"
+      }
+    },
+    {
+      "type": "test:summary",
+      "data": {
+        "success": false,
+        "counts": {
+          "tests": 5,
+          "failed": 2,
+          "passed": 3,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 5,
+          "suites": 0
+        },
+        "duration_ms": 1
+      }
+    }
+  ],
+  "suiteEvents": [
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "first",
+        "nesting": 1,
+        "testNumber": 1,
+        "testId": 2,
+        "parentId": 1,
+        "details": {
+          "duration_ms": 0.775495,
+          "type": "test"
+        },
+        "tags": [],
+        "line": 2,
+        "column": 23,
+        "file": "$ROOT/tests/fixtures/android/suite-probe.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "second",
+        "nesting": 2,
+        "testNumber": 1,
+        "testId": 4,
+        "parentId": 3,
+        "details": {
+          "duration_ms": 0.152389,
+          "type": "test"
+        },
+        "tags": [],
+        "line": 2,
+        "column": 65,
+        "file": "$ROOT/tests/fixtures/android/suite-probe.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "nested",
+        "nesting": 1,
+        "testNumber": 2,
+        "testId": 3,
+        "parentId": 1,
+        "details": {
+          "duration_ms": 0.340512,
+          "type": "suite"
+        },
+        "tags": [],
+        "line": 2,
+        "column": 42,
+        "file": "$ROOT/tests/fixtures/android/suite-probe.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "outer",
+        "nesting": 0,
+        "testNumber": 1,
+        "testId": 1,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 2.253276,
+          "type": "suite"
+        },
+        "tags": [],
+        "line": 2,
+        "column": 1,
+        "file": "$ROOT/tests/fixtures/android/suite-probe.test.mjs"
+      }
+    },
+    {
+      "type": "test:summary",
+      "data": {
+        "success": true,
+        "counts": {
+          "tests": 2,
+          "failed": 0,
+          "passed": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 1,
+          "suites": 2
+        },
+        "duration_ms": 11.530147,
+        "file": "$ROOT/tests/fixtures/android/suite-probe.test.mjs"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "tests 2",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "suites 2",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "pass 2",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "fail 0",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "cancelled 0",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "skipped 0",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "todo 0",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:diagnostic",
+      "data": {
+        "nesting": 0,
+        "message": "duration_ms 98.108676",
+        "level": "info"
+      }
+    },
+    {
+      "type": "test:summary",
+      "data": {
+        "success": true,
+        "counts": {
+          "tests": 2,
+          "failed": 0,
+          "passed": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 1,
+          "suites": 2
+        },
+        "duration_ms": 98.108676
+      }
+    }
+  ]
+}

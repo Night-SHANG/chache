@@ -5,3 +5,22 @@ artifacts/
 
 __pycache__/
 *.pyc
+
+# Android machine state, copied web staging and ephemeral signing material.
+android/local.properties
+android/.gradle/
+android/**/build/
+android/capacitor-cordova-android-plugins/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+.idea/
+*.iml
+*.keystore
+*.jks
+*.key
+*.pem
+*.p12
+*.pfx
+key.properties
+.DS_Store
