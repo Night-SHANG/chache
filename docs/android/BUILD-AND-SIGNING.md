@@ -1,6 +1,6 @@
 # Android bootstrap build and signing
 
-This branch currently provides compiler and instrumentation feedback for the Android shell. It is not an accepted game APK. `ci-acceptance-state.json` explicitly closes APK publication, and the workflow uploads only a fixed list of verification reports. No APK, keystore, SDK, cache, home directory or signing secret is uploaded.
+This branch provides compiler and device-acceptance feedback. It is not an accepted release. `ci-acceptance-state.json` keeps delivery/publication closed. The private repository workflow may preserve one build-verified temporary-debug phone candidate, its receipt and SHA-256, explicitly pending final root evaluation. Private artifact preservation does not approve phone delivery, a public Release or store publication. No test APK, keystore, SDK, cache, home directory or signing secret is uploaded.
 
 ## Reproducible commands
 
@@ -16,10 +16,14 @@ node scripts/android-test-report.mjs run
 npm run sync:android
 npm run verify:android
 cd android
-./gradlew --no-daemon --console=plain testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest
+./gradlew --no-daemon --console=plain :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
 ```
 
 The root npm lock remains unchanged. Capacitor core/CLI/android8.5.3 are installed from the independent Android shell lock. Sync invokes that installed local CLI, with no implicit `npx` download.
+
+Gradle targets are explicitly scoped to `:app`. The application still compiles its dependent libraries and tests the shipped application, while avoiding unrelated instrumentation APK variants belonging to the generated Capacitor/Cordova library projects.
+
+Build `node scripts/build-android-acceptance.mjs` before assembling the instrumentation APK. Its assets remain in the generated androidTest source set. The emulator script preserves vc1/test APKs in runner-local storage, builds vc2 with the same conventional debug key, then runs the reviewed explicit disposable-emulator driver. The final product APK is vc2 when that build succeeds; earlier failure can leave vc1, which the receipt must report honestly. Neither acceptance fixture APK is uploaded.
 
 Hosted regression also requires the existing Noto Sans CJK SC font dependency. `scripts/setup-android-ci-fonts.sh` downloads only the official Noto CJK Sans2.004 Regular/Bold TTCs at commit `523d033d6cb47f4a80c58a35753646f5c3608a78`, checks their fixed SHA-256 bytes before installation into the tests' existing system-font paths, and probes embedded font families. It does not change Node preload/system-font discovery, old pixel assertions, game assets or APK contents. `--verify` checks an already-provisioned machine without installing fonts. `font-report.json` records source and actual hashes.
 
@@ -42,9 +46,13 @@ The script uses the installed official SDK tools, stable channel0, API36 Google 
 
 Missing SDK tools, inaccessible `/dev/kvm`, insufficient disk, declined licenses or an emulator boot failure produce a specific `blocked` report and exit78. The workflow records that native acceptance remains unverified while retaining independently verified compilation. An actual `connectedDebugAndroidTest` failure exits1 and fails the job. Headless audio, physical cutouts and phone navigation remain unverified.
 
+The job is bounded to120minutes: stable SDK extraction/boot plus six recovery stages, upgrade, and three separately bounded25-minute measurement commands. Normal, realistic and extreme raw100-transaction samples remain separate and protocol-validated. Complete over-threshold measurements remain failed; missing, skipped, stale, truncated or incoherent evidence stays blocked. The inherited local Node comparison in ACCEPTANCE.md is not rerun or represented as CI-native evidence.
+
+Before the emulator is killed, a separate60-second cleanup helper cold-launches the real product MainActivity and captures foreground/process/window evidence and a screenshot when possible, including after a performance failure. Capture cannot change the original acceptance exit status. A screenshot does not verify touch, phone geometry, actual audio, frame timing or formal product acceptance.
+
 ## Temporary signing and private APK verification
 
-Gradle's standard ephemeral debug signing is authorized for this build. The key stays inside the runner and is never an artifact, cache, Secret or exported file. The receipt verifies the private APK's package `io.github.nightshang.chache`, app name `货箱最后一格`, versionName1.0.10/versionCode1, offline permission policy, signature/certificate fingerprint, alignment and staged asset bytes. SHA-256 is recorded, but this bootstrap APK is withheld.
+Gradle's standard ephemeral debug signing is authorized for this build. The key stays inside the runner and is never an artifact, cache, Secret or exported file. The receipt verifies the actual final APK's package `io.github.nightshang.chache`, app name `货箱最后一格`, versionName1.0.10 and observed versionCode1 or2, offline permission policy, one signature/certificate fingerprint, alignment, staged asset bytes and absence of acceptance controls. Candidate name is `warehouse-last-slot-1.0.10-vc<actual>-temporary-debug-candidate-<sha12>.apk`; its copy is rehashed before private preservation.
 
 Each runner can create a different debug certificate. Only a same-package, same-key update can establish overwrite-install save preservation. A future permanent certificate may require uninstalling the temporary APK, which deletes local app data. No permanent key or persistent GitHub credential is created here.
 
@@ -52,6 +60,10 @@ Each runner can create a different debug certificate. Only a same-package, same-
 
 Reports contain the actual checked-out commit/tree, workflow SHA/run/attempt, installed runner/SDK/JDK/npm versions, both lock hashes, temporary certificate and truthful verification states. The coordinator must independently verify the local-to-remote commit mapping; the runner does not invent that mapping.
 
-Before Task5 can be complete, integrate and independently review native storage/ownership, Insets, game startup, back/lifecycle and acceptance tests. Then verify recovery/process death, same-key increasing-versionCode upgrade without clearing data, long-history latency and available phone checks. APK allowlisting/delivery is a later reviewed change; changing the marker alone cannot add an APK to the current workflow. No public GitHub Release or store publication occurs.
+Mapped GitHub snapshot metadata is parsed as inert text from the commit message and checked against the actual tree. The source local commit and remote commit stay distinct. Receipt schema2 separates `buildStatus: verified`, native acceptance passed/failed/blocked and `acceptanceApproved: false`; `deliveryStatus: CLOSED_PENDING_ROOT_EVALUATION` always keeps delivery closed. The verifier reclassifies full Node terminal evidence, reconciles real unit/instrumentation XML with native test methods, retains lint warnings, validates driver raw reports and compares the same-key upgrade proof with the actual final certificate. The driver-only instrumentation skip is identified but never counts as device acceptance.
+
+The candidate and allowlisted report artifacts are private, retained7days, and have separate names. Candidate upload requires a successful verified receipt after the actual compile and complete Node gate. Native/environment/performance failures remain visible even when a build-verified candidate is preserved for evaluation. Root approval is still needed before anyone calls it accepted or delivers it as the phone test result.
+
+Before acceptance can be complete, review the integrated native storage/ownership, Insets, game startup, back/lifecycle and actual device results. Recovery/process death, same-key increasing-versionCode upgrade without clearing data, all latency categories and available phone checks remain separate requirements. No public GitHub Release or store publication occurs.
 
 Remote upload and exact-commit CI monitoring belong to the coordinator using the existing GitHub connection. Only branch pushes to `dev/android-v110-release` trigger this workflow. Default/release branches and repository history are preserved.

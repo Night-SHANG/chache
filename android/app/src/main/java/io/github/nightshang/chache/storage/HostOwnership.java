@@ -9,10 +9,10 @@ import java.nio.channels.OverlappingFileLockException;
 /** A lease lasts for the whole host, including pauses and gaps between KV operations. */
 final class HostOwnership implements AutoCloseable {
     private static final Object GATE = new Object();
-    private static HostOwnership active;
+    private static volatile HostOwnership active;
     private final RandomAccessFile handle;
     private final FileLock lock;
-    private boolean revoked;
+    private volatile boolean revoked;
     private Runnable cleanup;
 
     interface Action<T> { T run(); }
@@ -48,20 +48,29 @@ final class HostOwnership implements AutoCloseable {
 
     <T> T withOwner(Action<T> action) {
         synchronized (GATE) {
-            if (!isOwner()) throw new Failure("NOT_OWNER");
+            if (!hasAuthorityUnderGate()) throw new Failure("NOT_OWNER");
             return action.run();
         }
     }
 
     void setCleanup(Runnable action) {
         synchronized (GATE) {
-            if (!isOwner() || cleanup != null) throw new Failure("NOT_OWNER");
+            if (!hasAuthorityUnderGate() || cleanup != null) throw new Failure("NOT_OWNER");
             cleanup = action;
         }
     }
 
-    boolean isOwner() {
-        synchronized (GATE) { return active == this && !revoked && lock.isValid(); }
+    /**
+     * Nonblocking UI snapshot only. A concurrent transition can make a displayed
+     * snapshot stale; it never grants authority to perform a storage operation.
+     * Publication follows successful FileLock acquisition. Revocation is published
+     * before any potentially slow database cleanup or native lock release.
+     */
+    boolean isOwner() { return active == this && !revoked; }
+
+    /** Caller must hold GATE; every actual operation revalidates the real lease. */
+    private boolean hasAuthorityUnderGate() {
+        return active == this && !revoked && lock.isValid();
     }
 
     @Override public void close() {

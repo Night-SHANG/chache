@@ -14,7 +14,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -67,6 +67,7 @@ jobs:
         run: |
           npm run sync:android
           npm run verify:android
+          node scripts/build-android-acceptance.mjs
       - name: Compile and test native debug shell privately
         id: compile
         working-directory: android
@@ -75,10 +76,12 @@ jobs:
           set -euo pipefail
           ./gradlew --no-daemon --console=plain --version | tee ../build/android-ci/gradle-version.txt
           grep -F 'Gradle 8.14.3' ../build/android-ci/gradle-version.txt
-          ./gradlew --no-daemon --console=plain testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest
+          ./gradlew --no-daemon --console=plain :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
       - name: Complete npm regression with exact baseline accounting
+        id: regression
         run: node scripts/android-test-report.mjs run
       - name: Official headless emulator instrumentation
+        id: emulator
         if: steps.compile.outcome == 'success'
         shell: bash
         run: |
@@ -92,7 +95,12 @@ jobs:
             exit "$status"
           fi
       - name: Verify private APK and write truthful bootstrap receipt
-        if: always() && steps.compile.outcome == 'success'
+        id: receipt
+        if: always() && steps.compile.outcome == 'success' && steps.regression.outcome == 'success'
+        env:
+          ANDROID_CI_COMPILE_OUTCOME: ${{ steps.compile.outcome }}
+          ANDROID_CI_REGRESSION_OUTCOME: ${{ steps.regression.outcome }}
+          ANDROID_CI_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}
         run: node scripts/verify-android-build.mjs receipt
       - name: Upload allowlisted verification reports only
         if: always()
@@ -106,10 +114,33 @@ jobs:
             build/android-ci/sdk-report.json
             build/android-ci/font-report.json
             build/android-ci/emulator-report.json
+            build/android-ci/emulator-api.txt
+            build/android-ci/emulator-release.txt
+            build/android-ci/emulator-build.txt
+            build/android-ci/emulator-webview.txt
+            build/android-ci/product-smoke-report.json
+            build/android-ci/product-cold-launch.png
+            build/android-ci/product-launch.txt
+            build/android-ci/product-window.txt
+            build/android-ci/device-acceptance/*.json
+            build/android-ci/device-acceptance/*.txt
             build/android-ci/SHA256SUMS
             android/app/build/test-results/testDebugUnitTest/*.xml
             android/app/build/reports/lint-results-debug.xml
-            android/app/build/outputs/androidTest-results/connected/debug/*.xml
+            android/app/build/outputs/androidTest-results/connected/debug/**/*.xml
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+          archive: true
+      - name: Preserve private phone candidate pending root delivery review
+        if: always() && steps.receipt.outcome == 'success'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-private-candidate-pending-review-${{ github.sha }}
+          path: |
+            build/android-ci/candidate/warehouse-last-slot-1.0.10-vc*-temporary-debug-candidate-*.apk
+            build/android-ci/candidate/android-build-receipt.json
+            build/android-ci/candidate/SHA256SUMS
           if-no-files-found: error
           include-hidden-files: false
           retention-days: 7

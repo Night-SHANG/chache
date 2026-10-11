@@ -129,3 +129,13 @@ test('Android recovery staging uses actual killed-writer files without mutating 
   assert.equal(run.status,0,run.stdout+run.stderr);assert.match(run.stdout,/real killed-writer fixtures: v1 recovery/);
  }finally{rmSync(dir,{recursive:true,force:true});}
 });
+
+test('Android UI ownership snapshot never waits for native I/O or authorizes writes',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'warehouse-owner-snapshot-'));
+ try{
+  const compiled=spawnSync('java',['-m','jdk.compiler/com.sun.tools.javac.Main','-d',dir,'android/app/src/main/java/io/github/nightshang/chache/storage/HostOwnership.java','tests/fixtures/android/OwnerSnapshotProbe.java'],{encoding:'utf8',timeout:30000});
+  assert.equal(compiled.status,0,compiled.stdout+compiled.stderr);
+  const run=spawnSync('java',['-cp',dir,'io.github.nightshang.chache.storage.OwnerSnapshotProbe',join(dir,'private.owner')],{encoding:'utf8',timeout:30000});
+  assert.equal(run.status,0,run.stdout+run.stderr);assert.match(run.stdout,/nonblocking owner snapshots, serialized writes, early revocation and actual-lock authority passed/);
+ }finally{rmSync(dir,{recursive:true,force:true});}
+});

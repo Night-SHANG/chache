@@ -1,9 +1,11 @@
 import {constants} from 'node:fs';
-import {access,lstat,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
+import {access,copyFile,lstat,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync,spawnSync} from 'node:child_process';
 import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {classifyNodeEvents} from './android-test-report.mjs';
+import {aggregateAcceptanceStatus,candidateFileName,evidenceFiles,inspectAcceptanceEvidence,parseApkIdentity,parseSourceMapping,readJUnitEvidence} from './android-ci-evidence.mjs';
 
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const json=async path=>JSON.parse(await readFile(path,'utf8'));
@@ -63,32 +65,55 @@ export async function probeSdk(root=process.cwd()) {
 export async function writeReceipt(root=process.cwd()) {
  const gate=await verifyStaging(root),output=join(root,'build/android-ci');
  const sdk=await json(join(output,'sdk-report.json')),node=await json(join(output,'node-test-report.json'));
- requireValue(node.accepted===true,'Node regression acceptance failed');
+ requireValue(process.env.ANDROID_CI_COMPILE_OUTCOME==='success'&&process.env.ANDROID_CI_REGRESSION_OUTCOME==='success','Receipt requires actual successful CI compile and complete Node gate');
+ const events=(await readFile(join(output,'node-events.jsonl'),'utf8')).split('\n').filter(line=>line.startsWith('{')).map(line=>JSON.parse(line));
+ const classified=classifyNodeEvents(events,node.rawExitCode,root);
+ requireValue(node.accepted===true&&classified.accepted===true&&JSON.stringify(node.counts)===JSON.stringify(classified.counts),'Node regression acceptance/evidence failed');
+ const unit=await readJUnitEvidence(root,'android/app/build/test-results/testDebugUnitTest','android/app/src/test');
+ requireValue(unit.status==='passed','Compiled application unit evidence is incomplete or failed');
+ const lint=JSON.parse(execFileSync('python',['-c','import sys,json,xml.etree.ElementTree as E;r=E.parse(sys.argv[1]).getroot();assert r.tag=="issues";items=[dict(i.attrib,locations=[l.attrib for l in i.findall("location")]) for i in r];assert all(i.get("severity") in ["Warning","Information","Ignore"] for i in items),"App lint error/fatal/unknown severity";print(json.dumps({"status":"passed","warnings":items}))',join(root,'android/app/build/reports/lint-results-debug.xml')],{encoding:'utf8'}));
  const apk=join(root,'android/app/build/outputs/apk/debug/app-debug.apk');
- requireValue((await lstat(apk)).isFile(),'Compiled debug APK is missing');
+ requireValue((await lstat(apk)).isFile()&&!(await lstat(apk)).isSymbolicLink(),'Compiled debug APK is missing or not a regular file');
  const tool=name=>join(sdk.androidHome,'build-tools/35.0.0',name);
  const badging=execFileSync(tool('aapt'),['dump','badging',apk],{encoding:'utf8'});
- requireValue(/package: name='io\.github\.nightshang\.chache' versionCode='1' versionName='1\.0\.10'/.test(badging),'Compiled APK identity/version mismatch');
- requireValue(/application-label:'货箱最后一格'/.test(badging),'Compiled APK label mismatch');
- requireValue(!/uses-permission: name='android\.permission\.INTERNET'/.test(badging),'Offline APK must not request INTERNET');
+ const identity=parseApkIdentity(badging);
  const signature=execFileSync(tool('apksigner'),['verify','--verbose','--print-certs',apk],{encoding:'utf8'});
  const certificate=/Signer #1 certificate SHA-256 digest: ([a-f0-9]{64})/i.exec(signature)?.[1]?.toLowerCase();
- requireValue(certificate,'APK certificate fingerprint missing');
+ requireValue(certificate&&[...signature.matchAll(/Signer #[0-9]+ certificate SHA-256 digest:/g)].length===1,'APK must have exactly one verified certificate fingerprint');
  execFileSync(tool('zipalign'),['-c','-P','16','4',apk],{encoding:'utf8'});
  const entries=execFileSync('unzip',['-Z1',apk],{encoding:'utf8'}).trim().split('\n');
  requireValue(!entries.some(path=>/\.(?:jks|keystore|pem|key)$/i.test(path)),'APK contains private signing material');
+ requireValue(!entries.some(path=>/(?:^|\/)(acceptance\.js|bundle-inputs\.json)$/.test(path)),'Test acceptance assets leaked into product APK');
  for(const path of await files(join(root,'build/android'))){
   const entry='assets/public/'+path;
   requireValue(entries.filter(item=>item===entry).length===1,`APK bundled asset missing/duplicated: ${path}`);
   requireValue(sha256(execFileSync('unzip',['-p',apk,entry],{maxBuffer:32*1024*1024}))===sha256(await readFile(join(root,'build/android',path))),`APK asset checksum mismatch: ${path}`);
  }
+ const productJs=execFileSync('unzip',['-p',apk,'assets/public/app.js'],{maxBuffer:32*1024*1024}).toString('utf8');
+ requireValue(!/WarehouseAcceptance(?:Control|Storage)|__ANDROID_ACCEPTANCE_/.test(productJs),'Test controls leaked into product JavaScript');
+ for(const dex of entries.filter(path=>/^classes[0-9]*\.dex$/.test(path))){
+  const bytes=execFileSync('unzip',['-p',apk,dex],{maxBuffer:64*1024*1024});
+  requireValue(!/WarehouseAcceptance(?:Control|Storage)|DeviceAcceptanceTest/.test(bytes.toString('latin1')),'Test classes leaked into product APK');
+ }
  const native=await json(join(output,'emulator-report.json')).catch(()=>({status:'not-run',reason:'Emulator step did not produce a report'}));
- const receipt={schemaVersion:1,phase:gate.phase,publishApk:gate.publishApk,deliveryStatus:'WITHHELD_BOOTSTRAP',source:{commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),tree:execFileSync('git',['rev-parse','HEAD^{tree}'],{cwd:root,encoding:'utf8'}).trim(),workflowCommit:process.env.GITHUB_SHA??null,localCommit:null,commitMappingStatus:'Coordinator must verify local-to-remote mapping',runId:process.env.GITHUB_RUN_ID??null,runAttempt:process.env.GITHUB_RUN_ATTEMPT??null},identity:{applicationId:'io.github.nightshang.chache',appName:'货箱最后一格',versionName:'1.0.10',versionCode:1},toolchain:{node:process.version,npm:execFileSync('npm',['--version'],{encoding:'utf8'}).trim(),java:inspectJavaRuntime(),capacitor:'8.5.3',gradle:'8.14.3',agp:'8.13.0',sdk},locks:{rootSha256:sha256(await readFile(join(root,'package-lock.json'))),androidShellSha256:sha256(await readFile(join(root,'android-shell/package-lock.json')))},privateCompiledApk:{sha256:sha256(await readFile(apk)),temporaryDebugCertificateSha256:certificate,signingVerified:true,alignmentVerified:true,bundledAssetsVerified:true,uploaded:false},verification:{node,compile:'passed',gradleUnitAndLint:'passed',instrumentation:native,storageRecovery:'not-verified',sameSignatureUpgrade:'not-verified',longHistoryLatency:'not-verified',physicalPhone:'not-verified',audibleOutput:'not-verified'}};
+ const instrumentation=await readJUnitEvidence(root,'android/app/build/outputs/androidTest-results/connected/debug','android/app/src/androidTest',true);
+ const device=await inspectAcceptanceEvidence(root,certificate,identity.versionCode);
+ const productSmoke=await json(join(output,'product-smoke-report.json')).catch(()=>({status:'not-verified',reason:'Product cold-launch evidence is missing'}));
+ const commit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),tree=execFileSync('git',['rev-parse','HEAD^{tree}'],{cwd:root,encoding:'utf8'}).trim();
+ requireValue(!process.env.GITHUB_SHA||process.env.GITHUB_SHA===commit,'Workflow source differs from actual checked-out commit');
+ const mapping=parseSourceMapping(execFileSync('git',['log','-1','--format=%B'],{cwd:root,encoding:'utf8'}),tree);
+ const filename=candidateFileName(identity.versionCode,commit),candidateDir=join(output,'candidate');
+ const acceptanceStatus=aggregateAcceptanceStatus(native,instrumentation,device);
+ const receipt={schemaVersion:2,phase:gate.phase,publishApk:false,deliveryStatus:'CLOSED_PENDING_ROOT_EVALUATION',buildStatus:'verified',acceptanceStatus,acceptanceApproved:false,rootEvaluationRequired:true,source:{commit,tree,workflowCommit:process.env.GITHUB_SHA??null,localCommit:mapping.localCommit,commitMappingStatus:mapping.status,runId:process.env.GITHUB_RUN_ID??null,runAttempt:process.env.GITHUB_RUN_ATTEMPT??null},identity,toolchain:{node:process.version,npm:execFileSync('npm',['--version'],{encoding:'utf8'}).trim(),java:inspectJavaRuntime(),capacitor:'8.5.3',gradle:'8.14.3',agp:'8.13.0',sdk},locks:{rootSha256:sha256(await readFile(join(root,'package-lock.json'))),androidShellSha256:sha256(await readFile(join(root,'android-shell/package-lock.json')))},privateCompiledApk:{filename,sha256:sha256(await readFile(apk)),temporaryDebugCertificateSha256:certificate,signingVerified:true,alignmentVerified:true,bundledAssetsVerified:true,testControlsExcluded:true,preservation:'private CI candidate only; no accepted release or phone delivery'},verification:{node,compile:'passed',gradleUnit:unit,lint,instrumentation,emulator:native,deviceAcceptance:device,storageRecovery:device.storageRecovery,sameSignatureUpgrade:device.sameSignatureUpgrade,performance:device.performance,anr:device.anr,productColdLaunch:productSmoke,physicalPhone:'not-verified',audibleOutput:'not-verified',frameTiming:'not-measured',nodeBaselineComparison:'not-run-in-this-CI; local documented comparison is separate evidence'}};
  await writeFile(join(output,'android-build-receipt.json'),JSON.stringify(receipt,null,2)+'\n');
+ await mkdir(candidateDir,{recursive:true});await copyFile(apk,join(candidateDir,filename));
+ requireValue(sha256(await readFile(join(candidateDir,filename)))===receipt.privateCompiledApk.sha256,'Candidate copy checksum differs from verified APK');
+ await copyFile(join(output,'android-build-receipt.json'),join(candidateDir,'android-build-receipt.json'));
+ await writeFile(join(candidateDir,'SHA256SUMS'),`${receipt.privateCompiledApk.sha256}  ${filename}\n${sha256(await readFile(join(candidateDir,'android-build-receipt.json')))}  android-build-receipt.json\n`);
  const sums=[];
- for(const name of ['android-build-receipt.json','node-test-report.json','sdk-report.json','emulator-report.json','node-events.jsonl'])try{sums.push(`${sha256(await readFile(join(output,name)))}  ${name}`);}catch(error){if(error.code!=='ENOENT')throw error;}
+ for(const name of ['android-build-receipt.json','node-test-report.json','sdk-report.json','font-report.json','emulator-report.json','emulator-api.txt','emulator-release.txt','emulator-build.txt','emulator-webview.txt','node-events.jsonl','product-smoke-report.json','product-cold-launch.png','product-launch.txt','product-window.txt',...await evidenceFiles(root)])try{sums.push(`${sha256(await readFile(join(output,name)))}  ${name}`);}catch(error){if(error.code!=='ENOENT')throw error;}
  await writeFile(join(output,'SHA256SUMS'),sums.join('\n')+'\n');
- console.log('Verified privately compiled temporary-debug APK; bootstrap publication remains closed.');
+ console.log(`Verified private vc${identity.versionCode} temporary-debug candidate; delivery is closed pending root evaluation; native acceptance ${acceptanceStatus}.`);
  return receipt;
 }
 

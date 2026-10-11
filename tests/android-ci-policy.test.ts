@@ -22,6 +22,7 @@ test('Android CI runs only branch pushes with read-only credentials and fixed of
   'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1',
   'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1',
   'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6',
+  'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9',
   'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9'
  ]);
  assert.doesNotMatch(workflow,/pull_request|workflow_dispatch|workflow_run|secrets\.|id-token:|contents: write|publish|release upload|continue-on-error/);
@@ -30,19 +31,33 @@ test('Android CI runs only branch pushes with read-only credentials and fixed of
 test('Android bootstrap installs both locks and compiles before reporting without publishing an APK',async()=>{
  const workflow=await read('.github/workflows/android.yml').catch(()=>null);
  assert.ok(workflow,'Android workflow is missing');
- for(const command of ['npm install --global npm@11.9.0','npm ci','npm --prefix android-shell ci','npm run lint','npm run typecheck','npm run preflight','node scripts/android-test-report.mjs run','npm run sync:android','npm run verify:android','testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest'])assert.ok(workflow.includes(command),command);
+ for(const command of ['npm install --global npm@11.9.0','npm ci','npm --prefix android-shell ci','npm run lint','npm run typecheck','npm run preflight','node scripts/android-test-report.mjs run','npm run sync:android','npm run verify:android',':app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest'])assert.ok(workflow.includes(command),command);
  assert.match(workflow,/node-version: '24\.19\.0'/);
  assert.match(workflow,/java-version: '21'/);
  assert.match(workflow,/package-manager-cache: false/);
  assert.match(workflow,/include-hidden-files: false/);
  assert.match(workflow,/if-no-files-found: error/);
- const artifact=workflow.slice(workflow.indexOf('uses: actions/upload-artifact'));
+ const artifact=workflow.slice(workflow.indexOf('uses: actions/upload-artifact'),workflow.indexOf('Preserve private phone candidate'));
  assert.doesNotMatch(artifact,/\.apk|\.jks|\.keystore|\$HOME|~\/|path: \./);
  assert.doesNotMatch(workflow,/sudo|chmod|sdkmanager --licenses|yes\s*\|/);
  const state=JSON.parse(await read('docs/android/ci-acceptance-state.json'));
  assert.deepEqual(state,{phase:'bootstrap',publishApk:false,reason:'Native storage, geometry, lifecycle and acceptance integration remain required.'});
  const pkg=JSON.parse(await read('package.json'));
  assert.equal(pkg.scripts['verify:android'],'node scripts/verify-android-build.mjs staging');
+});
+
+test('candidate preservation stays gated on verified receipt and never implies delivery acceptance',async()=>{
+ const workflow=await read('.github/workflows/android.yml');
+ assert.match(workflow,/timeout-minutes: 120/);
+ assert.ok(workflow.indexOf('node scripts/build-android-acceptance.mjs')<workflow.indexOf(':app:assembleDebugAndroidTest'));
+ assert.match(workflow,/id: regression/);
+ assert.match(workflow,/id: receipt/);
+ const candidate=workflow.slice(workflow.indexOf('Preserve private phone candidate'));
+ assert.match(candidate,/steps\.receipt\.outcome == 'success'/);
+ assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.10-vc\*-temporary-debug-candidate-\*\.apk/);
+ assert.doesNotMatch(candidate,/\.jks|\.keystore|acceptance-apks|androidTest|release upload/);
+ assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.json/);
+ assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.txt/);
 });
 
 test('CI font setup uses the exact official baseline bytes and verifies real embedded font families',async()=>{
@@ -66,11 +81,20 @@ test('CI font setup uses the exact official baseline bytes and verifies real emb
 test('bootstrap obtains native compiler feedback before the complete unchanged regression gate',async()=>{
  const workflow=await read('.github/workflows/android.yml');
  const stage=workflow.indexOf('npm run verify:android');
- const compile=workflow.indexOf('testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest');
+ const compile=workflow.indexOf(':app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest');
  const regression=workflow.indexOf('node scripts/android-test-report.mjs run');
  assert.ok(stage>=0&&stage<compile&&compile<regression,'Staging and compile must precede the full Node gate');
  assert.equal([...workflow.matchAll(/node scripts\/android-test-report\.mjs run/g)].length,1);
  assert.ok(regression<workflow.indexOf('write truthful bootstrap receipt'));
+});
+
+test('native CI targets the application tests and APKs instead of library instrumentation variants',async()=>{
+ const workflow=await read('.github/workflows/android.yml');
+ const compile=workflow.match(/\.\/gradlew --no-daemon --console=plain ([^\n]*testDebugUnitTest[^\n]*)/);
+ assert.ok(compile,'Application compile command is missing');
+ assert.deepEqual(compile[1].trim().split(/\s+/),[
+  ':app:testDebugUnitTest',':app:lintDebug',':app:assembleDebug',':app:assembleDebugAndroidTest'
+ ]);
 });
 
 function failure(file:string,name:string,path:string,code='ENOENT'){
@@ -240,4 +264,17 @@ test('official emulator bootstrap has bounded installation and boot with no lice
 test('build receipt records the actual Java runtime patch emitted on stderr',()=>{
  assert.ok(verifier?.inspectJavaRuntime,'Actual Java runtime probe is missing');
  assert.match(verifier.inspectJavaRuntime(),/version "21[.]/);
+});
+
+test('product cold-launch capture is bounded and preserves acceptance failure before emulator cleanup',async()=>{
+ const emulator=await read('scripts/android-emulator-test.sh'),smoke=await read('scripts/android-product-smoke.sh').catch(()=>null);
+ assert.ok(smoke,'Separate product smoke helper is missing');
+ assert.match(emulator,/booted.*true/);
+ assert.match(emulator,/timeout 60 bash.*android-product-smoke[.]sh/);
+ assert.match(emulator,/exit_status=\$\?; cleanup; exit "\$exit_status"/);
+ assert.ok(emulator.indexOf('android-product-smoke.sh')<emulator.indexOf('emu kill'));
+ assert.match(smoke,/MainActivity/);assert.match(smoke,/screencap -p/);assert.match(smoke,/not-verified/);
+ assert.doesNotMatch(smoke,/uninstall|pm clear|chmod|chown|--licenses/);
+ const denied=spawnSync('bash',[join(root,'scripts/android-product-smoke.sh')],{env:{...process.env,ANDROID_SERIAL:'physical-phone'},encoding:'utf8',timeout:5000});
+ assert.equal(denied.status,1);assert.match(denied.stderr,/disposable emulator/);
 });
