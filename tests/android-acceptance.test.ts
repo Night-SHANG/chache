@@ -233,8 +233,17 @@ test('nearest-rank statistics and exact gate boundary are independently recomput
  assert.doesNotThrow(() => validateMeasurement(report, expected));assert.throws(() => validateResult(report, expected));
 });
 test('native acceptance builds and instruments only the application module', () => {
+ const workflow = readFileSync(new URL('../.github/workflows/android.yml', import.meta.url), 'utf8');
+ const jobs = workflow.split('\n  runtime:\n');
+ assert.equal(jobs.length, 2);
+ const [build, runtime] = jobs;
+ const gradleCommands = build.match(/^\s+[.]\/gradlew[^\n]*$/gm) ?? [];
+ const tasks = gradleCommands.flatMap(command => command.trim().split(/\s+/).filter(token => token.startsWith(':')));
+ assert.deepEqual([...new Set(tasks)].sort(), [':app:assembleDebug', ':app:assembleDebugAndroidTest', ':app:lintDebug', ':app:testDebugUnitTest'].sort());
+ assert.doesNotMatch(gradleCommands.join('\n'), /\s(?:testDebugUnitTest|lintDebug|connectedDebugAndroidTest|assembleDebugAndroidTest|assembleDebug)(?:[;\s)]|$)/);
  const script = readFileSync(new URL('../scripts/android-emulator-test.sh', import.meta.url), 'utf8');
- assert.match(script, /:app:connectedDebugAndroidTest\b/);
- assert.match(script, /:app:assembleDebug\b/);
- assert.doesNotMatch(script, /\s(?:connectedDebugAndroidTest|assembleDebugAndroidTest|assembleDebug)(?:[;\s)]|$)/);
+ assert.match(script, /install -r "\$HANDOFF\/apks\/warehouse-vc1-temporary-debug[.]apk"/);
+ assert.match(script, /install -r "\$HANDOFF\/apks\/warehouse-androidTest[.]apk"/);
+ assert.match(script, /am instrument -w -r \\\n\s+io[.]github[.]nightshang[.]chache[.]test\/androidx[.]test[.]runner[.]AndroidJUnitRunner\s/);
+ assert.doesNotMatch(runtime + script, /gradlew|\b(?:connectedDebugAndroidTest|assembleDebugAndroidTest|assembleDebug)\b|\bnpm(?:\s+--\S+)*\s+(?:ci|install|run)\b|build-android(?:-acceptance)?[.]mjs|sync:android/);
 });
