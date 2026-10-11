@@ -30,6 +30,10 @@ jobs:
           java-version: '21'
           check-latest: false
           overwrite-settings: false
+      - name: Initialize isolated task-owned package caches and time budget
+        run: |
+          node scripts/android-ci-cache.mjs init --github-env "$GITHUB_ENV"
+          printf 'ANDROID_CI_JOB_STARTED_AT=%s\n' "$(date +%s)" >> "$GITHUB_ENV"
       - name: Assert toolchain and inspect existing official SDK
         shell: bash
         run: |
@@ -80,14 +84,22 @@ jobs:
       - name: Complete npm regression with exact baseline accounting
         id: regression
         run: node scripts/android-test-report.mjs run
+      - name: Stop and release only this job isolated re-downloadable caches
+        run: node scripts/android-ci-cache.mjs release
       - name: Official headless emulator instrumentation
         id: emulator
         if: steps.compile.outcome == 'success'
         shell: bash
         run: |
           set +e
-          bash scripts/android-emulator-test.sh
-          status=$?
+          remaining=$((120*60 - ($(date +%s) - ANDROID_CI_JOB_STARTED_AT) - 300))
+          if [ "$remaining" -gt 0 ]; then
+            timeout --signal=TERM --kill-after=90s "${remaining}s" bash scripts/android-emulator-test.sh
+            status=$?
+          else
+            node --input-type=module -e 'import{writeFileSync}from"node:fs";writeFileSync("build/android-ci/emulator-report.json",JSON.stringify({status:"blocked",reason:"No bounded runtime budget remains before receipt/artifact reserve",acceptanceScope:"not-run"})+"\n")'
+            status=78
+          fi
           set -e
           if [ "$status" -eq 78 ]; then
             echo 'Emulator environment blocked; see emulator-report.json. Native acceptance remains unverified.' >> "$GITHUB_STEP_SUMMARY"
@@ -113,6 +125,11 @@ jobs:
             build/android-ci/node-events.jsonl
             build/android-ci/sdk-report.json
             build/android-ci/font-report.json
+            build/android-ci/cache-init-report.json
+            build/android-ci/cache-report.json
+            build/android-ci/space-preinstall.json
+            build/android-ci/space-postinstall.json
+            build/android-ci/space-postboot.json
             build/android-ci/emulator-report.json
             build/android-ci/emulator-mode.json
             build/android-ci/emulator-acceleration.log
@@ -125,6 +142,7 @@ jobs:
             build/android-ci/emulator-webview.txt
             build/android-ci/product-smoke-report.json
             build/android-ci/product-cold-launch.png
+            build/android-ci/product-install.txt
             build/android-ci/product-launch.txt
             build/android-ci/product-window.txt
             build/android-ci/device-acceptance/*.json

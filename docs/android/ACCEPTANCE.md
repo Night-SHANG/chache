@@ -120,3 +120,9 @@ node scripts/android-baseline-comparison.mjs 100
 两组最终根和历史摘要逐类相同，最终根大小分别1,276 / 61,510 / 503,011字节；每类均恰好 generation 101，没有将容量拒绝当成快速事务。account-store、account-service、history-store 三份实际账户代码与原始版本字节一致。
 
 这说明大记录成本在原始引擎已经存在，realistic/extreme 的 Node p95 均超过100ms门槛。测量有共享云环境调度噪声，不能根据两组细小差异推断优化效果，更不能据此扣算Android桥成本。原生编译/运行与真机此时尚未执行，不得写成通过。
+
+## Root-selected software-emulator functional scope
+
+The bounded hosted TCG attempt explicitly sets ANDROID_ACCEPTANCE_SCOPE=functional-only. It still runs application instrumentation, six actual process-death/restart cases and same-signature vc1→vc2 install-r preservation. Native assertions, including500ms main-Looper checks, are unchanged: any executed failure stays failed, even if attributable to software emulation. Completed phases are retained independently when a later assertion or timeout stops the driver; later categories remain not-run, with stage and command exit evidence. Cleanup independently attempts a real product MainActivity cold-launch screenshot within60seconds after successful boot, including after driver failure. Missing capture is recorded as unverified.
+
+normal/realistic/extreme timing categories are explicitly not-run in this functional-only scope. A successful functional driver exits0 but its acceptance summary remains blocked; it cannot yield a full acceptance pass. Default/manual and hardware-accelerated scope remains full, with all existing100-transaction samples, p95≤100ms/max≤500ms checks and25-minute category bounds. The documented inherited Node realistic/extreme failures remain unresolved; TCG boot or functional results provide no phone-playability/performance proof. Candidate preservation and delivery remain closed pending root evaluation.

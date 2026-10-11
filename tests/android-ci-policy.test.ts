@@ -271,9 +271,9 @@ test('product cold-launch capture is bounded and preserves acceptance failure be
  const emulator=await read('scripts/android-emulator-test.sh'),smoke=await read('scripts/android-product-smoke.sh').catch(()=>null);
  assert.ok(smoke,'Separate product smoke helper is missing');
  assert.match(emulator,/booted.*true/);
- assert.match(emulator,/timeout 60 bash.*android-product-smoke[.]sh/);
+ assert.match(emulator,/timeout --signal=TERM --kill-after=5s 60s bash.*android-product-smoke[.]sh/);
  assert.match(emulator,/exit_status=\$\?; cleanup; exit "\$exit_status"/);
- assert.ok(emulator.indexOf('android-product-smoke.sh')<emulator.indexOf('emu kill'));
+ assert.ok(emulator.indexOf('android-product-smoke.sh')<emulator.indexOf('kill -TERM --'));
  assert.match(smoke,/MainActivity/);assert.match(smoke,/screencap -p/);assert.match(smoke,/not-verified/);
  assert.doesNotMatch(smoke,/uninstall|pm clear|chmod|chown|--licenses/);
  const denied=spawnSync('bash',[join(root,'scripts/android-product-smoke.sh')],{env:{...process.env,ANDROID_SERIAL:'physical-phone'},encoding:'utf8',timeout:5000});

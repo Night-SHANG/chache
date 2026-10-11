@@ -13,7 +13,7 @@ const ci=await import(new URL('../scripts/android-ci-evidence.mjs',import.meta.u
  candidateFileName:(code:number,commit:string)=>string;
  parseSourceMapping:(message:string,tree:string)=>{localCommit:string|null;status:string};
  aggregateAcceptanceStatus:(...reports:{status:string}[])=>string;
- inspectAcceptanceEvidence:(root:string,certificate:string,version:number)=>Promise<{status:string;storageRecovery:string;sameSignatureUpgrade:string;performance:Record<string,{status:string}>;reason?:string}>;
+ inspectAcceptanceEvidence:(root:string,certificate:string,version:number,scope?:string)=>Promise<{status:string;storageRecovery:string;sameSignatureUpgrade:string;performance:Record<string,{status:string}>;reason?:string}>;
  readJUnitEvidence:(root:string,reports:string,source:string,driver?:boolean)=>Promise<{status:string;tests?:number;cases?:Record<string,string>;counts?:Record<string,number>;caseEvidence?:Record<string,{errors:unknown[];failures:unknown[]}>;checksums?:unknown[];reason?:string}>;
 };
 const certificate='a'.repeat(64),base='1234567890.123';
@@ -158,5 +158,46 @@ test('receipt CLI preserves only the verified actual-version candidate and truth
   const nativeFailedReceipt=JSON.parse(await readFile(join(output,'android-build-receipt.json'),'utf8'));assert.equal(nativeFailedReceipt.acceptanceStatus,'failed');assert.equal(nativeFailedReceipt.verification.instrumentation.status,'blocked');assert.equal(nativeFailedReceipt.verification.deviceAcceptance.status,'blocked');
   assert.deepEqual(nativeFailedReceipt.verification.performanceContext,performanceContext);assert.equal(nativeFailedReceipt.verification.performance.extreme.status,'not-verified');assert.equal(nativeFailedReceipt.publishApk,false);
   const missingGate=run(process.execPath,[join(repo,'scripts/verify-android-build.mjs'),'receipt'],{ANDROID_CI_COMPILE_OUTCOME:'success',ANDROID_CI_REGRESSION_OUTCOME:'failure'});assert.notEqual(missingGate.status,0);
+ }finally{await rm(root,{recursive:true,force:true});}
+});
+
+test('functional-only receipt retains verified recovery and upgrade but never approves unrun performance',async()=>{
+ assert.ok(ci);const f=await evidenceFixture();try{
+  f.summary.scope='functional-only';f.summary.status='blocked';f.summary.performance=Object.fromEntries(['normal','realistic','extreme'].map(n=>[n,{status:'not-run',reason:'Explicit software-TCG functional scope; phone performance unverified'}]));
+  for(const n of ['normal','realistic','extreme'])await rm(join(f.out,'performance-'+n+'.json'));
+  const {writeDeviceSummary}=await import(new URL('../scripts/android-device-summary.mjs',import.meta.url).href);f.summary=await writeDeviceSummary(f.out,{scope:'functional-only',stage:'complete',certificate,invocation:base});
+  assert.equal(f.summary.status,'blocked');assert.equal(f.summary.completedRecoveryPhases.length,6);
+  const result=await ci.inspectAcceptanceEvidence(f.root,certificate,2);
+  assert.equal(result.status,'blocked');assert.equal(result.storageRecovery,'passed');assert.equal(result.sameSignatureUpgrade,'passed');
+  for(const n of ['normal','realistic','extreme'])assert.equal(result.performance[n].status,'not-run');
+  assert.equal(ci.aggregateAcceptanceStatus({status:'passed'},{status:'passed'},result),'blocked');
+  f.summary.status='passed';await f.write('summary',f.summary);assert.notEqual((await ci.inspectAcceptanceEvidence(f.root,certificate,2)).status,'passed');
+ }finally{await rm(f.root,{recursive:true,force:true});}
+});
+test('functional partial timeout preserves completed recovery evidence and failed versus unrun categories',async()=>{
+ assert.ok(ci);const f=await evidenceFixture();try{
+  for(const phase of fixture.CRASH_PHASES.slice(1)){await rm(join(f.out,'crash-'+phase+'.json'));await rm(join(f.out,'recover-'+phase+'.json'));}
+  for(const name of ['upgrade-before','upgrade-after',...['normal','realistic','extreme'].map(n=>'performance-'+n)])await rm(join(f.out,name+'.json'));
+  const {writeDeviceSummary}=await import(new URL('../scripts/android-device-summary.mjs',import.meta.url).href);f.summary=await writeDeviceSummary(f.out,{scope:'functional-only',exitCode:124,stage:'recover-history-mid',certificate,invocation:base});
+  assert.deepEqual(f.summary.completedRecoveryPhases,['history-before']);
+  const result=await ci.inspectAcceptanceEvidence(f.root,certificate,2) as {status:string;storageRecovery:string;sameSignatureUpgrade:string;performance:Record<string,{status:string}>;processDeath?:{phase:string;status:string}[]};
+  assert.equal(result.status,'failed');assert.equal(result.storageRecovery,'failed');assert.equal(result.sameSignatureUpgrade,'not-run');assert.deepEqual(result.processDeath?.map(r=>r.phase),['history-before']);
+  for(const n of ['normal','realistic','extreme'])assert.equal(result.performance[n].status,'not-run');
+ }finally{await rm(f.root,{recursive:true,force:true});}
+});
+
+test('functional timeout before the first checkpoint remains failed without inventing a recovered phase',async()=>{
+ assert.ok(ci);const f=await evidenceFixture();try{
+  await rm(f.out,{recursive:true});await mkdir(f.out);
+  await f.write('summary',{schema:1,scope:'functional-only',status:'failed',stage:'crash-history-before',commandExitCode:124,invocation:base,recovery:'failed',upgrade:'not-run',performance:Object.fromEntries(['normal','realistic','extreme'].map(n=>[n,{status:'not-run',reason:'Explicit software-TCG functional scope; phone performance unverified'}]))});
+  const r=await ci.inspectAcceptanceEvidence(f.root,certificate,1);assert.equal(r.status,'failed');assert.equal(r.storageRecovery,'failed');assert.equal(r.sameSignatureUpgrade,'not-run');
+ }finally{await rm(f.root,{recursive:true,force:true});}
+});
+
+test('missing driver after explicit functional native failure records unrun timing without fabricating recovery',async()=>{
+ assert.ok(ci);const root=await mkdtemp(join(tmpdir(),'android-functional-unrun-'));try{
+  const r=await ci.inspectAcceptanceEvidence(root,certificate,1,'functional-only');assert.equal(r.status,'blocked');assert.equal(r.storageRecovery,'not-verified');assert.equal(r.sameSignatureUpgrade,'not-verified');
+  for(const n of ['normal','realistic','extreme'])assert.equal(r.performance[n].status,'not-run');
+  assert.equal(ci.aggregateAcceptanceStatus({status:'failed'},r),'failed');
  }finally{await rm(root,{recursive:true,force:true});}
 });

@@ -73,26 +73,44 @@ print(json.dumps({'status':'failed' if any(v=='failed' for v in seen.values()) e
   return {...data,checksums,driverOnlySkipDoesNotProveAcceptance:driver};
  }catch(error){return {status:'blocked',reason:error.stderr?.toString().trim()||error.message};}
 }
-export async function inspectAcceptanceEvidence(root,certificate,versionCode){
+export async function inspectAcceptanceEvidence(root,certificate,versionCode,expectedScope){
  const out=join(root,'build/android-ci/device-acceptance'),errors=[];
  const read=name=>readFile(join(out,name+'.json'),'utf8').then(JSON.parse);
  const result={status:'blocked',storageRecovery:'not-verified',sameSignatureUpgrade:'not-verified',performance:Object.fromEntries(['normal','realistic','extreme'].map(n=>[n,{status:'not-verified'}])),anr:{status:'not-verified'},physicalPhone:'not-verified',audibleOutput:'not-verified',frameTiming:'not-measured',errors};
  const check=async(label,fn)=>{try{return await fn();}catch(error){errors.push(`${label}: ${error.message}`);return null;}};
  const summary=await check('summary',()=>read('summary'));
+ const functional=summary?.scope==='functional-only'||(!summary&&expectedScope==='functional-only');
+ result.scope=functional?'functional-only':'full';
+ if(expectedScope&&expectedScope!==result.scope)errors.push('Runtime and device-driver acceptance scopes disagree');
+ if(summary?.scope!==undefined&&!['full','functional-only'].includes(summary.scope))errors.push('Unknown driver scope');
+ if(functional)for(const variant of ['normal','realistic','extreme']){
+  await check('unrun performance '+variant,async()=>{
+   const value=summary?.performance?.[variant]??(!summary&&expectedScope==='functional-only'?{status:'not-run',reason:'Explicit software-TCG functional scope; phone performance unverified'}:null);
+   requireValue(value?.status==='not-run'&&value.reason==='Explicit software-TCG functional scope; phone performance unverified','Missing explicit unrun performance category');
+   const existing=await readFile(join(out,'performance-'+variant+'.json')).then(()=>true,error=>{if(error.code==='ENOENT')return false;throw error;});
+   requireValue(!existing,'Unrun performance label conflicts with existing raw measurement');result.performance[variant]=value;
+  });
+ }
  const first=await check('invocation',()=>read('crash-history-before'));
- const base=/^(\d+\.\d+)\.crash\.history-before$/.exec(first?.nonce??'')?.[1];
+ const base=/^(\d+\.\d+)\.crash\.history-before$/.exec(first?.nonce??'')?.[1]??(/^[0-9]+[.][0-9]+$/.test(summary?.invocation??'')?summary.invocation:null);
  if(!base){errors.push('Missing current driver invocation nonce');return {...result,reason:errors.join('; ')};}
- const recovery=await check('recovery',async()=>{
-  const reports=[];
-  for(const phase of phases){
+ const driverFailure=summary?.schema===1&&summary.status==='failed'&&summary.invocation===base&&Number.isSafeInteger(summary.commandExitCode)&&summary.commandExitCode>0
+  && /^(?:crash-(?:history-before|history-mid|b-after|a-before|a-after|receipt-lost)|recover-(?:history-before|history-mid|b-after|a-before|a-after|receipt-lost)|upgrade-before|upgrade-after|performance-(?:normal|realistic|extreme)|complete)$/.test(summary.stage??'');
+ if(driverFailure)result.executionFailure={stage:summary.stage,exitCode:summary.commandExitCode};
+ const recovery=[];
+ for(const phase of phases){
+  const proof=await check('recovery '+phase,async()=>{
    const dead=await read('crash-'+phase),alive=await read('recover-'+phase);
    requireValue(dead.schema===1&&dead.status==='checkpoint'&&dead.action==='seed-crash'&&dead.phase===phase&&dead.reached===phase&&dead.nonce===`${base}.crash.${phase}`&&Number.isSafeInteger(dead.pid)&&dead.pid>0,'Invalid process-death checkpoint');
    validateResult(alive,{action:'verify-crash',phase,nonce:`${base}.recover-${phase}`});
-   requireValue(alive.pid!==dead.pid,'Recovery reused the killed PID');reports.push({phase,killedPid:dead.pid,recoveredPid:alive.pid,nonce:alive.nonce,status:'passed'});
-  }
-  return reports;
- });
- if(recovery){result.storageRecovery='passed';result.processDeath=recovery;}
+   requireValue(alive.pid!==dead.pid,'Recovery reused the killed PID');return {phase,killedPid:dead.pid,recoveredPid:alive.pid,nonce:alive.nonce,status:'passed'};
+  });if(proof)recovery.push(proof);
+ }
+ result.processDeath=recovery;
+ result.phaseOutcomes=Object.fromEntries(phases.map(phase=>[phase,recovery.some(r=>r.phase===phase)?{status:'passed'}:driverFailure&&[`crash-${phase}`,`recover-${phase}`].includes(summary.stage)?{status:'failed',exitCode:summary.commandExitCode}:{status:'not-run'}]));
+ if(recovery.length===phases.length)result.storageRecovery='passed';
+ else if(driverFailure&&/^(crash|recover)-/.test(summary.stage))result.storageRecovery='failed';
+ if(functional&&summary?.upgrade==='not-run')result.sameSignatureUpgrade='not-run';
  const upgrade=await check('upgrade',async()=>{
   requireValue(versionCode===2,'Final APK must be vc2 to prove increasing-version upgrade');
   const before=await read('upgrade-before'),after=await read('upgrade-after');
@@ -108,7 +126,8 @@ export async function inspectAcceptanceEvidence(root,certificate,versionCode){
   return {status:'passed',fromVersionCode:1,toVersionCode:2,certificateSha256:certificate,account:after.result.account};
  });
  if(upgrade){result.sameSignatureUpgrade='passed';result.upgrade=upgrade;}
- for(const variant of ['normal','realistic','extreme']){
+ else if(driverFailure&&summary.stage.startsWith('upgrade'))result.sameSignatureUpgrade='failed';
+ if(!functional)for(const variant of ['normal','realistic','extreme']){
   const report=await check('performance '+variant,async()=>{
    const raw=await read('performance-'+variant);validateMeasurement(raw,{action:'performance',phase:variant,nonce:`${base}.performance-${variant}`});
    requireValue(equal(raw,summary?.performance?.[variant]),'Summary differs from raw100-sample measurement');return raw;
@@ -121,10 +140,11 @@ export async function inspectAcceptanceEvidence(root,certificate,versionCode){
  });if(anr)result.anr=anr;
  await check('summary contract',async()=>{
   requireValue(summary?.schema===1&&summary.target==='explicit-disposable-emulator'&&summary.applicationId==='io.github.nightshang.chache'&&summary.recovery==='passed'&&summary.upgrade==='passed'&&equal(summary.processDeathPhases,phases)&&summary.physicalPhone==='not-verified'&&summary.audibleOutput==='not-verified'&&summary.frameTiming==='not-measured'&&summary.finiteHistoryMaximum===false,'Incomplete native acceptance summary');
-  const status=Object.values(result.performance).every(r=>r.status==='passed')&&result.anr.status==='passed'?'passed':'failed';requireValue(summary.status===status,'Summary hides a failed performance/ANR gate');
+  const status=result.anr.status==='failed'?'failed':functional?'blocked':Object.values(result.performance).every(r=>r.status==='passed')&&result.anr.status==='passed'?'passed':'failed';requireValue(summary.status===status,'Summary hides a failed or unrun performance/ANR gate');
  });
- if(errors.length===0)result.status=summary.status;
- else result.reason=errors.join('; ');
+ if(driverFailure)result.status='failed';
+ else if(errors.length===0)result.status=summary.status;
+ if(errors.length>0)result.reason=errors.join('; ');
  return result;
 }
 export async function evidenceFiles(root){

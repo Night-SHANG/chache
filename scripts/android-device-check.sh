@@ -5,22 +5,26 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${ANDROID_ACCEPTANCE_OUT:-$ROOT/build/android-ci/device-acceptance}"
 mkdir -p "$OUT"
+SCOPE="${ANDROID_ACCEPTANCE_SCOPE:-full}"
+CERT1=''
+NONCE_BASE=''
 stage=preflight
 instrument_pid=''
-summary_written=false
 device_verified=false
 finish() {
   status=$?
-  if [ "$status" -ne 0 ] && [ "$summary_written" = false ]; then
+  if [ "$status" -ne 0 ]; then
     if [ -n "$instrument_pid" ]; then kill "$instrument_pid" >/dev/null 2>&1 || true; fi
-    if [ "$device_verified" = true ]; then "$ADB" -s "$SERIAL" shell am force-stop io.github.nightshang.chache >/dev/null 2>&1 || true; fi
-    node --input-type=module -e 'import{writeFileSync}from"node:fs";writeFileSync(process.argv[1],JSON.stringify({schema:1,status:process.argv[2]==="78"?"blocked":"failed",stage:process.argv[3],reason:"See named instrumentation/checkpoint reports; missing evidence is never a pass",physicalPhone:"not-verified"},null,2)+"\n")' "$OUT/summary.json" "$status" "$stage"
+    node "$ROOT/scripts/android-device-summary.mjs" "$OUT" "$SCOPE" "$status" "$stage" "$CERT1" "$NONCE_BASE" || true
+    if [ "$device_verified" = true ]; then timeout 10 "$ADB" -s "$SERIAL" shell am force-stop io.github.nightshang.chache >/dev/null 2>&1 || true; fi
   fi
 }
 trap finish EXIT
+trap 'exit 124' TERM
 node --input-type=module -e 'import{writeFileSync}from"node:fs";writeFileSync(process.argv[1],JSON.stringify({schema:1,status:"running",physicalPhone:"not-verified"})+"\n")' "$OUT/summary.json"
 fail() { echo "$*" >&2; exit 1; }
 blocked() { echo "$*" >&2; exit 78; }
+[[ "$SCOPE" = full || "$SCOPE" = functional-only ]] || fail 'Unknown acceptance scope'
 [ "${1:-}" = --disposable-emulator ] || fail 'Required: --disposable-emulator <apk-vc1> <apk-vc2> [test-apk]; fixture reset is not allowed on a phone'
 shift
 [ "$#" -ge 2 ] && [ "$#" -le 3 ] || fail 'Expected vc1 APK, vc2 APK, and optional instrumentation APK'
@@ -120,6 +124,7 @@ run_action verify-upgrade none upgrade-after
 node --input-type=module -e 'import{readFileSync}from"node:fs";const a=JSON.parse(readFileSync(process.argv[1])).result.account,b=JSON.parse(readFileSync(process.argv[2])).result.account;if(JSON.stringify(a)!==JSON.stringify(b))throw Error("Upgrade changed account")' "$OUT/upgrade-before.json" "$OUT/upgrade-after.json"
 # Continue all specified measurement categories even when a complete category misses its gate.
 # Missing reports, incomplete transactions, or instrumentation errors still fail immediately.
+if [ "$SCOPE" = full ]; then
 for variant in normal realistic extreme; do
   stage="performance-$variant"; nonce="$NONCE_BASE.$stage"
   adb shell am force-stop "$PKG"
@@ -138,9 +143,15 @@ for variant in normal realistic extreme; do
     grep -F 'FAILURES!!!' "$OUT/$stage-instrumentation.txt" >/dev/null || fail 'Failed timing gate has no completed instrumentation assertion'
   fi
 done
+fi
 adb logcat -d -b events -v threadtime -s am_anr >"$OUT/anr-after.txt"
 node --input-type=module -e 'import{readFileSync,writeFileSync}from"node:fs";const out=process.argv[1],before=new Set(readFileSync(out+"/anr-before.txt","utf8").split("\n")),events=readFileSync(out+"/anr-after.txt","utf8").split("\n").filter(line=>!before.has(line)&&line.includes("io.github.nightshang.chache"));writeFileSync(out+"/anr-report.json",JSON.stringify({schema:1,status:events.length?"failed":"passed",observation:events.length?"target ANR event observed":"no target ANR event observed in events buffer during driver",observedEvents:events,frameTiming:"not-measured",eventBufferMayBeBounded:true},null,2)+"\n")' "$OUT"
-node --input-type=module -e 'import{readFileSync,writeFileSync}from"node:fs";const out=process.argv[1],performance=Object.fromEntries(["normal","realistic","extreme"].map(n=>[n,JSON.parse(readFileSync(out+"/performance-"+n+".json"))]));const anr=JSON.parse(readFileSync(out+"/anr-report.json"));const r={schema:1,status:Object.values(performance).every(r=>r.status==="passed")&&anr.status==="passed"?"passed":"failed",anr,frameTiming:"not-measured",target:"explicit-disposable-emulator",applicationId:"io.github.nightshang.chache",fromVersionCode:1,toVersionCode:2,certificateSha256:process.argv[2],processDeathPhases:["history-before","history-mid","b-after","a-before","a-after","receipt-lost"],recovery:"passed",upgrade:"passed",performance,physicalPhone:"not-verified",audibleOutput:"not-verified",finiteHistoryMaximum:false};writeFileSync(out+"/summary.json",JSON.stringify(r,null,2)+"\n")' "$OUT" "$CERT1"
-summary_written=true
+stage=complete
+node "$ROOT/scripts/android-device-summary.mjs" "$OUT" "$SCOPE" 0 "$stage" "$CERT1" "$NONCE_BASE"
+if [ "$SCOPE" = functional-only ]; then
+  node --input-type=module -e 'import{readFileSync}from"node:fs";const r=JSON.parse(readFileSync(process.argv[1]));if(r.status!=="blocked"||r.recovery!=="passed"||r.upgrade!=="passed"||r.anr.status!=="passed")throw Error("Functional evidence failed or incomplete")' "$OUT/summary.json"
+  echo 'Functional recovery and same-key upgrade completed; all performance categories NOT RUN and formal acceptance BLOCKED.'
+  exit 0
+fi
 node --input-type=module -e 'import{readFileSync}from"node:fs";if(JSON.parse(readFileSync(process.argv[1])).status!=="passed")throw Error("Complete native timing matrix did not meet acceptance gates")' "$OUT/summary.json"
 echo 'Native recovery, same-key install -r upgrade, and all measured performance categories passed on the disposable emulator.'
