@@ -60,10 +60,10 @@ test('forklift movement remains lighter than shipment and chain signals',()=>{
  const forklift=samples(loadSoundAsset('forklift'));
  for(const name of ['ship','chain2','chain3','chain4'] as const){const other=samples(loadSoundAsset(name));assert.ok(peak(forklift)<peak(other)*0.5);assert.ok(energy(forklift)<energy(other)*0.4);}
 });
-test('licensed UI click uses the approved effective 0.24 peak while legacy pick/place samples retain their mix',()=>{
+test('licensed UI click uses the approved effective 0.24 peak while pick is unchanged and place uses its approved 2dB gain',()=>{
  const click=samples(loadSoundAsset('ui_click')).map(value=>value*UI_CLICK_GAIN);
  assert.ok(Math.abs(peak(click)-0.24)<0.00001,`effective UI click peak ${peak(click)}`);
- for(const [name,expectedPeak] of [['pick',0.16],['place',0.22]] as const){const other=samples(loadSoundAsset(name));assert.ok(Math.abs(peak(other)-expectedPeak)<0.00004,`${name}: original peak`);}
+ for(const [name,expectedPeak] of [['pick',0.16],['place',0.22*10**(2/20)]] as const){const other=samples(loadSoundAsset(name));assert.ok(Math.abs(peak(other)-expectedPeak)<0.00004,`${name}: approved peak`);}
  // Business cue priority is independently exercised by ui-feedback-policy-v107.test.ts; it does not depend on UI amplitude.
 });
 test('UI click is the selected short source recording in 44.1kHz stereo PCM',()=>{

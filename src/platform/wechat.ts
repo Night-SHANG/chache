@@ -1,4 +1,5 @@
 import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
+import {MUSIC_LEVELS} from '../shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
@@ -43,7 +44,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  let soundtrack:MiniAudio|undefined;
  const music=createMusicController(onError=>{
   if(!soundtrack){soundtrack=host.createInnerAudioContext();try{soundtrack.onError?.(onError);}catch{/* Optional host error listener. */}}
-  soundtrack.src='assets/bgm.mp3';soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;
+  soundtrack.src='assets/bgm.mp3';soundtrack.loop=true;soundtrack.volume=MUSIC_LEVELS.normal;
   const audio=soundtrack;return {play:()=>audio.play(),pause:()=>{if(audio.pause)audio.pause();else audio.stop();},setVolume:(volume:number)=>{audio.volume=volume;}};
  });
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
@@ -58,6 +59,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
   },
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,offsetX*dpr,offsetY*dpr);return ctx;},
   backgroundBounds:()=>scale>0&&Number.isFinite(viewport.w/scale)?{x:(L.width-viewport.w/scale)/2,y:0,w:viewport.w/scale,h:L.height}:undefined,
+  overlayBounds:()=>scale>0&&Number.isFinite(canvas.width/(scale*dpr))?{x:-offsetX/scale,y:-offsetY/scale,w:canvas.width/(scale*dpr),h:canvas.height/(scale*dpr)}:undefined,
   frame:callback=>clock.requestAnimationFrame(()=>callback(clock.now())),now:clock.now,wallTime:()=>Date.now(),
   onPointer:callback=>{
    const convert=(type:PointerEvent['type'])=>(event:TouchEvent)=>{

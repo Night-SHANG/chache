@@ -47,21 +47,21 @@ for(const kind of ['browser','wechat'] as const){
  test(`${kind} pause-menu ducking preserves one continuous music player and only changes gain`,()=>{
   const f=fixture(kind);try{
    state(f);const music=f.audio[0];music.currentTime=42;const plays=music.plays,pauses=music.pauses;
-   state(f,true,false,true);assert.equal(music.volume,0.12);assert.equal(music.audible,true);assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);
+   state(f,true,false,true);assert.equal(music.volume,0.12*10**(-2/20));assert.equal(music.audible,true);assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);
    const writes=music.volumeChanges.length;for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.volumeChanges.length,writes);
-   state(f);assert.equal(music.volume,0.18);assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);assert.equal(f.audio.length,1);
+   state(f);assert.equal(music.volume,0.18*10**(-2/20));assert.equal(music.currentTime,42);assert.equal(music.plays,plays);assert.equal(music.pauses,pauses);assert.equal(f.audio.length,1);
   }finally{f.restore();}
  });
  test(`${kind} initially ducked music and retries apply pause-menu gain before playing`,async()=>{
   const f=fixture(kind);try{
-   f.initialPlay=()=>Promise.reject(Error('autoplay denied'));state(f,true,false,true);const music=f.audio[0];assert.equal(music.volume,0.12);await settle();assert.equal(music.audible,false);
-   music.nextPlay=undefined;f.down();assert.equal(music.volume,0.12);assert.equal(music.audible,true);assert.equal(f.audio.length,1);
+   f.initialPlay=()=>Promise.reject(Error('autoplay denied'));state(f,true,false,true);const music=f.audio[0];assert.equal(music.volume,0.12*10**(-2/20));await settle();assert.equal(music.audible,false);
+   music.nextPlay=undefined;f.down();assert.equal(music.volume,0.12*10**(-2/20));assert.equal(music.audible,true);assert.equal(f.audio.length,1);
   }finally{f.restore();}
  });
  test(`${kind} hidden ducked music stays silent and returns at reduced gain without rewinding`,()=>{
   const f=fixture(kind);try{
    state(f,true,false,true);const music=f.audio[0];music.currentTime=23;f.hide();assert.equal(music.audible,false);
-   for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.plays,1);f.show();assert.equal(music.audible,true);assert.equal(music.volume,0.12);assert.equal(music.currentTime,23);assert.equal(music.plays,2);
+   for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.plays,1);f.show();assert.equal(music.audible,true);assert.equal(music.volume,0.12*10**(-2/20));assert.equal(music.currentTime,23);assert.equal(music.plays,2);
    state(f,false,false,true);assert.equal(music.audible,false);f.hide();f.show();assert.equal(music.plays,2);
   }finally{f.restore();}
  });
@@ -69,12 +69,12 @@ for(const kind of ['browser','wechat'] as const){
   const f=fixture(kind);try{
    state(f);const music=f.audio[0];f.failSetup=true;assert.doesNotThrow(()=>state(f,true,false,true));assert.equal(music.audible,true);assert.equal(music.plays,1);
    const attempts=music.volumeAttempts;for(let i=0;i<30;i++)state(f,true,false,true);assert.equal(music.volumeAttempts,attempts);
-   f.failSetup=false;state(f);state(f,true,false,true);assert.equal(music.volume,0.12);assert.equal(music.plays,1);assert.equal(music.pauses,0);
+   f.failSetup=false;state(f);state(f,true,false,true);assert.equal(music.volume,0.12*10**(-2/20));assert.equal(music.plays,1);assert.equal(music.pauses,0);
   }finally{f.restore();}
  });
  test(`${kind} starts one local looping music handle on initial enabled state without a gesture and never per frame`,()=>{
   const f=fixture(kind);try{
-   state(f);assert.equal(f.audio.length,1);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,0.18);assert.equal(music.plays,1);
+   state(f);assert.equal(f.audio.length,1);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,0.18*10**(-2/20));assert.equal(music.plays,1);
    for(let i=0;i<30;i++){state(f);f.down();}assert.equal(f.audio.length,1);assert.equal(music.plays,1);
   }finally{f.restore();}
  });

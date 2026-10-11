@@ -1,3 +1,4 @@
+import {shade} from './overlay.ts';
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
@@ -60,8 +61,8 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 }
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
-export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect): void {
-  renderScene(ctx,state,view,backgroundBounds);
+export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect): void {
+  renderScene(ctx,state,view,backgroundBounds,overlayBounds);
   const pressed=view.pressedControl;if(!pressed?.visible)return;
   const r=pressed.rect;ctx.save();
   roundedPath(ctx,r.x,r.y,r.w,r.h,Math.min(18,r.h/4));ctx.clip();
@@ -70,7 +71,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState, background
   ctx.fillStyle='rgba(255,244,208,.20)';ctx.fillRect(r.x+9,r.y+r.h-4,r.w-18,2);
   ctx.restore();
 }
-function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect): void {
+function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect): void {
   view=staticPresentationView(view);
   const playerMessage=(value:string|undefined):string|undefined=>{
     if(value==='记录超出496KiB限制，请先结束本局')return view.account?.run&&view.accountRunId&&!view.accountBlocked&&!view.needsResume&&state.phase!=='result'?'本局记录已达保存上限，请先结束本局。':'记录已达保存上限，暂时无法保存。';
@@ -84,15 +85,15 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, L.width, L.height);
   drawWarehouse(ctx, view, backgroundBounds);
-  if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'当前无法保存':'保存结果尚未确认',view.readOnlyReason??'请点“重试”，确认保存后继续游戏。');ctx.restore();return;}
-  if (view.confirmation) { drawConfirmation(ctx, state, view); ctx.restore(); return; }
+  if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'当前无法保存':'保存结果尚未确认',view.readOnlyReason??'请点“重试”，确认保存后继续游戏。',overlayBounds);ctx.restore();return;}
+  if (view.confirmation) { drawConfirmation(ctx, state, view, overlayBounds); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }
   if (!view.needsResume && drawHelpScreen(ctx,state,view,drawControls)) { ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'inboundMenu') { drawInboundMenu(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'colorTiers') { drawColorTierSelection(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'legacyRuns') { drawLegacyRuns(ctx,state,view); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'settings') { drawSettings(ctx, state, view); ctx.restore(); return; }
-  if(['shop','prepareTools','prepareCleanup'].includes(view.screen??'')){drawEconomyFlow(ctx,state,view);ctx.restore();return;}
+  if(['shop','prepareTools','prepareCleanup'].includes(view.screen??'')){drawEconomyFlow(ctx,state,view,overlayBounds);ctx.restore();return;}
   drawHeader(ctx, state, view);
   const shown=view.toolSelection?.preview??state;
   const board = view.animation?.board ?? shown.board;
@@ -104,14 +105,14 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   else text(ctx,'工具箱',58,1502,24,'#ffe3a3');
   drawFooter(ctx, state, view);
   if (!view.practice&&view.developerMode === true && view.debug) drawDebug(ctx, state, view);
-  if (view.needsResume) drawRecovery(ctx,state,view);
-  else if (view.paused && state.phase!=='result') drawActivePause(ctx, state, view);
+  if (view.needsResume) drawRecovery(ctx,state,view,overlayBounds);
+  else if (view.paused && state.phase!=='result') drawActivePause(ctx, state, view, overlayBounds);
   else if(view.toolSelection)drawToolSelection(ctx,state,view);
-  else if(view.supplyUpgrade)drawFlow(ctx,state,view,'选择专供货类','');
-  else if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)drawCleanupChoices(ctx,state,view);
-  else if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)drawGrowthUpgrades(ctx,state,view);
-  else if (state.phase === 'upgrade' && !view.animation&&!isOutboundEndlessV10(state)&&!isOutboundToolsRun(state)&&!isInboundRun(state)) drawUpgrades(ctx, state);
-  else if (!view.practice&&state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view);
+  else if(view.supplyUpgrade)drawFlow(ctx,state,view,'选择专供货类','',overlayBounds);
+  else if(isInboundRun(state)&&state.phase==='cleanup'&&!view.animation)drawCleanupChoices(ctx,state,view,overlayBounds);
+  else if(isInboundV9(state)&&state.phase==='upgrade'&&!view.animation)drawGrowthUpgrades(ctx,state,view,overlayBounds);
+  else if (state.phase === 'upgrade' && !view.animation&&!isOutboundEndlessV10(state)&&!isOutboundToolsRun(state)&&!isInboundRun(state)) drawUpgrades(ctx, state, overlayBounds);
+  else if (!view.practice&&state.phase === 'result' && !view.animation && view.noticeFx?.kind !== 'fail') drawResult(ctx, state, view, overlayBounds);
   if (!view.paused && !view.needsResume && view.noticeFx) drawNotice(ctx, view);
   if (!view.paused && !view.needsResume && ['input','rescue'].includes(state.phase) && !view.animation&&!view.toolSelection&&!view.supplyUpgrade) drawControls(ctx,state,view);
   if(isInboundRun(state))drawGrowthFeedback(ctx,state,view);
@@ -498,11 +499,10 @@ function drawFooter(ctx: Context, state: GameRun, view: ViewState): void {
   }
 }
 
-function shade(ctx: Context): void { ctx.fillStyle = 'rgba(5,11,18,.84)'; ctx.fillRect(0, 0, 1080, 1920); }
 
-function drawRecovery(ctx: Context, state:GameRun, view:ViewState): void {
+function drawRecovery(ctx: Context, state:GameRun, view:ViewState, overlayBounds?:Rect): void {
   const error=view.recoveryError;
-  shade(ctx);panel(ctx,{x:173,y:582,w:734,h:839},'#30455a','#9aabaf',28);
+  shade(ctx,overlayBounds);panel(ctx,{x:173,y:582,w:734,h:839},'#30455a','#9aabaf',28);
   hazard(ctx,{x:201,y:610,w:678,h:19});forklift(ctx,540,744,140,-.12);
   outlinedText(ctx,error?'暂时无法读取进度':'继续上次游戏？',540,868,error?49:62,CREAM,'center');
   const identity=state.mode==='color_exit'?outboundLabel(state):isInfiniteInbound(state)?'无限入库':state.mode==='rush'?'加急模式':state.mode==='daily'?`每日挑战 · ${dailyChallengeDay(state,view)??'日期待确认'}`:state.mode==='tutorial'?'入库教学':'入库模式';
@@ -523,8 +523,8 @@ function wrap(ctx: Context, value: string, x: number, y: number, width: number, 
   if (line) text(ctx, line, x, lineY, fontSize, '#d5dce1', 'left', 500);
 }
 
-function drawUpgrades(ctx: Context, state: RunState): void {
-  shade(ctx); text(ctx, `第 ${state.shift} 班 · 已完成 ${state.completedOrders} 单`, 540, 419, 29, '#b8c9d6', 'center');
+function drawUpgrades(ctx: Context, state: RunState, overlayBounds?:Rect): void {
+  shade(ctx,overlayBounds); text(ctx, `第 ${state.shift} 班 · 已完成 ${state.completedOrders} 单`, 540, 419, 29, '#b8c9d6', 'center');
   outlinedText(ctx, '选择一项升级', 540, 520, 75, '#ffe5a1', 'center');
   state.upgradeChoices.forEach((id, index) => {
     const upgrade = UPGRADES.find(u => u.id === id), r = L.upgradeRects[index]; if (!upgrade || !r) return;
@@ -559,8 +559,8 @@ function drawUpgradeModifier(ctx: Context, upgrade: Upgrade, r: Rect, color: str
   text(ctx, label, x, r.y + 284, 22, '#d6e1de', 'center', 600);
 }
 
-function drawResult(ctx: Context, state: GameRun, view: ViewState): void {
-  shade(ctx);const reward=resultEarnedCoins(state,view);
+function drawResult(ctx: Context, state: GameRun, view: ViewState, overlayBounds?:Rect): void {
+  shade(ctx,overlayBounds);const reward=resultEarnedCoins(state,view);
   if(state.mode==='color_exit'){
     const endless=[10,13].includes(state.rulesetVersion),retired=endless&&state.endReason==='retired';
     const blocked=[8,10].includes(state.rulesetVersion)&&state.result==='failed'&&state.board[76]!==null;
@@ -734,8 +734,8 @@ function drawSettings(ctx: Context, state: GameRun, view: ViewState): void {
   drawPersistenceWarnings(ctx,view,bottom+100,540,774);
 }
 
-function drawActivePause(ctx:Context,state:GameRun,view:ViewState):void {
-  shade(ctx);panel(ctx,{x:173,y:395,w:734,h:1464},'#30455a','#95a9b1',28);
+function drawActivePause(ctx:Context,state:GameRun,view:ViewState,overlayBounds?:Rect):void {
+  shade(ctx,overlayBounds);panel(ctx,{x:173,y:395,w:734,h:1464},'#30455a','#95a9b1',28);
   hazard(ctx,{x:201,y:423,w:678,h:18});
   outlinedText(ctx,'已暂停',540,520,62,CREAM,'center');
   const goal=view.practice?'教学练习':state.mode==='color_exit'?[10,13].includes(state.rulesetVersion)?`无限出库 · 已出货 ${state.completedOrders} 批`:`出货 ${state.completedOrders}/30 批`
@@ -747,8 +747,8 @@ function drawActivePause(ctx:Context,state:GameRun,view:ViewState):void {
   drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,752,540,630);
 }
 
-function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
-  shade(ctx);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
+function drawConfirmation(ctx:Context,state:GameRun,view:ViewState,overlayBounds?:Rect):void {
+  shade(ctx,overlayBounds);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
   const confirmation=view.confirmation,kind=confirmation?.kind,set=confirmation?.cosmeticSetId?getCosmeticSet(confirmation.cosmeticSetId):undefined,quote=confirmation?.cosmeticSetQuote,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
   const title=kind==='purchaseCosmeticSet'&&set?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${set.name}套装？`:kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置成绩记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
   outlinedText(ctx,title,540,747,kind==='purchaseCosmeticSet'||kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center');
@@ -770,12 +770,12 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState):void {
   drawControls(ctx,state,view);
 }
 
-function drawFlow(ctx:Context,state:GameRun,view:ViewState,title:string,description:string):void {
- shade(ctx);panel(ctx,{x:132,y:395,w:816,h:1230},'#293f51','#718d98',24);outlinedText(ctx,title,540,520,55,CREAM,'center');wrap(ctx,description,210,650,660,27,40);drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1700);
+function drawFlow(ctx:Context,state:GameRun,view:ViewState,title:string,description:string,overlayBounds?:Rect):void {
+ shade(ctx,overlayBounds);panel(ctx,{x:132,y:395,w:816,h:1230},'#293f51','#718d98',24);outlinedText(ctx,title,540,520,55,CREAM,'center');wrap(ctx,description,210,650,660,27,40);drawControls(ctx,state,view);drawPersistenceWarnings(ctx,view,1700);
 }
-function drawEconomyFlow(ctx:Context,state:GameRun,view:ViewState):void {
+function drawEconomyFlow(ctx:Context,state:GameRun,view:ViewState,overlayBounds?:Rect):void {
  const screen=view.screen,title=screen==='prepareTools'?'选择携带道具':screen==='prepareCleanup'?'选择清扫方式':view.guideTrack==='outbound'?'出库引导':'入库引导';
- if(screen==='prepareCleanup'){drawCleanupChoices(ctx,state,view);return;}
+ if(screen==='prepareCleanup'){drawCleanupChoices(ctx,state,view,overlayBounds);return;}
  if(screen==='shop'){drawShop(ctx,state,view);return;}
  outlinedText(ctx,title,540,220,72,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,340,31,'#ffe3a3','center');
  const description=screen==='prepareTools'?'最多携带2种 · 每种1件 · 未用的结束后退回':view.guideTrack==='outbound'?'在真实普通简单局里学习连接出口与双色出货。':view.prepareIntent&&[16,18].includes(view.prepareIntent.spec.rulesetVersion)?'拖放货件，同图标凑单，留空路出货。':'在真实五班局里学习订单、加急与清扫。';
@@ -859,8 +859,8 @@ function drawToolCard(ctx:Context,state:ToolRun,control:UiControl):void {
  if(!disabled)text(ctx,'点击使用',r.x+r.w/2,r.y+r.h-35,27,'#ffe4a2','center');
 }
 
-function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState):void {
- ctx.fillStyle='rgba(5,11,18,.65)';ctx.fillRect(0,0,1080,1920);
+function drawCleanupChoices(ctx:Context,state:GameRun,view:ViewState,overlayBounds?:Rect):void {
+ shade(ctx,overlayBounds,.65);
  outlinedText(ctx,'选择清扫方式',540,470,67,CREAM,'center');text(ctx,'本局只能选择一种清扫方式',540,554,28,'#cad9da','center',500);
  CLEANUP_RECTS.forEach((r,index)=>{
   panel(ctx,r,'#304957','#a3a18b',22);hazard(ctx,{x:r.x+24,y:r.y+22,w:r.w-48,h:10});
@@ -880,8 +880,8 @@ function drawToolSelection(ctx:Context,state:GameRun,view:ViewState):void {
  ctx.restore();
  text(ctx,tool.error??ITEM_NAMES[tool.item],540,1468,25,tool.error?'#ffb28b':'#ffe3a3','center');drawControls(ctx,state,view);
 }
-function drawGrowthUpgrades(ctx:Context,state:import('../domain/v9/types.ts').InboundRunV9,view:ViewState):void {
- shade(ctx);text(ctx,`已完成 ${state.completedOrders} 单`,540,419,29,'#b8c9d6','center');outlinedText(ctx,'选择一项升级',540,520,75,'#ffe5a1','center');
+function drawGrowthUpgrades(ctx:Context,state:import('../domain/v9/types.ts').InboundRunV9,view:ViewState,overlayBounds?:Rect):void {
+ shade(ctx,overlayBounds);text(ctx,`已完成 ${state.completedOrders} 单`,540,419,29,'#b8c9d6','center');outlinedText(ctx,'选择一项升级',540,520,75,'#ffe5a1','center');
  state.upgradeChoices.forEach((id,index)=>{const upgrade=UPGRADES_V9.find(u=>u.id===id),r=L.upgradeRects[index];if(!upgrade||!r)return;const before=state.levels[id],after=before+1;panel(ctx,r,['#1d4c69','#493462','#5a472c'][index],['#6dbde1','#b091df','#efbb5d'][index],21);text(ctx,upgrade.title,r.x+r.w/2,r.y+78,32,CREAM,'center');text(ctx,`${before}层 → ${after}层`,r.x+r.w/2,r.y+159,30,'#ffe3a3','center');
   const projected=chooseUpgradeV9(state,id,id==='cargo_supply'?state.supplyCargo??CARGO[0].id:undefined).state;
   const beforeDistribution=generationDistributionV9(state),afterDistribution=generationDistributionV9(projected);

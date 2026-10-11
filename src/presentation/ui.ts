@@ -115,13 +115,13 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     return controls;
   }
   if (view.paused && state.phase!=='result') return [
-    control({...L.resume,h:104},'继续游戏',{type:'continue'}),
-    control({...L.restart,y:1220,h:104},'重新开始',restartAction(state)),
-    control({...L.restart,y:1350,h:104},'返回主页',{type:'home'}),
-    control({...L.restart,y:1480,h:104},'设置',{type:'settings'}),
-    control({...L.restart,y:1610,h:104},'玩法说明',{type:'help'}),
-    ...((state.mode==='endless'||[10,13].includes(state.rulesetVersion))&&state.phase==='input'?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishEndless'})]:[]),
-    ...(state.overtime?[control({...L.restart,y:1740,h:104},'结束并结算',{type:'finishOvertime'})]:[]),
+    control({...L.resume,y:L.resume.y-200,h:104},'继续游戏',{type:'continue'}),
+    control({...L.restart,y:1020,h:104},'重新开始',restartAction(state)),
+    control({...L.restart,y:1150,h:104},'返回主页',{type:'home'}),
+    control({...L.restart,y:1280,h:104},'设置',{type:'settings'}),
+    control({...L.restart,y:1410,h:104},'玩法说明',{type:'help'}),
+    ...((state.mode==='endless'||[10,13].includes(state.rulesetVersion))&&state.phase==='input'?[control({...L.restart,y:1540,h:104},'结束并结算',{type:'finishEndless'})]:[]),
+    ...(state.overtime?[control({...L.restart,y:1540,h:104},'结束并结算',{type:'finishOvertime'})]:[]),
   ];
   if (state.phase === 'result' && view.noticeFx?.kind === 'fail') return [];
   if (state.phase === 'result' && !view.animation) {

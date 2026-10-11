@@ -20,6 +20,8 @@ export interface Platform {
  beginFrame():CanvasRenderingContext2D;
  /** Logical horizontal extent of the safe viewport; never changes input geometry. */
  backgroundBounds?():Rect|undefined;
+ /** Full screen canvas in logical coordinates, separate from finite scenery bounds. */
+ overlayBounds?():Rect|undefined;
  frame(callback:(now:number)=>void):number;
  onPointer(callback:(event:PointerEvent)=>void):void;
  onWheel?(callback:(event:WheelEvent)=>boolean):void;

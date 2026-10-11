@@ -26,7 +26,7 @@ const session=new GameSession(platform,{seed,mode:__DEV_DIAGNOSTICS__&&params.ge
 platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else session.input[event.type](event.point,event.id);});
 platform.onWheel?.(event=>session.input.wheel(event.point,event.deltaY));
 platform.onHide(()=>session.hide());platform.onShow(()=>{invalidateCosmeticPreviewCache();session.show();});
-function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.());platform.frame(frame);}platform.frame(frame);
+function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.());platform.frame(frame);}platform.frame(frame);
 // Local browser verification surface. Never imported by the WeChat entry point.
 if(__DEV_DIAGNOSTICS__)Object.assign(window,{__WAREHOUSE__:{getState:()=>session.state,getView:()=>session.view,legalMoves:()=>findPlayableMoves(session.state),preview:(pieceId:string,origin:{x:number;y:number})=>previewPlayablePlacement(session.state,pieceId,origin),checksum:()=>playableChecksum(session.state),version:__APP_VERSION__}});
 }

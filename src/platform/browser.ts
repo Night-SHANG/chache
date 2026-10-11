@@ -1,4 +1,5 @@
 import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
+import {MUSIC_LEVELS} from '../shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
 import { SOUND_NAMES } from './types.ts';
@@ -15,7 +16,7 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
  let soundtrack:HTMLAudioElement|undefined;
  const music=createMusicController(onError=>{
   if(!soundtrack){soundtrack=new Audio('assets/bgm.mp3');try{soundtrack.addEventListener?.('error',onError);}catch{/* Optional host error listener. */}}
-  soundtrack.loop=true;soundtrack.volume=AUDIO_LEVELS.music;
+  soundtrack.loop=true;soundtrack.volume=MUSIC_LEVELS.normal;
   const audio=soundtrack;return {play:()=>audio.play(),pause:()=>audio.pause(),setVolume:(volume:number)=>{audio.volume=volume;}};
  });
  const stopSounds=()=>{for(const audio of sounds.values()){
@@ -30,6 +31,7 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
   }},
   beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,(rect.w-L.width*scale)*dpr/2,(rect.h-L.height*scale)*dpr/2);return ctx;},
   backgroundBounds:()=>scale>0&&Number.isFinite(rect.w/scale)?{x:(L.width-rect.w/scale)/2,y:0,w:rect.w/scale,h:L.height}:undefined,
+  overlayBounds:()=>scale>0&&Number.isFinite(canvas.width/(scale*dpr))?{x:(L.width-rect.w/scale)/2,y:(L.height-rect.h/scale)/2,w:canvas.width/(scale*dpr),h:canvas.height/(scale*dpr)}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{
    const activePointers=new Set<number>();
