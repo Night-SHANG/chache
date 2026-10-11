@@ -1,6 +1,7 @@
-import test from 'node:test';
+import test,{after} from 'node:test';
 import assert from 'node:assert/strict';
-import {cp,mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
+import {cp,mkdir,mkdtemp,readFile,rm,symlink,writeFile} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
 import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 
@@ -42,6 +43,34 @@ test('Android bootstrap installs both locks and compiles before reporting withou
  assert.deepEqual(state,{phase:'bootstrap',publishApk:false,reason:'Native storage, geometry, lifecycle and acceptance integration remain required.'});
  const pkg=JSON.parse(await read('package.json'));
  assert.equal(pkg.scripts['verify:android'],'node scripts/verify-android-build.mjs staging');
+});
+
+test('CI font setup uses the exact official baseline bytes and verifies real embedded font families',async()=>{
+ const script=await read('scripts/setup-android-ci-fonts.sh').catch(()=>null);
+ assert.ok(script,'Pinned CI font setup is missing');
+ assert.match(script,/raw\.githubusercontent\.com\/notofonts\/noto-cjk\/523d033d6cb47f4a80c58a35753646f5c3608a78\/Sans\/OTC/);
+ for(const hash of ['b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a','faa5f3656a78b2e2d450d27fe8382c778bc2b6bb5ea29c986664a6a435056ceb'])assert.ok(script.includes(hash));
+ assert.match(script,/sha256sum --check/);
+ assert.doesNotMatch(script,/chmod|chown|udev|usermod|--licenses|secrets\.|registerFromPath\([^\n]*,\s*['"]/);
+ const workflow=await read('.github/workflows/android.yml');
+ assert.ok(workflow.indexOf('bash scripts/setup-android-ci-fonts.sh')<workflow.indexOf('node scripts/android-test-report.mjs run'));
+ assert.ok(workflow.indexOf('Probe unchanged frozen-render assertions')<workflow.indexOf('node scripts/android-test-report.mjs run'));
+ assert.ok(workflow.includes('Required Noto Sans CJK SC availability passed via unchanged v101 assertion'));
+ for(const path of ['cosmetic-art','material-crate-shells','playful-cosmetic-art','shop-button-consistency-v101','v020-initial-scenes','v021-rendered-art-preservation','whole-crate-art'])assert.ok(workflow.includes(`tests/${path}.test.ts`));
+ const verified=spawnSync('bash',[join(root,'scripts/setup-android-ci-fonts.sh'),'--verify'],{cwd:root,encoding:'utf8',timeout:30000});
+ assert.equal(verified.status,0,verified.stdout+verified.stderr);
+ assert.match(verified.stdout,/Pinned Noto CJK font probe passed/);
+ assert.match(verified.stdout,/Noto Sans CJK JP/);
+});
+
+test('bootstrap obtains native compiler feedback before the complete unchanged regression gate',async()=>{
+ const workflow=await read('.github/workflows/android.yml');
+ const stage=workflow.indexOf('npm run verify:android');
+ const compile=workflow.indexOf('testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest');
+ const regression=workflow.indexOf('node scripts/android-test-report.mjs run');
+ assert.ok(stage>=0&&stage<compile&&compile<regression,'Staging and compile must precede the full Node gate');
+ assert.equal([...workflow.matchAll(/node scripts\/android-test-report\.mjs run/g)].length,1);
+ assert.ok(regression<workflow.indexOf('write truthful bootstrap receipt'));
 });
 
 function failure(file:string,name:string,path:string,code='ENOENT'){
@@ -144,11 +173,24 @@ test('Node classifier fails closed for extra failures, duplicate baselines, skip
  ] as [unknown[],number][])assert.equal(report.classifyNodeEvents(events,exit,root).accepted,false);
 });
 
+let stagingSeed:Promise<string>|undefined;
+let stagingSeedPath:string|undefined;
+after(async()=>{if(stagingSeedPath)await rm(stagingSeedPath,{recursive:true,force:true});});
+async function buildStagingSeed(){
+ const seed=await mkdtemp(join(tmpdir(),'android-ci-production-seed-'));
+ stagingSeedPath=seed;
+ for(const path of ['src','scripts','assets','node_modules','package.json','package-lock.json','android-shell','docs'])await symlink(join(root,path),join(seed,path));
+ await cp(join(root,'THIRD_PARTY_NOTICES.md'),join(seed,'THIRD_PARTY_NOTICES.md'));
+ const built=spawnSync(process.execPath,[join(root,'scripts/build-android.mjs')],{cwd:seed,encoding:'utf8',timeout:120000});
+ assert.equal(built.status,0,built.stdout+built.stderr);
+ return seed;
+}
 async function stagingFixture(){
+ const source=await(stagingSeed??=buildStagingSeed());
  const dir=await mkdtemp(join(tmpdir(),'android-ci-staging-'));
  for(const path of ['build/android','android-shell/capacitor.config.json','android-shell/package-lock.json','package-lock.json','docs/android/ci-acceptance-state.json']){
   await mkdir(join(dir,path,'..'),{recursive:true});
-  await cp(join(root,path),join(dir,path),{recursive:true});
+  await cp(join(source,path),join(dir,path),{recursive:true});
  }
  return dir;
 }

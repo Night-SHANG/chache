@@ -1,0 +1,45 @@
+{
+  "sqliteVersion": "3.53.1",
+  "source": "actual child SIGKILL after uncommitted spilled DELETE/EXTRA transaction",
+  "fixtures": {
+    "valid": {
+      "archiveSha256": "ee01b18da2ebfc63cfee28d3bd92c5ecf3a458816e3237b4e84a73ba24f63908",
+      "files": {
+        "warehouse-v1.db": {
+          "bytes": 3674112,
+          "sha256": "7c44d3564381ad71734024707ce04997413c68df85e020b2c5b7d1565ff921f6"
+        },
+        "warehouse-v1.db-journal": {
+          "bytes": 9736,
+          "sha256": "c14995681efb13430427a8c59c0cc0f9d5c84bb4153107152aa725b6b5e87c72"
+        }
+      }
+    },
+    "future": {
+      "archiveSha256": "5f425083716c63fcb7fbe474963db2f8d35cf1c16b2e4d1f7e78aa7cc7b8baad",
+      "files": {
+        "warehouse-v1.db": {
+          "bytes": 3674112,
+          "sha256": "a117cccd7e63c7a1822821420368ee76735fae2274a8bbeb07887adda8f183a6"
+        },
+        "warehouse-v1.db-journal": {
+          "bytes": 9736,
+          "sha256": "04414287548a220ffb9c4da23cca0c605d58757585f25faf2e4112c8e4bfde03"
+        }
+      }
+    },
+    "corrupt": {
+      "archiveSha256": "bc28acb584087e3b01d74d366defb429637565292c290894bd220e6d3fd69a36",
+      "files": {
+        "warehouse-v1.db": {
+          "bytes": 3674112,
+          "sha256": "495f522bbd3475a985e4f0c24b9fa43cce8a9c7da837792c8a225a31175eb241"
+        },
+        "warehouse-v1.db-journal": {
+          "bytes": 9736,
+          "sha256": "633a145e034c2c467d378bb05d7e2a1f0f12abe8f5502bc9cab364d5ce386541"
+        }
+      }
+    }
+  }
+}

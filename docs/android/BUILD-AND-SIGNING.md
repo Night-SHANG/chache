@@ -21,6 +21,10 @@ cd android
 
 The root npm lock remains unchanged. Capacitor core/CLI/android8.5.3 are installed from the independent Android shell lock. Sync invokes that installed local CLI, with no implicit `npx` download.
 
+Hosted regression also requires the existing Noto Sans CJK SC font dependency. `scripts/setup-android-ci-fonts.sh` downloads only the official Noto CJK Sans2.004 Regular/Bold TTCs at commit `523d033d6cb47f4a80c58a35753646f5c3608a78`, checks their fixed SHA-256 bytes before installation into the tests' existing system-font paths, and probes embedded font families. It does not change Node preload/system-font discovery, old pixel assertions, game assets or APK contents. `--verify` checks an already-provisioned machine without installing fonts. `font-report.json` records source and actual hashes.
+
+For early native feedback, the hosted bootstrap runs static checks, the eight unchanged affected font assertions, staging verification and private native compilation before the complete Node regression. The full unchanged regression and exact-baseline gate remain mandatory before a successful bootstrap receipt; the APK delivery gate stays closed.
+
 ## Truthful Node regression accounting
 
 The reporting script actually invokes the unchanged `npm test` command. A custom Node reporter preserves Error causes, file/name/code/path and the final full-suite totals in `node-events.jsonl`. `node-test-report.json` records the direct command's exit code and `rawPassed` separately from exact-baseline acceptance. A raw exit1 with two known failures is never called a green `npm test`.

@@ -8,6 +8,7 @@ public class MainActivity extends BridgeActivity {
     protected void load() {
         OfflineServiceWorkerClient.install();
         registerPlugin(FixedAssetWebViewPlugin.class);
+        registerPlugin(WarehouseHostPlugin.class);
         // Overrides any legacy deployment root before the first queued page load.
         bridgeBuilder.setServerPath(new ServerPath(ServerPath.PathType.ASSET_PATH, "public"));
         super.load();

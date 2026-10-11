@@ -43,13 +43,26 @@ jobs:
         run: |
           npm ci
           npm --prefix android-shell ci
+      - name: Restore pinned official frozen-render fonts
+        run: bash scripts/setup-android-ci-fonts.sh
+      - name: Probe unchanged frozen-render assertions
+        run: |
+          node --test --test-concurrency=2 --test-name-pattern='^(classic and legacy outline retain frozen pixels with only the authorized waste label normalized|classic and legacy outline match frozen pixels with only the authorized waste label normalized|retained vehicle previews stay exact while approved material, theme and v024 heavy previews change|real inbound board, pending tray and drag preserve normalized 3 2 1 foreground pixels for all new crates, colors and outlines|v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers|v0\.20 scenes preserve all historical pixels after normalizing only the approved v1\.0\.3 title rename|all fourteen old cargo renders remain exact with five semantic colors and live countdowns at five sizes|all unmodified materials retain frozen pixels in every color and state with authorized waste wording)$' \
+            tests/cosmetic-art.test.ts tests/material-crate-shells.test.ts \
+            tests/playful-cosmetic-art.test.ts tests/shop-button-consistency-v101.test.ts \
+            tests/v020-initial-scenes.test.ts tests/v021-rendered-art-preservation.test.ts tests/whole-crate-art.test.ts
+          node --input-type=module - <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const path='build/android-ci/font-report.json',report=JSON.parse(readFileSync(path,'utf8'));
+          report.requiredSimplifiedChineseAssertion={file:'tests/shop-button-consistency-v101.test.ts',name:'v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers',status:'passed',worker:'fresh Node test process'};
+          writeFileSync(path,JSON.stringify(report,null,2)+'\n');
+          console.log('Required Noto Sans CJK SC availability passed via unchanged v101 assertion');
+          NODE
       - name: Static and production safety checks
         run: |
           npm run lint
           npm run typecheck
           npm run preflight
-      - name: Complete npm regression with exact baseline accounting
-        run: node scripts/android-test-report.mjs run
       - name: Build sync and verify isolated offline assets
         run: |
           npm run sync:android
@@ -63,6 +76,8 @@ jobs:
           ./gradlew --no-daemon --console=plain --version | tee ../build/android-ci/gradle-version.txt
           grep -F 'Gradle 8.14.3' ../build/android-ci/gradle-version.txt
           ./gradlew --no-daemon --console=plain testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest
+      - name: Complete npm regression with exact baseline accounting
+        run: node scripts/android-test-report.mjs run
       - name: Official headless emulator instrumentation
         if: steps.compile.outcome == 'success'
         shell: bash
@@ -89,6 +104,7 @@ jobs:
             build/android-ci/node-test-report.json
             build/android-ci/node-events.jsonl
             build/android-ci/sdk-report.json
+            build/android-ci/font-report.json
             build/android-ci/emulator-report.json
             build/android-ci/SHA256SUMS
             android/app/build/test-results/testDebugUnitTest/*.xml
