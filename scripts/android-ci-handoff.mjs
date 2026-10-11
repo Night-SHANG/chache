@@ -1,7 +1,7 @@
 import {copyFile,lstat,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-import {join,resolve} from 'node:path';
+import {join,resolve,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {aggregateAcceptanceStatus,parseApkIdentity,parseSourceMapping,inspectAcceptanceEvidence,evidenceFiles} from './android-ci-evidence.mjs';
 import {nativeInventory,parseNativeInstrumentation} from './android-native-instrumentation.mjs';
@@ -71,17 +71,38 @@ export async function verifyHandoffManifest({root,payload,context}){
 }
 function toolchain(){const home=process.env.ANDROID_HOME||process.env.ANDROID_SDK_ROOT;requireValue(home,'Existing official SDK missing');return name=>join(home,'build-tools/35.0.0',name);}
 export async function inspectHandoffApks(payload){
- const tool=toolchain(),apks={},assetSets={};
+ const tool=toolchain(),apks={},assetSets={},diagnostics=join(dirname(payload),'apk-diagnostics');
+ await mkdir(diagnostics,{recursive:true});
+ const diagnosticInfo=await lstat(diagnostics);requireValue(diagnosticInfo.isDirectory()&&!diagnosticInfo.isSymbolicLink(),'APK diagnostics directory must be regular');
+ async function probe(name,kind,args){
+  const path=join(diagnostics,`${name}-${kind}.txt`);
+  try{
+   const raw=execFileSync(tool('aapt'),args,{encoding:'utf8',timeout:30000,maxBuffer:1024*1024});await writeFile(path,raw);return raw;
+  }catch(error){
+   await writeFile(path,error.stdout??'');
+   await writeFile(join(diagnostics,'probe-error.json'),JSON.stringify({apk:name,probe:kind,status:error.status??null,signal:error.signal??null,message:error.message,stderr:String(error.stderr??'').slice(0,1024*1024)},null,2)+'\n');throw error;
+  }
+ }
  for(const [name,path] of Object.entries(apkPaths)){
   const full=join(payload,path);await regular(full);
-  const badging=execFileSync(tool('aapt'),['dump','badging',full],{encoding:'utf8',timeout:30000});
+  // Capture exact bounded tool output before any identity assertion, including failures.
+  const badging=await probe(name,'badging',['dump','badging',full]);
+  const manifestXml=await probe(name,'manifest',['dump','xmltree',full,'AndroidManifest.xml']);
   let identity;
   if(name==='test'){
-   const packages=[...badging.matchAll(/^package: name='([^']+)' versionCode='([^']+)' versionName='([^']+)'/gm)];
-   requireValue(packages.length===1&&packages[0][1]==='io.github.nightshang.chache.test'&&/^\d+$/.test(packages[0][2])&&packages[0][3].length>0,'Instrumentation APK exact package/version identity missing');
-   identity={applicationId:packages[0][1],versionCode:Number(packages[0][2]),versionName:packages[0][3]};
-   const manifestXml=execFileSync(tool('aapt'),['dump','xmltree',full,'AndroidManifest.xml'],{encoding:'utf8',timeout:30000});
-   requireValue(/android:name[^\n]*="androidx[.]test[.]runner[.]AndroidJUnitRunner"/.test(manifestXml)&&/android:targetPackage[^\n]*="io[.]github[.]nightshang[.]chache"/.test(manifestXml),'Instrumentation runner/target identity mismatch');
+   const packages=[...badging.matchAll(/^package: name='([^'\r\n]+)' versionCode='([^'\r\n]*)' versionName='([^'\r\n]*)'/gm)];
+   requireValue([...badging.matchAll(/^package:/gm)].length===1&&packages.length===1&&packages[0][1]==='io.github.nightshang.chache.test','Instrumentation APK exact package identity missing');
+   const code=packages[0][2];requireValue(/^\d*$/.test(code)&&(code===''||Number.isSafeInteger(Number(code))),'Instrumentation APK version metadata malformed');
+   // AGP 8.13.0's instrumentation template does not inject app version metadata.
+   // Preserve an absent code as null and the exact observed name, without defaults.
+   identity={applicationId:packages[0][1],versionCode:code===''?null:Number(code),versionName:packages[0][3]};
+   const lines=manifestXml.split('\n'),starts=lines.flatMap((line,i)=>/^\s*E: instrumentation\b/.test(line)?[i]:[]);
+   requireValue(starts.length===1,'Instrumentation runner/target must have one manifest declaration');
+   const start=starts[0],depth=/^\s*/.exec(lines[start])[0].length,block=[];
+   for(const line of lines.slice(start+1)){if(line.trim()&&/^\s*/.exec(line)[0].length<=depth)break;block.push(line);}
+   const values=name=>[...block.join('\n').matchAll(new RegExp('^\\s*A: android:'+name+'(?:\\([^)]*\\))?="([^"\\r\\n]*)"','gm'))].map(m=>m[1]);
+   const runners=values('name'),targets=values('targetPackage');
+   requireValue(runners.length===1&&runners[0]==='androidx.test.runner.AndroidJUnitRunner'&&targets.length===1&&targets[0]==='io.github.nightshang.chache','Instrumentation runner/target identity mismatch');
   }else {identity=parseApkIdentity(badging);requireValue(identity.versionCode===(name==='vc1'?1:2),'Product APK version mismatch');}
   const signature=execFileSync(tool('apksigner'),['verify','--verbose','--print-certs',full],{encoding:'utf8',timeout:30000});
   const signers=[...signature.matchAll(/^Signer #[0-9]+ certificate SHA-256 digest: ([a-f0-9]{64})$/gmi)];requireValue(signers.length===1,'APK must have one verified certificate');

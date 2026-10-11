@@ -139,6 +139,13 @@ jobs:
             build/android-ci/cache-init-report.json
             build/android-ci/cache-report.json
             build/android-ci/SHA256SUMS
+            build/android-ci/apk-diagnostics/vc1-badging.txt
+            build/android-ci/apk-diagnostics/vc1-manifest.txt
+            build/android-ci/apk-diagnostics/vc2-badging.txt
+            build/android-ci/apk-diagnostics/vc2-manifest.txt
+            build/android-ci/apk-diagnostics/test-badging.txt
+            build/android-ci/apk-diagnostics/test-manifest.txt
+            build/android-ci/apk-diagnostics/probe-error.json
             android/app/build/test-results/testDebugUnitTest/*.xml
             android/app/build/reports/lint-results-debug.xml
           if-no-files-found: error
@@ -250,6 +257,13 @@ jobs:
           path: |
             build/android-ci/android-build-receipt.json
             build/android-ci/handoff-verification.json
+            build/android-ci/apk-diagnostics/vc1-badging.txt
+            build/android-ci/apk-diagnostics/vc1-manifest.txt
+            build/android-ci/apk-diagnostics/vc2-badging.txt
+            build/android-ci/apk-diagnostics/vc2-manifest.txt
+            build/android-ci/apk-diagnostics/test-badging.txt
+            build/android-ci/apk-diagnostics/test-manifest.txt
+            build/android-ci/apk-diagnostics/probe-error.json
             build/android-ci/cache-init-report.json
             build/android-ci/space-before-download.json
             build/android-ci/space-after-download.json

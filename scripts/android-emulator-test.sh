@@ -118,7 +118,7 @@ report running 'API36 cold-boot emulator is ready; instrumentation has not passe
 # Only immutable prebuilt APKs are installed; this runner cannot compile or regenerate assets.
 require_owned_endpoint
 timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r "$HANDOFF/apks/warehouse-vc1-temporary-debug.apk" >"$OUT/native-install.txt" 2>&1
-timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r "$HANDOFF/apks/warehouse-androidTest.apk" >>"$OUT/native-install.txt" 2>&1
+timeout --signal=TERM --kill-after=5s 60s "$ADB" -s "$SERIAL" install -r -t "$HANDOFF/apks/warehouse-androidTest.apk" >>"$OUT/native-install.txt" 2>&1
 require_owned_endpoint
 set +e
 timeout --signal=TERM --kill-after=5s 1800s "$ADB" -s "$SERIAL" shell am instrument -w -r \

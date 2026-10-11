@@ -81,7 +81,7 @@ adb shell getprop ro.build.version.release >"$OUT/android-release.txt"
 adb shell getprop ro.build.fingerprint >"$OUT/android-build.txt"
 adb shell dumpsys webviewupdate >"$OUT/webview.txt"
 adb install -r "$APK1" | tee "$OUT/install-vc1.txt"
-adb install -r "$TEST_APK" | tee "$OUT/install-test.txt"
+adb install -r -t "$TEST_APK" | tee "$OUT/install-test.txt"
 adb logcat -d -b events -v threadtime -s am_anr >"$OUT/anr-before.txt"
 NONCE_BASE="$(date +%s).$$"
 run_action() {

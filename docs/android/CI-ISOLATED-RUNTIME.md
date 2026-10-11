@@ -1,6 +1,8 @@
 # Immutable build-to-runtime Android CI
 
-The branch-push-only Android workflow has two jobs with `contents: read`. The build keeps the existing complete npm regression accounting, static/production/font checks and real `:app` Java/unit/lint/build gates. It builds vc1, the test APK and vc2 using one job's ordinary temporary debug key. Both product APKs are checked for formal paid v1.0.10 content, embedded asset checksums, one signing certificate, alignment and absence of test JavaScript/classes. The test APK has its exact observed package/version, the expected runner/target, the test-only acceptance bundle and the same certificate. No private key or production signing credential is transferred.
+The branch-push-only Android workflow has two jobs with `contents: read`. The build keeps the existing complete npm regression accounting, static/production/font checks and real `:app` Java/unit/lint/build gates. It builds vc1, the test APK and vc2 using one job's ordinary temporary debug key. Both product APKs are checked for formal paid v1.0.10 content, embedded asset checksums, one signing certificate, alignment and absence of test JavaScript/classes. The test APK has its exact package, observed version metadata, the unique expected runner/target, the test-only acceptance bundle and the same certificate. No private key or production signing credential is transferred.
+
+The official [AGP8.13.0 instrumentation template](https://dl.google.com/dl/android/maven2/com/android/tools/build/builder/8.13.0/builder-8.13.0-sources.jar), `com/android/builder/internal/AndroidManifest.template`, does not inject product version metadata. Test APK badging with an empty version code is recorded as `versionCode: null`; its version name is retained exactly, including an empty string. No product version is fabricated. Product vc1/vc2 and1.0.10 checks remain strict. Bounded raw badging and manifest XML for each APK are written before identity assertions and preserved through fixed failure-artifact paths outside the immutable handoff.
 
 ## Handoff and source provenance
 
@@ -30,7 +32,7 @@ Exactly one official emulator is launched. Hardware mode preserves the360-second
 
 ## Direct-adb native protocol
 
-The prebuilt vc1/test APKs are installed and [official adb instrumentation](https://developer.android.com/studio/test/command-line) runs the generic native suite directly. No native test or500ms assertion is changed.
+The prebuilt vc1/test APKs are installed and [official adb instrumentation](https://developer.android.com/studio/test/command-line) runs the generic native suite directly. Only test APK installation uses `install -r -t`, as required by the [official adb test-APK guidance](https://developer.android.com/tools/adb); production installation and upgrade retain `install -r`. No native test or500ms assertion is changed.
 
 The inventory on the current source contains27 tests, including both ShellBoundary methods and the driver-only test. Inventory extraction includes timeout-bearing `@Test` annotations and ignores Java comments/literals. The parser checks the exact class#method set, total/current values, unique sequential starts, matching individual completion, outcome codes, failure stacks, one final JUnit count, final instrumentation code, shell exit and timeout. Bare `OK` is insufficient. The exact original log, its hash/size, command exit and all partial case outcomes are retained; join reparses that raw log and checks the recorded report.
 

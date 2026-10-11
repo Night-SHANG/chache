@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AGP 8.13.0 builder sources: com/android/builder/internal/AndroidManifest.template.
+     https://dl.google.com/dl/android/maven2/com/android/tools/build/builder/8.13.0/builder-8.13.0-sources.jar
+     Archive SHA256: 5ace0a6feb6537e338f881503ac4a6f625f9044b486b308a4cfc6c870b578692. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="#PACKAGE#">
+
+    <uses-sdk android:minSdkVersion="#MINSDKVERSION#" android:targetSdkVersion="#TARGETSDKVERSION#" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="#TESTRUNNER#"
+                     android:targetPackage="#TESTEDPACKAGE#"
+                     android:handleProfiling="#HANDLEPROFILING#"
+                     android:functionalTest="#FUNCTIONALTEST#"
+                     android:label="Tests for #TESTEDPACKAGE#"/>
+</manifest>

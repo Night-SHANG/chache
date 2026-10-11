@@ -24,8 +24,8 @@ test('real sparse runtime CLI verifies and joins immutable handoff without sourc
   const cert='f'.repeat(64);
   await writeFile(join(tools,'aapt'),`#!/usr/bin/env node
 const test=process.argv.some(p=>p.includes('androidTest.apk')),code=process.argv.some(p=>p.includes('vc2-'))?2:1;
-if(process.argv.includes('xmltree'))console.log('A: android:name(0x01010003)="androidx.test.runner.AndroidJUnitRunner"\\nA: android:targetPackage(0x01010021)="io.github.nightshang.chache"');
-else console.log("package: name='io.github.nightshang.chache"+(test?".test":"")+"' versionCode='"+code+"' versionName='"+(test?"1.0":"1.0.10")+"'\\napplication-label:'货箱最后一格'");
+if(process.argv.includes('xmltree'))console.log('E: manifest\\n  E: instrumentation\\n    A: android:name(0x01010003)="androidx.test.runner.AndroidJUnitRunner"\\n    A: android:targetPackage(0x01010021)="io.github.nightshang.chache"');
+else console.log("package: name='io.github.nightshang.chache"+(test?".test":"")+"' versionCode='"+(test?"":code)+"' versionName='"+(test?"":"1.0.10")+"'\\napplication-label:'货箱最后一格'");
 `,{mode:0o755});
   await writeFile(join(tools,'apksigner'),`#!/bin/sh\nprintf 'Signer #1 certificate SHA-256 digest: ${cert}\\n'\n`,{mode:0o755});
   await writeFile(join(tools,'zipalign'),'#!/bin/sh\nexit 0\n',{mode:0o755});
