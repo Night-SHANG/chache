@@ -18,6 +18,10 @@ trap finish EXIT
 trap 'reason="Product capture reached its bounded timeout"; exit 124' TERM
 [ -x "$ADB" ] || { reason='Official adb unavailable for product capture'; exit 1; }
 [ "$(timeout 10 "$ADB" -s "$SERIAL" shell getprop ro.kernel.qemu | tr -d '\r')" = 1 ] || { reason='Target did not confirm disposable emulator'; exit 1; }
+if [ -n "${ANDROID_EXPECTED_AVD_NAME:-}" ]; then
+  identity="$(timeout 5 "$ADB" -s "$SERIAL" emu avd name | tr -d '\r')" || { reason='Unique AVD ownership probe failed before capture'; exit 1; }
+  [ "$identity" = "$ANDROID_EXPECTED_AVD_NAME"$'\nOK' ] || { reason='Capture target is not the unique owned runtime AVD'; exit 1; }
+fi
 if [ -n "${ANDROID_PRODUCT_APK:-}" ]; then
   [ -f "$ANDROID_PRODUCT_APK" ] || { reason='Compiled product APK unavailable for independent capture'; exit 1; }
   if ! timeout 5 "$ADB" -s "$SERIAL" shell pm path io.github.nightshang.chache | grep -E '^package:' >/dev/null; then

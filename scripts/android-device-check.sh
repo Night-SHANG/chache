@@ -38,6 +38,10 @@ for tool in "$ADB" "$AAPT" "$SIGNER"; do [ -x "$tool" ] || blocked "Required off
 for file in "$APK1" "$APK2" "$TEST_APK"; do [ -f "$file" ] || fail "Required APK missing: $file"; done
 adb() { "$ADB" -s "$SERIAL" "$@"; }
 [ "$(adb shell getprop ro.kernel.qemu | tr -d '\r')" = 1 ] || fail 'Selected target did not confirm it is an emulator'
+if [ -n "${ANDROID_EXPECTED_AVD_NAME:-}" ]; then
+  identity="$(timeout 5 "$ADB" -s "$SERIAL" emu avd name | tr -d '\r')" || fail 'Unique AVD ownership probe failed before fixture reset'
+  [ "$identity" = "$ANDROID_EXPECTED_AVD_NAME"$'\nOK' ] || fail 'Fixture target is not the unique owned runtime AVD'
+fi
 device_verified=true
 PKG=io.github.nightshang.chache
 TEST_COMPONENT="$PKG.test/androidx.test.runner.AndroidJUnitRunner"

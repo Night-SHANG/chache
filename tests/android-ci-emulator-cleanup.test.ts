@@ -10,7 +10,7 @@ function running(pid:number){
  const p=spawnSync('ps',['-o','stat=','-p',String(pid)],{encoding:'utf8',timeout:1000});
  return p.status===0&&p.stdout.trim()!==''&&!p.stdout.trim().startsWith('Z');
 }
-async function fixture(resistant:boolean){
+async function fixture(resistant:boolean,stuckProbe=false){
  const root=await mkdtemp(join(tmpdir(),'android-owned-cleanup-'));await mkdir(join(root,'scripts'));
  const prefix=script.slice(0,script.indexOf("trap 'exit_status"));
  await writeFile(join(root,'owned.sh'),`#!/bin/bash
@@ -31,23 +31,23 @@ setsid bash "$ROOT/owned.sh" >/dev/null 2>&1 &
 PID=$!
 echo "$PID" > "$ROOT/owned.pid"
 for i in {1..100}; do [ -f "$ROOT/ready" ] && break; sleep .01; done
-booted=false
+booted=${stuckProbe?'true':'false'}
 cleanup
 echo finished > "$ROOT/finished"
 `);
  const unrelated=spawn('sleep',['60'],{detached:true,stdio:'ignore'});unrelated.unref();
  assert.ok(unrelated.pid);const unrelatedPid=unrelated.pid;
- const start=Date.now(),result=spawnSync('bash',[join(root,'scripts/harness.sh')],{encoding:'utf8',timeout:resistant?15000:3000,killSignal:'SIGKILL'});
+ const start=Date.now(),result=spawnSync('bash',[join(root,'scripts/harness.sh')],{encoding:'utf8',timeout:stuckProbe?8500:resistant?15000:3000,killSignal:'SIGKILL'});
  let ownedPid:number|undefined;
  try{
   ownedPid=Number((await readFile(join(root,'owned.pid'),'utf8')).trim());
   assert.equal(result.status,0,result.stderr||result.error?.message);
   assert.equal((await readFile(join(root,'finished'),'utf8')).trim(),'finished');
-  assert.equal(await readFile(join(root,'adb-called'),'utf8').catch(()=>''),'','Unknown endpoint must never receive emu kill');
+  assert.equal(await readFile(join(root,'adb-called'),'utf8').catch(()=>''),stuckProbe?'endpoint-command\n':'','Unknown endpoint must never receive emu kill');
   for(let i=0;i<20&&running(ownedPid);i++)await new Promise(r=>setTimeout(r,50));
   assert.equal(running(ownedPid),false,'Owned TERM-resistant session remains running');
   assert.equal(running(unrelatedPid),true,'Unrelated child was stopped');
-  assert.ok(Date.now()-start<(resistant?14500:2900),'Cleanup exceeded bounded shutdown allowance');
+  assert.ok(Date.now()-start<(stuckProbe?8000:resistant?14500:2900),'Cleanup exceeded bounded shutdown allowance');
  }finally{
   if(ownedPid)try{process.kill(-ownedPid,'SIGKILL');}catch{/* owned fixture already exited */}
   const adbPid=await readFile(join(root,'adb.pid'),'utf8').then(Number).catch(()=>0);
@@ -64,3 +64,5 @@ test('capture has a hard limit and all cleanup fits the orchestration90second gr
  assert.match(script,/deadline=\$\(\(SECONDS\+10\)\)/);
  assert.match(script,/kill -KILL/);
 });
+
+test('booted cleanup hard-bounds a TERM-resistant ownership probe before killing only the owned child',async()=>{await fixture(false,true);});

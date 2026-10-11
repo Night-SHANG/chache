@@ -23,6 +23,12 @@ test('Android CI runs only branch pushes with read-only credentials and fixed of
   'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1',
   'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6',
   'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9',
+  'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9',
+  'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9',
+  'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1',
+  'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1',
+  'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6',
+  'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c',
   'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9'
  ]);
  assert.doesNotMatch(workflow,/pull_request|workflow_dispatch|workflow_run|secrets\.|id-token:|contents: write|publish|release upload|continue-on-error/);
@@ -37,7 +43,7 @@ test('Android bootstrap installs both locks and compiles before reporting withou
  assert.match(workflow,/package-manager-cache: false/);
  assert.match(workflow,/include-hidden-files: false/);
  assert.match(workflow,/if-no-files-found: error/);
- const artifact=workflow.slice(workflow.indexOf('uses: actions/upload-artifact'),workflow.indexOf('Preserve private phone candidate'));
+ const artifact=workflow.slice(workflow.indexOf('Upload allowlisted verification reports only'),workflow.indexOf('Preserve private phone candidate'));
  assert.doesNotMatch(artifact,/\.apk|\.jks|\.keystore|\$HOME|~\/|path: \./);
  assert.doesNotMatch(workflow,/sudo|chmod|sdkmanager --licenses|yes\s*\|/);
  const state=JSON.parse(await read('docs/android/ci-acceptance-state.json'));
@@ -256,7 +262,9 @@ test('official emulator bootstrap has bounded installation and boot with no lice
  assert.match(script,/android-emulator-mode\.mjs/);
  assert.match(await read('scripts/android-emulator-mode.mjs'),/\['-accel-check'\]/);
  assert.match(script,/sys\.boot_completed/);
- assert.match(script,/connectedDebugAndroidTest/);
+ assert.match(script,/am instrument -w -r/);
+ assert.match(script,/android-native-instrumentation[.]mjs/);
+ assert.doesNotMatch(script,/gradlew|connectedDebugAndroidTest/);
  assert.match(script,/trap .* EXIT/);
  assert.match(script,/timeout/);
  assert.doesNotMatch(script,/sudo|chmod|chown|--licenses|yes\s*\||licenses\/[a-z-]+\s*>/);
