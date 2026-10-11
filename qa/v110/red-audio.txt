@@ -63,11 +63,11 @@ test at tests/audio-balance-v110.test.ts:16:1
 ✖ v110 attenuates normal and paused music by exactly 2dB without restarting the same handle (1.689964ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.18
   - 0.14297908225037068
        ^
-  
+
       at TestContext.<anonymous> (file://<project>/tests/audio-balance-v110.test.ts:19:36)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -84,9 +84,9 @@ test at tests/audio-balance-v110.test.ts:16:1
 test at tests/audio-balance-v110.test.ts:25:1
 ✖ v110 place gains 2dB only in PCM, with exact header/duration/tone and no clipped samples (7.626689ms)
   AssertionError [ERR_ASSERTION]: place sample 14
-  
+
   2 !== 3
-  
+
       at TestContext.<anonymous> (file://<project>/tests/audio-balance-v110.test.ts:28:36)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -106,10 +106,10 @@ test at tests/background-music.test.ts:47:2
 ✖ browser pause-menu ducking preserves one continuous music player and only changes gain (4.893435ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -127,10 +127,10 @@ test at tests/background-music.test.ts:55:2
 ✖ browser initially ducked music and retries apply pause-menu gain before playing (0.67078ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -150,10 +150,10 @@ test at tests/background-music.test.ts:61:2
 ✖ browser hidden ducked music stays silent and returns at reduced gain without rewinding (0.537959ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -173,10 +173,10 @@ test at tests/background-music.test.ts:68:2
 ✖ browser an optional gain change failure cannot interrupt gameplay or continuous music (0.528445ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:72:63)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -196,11 +196,11 @@ test at tests/background-music.test.ts:75:2
 ✖ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (0.395145ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.18
   - 0.14297908225037068
        ^
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:77:145)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -220,10 +220,10 @@ test at tests/background-music.test.ts:47:2
 ✖ wechat pause-menu ducking preserves one continuous music player and only changes gain (0.814075ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:50:36)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -243,10 +243,10 @@ test at tests/background-music.test.ts:55:2
 ✖ wechat initially ducked music and retries apply pause-menu gain before playing (0.351509ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:57:118)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -266,10 +266,10 @@ test at tests/background-music.test.ts:61:2
 ✖ wechat hidden ducked music stays silent and returns at reduced gain without rewinding (0.457718ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:64:127)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -289,10 +289,10 @@ test at tests/background-music.test.ts:68:2
 ✖ wechat an optional gain change failure cannot interrupt gameplay or continuous music (0.340593ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.12
   - 0.09531938816691378
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:72:63)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -312,11 +312,11 @@ test at tests/background-music.test.ts:75:2
 ✖ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.21936ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + 0.18
   - 0.14297908225037068
        ^
-  
+
       at TestContext.<anonymous> (file://<project>/tests/background-music.test.ts:77:145)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)

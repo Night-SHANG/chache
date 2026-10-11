@@ -15,10 +15,10 @@ test at tests/release-integrity-v110.test.ts:6:1
 ✖ v110 project version leaves the complete v109 dependency graph and resolved identities unchanged (2.310707ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
   + actual - expected
-  
+
   + '20129d264728e18a5078b5ff4417159751a3b6177cbf4855dfe2a7d3e1531c52'
   - 'dab9cb97684bd5bfd3a0537ffbc2a85f4eeff2213f50d69c734ca6967e7fa7fe'
-  
+
       at TestContext.<anonymous> (file://<project>/tests/release-integrity-v110.test.ts:10:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)

@@ -63,7 +63,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (6.180413ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -101,7 +101,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -119,7 +119,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (1.22904ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -164,7 +164,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -184,7 +184,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (3.737686ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -222,7 +222,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -242,7 +242,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.864381ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -287,7 +287,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -307,7 +307,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (2.913165ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -345,7 +345,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -365,7 +365,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.863991ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -403,7 +403,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -423,7 +423,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.388184ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -468,7 +468,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -488,7 +488,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.29269ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -526,7 +526,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -546,7 +546,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.397829ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -591,7 +591,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -611,7 +611,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.422736ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -649,7 +649,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -669,7 +669,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.329256ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -714,7 +714,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -734,7 +734,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.327332ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -772,7 +772,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1410
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -792,7 +792,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
 ✖ pause moves every {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} control up exactly 200 without changing size or spacing (0.259571ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
     [
       {
         h: 104,
@@ -837,7 +837,7 @@ test at tests/pause-overlay-v110.test.ts:31:25
   -     y: 1540
       }
     ]
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:35:9)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -857,7 +857,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.145824ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -865,7 +865,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -885,7 +885,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"hard","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.582066ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -893,7 +893,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -913,7 +913,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"standard","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.561214ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -921,7 +921,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -941,7 +941,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":18,"seed":110,"mode":"endless","inboundDifficulty":"expert","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.620524ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -949,7 +949,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -969,7 +969,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"inbound","rulesetVersion":21,"seed":110,"mode":"rush","guided":false,"toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (1.543643ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -977,7 +977,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -997,7 +997,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.230688ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1005,7 +1005,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1025,7 +1025,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"easy","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.263167ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1033,7 +1033,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1053,7 +1053,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.191328ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1061,7 +1061,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1081,7 +1081,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"normal","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.23239ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1089,7 +1089,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1109,7 +1109,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19951ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1117,7 +1117,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1137,7 +1137,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"hard","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.19281ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1145,7 +1145,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1165,7 +1165,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":12,"seed":110,"variant":"normal","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.154573ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1173,7 +1173,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1193,7 +1193,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
 ✖ pause input follows moved controls and blocks board/edges for {"family":"outbound","rulesetVersion":13,"seed":110,"variant":"endless","difficultyId":"expert","toolCharges":{"rotate":0,"clear":0,"wildcard":0}} (0.150536ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 104,
@@ -1201,7 +1201,7 @@ test at tests/pause-overlay-v110.test.ts:38:25
   -   x: 246,
   -   y: 1090
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:42:61)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1509,7 +1509,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
 ✖ platform supplies distinct full-canvas modal bounds at DPR 1 (1.1425ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 2100,
@@ -1517,7 +1517,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
   -   x: -142.5,
   -   y: -60
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1537,7 +1537,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
 ✖ platform supplies distinct full-canvas modal bounds at DPR 2 (0.322665ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 2100,
@@ -1545,7 +1545,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
   -   x: -142.5,
   -   y: -60
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
@@ -1565,7 +1565,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
 ✖ platform supplies distinct full-canvas modal bounds at DPR 3 (0.241764ms)
   AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
   + actual - expected
-  
+
   + undefined
   - {
   -   h: 2100,
@@ -1573,7 +1573,7 @@ test at tests/pause-overlay-v110.test.ts:82:26
   -   x: -142.5,
   -   y: -60
   - }
-  
+
       at TestContext.<anonymous> (file://<project>/tests/pause-overlay-v110.test.ts:85:84)
       at Test.runInAsyncScope (node:async_hooks:227:14)
       at Test.run (node:internal/test_runner/test:1382:25)
