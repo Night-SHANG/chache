@@ -1,0 +1,128 @@
+✖ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (3.167499ms)
+✔ browser disabled paused and blocked session startup do not create music until state allows it (0.479166ms)
+✖ browser initial creation failure waits for a real gesture and retries only once (0.269278ms)
+✔ browser pointer callback applies a disabled setting before music can start (0.20459ms)
+✔ browser a failure triggered by a pointer callback is retried only on a later interaction (0.281857ms)
+✔ browser music pause preserves position and repeated setting changes are idempotent (0.182917ms)
+✔ browser repeated hide and show pauses before callbacks and resumes once (0.352724ms)
+✔ browser menu music resumes after Session includes hidden in its temporary paused state (0.19774ms)
+✔ browser toggling off while hidden prevents automatic resumption until a new gesture (0.302879ms)
+✔ browser show cannot start never-played music or resume a paused Session (0.292814ms)
+✔ browser music and cached sound effects stop independently (0.328608ms)
+✔ browser rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (5.855593ms)
+✔ browser a late resolved play is paused after hiding or disabling (0.648542ms)
+✔ browser pending and successful async play never duplicates the handle or retries each frame (0.440738ms)
+✔ browser native errors block frame retries and explicit interactions reuse the handle (0.174615ms)
+✔ browser creation setup playback and pause failures stay optional and bounded (0.285082ms)
+✖ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.592207ms)
+✔ wechat disabled paused and blocked session startup do not create music until state allows it (0.219853ms)
+✖ wechat initial creation failure waits for a real gesture and retries only once (0.128084ms)
+✔ wechat pointer callback applies a disabled setting before music can start (0.061713ms)
+✔ wechat a failure triggered by a pointer callback is retried only on a later interaction (0.118229ms)
+✔ wechat music pause preserves position and repeated setting changes are idempotent (0.139631ms)
+✔ wechat repeated hide and show pauses before callbacks and resumes once (0.227866ms)
+✔ wechat menu music resumes after Session includes hidden in its temporary paused state (0.096776ms)
+✔ wechat toggling off while hidden prevents automatic resumption until a new gesture (0.127934ms)
+✔ wechat show cannot start never-played music or resume a paused Session (0.116336ms)
+✔ wechat music and cached sound effects stop independently (0.208065ms)
+✔ wechat rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (2.683846ms)
+✔ wechat a late resolved play is paused after hiding or disabling (0.460567ms)
+✔ wechat pending and successful async play never duplicates the handle or retries each frame (0.214665ms)
+✔ wechat native errors block frame retries and explicit interactions reuse the handle (0.095935ms)
+✔ wechat creation setup playback and pause failures stay optional and bounded (0.236869ms)
+✔ browser pagehide pauses and pageshow resumes its existing music context (0.208957ms)
+✔ wechat safely falls back to stop when a host has no pause method (0.13219ms)
+✔ new profiles include separate enabled music while legacy two-setting records retain their shape (1.477138ms)
+✔ profile music validation rejects wrong types and unknown fields without schema changes (0.335649ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 32
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.17837
+
+✖ failing tests:
+
+test at tests/background-music.test.ts:47:2
+✖ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (3.167499ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/background-music.test.ts:49:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:59:2
+✖ browser initial creation failure waits for a real gesture and retries only once (0.269278ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/background-music.test.ts:61:41)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:47:2
+✖ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (0.592207ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/background-music.test.ts:49:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/background-music.test.ts:59:2
+✖ wechat initial creation failure waits for a real gesture and retries only once (0.128084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/background-music.test.ts:61:41)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,13 +1,13 @@
 {
-  "version": "1.0.5",
-  "verifiedAt": "2026-10-11T09:50:04.462859+08:00",
-  "status": "SCOPED_VISUAL_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
-  "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
-  "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
-  "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
+  "version": "1.0.6",
+  "verifiedAt": "2026-10-11T10:31:47.137317+08:00",
+  "status": "USER_APPROVED_VISUAL_AND_AUDIO_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+  "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
+  "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
   "fullTests": {
-    "tests": 2785,
-    "passCount": 2783,
+    "tests": 2806,
+    "passCount": 2804,
     "failCount": 2,
     "cancelled": 0,
     "skipped": 0,
@@ -23,13 +23,17 @@
     "preflight": "PASS"
   },
   "productionHost": {
-    "status": "PASS",
-    "cases": 170,
-    "images": 101,
+    "cases": 178,
     "failures": 0,
-    "classicReferences": 4
+    "images": 129
   },
-  "details": "qa/v105/summary.json",
-  "previousCheckpoint": "docs/checkpoint-v104-history.json",
-  "note": "Frozen code/QA only. Delivery and remote backup have separate final receipts."
+  "musicHost": {
+    "status": "PASS",
+    "cases": 4,
+    "failures": 0,
+    "report": "qa/v106/music-final-host-report.json"
+  },
+  "details": "qa/v106/summary.json",
+  "previousCheckpoint": "docs/checkpoint-v105-history.json",
+  "note": "User approved screenshot candidate. Final paid bundle matches approved visual pixels; archive/remote/delivery have separate receipts."
 }

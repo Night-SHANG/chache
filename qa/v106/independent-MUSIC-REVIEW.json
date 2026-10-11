@@ -1,0 +1,29 @@
+{
+  "status": "PASS_READ_ONLY_CODE_AND_TEST_REVIEW",
+  "sourceFile": "src/platform/music.ts",
+  "sourceSha256": "d2c39f5a879543b4bdd646ad92145b51d686c0176bb1fe5ec38403442a27ebc5",
+  "changeScope": "Remove interacted gate only; still obey enabled/paused/hidden/blocked and existing active/generation lifecycle.",
+  "independentlyRunRelatedTests": {
+    "passed": 59,
+    "failed": 0
+  },
+  "additionalIndependentStartupRaceChecks": {
+    "passed": 4,
+    "failed": 0,
+    "report": "music-races.json"
+  },
+  "reviewedCases": [
+    "Initial enabled menu requests play before a gesture.",
+    "Stored music disabled or paused/saved game does not request startup playback.",
+    "A denied/failed attempt sets blocked, no frame retry; later real pointer-down clears it.",
+    "Gesture callback that disables music wins before sync.",
+    "active prevents repeated frame or gesture playback; a single context is reused.",
+    "Stale promise rejection is generation-gated. Late resolution while no longer wanted pauses the handle.",
+    "Repeated hide/show and explicit pause/resume preserve intended lifecycle."
+  ],
+  "security": "Uses normal host play APIs only; does not alter browser policy or bypass autoplay restrictions.",
+  "limitations": [
+    "Unit/source review and deterministic audio host outcomes do not establish audible output in a real browser or physical WeChat.",
+    "Production host report was read; final immutable audio+background bundle binding will be reported separately."
+  ]
+}

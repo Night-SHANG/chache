@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "kind": "Unmodified production bundles with native Canvas and simulated audio outcomes",
+  "limitations": [
+    "Not a real browser, WeChat developer tool, physical phone or APK test. Audio play requests and lifecycle are verified; audible output is not."
+  ],
+  "cases": [
+    {
+      "name": "browser-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gameRequiresResume": true
+    },
+    {
+      "name": "browser-startup-rejection-gesture-retry",
+      "bundleSha256": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    },
+    {
+      "name": "wechat-startup-allow-repeat-lifecycle-settings",
+      "bundleSha256": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c",
+      "autoplayBeforeGesture": true,
+      "singleContext": true,
+      "mutedColdStart": true,
+      "pausedSavedStart": true,
+      "menuResume": true,
+      "gameRequiresResume": true
+    },
+    {
+      "name": "wechat-startup-rejection-gesture-retry",
+      "bundleSha256": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c",
+      "oneStartupAttempt": true,
+      "noFrameRetry": true,
+      "firstGestureRetry": true,
+      "singleContext": true
+    }
+  ],
+  "failures": []
+}

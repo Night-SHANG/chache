@@ -1,0 +1,919 @@
+{
+  "candidate": "v106-review/paid-candidate",
+  "final": "v106-review/paid-final",
+  "count": 130,
+  "allPixelsEqual": true,
+  "images": [
+    {
+      "name": "all-sixteen-ultrawide.png",
+      "pixelEqual": true,
+      "oldSha256": "d28019abcc6750d8dd369e47aba9e1fc365076e833f7a483fc94afe1ff16e356",
+      "finalSha256": "d28019abcc6750d8dd369e47aba9e1fc365076e833f7a483fc94afe1ff16e356",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "baseline-cold_chain-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7668c1fb1a3067f0239efa8ee7eec9acb877b4ed66cb1bbc61561fbfb44cb171",
+      "finalSha256": "7668c1fb1a3067f0239efa8ee7eec9acb877b4ed66cb1bbc61561fbfb44cb171",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "baseline-day-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "finalSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "baseline-night-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "finalSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-game.png",
+      "pixelEqual": true,
+      "oldSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "finalSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-inbound-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "f54a5dbb36cb0be2e667f04c5cbb4c61fbc5de14c8d9d886bbd2ca10bd06617a",
+      "finalSha256": "f54a5dbb36cb0be2e667f04c5cbb4c61fbc5de14c8d9d886bbd2ca10bd06617a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "36b0dd140e84a03ec15cf357f981e4b8c47792758d5b944993661001d0f391cf",
+      "finalSha256": "36b0dd140e84a03ec15cf357f981e4b8c47792758d5b944993661001d0f391cf",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-pause.png",
+      "pixelEqual": true,
+      "oldSha256": "82658066bde92517e4734e6964f078471db7d4c8e2bfc1774b6011b83833181d",
+      "finalSha256": "82658066bde92517e4734e6964f078471db7d4c8e2bfc1774b6011b83833181d",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2893c10c0aa5e9cef2fdffaa8b13dfbc2dda1765edcd915e2660b5ba23b1aaba",
+      "finalSha256": "2893c10c0aa5e9cef2fdffaa8b13dfbc2dda1765edcd915e2660b5ba23b1aaba",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-prepare.png",
+      "pixelEqual": true,
+      "oldSha256": "f9ba89158b338673900af785129acfb506ca74b6bbcaac16b3b9a8676317ade5",
+      "finalSha256": "f9ba89158b338673900af785129acfb506ca74b6bbcaac16b3b9a8676317ade5",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-resume.png",
+      "pixelEqual": true,
+      "oldSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "finalSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-returned-home.png",
+      "pixelEqual": true,
+      "oldSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "finalSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "44d0f50c5239afe477a2245fb126c1ab4aff6c9c27d9a43260a159ec293774a0",
+      "finalSha256": "44d0f50c5239afe477a2245fb126c1ab4aff6c9c27d9a43260a159ec293774a0",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-shop-preview.png",
+      "pixelEqual": true,
+      "oldSha256": "652caf2a6cd02eea6ee69e5baf04cb3aec980eee818c63362b92d6d902a0f0a7",
+      "finalSha256": "652caf2a6cd02eea6ee69e5baf04cb3aec980eee818c63362b92d6d902a0f0a7",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "f0193f6ffa2e214dac5752754a1608b153fd2949ff6b16cbead923aee41f725f",
+      "finalSha256": "f0193f6ffa2e214dac5752754a1608b153fd2949ff6b16cbead923aee41f725f",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "f83c62468b9e70e4cc4bada52d734e3c2beae558fde31e45320559f6a9a210a4",
+      "finalSha256": "f83c62468b9e70e4cc4bada52d734e3c2beae558fde31e45320559f6a9a210a4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1a0760614ed80643d8b91d04005033fbd15af1bf7c86bd48e94ff055e03b48f5",
+      "finalSha256": "1a0760614ed80643d8b91d04005033fbd15af1bf7c86bd48e94ff055e03b48f5",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "a609ff126429c96efd4f65eb4b698ec64d4b0c20d4c2892d6cf6abda26740e3a",
+      "finalSha256": "a609ff126429c96efd4f65eb4b698ec64d4b0c20d4c2892d6cf6abda26740e3a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-cold_chain-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "finalSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4af1fbf4796b5fb207cd7897b04e0504654d0234226588dc4a92f2c823169806",
+      "finalSha256": "4af1fbf4796b5fb207cd7897b04e0504654d0234226588dc4a92f2c823169806",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "ea1a29c6c4d82c1d73e31acdebb64a549d02b13aca42e632859454a4baf615b6",
+      "finalSha256": "ea1a29c6c4d82c1d73e31acdebb64a549d02b13aca42e632859454a4baf615b6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "ec7f40c8216dd50b53f3941a552811c3f8b42206d67271ab18d7a22ba90a021b",
+      "finalSha256": "ec7f40c8216dd50b53f3941a552811c3f8b42206d67271ab18d7a22ba90a021b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7e811237015c6be8a57dddc43604446441f9e25137f58652a5ce3c67e6442aef",
+      "finalSha256": "7e811237015c6be8a57dddc43604446441f9e25137f58652a5ce3c67e6442aef",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "5dcce4dcd1196f7414fe54b6abf995f56888d60e35e7fe854ed75c2cc014f4e6",
+      "finalSha256": "5dcce4dcd1196f7414fe54b6abf995f56888d60e35e7fe854ed75c2cc014f4e6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "84ee7cb88188436d77e9c9a7e7c3249838a973425a8cf3fc196e0c28959c63a3",
+      "finalSha256": "84ee7cb88188436d77e9c9a7e7c3249838a973425a8cf3fc196e0c28959c63a3",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-day-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "finalSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-field_station-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "cf285ed7c363dad62314344f9828048b4db17bcd8a30ff2fca21f90c74d83c18",
+      "finalSha256": "cf285ed7c363dad62314344f9828048b4db17bcd8a30ff2fca21f90c74d83c18",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "43e22bb2889036c1d5c75b1004e1e2b564e4e4a21974e69667b9f90373f4716c",
+      "finalSha256": "43e22bb2889036c1d5c75b1004e1e2b564e4e4a21974e69667b9f90373f4716c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2750e1a23f62d538599573b7e79d5e0f4ed9bdeb8c88f12886018b4541fc06b7",
+      "finalSha256": "2750e1a23f62d538599573b7e79d5e0f4ed9bdeb8c88f12886018b4541fc06b7",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2a5526a04a6bbadbae395d620e23f312263c1e9b166105ce19e1d0169ad91a92",
+      "finalSha256": "2a5526a04a6bbadbae395d620e23f312263c1e9b166105ce19e1d0169ad91a92",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7220346f5c02d501b4422ad70ffb85c6acd475bd552e4f2cd70c65948fdf0aca",
+      "finalSha256": "7220346f5c02d501b4422ad70ffb85c6acd475bd552e4f2cd70c65948fdf0aca",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "a85cadfcec52c274c494a4697d1a586f4740b983bd50c1b1a0c770f732a61814",
+      "finalSha256": "a85cadfcec52c274c494a4697d1a586f4740b983bd50c1b1a0c770f732a61814",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "e2e233dbafe684ab7cdfef8486049a84af68215bb6ec9377b7c5ad0391b8193c",
+      "finalSha256": "e2e233dbafe684ab7cdfef8486049a84af68215bb6ec9377b7c5ad0391b8193c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-forest_depot-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "ed6ee6c193b298dc23b3cb5de53c2e3fcc281ee6e309268cd51fe208b7ed8fbc",
+      "finalSha256": "ed6ee6c193b298dc23b3cb5de53c2e3fcc281ee6e309268cd51fe208b7ed8fbc",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "387de574040bb8cda375ef4ac0a0fc70122dca0d20d09f2cf663590127741fe8",
+      "finalSha256": "387de574040bb8cda375ef4ac0a0fc70122dca0d20d09f2cf663590127741fe8",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "8eb97187590b89b626e1371adf4b2199ecac878176b3603604c0f362341d461e",
+      "finalSha256": "8eb97187590b89b626e1371adf4b2199ecac878176b3603604c0f362341d461e",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "10733337394e6074597e579b9fcb2ddf5dbeecf8b03eeaa4c9eb8306e4dc883a",
+      "finalSha256": "10733337394e6074597e579b9fcb2ddf5dbeecf8b03eeaa4c9eb8306e4dc883a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1997b6add7459aa7fe20dcb5eb6eb5cc9286018671ce83759889d1ad98effc46",
+      "finalSha256": "1997b6add7459aa7fe20dcb5eb6eb5cc9286018671ce83759889d1ad98effc46",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "9f081fca49c87073218d18768a4fcc731472b755d8bb03aa0bcd3e785a21eb0b",
+      "finalSha256": "9f081fca49c87073218d18768a4fcc731472b755d8bb03aa0bcd3e785a21eb0b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-harbor-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "e2cbc75d017ce79815090ee3eea97534d5024c9cdf04c801b0fd3e4d14dfc9a9",
+      "finalSha256": "e2cbc75d017ce79815090ee3eea97534d5024c9cdf04c801b0fd3e4d14dfc9a9",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ice_vault-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "78144888cf4da96f662e3f256781b897aed2e44b9ece3c7000a4e8d92037fa29",
+      "finalSha256": "78144888cf4da96f662e3f256781b897aed2e44b9ece3c7000a4e8d92037fa29",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-lava_forge-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "aeee80506d464f188d38fc9fdf1d26c74ad3a04b0a1791311c7027dd24484bd8",
+      "finalSha256": "aeee80506d464f188d38fc9fdf1d26c74ad3a04b0a1791311c7027dd24484bd8",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-neon_depot-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "0a7083422eb72b706802673b207b9626640fad693b17c847a7ac3fdc99910107",
+      "finalSha256": "0a7083422eb72b706802673b207b9626640fad693b17c847a7ac3fdc99910107",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4313afc6d0d05762f501853294f9dc4a20248b35ff1a8c16704d916262a7aede",
+      "finalSha256": "4313afc6d0d05762f501853294f9dc4a20248b35ff1a8c16704d916262a7aede",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1236b64ae30bcc7812fbc758b879690677532f2c06941bc00a2b2f933a64bb2e",
+      "finalSha256": "1236b64ae30bcc7812fbc758b879690677532f2c06941bc00a2b2f933a64bb2e",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "fbf6a3f67afa653598d448f78981c4b66d1d55742e105b1030afa5993129b812",
+      "finalSha256": "fbf6a3f67afa653598d448f78981c4b66d1d55742e105b1030afa5993129b812",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "065bcd3c917b39c17649fa017558d8bdc03bd9b086f8da309937773002d7057f",
+      "finalSha256": "065bcd3c917b39c17649fa017558d8bdc03bd9b086f8da309937773002d7057f",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "211f883346c1346b96a545a6d1eee440e10308c7a7e051b46444421ed2eed1c1",
+      "finalSha256": "211f883346c1346b96a545a6d1eee440e10308c7a7e051b46444421ed2eed1c1",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-night-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "finalSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4aee7c259d31bf8df9a1e278f6f9dc60a206c2a4c4e146a316dff3e8a114ad9b",
+      "finalSha256": "4aee7c259d31bf8df9a1e278f6f9dc60a206c2a4c4e146a316dff3e8a114ad9b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "6ff13755fd394d760c63f1b9315ece8c2a2c1da870ae1fc6a39a28735c641f6b",
+      "finalSha256": "6ff13755fd394d760c63f1b9315ece8c2a2c1da870ae1fc6a39a28735c641f6b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "b701463bc5fb221ba6dc9f253e1f805e2296d038bdcac09809a8849a8adc9554",
+      "finalSha256": "b701463bc5fb221ba6dc9f253e1f805e2296d038bdcac09809a8849a8adc9554",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7f89b58f8ed35f7855bcf8fdf11325f49c7c4f4d0c0b1c7b07bcacc4355fb19c",
+      "finalSha256": "7f89b58f8ed35f7855bcf8fdf11325f49c7c4f4d0c0b1c7b07bcacc4355fb19c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "a1de51d606cc04b8f59e4bfb2b649a3f415c36e1f6dc458b590c1176bd7fcada",
+      "finalSha256": "a1de51d606cc04b8f59e4bfb2b649a3f415c36e1f6dc458b590c1176bd7fcada",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-ocean_vault-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "db9e40f059480cc0d7df00f8b659c79bb773b3b208149163e30f1ed9a8c68736",
+      "finalSha256": "db9e40f059480cc0d7df00f8b659c79bb773b3b208149163e30f1ed9a8c68736",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-paper_warehouse-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2a4deaa827a42ecb955bd653dee40a4d2b5f170a7c72bb4d12a7a83c7d43d666",
+      "finalSha256": "2a4deaa827a42ecb955bd653dee40a4d2b5f170a7c72bb4d12a7a83c7d43d666",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "8f82e7674b81d3888e41fe02735f18d85bb71115730bf304c93333d430ed2473",
+      "finalSha256": "8f82e7674b81d3888e41fe02735f18d85bb71115730bf304c93333d430ed2473",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "272e8822e1ef933dc6c8215a11fef86cfb4089374825903ee214a5f61d2fca97",
+      "finalSha256": "272e8822e1ef933dc6c8215a11fef86cfb4089374825903ee214a5f61d2fca97",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "04d2cdf0e225452ab470ec34f9313c710037db2b17ce5d90739b20fb9c2cb75a",
+      "finalSha256": "04d2cdf0e225452ab470ec34f9313c710037db2b17ce5d90739b20fb9c2cb75a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7d5e74591635e961443ae63ca8de97d5d0b7921699b3c4678db4d60aec84011a",
+      "finalSha256": "7d5e74591635e961443ae63ca8de97d5d0b7921699b3c4678db4d60aec84011a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4131fbcf0dff78f08202accd98991f8f76c22c5f66a8724b7970d946e141b727",
+      "finalSha256": "4131fbcf0dff78f08202accd98991f8f76c22c5f66a8724b7970d946e141b727",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "1ec08a0d26364b420a559a0022fd704e7e9249cbfc133bafaa087532a0c0cf90",
+      "finalSha256": "1ec08a0d26364b420a559a0022fd704e7e9249cbfc133bafaa087532a0c0cf90",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-rail_freight-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "060143823762e0d12d78afe5c018596ffc0299a51d191ef973ee0c074822db6a",
+      "finalSha256": "060143823762e0d12d78afe5c018596ffc0299a51d191ef973ee0c074822db6a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-royal_store-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "17ff9ac4cb4ec6917d59fb72e810e4c1bb13cda64f2212e039f781cc9dc2bbf4",
+      "finalSha256": "17ff9ac4cb4ec6917d59fb72e810e4c1bb13cda64f2212e039f781cc9dc2bbf4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-space_cargo-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "11febf2ab2f02b0f422c9dbcdb168141278997df0f3f8fa0fb90e7ed542792a4",
+      "finalSha256": "11febf2ab2f02b0f422c9dbcdb168141278997df0f3f8fa0fb90e7ed542792a4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-steam_foundry-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "d3183c877a79aa628b65cb0f369346e26812a1f9be64596d7da8de6858670d36",
+      "finalSha256": "d3183c877a79aa628b65cb0f369346e26812a1f9be64596d7da8de6858670d36",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "browser-toy_workshop-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "132cfb01bded5de5aa275d86e67ace6591aec5ad3190a02dc39fb57b90a5b696",
+      "finalSha256": "132cfb01bded5de5aa275d86e67ace6591aec5ad3190a02dc39fb57b90a5b696",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-game.png",
+      "pixelEqual": true,
+      "oldSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "finalSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-inbound-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "f54a5dbb36cb0be2e667f04c5cbb4c61fbc5de14c8d9d886bbd2ca10bd06617a",
+      "finalSha256": "f54a5dbb36cb0be2e667f04c5cbb4c61fbc5de14c8d9d886bbd2ca10bd06617a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "36b0dd140e84a03ec15cf357f981e4b8c47792758d5b944993661001d0f391cf",
+      "finalSha256": "36b0dd140e84a03ec15cf357f981e4b8c47792758d5b944993661001d0f391cf",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-pause.png",
+      "pixelEqual": true,
+      "oldSha256": "82658066bde92517e4734e6964f078471db7d4c8e2bfc1774b6011b83833181d",
+      "finalSha256": "82658066bde92517e4734e6964f078471db7d4c8e2bfc1774b6011b83833181d",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2893c10c0aa5e9cef2fdffaa8b13dfbc2dda1765edcd915e2660b5ba23b1aaba",
+      "finalSha256": "2893c10c0aa5e9cef2fdffaa8b13dfbc2dda1765edcd915e2660b5ba23b1aaba",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-prepare.png",
+      "pixelEqual": true,
+      "oldSha256": "f9ba89158b338673900af785129acfb506ca74b6bbcaac16b3b9a8676317ade5",
+      "finalSha256": "f9ba89158b338673900af785129acfb506ca74b6bbcaac16b3b9a8676317ade5",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-resume.png",
+      "pixelEqual": true,
+      "oldSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "finalSha256": "3e0c2e377f82c43947f790f1478591ac3687707a519dd3d62de1e6ee1c721223",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-returned-home.png",
+      "pixelEqual": true,
+      "oldSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "finalSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "e65e91b9444af55436141a2597540805b5c3b367dc5c8e0af827a83a23296295",
+      "finalSha256": "e65e91b9444af55436141a2597540805b5c3b367dc5c8e0af827a83a23296295",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-shop-preview.png",
+      "pixelEqual": true,
+      "oldSha256": "652caf2a6cd02eea6ee69e5baf04cb3aec980eee818c63362b92d6d902a0f0a7",
+      "finalSha256": "652caf2a6cd02eea6ee69e5baf04cb3aec980eee818c63362b92d6d902a0f0a7",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "f0193f6ffa2e214dac5752754a1608b153fd2949ff6b16cbead923aee41f725f",
+      "finalSha256": "f0193f6ffa2e214dac5752754a1608b153fd2949ff6b16cbead923aee41f725f",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "f83c62468b9e70e4cc4bada52d734e3c2beae558fde31e45320559f6a9a210a4",
+      "finalSha256": "f83c62468b9e70e4cc4bada52d734e3c2beae558fde31e45320559f6a9a210a4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1a0760614ed80643d8b91d04005033fbd15af1bf7c86bd48e94ff055e03b48f5",
+      "finalSha256": "1a0760614ed80643d8b91d04005033fbd15af1bf7c86bd48e94ff055e03b48f5",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "a609ff126429c96efd4f65eb4b698ec64d4b0c20d4c2892d6cf6abda26740e3a",
+      "finalSha256": "a609ff126429c96efd4f65eb4b698ec64d4b0c20d4c2892d6cf6abda26740e3a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-cold_chain-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "finalSha256": "0ba644efa8bddbf543753b15da87ff7f2a85141d870af465f46159b88bf3ffe6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4af1fbf4796b5fb207cd7897b04e0504654d0234226588dc4a92f2c823169806",
+      "finalSha256": "4af1fbf4796b5fb207cd7897b04e0504654d0234226588dc4a92f2c823169806",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "ea1a29c6c4d82c1d73e31acdebb64a549d02b13aca42e632859454a4baf615b6",
+      "finalSha256": "ea1a29c6c4d82c1d73e31acdebb64a549d02b13aca42e632859454a4baf615b6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "c617e475fea3d5c38215da1c566f4e462267c1dfff1fa3e2a560e289b72d6efb",
+      "finalSha256": "c617e475fea3d5c38215da1c566f4e462267c1dfff1fa3e2a560e289b72d6efb",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7e811237015c6be8a57dddc43604446441f9e25137f58652a5ce3c67e6442aef",
+      "finalSha256": "7e811237015c6be8a57dddc43604446441f9e25137f58652a5ce3c67e6442aef",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "5dcce4dcd1196f7414fe54b6abf995f56888d60e35e7fe854ed75c2cc014f4e6",
+      "finalSha256": "5dcce4dcd1196f7414fe54b6abf995f56888d60e35e7fe854ed75c2cc014f4e6",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "84ee7cb88188436d77e9c9a7e7c3249838a973425a8cf3fc196e0c28959c63a3",
+      "finalSha256": "84ee7cb88188436d77e9c9a7e7c3249838a973425a8cf3fc196e0c28959c63a3",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-day-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "finalSha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-field_station-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "cf285ed7c363dad62314344f9828048b4db17bcd8a30ff2fca21f90c74d83c18",
+      "finalSha256": "cf285ed7c363dad62314344f9828048b4db17bcd8a30ff2fca21f90c74d83c18",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "43e22bb2889036c1d5c75b1004e1e2b564e4e4a21974e69667b9f90373f4716c",
+      "finalSha256": "43e22bb2889036c1d5c75b1004e1e2b564e4e4a21974e69667b9f90373f4716c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2750e1a23f62d538599573b7e79d5e0f4ed9bdeb8c88f12886018b4541fc06b7",
+      "finalSha256": "2750e1a23f62d538599573b7e79d5e0f4ed9bdeb8c88f12886018b4541fc06b7",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "3072d0df793fa4a8b8cd254424afb2e5f9f45769f5054f119ccd031216bfee47",
+      "finalSha256": "3072d0df793fa4a8b8cd254424afb2e5f9f45769f5054f119ccd031216bfee47",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7220346f5c02d501b4422ad70ffb85c6acd475bd552e4f2cd70c65948fdf0aca",
+      "finalSha256": "7220346f5c02d501b4422ad70ffb85c6acd475bd552e4f2cd70c65948fdf0aca",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "a85cadfcec52c274c494a4697d1a586f4740b983bd50c1b1a0c770f732a61814",
+      "finalSha256": "a85cadfcec52c274c494a4697d1a586f4740b983bd50c1b1a0c770f732a61814",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "e2e233dbafe684ab7cdfef8486049a84af68215bb6ec9377b7c5ad0391b8193c",
+      "finalSha256": "e2e233dbafe684ab7cdfef8486049a84af68215bb6ec9377b7c5ad0391b8193c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-forest_depot-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "ed6ee6c193b298dc23b3cb5de53c2e3fcc281ee6e309268cd51fe208b7ed8fbc",
+      "finalSha256": "ed6ee6c193b298dc23b3cb5de53c2e3fcc281ee6e309268cd51fe208b7ed8fbc",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "387de574040bb8cda375ef4ac0a0fc70122dca0d20d09f2cf663590127741fe8",
+      "finalSha256": "387de574040bb8cda375ef4ac0a0fc70122dca0d20d09f2cf663590127741fe8",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "8eb97187590b89b626e1371adf4b2199ecac878176b3603604c0f362341d461e",
+      "finalSha256": "8eb97187590b89b626e1371adf4b2199ecac878176b3603604c0f362341d461e",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "d11d9f26b8f5fbe870923e02a54e652a60f602f6751517af1eeec61b3627f8c4",
+      "finalSha256": "d11d9f26b8f5fbe870923e02a54e652a60f602f6751517af1eeec61b3627f8c4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1997b6add7459aa7fe20dcb5eb6eb5cc9286018671ce83759889d1ad98effc46",
+      "finalSha256": "1997b6add7459aa7fe20dcb5eb6eb5cc9286018671ce83759889d1ad98effc46",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "9f081fca49c87073218d18768a4fcc731472b755d8bb03aa0bcd3e785a21eb0b",
+      "finalSha256": "9f081fca49c87073218d18768a4fcc731472b755d8bb03aa0bcd3e785a21eb0b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-harbor-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "e2cbc75d017ce79815090ee3eea97534d5024c9cdf04c801b0fd3e4d14dfc9a9",
+      "finalSha256": "e2cbc75d017ce79815090ee3eea97534d5024c9cdf04c801b0fd3e4d14dfc9a9",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ice_vault-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "78144888cf4da96f662e3f256781b897aed2e44b9ece3c7000a4e8d92037fa29",
+      "finalSha256": "78144888cf4da96f662e3f256781b897aed2e44b9ece3c7000a4e8d92037fa29",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-lava_forge-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "aeee80506d464f188d38fc9fdf1d26c74ad3a04b0a1791311c7027dd24484bd8",
+      "finalSha256": "aeee80506d464f188d38fc9fdf1d26c74ad3a04b0a1791311c7027dd24484bd8",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-neon_depot-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "0a7083422eb72b706802673b207b9626640fad693b17c847a7ac3fdc99910107",
+      "finalSha256": "0a7083422eb72b706802673b207b9626640fad693b17c847a7ac3fdc99910107",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4313afc6d0d05762f501853294f9dc4a20248b35ff1a8c16704d916262a7aede",
+      "finalSha256": "4313afc6d0d05762f501853294f9dc4a20248b35ff1a8c16704d916262a7aede",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "1236b64ae30bcc7812fbc758b879690677532f2c06941bc00a2b2f933a64bb2e",
+      "finalSha256": "1236b64ae30bcc7812fbc758b879690677532f2c06941bc00a2b2f933a64bb2e",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "be946190d51ee0aa6ec4f4f00fed77516eeeaa89abb8986481adab5d75ea7836",
+      "finalSha256": "be946190d51ee0aa6ec4f4f00fed77516eeeaa89abb8986481adab5d75ea7836",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "065bcd3c917b39c17649fa017558d8bdc03bd9b086f8da309937773002d7057f",
+      "finalSha256": "065bcd3c917b39c17649fa017558d8bdc03bd9b086f8da309937773002d7057f",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "211f883346c1346b96a545a6d1eee440e10308c7a7e051b46444421ed2eed1c1",
+      "finalSha256": "211f883346c1346b96a545a6d1eee440e10308c7a7e051b46444421ed2eed1c1",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-night-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "finalSha256": "c440b2ba356a636f6117c339cf2e7d17237bcaaef5fcc468b670c9da8c7fb5b1",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4aee7c259d31bf8df9a1e278f6f9dc60a206c2a4c4e146a316dff3e8a114ad9b",
+      "finalSha256": "4aee7c259d31bf8df9a1e278f6f9dc60a206c2a4c4e146a316dff3e8a114ad9b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "6ff13755fd394d760c63f1b9315ece8c2a2c1da870ae1fc6a39a28735c641f6b",
+      "finalSha256": "6ff13755fd394d760c63f1b9315ece8c2a2c1da870ae1fc6a39a28735c641f6b",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "004ee5b3ee722bf9efe3dd44e4a63bf5e6827249d50b80df41a634ecfbe4a801",
+      "finalSha256": "004ee5b3ee722bf9efe3dd44e4a63bf5e6827249d50b80df41a634ecfbe4a801",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7f89b58f8ed35f7855bcf8fdf11325f49c7c4f4d0c0b1c7b07bcacc4355fb19c",
+      "finalSha256": "7f89b58f8ed35f7855bcf8fdf11325f49c7c4f4d0c0b1c7b07bcacc4355fb19c",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "a1de51d606cc04b8f59e4bfb2b649a3f415c36e1f6dc458b590c1176bd7fcada",
+      "finalSha256": "a1de51d606cc04b8f59e4bfb2b649a3f415c36e1f6dc458b590c1176bd7fcada",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-ocean_vault-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "db9e40f059480cc0d7df00f8b659c79bb773b3b208149163e30f1ed9a8c68736",
+      "finalSha256": "db9e40f059480cc0d7df00f8b659c79bb773b3b208149163e30f1ed9a8c68736",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-paper_warehouse-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "2a4deaa827a42ecb955bd653dee40a4d2b5f170a7c72bb4d12a7a83c7d43d666",
+      "finalSha256": "2a4deaa827a42ecb955bd653dee40a4d2b5f170a7c72bb4d12a7a83c7d43d666",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-landscape-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "8f82e7674b81d3888e41fe02735f18d85bb71115730bf304c93333d430ed2473",
+      "finalSha256": "8f82e7674b81d3888e41fe02735f18d85bb71115730bf304c93333d430ed2473",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-phone-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "272e8822e1ef933dc6c8215a11fef86cfb4089374825903ee214a5f61d2fca97",
+      "finalSha256": "272e8822e1ef933dc6c8215a11fef86cfb4089374825903ee214a5f61d2fca97",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-safe-dpr2-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "43569b64c0735dfcf1dc4306c60923369ad58de3fd5926a89f663879b8af13ce",
+      "finalSha256": "43569b64c0735dfcf1dc4306c60923369ad58de3fd5926a89f663879b8af13ce",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-tablet-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "7d5e74591635e961443ae63ca8de97d5d0b7921699b3c4678db4d60aec84011a",
+      "finalSha256": "7d5e74591635e961443ae63ca8de97d5d0b7921699b3c4678db4d60aec84011a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-tall-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "4131fbcf0dff78f08202accd98991f8f76c22c5f66a8724b7970d946e141b727",
+      "finalSha256": "4131fbcf0dff78f08202accd98991f8f76c22c5f66a8724b7970d946e141b727",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-user-shop.png",
+      "pixelEqual": true,
+      "oldSha256": "1ec08a0d26364b420a559a0022fd704e7e9249cbfc133bafaa087532a0c0cf90",
+      "finalSha256": "1ec08a0d26364b420a559a0022fd704e7e9249cbfc133bafaa087532a0c0cf90",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-rail_freight-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "060143823762e0d12d78afe5c018596ffc0299a51d191ef973ee0c074822db6a",
+      "finalSha256": "060143823762e0d12d78afe5c018596ffc0299a51d191ef973ee0c074822db6a",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-royal_store-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "17ff9ac4cb4ec6917d59fb72e810e4c1bb13cda64f2212e039f781cc9dc2bbf4",
+      "finalSha256": "17ff9ac4cb4ec6917d59fb72e810e4c1bb13cda64f2212e039f781cc9dc2bbf4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-space_cargo-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "11febf2ab2f02b0f422c9dbcdb168141278997df0f3f8fa0fb90e7ed542792a4",
+      "finalSha256": "11febf2ab2f02b0f422c9dbcdb168141278997df0f3f8fa0fb90e7ed542792a4",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-steam_foundry-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "d3183c877a79aa628b65cb0f369346e26812a1f9be64596d7da8de6858670d36",
+      "finalSha256": "d3183c877a79aa628b65cb0f369346e26812a1f9be64596d7da8de6858670d36",
+      "rgbaBytesEqual": true
+    },
+    {
+      "name": "wechat-toy_workshop-wide-menu.png",
+      "pixelEqual": true,
+      "oldSha256": "132cfb01bded5de5aa275d86e67ace6591aec5ad3190a02dc39fb57b90a5b696",
+      "finalSha256": "132cfb01bded5de5aa275d86e67ace6591aec5ad3190a02dc39fb57b90a5b696",
+      "rgbaBytesEqual": true
+    }
+  ],
+  "method": "Exact decoded RGBA byte equality, including every color/alpha channel"
+}

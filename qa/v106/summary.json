@@ -1,0 +1,166 @@
+{
+  "version": "1.0.6",
+  "verifiedAt": "2026-10-11T10:31:47.137317+08:00",
+  "status": "USER_APPROVED_VISUAL_AND_AUDIO_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+  "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
+  "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
+  "userVisualApproval": {
+    "version": "1.0.6",
+    "messageId": "Sentinel_5d760f20c2188191880d65e71e0ec265",
+    "at": "2026-10-11T02:21:30Z",
+    "quote": "符合，，然后把音乐那个也改好，然后再给我发包",
+    "scope": "User accepted same-size classic/cold-chain screenshots; deliver final package after music startup change.",
+    "approvedScreenshotLibraryIds": [
+      "libfile_f31ff086247c81919b2e77b426e2fdb1",
+      "libfile_6009d6fbe46c8191b306e8713198b5d6",
+      "libfile_652df598a06c81918105a26db97c36ec"
+    ],
+    "v105DeliveryHistory": {
+      "formal32": "accepted send",
+      "source11": "explicit send failure: Library file exceeds ChatGPT upload limit; never delivered",
+      "sourceCompact": "local verification only, never uploaded"
+    },
+    "pendingAtThisRecord": [
+      "Final combined music/background bundle binding",
+      "Full tests and freeze",
+      "Package recovery and Library fixed-version verification"
+    ]
+  },
+  "changes": [
+    "Single non-default background mapped into derived classic finite frame [-57,1148], y unchanged; outside platform deep background preserved.",
+    "Music initial enabled/unpaused session actively attempts play; host rejection is retried on real gesture."
+  ],
+  "fullTests": {
+    "tests": 2806,
+    "passCount": 2804,
+    "failCount": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "tdd": {
+    "classicFrame": {
+      "redTotal": 15,
+      "redFailed": 14,
+      "greenPassed": 15
+    },
+    "musicStartup": {
+      "redTotal": 36,
+      "redFailed": 4,
+      "finalFocusedPassed": 59
+    }
+  },
+  "productionHost": {
+    "cases": 178,
+    "failures": 0,
+    "images": 129
+  },
+  "musicHost": {
+    "status": "PASS",
+    "cases": 4,
+    "failures": 0,
+    "report": "qa/v106/music-final-host-report.json"
+  },
+  "approvedVisualFinalBinding": {
+    "images": 130,
+    "allDecodedRgbaEqual": true,
+    "report": "qa/v106/approved-visual-final-binding.json"
+  },
+  "protectedExistingSourceAssets": 187,
+  "frozen": {
+    "version": "1.0.6",
+    "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+    "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
+    "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
+    "bundles": [
+      {
+        "mode": "paid",
+        "target": "browser",
+        "file": "app.js",
+        "bytes": 897653,
+        "sha256": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88"
+      },
+      {
+        "mode": "paid",
+        "target": "wechat",
+        "file": "game.js",
+        "bytes": 896985,
+        "sha256": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c"
+      },
+      {
+        "mode": "free",
+        "target": "browser",
+        "file": "app.js",
+        "bytes": 897656,
+        "sha256": "2cd3be521c5081cabfd802f797b52862fb6144365d0b7eda6a3e6959d41c4ce4"
+      },
+      {
+        "mode": "free",
+        "target": "wechat",
+        "file": "game.js",
+        "bytes": 896984,
+        "sha256": "bde7abf6bb39dde44a4f98113125a9f2e181553ade87ebb5ca8b5405f964298a"
+      }
+    ],
+    "screenshotCandidate": {
+      "browser": "9640351051de7bb9136ab22daa3f5058e37cbf52fb49e742f48dbc302bc2a3b2",
+      "wechat": "5cbc2a4e740ffaff998792e13002ad62efc1b2e02961d78fecca9b7eef3242a0"
+    },
+    "finalVisualBinding": "PASS: 136 full scenes, 32 previews and 12 shop frames pixel-identical to approved candidate"
+  },
+  "limits": [
+    "No real browser GUI, Windows launcher GUI, WeChat developer tools, physical device or audible-output test.",
+    "Two historical art mother files remain missing; no substitute generated and no tests removed or weakened.",
+    "Formal paid build is the deliverable; free build is development comparison only.",
+    "Archive restoration will explicitly disclose reuse of installed locked dependencies."
+  ],
+  "independentFinal": {
+    "status": "PASS_FINAL_AUDIO_AND_APPROVED_VISUAL_BINDING",
+    "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+    "finalDirectory": "/workspace/scratch/e6b59ff34222/scene-width-current/v106-review/paid-final",
+    "approvedVisualCandidateDirectory": "/workspace/scratch/e6b59ff34222/scene-width-current/v106-review/paid-candidate",
+    "finalBundleSha256": {
+      "browser": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88",
+      "wechat": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c"
+    },
+    "approvedVisualBundleSha256": {
+      "browser": "9640351051de7bb9136ab22daa3f5058e37cbf52fb49e742f48dbc302bc2a3b2",
+      "wechat": "5cbc2a4e740ffaff998792e13002ad62efc1b2e02961d78fecca9b7eef3242a0"
+    },
+    "productionFullSceneFrameComparisons": 136,
+    "changedFullSceneFrames": 0,
+    "textBoundsAndAccountChanges": 0,
+    "productionPreviewComparisons": 32,
+    "changedPreviewFrames": 0,
+    "productionShopFrameComparisons": 12,
+    "changedShopFrames": 0,
+    "unchangedPackagedAssets": 34,
+    "independentAudioSourceReview": "PASS; ../scene-width-review-v106/MUSIC-REVIEW.json",
+    "independentAudioTests": {
+      "relatedPassed": 59,
+      "extraRaceChecksPassed": 4
+    },
+    "finalProductionMusicHostCases": {
+      "passed": 4,
+      "failed": 0,
+      "report": "music-host/report.json"
+    },
+    "limits": [
+      "Background candidate acceptance came from user via parent; this report checks final bytes render identically to that candidate, rather than treating unchanged hashes as the same bundle.",
+      "Native Canvas/DOM-event and simulated-audio host validation only; no real browser/physical WeChat audible-output proof.",
+      "Final full-suite 2804/2806 with two historical master-artwork failures is reported by implementer, not a full-suite rerun by this reviewer.",
+      "No remote publication or package upload verification is included here."
+    ]
+  },
+  "delivery": "Pending final archive recovery, Git backup and fixed Library revision verification; not a delivery claim."
+}

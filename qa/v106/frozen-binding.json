@@ -1,0 +1,41 @@
+{
+  "version": "1.0.6",
+  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+  "productTree": "c7c6c6ef9df4d2ed3bd18af79189580905a9d1d5",
+  "sourceSha256": "89479f296df41378552ee2ae8946fbe2dce9d26c653ffdc4767c65fb4aebdd47",
+  "bundles": [
+    {
+      "mode": "paid",
+      "target": "browser",
+      "file": "app.js",
+      "bytes": 897653,
+      "sha256": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88"
+    },
+    {
+      "mode": "paid",
+      "target": "wechat",
+      "file": "game.js",
+      "bytes": 896985,
+      "sha256": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c"
+    },
+    {
+      "mode": "free",
+      "target": "browser",
+      "file": "app.js",
+      "bytes": 897656,
+      "sha256": "2cd3be521c5081cabfd802f797b52862fb6144365d0b7eda6a3e6959d41c4ce4"
+    },
+    {
+      "mode": "free",
+      "target": "wechat",
+      "file": "game.js",
+      "bytes": 896984,
+      "sha256": "bde7abf6bb39dde44a4f98113125a9f2e181553ade87ebb5ca8b5405f964298a"
+    }
+  ],
+  "screenshotCandidate": {
+    "browser": "9640351051de7bb9136ab22daa3f5058e37cbf52fb49e742f48dbc302bc2a3b2",
+    "wechat": "5cbc2a4e740ffaff998792e13002ad62efc1b2e02961d78fecca9b7eef3242a0"
+  },
+  "finalVisualBinding": "PASS: 136 full scenes, 32 previews and 12 shop frames pixel-identical to approved candidate"
+}

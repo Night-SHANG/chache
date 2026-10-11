@@ -1,0 +1,403 @@
+✔ classic painted envelope is determined by original rack and shelf geometry (1.290945ms)
+✖ harbor: one finite scene has the same painted width as classic, with deep platform background outside (12.326391ms)
+✖ cold_chain: one finite scene has the same painted width as classic, with deep platform background outside (11.111962ms)
+✖ rail_freight: one finite scene has the same painted width as classic, with deep platform background outside (9.936513ms)
+✖ toy_workshop: one finite scene has the same painted width as classic, with deep platform background outside (11.630438ms)
+✖ paper_warehouse: one finite scene has the same painted width as classic, with deep platform background outside (10.016173ms)
+✖ space_cargo: one finite scene has the same painted width as classic, with deep platform background outside (10.458793ms)
+✖ steam_foundry: one finite scene has the same painted width as classic, with deep platform background outside (11.165614ms)
+✖ neon_depot: one finite scene has the same painted width as classic, with deep platform background outside (14.98079ms)
+✖ lava_forge: one finite scene has the same painted width as classic, with deep platform background outside (10.60166ms)
+✖ ocean_vault: one finite scene has the same painted width as classic, with deep platform background outside (10.345622ms)
+✖ royal_store: one finite scene has the same painted width as classic, with deep platform background outside (10.028242ms)
+✖ field_station: one finite scene has the same painted width as classic, with deep platform background outside (9.74293ms)
+✖ forest_depot: one finite scene has the same painted width as classic, with deep platform background outside (9.786196ms)
+✖ ice_vault: one finite scene has the same painted width as classic, with deep platform background outside (8.651698ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 1
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 723.707873
+
+✖ failing tests:
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ harbor: one finite scene has the same painted width as classic, with deep platform background outside (12.326391ms)
+  AssertionError [ERR_ASSERTION]: harbor: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ cold_chain: one finite scene has the same painted width as classic, with deep platform background outside (11.111962ms)
+  AssertionError [ERR_ASSERTION]: cold_chain: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ rail_freight: one finite scene has the same painted width as classic, with deep platform background outside (9.936513ms)
+  AssertionError [ERR_ASSERTION]: rail_freight: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ toy_workshop: one finite scene has the same painted width as classic, with deep platform background outside (11.630438ms)
+  AssertionError [ERR_ASSERTION]: toy_workshop: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ paper_warehouse: one finite scene has the same painted width as classic, with deep platform background outside (10.016173ms)
+  AssertionError [ERR_ASSERTION]: paper_warehouse: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ space_cargo: one finite scene has the same painted width as classic, with deep platform background outside (10.458793ms)
+  AssertionError [ERR_ASSERTION]: space_cargo: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ steam_foundry: one finite scene has the same painted width as classic, with deep platform background outside (11.165614ms)
+  AssertionError [ERR_ASSERTION]: steam_foundry: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ neon_depot: one finite scene has the same painted width as classic, with deep platform background outside (14.98079ms)
+  AssertionError [ERR_ASSERTION]: neon_depot: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ lava_forge: one finite scene has the same painted width as classic, with deep platform background outside (10.60166ms)
+  AssertionError [ERR_ASSERTION]: lava_forge: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ ocean_vault: one finite scene has the same painted width as classic, with deep platform background outside (10.345622ms)
+  AssertionError [ERR_ASSERTION]: ocean_vault: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ royal_store: one finite scene has the same painted width as classic, with deep platform background outside (10.028242ms)
+  AssertionError [ERR_ASSERTION]: royal_store: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ field_station: one finite scene has the same painted width as classic, with deep platform background outside (9.74293ms)
+  AssertionError [ERR_ASSERTION]: field_station: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ forest_depot: one finite scene has the same painted width as classic, with deep platform background outside (9.786196ms)
+  AssertionError [ERR_ASSERTION]: forest_depot: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-classic-frame-v106.test.ts:28:106
+✖ ice_vault: one finite scene has the same painted width as classic, with deep platform background outside (8.651698ms)
+  AssertionError [ERR_ASSERTION]: ice_vault: background frame must match classic, not fill the window
+  + actual - expected
+  
+    {
+  +   left: 0,
+  +   right: 1355
+  -   left: 472,
+  -   right: 886
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-classic-frame-v106.test.ts:30:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { left: 0, right: 1355 },
+    expected: { left: 472, right: 886 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

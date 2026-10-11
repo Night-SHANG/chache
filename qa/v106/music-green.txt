@@ -1,0 +1,46 @@
+✔ browser starts one local looping music handle on initial enabled state without a gesture and never per frame (3.541005ms)
+✔ browser disabled paused and blocked session startup do not create music until state allows it (0.223278ms)
+✔ browser initial creation failure waits for a real gesture and retries only once (0.426676ms)
+✔ browser initial rejected play waits for a new gesture without duplicate contexts (4.035804ms)
+✔ browser pointer callback applies a disabled setting before music can start (0.283169ms)
+✔ browser a failure triggered by a pointer callback is retried only on a later interaction (0.195246ms)
+✔ browser music pause preserves position and repeated setting changes are idempotent (0.276028ms)
+✔ browser repeated hide and show pauses before callbacks and resumes once (0.9375ms)
+✔ browser menu music resumes after Session includes hidden in its temporary paused state (0.205902ms)
+✔ browser toggling off while hidden prevents automatic resumption until a new gesture (0.301036ms)
+✔ browser show cannot start never-played music or resume a paused Session (0.238502ms)
+✔ browser music and cached sound effects stop independently (0.267666ms)
+✔ browser rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (1.653064ms)
+✔ browser a late resolved play is paused after hiding or disabling (0.919473ms)
+✔ browser pending and successful async play never duplicates the handle or retries each frame (0.440908ms)
+✔ browser native errors block frame retries and explicit interactions reuse the handle (0.20456ms)
+✔ browser creation setup playback and pause failures stay optional and bounded (0.489151ms)
+✔ wechat starts one local looping music handle on initial enabled state without a gesture and never per frame (1.066726ms)
+✔ wechat disabled paused and blocked session startup do not create music until state allows it (0.091779ms)
+✔ wechat initial creation failure waits for a real gesture and retries only once (0.286714ms)
+✔ wechat initial rejected play waits for a new gesture without duplicate contexts (1.155421ms)
+✔ wechat pointer callback applies a disabled setting before music can start (0.198601ms)
+✔ wechat a failure triggered by a pointer callback is retried only on a later interaction (0.099921ms)
+✔ wechat music pause preserves position and repeated setting changes are idempotent (0.096837ms)
+✔ wechat repeated hide and show pauses before callbacks and resumes once (0.148956ms)
+✔ wechat menu music resumes after Session includes hidden in its temporary paused state (0.104539ms)
+✔ wechat toggling off while hidden prevents automatic resumption until a new gesture (0.077407ms)
+✔ wechat show cannot start never-played music or resume a paused Session (0.1381ms)
+✔ wechat music and cached sound effects stop independently (0.176207ms)
+✔ wechat rejected autoplay waits for a new gesture and stale rejection cannot cancel newer playback (1.703501ms)
+✔ wechat a late resolved play is paused after hiding or disabling (0.319534ms)
+✔ wechat pending and successful async play never duplicates the handle or retries each frame (0.269429ms)
+✔ wechat native errors block frame retries and explicit interactions reuse the handle (0.120182ms)
+✔ wechat creation setup playback and pause failures stay optional and bounded (0.115495ms)
+✔ browser pagehide pauses and pageshow resumes its existing music context (0.151699ms)
+✔ wechat safely falls back to stop when a host has no pause method (0.135675ms)
+✔ new profiles include separate enabled music while legacy two-setting records retain their shape (1.593464ms)
+✔ profile music validation rejects wrong types and unknown fields without schema changes (0.304271ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 162.056507

@@ -1,0 +1,37 @@
+{
+  "status": "CANDIDATE_REVIEW_PASSED_FOR_SCREENSHOT_PREVIEW_ONLY",
+  "userVisualApproval": "PENDING; do not package or publish on this report alone",
+  "candidateDirectory": "/workspace/scratch/e6b59ff34222/scene-width-current/v106-review/paid-candidate",
+  "bundleSha256": {
+    "browser": "9640351051de7bb9136ab22daa3f5058e37cbf52fb49e742f48dbc302bc2a3b2",
+    "wechat": "5cbc2a4e740ffaff998792e13002ad62efc1b2e02961d78fecca9b7eef3242a0"
+  },
+  "rule": "A single non-default scene maps into classic art envelope [-57,1148] via translate(-57,0), scale(1205/1080,1). Original 1080x1920 helper preserves vertical landmarks; UI/board rendered after restore. Outside stays #0c131c.",
+  "productionSceneFrames": 136,
+  "finiteFrameChecks": 112,
+  "frameMismatches": 0,
+  "outsideFramePaintedPixels": 0,
+  "defaultFullFrameChanges": 0,
+  "textBoundsChanges": 0,
+  "accountChanges": 0,
+  "boardInteriorComparisons": 8,
+  "boardInteriorPixelChanges": 0,
+  "productionPreviewCases": 32,
+  "sourceDprResizeInputCases": 72,
+  "focusedTestsPassed": 97,
+  "focusedTestsFailed": 0,
+  "shopScreenshotCases": 12,
+  "visualReview": [
+    "User original classic/cold-chain shop images at 1385x676 inspected.",
+    "Classic and candidate cold-chain shop at 1385x676 inspected; scene width matches classic while outer deep background remains.",
+    "Cold-chain phone 446x694 and 390x844 inspected. Fan circles are mildly horizontally elongated as expected from 11.6% background-only expansion; user confirmation remains necessary.",
+    "Railway 1356x660 and ice-vault 768x1024 original-size images inspected; all 14 themes inspected in 1356x660 contact sheet.",
+    "No duplicate full warehouse or full-viewport wash remains. Titles/buttons and board are not stretched."
+  ],
+  "limits": [
+    "Native Canvas/DOM-event production-bundle host simulations, not real Chromium or physical WeChat.",
+    "Resize/orientation checks use actual source-platform callbacks in a mutable host harness, not physical-device rotation.",
+    "Non-default background pixel identity is deliberately not required by the approved v106 design.",
+    "No release ZIP, push or publication performed by this review."
+  ]
+}

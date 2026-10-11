@@ -1,0 +1,29 @@
+[
+  {
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/screenshot-delivery-v106/经典套装-商店-1385x676.png",
+    "size": 159923,
+    "dimensions": [
+      1385,
+      676
+    ],
+    "sha256": "1e2df4b302f4f60ec4c132829a128e880eda113ca7e96a147956c2c801b4b558"
+  },
+  {
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/screenshot-delivery-v106/冷链仓库-商店-1385x676.png",
+    "size": 124117,
+    "dimensions": [
+      1385,
+      676
+    ],
+    "sha256": "7cda4b2c70d6f6b867d9803b40dacfd8f9f389146c07fa9e07b833b82cceb8b6"
+  },
+  {
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/screenshot-delivery-v106/手机版-经典套装与冷链仓库-446对照.png",
+    "size": 125099,
+    "dimensions": [
+      908,
+      742
+    ],
+    "sha256": "eae7bb131a88658978854a28ffd32d363a72ab5173c4f045a9d7288745bc0ba9"
+  }
+]

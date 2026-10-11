@@ -1,0 +1,38 @@
+{
+  "status": "PASS_FINAL_AUDIO_AND_APPROVED_VISUAL_BINDING",
+  "productCommit": "d6b5b7fbb8108380faf9e118cdf03384257a739d",
+  "finalDirectory": "/workspace/scratch/e6b59ff34222/scene-width-current/v106-review/paid-final",
+  "approvedVisualCandidateDirectory": "/workspace/scratch/e6b59ff34222/scene-width-current/v106-review/paid-candidate",
+  "finalBundleSha256": {
+    "browser": "31e5eb89d74f35f4df18153074ed3af1fddde420cbf8523379eca5c9846fcf88",
+    "wechat": "8c426167205377135a0a82a47de70f3b7ea3aa77a9c920ce59ade85614eb3c9c"
+  },
+  "approvedVisualBundleSha256": {
+    "browser": "9640351051de7bb9136ab22daa3f5058e37cbf52fb49e742f48dbc302bc2a3b2",
+    "wechat": "5cbc2a4e740ffaff998792e13002ad62efc1b2e02961d78fecca9b7eef3242a0"
+  },
+  "productionFullSceneFrameComparisons": 136,
+  "changedFullSceneFrames": 0,
+  "textBoundsAndAccountChanges": 0,
+  "productionPreviewComparisons": 32,
+  "changedPreviewFrames": 0,
+  "productionShopFrameComparisons": 12,
+  "changedShopFrames": 0,
+  "unchangedPackagedAssets": 34,
+  "independentAudioSourceReview": "PASS; ../scene-width-review-v106/MUSIC-REVIEW.json",
+  "independentAudioTests": {
+    "relatedPassed": 59,
+    "extraRaceChecksPassed": 4
+  },
+  "finalProductionMusicHostCases": {
+    "passed": 4,
+    "failed": 0,
+    "report": "music-host/report.json"
+  },
+  "limits": [
+    "Background candidate acceptance came from user via parent; this report checks final bytes render identically to that candidate, rather than treating unchanged hashes as the same bundle.",
+    "Native Canvas/DOM-event and simulated-audio host validation only; no real browser/physical WeChat audible-output proof.",
+    "Final full-suite 2804/2806 with two historical master-artwork failures is reported by implementer, not a full-suite rerun by this reviewer.",
+    "No remote publication or package upload verification is included here."
+  ]
+}
