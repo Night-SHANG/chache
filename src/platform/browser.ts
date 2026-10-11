@@ -30,14 +30,20 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
   backgroundBounds:()=>scale>0&&Number.isFinite(rect.w/scale)?{x:(L.width-rect.w/scale)/2,y:0,w:rect.w/scale,h:L.height}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{
+   const activePointers=new Set<number>();
+   const cancel=(id:number)=>{if(activePointers.delete(id))callback({type:'cancel',point:{x:-1,y:-1},id});};
    const bind=(name:string,type:PointerEvent['type'])=>canvas.addEventListener(name,event=>{
     const e=event as globalThis.PointerEvent;e.preventDefault();
-    if(type==='down')canvas.setPointerCapture(e.pointerId);
+    if(type==='down'){activePointers.add(e.pointerId);canvas.setPointerCapture(e.pointerId);}
+    else if(type==='up'||type==='cancel')activePointers.delete(e.pointerId);
     const point=mapClientPoint({x:e.clientX,y:e.clientY},rect)??{x:-1,y:-1};const dispatch=()=>callback({type,point,id:e.pointerId});if(type==='down')music.gesture(dispatch);else dispatch();
     if((type==='up'||type==='cancel')&&canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
    });
    bind('pointerdown','down');bind('pointermove','move');bind('pointerup','up');bind('pointercancel','cancel');
-   canvas.addEventListener('lostpointercapture',event=>callback({type:'cancel',point:{x:-1,y:-1},id:(event as globalThis.PointerEvent).pointerId}));
+   canvas.addEventListener('lostpointercapture',event=>cancel((event as globalThis.PointerEvent).pointerId));
+   window.addEventListener('blur',()=>{for(const id of [...activePointers]){
+    cancel(id);try{if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}catch{/* Focus loss may already have released native capture. */}
+   }});
   },
   onWheel:callback=>canvas.addEventListener('wheel',event=>{
    if(event.ctrlKey||!Number.isFinite(event.deltaY)||event.deltaY===0||scale<=0)return;
@@ -48,6 +54,7 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
   onHide:callback=>{const hide=()=>{music.hide();stopSounds();callback();};document.addEventListener('visibilitychange',()=>{if(document.hidden)hide();});window.addEventListener('pagehide',hide);},
   onShow:callback=>{showCallbacks.push(callback);if(showCallbacks.length!==1)return;const show=()=>{for(const listener of showCallbacks)listener();music.show();};document.addEventListener('visibilitychange',()=>{if(!document.hidden)show();});window.addEventListener('pageshow',show);},
   playSound:name=>{if(!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=AUDIO_LEVELS.browserEffects;audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio cannot block a move. */}},
+  vibrate:()=>{try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate(15);}catch{/* Optional haptics never gate an action. */}},
   stopSounds,setMusicState:music.setState,
   loadImage:path=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=path;}),
  };

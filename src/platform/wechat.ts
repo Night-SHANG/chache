@@ -17,6 +17,7 @@ export interface WechatHost {
  onTouchEnd(callback:(event:TouchEvent)=>void):void;onTouchCancel(callback:(event:TouchEvent)=>void):void;
  onHide(callback:()=>void):void;onShow(callback:()=>void):void;onWindowResize?(callback:()=>void):void;
  createInnerAudioContext():MiniAudio;createImage():MiniImage;
+ vibrateShort?(options:{type:'light';fail?:(error:unknown)=>void}):void;
 }
 export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFrame:(callback:(time:number)=>void)=>number;now:()=>number},context:'main'|'sub'='main'):Platform {
  // The first call is deliberately the screen canvas. No imported module creates a canvas.
@@ -83,6 +84,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
    }catch{/* Audio never gates offline gameplay. */}
   },
   stopSounds,setMusicState:music.setState,
+  vibrate:()=>{try{host.vibrateShort?.({type:'light',fail:()=>{}});}catch{/* Unsupported haptics never fall back to a long vibration. */}},
   loadImage:path=>new Promise((resolve,reject)=>{const image=host.createImage();image.onload=()=>resolve(image as unknown as CanvasImageSource);image.onerror=reject;image.src=path;}),
  };
  return platform;

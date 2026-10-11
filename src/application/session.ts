@@ -1,3 +1,4 @@
+import {UiFeedback,controlSettingsPatch} from './ui-feedback.ts';
 import {toolPurchaseQuote,confirmToolPurchase,openToolPurchase} from './tool-purchase.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,DEFAULT_CLASSIC_SET_SELECTION,isClassicSetSelection,classicSetStatus} from './cosmetic-sets.ts';
 import {COSMETICS_PER_PAGE,cosmeticShopPage,selectedShopCosmetic,cosmeticSetShopPage,selectedShopCosmeticSet} from '../presentation/economy-ui.ts';
@@ -82,6 +83,7 @@ export class GameSession {
  private invalidStarted=0;
  private noticeStarted=0;
  private lastRouteReady=-Infinity;
+ private uiFeedback:UiFeedback;
  private pendingNotice:{kind:'shift'|'fail';label:string}|null=null;
  private lastTick=0;
  private musicHidden=false;
@@ -89,7 +91,7 @@ export class GameSession {
  private hasRun=false;
  private settingsReturn:'game'|'menu'|'colorTiers'|'inboundMenu'|'legacyRuns'='menu';
  constructor(platform:Platform,options:{seed:number;mode:RunState['mode'];developerMode?:boolean}){
-  this.platform=platform;this.accountService=createAccountService(platform.storage,platform.writerLease??{status:'unsupported',release(){}},()=>platform.wallTime?.()??Date.now());this.newRunSeedBase=options.seed>>>0;this.lastTick=platform.now();
+  this.platform=platform;this.uiFeedback=new UiFeedback(platform,()=>this.profile.settings,()=>!!this.view.accountBlocked);this.accountService=createAccountService(platform.storage,platform.writerLease??{status:'unsupported',release(){}},()=>platform.wallTime?.()??Date.now());this.newRunSeedBase=options.seed>>>0;this.lastTick=platform.now();
   const profile=loadProfile(platform.storage);this.profile=profile.profile;this.profileReadBlocked=profile.source==='unavailable';
   try{const remembered=platform.storage.get(ACTIVE_SLOT_KEY);this.slot=isRunSlot(remembered)?remembered:options.mode==='color_exit'?'color_exit':'orders';}catch{/* Default to the original slot without erasing an inaccessible selector. */}
   const saved=loadPlayableRun(platform.storage,this.slot);this.recoveryPending=saved.source==='backup'||saved.source==='corrupt'||saved.source==='unavailable';
@@ -97,14 +99,14 @@ export class GameSession {
   this.legacyState=saved.state??{...createForSlot(options.seed,this.slot,firstLesson?'tutorial':'standard'),maxOccupancy:0};
   this.hasRun=!!saved.state||firstLesson&&saved.source==='empty'&&!saved.closed;
   this.canResume=!!saved.state;
-  this.view={account:null,developerMode:options.developerMode===true,selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:saved.source==='unavailable'?saved.message:'每次操作自动保存',elapsed:saved.state?.elapsedMs??0,animation:null,debug:false,needsResume:!!saved.state&&(saved.state.phase!=='result'||saved.source==='backup')||saved.source==='corrupt'||saved.source==='unavailable',recoveryError:saved.source==='corrupt'||saved.source==='unavailable'?saved.message:undefined,screen:this.hasRun||saved.source==='corrupt'?'game':'menu',profile:this.profile,profileStatus:profile.message,profileNeedsRecovery:profile.source==='backup'||profile.source==='corrupt'||profile.source==='unavailable',dailyLabel:this.daily().day,canContinue:this.hasRun&&this.legacyState.phase!=='result',confirmation:null,variant:this.slot};
+  this.view={pressedControl:null,account:null,developerMode:options.developerMode===true,selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:saved.source==='unavailable'?saved.message:'每次操作自动保存',elapsed:saved.state?.elapsedMs??0,animation:null,debug:false,needsResume:!!saved.state&&(saved.state.phase!=='result'||saved.source==='backup')||saved.source==='corrupt'||saved.source==='unavailable',recoveryError:saved.source==='corrupt'||saved.source==='unavailable'?saved.message:undefined,screen:this.hasRun||saved.source==='corrupt'?'game':'menu',profile:this.profile,profileStatus:profile.message,profileNeedsRecovery:profile.source==='backup'||profile.source==='corrupt'||profile.source==='unavailable',dailyLabel:this.daily().day,canContinue:this.hasRun&&this.legacyState.phase!=='result',confirmation:null,variant:this.slot};
   this.view.comparisonSeed=options.seed>>>0;try{const raw=platform.storage.get(COMPARISON_SEED_KEY);if(raw!==null&&/^\d+$/.test(raw)){const seed=Number(raw);if(Number.isSafeInteger(seed)&&seed>=0&&seed<=0xffffffff)this.view.comparisonSeed=seed;}}catch{/* A missing preference never changes run saves. */}
   this.refreshSlots();
   const account=this.accountService.getSnapshot();if(account){this.publishAccount(account);}else if(!['empty','ready'].includes(this.accountService.getStatus())){this.view.accountBlocked=true;this.view.accountStatus=this.accountService.getStatus();this.view.saveStatus='保存结果尚未确认，请重试';}
   this.view.inboundDifficulty=isTieredInbound(this.state)&&isInboundDifficultyV18(this.state.inboundDifficulty)?this.state.inboundDifficulty:'hard';
   this.view.outboundSelectionMode=this.hasRun&&this.state.mode==='color_exit'&&[10,13].includes(this.state.rulesetVersion)?'endless':'normal';
   this.refreshDailyAvailability();
-  this.input=new InputController({getState:()=>this.state,getView:()=>this.view,patchView:patch=>Object.assign(this.view,patch),preview:(pieceId,origin)=>previewPlayablePlacement(this.state,pieceId,origin),risk:(pieceId,origin)=>placementRisk(this.state,pieceId,origin),dispatch:command=>this.dispatch(command),togglePause:()=>this.togglePause(),restart:()=>this.restart(),resume:()=>this.resume(),toggleDebug:()=>{this.input.cancel();this.view.debug=!this.view.debug;this.view.debugPage=0;},action:action=>this.action(action),feedback:(kind,pieceId)=>this.feedback(kind,pieceId)});
+  this.input=new InputController({getState:()=>this.state,getView:()=>this.view,patchView:patch=>Object.assign(this.view,patch),preview:(pieceId,origin)=>previewPlayablePlacement(this.state,pieceId,origin),risk:(pieceId,origin)=>placementRisk(this.state,pieceId,origin),dispatch:command=>this.dispatch(command),togglePause:()=>this.togglePause(),restart:()=>this.restart(),resume:()=>this.resume(),toggleDebug:()=>{this.input.cancel();this.view.debug=!this.view.debug;this.view.debugPage=0;},action:action=>this.action(action),activate:(act,major)=>this.uiFeedback.activate(act,major),feedback:(kind,pieceId)=>this.feedback(kind,pieceId)});
   if(!this.writerHeld())this.blockWriter();
   if(this.writerHeld()&&!this.accountOwned&&this.hasRun&&!this.view.needsResume&&this.ensureSerial()){if(this.persist())this.recordFinal();}
   if(this.writerHeld()&&this.accountOwned)this.closeTerminalAccount();
@@ -358,7 +360,7 @@ export class GameSession {
   if(action.type==='chooseUpgrade'){if(!isInboundV9(this.state))return true;if(action.upgradeId==='cargo_supply'&&!this.state.supplyCargo){this.view.supplyUpgrade=action.upgradeId;return true;}this.dispatchAccount({type:'upgrade',upgradeId:action.upgradeId});return true;}
   if(action.type==='supplyCargo'){const upgradeId=this.view.supplyUpgrade;this.view.supplyUpgrade=null;if(upgradeId)this.dispatchAccount({type:'upgrade',upgradeId,cargo:action.cargo});return true;}
   if(action.type==='supplyCancel'){this.view.supplyUpgrade=null;return true;}
-  if(action.type==='toggleMusic'||action.type==='toggleSound'||action.type==='toggleMotion'){const patch=action.type==='toggleMusic'?{music:this.profile.settings.music===false}:action.type==='toggleSound'?{sound:!this.profile.settings.sound}:{reducedMotion:!this.profile.settings.reducedMotion};this.requestAccount({type:'setSettings',patch},()=>{if(!this.profile.settings.sound)this.platform.stopSounds?.();});return true;}
+  if(action.type==='toggleMusic'||action.type==='toggleSound'||action.type==='toggleMotion'||action.type==='toggleVibration'){const patch=controlSettingsPatch(action.type,this.profile.settings);this.requestAccount({type:'setSettings',patch},()=>{if(!this.profile.settings.sound)this.platform.stopSounds?.();});return true;}
   if(action.type==='cosmetic'){this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
   if(!this.accountOwned)return false;
   if(action.type==='home'||action.type==='chooseInbound'||action.type==='chooseColorTier'){const screen=action.type==='home'?'menu':action.type==='chooseInbound'?'inboundMenu':'colorTiers';if(this.view.account?.run){this.input.cancel();this.view.confirmation={kind:'leaveRun',nextScreen:screen};}else this.openSelection(screen);return true;}
@@ -404,7 +406,7 @@ export class GameSession {
  }
  private recordFinal(run:RunState=this.legacyState):boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned||run.phase!=='result')return true;return this.requestAccount({type:'recordLegacyResult',slot:this.slot});}
  private syncMusic():void{this.platform.setMusicState?.(this.profile.settings.music!==false,this.musicHidden||this.view.paused||this.view.needsResume||!!this.view.accountBlocked);}
- private sound(name:SoundName):void{if(this.profile.settings.sound)this.platform.playSound(name);}
+ private sound(name:SoundName):void{this.uiFeedback.sound(name);}
  private routeCue():void{const now=this.platform.now();if(now-this.lastRouteReady>=200){this.sound('route_ready');this.lastRouteReady=now;}}
  private feedback(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void{
   if(kind==='routeReady'){this.routeCue();return;}
@@ -450,6 +452,7 @@ export class GameSession {
  private persist():boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned)return !this.view.accountBlocked;if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.legacyState.elapsedMs!==elapsedMs)this.legacyState={...this.legacyState,elapsedMs};const result=saveRun(this.platform.storage,this.legacyState,this.slot);this.view.saveStatus=result.message;return result.ok;}
  private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0,...('transport' in next.shipment&&next.shipment.transport==='conveyor'?{transportPlan:buildOutboundTransport(next.shipment as Shipment,next.board)??undefined}:{})}:null;if(next)this.routeCue();else this.startNotice(now);}
  tick(now:number):void{
+  this.input.refresh();
   this.syncMusic();
   if(Math.floor(((this.platform.wallTime?.()??Date.now())+8*60*60*1000)/(24*60*60*1000))!==this.dailyDateIndex)this.refreshDailyAvailability();
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
@@ -609,7 +612,7 @@ export class GameSession {
   if(!this.writerHeld()){this.blockWriter();return;}
   if(this.handleAccountAction(action))return;
   if(this.view.confirmation&&action.type!=='confirm'&&action.type!=='cancel')return;
-  if(['newRun','toggleMusic','toggleSound','toggleMotion','cosmetic','resetProfile'].includes(action.type)&&!this.ensureProfileReadable())return;
+  if(['newRun','toggleMusic','toggleSound','toggleMotion','toggleVibration','cosmetic','resetProfile'].includes(action.type)&&!this.ensureProfileReadable())return;
   if(action.type==='cancel'){this.view.confirmation=null;return;}
   if(action.type==='confirm'){
    const pending=this.view.confirmation;if(!pending)return;this.view.confirmation=null;
@@ -652,9 +655,7 @@ export class GameSession {
   if(action.type==='home'){this.navigateSelection('menu');return;}
   if(action.type==='settings'){this.input.cancel();this.clearFeedback();this.settingsReturn=this.view.screen==='menu'||this.view.screen==='colorTiers'||this.view.screen==='inboundMenu'||this.view.screen==='legacyRuns'?this.view.screen:'game';if(this.settingsReturn==='game')this.view.paused=true;this.view.screen='settings';if(this.accountOwned)this.saveAccountElapsed();this.lastTick=this.platform.now();return;}
   if(action.type==='back'){this.view.screen=this.settingsReturn;return;}
-  if(action.type==='toggleMusic'){this.updateProfile(setProfileSettings(this.profile,{music:this.profile.settings.music===false}));return;}
-  if(action.type==='toggleSound'){this.updateProfile(setProfileSettings(this.profile,{sound:!this.profile.settings.sound}));if(!this.profile.settings.sound)this.platform.stopSounds?.();return;}
-  if(action.type==='toggleMotion'){this.updateProfile(setProfileSettings(this.profile,{reducedMotion:!this.profile.settings.reducedMotion}));return;}
+  if(action.type==='toggleMusic'||action.type==='toggleSound'||action.type==='toggleVibration'||action.type==='toggleMotion'){this.updateProfile(setProfileSettings(this.profile,controlSettingsPatch(action.type,this.profile.settings)));if(action.type==='toggleSound'&&!this.profile.settings.sound)this.platform.stopSounds?.();return;}
   if(action.type==='cosmetic'){const result=setProfileCosmetic(this.profile,action.kind,action.id);if(result.error){this.view.profileStatus=result.error;return;}this.updateProfile(result.profile);return;}
   if(action.type==='resetProfile'){this.view.confirmation={kind:'resetProfile'};return;}
   if(action.type==='recoverProfile'){const result=recoverProfile(this.platform.storage);this.view.profileStatus=result.message;if(result.ok){const profile=loadProfile(this.platform.storage);this.profile=profile.profile;this.view.profile=this.profile;this.profileReadBlocked=profile.source==='unavailable';this.view.profileNeedsRecovery=this.profileReadBlocked;}return;}

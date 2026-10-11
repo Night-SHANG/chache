@@ -27,7 +27,7 @@ export interface EndlessProfile {
 }
 export interface Profile {
  schemaVersion:1;
- settings:{sound:boolean;reducedMotion:boolean;music?:boolean};
+ settings:{sound:boolean;reducedMotion:boolean;music?:boolean;vibration?:boolean};
  cosmetics:{theme:ThemeId;forklift:ForkliftId;cargo:CargoStyleId};
  tutorialComplete:boolean;
  stats:{runs:number;orders:number;wins:number;maxChain:number};
@@ -44,7 +44,7 @@ export interface Profile {
  endless?:EndlessProfile;
 }
 export function createProfile():Profile {
- return {schemaVersion:1,settings:{sound:true,reducedMotion:false,music:true},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null};
+ return {schemaVersion:1,settings:{sound:true,reducedMotion:false,music:true,vibration:true},cosmetics:{theme:'day',forklift:'yellow',cargo:'classic'},tutorialComplete:false,stats:{runs:0,orders:0,wins:0,maxChain:0},bestScores:{},dailyHistory:{},achievements:[],nextRunSerial:1,lastRecordedRun:null};
 }
 
 function createColorExitProfile():ColorExitProfile {return {stats:{runs:0,batches:0,wins:0,maxChain:0},bestScores:{},lastRecordedRun:null};}
@@ -97,7 +97,7 @@ export function assertProfile(value:unknown):asserts value is Profile {
  requireValue(value.schemaVersion===1,'长期记录版本不兼容');
  requireValue(keys(value,['schemaVersion','settings','cosmetics','tutorialComplete','stats','bestScores','dailyHistory','achievements','nextRunSerial','lastRecordedRun',...(value.resetCursor===undefined?[]:['resetCursor']),...(value.colorExit===undefined?[]:['colorExit']),...(value.colorComparisons===undefined?[]:['colorComparisons']),...(value.outboundDifficulties===undefined?[]:['outboundDifficulties']),...(value.outboundV8===undefined?[]:['outboundV8']),...(value.endless===undefined?[]:['endless'])]),'长期记录字段无效');
  const settings=value.settings,cosmetics=value.cosmetics,stats=value.stats;
- requireValue(object(settings)&&keys(settings,['sound','reducedMotion',...Object.prototype.hasOwnProperty.call(settings,'music')?['music']:[]])&&typeof settings.sound==='boolean'&&typeof settings.reducedMotion==='boolean'&&(!Object.prototype.hasOwnProperty.call(settings,'music')||typeof settings.music==='boolean'),'设置无效');
+ requireValue(object(settings)&&keys(settings,['sound','reducedMotion',...Object.prototype.hasOwnProperty.call(settings,'music')?['music']:[],...Object.prototype.hasOwnProperty.call(settings,'vibration')?['vibration']:[]])&&typeof settings.sound==='boolean'&&typeof settings.reducedMotion==='boolean'&&(!Object.prototype.hasOwnProperty.call(settings,'music')||typeof settings.music==='boolean')&&(!Object.prototype.hasOwnProperty.call(settings,'vibration')||typeof settings.vibration==='boolean'),'设置无效');
  requireValue(object(cosmetics)&&keys(cosmetics,['theme','forklift','cargo'])&&known(THEMES,cosmetics.theme)&&known(FORKLIFTS,cosmetics.forklift)&&known(CARGO_STYLES,cosmetics.cargo),'外观无效');
  requireValue(typeof value.tutorialComplete==='boolean','教学记录无效');
  requireValue(object(stats)&&keys(stats,['runs','orders','wins','maxChain'])&&integer(stats.runs)&&integer(stats.orders)&&integer(stats.wins,0,stats.runs)&&integer(stats.maxChain,0,64),'统计无效');
@@ -171,7 +171,7 @@ export function allocateRun(profile:Profile,minimum=1):{profile:Profile;serial:n
  return {profile:{...profile,nextRunSerial:serial+1},serial};
 }
 export function setProfileSettings(profile:Profile,patch:Partial<Profile['settings']>):Profile {
- assertProfile(profile);requireValue(object(patch)&&Object.keys(patch).every(key=>['sound','reducedMotion','music'].includes(key)&&typeof (patch as UnknownRecord)[key]==='boolean'),'设置无效');
+ assertProfile(profile);requireValue(object(patch)&&Object.keys(patch).every(key=>['sound','reducedMotion','music','vibration'].includes(key)&&typeof (patch as UnknownRecord)[key]==='boolean'),'设置无效');
  return {...profile,settings:{...profile.settings,...patch}};
 }
 export function setProfileCosmetic(profile:Profile,kind:string,id:string):{profile:Profile;error?:string} {

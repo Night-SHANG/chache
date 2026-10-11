@@ -61,6 +61,16 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
 export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect): void {
+  renderScene(ctx,state,view,backgroundBounds);
+  const pressed=view.pressedControl;if(!pressed?.visible)return;
+  const r=pressed.rect;ctx.save();
+  roundedPath(ctx,r.x,r.y,r.w,r.h,Math.min(18,r.h/4));ctx.clip();
+  ctx.fillStyle='rgba(5,12,20,.19)';ctx.fillRect(r.x,r.y,r.w,r.h);
+  ctx.fillStyle='rgba(2,7,12,.25)';ctx.fillRect(r.x,r.y,r.w,6);
+  ctx.fillStyle='rgba(255,244,208,.20)';ctx.fillRect(r.x+9,r.y+r.h-4,r.w-18,2);
+  ctx.restore();
+}
+function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect): void {
   view=staticPresentationView(view);
   const playerMessage=(value:string|undefined):string|undefined=>{
     if(value==='记录超出496KiB限制，请先结束本局')return view.account?.run&&view.accountRunId&&!view.accountBlocked&&!view.needsResume&&state.phase!=='result'?'本局记录已达保存上限，请先结束本局。':'记录已达保存上限，暂时无法保存。';

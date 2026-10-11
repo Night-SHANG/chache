@@ -160,7 +160,7 @@ test('wechat safely falls back to stop when a host has no pause method',()=>{
  }finally{f.restore();}
 });
 test('new profiles include separate enabled music while legacy two-setting records retain their shape',()=>{
- const fresh=createProfile();assert.deepEqual(fresh.settings,{sound:true,reducedMotion:false,music:true});assert.deepEqual(decodeProfile(encodeProfile(fresh)),fresh);
+ const fresh=createProfile();assert.deepEqual(fresh.settings,{sound:true,reducedMotion:false,music:true,vibration:true});assert.deepEqual(decodeProfile(encodeProfile(fresh)),fresh);
  const legacy={...fresh,settings:{sound:false,reducedMotion:true}};assertProfile(legacy);assert.deepEqual(decodeProfile(encodeProfile(legacy)).settings,legacy.settings);assert.equal(legacy.settings.sound,false);
  const changed=setProfileSettings(legacy,{music:false});assert.deepEqual(changed.settings,{sound:false,reducedMotion:true,music:false});assert.deepEqual({...changed,settings:legacy.settings},legacy);assert.deepEqual(setProfileSettings(changed,{sound:true}).settings,{sound:true,reducedMotion:true,music:false});
 });

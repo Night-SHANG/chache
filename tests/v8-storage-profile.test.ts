@@ -114,8 +114,8 @@ test('v1 through v7 snapshots and legacy profile preserve old bytes while new pr
  for(let version=1;version<=7;version++){const state=createRun(19,version===4||version===5||version===6?'color_exit':version===7?'endless':'standard',version,version===5?'entry':version===6?'easy':undefined),raw=saves.encodeRun(state);assert.equal(createHash('sha256').update(raw).digest('hex'),hashes[version-1]);assert.equal(saves.encodeRun(saves.decodeRun(raw)),raw);}
  const raw='{"schemaVersion":1,"digest":"a64291e7","profile":{"schemaVersion":1,"settings":{"sound":true,"reducedMotion":false},"cosmetics":{"theme":"day","forklift":"yellow","cargo":"classic"},"tutorialComplete":false,"stats":{"runs":0,"orders":0,"wins":0,"maxChain":0},"bestScores":{},"dailyHistory":{},"achievements":[],"nextRunSerial":1,"lastRecordedRun":null}}';
  const legacy=profiles.decodeProfile(raw),profile=profiles.createProfile(),canonical=profiles.encodeProfile(profile);
- assert.equal(legacy.settings.music,undefined);assert.equal(profile.settings.music,true);
- assert.deepEqual({...legacy,settings:{...legacy.settings,music:true}},profile);
+ assert.equal(legacy.settings.music,undefined);assert.equal(profile.settings.music,true);assert.equal(legacy.settings.vibration,undefined);assert.equal(profile.settings.vibration,true);
+ assert.deepEqual({...legacy,settings:{...legacy.settings,music:true,vibration:true}},profile);
  assert.equal(profiles.encodeProfile(legacy),raw);
  for(const difficulty of difficulties){const first=profiles.getOutboundProfile(profile,difficulty,8),second=profiles.getOutboundProfile(profile,difficulty,8);assert.deepEqual(first.stats,{runs:0,batches:0,wins:0,maxChain:0});first.stats.runs=9;assert.equal(second.stats.runs,0);}
  assert.equal(profiles.encodeProfile(profile),canonical);assert.equal(profiles.encodeProfile(profiles.decodeProfile(raw)),raw);

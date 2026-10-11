@@ -14,4 +14,4 @@ export interface NativeGrowthHost {
  canvasObservers:Array<(surface:Canvas,id:number)=>void>;
  surfaceInfo:Array<{id:number;width:number;height:number}>;
 }
-export function createGrowthHost(options?:Record<string,unknown>):Promise<NativeGrowthHost>;
+export function createGrowthHost(options?:Record<string,unknown>&{vibrate?:(options:{type:'light';fail?:(error:unknown)=>void})=>void}):Promise<NativeGrowthHost>;

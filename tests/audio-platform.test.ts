@@ -5,7 +5,7 @@ import {createWechatPlatform} from '../src/platform/wechat.ts';
 import type {WechatHost} from '../src/platform/wechat.ts';
 import type {Platform,SoundName} from '../src/platform/types.ts';
 
-const names:SoundName[]=['pick','place','invalid','route_ready','forklift','ship','chain2','chain3','chain4','upgrade','shift','fail'];
+const names:SoundName[]=['pick','place','invalid','route_ready','forklift','ship','chain2','chain3','chain4','upgrade','shift','fail','ui_click'];
 class FakeAudio {
  private source='';private level=1;failSetup=false;currentTime=0;plays=0;stops=0;failPlay=false;rejectPlay=false;failStop=false;error:(()=>void)|undefined;
  constructor(src=''){this.source=src;}
@@ -37,11 +37,11 @@ function fixture(kind:'browser'|'wechat',options:{failSetup?:boolean}={}):Fixtur
  return {platform:createBrowserPlatform(canvas as unknown as HTMLCanvasElement),audio,hide:()=>{documentFake.hidden=true;documentEvents.get('visibilitychange')?.();},show:()=>{documentFake.hidden=false;documentEvents.get('visibilitychange')?.();},pagehide:()=>windowEvents.get('pagehide')?.(),failCreation,restore:()=>{for(const [name,descriptor] of previous){if(descriptor)Object.defineProperty(globalThis,name,descriptor);else Reflect.deleteProperty(globalThis,name);}}};
 }
 for(const kind of ['browser','wechat'] as const){
- test(`${kind} caches at most the 12 known local audio cues and ignores unknown runtime names`,()=>{
+ test(`${kind} caches at most the 13 known local audio cues and ignores unknown runtime names`,()=>{
   const f=fixture(kind);try{
    for(let pass=0;pass<30;pass++)for(const name of names)f.platform.playSound(name);
    for(let i=0;i<30;i++)f.platform.playSound(`unknown-${i}` as SoundName);
-   assert.equal(f.audio.length,12);assert.deepEqual(f.audio.map(item=>item.src).sort(),names.map(name=>`assets/${name}.wav`).sort());
+   assert.equal(f.audio.length,13);assert.deepEqual(f.audio.map(item=>item.src).sort(),names.map(name=>`assets/${name}.wav`).sort());
   }finally{f.restore();}
  });
  test(`${kind} explicit stopSounds stops and rewinds every cached cue without replay on show`,()=>{
@@ -50,7 +50,7 @@ for(const kind of ['browser','wechat'] as const){
    assert.equal(typeof f.platform.stopSounds,'function');const stops=f.audio.map(item=>item.stops);
    f.platform.stopSounds?.();f.platform.onShow(()=>{});f.show();
    f.audio.forEach((item,index)=>{assert.equal(item.stops,stops[index]+1);assert.equal(item.currentTime,0);assert.equal(item.plays,1);});
-   f.platform.playSound('pick');assert.equal(f.audio.length,12);assert.equal(f.audio[0].plays,2);
+   f.platform.playSound('pick');assert.equal(f.audio.length,13);assert.equal(f.audio[0].plays,2);
   }finally{f.restore();}
  });
  test(`${kind} setup failures reuse one bounded handle and recover only on an explicit retry`,()=>{

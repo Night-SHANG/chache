@@ -7,8 +7,8 @@ import {join} from 'node:path';
 import type {SoundName} from '../src/platform/types.ts';
 import {generateSound} from '../scripts/audio.ts';
 
-const names:SoundName[]=['pick','place','invalid','route_ready','forklift','ship','chain2','chain3','chain4','upgrade','shift','fail'];
-const durations:Record<string,number>={pick:0.085,place:0.115,invalid:0.14,route_ready:0.17,forklift:0.27,ship:0.26,chain2:0.28,chain3:0.28,chain4:0.28,upgrade:0.3,shift:0.38,fail:0.25};
+const names:SoundName[]=['pick','place','invalid','route_ready','forklift','ship','chain2','chain3','chain4','upgrade','shift','fail','ui_click'];
+const durations:Record<string,number>={pick:0.085,place:0.115,invalid:0.14,route_ready:0.17,forklift:0.27,ship:0.26,chain2:0.28,chain3:0.28,chain4:0.28,upgrade:0.3,shift:0.38,fail:0.25,ui_click:0.045};
 function samples(wav:Buffer):number[]{return Array.from({length:(wav.length-44)/2},(_,i)=>wav.readInt16LE(44+i*2)/32768);}
 function peak(values:number[]):number{return Math.max(...values.map(Math.abs));}
 function energy(values:number[]):number{return values.reduce((sum,value)=>sum+value*value,0)/values.length;}
@@ -18,7 +18,7 @@ function toneEnergy(values:number[],frequency:number):number{
  return (real*real+imaginary*imaginary)/(values.length*values.length);
 }
 
-test('all 12 original WAVs have complete mono PCM headers and the specified short durations',()=>{
+test('all 13 original WAVs have complete mono PCM headers and the specified short durations',()=>{
  for(const name of names){
   const wav=generateSound(name),count=Math.round(22050*durations[name]);
   assert.equal(wav.toString('ascii',0,4),'RIFF',name);assert.equal(wav.readUInt32LE(4),wav.length-8,name);
@@ -43,7 +43,7 @@ test('short audio has silent endpoints, smooth attack/release and moderate uncli
 test('audio generation is byte-deterministic, independent of order and distinct for each cue',()=>{
  const first=new Map(names.map(name=>[name,generateSound(name)]));
  for(const name of [...names].reverse())assert.deepEqual(generateSound(name),first.get(name),name);
- assert.equal(new Set([...first.values()].map(wav=>wav.toString('base64'))).size,12);
+ assert.equal(new Set([...first.values()].map(wav=>wav.toString('base64'))).size,13);
 });
 test('chain family keeps bell harmonics while ascending in pitch and adding layers',()=>{
  for(const [name,frequency] of [['chain2',660],['chain3',880],['chain4',1100]] as const){
@@ -58,7 +58,11 @@ test('forklift movement remains lighter than shipment and chain signals',()=>{
  const forklift=samples(generateSound('forklift'));
  for(const name of ['ship','chain2','chain3','chain4'] as const){const other=samples(generateSound(name));assert.ok(peak(forklift)<peak(other)*0.5);assert.ok(energy(forklift)<energy(other)*0.4);}
 });
-test('both build targets contain exactly the same 12 generated local WAVs on repeated builds',()=>{
+test('UI click is shorter and quieter than the existing pick and placement cues',()=>{
+ const click=samples(generateSound('ui_click'));
+ for(const name of ['pick','place'] as const){const other=samples(generateSound(name));assert.ok(click.length<other.length*0.6);assert.ok(peak(click)<peak(other)*0.6);assert.ok(energy(click)<energy(other)*0.4);}
+});
+test('both build targets contain exactly the same 13 generated local WAVs on repeated builds',()=>{
  const files=(dir:string):string[]=>readdirSync(dir,{withFileTypes:true}).filter(entry=>entry.name!=='__pycache__'&&!entry.name.endsWith('.pyc')).flatMap(entry=>entry.isDirectory()?files(join(dir,entry.name)):[join(dir,entry.name)]);
  const version=(JSON.parse(readFileSync('package.json','utf8')) as {version:string}).version;
  const sourceHash=createHash('sha256');for(const file of [...files('src'),...files('scripts'),...files('assets'),'package.json','package-lock.json'].sort()){sourceHash.update(file);sourceHash.update(readFileSync(file));}const expectedHash=sourceHash.digest('hex');

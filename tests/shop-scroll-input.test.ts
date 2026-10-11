@@ -23,7 +23,8 @@ function originCard(f:ReturnType<typeof fixture>){
 }
 function assertUnchanged(f:ReturnType<typeof fixture>){
  assert.deepEqual(f.actions,[]);assert.deepEqual(f.commands,[]);assert.deepEqual(f.previews,[]);
- assert.deepEqual(f.view,f.before.view);assert.deepEqual([...f.data],f.before.data);assert.equal(playableChecksum(f.session.state),f.before.checksum);
+ assert.deepEqual({...f.view,pressedControl:null},{...f.before.view,pressedControl:null}); // Press feedback is ephemeral and does not change the shop or account.
+ assert.deepEqual([...f.data],f.before.data);assert.equal(playableChecksum(f.session.state),f.before.checksum);
  assert.equal(f.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 }
 

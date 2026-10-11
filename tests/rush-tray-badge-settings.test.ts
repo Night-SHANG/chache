@@ -79,7 +79,7 @@ test('settings rows including music are vertically centered and their painted la
   const current=view({screen:'settings',profileNeedsRecovery:recovery,saveStatus:'保存失败，请重试',profileStatus:'游戏记录异常，原记录已保护'}),out=capture(state,current,`settings-${recovery?'recovery':'normal'}`,viewport),controls=getUiControls(state,current);
   const top=controls[0].rect.y,last=controls[controls.length-1],bottom=last.rect.y+last.rect.h;
   assert.equal((top+bottom)/2,960);assert.equal(bottom-top,controls.length*144+(controls.length-1)*36);
-  assert.deepEqual(controls.map(c=>c.action.type),['toggleMusic','toggleSound','toggleMotion',...(recovery?['recoverProfile']:[]),'resetProfile','back']);
+  assert.deepEqual(controls.map(c=>c.action.type),['toggleMusic','toggleSound','toggleVibration','toggleMotion',...(recovery?['recoverProfile']:[]),'resetProfile','back']);
   controls.forEach((c,index)=>{assert.deepEqual(c.rect,{x:132,y:960-(controls.length*144+(controls.length-1)*36)/2+index*180,w:816,h:144});assert.ok(hitTestPoint({x:c.rect.x+c.rect.w/2,y:c.rect.y+c.rect.h/2},c.rect));assert.ok(c.rect.h*out.scale>=44);
    const label=out.labels.find(l=>l.value===c.label)!;assert.ok(label,`painted ${c.label}`);assert.ok(label.left>=(out.ox+c.rect.x*out.scale)*viewport.dpr&&label.right<=(out.ox+(c.rect.x+c.rect.w)*out.scale)*viewport.dpr);assert.ok(label.top>=(out.oy+c.rect.y*out.scale)*viewport.dpr&&label.bottom<=(out.oy+(c.rect.y+c.rect.h)*out.scale)*viewport.dpr);
   });

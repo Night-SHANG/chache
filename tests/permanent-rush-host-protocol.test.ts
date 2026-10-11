@@ -29,7 +29,7 @@ test('actual result controls use one 132/28 stack and compact settings use 144/3
   const controls=getUiControls(state,view);assert.equal(controls.length,mode==='standard'?4:2);assert.doesNotThrow(()=>qa.assertUniformStack(controls,132,28));
  }
  const state=createPlayableRun({family:'inbound',mode:'standard',rulesetVersion:18,seed:17,inboundDifficulty:'hard',guided:false,toolCharges:{rotate:0,clear:0,wildcard:0}});
- for(const profileNeedsRecovery of [false,true]){const controls=getUiControls(state,{...view,screen:'settings',profileNeedsRecovery});assert.equal(controls.length,profileNeedsRecovery?6:5);assert.doesNotThrow(()=>qa.assertUniformStack(controls,144,36));}
+ for(const profileNeedsRecovery of [false,true]){const controls=getUiControls(state,{...view,screen:'settings',profileNeedsRecovery});assert.equal(controls.length,profileNeedsRecovery?7:6);assert.doesNotThrow(()=>qa.assertUniformStack(controls,144,36));}
  const bad=[{rect:{x:0,y:0,w:500,h:132}},{rect:{x:0,y:159,w:500,h:132}}];assert.throws(()=>qa.assertUniformStack(bad,132,28),/gap/);
 });
 test('constructed rush near-wins keep strict identity history score and honest provenance for both tiers',()=>{

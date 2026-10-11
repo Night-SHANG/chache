@@ -9,6 +9,7 @@ type Cue={duration:number;peak:number;voices:readonly Voice[]};
 const BELL=[1,0.22,0.05] as const;
 const SOFT=[1,0.16,0.04] as const;
 const CUES:Record<SoundName,Cue>={
+ ui_click:{duration:0.045,peak:0.075,voices:[{frequency:720,endFrequency:540,partials:SOFT}]},
  pick:{duration:0.085,peak:0.16,voices:[{frequency:620,endFrequency:740}]},
  place:{duration:0.115,peak:0.22,voices:[{frequency:250,endFrequency:165,partials:SOFT}]},
  invalid:{duration:0.14,peak:0.17,voices:[{frequency:190,endFrequency:135,partials:SOFT}]},

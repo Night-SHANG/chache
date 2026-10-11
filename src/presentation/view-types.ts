@@ -1,3 +1,4 @@
+import type {Rect} from './layout.ts';
 import type {ClassicSetSelection} from '../application/cosmetic-sets.ts';
 import type {CosmeticKind} from '../application/cosmetics.ts';
 import type {OutboundTransportPlan} from './outbound-transport.ts';
@@ -16,6 +17,7 @@ export type ShopSection='sets'|'theme'|'cargo'|'forklift';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
+  pressedControl?:{rect:Rect;visible:boolean}|null;
   shopTab?:'tools'|'cosmetics';
   shopSection?:ShopSection;
   classicSetSelection?:ClassicSetSelection;

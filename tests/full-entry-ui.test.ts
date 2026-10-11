@@ -80,12 +80,12 @@ test('settings show real Profile toggles and record recovery while appearance li
   assert.equal(controls.find(c => c.action.type === 'toggleMusic')?.selected, true);
   assert.equal(controls.find(c => c.action.type === 'toggleSound')?.selected, false);
   assert.equal(controls.find(c => c.action.type === 'toggleMotion')?.selected, true);
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleMotion', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleVibration', 'toggleMotion', 'resetProfile', 'back']);
   const output = surface(); render(output.ctx, run(), view({ screen: 'settings', profile }));
   assert.doesNotMatch(output.words(), /仓库主题|叉车涂装|货箱样式/);
   profile.achievements = ['first_shipment', 'five_shifts'];
   controls = getUiControls(run(), view({ screen: 'settings', profile, profileStatus: '主记录不可用，可恢复上一份长期记录备份', profileNeedsRecovery: true }));
-  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
+  assert.deepEqual(controls.map(c => c.action.type), ['toggleMusic', 'toggleSound', 'toggleVibration', 'toggleMotion', 'recoverProfile', 'resetProfile', 'back']);
   assert.ok(controls.some(c => c.action.type === 'recoverProfile'));
   assert.ok(controls.some(c => c.action.type === 'resetProfile'));
   assert.equal(getUiControls(run(), view({ screen: 'settings', profileStatus: '长期记录已保存' })).some(c => c.action.type === 'recoverProfile'), false);

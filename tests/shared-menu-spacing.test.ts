@@ -27,10 +27,10 @@ test('result controls form a uniform stack using only the buttons present, with 
 });
 test('settings controls stay together with and without a recovery row',()=>{
  for(const recovery of [false,true])for(const [width,height] of sizes){const state=result('standard'),current={...view(),screen:'settings' as const,profileNeedsRecovery:recovery},controls=getUiControls(state,current),gaps=controls.slice(1).map((c,i)=>c.rect.y-controls[i].rect.y-controls[i].rect.h);
-  assert.deepEqual(controls.map(c=>c.action.type),['toggleMusic','toggleSound','toggleMotion',...(recovery?['recoverProfile']:[]),'resetProfile','back']);
+  assert.deepEqual(controls.map(c=>c.action.type),['toggleMusic','toggleSound','toggleVibration','toggleMotion',...(recovery?['recoverProfile']:[]),'resetProfile','back']);
   assert.ok(controls.every(c=>c.rect.h===144));assert.ok(gaps.every(gap=>gap===36),'settings uses one evenly spaced stack');
   const top=controls[0].rect.y,bottom=controls[controls.length-1].rect.y+controls[controls.length-1].rect.h,scale=Math.min(width/L.width,height/L.height);
-  assert.equal((top+bottom)/2,960);assert.equal(top,recovery?438:528);assert.equal(bottom,recovery?1482:1392);assert.ok(controls.every(c=>c.rect.w*scale>=44&&c.rect.h*scale>=44));
+  assert.equal((top+bottom)/2,960);assert.equal(top,recovery?348:438);assert.equal(bottom,recovery?1572:1482);assert.ok(controls.every(c=>c.rect.w*scale>=44&&c.rect.h*scale>=44));
   capture(state,current,recovery?'settings-recovery':'settings',width,height);
  }
 });

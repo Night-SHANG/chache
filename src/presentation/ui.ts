@@ -101,13 +101,14 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
     control(wide(1540),'返回出库选择',{type:'chooseColorTier'}),
   ];
   if (view.screen === 'settings') {
-    const count=view.profileNeedsRecovery?6:5,totalHeight=count*144+(count-1)*36;
+    const count=view.profileNeedsRecovery?7:6,totalHeight=count*144+(count-1)*36;
     const rows=verticalStackRects(count,{x:132,y:L.height/2-totalHeight/2,w:816,h:144},36);
     const controls=[
       { ...control(rows[0], `音乐：${view.profile?.settings.music !== false ? '开' : '关'}`, { type: 'toggleMusic' }), selected: view.profile?.settings.music !== false },
       { ...control(rows[1], `音效：${view.profile?.settings.sound !== false ? '开' : '关'}`, { type: 'toggleSound' }), selected: view.profile?.settings.sound !== false },
-      { ...control(rows[2], `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
-      ...(view.profileNeedsRecovery ? [control(rows[3], '恢复游戏记录', { type: 'recoverProfile' })] : []),
+      { ...control(rows[2], `震动：${view.profile?.settings.vibration !== false ? '开' : '关'}`, { type: 'toggleVibration' }), selected: view.profile?.settings.vibration !== false },
+      { ...control(rows[3], `简化动效：${view.profile?.settings.reducedMotion ? '开' : '关'}`, { type: 'toggleMotion' }), selected: !!view.profile?.settings.reducedMotion },
+      ...(view.profileNeedsRecovery ? [control(rows[4], '恢复游戏记录', { type: 'recoverProfile' })] : []),
       control(rows[rows.length-2], '重置成绩记录', { type: 'resetProfile' }),
       control(rows[rows.length-1], '返回', { type: 'back' }),
     ];
