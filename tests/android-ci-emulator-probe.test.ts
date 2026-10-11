@@ -41,6 +41,23 @@ test('independent infrastructure branch preserves the complete release workflow 
  const baseline=execFileSync('git',['show','2affb411ddf8a0d712f39a6a76893e40148d931d:.github/workflows/android.yml'],{cwd:new URL('..',import.meta.url)});assert.deepEqual(actual,baseline);
 });
 
+test('pure probe sparse checkout materializes exactly its two required scripts without weakening disk headroom',async()=>{
+ const workflow=await readFile(new URL('../.github/workflows/android-emulator-probe.yml',import.meta.url),'utf8');
+ assert.match(workflow,/sparse-checkout-cone-mode: false/);
+ const patterns=/sparse-checkout: \|\n((?: {12}.*\n)+)/.exec(workflow)?.[1].trim().split('\n').map(s=>s.trim());
+ assert.ok(patterns);
+ assert.deepEqual(patterns,['/scripts/android-emulator-probe.sh','/scripts/android-emulator-probe-space.mjs']);assert.doesNotMatch(workflow,/^\s+filter:/m);
+ assert.ok(policy);assert.equal(policy.requiredAvailableBytes,Math.ceil(6*1024**3*1.2)+512*1024**2);
+ const root=await mkdtemp(join(tmpdir(),'probe-sparse-checkout-')),repo=new URL('..',import.meta.url).pathname;
+ try{
+  execFileSync('git',['clone','--shared','--no-checkout','--quiet',repo,root]);
+  execFileSync('git',['sparse-checkout','set','--no-cone','--stdin'],{cwd:root,input:patterns.join('\n')+'\n'});
+  execFileSync('git',['checkout','--quiet'],{cwd:root});
+  assert.deepEqual((await readdir(root)).sort(),['.git','scripts']);assert.deepEqual((await readdir(join(root,'scripts'))).sort(),['android-emulator-probe-space.mjs','android-emulator-probe.sh']);
+  for(const file of patterns)assert.deepEqual(await readFile(join(root,file.slice(1))),await readFile(join(repo,file.slice(1))));
+ }finally{await rm(root,{recursive:true,force:true});}
+});
+
 async function endpointFixture(mode:string){
  // Official-tool output stubs exercise orchestration, not actual SDK/emulator acceptance.
  const repo=new URL('..',import.meta.url).pathname,parent=join(repo,'.superpowers/sdd/android-release-implementation');
