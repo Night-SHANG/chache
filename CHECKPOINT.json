@@ -1,28 +1,21 @@
 {
-  "version": "1.0.4",
-  "verifiedAt": "2026-10-11 09:07 北京时间（UTC+08:00）",
-  "productCommit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
-  "productTree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
-  "sourceSha256": "26ea0297c29736396c8264299ccd15ee74cbbfec1477b92d5d47c93369122870",
-  "status": "SCOPED_BACKGROUND_WIDTH_VERIFIED_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
-  "productionManifest": {
-    "version": "1.0.4",
-    "shopPricingMode": "paid",
-    "developerDiagnostics": false,
-    "accountFormatVersion": 4,
-    "economyVersion": 2
-  },
+  "version": "1.0.5",
+  "verifiedAt": "2026-10-11T09:50:04.462859+08:00",
+  "status": "SCOPED_VISUAL_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
+  "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
+  "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
   "fullTests": {
-    "tests": 2743,
-    "pass": 2741,
-    "fail": 2,
+    "tests": 2785,
+    "passCount": 2783,
+    "failCount": 2,
     "cancelled": 0,
     "skipped": 0,
     "command": "node --test --test-concurrency=2 tests/*.test.ts"
   },
   "knownFailures": [
-    "cargo-atlas.test.ts: missing historical cargo-wood-generated.png",
-    "v021-cargo-forklift-art.test.ts: missing historical cargo-harbor_container-generated.png"
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
   ],
   "static": {
     "lint": "PASS",
@@ -31,19 +24,12 @@
   },
   "productionHost": {
     "status": "PASS",
-    "cases": 136,
+    "cases": 170,
+    "images": 101,
     "failures": 0,
-    "screens": 69,
-    "preservedCentralPixels": true,
-    "preservedLabelsAndAccounts": true
+    "classicReferences": 4
   },
-  "independent": {
-    "status": "PASS_WITH_DISCLOSED_ENVIRONMENT_AND_HISTORICAL_ASSET_LIMITS",
-    "sceneCases": 70,
-    "previewCases": 32,
-    "focusedTestsPassed": 40
-  },
-  "details": "qa/v104/summary.json",
-  "previousCheckpoint": "docs/checkpoint-v101-history.json",
-  "note": "This is the current native code/QA checkpoint. Packaging, restoration, remote backup and Library delivery have separate final receipts."
+  "details": "qa/v105/summary.json",
+  "previousCheckpoint": "docs/checkpoint-v104-history.json",
+  "note": "Frozen code/QA only. Delivery and remote backup have separate final receipts."
 }

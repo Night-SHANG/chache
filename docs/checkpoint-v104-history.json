@@ -1,0 +1,49 @@
+{
+  "version": "1.0.4",
+  "verifiedAt": "2026-10-11 09:07 北京时间（UTC+08:00）",
+  "productCommit": "3a75d7e64b880361f2a8b52046009e578d47e86c",
+  "productTree": "baea2a4db95ef78c0510d6005eeaebf25d7cad72",
+  "sourceSha256": "26ea0297c29736396c8264299ccd15ee74cbbfec1477b92d5d47c93369122870",
+  "status": "SCOPED_BACKGROUND_WIDTH_VERIFIED_WITH_TWO_HISTORICAL_ART_MASTER_FAILURES",
+  "productionManifest": {
+    "version": "1.0.4",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "accountFormatVersion": 4,
+    "economyVersion": 2
+  },
+  "fullTests": {
+    "tests": 2743,
+    "pass": 2741,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing historical cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing historical cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "productionHost": {
+    "status": "PASS",
+    "cases": 136,
+    "failures": 0,
+    "screens": 69,
+    "preservedCentralPixels": true,
+    "preservedLabelsAndAccounts": true
+  },
+  "independent": {
+    "status": "PASS_WITH_DISCLOSED_ENVIRONMENT_AND_HISTORICAL_ASSET_LIMITS",
+    "sceneCases": 70,
+    "previewCases": 32,
+    "focusedTestsPassed": 40
+  },
+  "details": "qa/v104/summary.json",
+  "previousCheckpoint": "docs/checkpoint-v101-history.json",
+  "note": "This is the current native code/QA checkpoint. Packaging, restoration, remote backup and Library delivery have separate final receipts."
+}

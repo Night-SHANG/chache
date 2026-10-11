@@ -1,0 +1,274 @@
+✖ harbor: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (10.723928ms)
+✖ cold_chain: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (10.769537ms)
+✖ rail_freight: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.609172ms)
+✖ toy_workshop: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (6.970365ms)
+✖ paper_warehouse: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (5.197791ms)
+✖ space_cargo: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (6.447193ms)
+✖ steam_foundry: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.004277ms)
+✖ neon_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.555961ms)
+✖ lava_forge: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.283319ms)
+✖ ocean_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (9.867361ms)
+✖ royal_store: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (8.171394ms)
+✖ field_station: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (5.83183ms)
+✖ forest_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (4.150495ms)
+✖ ice_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (4.630713ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 0
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 688.038523
+
+✖ failing tests:
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ harbor: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (10.723928ms)
+  AssertionError [ERR_ASSERTION]: harbor: repeated architecture or horizontal banding at x=12, y=0
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ cold_chain: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (10.769537ms)
+  AssertionError [ERR_ASSERTION]: cold_chain: repeated architecture or horizontal banding at x=1, y=4
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ rail_freight: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.609172ms)
+  AssertionError [ERR_ASSERTION]: rail_freight: repeated architecture or horizontal banding at x=49, y=11
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ toy_workshop: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (6.970365ms)
+  AssertionError [ERR_ASSERTION]: toy_workshop: repeated architecture or horizontal banding at x=11, y=6
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ paper_warehouse: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (5.197791ms)
+  AssertionError [ERR_ASSERTION]: paper_warehouse: repeated architecture or horizontal banding at x=1, y=6
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ space_cargo: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (6.447193ms)
+  AssertionError [ERR_ASSERTION]: space_cargo: repeated architecture or horizontal banding at x=1, y=5
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ steam_foundry: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.004277ms)
+  AssertionError [ERR_ASSERTION]: steam_foundry: repeated architecture or horizontal banding at x=18, y=14
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ neon_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.555961ms)
+  AssertionError [ERR_ASSERTION]: neon_depot: repeated architecture or horizontal banding at x=7, y=13
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ lava_forge: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (7.283319ms)
+  AssertionError [ERR_ASSERTION]: lava_forge: repeated architecture or horizontal banding at x=1, y=4
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ ocean_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (9.867361ms)
+  AssertionError [ERR_ASSERTION]: ocean_vault: repeated architecture or horizontal banding at x=15, y=10
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ royal_store: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (8.171394ms)
+  AssertionError [ERR_ASSERTION]: royal_store: repeated architecture or horizontal banding at x=134, y=10
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ field_station: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (5.83183ms)
+  AssertionError [ERR_ASSERTION]: field_station: repeated architecture or horizontal banding at x=231, y=8
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ forest_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (4.150495ms)
+  AssertionError [ERR_ASSERTION]: forest_depot: repeated architecture or horizontal banding at x=4, y=3
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/scenery-quiet-sides-v105.test.ts:11:106
+✖ ice_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (4.630713ms)
+  AssertionError [ERR_ASSERTION]: ice_vault: repeated architecture or horizontal banding at x=4, y=3
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-quiet-sides-v105.test.ts:19:58)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

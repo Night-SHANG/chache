@@ -1,0 +1,46 @@
+✔ browser side bounds follow resize without changing input transform at DPR 1 (4.752315ms)
+✔ browser side bounds follow resize without changing input transform at DPR 2 (0.711387ms)
+✔ browser side bounds follow resize without changing input transform at DPR 3 (6.591679ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 1 (1.098553ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 2 (26.571397ms)
+✔ wechat excludes all safe-area insets from scenery bounds at DPR 3 (1.223653ms)
+✔ harbor: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (57.719332ms)
+✔ cold_chain: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (36.071498ms)
+✔ rail_freight: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (33.921083ms)
+✔ toy_workshop: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (37.666894ms)
+✔ paper_warehouse: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (34.093985ms)
+✔ space_cargo: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (85.128948ms)
+✔ steam_foundry: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (92.825509ms)
+✔ neon_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (70.236642ms)
+✔ lava_forge: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (55.617941ms)
+✔ ocean_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (51.591966ms)
+✔ royal_store: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (56.026779ms)
+✔ field_station: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (50.607275ms)
+✔ forest_depot: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (51.705838ms)
+✔ ice_vault: ultra-wide side scenery is quiet wall/floor tone, never repeated architecture (55.1091ms)
+✔ harbor: side background fills wide viewport while central pixels stay unchanged (19.353229ms)
+✔ cold_chain: side background fills wide viewport while central pixels stay unchanged (10.570703ms)
+✔ rail_freight: side background fills wide viewport while central pixels stay unchanged (6.690368ms)
+✔ toy_workshop: side background fills wide viewport while central pixels stay unchanged (8.145952ms)
+✔ paper_warehouse: side background fills wide viewport while central pixels stay unchanged (6.840897ms)
+✔ space_cargo: side background fills wide viewport while central pixels stay unchanged (8.045831ms)
+✔ steam_foundry: side background fills wide viewport while central pixels stay unchanged (8.405906ms)
+✔ neon_depot: side background fills wide viewport while central pixels stay unchanged (7.458051ms)
+✔ lava_forge: side background fills wide viewport while central pixels stay unchanged (7.62299ms)
+✔ ocean_vault: side background fills wide viewport while central pixels stay unchanged (9.186537ms)
+✔ royal_store: side background fills wide viewport while central pixels stay unchanged (10.778147ms)
+✔ field_station: side background fills wide viewport while central pixels stay unchanged (14.537017ms)
+✔ forest_depot: side background fills wide viewport while central pixels stay unchanged (12.71579ms)
+✔ ice_vault: side background fills wide viewport while central pixels stay unchanged (11.371757ms)
+✔ classic day and night preserve every pixel including their original outside racks (58.253435ms)
+✔ game board remains identical and scenery never mutates the run (55.706755ms)
+✔ bounded shop previews never paint beyond their own rectangle (6.330995ms)
+✔ missing, narrow or invalid scenery bounds preserve the original bounded rendering (34.050038ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1265.771572

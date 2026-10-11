@@ -1,0 +1,133 @@
+{
+  "version": "1.0.5",
+  "verifiedAt": "2026-10-11T09:50:04.462859+08:00",
+  "status": "SCOPED_VISUAL_FIX_VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
+  "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
+  "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
+  "rootVisualApproval": "Actual classic set and same-viewport theme screenshots plus seam enlargement reviewed before packaging.",
+  "change": "Replace v104 whole-scene mirror with continuous theme wall/floor underlay; original central art repaints over it. No architecture duplicated.",
+  "fullTests": {
+    "tests": 2785,
+    "passCount": 2783,
+    "failCount": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "command": "node --test --test-concurrency=2 tests/*.test.ts"
+  },
+  "knownFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "tdd": {
+    "quietSides": {
+      "redFailed": 14,
+      "redTotal": 14
+    },
+    "fractionalSeams": {
+      "redFailed": 14,
+      "redTotal": 28
+    },
+    "finalFocusedPassed": 67
+  },
+  "productionHost": {
+    "status": "PASS",
+    "cases": 170,
+    "images": 101,
+    "failures": 0,
+    "classicReferences": 4
+  },
+  "independent": {
+    "status": "PASS_SCOPED_VISUAL_AND_REGRESSION_REVIEW",
+    "candidate": "/workspace/scratch/e6b59ff34222/scene-width-current/v105-review/paid-candidate-seamfix",
+    "productionBundleSha256": {
+      "browser": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+      "wechat": "a5c315ecde01d43ba03e88e327032457d27418c7b617362580124a4190c60309"
+    },
+    "primaryUserViewport": [
+      1356,
+      660
+    ],
+    "sceneCases": 136,
+    "previewCases": 32,
+    "wideSceneBoundaryCases": 100,
+    "nonOpaqueWideSceneCases": 0,
+    "wideSceneMaxHorizontalSideVariation": 0,
+    "focusedTests": {
+      "passed": 82,
+      "failed": 0
+    },
+    "unchangedPackagedAssets": 34,
+    "parentVisualApproval": "Parent reviewed final seam zoom and classic-baseline 1356x660; approved packaging after full matrix, which subsequently passed.",
+    "visualFindings": [
+      "No repeated complete warehouse structures in all 14 theme contact sheets at 1356x660 and tablet 768x1024.",
+      "Original central art remains in its original position and size. Side regions contain theme gradients and simple horizontal wall/floor bands only.",
+      "Railway 1356x660 full frame and 8x rail/cold/forest boundary zoom inspected after seam fix. No transparent vertical seam remains.",
+      "Cold-chain wall-panel boundary and forest wooden frame are original artwork, not duplicated side content.",
+      "Classic day + classic cargo + yellow forklift reference included at 1356x660,446x694,390x844. Classic side darkness is preserved intentionally."
+    ],
+    "limitations": [
+      "Screenshots execute untouched production bundles in native Canvas/DOM-event host simulations, not real Chromium or physical WeChat.",
+      "Earlier Chromium startup was blocked by socket EPERM; no security bypass attempted.",
+      "Core hash comparison excludes 2 physical boundary pixels. Independent full-width alpha scan and focused full-center tests cover the edge gap instead.",
+      "Implementer owns full-suite/release verification; final full-suite count is not claimed by this scoped report."
+    ],
+    "earlierCandidateRejected": {
+      "reason": "Fractional central/side clips left semi-transparent seams.",
+      "affectedWideCases": 37,
+      "minObservedAlpha": 158,
+      "evidence": "boundary-before-seamfix.json / boundary-red.log"
+    },
+    "v104AssessmentCorrection": "The earlier acceptance of mirrored outer architecture was incorrect. This review explicitly rejects repeated full scene motifs rather than treating central-pixel equality as visual success."
+  },
+  "protectedExistingProductFiles": 312,
+  "frozen": {
+    "version": "1.0.5",
+    "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
+    "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
+    "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
+    "bundles": [
+      {
+        "mode": "paid",
+        "target": "browser",
+        "file": "app.js",
+        "bytes": 898889,
+        "sha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493"
+      },
+      {
+        "mode": "paid",
+        "target": "wechat",
+        "file": "game.js",
+        "bytes": 898221,
+        "sha256": "a5c315ecde01d43ba03e88e327032457d27418c7b617362580124a4190c60309"
+      },
+      {
+        "mode": "free",
+        "target": "browser",
+        "file": "app.js",
+        "bytes": 898892,
+        "sha256": "a36d385f2eb828294d9b914e0d97daaa94c9a0e2d5f94ebb8f6004fd427ea39a"
+      },
+      {
+        "mode": "free",
+        "target": "wechat",
+        "file": "game.js",
+        "bytes": 898220,
+        "sha256": "ce5403514450d7b161ee2976c75003f38afbac1183dc70a51a6d4ff592a21388"
+      }
+    ],
+    "productionMatchesIndependentlyReviewedSeamfixCandidate": true
+  },
+  "delivery": "Separate final packaging, restoration, Git backup and Library receipts follow this frozen code/QA checkpoint.",
+  "limitations": [
+    "Actual Chromium/Windows launcher/WeChat developer tools/physical devices NOT RUN. Native Canvas/DOM/wx production bundle hosts are not those environments.",
+    "Central interior pixels and UI geometry unchanged; intentional boundary antialias alpha correction is covered by full-width opaque checks.",
+    "Earlier pre-seam full suite 2755/2757 and first incomplete production-host attempt are retained but not counted as final results.",
+    "v104 mirror repetition was a visually incorrect accepted design; its history is retained."
+  ]
+}

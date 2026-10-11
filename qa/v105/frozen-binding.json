@@ -1,0 +1,37 @@
+{
+  "version": "1.0.5",
+  "productCommit": "a08f82703dfb5d1ccd8c52df1ef8d9829583b0fd",
+  "productTree": "3c913e882c8afdbda584730e84ac01e7cdbc7122",
+  "sourceSha256": "c1d9a829d200cd7a4a541f20e306866dfdf915deb061239a915795bae1517254",
+  "bundles": [
+    {
+      "mode": "paid",
+      "target": "browser",
+      "file": "app.js",
+      "bytes": 898889,
+      "sha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493"
+    },
+    {
+      "mode": "paid",
+      "target": "wechat",
+      "file": "game.js",
+      "bytes": 898221,
+      "sha256": "a5c315ecde01d43ba03e88e327032457d27418c7b617362580124a4190c60309"
+    },
+    {
+      "mode": "free",
+      "target": "browser",
+      "file": "app.js",
+      "bytes": 898892,
+      "sha256": "a36d385f2eb828294d9b914e0d97daaa94c9a0e2d5f94ebb8f6004fd427ea39a"
+    },
+    {
+      "mode": "free",
+      "target": "wechat",
+      "file": "game.js",
+      "bytes": 898220,
+      "sha256": "ce5403514450d7b161ee2976c75003f38afbac1183dc70a51a6d4ff592a21388"
+    }
+  ],
+  "productionMatchesIndependentlyReviewedSeamfixCandidate": true
+}

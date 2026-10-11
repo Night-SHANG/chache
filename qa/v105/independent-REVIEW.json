@@ -1,0 +1,43 @@
+{
+  "status": "PASS_SCOPED_VISUAL_AND_REGRESSION_REVIEW",
+  "candidate": "/workspace/scratch/e6b59ff34222/scene-width-current/v105-review/paid-candidate-seamfix",
+  "productionBundleSha256": {
+    "browser": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+    "wechat": "a5c315ecde01d43ba03e88e327032457d27418c7b617362580124a4190c60309"
+  },
+  "primaryUserViewport": [
+    1356,
+    660
+  ],
+  "sceneCases": 136,
+  "previewCases": 32,
+  "wideSceneBoundaryCases": 100,
+  "nonOpaqueWideSceneCases": 0,
+  "wideSceneMaxHorizontalSideVariation": 0,
+  "focusedTests": {
+    "passed": 82,
+    "failed": 0
+  },
+  "unchangedPackagedAssets": 34,
+  "parentVisualApproval": "Parent reviewed final seam zoom and classic-baseline 1356x660; approved packaging after full matrix, which subsequently passed.",
+  "visualFindings": [
+    "No repeated complete warehouse structures in all 14 theme contact sheets at 1356x660 and tablet 768x1024.",
+    "Original central art remains in its original position and size. Side regions contain theme gradients and simple horizontal wall/floor bands only.",
+    "Railway 1356x660 full frame and 8x rail/cold/forest boundary zoom inspected after seam fix. No transparent vertical seam remains.",
+    "Cold-chain wall-panel boundary and forest wooden frame are original artwork, not duplicated side content.",
+    "Classic day + classic cargo + yellow forklift reference included at 1356x660,446x694,390x844. Classic side darkness is preserved intentionally."
+  ],
+  "limitations": [
+    "Screenshots execute untouched production bundles in native Canvas/DOM-event host simulations, not real Chromium or physical WeChat.",
+    "Earlier Chromium startup was blocked by socket EPERM; no security bypass attempted.",
+    "Core hash comparison excludes 2 physical boundary pixels. Independent full-width alpha scan and focused full-center tests cover the edge gap instead.",
+    "Implementer owns full-suite/release verification; final full-suite count is not claimed by this scoped report."
+  ],
+  "earlierCandidateRejected": {
+    "reason": "Fractional central/side clips left semi-transparent seams.",
+    "affectedWideCases": 37,
+    "minObservedAlpha": 158,
+    "evidence": "boundary-before-seamfix.json / boundary-red.log"
+  },
+  "v104AssessmentCorrection": "The earlier acceptance of mirrored outer architecture was incorrect. This review explicitly rejects repeated full scene motifs rather than treating central-pixel equality as visual success."
+}

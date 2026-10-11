@@ -1,0 +1,54 @@
+[
+  {
+    "name": "user-ultrawide",
+    "width": 1356,
+    "height": 660,
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/source/artifacts/v105-background-seamfix/classic-set-user-ultrawide.png",
+    "bundleSha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+    "cosmetics": {
+      "cargo": "classic",
+      "forklift": "yellow",
+      "theme": "day"
+    },
+    "sha256": "2bd0acec8432b3bb20f94541deb5a1ea28234afcbc7122ca020303d7e19db56c"
+  },
+  {
+    "name": "phone",
+    "width": 446,
+    "height": 694,
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/source/artifacts/v105-background-seamfix/classic-set-phone.png",
+    "bundleSha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+    "cosmetics": {
+      "cargo": "classic",
+      "forklift": "yellow",
+      "theme": "day"
+    },
+    "sha256": "ea1a29c6c4d82c1d73e31acdebb64a549d02b13aca42e632859454a4baf615b6"
+  },
+  {
+    "name": "phone-tall",
+    "width": 390,
+    "height": 844,
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/source/artifacts/v105-background-seamfix/classic-set-phone-tall.png",
+    "bundleSha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+    "cosmetics": {
+      "cargo": "classic",
+      "forklift": "yellow",
+      "theme": "day"
+    },
+    "sha256": "5dcce4dcd1196f7414fe54b6abf995f56888d60e35e7fe854ed75c2cc014f4e6"
+  },
+  {
+    "name": "tablet",
+    "width": 768,
+    "height": 1024,
+    "path": "/workspace/scratch/e6b59ff34222/scene-width-current/source/artifacts/v105-background-seamfix/classic-set-tablet.png",
+    "bundleSha256": "85534a47ecf9e1c972150c98db333e0776c67eca38d3265520c265407e17d493",
+    "cosmetics": {
+      "cargo": "classic",
+      "forklift": "yellow",
+      "theme": "day"
+    },
+    "sha256": "7e811237015c6be8a57dddc43604446441f9e25137f58652a5ce3c67e6442aef"
+  }
+]

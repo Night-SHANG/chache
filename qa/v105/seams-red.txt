@@ -1,0 +1,330 @@
+✖ harbor 1356x660: both fractional scene boundaries are fully opaque (32.278029ms)
+✖ cold_chain 1356x660: both fractional scene boundaries are fully opaque (10.348965ms)
+✖ rail_freight 1356x660: both fractional scene boundaries are fully opaque (8.101135ms)
+✖ toy_workshop 1356x660: both fractional scene boundaries are fully opaque (9.148149ms)
+✖ paper_warehouse 1356x660: both fractional scene boundaries are fully opaque (8.312535ms)
+✖ space_cargo 1356x660: both fractional scene boundaries are fully opaque (6.344548ms)
+✖ steam_foundry 1356x660: both fractional scene boundaries are fully opaque (5.82423ms)
+✖ neon_depot 1356x660: both fractional scene boundaries are fully opaque (5.760564ms)
+✖ lava_forge 1356x660: both fractional scene boundaries are fully opaque (6.213179ms)
+✖ ocean_vault 1356x660: both fractional scene boundaries are fully opaque (6.376426ms)
+✖ royal_store 1356x660: both fractional scene boundaries are fully opaque (5.913836ms)
+✖ field_station 1356x660: both fractional scene boundaries are fully opaque (5.695936ms)
+✖ forest_depot 1356x660: both fractional scene boundaries are fully opaque (4.844768ms)
+✖ ice_vault 1356x660: both fractional scene boundaries are fully opaque (4.628381ms)
+✔ harbor 446x694: both fractional scene boundaries are fully opaque (8.274056ms)
+✔ cold_chain 446x694: both fractional scene boundaries are fully opaque (5.147667ms)
+✔ rail_freight 446x694: both fractional scene boundaries are fully opaque (4.513358ms)
+✔ toy_workshop 446x694: both fractional scene boundaries are fully opaque (8.933284ms)
+✔ paper_warehouse 446x694: both fractional scene boundaries are fully opaque (4.205171ms)
+✔ space_cargo 446x694: both fractional scene boundaries are fully opaque (5.188629ms)
+✔ steam_foundry 446x694: both fractional scene boundaries are fully opaque (5.4673ms)
+✔ neon_depot 446x694: both fractional scene boundaries are fully opaque (4.245973ms)
+✔ lava_forge 446x694: both fractional scene boundaries are fully opaque (5.19574ms)
+✔ ocean_vault 446x694: both fractional scene boundaries are fully opaque (5.954117ms)
+✔ royal_store 446x694: both fractional scene boundaries are fully opaque (4.535993ms)
+✔ field_station 446x694: both fractional scene boundaries are fully opaque (4.149006ms)
+✔ forest_depot 446x694: both fractional scene boundaries are fully opaque (3.206541ms)
+✔ ice_vault 446x694: both fractional scene boundaries are fully opaque (3.489919ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 14
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 760.214065
+
+✖ failing tests:
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ harbor 1356x660: both fractional scene boundaries are fully opaque (32.278029ms)
+  AssertionError [ERR_ASSERTION]: harbor: transparent seam at 492,0
+  
+  158 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 158,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ cold_chain 1356x660: both fractional scene boundaries are fully opaque (10.348965ms)
+  AssertionError [ERR_ASSERTION]: cold_chain: transparent seam at 492,0
+  
+  158 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 158,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ rail_freight 1356x660: both fractional scene boundaries are fully opaque (8.101135ms)
+  AssertionError [ERR_ASSERTION]: rail_freight: transparent seam at 492,0
+  
+  158 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 158,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ toy_workshop 1356x660: both fractional scene boundaries are fully opaque (9.148149ms)
+  AssertionError [ERR_ASSERTION]: toy_workshop: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ paper_warehouse 1356x660: both fractional scene boundaries are fully opaque (8.312535ms)
+  AssertionError [ERR_ASSERTION]: paper_warehouse: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ space_cargo 1356x660: both fractional scene boundaries are fully opaque (6.344548ms)
+  AssertionError [ERR_ASSERTION]: space_cargo: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ steam_foundry 1356x660: both fractional scene boundaries are fully opaque (5.82423ms)
+  AssertionError [ERR_ASSERTION]: steam_foundry: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ neon_depot 1356x660: both fractional scene boundaries are fully opaque (5.760564ms)
+  AssertionError [ERR_ASSERTION]: neon_depot: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ lava_forge 1356x660: both fractional scene boundaries are fully opaque (6.213179ms)
+  AssertionError [ERR_ASSERTION]: lava_forge: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ ocean_vault 1356x660: both fractional scene boundaries are fully opaque (6.376426ms)
+  AssertionError [ERR_ASSERTION]: ocean_vault: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ royal_store 1356x660: both fractional scene boundaries are fully opaque (5.913836ms)
+  AssertionError [ERR_ASSERTION]: royal_store: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ field_station 1356x660: both fractional scene boundaries are fully opaque (5.695936ms)
+  AssertionError [ERR_ASSERTION]: field_station: transparent seam at 492,0
+  
+  157 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 157,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ forest_depot 1356x660: both fractional scene boundaries are fully opaque (4.844768ms)
+  AssertionError [ERR_ASSERTION]: forest_depot: transparent seam at 492,0
+  
+  158 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 158,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/scenery-seams-v105.test.ts:11:156
+✖ ice_vault 1356x660: both fractional scene boundaries are fully opaque (4.628381ms)
+  AssertionError [ERR_ASSERTION]: ice_vault: transparent seam at 492,0
+  
+  158 !== 255
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/scene-width-current/source/tests/scenery-seams-v105.test.ts:19:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 158,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
