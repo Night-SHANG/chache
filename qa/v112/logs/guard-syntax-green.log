@@ -1,0 +1,16 @@
+✔ preflight rejects WeChat unsupported copy composition (1053.494432ms)
+✔ build rejects WeChat unsupported copy composition (1068.997355ms)
+✔ preflight rejects WeChat unsupported lighter composition (1037.29331ms)
+✔ build rejects WeChat unsupported lighter composition (1152.019349ms)
+✔ preflight classifies bracket and template-literal copy assignment by syntax (868.879737ms)
+✔ preflight classifies harmless comments and strings mentioning copy assignment by syntax (811.836372ms)
+✔ build classifies bracket and template-literal copy assignment by syntax (989.92833ms)
+✔ build classifies harmless comments and strings mentioning copy assignment by syntax (1027.035039ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8135.934715

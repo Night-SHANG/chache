@@ -7,7 +7,7 @@ template. It is isolated from the existing browser and WeChat entry points.
 
 - Application: 货箱最后一格
 - Package: `io.github.nightshang.chache`
-- Version: `1.0.11` / version code `1`
+- Version: `1.0.12` / version code `1`
 - Node `24.19.0`, npm `11.9.0`, JDK `21`
 - Capacitor core, CLI and Android: `8.5.3`
 - AGP `8.13.0`, Gradle Wrapper `8.14.3`
@@ -28,7 +28,7 @@ cd android
 `build:android` first runs the unmodified formal production build, then copies
 its verified assets and licenses into a fresh `build/android` directory. It
 bundles only `src/android-main.ts` with paid shop pricing, diagnostics disabled,
-and version `1.0.11`. `sync:android` also copies staging into Capacitor's native
+and version `1.0.12`. `sync:android` also copies staging into Capacitor's native
 asset directory. Generated assets, local SDK configuration, Gradle outputs and
 signing files are excluded from Git.
 

@@ -1,0 +1,103 @@
+✔ platform explicitly reports the same opaque backdrop its beginFrame actually paints (4.17257ms)
+✖ actual WeChat entry creates screen first, paints native cache lazily, and invalidates assets and hide/show (174.494167ms)
+✔ all shared entries wire native cache, resource revision, lifecycle and explicit frame backdrop (1.160787ms)
+✔ unchanged warehouse frames paint once and reuse a single native-pixel layer (3.141949ms)
+✔ static layer preserves native scale, fractional phase, transparent edges and exact canvas bounds (120.824568ms)
+✔ theme, bounds, viewport, transform, DPR and asset revision replace and release the retained layer (4.116546ms)
+✔ cache has a fixed 24 MiB and 4096-edge cap, evicts before allocation and never lowers resolution (56.606706ms)
+✔ unsupported or failing canvas capabilities fall back once without crashing or per-frame allocation retries (0.563759ms)
+✔ non-source-over, opacity, filters, shadows and unsupported transform never use grouped compositing (0.566503ms)
+✔ lost/restored cached or screen contexts release pixels and trigger a fresh paint (1.274839ms)
+✔ cache blit failure restores caller state and falls back without poisoning later lifecycle recovery (0.937961ms)
+✔ failed creation cannot shrink a returned screen surface and malformed allocations release their pixels (0.464449ms)
+✔ target context loss, unavailable transform and unsafe bounds skip cached pixels (2.143156ms)
+✖ WeChat host that accepts unsupported copy but silently skips its blit keeps exact cold and warm pixels (5.405065ms)
+✔ failed cached blit rebuilds the platform backing before original paint fallback at fractional edges (9.56803ms)
+✖ preflight rejects WeChat unsupported copy composition (329.756516ms)
+✖ build rejects WeChat unsupported copy composition (522.464813ms)
+✔ preflight rejects WeChat unsupported lighter composition (223.382173ms)
+✔ build rejects WeChat unsupported lighter composition (389.376983ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 15
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1604.585351
+
+✖ failing tests:
+
+test at tests/warehouse-cache-platform.test.ts:17:1
+✖ actual WeChat entry creates screen first, paints native cache lazily, and invalidates assets and hide/show (174.494167ms)
+  AssertionError [ERR_ASSERTION]: entry must never request unsupported mobile compositing
+
+  6 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/warehouse-cache-platform.test.ts:30:84)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/warehouse-cache.test.ts:95:1
+✖ WeChat host that accepts unsupported copy but silently skips its blit keeps exact cold and warm pixels (5.405065ms)
+  AssertionError [ERR_ASSERTION]: frame 0
+
+  -1 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/warehouse-cache.test.ts:100:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-compositing-guard.test.ts:8:80
+✖ preflight rejects WeChat unsupported copy composition (329.756516ms)
+  AssertionError [ERR_ASSERTION]: PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks.
+
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:15:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-compositing-guard.test.ts:8:80
+✖ build rejects WeChat unsupported copy composition (522.464813ms)
+  AssertionError [ERR_ASSERTION]: Built browser + real WeChat game.js/game.json (909893 B JS). Source 639826ebf8ba. WeChat runtime NOT RUN.
+
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:15:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

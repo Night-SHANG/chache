@@ -1,0 +1,97 @@
+✔ preflight rejects WeChat unsupported copy composition (329.008303ms)
+✔ build rejects WeChat unsupported copy composition (508.892012ms)
+✔ preflight rejects WeChat unsupported lighter composition (258.202987ms)
+✔ build rejects WeChat unsupported lighter composition (540.492718ms)
+✖ preflight classifies bracket and template-literal copy assignment by syntax (336.680457ms)
+✖ preflight classifies harmless comments and strings mentioning copy assignment by syntax (230.223776ms)
+✖ build classifies bracket and template-literal copy assignment by syntax (663.568058ms)
+✖ build classifies harmless comments and strings mentioning copy assignment by syntax (610.828961ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 4
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3603.234506
+
+✖ failing tests:
+
+test at tests/wechat-compositing-guard.test.ts:23:3
+✖ preflight classifies bracket and template-literal copy assignment by syntax (336.680457ms)
+  AssertionError [ERR_ASSERTION]: PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks.
+
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:30:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-compositing-guard.test.ts:23:3
+✖ preflight classifies harmless comments and strings mentioning copy assignment by syntax (230.223776ms)
+  AssertionError [ERR_ASSERTION]: FAIL src/wechat-main.ts: unsupported WeChat Canvas API
+
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:30:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-compositing-guard.test.ts:23:3
+✖ build classifies bracket and template-literal copy assignment by syntax (663.568058ms)
+  AssertionError [ERR_ASSERTION]: Built browser + real WeChat game.js/game.json (909974 B JS). Source b904f8b84bb5. WeChat runtime NOT RUN.
+
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:30:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/wechat-compositing-guard.test.ts:23:3
+✖ build classifies harmless comments and strings mentioning copy assignment by syntax (610.828961ms)
+  AssertionError [ERR_ASSERTION]: file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/scripts/build.mjs:55
+  for(const pattern of [/\beval\s*\(/,/\bstructuredClone\s*\(/,/new\s+TextEncoder\s*\(/,/new\s+Function\s*\(/,/\bdocument\b/,/\blocalStorage\b/,/isPointInPath/,/globalCompositeOperation\s*=\s*["'](?:lighter|copy)/])if(pattern.test(game))throw Error(`WeChat forbidden runtime pattern: ${pattern}`);
+                                                                                                                                                                                                                                                   ^
+
+  Error: WeChat forbidden runtime pattern: /globalCompositeOperation\s*=\s*["'](?:lighter|copy)/
+      at file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/scripts/build.mjs:55:242
+
+  Node.js v24.19.0
+
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/wechat-compositing-guard.test.ts:30:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

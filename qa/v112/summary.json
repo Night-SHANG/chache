@@ -1,0 +1,133 @@
+{
+  "version": "1.0.12",
+  "baseCommit": "c19c35c49251ff5542020b0cd404e8fa8525c8da",
+  "v110PixelBaselineCommit": "0143e3436934a8c627af5a9e354f6aba8907e1c6",
+  "sourceSha256": "85faa8613e1bb02b12c6b0e7050b81c99abb1e1eefda430fa762974708ff8101",
+  "rootLockSha256": "1c2d36b05cab9c80c3975b917c1146242dbf9fb703b1f01bd610467604207d0f",
+  "androidShellLockSha256": "8c0f4ac867caf630104fdc3a69ad485a85805e411b52d284c2a8eb90e59f1624",
+  "sourceScope": [
+    "src/presentation/warehouse-cache.ts"
+  ],
+  "dependencyGraphChanged": false,
+  "runtimeAssetsChanged": false,
+  "runtimeAssetFilesCompared": 18,
+  "fullTests": {
+    "command": "node --test --test-concurrency=2 tests/*.test.ts",
+    "tests": 3209,
+    "passed": 3207,
+    "failed": 2,
+    "skipped": 0,
+    "cancelled": 0,
+    "durationMs": 212119.66486,
+    "exitCode": 1,
+    "failures": [
+      {
+        "file": "tests/cargo-atlas.test.ts",
+        "test": "committed raster artwork verifies every generated source and exact encoded atlas",
+        "errno": "ENOENT",
+        "missing": "artifacts/v0200-art-source/cargo-wood-generated.png"
+      },
+      {
+        "file": "tests/v021-cargo-forklift-art.test.ts",
+        "test": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
+        "errno": "ENOENT",
+        "missing": "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+      }
+    ]
+  },
+  "focusedTests": {
+    "tests": 27,
+    "passed": 27,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "tdd": {
+    "silentCopyAndGuardInitialFailures": 4,
+    "clearBeforeFailedBlitFallbackFailures": 1,
+    "syntaxGuardInitialFailures": 4
+  },
+  "pixels": {
+    "v110Original": {
+      "file": "pixels-v110.json",
+      "comparisons": 714,
+      "failed": 0
+    },
+    "v111Cached": {
+      "file": "pixels-v111.json",
+      "comparisons": 714,
+      "failed": 0
+    },
+    "themes": 17,
+    "viewports": 7,
+    "screens": [
+      "menu",
+      "game",
+      "settings"
+    ],
+    "phases": [
+      "cold",
+      "warm"
+    ],
+    "differingRGBAChannels": 0,
+    "maximumDelta": 0,
+    "cacheAllocationsPerCase": 1,
+    "dragComparisons": 32,
+    "dragDifferingRGBAChannels": 0
+  },
+  "checks": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "preflight": "passed",
+    "browserWechatDefaultBuild": "passed",
+    "browserWechatProductionBuild": "passed",
+    "androidWebStaging": "passed",
+    "androidStagingVerification": "passed",
+    "independentCodeReview": "No remaining blockers in final implementation diff; frozen-commit verification reported separately."
+  },
+  "productionBuild": {
+    "version": "1.0.12",
+    "shopPricingMode": "paid",
+    "developerDiagnostics": false,
+    "wechatJsBytes": 908563,
+    "wechatPackageBytes": 3793001
+  },
+  "guardScope": {
+    "unsupportedLiteralModes": [
+      "copy",
+      "lighter"
+    ],
+    "syntax": [
+      "property access",
+      "static string/template element access",
+      "literal string or noninterpolated template mode",
+      "parenthesized/type-wrapped literals"
+    ],
+    "notCovered": "Does not evaluate dynamic expressions, runtime-generated values or aliases. Existing isPointInPath gate remains unchanged."
+  },
+  "intermediateRuns": {
+    "expandedNativeQA": "First expanded run exited 137 without a pass result. QA-only temporary canvases now explicitly released; both full matrices then passed. No phone-memory conclusion.",
+    "preVersionAssertionSyncFullSuite": {
+      "tests": 3209,
+      "passed": 3205,
+      "failed": 4,
+      "resolved": "Two stale version regex assertions updated; final run has only the two historical missing artwork sources."
+    },
+    "finalChecksTransport": "A local final-check process lost its polling session after typecheck began. Read-only logs confirmed later steps not run; authorized rerun completed."
+  },
+  "notRun": [
+    "WeChat developer tools",
+    "physical Android/iOS WeChat scan launch",
+    "physical device FPS/memory/temperature",
+    "APK compilation or signing",
+    "Android CI"
+  ],
+  "blocked": [
+    "Cloud Chromium GUI attempt failed at socket() with Operation not permitted; no GUI pass claimed."
+  ],
+  "phoneAcceptancePending": true,
+  "apkPublished": false,
+  "ciTriggered": false,
+  "gitRemotePushPerformed": false,
+  "libraryUploadPerformed": false,
+  "logCopyPolicy": "Committed log copies remove trailing whitespace only. Original local logs remain under artifacts/v112."
+}

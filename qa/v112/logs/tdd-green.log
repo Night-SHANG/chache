@@ -1,0 +1,31 @@
+✔ platform explicitly reports the same opaque backdrop its beginFrame actually paints (5.180442ms)
+✔ actual WeChat entry creates screen first, paints native cache lazily, and invalidates assets and hide/show (277.495103ms)
+✔ all shared entries wire native cache, resource revision, lifecycle and explicit frame backdrop (1.024461ms)
+✔ unchanged warehouse frames paint once and reuse a single native-pixel layer (3.797371ms)
+✔ static layer preserves native scale, fractional phase, transparent edges and exact canvas bounds (99.074451ms)
+✔ theme, bounds, viewport, transform, DPR and asset revision replace and release the retained layer (3.970232ms)
+✔ cache has a fixed 24 MiB and 4096-edge cap, evicts before allocation and never lowers resolution (36.448644ms)
+✔ unsupported or failing canvas capabilities fall back once without crashing or per-frame allocation retries (0.57852ms)
+✔ non-source-over, opacity, filters, shadows and unsupported transform never use grouped compositing (0.495315ms)
+✔ lost/restored cached or screen contexts release pixels and trigger a fresh paint (2.574843ms)
+✔ cache blit failure restores caller state and falls back without poisoning later lifecycle recovery (1.094606ms)
+✔ failed creation cannot shrink a returned screen surface and malformed allocations release their pixels (0.451029ms)
+✔ target context loss, unavailable transform and unsafe bounds skip cached pixels (0.986964ms)
+✔ WeChat host that accepts unsupported copy but silently skips its blit keeps exact cold and warm pixels (11.734369ms)
+✔ failed cached blit rebuilds the platform backing before original paint fallback at fractional edges (10.756298ms)
+✔ production renderer opts in once while all later warehouse frames use that surface (156.377507ms)
+✔ all themes preserve complete original cold and warm frame pixels at native scale, phase, bounds and overlay (3286.855577ms)
+✔ unconfigured renderer and caller without platform backdrop always retain original artwork (29.874081ms)
+✔ resource completion and hide/show invalidation release stale warehouse pixels before the next frame (71.497536ms)
+✔ preflight rejects WeChat unsupported copy composition (310.664497ms)
+✔ build rejects WeChat unsupported copy composition (518.741487ms)
+✔ preflight rejects WeChat unsupported lighter composition (277.779706ms)
+✔ build rejects WeChat unsupported lighter composition (493.94376ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4314.563838

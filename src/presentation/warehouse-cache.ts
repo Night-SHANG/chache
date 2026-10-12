@@ -27,8 +27,9 @@ function observe(surface:CanvasSurface):void {
  * Optional static pre-UI layer. backdrop is an explicit platform beginFrame contract:
  * an opaque uniform frame, followed only by renderScene's logical clearRect. Callers
  * with existing artwork/clipping must omit it. Reproduce that backing and clear in
- * the surface, then COPY native pixels: source-over of grouped transparent racks
- * causes different rounding on wide screens and fractional viewport edges.
+ * the surface. Clear the whole target in native pixels before source-over blitting
+ * it: layering over the existing backdrop changes transparent fractional edges.
+ * Mobile WeChat does not support the Canvas copy composition mode.
  */
 export function drawCachedWarehouse(ctx:CanvasRenderingContext2D,theme:ThemeId,bounds:Rect|undefined,backdrop:string|undefined,paint:(context:CanvasRenderingContext2D)=>void):boolean {
  if(!createSurface||unavailable||!backdrop||!/^#[\da-f]{6}$/i.test(backdrop)||typeof ctx.getTransform!=='function')return false;
@@ -60,9 +61,13 @@ export function drawCachedWarehouse(ctx:CanvasRenderingContext2D,theme:ThemeId,b
   }
   ctx.save();
   try{
-   ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='copy';
-   if(ctx.globalCompositeOperation!=='copy')throw Error('Native pixel replacement unavailable');
+   ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,width,height);
    ctx.drawImage(entry.surface as unknown as CanvasImageSource,0,0);return true;
+  }catch(error){
+   // A failed blit may follow the full clear. Restore beginFrame + renderScene's
+   // clear exactly before the caller takes the original drawWarehouse fallback.
+   ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=backdrop;ctx.fillRect(0,0,width,height);
+   ctx.setTransform(a,0,0,d,e,f);ctx.clearRect(0,0,L.width,L.height);throw error;
   }finally{ctx.restore();}
  }catch{
   if(surface&&surface!==ctx.canvas)release(surface);invalidateWarehouseCache();unavailable=true;return false;

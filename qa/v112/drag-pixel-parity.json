@@ -1,0 +1,167 @@
+{
+  "cases": 32,
+  "allExact": true,
+  "method": "Node native Canvas2D raster pixel equality, actual packaged atlases; no hardware/FPS claim",
+  "results": [
+    {
+      "id": "normal-opening-valid",
+      "differingChannels": 0,
+      "sha256": "9b962a1ee034551f45de4bd3500ac68d6a09a07543140c6730e61515005b60d0"
+    },
+    {
+      "id": "normal-opening-same-cell",
+      "differingChannels": 0,
+      "sha256": "ff198936138d0ef40e575a365a019d3458cabcaaeb83ef0ed27a0ea2a165cf9e"
+    },
+    {
+      "id": "normal-opening-invalid",
+      "differingChannels": 0,
+      "sha256": "54078103fa3986b753290e7673ee7248c9aed0be90cd1d0b9e906f87371642d3"
+    },
+    {
+      "id": "normal-opening-outside",
+      "differingChannels": 0,
+      "sha256": "1ce3a5969bb7ca94efb44bd811fc78adea938f1b4f02f534773bede7160d124e"
+    },
+    {
+      "id": "normal-late-valid",
+      "differingChannels": 0,
+      "sha256": "bc7cc16a7d3ff1004cf234f7ac0fe457f206d9c4b0f9b25ad4d3417fe4db7af1"
+    },
+    {
+      "id": "normal-late-same-cell",
+      "differingChannels": 0,
+      "sha256": "9400c8137ad9ab24703ea74dd179ee6679fe03b8c0a8527b598b989fabd9aaa8"
+    },
+    {
+      "id": "normal-late-invalid",
+      "differingChannels": 0,
+      "sha256": "ba9332905d721e092ec3ec242ebf1248cf7863c4afb4411a2709bd7a8a339f34"
+    },
+    {
+      "id": "normal-late-outside",
+      "differingChannels": 0,
+      "sha256": "34cfebc08b9073f827930f0d816187162d75b0a76b95ce6f3a2c6cfbd78ab4b9"
+    },
+    {
+      "id": "hard-opening-valid",
+      "differingChannels": 0,
+      "sha256": "17c07d6ed51d65cf70e1e5a964926be91db0d49c7195a80fd45298578eb60bcd"
+    },
+    {
+      "id": "hard-opening-same-cell",
+      "differingChannels": 0,
+      "sha256": "a5db9bb1233b8033257283df5c5535a59c5df25dce58d910c0bddb80a7ebed76"
+    },
+    {
+      "id": "hard-opening-invalid",
+      "differingChannels": 0,
+      "sha256": "2296f08a18a3684d1bb1d7043cd1215ef8006cea14b18fd32249fbf9e607b48d"
+    },
+    {
+      "id": "hard-opening-outside",
+      "differingChannels": 0,
+      "sha256": "028256e78e876ebfc2ccd935b0d774fc4625ec440791fff170b5cd66f170079c"
+    },
+    {
+      "id": "hard-late-valid",
+      "differingChannels": 0,
+      "sha256": "fabe57a722a07f2427a9df9a480b0884e141c7663906ad09efb631d249a7d3cd"
+    },
+    {
+      "id": "hard-late-same-cell",
+      "differingChannels": 0,
+      "sha256": "55312bc40f66e49864ddf29582f4964c89d12ba4b4ae4a6553380c0875a6269b"
+    },
+    {
+      "id": "hard-late-invalid",
+      "differingChannels": 0,
+      "sha256": "9387a20b4db742b6c2cf47dbc23091ec6890e9d661fe5f5f8ad16976f163d915"
+    },
+    {
+      "id": "hard-late-outside",
+      "differingChannels": 0,
+      "sha256": "58caeeea951c28169ad832407d3c39fc09d32b35e4b1e567bbf4c036b951342b"
+    },
+    {
+      "id": "expert-opening-valid",
+      "differingChannels": 0,
+      "sha256": "19ea91526ff1f4d2e43ed76a9ef5ef9cb71ca8c8bf5f3c95d88193a43168acf8"
+    },
+    {
+      "id": "expert-opening-same-cell",
+      "differingChannels": 0,
+      "sha256": "99dcf61597cb355608b864a1979ba62af807857dafdcde1fbda3969e43a72cd3"
+    },
+    {
+      "id": "expert-opening-invalid",
+      "differingChannels": 0,
+      "sha256": "9696e1f755dae328cf68034e10d32650f9edad7bf3fd5c2aa7a2c8dc31b3aeb4"
+    },
+    {
+      "id": "expert-opening-outside",
+      "differingChannels": 0,
+      "sha256": "9946a79ab00ace39d1cf5eed04c49fb81a85601abde3a35cc69aa72e8edf3fbd"
+    },
+    {
+      "id": "expert-late-valid",
+      "differingChannels": 0,
+      "sha256": "88896051ace072dc8e3a542b481c5486c8e67d06c36b499fcb52e45697e2c6b6"
+    },
+    {
+      "id": "expert-late-same-cell",
+      "differingChannels": 0,
+      "sha256": "374eebd6d21a2397241f190b5e4cb1b77d92b4ef5701caf83f6eed721efea9b1"
+    },
+    {
+      "id": "expert-late-invalid",
+      "differingChannels": 0,
+      "sha256": "702676f6007035caa40a9ee3e715ff27bb6b2954bb775cc17e7ca82f23500afc"
+    },
+    {
+      "id": "expert-late-outside",
+      "differingChannels": 0,
+      "sha256": "575f554fd5c33090ce5ab3dd675cd03eb4cd810a3c4bfe7d8b6ae17c7670b6fb"
+    },
+    {
+      "id": "rush-opening-valid",
+      "differingChannels": 0,
+      "sha256": "5a9d7281f81ee9578ebdde1f9d429548b1ddd44ceadc774f0950dc764f0500ed"
+    },
+    {
+      "id": "rush-opening-same-cell",
+      "differingChannels": 0,
+      "sha256": "99d2f149bcbb5330a6c3adb1d89ce8c4ad34b8065eb2e7e4b791aa32d487d4f5"
+    },
+    {
+      "id": "rush-opening-invalid",
+      "differingChannels": 0,
+      "sha256": "7bb4f5855c201b67f94ae3449ff8c9d4780df26342a072cd2ed698f181486dc6"
+    },
+    {
+      "id": "rush-opening-outside",
+      "differingChannels": 0,
+      "sha256": "90d308bf1337096e83a59fd9a124c214faaa3c8ecd3335c0176c12252a581c05"
+    },
+    {
+      "id": "rush-late-valid",
+      "differingChannels": 0,
+      "sha256": "ab30ba49882b665fffa7eadea1d403ce5087bf3bcb494c5a95eb25c449c243b7"
+    },
+    {
+      "id": "rush-late-same-cell",
+      "differingChannels": 0,
+      "sha256": "2d9fa3e0c9de33dec7c25ab1c69a586b803bbb801e6ef22ccf702822c8a6e725"
+    },
+    {
+      "id": "rush-late-invalid",
+      "differingChannels": 0,
+      "sha256": "70c695b0866b78432c0e5646502050ab9ce945b8a96eee5a6e8a6f9b7211ea22"
+    },
+    {
+      "id": "rush-late-outside",
+      "differingChannels": 0,
+      "sha256": "70df0efa627cf8a8805389c16f3530cc00e24fcc7f38f18487669e3716c35fbc"
+    }
+  ]
+}

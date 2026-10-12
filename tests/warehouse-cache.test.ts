@@ -5,6 +5,7 @@ import type {Canvas} from '@napi-rs/canvas';
 import type {CanvasSurface} from '../src/platform/types.ts';
 import type {ThemeId} from '../src/application/profile.ts';
 import type {Rect} from '../src/presentation/layout.ts';
+import {mobileCanvasContext} from './helpers/wechat-canvas-contract.ts';
 const cache=await import('../src/presentation/warehouse-cache.ts').catch(()=>assert.fail('native static warehouse cache is not implemented'));
 const context=(canvas:Canvas)=>canvas.getContext('2d') as unknown as CanvasRenderingContext2D;
 const backdrop='#0c131c';
@@ -89,4 +90,25 @@ test('target context loss, unavailable transform and unsafe bounds skip cached p
  Object.defineProperty(ctx,'isContextLost',{configurable:true,value:()=>false});
  assert.equal(cache.drawCachedWarehouse(ctx,'day',{x:NaN,y:0,w:1080,h:1920},backdrop,paint),false);
  Object.defineProperty(ctx,'getTransform',{value:undefined});assert.equal(cache.drawCachedWarehouse(ctx,'day',undefined,backdrop,paint),false);assert.equal(f.surfaces.length,1);cache.configureWarehouseCache();
+});
+
+test('WeChat host that accepts unsupported copy but silently skips its blit keeps exact cold and warm pixels',()=>{
+ const f=fixture(),expected=createCanvas(800,1000),actual=createCanvas(800,1000),raw=context(actual),host=mobileCanvasContext(raw),ctx=host.context;
+ frame(context(expected),.5,130.25,20.3);paint(context(expected));
+ for(let n=0;n<2;n++){
+  frame(ctx,.5,130.25,20.3);draw(ctx);
+  assert.equal(Buffer.compare(Buffer.from(raw.getImageData(0,0,800,1000).data),Buffer.from(expected.getContext('2d').getImageData(0,0,800,1000).data)),0,`frame ${n}`);
+ }
+ assert.equal(host.unsupportedWrites(),0);assert.equal(f.surfaces.length,1);cache.configureWarehouseCache();
+});
+
+test('failed cached blit rebuilds the platform backing before original paint fallback at fractional edges',()=>{
+ const f=fixture(),expected=createCanvas(800,1000),actual=createCanvas(800,1000),ctx=context(actual);let attempts=0,paints=0;
+ frame(context(expected),.5,130.25,20.3);paint(context(expected));
+ ctx.drawImage=()=>{attempts++;throw Error('drawImage unsupported');};
+ for(let n=0;n<2;n++){
+  frame(ctx,.5,130.25,20.3);draw(ctx,'day',undefined,c=>{paints++;paint(c);});
+  assert.equal(Buffer.compare(Buffer.from(ctx.getImageData(0,0,800,1000).data),Buffer.from(expected.getContext('2d').getImageData(0,0,800,1000).data)),0,`fallback ${n}`);
+ }
+ assert.equal(attempts,1);assert.equal(paints,3);assert.equal(bytes(f.surfaces),0);cache.configureWarehouseCache();
 });

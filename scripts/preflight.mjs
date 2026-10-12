@@ -1,3 +1,4 @@
+import {unsupportedWechatCompositingModes} from './wechat-canvas-guard.mjs';
 import {readFile,readdir,stat} from 'node:fs/promises';
 import {join} from 'node:path';
 import {CARGO,DOCKS,SHAPES,UPGRADES,P0_CONFIG} from '../src/domain/content.ts';
@@ -42,7 +43,7 @@ async function files(dir){let result=[];for(const item of await readdir(dir,{wit
 for(const path of await files('src')){
  const text=await readFile(path,'utf8');
  check(!/\beval\s*\(|new\s+Function\s*\(/.test(text),`${path}: dynamic code execution`);
- check(!/isPointInPath|globalCompositeOperation\s*=\s*["']lighter/.test(text),`${path}: unsupported WeChat Canvas API`);
+ check(!/isPointInPath/.test(text)&&unsupportedWechatCompositingModes(text,path).length===0,`${path}: unsupported WeChat Canvas API`);
  check(!/\bstructuredClone\s*\(|new\s+TextEncoder\s*\(/.test(text),`${path}: unsupported browser data API`);
  check(!/\bMath\.random\s*\(/.test(text),`${path}: unseeded gameplay randomness`);
  if(path.startsWith('src/domain/'))check(!/\b(?:document|window|wx|localStorage|CanvasRenderingContext2D)\b/.test(text),`${path}: platform leak into Domain`);

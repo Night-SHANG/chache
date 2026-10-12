@@ -1,0 +1,54 @@
+✔ platform explicitly reports the same opaque backdrop its beginFrame actually paints (4.355554ms)
+✔ actual WeChat entry creates screen first, paints native cache lazily, and invalidates assets and hide/show (212.707107ms)
+✔ all shared entries wire native cache, resource revision, lifecycle and explicit frame backdrop (0.677991ms)
+✔ unchanged warehouse frames paint once and reuse a single native-pixel layer (2.796047ms)
+✔ static layer preserves native scale, fractional phase, transparent edges and exact canvas bounds (75.364122ms)
+✔ theme, bounds, viewport, transform, DPR and asset revision replace and release the retained layer (3.986649ms)
+✔ cache has a fixed 24 MiB and 4096-edge cap, evicts before allocation and never lowers resolution (31.124399ms)
+✔ unsupported or failing canvas capabilities fall back once without crashing or per-frame allocation retries (0.862898ms)
+✔ non-source-over, opacity, filters, shadows and unsupported transform never use grouped compositing (0.606163ms)
+✔ lost/restored cached or screen contexts release pixels and trigger a fresh paint (2.852803ms)
+✔ cache blit failure restores caller state and falls back without poisoning later lifecycle recovery (1.066334ms)
+✔ failed creation cannot shrink a returned screen surface and malformed allocations release their pixels (0.686093ms)
+✔ target context loss, unavailable transform and unsafe bounds skip cached pixels (0.986975ms)
+✔ WeChat host that accepts unsupported copy but silently skips its blit keeps exact cold and warm pixels (11.356458ms)
+✖ failed cached blit rebuilds the platform backing before original paint fallback at fractional edges (6.274391ms)
+✔ production renderer opts in once while all later warehouse frames use that surface (130.219636ms)
+✔ all themes preserve complete original cold and warm frame pixels at native scale, phase, bounds and overlay (3292.958813ms)
+✔ unconfigured renderer and caller without platform backdrop always retain original artwork (32.890697ms)
+✔ resource completion and hide/show invalidation release stale warehouse pixels before the next frame (75.588976ms)
+✔ preflight rejects WeChat unsupported copy composition (330.629713ms)
+✔ build rejects WeChat unsupported copy composition (585.873387ms)
+✔ preflight rejects WeChat unsupported lighter composition (233.428256ms)
+✔ build rejects WeChat unsupported lighter composition (499.509017ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 22
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4242.313123
+
+✖ failing tests:
+
+test at tests/warehouse-cache.test.ts:105:1
+✖ failed cached blit rebuilds the platform backing before original paint fallback at fractional edges (6.274391ms)
+  AssertionError [ERR_ASSERTION]: fallback 0
+
+  -1 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/mobile-v112-release-work/tests/warehouse-cache.test.ts:111:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
