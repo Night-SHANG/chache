@@ -1,0 +1,136 @@
+name: 生成安卓长期签名（仅首次）
+
+# Owner-operated manual setup; this workflow never builds or publishes the game.
+'on':
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: '确认此前未生成长期签名、已保存密码，并准备下载备份。请输入：首次生成'
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: chache-first-android-signing
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Reject accidental regeneration or an unexpected run
+        id: guard
+        shell: bash
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+          EXISTING_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        run: |
+          set +x
+          set -euo pipefail
+          if [[ "$GITHUB_REPOSITORY" != 'Night-SHANG/chache' || "$GITHUB_REF" != 'refs/heads/main' || "$GITHUB_EVENT_NAME" != 'workflow_dispatch' ]]; then
+            echo '::error::Only a manual run on Night-SHANG/chache main is supported.'
+            exit 1
+          fi
+          if [[ "$GITHUB_RUN_ATTEMPT" != '1' ]]; then
+            echo '::error::Do not rerun a signing-key generation. Check the original run and its artifact first.'
+            exit 1
+          fi
+          if [[ "$CONFIRMATION" != '首次生成' ]]; then
+            echo '::error::Enter the exact first-generation confirmation shown in the workflow form.'
+            exit 1
+          fi
+          if [[ "$EXISTING_KEYSTORE" != 'false' ]]; then
+            echo '::error::An Android keystore is already configured, or its absence could not be established. No new key will be generated.'
+            exit 1
+          fi
+
+      - name: Set up official Java tooling without project dependencies
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+          check-latest: false
+          overwrite-settings: false
+          cache-jdk: false
+
+      - name: Generate a password-protected PKCS12 keystore
+        id: generate-key
+        shell: bash
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          LANG: C
+          LC_ALL: C
+        run: |
+          set +x
+          set -euo pipefail
+          if [[ ! "$KEYSTORE_PASSWORD" =~ ^[[:graph:]]{20,}$ ]]; then
+            echo '::error::ANDROID_KEYSTORE_PASSWORD must contain at least 20 printable ASCII characters without spaces. Save a strong random password privately, then update that repository Secret yourself.'
+            exit 1
+          fi
+          umask 077
+          output="$RUNNER_TEMP/chache-signing-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          if [[ -e "$output" ]]; then
+            echo '::error::The output path already exists. Refusing to replace any signing material.'
+            exit 1
+          fi
+          mkdir "$output"
+          keytool -genkeypair -noprompt \
+            -storetype PKCS12 \
+            -keystore "$output/chache-release.p12" \
+            -alias chache-release \
+            -keyalg RSA -keysize 3072 -sigalg SHA256withRSA \
+            -validity 10000 \
+            -dname 'CN=Chache Release, O=Night-SHANG' \
+            -storepass:env KEYSTORE_PASSWORD \
+            -keypass:env KEYSTORE_PASSWORD
+          keytool -exportcert -rfc \
+            -storetype PKCS12 \
+            -keystore "$output/chache-release.p12" \
+            -alias chache-release \
+            -storepass:env KEYSTORE_PASSWORD \
+            -file "$output/chache-release-certificate.pem"
+          keytool -list -v \
+            -storetype PKCS12 \
+            -keystore "$output/chache-release.p12" \
+            -alias chache-release \
+            -storepass:env KEYSTORE_PASSWORD \
+            > "$output/certificate-info.txt"
+          grep -Fq 'PrivateKeyEntry' "$output/certificate-info.txt"
+          cd "$output"
+          sha256sum chache-release.p12 chache-release-certificate.pem certificate-info.txt > SHA256SUMS
+          test -s chache-release.p12
+          test -s chache-release-certificate.pem
+          test -s SHA256SUMS
+
+      - name: Upload only the password-protected keystore and public verification files
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: chache-android-signing-backup-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/chache-signing-${{ github.run_id }}-${{ github.run_attempt }}/chache-release.p12
+            ${{ runner.temp }}/chache-signing-${{ github.run_id }}-${{ github.run_attempt }}/chache-release-certificate.pem
+            ${{ runner.temp }}/chache-signing-${{ github.run_id }}-${{ github.run_attempt }}/certificate-info.txt
+            ${{ runner.temp }}/chache-signing-${{ github.run_id }}-${{ github.run_attempt }}/SHA256SUMS
+          retention-days: 7
+          if-no-files-found: error
+          include-hidden-files: false
+          overwrite: false
+          archive: true
+
+      - name: Show the owner's download and backup instructions
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >> "$GITHUB_STEP_SUMMARY" <<'SUMMARY'
+          ### 签名文件已生成，请现在下载并备份
+          - 在本页 Artifacts 下载 `chache-android-signing-backup-…` ZIP，解压得到 `chache-release.p12`。
+          - 文件是密码保护的 PKCS12。密码就是你自行保管并存入 `ANDROID_KEYSTORE_PASSWORD` 的密码；密码不在下载文件中。
+          - 附件保留 7 天。立即下载并保存两份安全备份，不能把 Actions 附件当作长期存档。
+          - 不要再次运行本工作流，也不要点 Re-run。每次生成的密钥不同，不能恢复原密钥。
+          - 按[操作说明](https://github.com/Night-SHANG/chache/blob/main/docs/android-signing-setup.md)在自己的 Windows 电脑上转换 Base64，再亲自保存到 `ANDROID_KEYSTORE_BASE64`。
+          - 不要把签名文件、Base64 或密码发到聊天、日志、Issue、Release 或代码仓库。
+          - 此流程只生成签名文件。正式签名构建尚未接入，也没有生成或发布新 APK。
+          SUMMARY
