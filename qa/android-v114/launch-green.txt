@@ -1,0 +1,13 @@
+✔ Android keeps one unchanged cover through delayed checks and image decode (1.516056ms)
+✔ ready assets reveal only after the complete first frame, with no minimum wait or recurring cover (0.295814ms)
+✔ actual image error reveals the painted existing retry gate, never a blank frame (0.194351ms)
+✔ a failed first render cannot dismiss the cover and a later fatal error restores it (0.477066ms)
+✔ after first-frame handoff normal frames never mutate the hidden DOM cover again (0.281323ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.721289

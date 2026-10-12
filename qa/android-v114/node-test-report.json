@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "command": "npm test",
+  "rawExitCode": 1,
+  "rawPassed": false,
+  "accepted": true,
+  "counts": {
+    "tests": 3286,
+    "failed": 2,
+    "passed": 3284,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 3286,
+    "suites": 0
+  },
+  "knownBaseline": [
+    {
+      "file": "tests/cargo-atlas.test.ts",
+      "name": "committed raster artwork verifies every generated source and exact encoded atlas",
+      "path": "artifacts/v0200-art-source/cargo-wood-generated.png",
+      "failure": {
+        "name": "committed raster artwork verifies every generated source and exact encoded atlas",
+        "nesting": 0,
+        "testNumber": 569,
+        "testId": 3,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 8.846245,
+          "type": "test",
+          "error": {
+            "name": "Error",
+            "message": "ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0200-art-source/cargo-wood-generated.png'",
+            "stack": "Error [ERR_TEST_FAILURE]: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0200-art-source/cargo-wood-generated.png'",
+            "code": "ERR_TEST_FAILURE",
+            "failureType": "testCodeFailure",
+            "cause": {
+              "name": "Error",
+              "message": "ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0200-art-source/cargo-wood-generated.png'",
+              "stack": "Error: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0200-art-source/cargo-wood-generated.png'\n    at Object.openSync (node:fs:622:18)\n    at readFileSync (node:fs:488:35)\n    at generateCargoAtlas (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/scripts/generate-cargo-atlas.mjs:15:66)\n    at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/cargo-atlas.test.ts:37:19)\n    at async Test.run (node:internal/test_runner/test:1389:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)",
+              "errno": -2,
+              "code": "ENOENT",
+              "syscall": "open",
+              "path": "/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0200-art-source/cargo-wood-generated.png"
+            }
+          }
+        },
+        "tags": [],
+        "line": 35,
+        "column": 1,
+        "file": "/workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/cargo-atlas.test.ts"
+      }
+    },
+    {
+      "file": "tests/v021-cargo-forklift-art.test.ts",
+      "name": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
+      "path": "artifacts/v0210-art-source/cargo-harbor_container-generated.png",
+      "failure": {
+        "name": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
+        "nesting": 0,
+        "testNumber": 3102,
+        "testId": 3,
+        "parentId": 0,
+        "details": {
+          "duration_ms": 0.701874,
+          "type": "test",
+          "error": {
+            "name": "Error",
+            "message": "ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+            "stack": "Error [ERR_TEST_FAILURE]: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+            "code": "ERR_TEST_FAILURE",
+            "failureType": "testCodeFailure",
+            "cause": {
+              "name": "Error",
+              "message": "ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0210-art-source/cargo-harbor_container-generated.png'",
+              "stack": "Error: ENOENT: no such file or directory, open '/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0210-art-source/cargo-harbor_container-generated.png'\n    at Object.openSync (node:fs:622:18)\n    at readFileSync (node:fs:488:35)\n    at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/v021-cargo-forklift-art.test.ts:38:98)\n    at Test.runInAsyncScope (node:async_hooks:227:14)\n    at Test.run (node:internal/test_runner/test:1382:25)\n    at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    at Test.postRun (node:internal/test_runner/test:1522:19)\n    at Test.run (node:internal/test_runner/test:1447:12)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)",
+              "errno": -2,
+              "code": "ENOENT",
+              "syscall": "open",
+              "path": "/workspace/scratch/e6b59ff34222/android-v114-startup-work/artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+            }
+          }
+        },
+        "tags": [],
+        "line": 29,
+        "column": 1,
+        "file": "/workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/v021-cargo-forklift-art.test.ts"
+      }
+    }
+  ],
+  "unexpectedFailures": [],
+  "invalidSummary": false,
+  "invalidTerminal": false,
+  "validExit": true,
+  "durationMs": 116104.434693
+}

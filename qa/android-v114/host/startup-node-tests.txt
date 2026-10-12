@@ -1,0 +1,23 @@
+✔ Android keeps one unchanged cover through delayed checks and image decode (8.595357ms)
+✔ ready assets reveal only after the complete first frame, with no minimum wait or recurring cover (0.489335ms)
+✔ actual image error reveals the painted existing retry gate, never a blank frame (0.448884ms)
+✔ a failed first render cannot dismiss the cover and a later fatal error restores it (0.617217ms)
+✔ after first-frame handoff normal frames never mutate the hidden DOM cover again (0.282114ms)
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (394.790497ms)
+✔ missing bridge and false native owner block startup without inventing writer success (6.182451ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (1.709159ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (16.538274ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.83798ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (0.816928ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (445.215813ms)
+✔ Android HTML retains a readable fail-closed fallback even when app.js cannot parse (2.476111ms)
+✔ Android presentation hook owns unseen pointer/back input and freezes only gameplay time (82.721267ms)
+✔ Android launch cover freezes gameplay until first complete frame and stays dismissed on resume (21.577037ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1219.26835

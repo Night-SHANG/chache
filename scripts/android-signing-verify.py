@@ -13,7 +13,7 @@ INPUT = ROOT / 'build/android-ci/release-unsigned'
 OUTPUT = ROOT / 'build/android-ci/signed-release'
 APK = INPUT / 'app-release-unsigned.apk'
 RECEIPT = INPUT / 'unsigned-release-receipt.json'
-SIGNED = OUTPUT / 'warehouse-last-slot-1.0.13-vc3-release-candidate.apk'
+SIGNED = OUTPUT / 'warehouse-last-slot-1.0.14-vc4-release-candidate.apk'
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -30,13 +30,13 @@ def validate_archive_entries(names):
 
 def validate_identity(badging):
     identities = re.findall(r"^package: name='([^']+)' versionCode='([^']+)' versionName='([^']+)'", badging, re.M)
-    require(identities == [('io.github.nightshang.chache', '3', '1.0.13')], 'Wrong release identity')
+    require(identities == [('io.github.nightshang.chache', '4', '1.0.14')], 'Wrong release identity')
 
 def main():
     mode = sys.argv[1]
     require(mode in ('unsigned', 'signed'), 'Unknown verification mode')
     require(os.environ['GITHUB_REPOSITORY'] == 'Night-SHANG/chache', 'Unexpected repository')
-    require(os.environ['GITHUB_REF'] == 'refs/heads/dev/android-v113-release', 'Unexpected branch')
+    require(os.environ['GITHUB_REF'] == 'refs/heads/dev/android-v114-startup', 'Unexpected branch')
     require(os.environ['GITHUB_EVENT_NAME'] == 'push', 'Unexpected trigger')
     require(APK.is_file() and not APK.is_symlink() and RECEIPT.is_file() and not RECEIPT.is_symlink(), 'Missing regular input files')
     require(sha(RECEIPT) == os.environ['UNSIGNED_RECEIPT_SHA256'], 'Unsigned receipt checksum mismatch')
@@ -72,11 +72,11 @@ def main():
         certs = re.findall(r'Signer #\d+ certificate SHA-256 digest: ([a-fA-F0-9]{64})', signature)
         require(len(certs) == 1, 'Exactly one verified signing certificate required')
         command(str(sdk / 'zipalign'), '-c', '-P', '16', '4', str(SIGNED))
-        signed_receipt = {'schemaVersion': 1, 'source': source, 'identity': {'applicationId': 'io.github.nightshang.chache', 'appName': '货箱最后一格', 'versionName': '1.0.13', 'versionCode': 3}, 'apk': {'filename': SIGNED.name, 'sha256': sha(SIGNED), 'certificateSha256': certs[0].lower(), 'signing': 'observed owner-configured PKCS12 identity; official apksigner verified; original-generation certificate not independently matched', 'alignment': 'verified', 'bundledAssets': 'verified byte-exact', 'debuggable': False, 'testOnly': False}, 'unsignedApkSha256': sha(APK), 'unsignedReceiptSha256': sha(RECEIPT), 'verification': receipt['verification'], 'deliveryStatus': 'PRIVATE_CANDIDATE_PENDING_ROOT_REVIEW', 'publicationApproved': False, 'installWarning': 'Different signing identity cannot overwrite the old debug APK. Do not uninstall or clear data to bypass it; uninstall deletes app data.'}
+        signed_receipt = {'schemaVersion': 1, 'source': source, 'identity': {'applicationId': 'io.github.nightshang.chache', 'appName': '货箱最后一格', 'versionName': '1.0.14', 'versionCode': 4}, 'apk': {'filename': SIGNED.name, 'sha256': sha(SIGNED), 'certificateSha256': certs[0].lower(), 'signing': 'observed owner-configured PKCS12 identity; official apksigner verified; original-generation certificate not independently matched', 'alignment': 'verified', 'bundledAssets': 'verified byte-exact', 'debuggable': False, 'testOnly': False}, 'unsignedApkSha256': sha(APK), 'unsignedReceiptSha256': sha(RECEIPT), 'verification': receipt['verification'], 'deliveryStatus': 'PRIVATE_CANDIDATE_PENDING_ROOT_REVIEW', 'publicationApproved': False, 'installWarning': 'Different signing identity cannot overwrite the old debug APK. Do not uninstall or clear data to bypass it; uninstall deletes app data.'}
         path = OUTPUT / 'signed-release-receipt.json'
         path.write_text(json.dumps(signed_receipt, ensure_ascii=False, indent=2) + '\n')
         (OUTPUT / 'SHA256SUMS').write_text(f'{sha(SIGNED)}  {SIGNED.name}\n{sha(path)}  {path.name}\n')
-        print('Signed release vc3 identity, production bytes, certificate and alignment verified; phone/runtime acceptance remains unverified.')
+        print('Signed release vc4 identity, production bytes, certificate and alignment verified; phone/runtime acceptance remains unverified.')
     else:
         print('Immutable same-run unsigned release handoff verified before any signing secrets are supplied.')
 

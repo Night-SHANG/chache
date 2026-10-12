@@ -1,0 +1,780 @@
+{
+  "schemaVersion": 1,
+  "kind": "Exact Android bundle in Node VM with real Canvas",
+  "generatedAt": "2026-10-12T22:53:26.745Z",
+  "bundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f",
+  "browserAcceptance": "NOT RUN",
+  "cssAcceptance": "NOT RUN",
+  "nativeAndroidAcceptance": "NOT RUN",
+  "phoneAcceptance": "NOT RUN",
+  "status": "PASS",
+  "assertions": 27,
+  "cases": [
+    {
+      "name": "delayed-native-and-asset-first-frame-input-and-resume",
+      "status": "PASS",
+      "htmlCover": "DOM test double only; no HTML/CSS screenshot claim",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 2,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 3,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 4,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 5,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 6,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 7,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 8,
+            "texts": [],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": true
+          },
+          {
+            "number": 9,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 10,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          },
+          {
+            "number": 11,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          },
+          {
+            "number": 12,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 144,
+            "frame": 9
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 9,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "fast-assets",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "one-shot-real-image-failure-and-retry",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "error",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "injectedFailure": true,
+            "error": "Error: Injected one-shot asset failure"
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "画面资源加载失败",
+              "已保留原有外观与游戏进度，请重试。",
+              "无法加载美术资源：tools.core",
+              "重试加载"
+            ],
+            "images": [],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png"
+          ],
+          "texts": [
+            "画面资源加载失败",
+            "已保留原有外观与游戏进度，请重试。",
+            "无法加载美术资源：tools.core",
+            "重试加载"
+          ],
+          "drawImages": []
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "20-to-9-first-frame",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "artifacts/android-v114-startup/01-first-complete-game-before-cover-hide.png",
+      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/02-held-cover-touch-released-no-action.png",
+      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/03-fresh-touch-opens-settings.png",
+      "sha256": "2658d594197a984caccedf60492a6708c16b565e77f53babe9beabb2163a82b5",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/04-resume-existing-settings-no-cover.png",
+      "sha256": "2658d594197a984caccedf60492a6708c16b565e77f53babe9beabb2163a82b5",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/05-fast-assets-first-frame.png",
+      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/06-asset-failure-existing-retry-gate.png",
+      "sha256": "43ac3aae72009f9ee026d9afc467c128c2bf8a169b0477bdb4a8a7a81bcec46b",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/07-asset-failure-retry-recovered.png",
+      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/08-20x9-first-complete-menu.png",
+      "sha256": "9858628bcd38e5bf8b2a328845bce01a07b4aede6509a1433b543d57374cbccb",
+      "viewport": {
+        "width": 540,
+        "height": 1200
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    }
+  ],
+  "finalBundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f"
+}

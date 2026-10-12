@@ -1,0 +1,33 @@
+✔ Android keeps one unchanged cover through delayed checks and image decode (1.113002ms)
+✔ ready assets reveal only after the complete first frame, with no minimum wait or recurring cover (0.248444ms)
+✔ actual image error reveals the painted existing retry gate, never a blank frame (0.21258ms)
+✔ a failed first render cannot dismiss the cover and a later fatal error restores it (0.418709ms)
+✔ native state listener is installed before snapshot and a newer event wins a delayed stale snapshot (5.553549ms)
+✔ native and DOM visibility use AND, deduplicate hide/show and preserve paused run without catch-up (66.868163ms)
+✔ owner loss immediately blocks input and all account mutation, stale owner=true never revives the lease (8.987242ms)
+✔ transient zero geometry pauses safely and waits for fresh measured native geometry (8.007261ms)
+✔ system back pauses then minimizes the task once per press without closing the account run (10.26361ms)
+✔ pending back listener teardown removes exactly once and never delivers after unsubscribe (0.713632ms)
+✔ page teardown after native hide does not hide or save the session twice (7.24237ms)
+✔ scheduled Android frames cancel on merged hide and restart once on valid show (1.958002ms)
+✔ pending frames stay suspended through zero geometry and permanently stop on owner loss or dispose (2.166345ms)
+✔ a CSS-zero scheduled frame does not reschedule until a valid resize shows the platform again (1.339713ms)
+✔ native Back minimizes a real faulted purchase repeatedly without retrying the pending account (9.419252ms)
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (194.76101ms)
+✔ missing bridge and false native owner block startup without inventing writer success (2.040456ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (1.560474ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (1.449158ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.584118ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (3.596693ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (157.28741ms)
+✔ Android HTML retains a readable fail-closed fallback even when app.js cannot parse (1.841898ms)
+✔ Android presentation hook owns unseen pointer/back input and freezes only gameplay time (54.739881ms)
+✔ Android launch cover freezes gameplay until first complete frame and stays dismissed on resume (13.119712ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 549.540919

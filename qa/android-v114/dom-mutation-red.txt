@@ -1,0 +1,36 @@
+✔ Android keeps one unchanged cover through delayed checks and image decode (3.283009ms)
+✔ ready assets reveal only after the complete first frame, with no minimum wait or recurring cover (0.291899ms)
+✔ actual image error reveals the painted existing retry gate, never a blank frame (0.140781ms)
+✔ a failed first render cannot dismiss the cover and a later fatal error restores it (0.426239ms)
+✖ after first-frame handoff normal frames never mutate the hidden DOM cover again (1.045169ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 233.130315
+
+✖ failing tests:
+
+test at tests/android-launch-surface.test.ts:28:1
+✖ after first-frame handoff normal frames never mutate the hidden DOM cover again (1.045169ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  121 !== 1
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-launch-surface.test.ts:30:89)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 121,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

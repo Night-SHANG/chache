@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "assertions": 27,
+  "cases": 4,
+  "screenshots": 8,
+  "bundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f",
+  "receipt": "/workspace/scratch/e6b59ff34222/android-v114-startup-work/qa/android-v114/host-canvas/canvas-receipt.json"
+}

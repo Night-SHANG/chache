@@ -1,0 +1,47 @@
+{
+  "status": "startup_only_local_freeze_pending_scope_decision",
+  "baseLocalCommit": "fe77382aab02d83ae2b4bab8755bad2444ca6c30",
+  "baseRemoteCommit": "a1a7dec23055b9e1f6a030b864d7e4490c11d189",
+  "baseTree": "e9e9049b293cf65f9f71ac3b9d57cf9b1f7c30a0",
+  "androidVersion": "1.0.14",
+  "releaseVersionCode": 4,
+  "contentVersion": "1.0.13",
+  "fullRegression": {
+    "counts": {
+      "tests": 3286,
+      "failed": 2,
+      "passed": 3284,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 3286,
+      "suites": 0
+    },
+    "rawExitCode": 1,
+    "accepted": true,
+    "unexpectedFailures": 0
+  },
+  "checks": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "preflight": "passed",
+    "androidSync": "passed",
+    "androidStaging": "passed",
+    "independentStartupReview": "passed"
+  },
+  "canvas": {
+    "scenarios": 4,
+    "assertions": 27,
+    "renderedPNGs": 8,
+    "bundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f",
+    "kind": "Node VM + real Canvas, not browser"
+  },
+  "chromium": "blocked: socket EPERM through standard escalation; no screenshots",
+  "cssVisual": "not run",
+  "nativeAndroid": "not run",
+  "phone": "not run",
+  "spacingFix": "rejected prototypes reverted; original spacing retained",
+  "remoteBackup": "not started; parent hold",
+  "signedBuild": "not started; parent hold",
+  "publicationApproved": false
+}

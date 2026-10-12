@@ -1,0 +1,29 @@
+{
+  "command": "npm test",
+  "rawExitCode": 1,
+  "rawPassed": false,
+  "accepted": true,
+  "counts": {
+    "tests": 3286,
+    "failed": 2,
+    "passed": 3284,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 3286,
+    "suites": 0
+  },
+  "knownBaseline": [
+    {
+      "file": "tests/cargo-atlas.test.ts",
+      "name": "committed raster artwork verifies every generated source and exact encoded atlas",
+      "path": "artifacts/v0200-art-source/cargo-wood-generated.png"
+    },
+    {
+      "file": "tests/v021-cargo-forklift-art.test.ts",
+      "name": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
+      "path": "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+    }
+  ],
+  "unexpectedFailures": []
+}

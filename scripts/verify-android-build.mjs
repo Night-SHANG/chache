@@ -33,7 +33,7 @@ export async function verifyStaging(root=process.cwd()) {
  const state=await json(join(root,'docs/android/ci-acceptance-state.json'));
  requireValue(state.phase==='bootstrap'&&state.publishApk===false,'Bootstrap publication gate must stay closed until separately reviewed integration');
  const dir=join(root,'build/android'),manifest=await json(join(dir,'build-manifest.json'));
- requireValue(manifest.platform==='android'&&manifest.version==='1.0.13'&&manifest.shopPricingMode==='paid'&&manifest.developerDiagnostics===false,'Android staging must use v1.0.13 paid production content');
+ requireValue(manifest.platform==='android'&&manifest.version==='1.0.14'&&manifest.sourceContentVersion==='1.0.13'&&manifest.shopPricingMode==='paid'&&manifest.developerDiagnostics===false,'Android staging must use v1.0.14 with v1.0.13 paid production content');
  requireValue(manifest.androidShellLockSha256===sha256(await readFile(join(root,'android-shell/package-lock.json'))),'Android shell lock checksum mismatch');
  requireValue(sha256(await readFile(join(root,'package-lock.json')))==='588e2516358bdb59822678f51112949934d0a58e5a84734a390c9283449e11e7','Release root dependency lock changed');
  const actual=(await files(dir)).filter(path=>path!=='SHA256SUMS');
