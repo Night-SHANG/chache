@@ -1,3 +1,4 @@
+// Historical v112 renderer evidence. Frozen painters preserve original pixel contracts; this is not v113 runtime validation.
 import {build} from 'esbuild';
 import {createRequire} from 'node:module';
 import {runInNewContext} from 'node:vm';
@@ -14,15 +15,15 @@ const baselineCached=process.argv.includes('--baseline-cache');
 const baseline=process.argv.find(arg=>arg.startsWith('--baseline='))?.slice(11)??root;
 await mkdir(out,{recursive:true});
 const exportsFor=(dir,cached)=>`
-export {render} from '${dir}/src/presentation/renderer.ts';
+export {render} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/renderer.ts';
 export {createRunV18} from '${dir}/src/domain/v18/engine.ts';
 export {createProfile} from '${dir}/src/application/profile.ts';
 export {COSMETIC_CATALOG} from '${dir}/src/application/cosmetics.ts';
-export {loadCargoAtlas} from '${dir}/src/presentation/cargo-atlas.ts';
-export {loadBoardMaterialAtlas} from '${dir}/src/presentation/board-material-atlas.ts';
-export {loadSceneMaterialAtlas} from '${dir}/src/presentation/scene-frame-atlas.ts';
-export {loadThemedForkliftAtlas} from '${dir}/src/presentation/themed-forklift-art.ts';
-${cached?`export {configureWarehouseCache} from '${dir}/src/presentation/warehouse-cache.ts';`:''}`;
+export {loadCargoAtlas} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/cargo-atlas.ts';
+export {loadBoardMaterialAtlas} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/board-material-atlas.ts';
+export {loadSceneMaterialAtlas} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/scene-frame-atlas.ts';
+export {loadThemedForkliftAtlas} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/themed-forklift-art.ts';
+${cached?`export {configureWarehouseCache} from '${dir===root?resolve(root,'scripts/static-art-authoring'):dir}/src/presentation/warehouse-cache.ts';`:''}`;
 async function bundle(dir,cached,name){return (await build({stdin:{contents:exportsFor(dir,cached),loader:'ts',resolveDir:root},bundle:true,format:'iife',globalName:name,write:false,define:{__PLAYTEST_FREE_SHOP__:'false',__DEV_DIAGNOSTICS__:'false'}})).outputFiles[0].text;}
 const [original,current]=await Promise.all([bundle(baseline,baselineCached,'WarehouseOriginal'),bundle(root,true,'WarehouseCached')]);
 const assets={};for(const name of ['cargo-materials','board-materials','scene-materials','themed-forklifts'])assets[`assets/${name}.png`]=`data:image/png;base64,${(await readFile(resolve(root,`assets/${name}.png`))).toString('base64')}`;

@@ -1,0 +1,1 @@
+{"status":"PASS","cases":16,"failures":0,"out":"/workspace/scratch/e6b59ff34222/mobile-v113-release-work/artifacts/v113-static-host"}

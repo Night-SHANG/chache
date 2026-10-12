@@ -1,0 +1,12 @@
+✔ all 17 finite scenes preserve native source pixels, transparency and caller state with one image blit (1668.483058ms)
+✔ all 53 preview background variants retain native aspect-dependent architecture and clipping (553.64663ms)
+✔ day/night packed frames and every material floor preserve all 7/8/9 native board pixels (1696.772588ms)
+✔ actual renderer keeps finite scenery, usable safe-area clips and full-screen pause coverage (909.893377ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5507.665842

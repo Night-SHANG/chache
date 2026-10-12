@@ -1,0 +1,137 @@
+{
+  "version": "1.0.13",
+  "status": "VERIFIED_WITH_TWO_INHERITED_ART_SOURCE_FAILURES",
+  "baselineCommit": "dd847c3174466f0004111b8667a2ff45c563e889",
+  "sourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+  "scope": "Offline deterministic textures, one shared image readiness gate, ordinary cosmetics subpackage, current art preservation; gameplay/save formats/music unchanged",
+  "assetResources": 78,
+  "generatedPngFiles": 75,
+  "assetBytes": {
+    "main": 564188,
+    "cosmetics": 2728024,
+    "total": 3292212
+  },
+  "authoring": {
+    "frozenSourceFiles": 192,
+    "manifestSha256": "d7e5f9d32952e23e374c71f0cfaed85c026477ac3fb06f8214be588d23c7d5e9",
+    "canvasVersion": "1.0.10",
+    "assetTests": 13,
+    "assetTestsPassed": 13,
+    "frameFullCanvasPixelParity": true,
+    "sourceMaterialBytesUnchanged": true
+  },
+  "static": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "preflight": "PASS"
+  },
+  "fullTests": {
+    "status": "EXACTLY_TWO_INHERITED_MISSING_ART_SOURCE_FAILURES",
+    "command": "npm test (node --test tests/*.test.ts)",
+    "tests": 3270,
+    "pass": 3268,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "exitCode": 1,
+    "durationMs": 130154.43924,
+    "log": "qa/v113/full-tests.txt",
+    "testedSourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+    "sourceUnchangedBeforeAfter": true,
+    "firstSerialRun": "qa/v113/full-tests-serial-first.txt (contained one additional stale 2-canvas assertion; corrected to current 1-canvas contract before final full run)"
+  },
+  "knownHistoricalFailures": [
+    "cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png",
+    "v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+  ],
+  "visual": {
+    "finiteSceneLogicalBounds": {
+      "x": -57,
+      "y": 0,
+      "w": 1205,
+      "h": 1920
+    },
+    "sceneCount": 17,
+    "vehicleCount": 19,
+    "previewBackgroundVariants": 53,
+    "retiredArtworkPreserved": true,
+    "classicFrameCropCorrection": "Full source reveals bottom-shadow y1436 inclusive; lossless packing retains it",
+    "alpha": "Image-group transparency differs from old per-primitive overlapping alpha. Reviewed and accepted; no arbitrary-alpha legacy-pixel equality claimed. Outline remains independent last layer and semantic text remains live."
+  },
+  "runtimeLimits": {
+    "retainedLargeScenes": 1,
+    "inFlightLargeScenes": 1,
+    "previewRgbaBytes": 6291456,
+    "nativeMemoryReclamation": "Reference release does not guarantee immediate native/GPU reclamation"
+  },
+  "hostVerification": {
+    "status": "PASS",
+    "script": "scripts/verify-static-art-host.mjs",
+    "limitations": "Native Canvas / wx and DOM-event simulation; not WeChat tools, physical device, or audible-output evidence",
+    "cases": 16,
+    "failures": 0,
+    "report": "qa/v113/host/report.json",
+    "chineseGateLabels": "Actual CJK pixel witnesses and visual loading/error screenshot inspection passed"
+  },
+  "notRun": {
+    "wechatDeveloperTools": true,
+    "wechatProcessedUploadSize": true,
+    "physicalPhone": true,
+    "apkCompile": true,
+    "androidCi": true,
+    "uploadOrPublicRelease": true
+  },
+  "android": {
+    "versionName": "1.0.13",
+    "versionCode": 1,
+    "publishApk": false,
+    "dependencyGraphUnchanged": true,
+    "signingAndSecretsChanged": false,
+    "staging": "PASS: npm run build:android and npm run verify:android",
+    "log": "qa/v113/build-candidate.txt"
+  },
+  "blackScreenDiagnosis": "v111/v112 phone cause unconfirmed; migration does not establish phone fix",
+  "independentReview": {
+    "status": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+    "reviewedCommit": "c01b77304065e60d3d80be58210c31d8e4822b6e",
+    "reviewedTree": "58f4b6afef25798cb4e8c75015744f92293428ae",
+    "sourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+    "unresolvedMigrationBlockers": [],
+    "report": "qa/v113/independent-review/review.json",
+    "readinessAndPlatformTests": 34,
+    "geometryCompositionTests": 4,
+    "nativePremiumCargoPixelMatches": 75,
+    "frozenAuthoringFilesExact": 192,
+    "fixedFinding": "Generic sans-serif lacked native Chinese pixels; existing CJK stack plus actual pixel regressions and refreshed visual inspection passed."
+  },
+  "rootLockSha256": "588e2516358bdb59822678f51112949934d0a58e5a84734a390c9283449e11e7",
+  "previousCheckpoint": "docs/checkpoint-pre-v113-history.json",
+  "verifiedAt": "2026-10-12T23:14:28+08:00",
+  "testedProductCommit": "c01b77304065e60d3d80be58210c31d8e4822b6e",
+  "packaging": {
+    "mainBytes": 3031601,
+    "subpackageBytes": {
+      "cosmetics": 2728095
+    },
+    "totalBytes": 5759696,
+    "limits": {
+      "mainBytes": 4194304,
+      "totalBytes": 31457280
+    },
+    "localConservativeCosmeticsBudget": 4194304,
+    "processedIdeBytes": null,
+    "processedIdeStatus": "NOT RUN; raw directory bytes are not WeChat processed upload size",
+    "officialSnapshot": "https://github.com/VaJoy/wx-minigame-helper/blob/ad99e35a0200d4548cd879aa218ce845fd1e9fa2/skills/wx-minigame-helper/references/guide/base-ability/code-package.md",
+    "receipt": "qa/v113/wechat-package-sizes.json",
+    "minifiedGameJsBytes": 679035
+  },
+  "postBuildTests": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "log": "qa/v113/post-build-focused.txt"
+  },
+  "evidenceFreeze": "The final evidence-only commit preserves the tested product source SHA and records this reviewed product commit. Final rebuilt manifests and external delivery receipts must bind the exact final HEAD.",
+  "preservedWhitespace": "Baseline-to-candidate diff --check notes two whitespace-only lines in raw historical test output and one exact frozen-source blank EOF. Neither is changed to cosmetically alter evidence or frozen source."
+}

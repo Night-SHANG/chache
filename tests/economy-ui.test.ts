@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {getUiControls} from '../src/presentation/ui.ts';import {getEconomyControls} from '../src/presentation/economy-ui.ts';import {createRunV9} from '../src/domain/v9/engine.ts';import {createProfile} from '../src/application/profile.ts';import {makeAccountFixture} from './helpers/account-fixtures.ts';import type {ViewState} from '../src/presentation/view-types.ts';
 const state=createRunV9({seed:1,mode:'standard'});const view=(patch:Partial<ViewState>={}):ViewState=>({selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile(),...patch});

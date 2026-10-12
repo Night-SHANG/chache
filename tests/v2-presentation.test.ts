@@ -1,8 +1,10 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createCanvas} from '@napi-rs/canvas';
 import * as layout from '../src/presentation/layout.ts';
 import { render } from '../src/presentation/renderer.ts';
-import { cargoBox, PALETTE } from '../src/presentation/assets.ts';
+import { cargoBox } from '../src/presentation/assets.ts';
 import { createRun } from '../src/domain/engine.ts';
 import type { CellTrait, RunState, Shipment } from '../src/domain/types.ts';
 import type { ViewState } from '../src/presentation/view-types.ts';
@@ -11,7 +13,7 @@ interface Label { value: string; x: number; y: number; size: number }
 /** Canvas2D output capture, restricted to the same baseline as the host adapters. */
 function canvasSurface() {
   const labels: Label[] = [], fills: string[] = [], outlines: layout.Rect[] = [], scales: number[][] = [];
-  const methods = new Set(['save', 'restore', 'clearRect', 'fillRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'stroke', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
+  const methods = new Set(['save', 'restore', 'drawImage', 'clearRect', 'fillRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'stroke', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
   const values: Record<string, unknown> = { globalAlpha: 1 };
   const ctx = new Proxy({}, {
     get(_target, key) {
@@ -73,8 +75,8 @@ for (const [kind, expected] of [['pallet', '×2'], ['rush', '余3次'], ['hazard
     cargoBox(surface.ctx, 'cargo.food', 0, 0, 110, 1, { kind, remaining: 3 });
     assert.ok(labelsOf(surface).includes(expected));
     if (kind === 'waste') {
-      assert.ok(surface.fills.includes('#727b83'), 'waste uses its neutral gray front');
-      assert.equal(surface.fills.includes(PALETTE['cargo.food'].light), false, 'waste is not drawn as ordinary food');
+      const actual=createCanvas(120,120).getContext('2d');cargoBox(actual as unknown as CanvasRenderingContext2D,'cargo.food',0,0,110,1,{kind:'waste'});
+      assert.deepEqual([...actual.getImageData(20,70,1,1).data],[114,123,131,255],'waste uses its neutral gray image front rather than ordinary food');
     }
   });
 }

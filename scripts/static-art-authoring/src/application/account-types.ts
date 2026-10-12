@@ -1,0 +1,69 @@
+import type { GameCommand, GameRun } from '../domain/playable.ts';
+import type { OutboundDifficulty } from '../domain/types.ts';
+import type { Profile } from './profile.ts';
+import type {RunSlot} from './run-slots.ts';
+
+export type ItemId = 'rotate' | 'clear' | 'wildcard';
+export type EconomyScope = 'inbound' | 'outbound';
+export type Inventory = Record<ItemId, number>;
+export interface RunIdentity {
+ runId:string; serial:number; rulesetVersion:8|9|10|11|12|13|14|15|16|18|19|20|21; runConfigId:string;
+ mode:'standard'|'daily'|'rush'|'guided'|'endless'|'outbound'|'outboundEndless'|'outboundGuided';
+ inboundDifficulty?:import('../domain/v16/types.ts').InboundDifficultyV16; difficultyId?:OutboundDifficulty; challengeDay?:string; economyVersion:1|2;
+}
+export interface HistoryRef { key:string; digest:string; commandCount:number }
+/** The sole persisted command tail. Domain commands are rebuilt from this field. */
+export interface HistoryCursor {
+ seed:number; runConfigId:string; head:HistoryRef|null; totalCommands:number; tail:GameCommand[];
+}
+export interface HistoryChunk {
+ formatVersion:1; runId:string; firstCommandIndex:number; commands:GameCommand[];
+ previous:HistoryRef|null; digest:string;
+}
+export interface ResultCursor {
+ runId:string; commandIndex:number; units:number; score:number; countedRun:boolean; countedWin:boolean; countedRetirement:boolean;
+ bucketKey:string; bucketBefore:ResultBucket|null;
+ maxChainSinceBaseline:number;
+ baseline:{units:number;score:number;countedWin:boolean;countedRetirement:boolean};
+}
+export interface AccountRun {
+ identity:RunIdentity; state:GameRun; history:HistoryCursor; lifecycle:'active'|'closed';
+ reserved:ItemId[]; creditedBase:number; earnedCoins:number; resultCursor:ResultCursor|null;
+}
+export type GuideTrack = 'inbound'|'outbound'|'daily';
+export type GuideStep = 'place'|'order'|'route'|'upgrade'|'rushTimer'|'expired'|'sweepChoice'|'colorGroup'|'colorExit'|'mixedRemainder';
+export interface GuideProgress { learned:GuideStep[]; skipped:boolean; authoredStartConsumed:boolean }
+export interface ResultBucket {
+ runs:number; units:number; maxUnits:number; score:number; wins:number; retirements:number; maxChain:number;
+ best:{score:number;units:number;chain:number}|null;
+}
+export interface AccountProfile {
+ settings:Profile['settings']; cosmetics:Profile['cosmetics'];
+ /** Required in account formats 3 and 4; absent only in legacy formats. */
+ ownedCosmetics?:string[]; cargoOutline?:boolean;
+ legacyResults:Omit<Profile,'schemaVersion'|'settings'|'cosmetics'|'tutorialComplete'|'nextRunSerial'>;
+ results:Record<string,ResultBucket>;
+}
+export interface ClosedResult {
+ identity:RunIdentity; reason:'blocked'|'completed'|'retired'|'abandoned';
+ commandIndex:number; units:number; score:number; maxChain:number; result:'failed'|'won'|null;
+ coinDelta:number; earnedCoins:number; returned:ItemId[]; history:HistoryCursor; elapsedMs?:number;
+}
+export interface OperationRequest { operationId:string; expectedGeneration:number }
+export interface OperationReceipt extends OperationRequest { requestDigest:string; committedGeneration:number }
+/** Applies only existing ownership; sets do not introduce a persisted ownership category. */
+export interface EquipCosmeticSetRequest { type:'equipCosmeticSet'; id:string }
+/** The confirmation records an exact missing-member quote; no set ownership is persisted. */
+export interface PurchaseCosmeticSetRequest { type:'purchaseCosmeticSet'; id:string; quotedKeys:string[]; quotedPrice:number }
+export interface AccountSnapshot {
+ /** Required only in unpublished format4; legacy reads project true. */
+ tutorialsEnabled?:boolean;
+ formatVersion:1|2|3|4; economyVersion:1|2; epoch:string; generation:number;
+ nextRunSerial:number; closedThroughSerial:number; wallet:number; inventory:Inventory;
+ run:AccountRun|null; lastClosedResult:ClosedResult|null; profile:AccountProfile;
+ guides:Record<'inbound'|'outbound',GuideProgress>&{daily?:GuideProgress}; dailyPaid:Record<string,{bestBase:number;paid:number}>;
+ /** Version 2 keeps reward safety independently of display/profile resets. */
+ dailyRewards?:Record<string,{completedRunId:string|null;bonusPaid:number}>;
+ resetCursor:{serial:number;commandIndex:number}; legacyImported:boolean;
+ migration:{version:1;sourceDigests:Record<string,string>;legacySerialCeiling:number;legacySerials:Partial<Record<RunSlot,number>>}; lastOperation:OperationReceipt|null;
+}

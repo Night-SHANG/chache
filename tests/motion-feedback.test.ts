@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -21,7 +22,7 @@ function surface() {
   const draws: { kind: string; values: unknown[]; fill: unknown; stroke: unknown; alpha: unknown }[] = [];
   const state: Record<string, unknown> = { globalAlpha: 1 };
   const stack: Record<string, unknown>[] = [];
-  const allowed = new Set(['clearRect', 'fillRect', 'strokeRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'stroke', 'fill', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
+  const allowed = new Set(['drawImage', 'clearRect', 'fillRect', 'strokeRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'stroke', 'fill', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
   const ctx = new Proxy({}, {
     get(_target, key) {
       if (key === 'save') return () => stack.push({ ...state });

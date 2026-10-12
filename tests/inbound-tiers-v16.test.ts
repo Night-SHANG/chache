@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import {createCanvas} from '@napi-rs/canvas';
 import {render} from '../src/presentation/renderer.ts';

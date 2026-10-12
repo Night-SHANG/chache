@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import {legacyPresentationPreview as previewPlacement} from './helpers/presentation-fixtures.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';

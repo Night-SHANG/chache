@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas } from '@napi-rs/canvas';
-import { cargoBox, forklift } from '../src/presentation/assets.ts';
-import * as art from '../src/presentation/cosmetic-art.ts';
-import type { CargoStyleId, ForkliftId, ThemeId } from '../src/application/profile.ts';
-import type { CargoId, CellTrait } from '../src/domain/types.ts';
+import { cargoBox, forklift } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import * as art from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import type { CargoStyleId, ForkliftId, ThemeId } from '../scripts/static-art-authoring/src/application/profile.ts';
+import type { CargoId, CellTrait } from '../scripts/static-art-authoring/src/domain/types.ts';
 
 const STYLES = ['toy_brick', 'paper_fold', 'space_case'] as const;
 const TRUCKS = ['toy', 'paper', 'space'] as const;
@@ -181,7 +182,7 @@ test('retained vehicle previews stay exact while approved material, theme and v0
  }
 });
 
-import {icon,PALETTE} from '../src/presentation/assets.ts';
+import {icon,PALETTE} from '../scripts/static-art-authoring/src/presentation/assets.ts';
 // Full opaque glyph masks include dark strokes, centers and food leaves, not only light fill.
 test('all new crate sizes retain the full glyph masks and opaque badge pixels over every trait and outline',()=>{
  for(const size of [44,80,110])for(const cargo of CARGOS){
@@ -200,20 +201,20 @@ test('all new crate sizes retain the full glyph masks and opaque badge pixels ov
  }
 });
 
-import {render} from '../src/presentation/renderer.ts';
+import {render} from '../scripts/static-art-authoring/src/presentation/renderer.ts';
 import {makeAccountFixture} from './helpers/account-fixtures.ts';
-import {FREE_COSMETICS} from '../src/application/cosmetics.ts';
-import {createProfile} from '../src/application/profile.ts';
-import {createRunV20,applyCommandV20} from '../src/domain/v20/engine.ts';
-import {fromV20} from '../src/domain/v21/engine.ts';
-import {createRun} from '../src/domain/engine.ts';
-import {playableChecksum} from '../src/domain/playable.ts';
-import type {GameRun,GameShipment} from '../src/domain/playable.ts';
-import type {ViewState} from '../src/presentation/view-types.ts';
-import type {Cell,Shipment} from '../src/domain/types.ts';
-import {shipmentFrame,shipmentPose} from '../src/presentation/motion.ts';
-import {buildOutboundTransport} from '../src/presentation/outbound-transport.ts';
-import {drawColorExitShipment} from '../src/presentation/color-exit-renderer.ts';
+import {FREE_COSMETICS} from '../scripts/static-art-authoring/src/application/cosmetics.ts';
+import {createProfile} from '../scripts/static-art-authoring/src/application/profile.ts';
+import {createRunV20,applyCommandV20} from '../scripts/static-art-authoring/src/domain/v20/engine.ts';
+import {fromV20} from '../scripts/static-art-authoring/src/domain/v21/engine.ts';
+import {createRun} from '../scripts/static-art-authoring/src/domain/engine.ts';
+import {playableChecksum} from '../scripts/static-art-authoring/src/domain/playable.ts';
+import type {GameRun,GameShipment} from '../scripts/static-art-authoring/src/domain/playable.ts';
+import type {ViewState} from '../scripts/static-art-authoring/src/presentation/view-types.ts';
+import type {Cell,Shipment} from '../scripts/static-art-authoring/src/domain/types.ts';
+import {shipmentFrame,shipmentPose} from '../scripts/static-art-authoring/src/presentation/motion.ts';
+import {buildOutboundTransport} from '../scripts/static-art-authoring/src/presentation/outbound-transport.ts';
+import {drawColorExitShipment} from '../scripts/static-art-authoring/src/presentation/color-exit-renderer.ts';
 const gameView=(patch:Partial<ViewState>={}):ViewState=>({screen:'game',selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile(),...patch});
 function appearanceAccount(profile:ReturnType<typeof createProfile>,outline:boolean){const account=makeAccountFixture();account.profile.cosmetics={...profile.cosmetics};account.profile.cargoOutline=outline;account.profile.ownedCosmetics=[...new Set([...FREE_COSMETICS,...Object.entries(profile.cosmetics).map(([kind,id])=>`${kind}.${id}`)])].sort();return account;}
 function gamePixels(run:GameRun,view:ViewState,region={x:0,y:0,w:1080,h:1920}){const out=surface(1080,1920);render(out.context,run,view);return out.ctx.getImageData(region.x,region.y,region.w,region.h).data;}

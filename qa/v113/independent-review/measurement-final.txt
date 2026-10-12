@@ -1,0 +1,157 @@
+{
+  "status": "PASS",
+  "version": "1.0.13",
+  "headCommit": "c01b77304065e60d3d80be58210c31d8e4822b6e",
+  "sourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+  "frozenSourceCommit": "dd847c3174466f0004111b8667a2ff45c563e889",
+  "completedAt": "2026-10-12T15:11:50.310Z",
+  "engine": "@napi-rs/canvas 1.0.10",
+  "method": "One native draw per fixture. Dense board is warehouse + board + all occupied classic cargo cells + one yellow forklift. Shop is four exact 360x246 set previews. Before is frozen authoring vector painters; after is ready PNG composition.",
+  "limitations": [
+    "Counts include simple retained floor gradients and dynamic semantic markers. No caching configured on either comparison.",
+    "Method counts are not CPU timing, GPU memory, phone FPS, or a black-screen diagnosis."
+  ],
+  "rows": [
+    {
+      "kind": "dense-board",
+      "theme": "day",
+      "board": 7,
+      "before": {
+        "all": 16047,
+        "paths": 13363,
+        "gradients": 134,
+        "images": 49
+      },
+      "after": {
+        "all": 669,
+        "paths": 0,
+        "gradients": 51,
+        "images": 104
+      }
+    },
+    {
+      "kind": "dense-board",
+      "theme": "day",
+      "board": 8,
+      "before": {
+        "all": 18882,
+        "paths": 15760,
+        "gradients": 164,
+        "images": 64
+      },
+      "after": {
+        "all": 864,
+        "paths": 0,
+        "gradients": 66,
+        "images": 134
+      }
+    },
+    {
+      "kind": "dense-board",
+      "theme": "day",
+      "board": 9,
+      "before": {
+        "all": 22096,
+        "paths": 18482,
+        "gradients": 198,
+        "images": 81
+      },
+      "after": {
+        "all": 1085,
+        "paths": 0,
+        "gradients": 83,
+        "images": 168
+      }
+    },
+    {
+      "kind": "four-card-shop",
+      "theme": "day",
+      "before": {
+        "all": 13920,
+        "paths": 9808,
+        "gradients": 396,
+        "images": 324
+      },
+      "after": {
+        "all": 4080,
+        "paths": 1000,
+        "gradients": 348,
+        "images": 388
+      }
+    },
+    {
+      "kind": "dense-board",
+      "theme": "cold_chain",
+      "board": 7,
+      "before": {
+        "all": 9612,
+        "paths": 8068,
+        "gradients": 114,
+        "images": 57
+      },
+      "after": {
+        "all": 664,
+        "paths": 0,
+        "gradients": 51,
+        "images": 108
+      }
+    },
+    {
+      "kind": "dense-board",
+      "theme": "cold_chain",
+      "board": 8,
+      "before": {
+        "all": 12447,
+        "paths": 10465,
+        "gradients": 144,
+        "images": 72
+      },
+      "after": {
+        "all": 859,
+        "paths": 0,
+        "gradients": 66,
+        "images": 138
+      }
+    },
+    {
+      "kind": "dense-board",
+      "theme": "cold_chain",
+      "board": 9,
+      "before": {
+        "all": 15661,
+        "paths": 13187,
+        "gradients": 178,
+        "images": 89
+      },
+      "after": {
+        "all": 1080,
+        "paths": 0,
+        "gradients": 83,
+        "images": 172
+      }
+    },
+    {
+      "kind": "four-card-shop",
+      "theme": "cold_chain",
+      "before": {
+        "all": 12668,
+        "paths": 8476,
+        "gradients": 444,
+        "images": 484
+      },
+      "after": {
+        "all": 4220,
+        "paths": 1000,
+        "gradients": 348,
+        "images": 532
+      }
+    }
+  ],
+  "premiumCargo": {
+    "checked": 75,
+    "atNativeSize": 110,
+    "alpha": 1,
+    "exactPixelMatches": 75,
+    "includesRetiredTaped": true
+  }
+}

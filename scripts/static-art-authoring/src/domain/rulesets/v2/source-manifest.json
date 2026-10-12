@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "805d16b09c991c4b4d3d7b336d6937235ccd4f32",
+  "rulesetVersion": 2,
+  "files": {
+    "src/domain/v2/board.ts": "d2c9273445e12acf6ba5ebd30ed59c4093e2718da738622430b090be8ac3546e",
+    "src/domain/v2/content.ts": "c306ac0a40c0e2d0f3382183cd1bc8b3abfe0e152d1ce18b57c9bcab54ef23fd",
+    "src/domain/v2/engine.ts": "ea8cb94c13e76199dc845c5fd24aad9b4044c79110c3a06bd6531229569193a6"
+  }
+}

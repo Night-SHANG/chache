@@ -1,11 +1,12 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
 import type {Canvas} from '@napi-rs/canvas';
-const cacheModule=await import('../src/presentation/cosmetic-preview-cache.ts').catch(()=>assert.fail('bounded cosmetic preview cache must be implemented')); 
-import {drawCosmeticSetPreview} from '../src/presentation/cosmetic-art.ts';
-import type {CanvasSurface} from '../src/platform/types.ts';
-import type {CosmeticPreviewOptions} from '../src/presentation/cosmetic-art.ts';
+const cacheModule=await import('../scripts/static-art-authoring/src/presentation/cosmetic-preview-cache.ts').catch(()=>assert.fail('bounded cosmetic preview cache must be implemented'));
+import {drawCosmeticSetPreview} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import type {CanvasSurface} from '../scripts/static-art-authoring/src/platform/types.ts';
+import type {CosmeticPreviewOptions} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
 
 const asContext=(canvas:Canvas)=>canvas.getContext('2d') as unknown as CanvasRenderingContext2D;
 const rect={x:12,y:18,w:360,h:246};
@@ -77,7 +78,7 @@ test('320, 360 and 540 CSS pixel render scales use native-resolution surfaces wi
 });
 
 test('actual atlas readiness invalidates caches while native forklift art stays stable and loaded warm frames remain identical',async()=>{
- const {loadImage}=await import('@napi-rs/canvas'),{loadCargoAtlas}=await import('../src/presentation/cargo-atlas.ts'),{loadBoardMaterialAtlas}=await import('../src/presentation/board-material-atlas.ts'),{loadSceneMaterialAtlas}=await import('../src/presentation/scene-frame-atlas.ts'),{loadThemedForkliftAtlas}=await import('../src/presentation/themed-forklift-art.ts');
+ const {loadImage}=await import('@napi-rs/canvas'),{loadCargoAtlas}=await import('../scripts/static-art-authoring/src/presentation/cargo-atlas.ts'),{loadBoardMaterialAtlas}=await import('../scripts/static-art-authoring/src/presentation/board-material-atlas.ts'),{loadSceneMaterialAtlas}=await import('../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts'),{loadThemedForkliftAtlas}=await import('../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts');
  const loaders=[loadCargoAtlas,loadBoardMaterialAtlas,loadSceneMaterialAtlas,loadThemedForkliftAtlas];for(const load of loaders)await load(async()=>{throw Error('not ready');});
  const f=fixture(),canvas=createCanvas(420,300),ctx=asContext(canvas);
  for(const load of loaders){

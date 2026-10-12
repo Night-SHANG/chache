@@ -1,7 +1,8 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { CARGO_ATLAS } from '../src/presentation/cargo-atlas.ts';
+import { CARGO_ATLAS } from '../scripts/static-art-authoring/src/presentation/cargo-atlas.ts';
 
 const refined=['wood','neon_circuit','lava_core','ocean_relic'];
 const manifest=JSON.parse(readFileSync(new URL('../assets/cargo-materials.manifest.json',import.meta.url),'utf8')) as {

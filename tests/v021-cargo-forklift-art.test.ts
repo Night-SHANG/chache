@@ -1,11 +1,12 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { CARGO_ATLAS, loadCargoAtlas } from '../src/presentation/cargo-atlas.ts';
-import { THEMED_FORKLIFT_ATLAS } from '../src/presentation/themed-forklift-art.ts';
-import { cargoBox } from '../src/presentation/assets.ts';
+import { CARGO_ATLAS, loadCargoAtlas } from '../scripts/static-art-authoring/src/presentation/cargo-atlas.ts';
+import { THEMED_FORKLIFT_ATLAS } from '../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts';
+import { cargoBox } from '../scripts/static-art-authoring/src/presentation/assets.ts';
 
 test('v0.21 appends one cargo style and three forklift bodies in stable order', () => {
  assert.equal(CARGO_ATLAS.styles[CARGO_ATLAS.styles.length-1], 'harbor_container');

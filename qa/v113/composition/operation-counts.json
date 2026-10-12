@@ -1,0 +1,82 @@
+[
+  {
+    "theme": "day",
+    "renderer": "original",
+    "counts": {
+      "drawImage": 49,
+      "path": 1383,
+      "gradient": 107,
+      "text": 41
+    }
+  },
+  {
+    "theme": "day",
+    "renderer": "image",
+    "counts": {
+      "drawImage": 71,
+      "path": 179,
+      "gradient": 64,
+      "text": 41
+    }
+  },
+  {
+    "theme": "night",
+    "renderer": "original",
+    "counts": {
+      "drawImage": 49,
+      "path": 1399,
+      "gradient": 109,
+      "text": 41
+    }
+  },
+  {
+    "theme": "night",
+    "renderer": "image",
+    "counts": {
+      "drawImage": 63,
+      "path": 179,
+      "gradient": 64,
+      "text": 41
+    }
+  },
+  {
+    "theme": "forest_depot",
+    "renderer": "original",
+    "counts": {
+      "drawImage": 105,
+      "path": 229,
+      "gradient": 66,
+      "text": 41
+    }
+  },
+  {
+    "theme": "forest_depot",
+    "renderer": "image",
+    "counts": {
+      "drawImage": 99,
+      "path": 225,
+      "gradient": 64,
+      "text": 41
+    }
+  },
+  {
+    "theme": "ice_vault",
+    "renderer": "original",
+    "counts": {
+      "drawImage": 105,
+      "path": 229,
+      "gradient": 66,
+      "text": 41
+    }
+  },
+  {
+    "theme": "ice_vault",
+    "renderer": "image",
+    "counts": {
+      "drawImage": 99,
+      "path": 225,
+      "gradient": 64,
+      "text": 41
+    }
+  }
+]

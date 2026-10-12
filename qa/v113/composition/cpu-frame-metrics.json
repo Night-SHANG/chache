@@ -1,0 +1,101 @@
+{
+  "notice": "Local native Canvas CPU samples; uncached authoring painters vs image composition; no phone or warm-cache FPS claim.",
+  "results": [
+    {
+      "name": "dense-7/original",
+      "medianMs": 16.242588999999953,
+      "p95Ms": 187.0613679999999,
+      "samples": 30,
+      "counts": {
+        "drawImage": 49,
+        "path": 2692,
+        "gradient": 155,
+        "text": 39
+      }
+    },
+    {
+      "name": "dense-7/image",
+      "medianMs": 4.262406000000055,
+      "p95Ms": 5.402051000000029,
+      "samples": 30,
+      "counts": {
+        "drawImage": 111,
+        "path": 175,
+        "gradient": 64,
+        "text": 39
+      }
+    },
+    {
+      "name": "dense-8/original",
+      "medianMs": 16.807038999999804,
+      "p95Ms": 174.34558199999992,
+      "samples": 30,
+      "counts": {
+        "drawImage": 64,
+        "path": 3103,
+        "gradient": 185,
+        "text": 39
+      }
+    },
+    {
+      "name": "dense-8/image",
+      "medianMs": 3.5204390000003514,
+      "p95Ms": 5.431105000000116,
+      "samples": 30,
+      "counts": {
+        "drawImage": 141,
+        "path": 175,
+        "gradient": 79,
+        "text": 39
+      }
+    },
+    {
+      "name": "dense-9/original",
+      "medianMs": 28.92286199999944,
+      "p95Ms": 175.9090759999999,
+      "samples": 30,
+      "counts": {
+        "drawImage": 81,
+        "path": 3566,
+        "gradient": 219,
+        "text": 39
+      }
+    },
+    {
+      "name": "dense-9/image",
+      "medianMs": 6.512333000000581,
+      "p95Ms": 10.887682000000495,
+      "samples": 30,
+      "counts": {
+        "drawImage": 175,
+        "path": 175,
+        "gradient": 96,
+        "text": 39
+      }
+    },
+    {
+      "name": "six-card-composition/original",
+      "medianMs": 17.32267799999954,
+      "p95Ms": 136.4952290000001,
+      "samples": 30,
+      "counts": {
+        "drawImage": 686,
+        "path": 2307,
+        "gradient": 607,
+        "text": 12
+      }
+    },
+    {
+      "name": "six-card-composition/image",
+      "medianMs": 13.645519000000604,
+      "p95Ms": 158.93403200000012,
+      "samples": 30,
+      "counts": {
+        "drawImage": 762,
+        "path": 234,
+        "gradient": 522,
+        "text": 12
+      }
+    }
+  ]
+}

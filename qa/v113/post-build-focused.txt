@@ -1,0 +1,19 @@
+✔ loading is visible, blocks unseen controls and never forwards a gesture started before ready (12.924141ms)
+✔ failure keeps exact selection and retries only a complete visible button gesture (2.751925ms)
+✔ shop preview failure exposes back without allowing hidden purchases (3.558227ms)
+✔ hide/show cancels touches without allocating, decoding again, or retaining previews for a closed page (2.068208ms)
+✔ a saved non-default decode failure retains exact selected identity and all saved bytes (2.137502ms)
+✔ native Canvas paints visible Chinese loading/error explanations and retry labels with the shared CJK font stack (323.519848ms)
+✔ production texture packages are fresh, fully local, verified and correctly split (6073.869504ms)
+✔ cosmetics package is lazy, shares concurrent work and retains completed package readiness (1.428817ms)
+✔ failed package request can retry without changing audio or saved selection (0.535816ms)
+✔ unsupported hosts fail visibly without calling absent APIs or canIUse (0.285829ms)
+✔ synchronous host failure clears inflight state for an explicit retry (0.230837ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6196.518695

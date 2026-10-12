@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import type { ThemeId } from '../src/application/profile.ts';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
-import { SCENE_MATERIAL_ATLAS, loadSceneMaterialAtlas, drawSceneMaterialTile, drawSceneFrame, drawThemedGateShell } from '../src/presentation/scene-frame-atlas.ts';
+import type { ThemeId } from '../scripts/static-art-authoring/src/application/profile.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { drawThemedBoard } from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
+import { SCENE_MATERIAL_ATLAS, loadSceneMaterialAtlas, drawSceneMaterialTile, drawSceneFrame, drawThemedGateShell } from '../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts';
 
 const digest = (data: Uint8ClampedArray | Buffer) => createHash('sha256').update(data).digest('hex');
 const loader = async (path: string) => await loadImage(path) as unknown as CanvasImageSource;

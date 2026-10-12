@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';import assert from 'node:assert/strict';import {createCanvas} from '@napi-rs/canvas';
 import {createRun} from '../src/domain/engine.ts';import {render} from '../src/presentation/renderer.ts';import {InputController} from '../src/presentation/input.ts';import {createProfile} from '../src/application/profile.ts';import type {RunState,Point} from '../src/domain/types.ts';import type {ViewState} from '../src/presentation/view-types.ts';
 function fixture(){const old=createRun(1,'color_exit',5,'entry');const s={...old,rulesetVersion:6,runConfigId:'run.outbound9_v6.easy',difficultyId:'easy',boardSize:9,board:Array(81).fill(null),cellTraits:Array(81).fill(null),orders:[]} as RunState;delete s.colorTier;s.candidates=[{id:'piece.1',shapeId:'shape.single',cargo:'cargo.food'}];return s;}

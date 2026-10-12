@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { readFileSync } from 'node:fs';
-import { cargoBox } from '../src/presentation/assets.ts';
-import { COSMETIC_PREVIEW_RECT } from '../src/presentation/economy-ui.ts';
-import type { CargoStyleId } from '../src/application/profile.ts';
+import { cargoBox } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import { COSMETIC_PREVIEW_RECT } from '../scripts/static-art-authoring/src/presentation/economy-ui.ts';
+import type { CargoStyleId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
-const moduleUrl=new URL('../src/presentation/cargo-atlas.ts',import.meta.url).href;
+const moduleUrl=new URL('../scripts/static-art-authoring/src/presentation/cargo-atlas.ts',import.meta.url).href;
 // Dynamic lookup lets the red phase fail on the missing capability, rather than an import error.
 const atlas=await import(moduleUrl).catch(()=>null) as null|{loadCargoAtlas:(loader:(path:string)=>Promise<CanvasImageSource>)=>Promise<boolean>};
 const imagePath=new URL('../assets/cargo-materials.png',import.meta.url).pathname;
@@ -38,7 +39,7 @@ test('committed raster artwork verifies every generated source and exact encoded
 
 test('atlas completion changes only shop pixels, preserving active session checksum, wallet and storage',async()=>{
  assert.ok(atlas);
- const [{sessionHost},{playableChecksum},{render}]=await Promise.all([import('./helpers/session-fixtures.ts'),import('../src/domain/playable.ts'),import('../src/presentation/renderer.ts')]);
+ const [{sessionHost},{playableChecksum},{render}]=await Promise.all([import('./helpers/session-fixtures.ts'),import('../scripts/static-art-authoring/src/domain/playable.ts'),import('../scripts/static-art-authoring/src/presentation/renderer.ts')]);
  await atlas.loadCargoAtlas(async()=>{throw Error('not loaded');});
  const {session,data}=sessionHost({wallet:57});session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});session.action({type:'selectShopSection',section:'cargo'});session.action({type:'previewCosmetic',kind:'cargo',id:'ice_crystal'});assert.equal(session.view.shopItemDetail,undefined);assert.equal(session.view.cosmeticPreview?.cargo,'ice_crystal');
  const state=playableChecksum(session.state),account=JSON.stringify(session.view.account),stored=[...data];

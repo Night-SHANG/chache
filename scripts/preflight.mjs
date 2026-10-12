@@ -1,3 +1,5 @@
+import {verifyStaticArtAssets} from './static-art-assets.mjs';
+import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import {unsupportedWechatCompositingModes} from './wechat-canvas-guard.mjs';
 import {readFile,readdir,stat} from 'node:fs/promises';
 import {join} from 'node:path';
@@ -50,5 +52,8 @@ for(const path of await files('src')){
  check(!/\b(?:ghp_[a-zA-Z0-9]{30,}|sk-proj-[a-zA-Z0-9_-]{30,})/.test(text),`${path}: potential secret`);
  check((await stat(path)).size<80000,`${path}: source file budget`);
 }
+try{await verifyStaticArtAssets();}catch(error){check(false,`static artwork: ${error.message}`);}
+for(const resource of Object.values(STATIC_ART_RESOURCES)){check(resource.src.startsWith('cosmetics/')===(resource.package==='cosmetics'),`static art package path mismatch: ${resource.key}`);check(!/^https?:/.test(resource.src),`remote static art forbidden: ${resource.key}`);}
+for(const path of ['src/browser-main.ts','src/wechat-main.ts','src/android-main.ts','src/presentation/warehouse-art.ts','src/presentation/cosmetic-art.ts','src/presentation/static-art-resources.ts']){const text=await readFile(path,'utf8');check(!/from ['"][^'"]*(?:warehouse-cache|cosmetic-preview-cache|static-art-authoring)/.test(text),`${path}: retired static art runtime import`);}
 for(const file of ['THIRD_PARTY_NOTICES.md','src/wechat-main.ts','src/browser-main.ts','tests/replay.test.ts','tests/save.test.ts','scripts/build.mjs'])check((await stat(file)).isFile(),`missing ${file}`);
-if(failures.length){for(const failure of failures)console.error(`FAIL ${failure}`);process.exitCode=1;}else console.log(`PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks.`);
+if(failures.length){for(const failure of failures)console.error(`FAIL ${failure}`);process.exitCode=1;}else console.log(`PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks, packaged static artwork hashes/dimensions/source identity and local package paths.`);

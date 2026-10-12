@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas } from '@napi-rs/canvas';
-import { drawCosmeticPreview, drawLogisticsBackground } from '../src/presentation/cosmetic-art.ts';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
-import type { ThemeId } from '../src/application/profile.ts';
+import { drawCosmeticPreview, drawLogisticsBackground } from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import { drawThemedBoard } from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { COSMETIC_CATALOG } from '../scripts/static-art-authoring/src/application/cosmetics.ts';
+import type { ThemeId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 const THEMES = ['steam_foundry', 'neon_depot', 'lava_forge', 'ocean_vault', 'royal_store', 'field_station'] as const;
 const digest = (data: Uint8ClampedArray) => createHash('sha256').update(data).digest('hex');

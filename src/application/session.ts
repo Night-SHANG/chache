@@ -451,13 +451,14 @@ export class GameSession {
  }
  private persist():boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned)return !this.view.accountBlocked;if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.legacyState.elapsedMs!==elapsedMs)this.legacyState={...this.legacyState,elapsedMs};const result=saveRun(this.platform.storage,this.legacyState,this.slot);this.view.saveStatus=result.message;return result.ok;}
  private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0,...('transport' in next.shipment&&next.shipment.transport==='conveyor'?{transportPlan:buildOutboundTransport(next.shipment as Shipment,next.board)??undefined}:{})}:null;if(next)this.routeCue();else this.startNotice(now);}
- tick(now:number):void{
+ tick(now:number,presentationBlocked=false):void{
   this.input.refresh();
   this.syncMusic();
   if(Math.floor(((this.platform.wallTime?.()??Date.now())+8*60*60*1000)/(24*60*60*1000))!==this.dailyDateIndex)this.refreshDailyAvailability();
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
+  if(presentationBlocked)this.growthStarted+=delta;
   if(this.view.growthFx){this.view.growthFx.progress=Math.min(1,(now-this.growthStarted)/650);if(this.view.growthFx.progress>=1)this.view.growthFx=null;}
-  if(this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
+  if(presentationBlocked||this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
   if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!((isTieredInbound(this.state)||[11,14,15].includes(this.state.rulesetVersion))&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
   if(this.messageExpiresAt&&now>=this.messageExpiresAt){this.view.message='';this.messageExpiresAt=0;}
   const reduced=this.profile.settings.reducedMotion;

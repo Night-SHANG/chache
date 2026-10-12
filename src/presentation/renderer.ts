@@ -1,4 +1,3 @@
-import {drawCachedWarehouse} from './warehouse-cache.ts';
 import {shade} from './overlay.ts';
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
@@ -63,7 +62,8 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
 export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect, frameBackdrop?:string): void {
-  renderScene(ctx,state,view,backgroundBounds,overlayBounds,frameBackdrop);
+  void frameBackdrop;
+  renderScene(ctx,state,view,backgroundBounds,overlayBounds);
   const pressed=view.pressedControl;if(!pressed?.visible)return;
   const r=pressed.rect;ctx.save();
   roundedPath(ctx,r.x,r.y,r.w,r.h,Math.min(18,r.h/4));ctx.clip();
@@ -72,7 +72,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState, background
   ctx.fillStyle='rgba(255,244,208,.20)';ctx.fillRect(r.x+9,r.y+r.h-4,r.w-18,2);
   ctx.restore();
 }
-function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect, frameBackdrop?:string): void {
+function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect): void {
   view=staticPresentationView(view);
   const playerMessage=(value:string|undefined):string|undefined=>{
     if(value==='记录超出496KiB限制，请先结束本局')return view.account?.run&&view.accountRunId&&!view.accountBlocked&&!view.needsResume&&state.phase!=='result'?'本局记录已达保存上限，请先结束本局。':'记录已达保存上限，暂时无法保存。';
@@ -85,7 +85,7 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   view={...view,profile:{...(view.profile??createProfile()),cosmetics:view.account?appearance.cosmetics:(view.profile?.cosmetics??appearance.cosmetics)},cargoOutline:appearance.cargoOutline};
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, L.width, L.height);
-  if(!drawCachedWarehouse(ctx,view.profile?.cosmetics.theme??'day',backgroundBounds,frameBackdrop,cached=>drawWarehouse(cached,view,backgroundBounds)))drawWarehouse(ctx, view, backgroundBounds);
+  drawWarehouse(ctx,view,backgroundBounds);
   if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'当前无法保存':'保存结果尚未确认',view.readOnlyReason??'请点“重试”，确认保存后继续游戏。',overlayBounds);ctx.restore();return;}
   if (view.confirmation) { drawConfirmation(ctx, state, view, overlayBounds); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }

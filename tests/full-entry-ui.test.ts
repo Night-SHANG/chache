@@ -1,3 +1,5 @@
+import {prepareArt} from './helpers/static-art-fixture.ts';
+import {STATIC_ART_CARGO} from '../src/presentation/static-art-manifest.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRun, applyCommand } from '../src/domain/engine.ts';
@@ -19,11 +21,12 @@ const run = (): RunState => createRun(7, 'standard', 3);
 const result = (patch: Partial<RunState> = {}): RunState => ({ ...run(), phase: 'result', result: 'won', shift: 5, completedOrders: 30, ...patch });
 const overlaps = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 function surface() {
-  const labels: { value: string; x: number; y: number }[] = [], fills: string[] = [], strokes: { color: string; width: number }[] = [], gradients: string[] = [];
+  const labels: { value: string; x: number; y: number }[] = [], fills: string[] = [], strokes: { color: string; width: number }[] = [], gradients: string[] = [], imageCrops: number[][] = [];
   const values: Record<string, unknown> = { globalAlpha: 1 };
-  const operations = new Set(['save', 'restore', 'clearRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
+  const operations = new Set(['save', 'restore', 'drawImage', 'clearRect', 'beginPath', 'closePath', 'moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'rect', 'arc', 'ellipse', 'clip', 'translate', 'scale', 'rotate', 'setLineDash', 'strokeText']);
   const ctx = new Proxy({}, {
     get(_target, key) {
+      if (key === 'drawImage') return (_image:CanvasImageSource,...crop:number[]) => imageCrops.push(crop);
       if (key === 'fillText') return (value: string, x: number, y: number) => labels.push({ value, x, y });
       if (key === 'fill' || key === 'fillRect') return () => fills.push(String(values.fillStyle));
       if (key === 'stroke' || key === 'strokeRect') return () => strokes.push({ color: String(values.strokeStyle), width: Number(values.lineWidth) });
@@ -35,7 +38,7 @@ function surface() {
     },
     set(_target, key, value) { values[String(key)] = value; return true; },
   }) as CanvasRenderingContext2D;
-  return { ctx, labels, fills, strokes, gradients, words: () => labels.map(label => label.value).join('\n') };
+  return { ctx, labels, fills, strokes, gradients, imageCrops, words: () => labels.map(label => label.value).join('\n') };
 }
 
 test('menu exposes two mode selectors regardless of saved state', () => {
@@ -157,23 +160,24 @@ test('terminal copy distinguishes tutorial, daily, standard and voluntary overti
   }
 });
 
-test('theme, forklift color and cargo outline affect canvas output without changing the run', () => {
+test('theme, forklift color and cargo outline affect canvas output without changing the run', async () => {
+  await prepareArt('day');
   const state = run(); state.board[8] = 'cargo.food'; const snapshot = JSON.stringify(state);
   const day = surface(), night = surface(), profile = createProfile();
   render(day.ctx, state, view({ profile }));
   profile.cosmetics = { theme: 'night', forklift: 'blue', cargo: 'outline' };
-  render(night.ctx, state, view({ profile }));
-  assert.notDeepEqual(day.gradients, night.gradients); assert.notDeepEqual(day.fills, night.fills); assert.notDeepEqual(day.strokes, night.strokes);
+  await prepareArt('night');render(night.ctx, state, view({ profile }));
+  assert.notDeepEqual(day.gradients, night.gradients); assert.notDeepEqual(day.fills, night.fills); assert.notDeepEqual(day.imageCrops, night.imageCrops);
   assert.equal(JSON.stringify(state), snapshot);
 });
 
 test('optional assets arguments preserve defaults and draw distinct red/blue paint and stronger cargo outlines', () => {
   const yellow = surface(), blue = surface(), red = surface();
   forklift(yellow.ctx, 0, 0, 110, 0); forklift(blue.ctx, 0, 0, 110, 0, 'blue'); forklift(red.ctx, 0, 0, 110, 0, 'red');
-  assert.notDeepEqual(yellow.fills, blue.fills); assert.notDeepEqual(blue.fills, red.fills);
+  assert.notDeepEqual(yellow.imageCrops,blue.imageCrops);assert.notDeepEqual(blue.imageCrops,red.imageCrops);
   const classic = surface(), outline = surface();
   cargoBox(classic.ctx, 'cargo.food', 0, 0, 110); cargoBox(outline.ctx, 'cargo.food', 0, 0, 110, 1, undefined, 'outline');
-  assert.ok(outline.strokes.some(stroke => stroke.width > Math.max(...classic.strokes.map(item => item.width))));
+  assert.equal(outline.imageCrops.length,classic.imageCrops.length+1);assert.deepEqual(outline.imageCrops[outline.imageCrops.length-1].slice(0,4),Object.values(STATIC_ART_CARGO.outline.source));
 });
 
 test('outline style follows single tray artwork and its dragged ghost, not only the board', () => {
@@ -181,7 +185,7 @@ test('outline style follows single tray artwork and its dragged ghost, not only 
   state.board = Array(49).fill(null); state.candidates = [{ id: 'chosen', cargo: 'cargo.food', shapeId: 'shape.single' }];
   profile.cosmetics.cargo = 'outline';
   render(output.ctx, state, view({ profile, selectedPieceId: 'chosen', dragPoint: { x: 540, y: 950 } }));
-  assert.equal(output.strokes.filter(stroke => stroke.color === '#fff6d6' && stroke.width === 5).length, 2);
+  assert.equal(output.imageCrops.filter(crop=>JSON.stringify(crop.slice(0,4))===JSON.stringify(Object.values(STATIC_ART_CARGO.outline.source))).length,2);
 });
 
 test('terminal commands and result overlay stay hidden while the final shipment is animating', () => {

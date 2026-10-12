@@ -1,0 +1,48 @@
+{
+  "verdict": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+  "unresolvedMigrationBlockers": [],
+  "reviewedCommit": "c01b77304065e60d3d80be58210c31d8e4822b6e",
+  "reviewedTree": "58f4b6afef25798cb4e8c75015744f92293428ae",
+  "baselineCommit": "dd847c3174466f0004111b8667a2ff45c563e889",
+  "sourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+  "reviewedAt": "2026-10-12T15:12:52Z",
+  "scope": "Read-only independent review of approved offline-static-texture migration and ordinary cosmetics subpackage. No production source edits by reviewer.",
+  "fixedFinding": {
+    "issue": "Generic sans-serif produced zero painted Chinese heading/explanation/retry pixels in native Canvas, despite intercepted text labels passing.",
+    "resolution": "Gate now uses the established renderer CJK font stack; real glyph-pixel regression added.",
+    "verified": "Fresh committed-bundle loading/error/retry screenshots visually inspected, plus fresh native glyph-pixel test passed. This establishes local-host visibility, not phone behavior."
+  },
+  "independentChecks": {
+    "readinessAndPlatforms": {"passed": 34, "failed": 0, "log": "readiness-final.txt", "command": "node --test tests/static-art-resources.test.ts tests/static-art-gate.test.ts tests/static-art-requirements.test.ts tests/static-art-session-clock.test.ts tests/static-art-visible-requirements.test.ts tests/static-art-android.test.ts tests/wechat-static-package.test.ts"},
+    "nativeGeometryComposition": {"passed": 4, "failed": 0, "log": "composition-final.txt", "coverage": "All 17 finite scenes, all 53 aspect variants, all themes with 7/8/9 board geometry, viewport/safe-area/pause bounds"},
+    "premiumCargo": {"nativeSize": 110, "alpha": 1, "pixelMatches": 75, "includesRetiredTaped": true, "evidence": "static-composition-measurement.json"},
+    "frozenAuthoring": {"filesComparedToGitBaseline": 192, "byteMismatches": 0},
+    "packagedAssets": {"platforms": ["browser", "wechat", "android"], "verifiedResourcesPerPlatform": 78, "allResourceHashesMatch": true, "allBuildCommitAndSourceIdentitiesMatch": true, "bgmSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"},
+    "operationCounts": {"script": "measure-static-composition.mjs", "report": "static-composition-measurement.json", "observation": "Complex static path calls removed from dense classic 7/8/9 board fixture; simple board gradients retained. Four-card preview call counts substantially reduced.", "limitation": "Deterministic method counts, not device frame-time or FPS."}
+  },
+  "reviewedIntegrationEvidence": {
+    "fullSuite": {"tests": 3270, "passed": 3268, "failed": 2, "skipped": 0, "cancelled": 0, "log": "qa/v113/full-tests.txt", "sourceUnchangedBeforeAfter": true},
+    "inheritedFailures": ["tests/cargo-atlas.test.ts: missing artifacts/v0200-art-source/cargo-wood-generated.png", "tests/v021-cargo-forklift-art.test.ts: missing artifacts/v0210-art-source/cargo-harbor_container-generated.png"],
+    "lintTypecheckPreflight": "PASS per inspected final logs",
+    "builtHost": {"status": "PASS", "cases": 16, "failures": 0, "report": "artifacts/v113-static-host/report.json", "exactCandidateIdentityVerified": true},
+    "android": "Web staging verification passes with bootstrap publishApk=false; no APK compilation or CI execution",
+    "rawPackageBytes": {"main": 3031601, "cosmetics": 2728095, "total": 5759696, "gameJs": 679035},
+    "visualsInspected": ["artifacts/v113-static-host/ready-contact-sheet.png", "artifacts/v113-static-host/wechat-shop-first-page.png", "artifacts/v113-static-host/wechat-classic-preview.png", "artifacts/v113-static-host/wechat-package-failure.png", "artifacts/v113-static-host/wechat-harbor-loading.png", "artifacts/v113-static-host/wechat-package-retry-ready.png", "qa/v113/composition/game-contact-sheet.png", "qa/v113/composition/vehicle-contact-sheet.png", "qa/v113/composition/actual-drag-comparison.png", "qa/v113/composition/alpha-contact-sheet.png"]
+  },
+  "sourceReviewConclusions": [
+    "Exact saved effective appearance is prepared before gameplay; failures expose retry without substituting default art or changing selection.",
+    "Loading-started gestures cannot become gameplay releases; hide/show cancellation and blocked gameplay clocks are preserved.",
+    "Sequential loading retains at most one current and one in-flight scene; obsolete completion is discarded and preview references are bounded.",
+    "WeChat cosmetics loader is lazy, API-guarded, shares concurrent package work and permits explicit retry. Browser/Android relative assets are fully local.",
+    "Warehouse and cosmetic offscreen-cache wiring is removed from runtime entry points; mature dynamic text, traits, motion, input and preview calculations remain.",
+    "Frozen design source, 17 scenes, 19 complete vehicles including retired compact, 75 premium cargo bodies, classic colors, waste/outline, tools and 53 preview architectures are preserved.",
+    "Accepted grouped-alpha compositing difference is visible and documented accurately; semantic glyphs, cargo colors, outline and countdown remain clear in inspected samples."
+  ],
+  "limitations": [
+    "The full suite is not all green: the two inherited missing-authoring-source failures remain.",
+    "No physical-phone, WeChat developer-tool, processed-upload-size, native/GPU peak-memory, or audible-output validation was performed.",
+    "The v111/v112 phone black-screen cause is unconfirmed; this migration is not proof of a phone fix.",
+    "No APK was compiled, signed, delivered, or published. No Android CI or public release was triggered.",
+    "git diff --check reports only preserved raw-log whitespace and a blank EOF line copied verbatim from frozen baseline authoring source; these are non-runtime evidence/source-preservation nits."
+  ]
+}

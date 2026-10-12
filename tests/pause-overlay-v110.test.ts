@@ -1,3 +1,4 @@
+import {prepareArt} from './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
@@ -68,7 +69,8 @@ function capture(state:GameRun,v:ViewState,spec:SurfaceSpec,expanded=true){
 }
 function rgba(s:ReturnType<typeof capture>,x:number,y:number){return [...s.ctx.getImageData(x,y,1,1).data];}
 function shaded(pixel:number[],alpha=.84){return pixel.map((value,i)=>i===3?255:Math.round(value*(1-alpha)+[5,11,18][i]*alpha));}
-for(const theme of ['day','night','cold_chain','steam_foundry'] as const)for(const surface of surfaces)test(`pause shades full actual viewport for ${theme} ${JSON.stringify(surface)}`,()=>{
+for(const theme of ['day','night','cold_chain','steam_foundry'] as const)for(const surface of surfaces)test(`pause shades full actual viewport for ${theme} ${JSON.stringify(surface)}`,async()=>{
+ await prepareArt(theme);
  const state=run(),before=playableChecksum(state),active=capture(state,view(theme,{paused:false}),surface),paused=capture(state,view(theme),surface),designOnly=capture(state,view(theme),surface,false);
  const points=[[0,0],[0,Math.floor(paused.canvas.height/2)],[paused.canvas.width-1,Math.floor(paused.canvas.height/2)],[paused.canvas.width-1,paused.canvas.height-1],[-35,1000],[1110,1000]].map(([x,y],i)=>i<4?[x,y]:[Math.round((paused.ox+x*paused.scale)*surface.dpr),Math.round((paused.oy+y*paused.scale)*surface.dpr)]).filter(([x,y])=>x>=0&&y>=0&&x<paused.canvas.width&&y<paused.canvas.height);
  for(const [x,y]of points){const actual=rgba(paused,x,y),expected=shaded(rgba(active,x,y));assert.ok(actual.every((v,i)=>Math.abs(v-expected[i])<=2),`Unshaded viewport pixel ${x},${y}: ${actual} vs ${expected}`);}
@@ -91,7 +93,8 @@ for(const dpr of [1,2,3])test(`platform supplies distinct full-canvas modal boun
  try{const browser=createBrowserPlatform(screen as unknown as HTMLCanvasElement) as ReturnType<typeof createBrowserPlatform>&{overlayBounds?():Rect};browser.beginFrame();const bounds=browser.overlayBounds?.();assert.ok(bounds);assert.equal(bounds.x,0);assert.ok(Math.abs(bounds.y+208.61538461538458)<1e-8);assert.ok(Math.abs(bounds.h-2337.230769230769)<1e-8);assert.deepEqual(browser.backgroundBounds?.(),{x:0,y:0,w:1080,h:1920});}finally{if(previous)Object.defineProperty(globalThis,'window',previous);else Reflect.deleteProperty(globalThis,'window');}
 });
 
-test('all shared blocking overlays shade the viewport with their original opacity',()=>{
+test('all shared blocking overlays shade the viewport with their original opacity',async()=>{
+ await prepareArt('cold_chain');
  const surface={width:512,height:768,dpr:1},state=run(),base=view('cold_chain',{paused:false});assert.ok(isInboundRun(state));
  const legacy=createRun(110,'standard'),growth=createRunV9({seed:110,mode:'standard',guided:false,toolCharges:tools});
  legacy.phase='upgrade';legacy.upgradeChoices=UPGRADES.slice(0,3).map(u=>u.id);

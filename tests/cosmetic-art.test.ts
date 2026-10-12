@@ -1,11 +1,12 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas } from '@napi-rs/canvas';
-import { cargoBox, forklift, PALETTE } from '../src/presentation/assets.ts';
-import type { CargoId, CellTrait } from '../src/domain/types.ts';
-import type { CargoStyleId, ForkliftId } from '../src/application/profile.ts';
+import { cargoBox, forklift, PALETTE } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import type { CargoId, CellTrait } from '../scripts/static-art-authoring/src/domain/types.ts';
+import type { CargoStyleId, ForkliftId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 const CARGOS: CargoId[] = ['cargo.food', 'cargo.machine', 'cargo.chem', 'cargo.electronic', 'cargo.cold'];
 const TRAITS: (CellTrait | undefined)[] = [undefined, { kind: 'rush', remaining: 3 }, { kind: 'rush', remaining: 2 },
@@ -109,7 +110,7 @@ test('cosmetics never change the five semantic cargo colors', () => {
 });
 
 async function cosmeticArt() {
-  try { return await import('../src/presentation/cosmetic-art.ts'); }
+  try { return await import('../scripts/static-art-authoring/src/presentation/cosmetic-art.ts'); }
   catch { assert.fail('bounded harbor background and category previews must be implemented'); }
 }
 

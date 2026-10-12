@@ -1,3 +1,4 @@
+import {prepareViewArt} from './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
@@ -154,12 +155,13 @@ test('every shop category page fits three viewports with 44 CSS targets and no o
  }
 });
 
-test('equipped logistics themes reach the actual renderer without mutating the background game',()=>{
- const h=sessionHost(),state=playableChecksum(h.session.state),pixels=(view:ViewState)=>{const canvas=createCanvas(360,640),ctx=canvas.getContext('2d');ctx.scale(1/3,1/3);render(ctx as unknown as CanvasRenderingContext2D,h.session.state,view);return canvas.toBuffer('image/png');},base=pixels(h.session.view),seen:Buffer[]=[];
- for(const theme of ['cold_chain','rail_freight','toy_workshop'] as const){const account=structuredClone(h.session.view.account!);account.profile.cosmetics.theme=theme;account.profile.ownedCosmetics=[...(account.profile.ownedCosmetics??[]),`theme.${theme}`];const output=pixels({...h.session.view,account});assert.notDeepEqual(output,base,theme);for(const previous of seen)assert.notDeepEqual(output,previous);seen.push(output);assert.equal(playableChecksum(h.session.state),state);}
+test('equipped logistics themes reach the actual renderer without mutating the background game',async()=>{
+ const h=sessionHost(),state=playableChecksum(h.session.state),pixels=async(view:ViewState)=>{await prepareViewArt(view);const canvas=createCanvas(360,640),ctx=canvas.getContext('2d');ctx.scale(1/3,1/3);render(ctx as unknown as CanvasRenderingContext2D,h.session.state,view);return canvas.toBuffer('image/png');},base=await pixels(h.session.view),seen:Buffer[]=[];
+ for(const theme of ['cold_chain','rail_freight','toy_workshop'] as const){const account=structuredClone(h.session.view.account!);account.profile.cosmetics.theme=theme;account.profile.ownedCosmetics=[...(account.profile.ownedCosmetics??[]),`theme.${theme}`];const output=await pixels({...h.session.view,account});assert.notDeepEqual(output,base,theme);for(const previous of seen)assert.notDeepEqual(output,previous);seen.push(output);assert.equal(playableChecksum(h.session.state),state);}
 });
 
-test('retired logistics scene projects to the base renderer without rewriting account or game',()=>{
+test('retired logistics scene projects to the base renderer without rewriting account or game',async()=>{
+ await prepareViewArt(sessionHost().session.view);
  const h=sessionHost(),account=structuredClone(h.session.view.account!),snapshot=playableChecksum(h.session.state);account.profile.cosmetics.theme='express_sorting';account.profile.ownedCosmetics=[...(account.profile.ownedCosmetics??[]),'theme.express_sorting'];
  const stored=structuredClone(account),pixels=(view:ViewState)=>{const canvas=createCanvas(360,640),ctx=canvas.getContext('2d');ctx.scale(1/3,1/3);render(ctx as unknown as CanvasRenderingContext2D,h.session.state,view);return canvas.toBuffer('image/png');};
  assert.deepEqual(pixels({...h.session.view,account}),pixels({...h.session.view,account:{...account,profile:{...account.profile,cosmetics:{...account.profile.cosmetics,theme:'day'}}}}));assert.deepEqual(account,stored);assert.equal(playableChecksum(h.session.state),snapshot);

@@ -1,13 +1,14 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { forklift } from '../src/presentation/assets.ts';
-import type { ForkliftId } from '../src/application/profile.ts';
+import { forklift } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import type { ForkliftId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 async function art() {
- try { return await import('../src/presentation/themed-forklift-art.ts'); }
+ try { return await import('../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts'); }
  catch { assert.fail('A shared bounded raster body renderer must exist for all fifteen themed forklifts'); }
 }
 test('the fifteen-theme forklift atlas has stable order and rejects absent or incorrectly sized artwork', async () => {

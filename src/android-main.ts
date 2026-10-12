@@ -1,5 +1,6 @@
 import {assertAndroidCapabilities,connectAndroidHost,startAndroidSession} from './platform/android-host.ts';
 import type {NativeStorageBridge} from './platform/android-storage.ts';
+import type {StaticArtGate as ArtGate} from './presentation/static-art-gate.ts';
 
 declare const __APP_VERSION__:string;
 declare const __DEV_DIAGNOSTICS__:boolean;
@@ -12,17 +13,20 @@ async function start(canvas:HTMLCanvasElement,status:HTMLElement):Promise<void> 
  assertAndroidCapabilities(canvas);const host=await connectAndroidHost();
  try {
   const bridge=(window as Window&{WarehouseStorage?:NativeStorageBridge}).WarehouseStorage;
-  const runtime=await startAndroidSession(canvas,host,bridge);
-  const [{configureWarehouseCache,invalidateWarehouseCache},{configureCosmeticPreviewCache,invalidateCosmeticPreviewCache},{loadCargoAtlas},{loadBoardMaterialAtlas},{loadSceneMaterialAtlas},{loadThemedForkliftAtlas},{render}]=await Promise.all([
-   import('./presentation/warehouse-cache.ts'),import('./presentation/cosmetic-preview-cache.ts'),import('./presentation/cargo-atlas.ts'),import('./presentation/board-material-atlas.ts'),import('./presentation/scene-frame-atlas.ts'),import('./presentation/themed-forklift-art.ts'),import('./presentation/renderer.ts'),
+  const presentation:{art?:ArtGate}={};
+  const runtime=await startAndroidSession(canvas,host,bridge,document,{
+   isBlocked:()=>!presentation.art?.isReady(),
+   onPointer:event=>{presentation.art?.pointer(event);return true;},
+   onBack:()=>{if(presentation.art?.isReady())return false;if(presentation.art?.canGoBack())presentation.art.back();else void host.minimize().catch(()=>{});return true;},
+  });
+  const [{configureStaticArt},{StaticArtGate},{render}]=await Promise.all([
+   import('./presentation/static-art-resources.ts'),import('./presentation/static-art-gate.ts'),import('./presentation/renderer.ts'),
   ]);
-  configureCosmeticPreviewCache(runtime.platform.createCanvasSurface);
-  configureWarehouseCache(runtime.platform.createCanvasSurface);
-  const invalidateArtwork=()=>{invalidateCosmeticPreviewCache();invalidateWarehouseCache();};
-  for(const load of [loadCargoAtlas,loadBoardMaterialAtlas,loadSceneMaterialAtlas,loadThemedForkliftAtlas])void load(runtime.platform.loadImage).then(invalidateArtwork,invalidateArtwork);
-  runtime.platform.onHide(invalidateWarehouseCache);runtime.platform.onShow(()=>{invalidateWarehouseCache();invalidateCosmeticPreviewCache();});status.textContent='';status.hidden=true;
-  runtime.startFrames(context=>render(context,runtime.session.state,runtime.session.view,runtime.platform.backgroundBounds?.(),runtime.platform.overlayBounds?.(),runtime.platform.frameBackdrop));
-  window.addEventListener('pagehide',()=>{invalidateWarehouseCache();runtime.dispose();void host.disconnect();},{once:true});
+  configureStaticArt(runtime.platform.loadImage,runtime.platform.ensureAssetPackage);
+  const art=new StaticArtGate(runtime.session);presentation.art=art;art.refresh();
+  runtime.platform.onHide(()=>art.hide());runtime.platform.onShow(()=>art.show());status.textContent='';status.hidden=true;
+  runtime.startFrames(context=>{if(art.paint(context,runtime.platform.overlayBounds?.()))render(context,runtime.session.state,runtime.session.view,runtime.platform.backgroundBounds?.(),runtime.platform.overlayBounds?.(),runtime.platform.frameBackdrop);});
+  window.addEventListener('pagehide',()=>{art.hide();runtime.dispose();void host.disconnect();},{once:true});
  } catch(error){await host.disconnect();throw error;}
 }
 void start(canvas,status).catch(error=>{status.hidden=false;status.textContent=`无法开始游戏\n${error instanceof Error?error.message:'Android 启动检查失败'}\n已有存档未被清空。`;});

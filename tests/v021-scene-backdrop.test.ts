@@ -1,10 +1,11 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { drawLogisticsBackground } from '../src/presentation/cosmetic-art.ts';
-import { loadSceneMaterialAtlas } from '../src/presentation/scene-frame-atlas.ts';
+import { drawLogisticsBackground } from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import { loadSceneMaterialAtlas } from '../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts';
 
 const digest = (data: Uint8ClampedArray) => createHash('sha256').update(data).digest('hex');
 test('forest and ice provide their own bounded, quiet distant backdrops with optional art', async () => {

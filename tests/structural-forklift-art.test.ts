@@ -1,10 +1,11 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { forklift } from '../src/presentation/assets.ts';
-import { loadThemedForkliftAtlas } from '../src/presentation/themed-forklift-art.ts';
-import type { ForkliftId } from '../src/application/profile.ts';
+import { forklift } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import { loadThemedForkliftAtlas } from '../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts';
+import type { ForkliftId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 const active: ForkliftId[] = ['electric','heavy','toy','paper','space','steam','neon','lava','diving','royal','field','timber','ice','harbor'];
 const retained = {

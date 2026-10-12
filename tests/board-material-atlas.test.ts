@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCanvas } from '@napi-rs/canvas';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { HISTORICAL_COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
+import { drawThemedBoard } from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { HISTORICAL_COSMETIC_CATALOG } from '../scripts/static-art-authoring/src/application/cosmetics.ts';
 
 async function art() {
- try { return await import('../src/presentation/board-material-atlas.ts'); }
+ try { return await import('../scripts/static-art-authoring/src/presentation/board-material-atlas.ts'); }
  catch { assert.fail('Generated tile artwork must use a bounded, optional packaged atlas'); }
 }
 

@@ -1,17 +1,18 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
-import { loadBoardMaterialAtlas } from '../src/presentation/board-material-atlas.ts';
-import type { ThemeId } from '../src/application/profile.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { drawThemedBoard } from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
+import { loadBoardMaterialAtlas } from '../scripts/static-art-authoring/src/presentation/board-material-atlas.ts';
+import type { ThemeId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 const digest = (data: Uint8ClampedArray | Buffer) => createHash('sha256').update(data).digest('hex');
 const loader = async (path: string) => await loadImage(path) as unknown as CanvasImageSource;
 async function scene() {
- try { return await import('../src/presentation/scene-frame-atlas.ts'); }
+ try { return await import('../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts'); }
  catch { assert.fail('Noninitial scenes require the optional generated material atlas'); }
 }
 

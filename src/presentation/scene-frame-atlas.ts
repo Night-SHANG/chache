@@ -1,3 +1,4 @@
+import {getStaticArtImage} from './static-art-resources.ts';
 import type { ThemeId } from '../application/profile.ts';
 
 /** Separate artwork keeps all original day/night source pixels untouched. */
@@ -7,19 +8,8 @@ export const SCENE_MATERIAL_ATLAS = Object.freeze({
  themes: Object.freeze(['harbor', 'cold_chain', 'rail_freight', 'express_sorting', 'toy_workshop', 'paper_warehouse', 'space_cargo', 'steam_foundry', 'neon_depot', 'lava_forge', 'ocean_vault', 'royal_store', 'field_station', 'forest_depot', 'ice_vault'] as readonly ThemeId[]),
 });
 export interface SceneFrameRect { x: number; y: number; w: number; h: number }
-let image: CanvasImageSource | undefined;
-
-/** Optional, bounded static image. A missing or malformed atlas never blocks play. */
-export async function loadSceneMaterialAtlas(load: (path: string) => Promise<CanvasImageSource>): Promise<boolean> {
- try {
-  const next = await load(SCENE_MATERIAL_ATLAS.src), size = next as { width?: number; height?: number };
-  if (size.width !== SCENE_MATERIAL_ATLAS.width || size.height !== SCENE_MATERIAL_ATLAS.height) throw Error('Scene material atlas dimensions do not match');
-  image = next; return true;
- } catch { image = undefined; return false; }
-}
-
-/** Each sample is an actual quiet source crop, with its original lighting orientation. */
 export function drawSceneMaterialTile(ctx: CanvasRenderingContext2D, theme: ThemeId, x: number, y: number, size: number, variant = 0): boolean {
+ const image=getStaticArtImage('material.scene');
  const themeIndex = SCENE_MATERIAL_ATLAS.themes.indexOf(theme);
  if (!image || themeIndex < 0 || ![x, y, size, variant].every(Number.isFinite) || size <= 0) return false;
  const extension = themeIndex >= SCENE_MATERIAL_ATLAS.extensionThemeStart;
@@ -31,6 +21,7 @@ export function drawSceneMaterialTile(ctx: CanvasRenderingContext2D, theme: Them
 
 /** Nine-slice the actual perimeter, leaving its center completely untouched. */
 export function drawSceneFrame(ctx: CanvasRenderingContext2D, theme: ThemeId, rect: Readonly<SceneFrameRect>, thickness = 28): boolean {
+ const image=getStaticArtImage('material.scene');
  const index = SCENE_MATERIAL_ATLAS.themes.indexOf(theme), { x, y, w, h } = rect;
  if (!image || index < 0 || ![x, y, w, h, thickness].every(Number.isFinite) || w <= 0 || h <= 0 || thickness <= 0) return false;
  const size = SCENE_MATERIAL_ATLAS.frameSize, sourceBorder = 28, inner = size - sourceBorder * 2;

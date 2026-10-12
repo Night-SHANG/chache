@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { cargoBox, forklift, icon, PALETTE } from '../src/presentation/assets.ts';
-import type { CargoStyleId, ForkliftId } from '../src/application/profile.ts';
-import type { CargoId, CellTrait } from '../src/domain/types.ts';
+import { cargoBox, forklift, icon, PALETTE } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import type { CargoStyleId, ForkliftId } from '../scripts/static-art-authoring/src/application/profile.ts';
+import type { CargoId, CellTrait } from '../scripts/static-art-authoring/src/domain/types.ts';
 
 const STYLES: CargoStyleId[] = ['wood', 'reinforced', 'taped', 'toy_brick', 'paper_fold', 'insulated', 'space_case', 'ice_crystal','steam_brass','neon_circuit','lava_core','ocean_relic','royal_gold','field_supply','harbor_container'];
 const CARGOS: CargoId[] = ['cargo.food', 'cargo.machine', 'cargo.chem', 'cargo.electronic', 'cargo.cold'];

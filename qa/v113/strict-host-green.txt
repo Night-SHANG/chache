@@ -1,0 +1,12 @@
+✔ growth host requires both built-source and actual game byte hashes (2.217575ms)
+✔ corrupt and disagreeing roots are rejected rather than declared valid fixtures (5.260167ms)
+✔ actual VM exceptions and absent native callbacks are failing host evidence (10.003416ms)
+✔ strict actual game host uses only its screen canvas and does not install compatibility globals (190.6351ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 772.416687

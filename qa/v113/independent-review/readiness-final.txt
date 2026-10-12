@@ -1,0 +1,42 @@
+✔ Android presentation hook owns unseen pointer/back input and freezes only gameplay time (61.032863ms)
+✔ loading is visible, blocks unseen controls and never forwards a gesture started before ready (21.815768ms)
+✔ failure keeps exact selection and retries only a complete visible button gesture (4.098198ms)
+✔ shop preview failure exposes back without allowing hidden purchases (5.002977ms)
+✔ hide/show cancels touches without allocating, decoding again, or retaining previews for a closed page (2.552615ms)
+✔ a saved non-default decode failure retains exact selected identity and all saved bytes (2.767809ms)
+✔ native Canvas paints visible Chinese loading/error explanations and retry labels with the shared CJK font stack (321.984262ms)
+✔ default selection requires only its scene and shared local art (21.315106ms)
+✔ saved mixed cosmetics select exact effective resources without modifying the profile (3.488502ms)
+✔ retired legacy direct profiles stay addressable while account retirement projection is preserved (1.315717ms)
+✔ set cards request only the visible page and a detail replaces all cards (1.601947ms)
+✔ classic detail and item previews use their own aspect-specific source (1.349177ms)
+✔ confirmation and save blocker require no invisible shop previews (1.201165ms)
+✔ default resources load once and return only dimension-checked ready images (3.516655ms)
+✔ saved non-default scene waits for its ordinary package and never substitutes day (3.715723ms)
+✔ decode failure stays visible until one explicit retry (0.976388ms)
+✔ dimensions failure stays visible until one explicit retry (0.670768ms)
+✔ missing failure stays visible until one explicit retry (0.55851ms)
+✔ missing manifest key is an explicit error without inventing an asset or changing selection (0.389896ms)
+✔ a stale scene completion cannot replace the latest selection and only one scene decodes at a time (2.37607ms)
+✔ repeated theme changes release previous scenes immediately after each success (1.116788ms)
+✔ visible previews are bounded to 6 MiB and page changes release unneeded references (0.605951ms)
+✔ late preview decode is dropped when the page closes and cannot repopulate retention (0.872411ms)
+✔ package failure is retried only explicitly and succeeds without fallback art (0.382134ms)
+✔ dispose drops every retained reference and ignores pending completion (0.906262ms)
+✔ six visible cards fit the preview bound while moving detail pages release the previous card set (0.542355ms)
+✔ an unconfigured shared service reports an explicit initialization error (0.190476ms)
+✔ presentation loading freezes gameplay clocks while music and input refresh keep their original behavior (33.579313ms)
+✔ presentation loading also preserves existing growth animation progress (8.731074ms)
+✔ every image drawn by actual shop pages/details and main screens belongs to the shared requirements (413.109505ms)
+✔ cosmetics package is lazy, shares concurrent work and retains completed package readiness (1.322197ms)
+✔ failed package request can retry without changing audio or saved selection (0.502425ms)
+✔ unsupported hosts fail visibly without calling absent APIs or canIUse (0.350186ms)
+✔ synchronous host failure clears inflight state for an explicit retry (0.205278ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1275.566336

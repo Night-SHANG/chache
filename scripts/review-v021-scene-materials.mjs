@@ -1,3 +1,4 @@
+// Historical v112 renderer evidence. Frozen painters preserve original pixel contracts; this is not v113 runtime validation.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
@@ -5,14 +6,14 @@ import { createProfile } from '../src/application/profile.ts';
 import { createRunV18 } from '../src/domain/v18/engine.ts';
 import { createRun } from '../src/domain/engine.ts';
 import { reservedEntryCells } from '../src/domain/playable.ts';
-import { render } from '../src/presentation/renderer.ts';
-import { drawLogisticsBackground } from '../src/presentation/cosmetic-art.ts';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
+import { render } from './static-art-authoring/src/presentation/renderer.ts';
+import { drawLogisticsBackground } from './static-art-authoring/src/presentation/cosmetic-art.ts';
+import { drawThemedBoard } from './static-art-authoring/src/presentation/board-theme.ts';
 import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { loadCargoAtlas } from '../src/presentation/cargo-atlas.ts';
-import { loadBoardMaterialAtlas } from '../src/presentation/board-material-atlas.ts';
-import { loadSceneMaterialAtlas } from '../src/presentation/scene-frame-atlas.ts';
-import { loadThemedForkliftAtlas } from '../src/presentation/themed-forklift-art.ts';
+import { loadCargoAtlas } from './static-art-authoring/src/presentation/cargo-atlas.ts';
+import { loadBoardMaterialAtlas } from './static-art-authoring/src/presentation/board-material-atlas.ts';
+import { loadSceneMaterialAtlas } from './static-art-authoring/src/presentation/scene-frame-atlas.ts';
+import { loadThemedForkliftAtlas } from './static-art-authoring/src/presentation/themed-forklift-art.ts';
 const out = process.argv[2] ?? 'artifacts/v0210-scene-review';
 await mkdir(out, { recursive: true });
 for (const load of [loadSceneMaterialAtlas, loadBoardMaterialAtlas, loadCargoAtlas, loadThemedForkliftAtlas]) if (!await load(loadImage)) throw Error('Packaged artwork failed to decode');

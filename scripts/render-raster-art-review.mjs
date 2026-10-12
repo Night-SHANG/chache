@@ -1,5 +1,6 @@
+// Historical v112 renderer evidence. Frozen painters preserve original pixel contracts; this is not v113 runtime validation.
 import {createCanvas,loadImage} from '@napi-rs/canvas';import {writeFile,mkdir} from 'node:fs/promises';
-import {cargoBox} from '../src/presentation/assets.ts';import {CARGO_ATLAS,loadCargoAtlas} from '../src/presentation/cargo-atlas.ts';import {loadThemedForkliftAtlas} from '../src/presentation/themed-forklift-art.ts';import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
+import {cargoBox} from './static-art-authoring/src/presentation/assets.ts';import {CARGO_ATLAS,loadCargoAtlas} from './static-art-authoring/src/presentation/cargo-atlas.ts';import {loadThemedForkliftAtlas} from './static-art-authoring/src/presentation/themed-forklift-art.ts';import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 const out='artifacts/v0190-art-review';await mkdir(out,{recursive:true});await loadCargoAtlas(p=>loadImage(p));await loadThemedForkliftAtlas(p=>loadImage(p));
 const c=createCanvas(1200,14*140+50),ctx=c.getContext('2d');ctx.fillStyle='#142431';ctx.fillRect(0,0,c.width,c.height);ctx.font='18px "Noto Sans CJK SC"';ctx.fillStyle='#e5e7de';ctx.fillText('五色真实材质 64px | 29px/37px实盘 | 动态3/2/1、危险、托盘、万能',15,25);
 for(const [row,style] of CARGO_ATLAS.styles.entries()){

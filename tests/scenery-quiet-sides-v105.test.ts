@@ -1,10 +1,11 @@
+// Frozen source-transform contract; current image geometry is checked in static-art-composition.test.ts.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createCanvas} from '@napi-rs/canvas';
 import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 import type {ThemeId} from '../src/application/profile.ts';
-import {drawThemedSceneryFrame,CLASSIC_SCENERY_FRAME} from '../src/presentation/scenery-frame.ts';
-import {drawHarborBackground,drawLogisticsBackground} from '../src/presentation/cosmetic-art.ts';
+import {drawThemedSceneryFrame,CLASSIC_SCENERY_FRAME} from '../scripts/static-art-authoring/src/presentation/scenery-frame.ts';
+import {drawHarborBackground,drawLogisticsBackground} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
 
 // v106 supersedes v105's full-window wash: one finite original scene, not copies.
 // Independent reference uses the approved transform and the unmodified helper.

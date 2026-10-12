@@ -60,7 +60,7 @@ test('candidate preservation stays gated on verified receipt and never implies d
  assert.match(workflow,/id: receipt/);
  const candidate=workflow.slice(workflow.indexOf('Preserve private phone candidate'));
  assert.match(candidate,/steps\.receipt\.outcome == 'success'/);
- assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.12-vc\*-temporary-debug-candidate-\*\.apk/);
+ assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.13-vc\*-temporary-debug-candidate-\*\.apk/);
  assert.doesNotMatch(candidate,/\.jks|\.keystore|acceptance-apks|androidTest|release upload/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.json/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.txt/);

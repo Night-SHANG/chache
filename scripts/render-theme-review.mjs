@@ -1,3 +1,4 @@
+// Historical v112 renderer evidence. Frozen painters preserve original pixel contracts; this is not v113 runtime validation.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
@@ -5,10 +6,10 @@ import { COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
 import { createProfile } from '../src/application/profile.ts';
 import { createRunV18 } from '../src/domain/v18/engine.ts';
 import { reservedEntryCells } from '../src/domain/playable.ts';
-import { render } from '../src/presentation/renderer.ts';
-import { drawCosmeticPreview } from '../src/presentation/cosmetic-art.ts';
-import { loadCargoAtlas } from '../src/presentation/cargo-atlas.ts';
-import { loadBoardMaterialAtlas } from '../src/presentation/board-material-atlas.ts';
+import { render } from './static-art-authoring/src/presentation/renderer.ts';
+import { drawCosmeticPreview } from './static-art-authoring/src/presentation/cosmetic-art.ts';
+import { loadCargoAtlas } from './static-art-authoring/src/presentation/cargo-atlas.ts';
+import { loadBoardMaterialAtlas } from './static-art-authoring/src/presentation/board-material-atlas.ts';
 
 const out = process.argv[2] ?? 'artifacts/v0190-themes';
 await mkdir(out, { recursive: true });

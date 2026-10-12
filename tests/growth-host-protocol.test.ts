@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, readFile, writeFile, rm} from 'node:fs/promises';
-import {join} from 'node:path';
+import {mkdtemp, readFile, writeFile, rm, mkdir, cp} from 'node:fs/promises';
+import {join,dirname} from 'node:path';
+import {build} from 'esbuild';
+import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import {tmpdir} from 'node:os';
 import {ACCOUNT_KEYS, encodeAccount} from '../src/application/account-store.ts';
 import {makeAccountFixture} from './helpers/account-fixtures.ts';
@@ -36,15 +38,23 @@ test('actual VM exceptions and absent native callbacks are failing host evidence
  }finally{await rm(folder,{recursive:true,force:true});}
 });
 
-test('strict actual game host uses native canvas and does not install compatibility globals',async()=>{
- const report=await probeBuiltHost({bundlePath:'build/wechat/game.js'});
- assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,2);
- const host=await createGrowthHost({bundlePath:'build/wechat/game.js',deferImageLoads:true}),screen=host.canvas;
- assert.equal(host.canvasCount,1,'screen is still the first and only startup canvas');assert.equal(host.context,screen.getContext('2d'));assert.equal(host.surfaceInfo.length,0);
- host.frame(0);assert.equal(host.canvas,screen);assert.equal(host.canvasCount,2);assert.deepEqual(host.surfaceInfo,[{id:2,width:screen.width,height:screen.height}]);
- assert.ok(host.surfaceInfo[0].width*host.surfaceInfo[0].height*4<=24*1024*1024,'only one bounded native warehouse layer');
- host.frame(16);assert.equal(host.canvasCount,2,'warm frames must reuse the single offscreen layer');
- assert.deepEqual(report.extraGlobals,[]);assert.equal(report.executedChecks,1);
- const code=await readFile('build/wechat/game.js','utf8');
- assert.equal(/\bstructuredClone\s*\(|new\s+TextEncoder\s*\(|\beval\s*\(|new\s+Function\s*\(/.test(code),false);
+test('strict actual game host uses only its screen canvas and does not install compatibility globals',async()=>{
+ const folder=await mkdtemp(join(tmpdir(),'warehouse-current-game-host-'));
+ try{
+  const bundlePath=join(folder,'game.js');
+  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.13')}});
+  for(const resource of Object.values(STATIC_ART_RESOURCES)){const target=join(folder,resource.src);await mkdir(dirname(target),{recursive:true});await cp(resource.sourcePath,target);}
+  const report=await probeBuiltHost({bundlePath});
+  assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);
+  const host=await createGrowthHost({bundlePath,deferImageLoads:true,rejectOffscreenCanvases:true}),screen=host.canvas;
+  assert.equal(host.canvasCount,1,'screen is the first and only startup canvas');assert.equal(host.context,screen.getContext('2d'));assert.deepEqual(host.surfaceInfo,[]);
+  host.frame(0);assert.equal(host.canvas,screen);assert.ok(host.labels.some(row=>row.text.includes('正在加载')));assert.equal(host.canvasCount,1);
+  for(let n=0;n<5;n++)await host.settleImages();host.frame(16);
+  assert.ok(host.imageTrace.length>0&&host.imageTrace.every(row=>row.status==='loaded'));
+  assert.ok(!host.labels.some(row=>row.text.includes('正在加载')||row.text.includes('加载失败')));
+  assert.deepEqual(host.surfaceInfo,[]);assert.equal(host.canvasCount,1,'ready frames never create a static offscreen layer');
+  assert.deepEqual(report.extraGlobals,[]);assert.equal(report.executedChecks,1);
+  const code=await readFile(bundlePath,'utf8');
+  assert.equal(/\bstructuredClone\s*\(|new\s+TextEncoder\s*\(|\beval\s*\(|new\s+Function\s*\(/.test(code),false);
+ }finally{await rm(folder,{recursive:true,force:true});}
 });

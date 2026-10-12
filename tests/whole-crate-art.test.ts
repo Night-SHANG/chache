@@ -1,12 +1,13 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas } from '@napi-rs/canvas';
-import { cargoBox } from '../src/presentation/assets.ts';
-import type { CargoStyleId } from '../src/application/profile.ts';
-import type { CargoId, CellTrait } from '../src/domain/types.ts';
+import { cargoBox } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import type { CargoStyleId } from '../scripts/static-art-authoring/src/application/profile.ts';
+import type { CargoId, CellTrait } from '../scripts/static-art-authoring/src/domain/types.ts';
 
 const CARGOS:CargoId[]=['cargo.food','cargo.machine','cargo.chem','cargo.electronic','cargo.cold'];
 const SIZES=[110*7/9/3,110/3,110];

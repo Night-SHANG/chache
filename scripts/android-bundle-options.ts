@@ -5,8 +5,8 @@ import type {BuildOptions} from 'esbuild';
 export function androidBundleOptions(projectRoot=process.cwd()):BuildOptions {
  return {
   nodePaths:[resolve(projectRoot,'android-shell/node_modules')],
-  bundle:true,format:'iife',target:'es2018',minify:false,minifyWhitespace:true,
+  bundle:true,format:'iife',target:'es2018',minify:true,
   sourcemap:false,legalComments:'eof',logLevel:'warning',
-  define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.12')},
+  define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.13')},
  };
 }

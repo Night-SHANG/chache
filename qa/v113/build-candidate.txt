@@ -1,0 +1,13 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 build:android
+> node scripts/build-android.mjs
+
+Built browser + real WeChat game.js/game.json (679035 B JS; main 3031601 B, cosmetics 2728095 B raw). Source 4a5ab0616a55. WeChat runtime NOT RUN.
+Staged isolated Android production assets. Native adapters/device acceptance remain required.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 verify:android
+> node scripts/verify-android-build.mjs staging
+
+{ phase: 'bootstrap', publishApk: false }

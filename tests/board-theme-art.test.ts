@@ -1,19 +1,20 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas } from '@napi-rs/canvas';
-import type { ThemeId } from '../src/application/profile.ts';
-import { COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { createRunV18 } from '../src/domain/v18/engine.ts';
-import { createProfile } from '../src/application/profile.ts';
-import { playableChecksum, reservedEntryCells } from '../src/domain/playable.ts';
-import { render } from '../src/presentation/renderer.ts';
-import type { ViewState } from '../src/presentation/view-types.ts';
+import type { ThemeId } from '../scripts/static-art-authoring/src/application/profile.ts';
+import { COSMETIC_CATALOG } from '../scripts/static-art-authoring/src/application/cosmetics.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { createRunV18 } from '../scripts/static-art-authoring/src/domain/v18/engine.ts';
+import { createProfile } from '../scripts/static-art-authoring/src/application/profile.ts';
+import { playableChecksum, reservedEntryCells } from '../scripts/static-art-authoring/src/domain/playable.ts';
+import { render } from '../scripts/static-art-authoring/src/presentation/renderer.ts';
+import type { ViewState } from '../scripts/static-art-authoring/src/presentation/view-types.ts';
 
 const digest = (data: Uint8ClampedArray) => createHash('sha256').update(data).digest('hex');
 async function art() {
- try { return await import('../src/presentation/board-theme.ts'); }
+ try { return await import('../scripts/static-art-authoring/src/presentation/board-theme.ts'); }
  catch { assert.fail('A shared, cosmetic-only board-theme renderer must exist'); }
 }
 

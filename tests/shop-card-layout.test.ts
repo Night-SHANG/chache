@@ -1,3 +1,4 @@
+import {prepareViewArt} from './helpers/static-art-fixture.ts';
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -59,17 +60,18 @@ test('every section pages through every catalog entry with disabled bounds, disj
  assert.equal(layout.shopListViewport(view({cosmeticSetPreview:'cold_chain'})),null);
 });
 
-test('page artwork cache stays bounded, reuses current cards and keeps wallet and item selection live',()=>{
+test('page artwork uses ready images with zero surface allocation while wallet and item selection stay live',async()=>{
  const surfaces:Canvas[]=[],ctx=createCanvas(320,569).getContext('2d') as unknown as CanvasRenderingContext2D;ctx.scale(320/1080,320/1080);
  configureCosmeticPreviewCache(()=>{const c=createCanvas(1,1);surfaces.push(c);return c as unknown as CanvasSurface;});
- const bounded=()=>{assert.ok(surfaces.filter(s=>s.width>1).length<=5);assert.ok(surfaces.reduce((sum,s)=>sum+(s.width>1?s.width*s.height*4:0),0)<=5_000_000);};
+ const labels:string[]=[],fill=ctx.fillText.bind(ctx);ctx.fillText=(value,x,y)=>{labels.push(value);fill(value,x,y);};
+ const paint=async(v:ViewState)=>{await prepareViewArt(v);render(ctx,state,v);assert.equal(surfaces.length,0,'static art never creates an offscreen surface');};
  try{
-  const v=view();render(ctx,state,v);const allocated=surfaces.length;assert.equal(allocated,4,'four visible set previews fit the bounded cache');
-  for(let i=0;i<5;i++)render(ctx,state,v);assert.equal(surfaces.length,allocated);
-  const labels:string[]=[],original=ctx.fillText.bind(ctx);ctx.fillText=(value,x,y)=>{labels.push(value);original(value,x,y);};render(ctx,state,{...v,account:makeAccountFixture({wallet:1234})});assert.ok(labels.includes('金币 1234'));assert.equal(surfaces.length,allocated);
-  for(let page=1;page<4;page++){const before:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,before+Math.min(4,15-page*4));const cold:number=surfaces.length;render(ctx,state,view({cosmeticSetPage:page}));assert.equal(surfaces.length,cold);bounded();}
-  const before:number=surfaces.length;render(ctx,state,view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.ok(labels.includes('原木藤箱'));render(ctx,state,view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}));assert.ok(labels.includes('保温周转箱'));assert.equal(surfaces.length,before,'same-screen item banners use their direct painter');bounded();
-  render(ctx,state,view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));const selected=surfaces.length;render(ctx,state,view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));assert.equal(surfaces.length,selected);bounded();
+  const v=view();await paint(v);for(let i=0;i<5;i++)await paint(v);
+  await paint({...v,account:makeAccountFixture({wallet:1234})});assert.ok(labels.includes('金币 1234'));
+  for(let page=1;page<4;page++){await paint(view({cosmeticSetPage:page}));await paint(view({cosmeticSetPage:page}));}
+  await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.ok(labels.includes('原木藤箱'));
+  await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}));assert.ok(labels.includes('保温周转箱'));
+  const selected=view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}});await paint(selected);await paint(selected);
  }finally{configureCosmeticPreviewCache();}
 });
 
@@ -85,12 +87,12 @@ test('classic detail has compact preview-only variants and owned-state primary r
  const missing=getShopControls(view({cosmeticSetPreview:'classic',classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));assert.ok(missing.some(c=>c.action.type==='purchaseCosmetic'&&c.action.kind==='forklift'&&c.action.id==='white'));assert.equal(missing.some(c=>c.action.type==='purchaseCosmeticSet'),false);
 });
 
-test('cached page art is exact across cold and warm frames and leaves pixels outside the art region unchanged',()=>{
+test('ready page images are exact across repeated frames and ignore legacy surface-cache configuration',async()=>{
  for(const width of [320,360,540])for(const section of ['sets','theme','cargo','forklift'] as const){
   const dpr=width===320?3:2,canvas=createCanvas(width*dpr,Math.ceil(width*1920/1080)*dpr),ctx=canvas.getContext('2d') as unknown as CanvasRenderingContext2D,v=view(section==='sets'?{shopSection:section,cosmeticSetPage:1}:{shopSection:section,cosmeticPreview:{[section]:COSMETIC_CATALOG.filter(item=>item.kind===section)[4].id}}),scale=width*dpr/1080;ctx.scale(scale,scale);
   const digest=(outside=false)=>{const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data,hash=createHash('sha256'),left=Math.floor((section==='sets'?150:132)*scale),right=Math.ceil((section==='sets'?930:948)*scale),top=Math.floor((section==='sets'?648:750)*scale),bottom=Math.ceil((section==='sets'?1296:982)*scale);
    if(!outside)return hash.update(pixels).digest('hex');for(let y=0;y<canvas.height;y++){const row=y*canvas.width*4;if(y<top||y>=bottom)hash.update(pixels.subarray(row,row+canvas.width*4));else{hash.update(pixels.subarray(row,row+left*4));hash.update(pixels.subarray(row+right*4,row+canvas.width*4));}}return hash.digest('hex');};
-  configureCosmeticPreviewCache();render(ctx,state,v);const outside=digest(true);
+  await prepareViewArt(v);configureCosmeticPreviewCache();render(ctx,state,v);const outside=digest(true);
   configureCosmeticPreviewCache(()=>createCanvas(1,1) as unknown as CanvasSurface);
   // Fractional per-primitive and cached artwork edges can have separately reviewed AA differences.
   // Do not introduce a fuzzy pixel tolerance: the protected comparisons below remain exact.

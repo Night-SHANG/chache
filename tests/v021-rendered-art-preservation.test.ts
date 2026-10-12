@@ -1,13 +1,14 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { cargoBox } from '../src/presentation/assets.ts';
-import { loadThemedForkliftAtlas } from '../src/presentation/themed-forklift-art.ts';
+import { cargoBox } from '../scripts/static-art-authoring/src/presentation/assets.ts';
+import { loadThemedForkliftAtlas } from '../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts';
 import { archivedRasterForklift } from './helpers/archived-raster-forklift.ts';
-import { CARGO_ATLAS, loadCargoAtlas } from '../src/presentation/cargo-atlas.ts';
-import type { CargoStyleId, ForkliftId } from '../src/application/profile.ts';
+import { CARGO_ATLAS, loadCargoAtlas } from '../scripts/static-art-authoring/src/presentation/cargo-atlas.ts';
+import type { CargoStyleId, ForkliftId } from '../scripts/static-art-authoring/src/application/profile.ts';
 
 const fixture=JSON.parse(readFileSync(new URL('./fixtures/v020-rendered-art.json',import.meta.url),'utf8')) as {
  forklifts:{id:ForkliftId;size:number;sha256:string}[];

@@ -1,3 +1,4 @@
+// Historical v112 renderer evidence. Frozen painters preserve original pixel contracts; this is not v113 runtime validation.
 /** Final-source real Canvas renderer with synthetic mouse/touch input, never a phone screenshot. */
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -10,13 +11,13 @@ const source=p=>import(pathToFileURL(join(cwd,p)).href);
 const {createRunV16}=await source('src/domain/v16/engine.ts');
 const {createProfile}=await source('src/application/profile.ts');
 const {previewPlayablePlacement}=await source('src/domain/playable.ts');
-const {render}=await source('src/presentation/renderer.ts');
+const {render}=await source('scripts/static-art-authoring/src/presentation/renderer.ts');
 const {InputController}=await source('src/presentation/input.ts');
-const {loadCargoAtlas}=await source('src/presentation/cargo-atlas.ts');
-const {loadBoardMaterialAtlas}=await source('src/presentation/board-material-atlas.ts');
-const {loadSceneMaterialAtlas}=await source('src/presentation/scene-frame-atlas.ts');
-const {loadThemedForkliftAtlas}=await source('src/presentation/themed-forklift-art.ts');
-const {configureWarehouseCache}=await source('src/presentation/warehouse-cache.ts');
+const {loadCargoAtlas}=await source('scripts/static-art-authoring/src/presentation/cargo-atlas.ts');
+const {loadBoardMaterialAtlas}=await source('scripts/static-art-authoring/src/presentation/board-material-atlas.ts');
+const {loadSceneMaterialAtlas}=await source('scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts');
+const {loadThemedForkliftAtlas}=await source('scripts/static-art-authoring/src/presentation/themed-forklift-art.ts');
+const {configureWarehouseCache}=await source('scripts/static-art-authoring/src/presentation/warehouse-cache.ts');
 const {placementRisk}=await source('src/presentation/placement-risk.ts');
 const output=resolve(process.argv[2]??'artifacts/v111/touch-renderer');mkdirSync(output,{recursive:true});
 for(const load of [loadCargoAtlas,loadBoardMaterialAtlas,loadSceneMaterialAtlas,loadThemedForkliftAtlas])assert.equal(await load(path=>loadImage(resolve(cwd,path))),true);

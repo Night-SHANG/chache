@@ -77,3 +77,9 @@ Cargo sheets, six new forklift bodies and fifteen board materials were produced 
 “DM-CGS-32” from Free Casual Game Sounds by Dustyroom, released under CC0 1.0 Universal. Source: https://dustyroom.com/free-casual-game-sounds/ . Commercial use is permitted and attribution is not required; no endorsement is implied.
 
 The complete original stereo recording is preserved at 44.1kHz and adapted from PCM24 to PCM16 at original amplitude; a click-only playback gain of 0.2428740327036814 sets the effective peak to approximately 0.24. No EQ, pitch shift, fade, synthesis, truncation, or audition repeats are used in the game. Source, original license, public provenance and reproducible conversion live in assets/audio/ui-click. Built targets carry UI_SOUND_NOTICE.txt, UI_SOUND_LICENSE.pdf and UI_SOUND_CC0.txt.
+
+## v1.0.13 offline static-art authoring
+
+The bundled static textures are deterministic offline renders of this project's existing approved artwork, with lossless PNG packing. The frozen source is retained for reproducibility and historical visual tests. No new externally hosted artwork, image generation or runtime graphics dependency was introduced. The pinned MIT @napi-rs/canvas 1.0.10 is a development-only renderer and is not included in browser, WeChat or Android JavaScript bundles; its installed package license remains with development dependencies. Existing cargo/board/scene material PNG bytes and their provenance are unchanged.
+
+The UI sound's original publisher PDF remains under assets/audio/ui-click/LICENSE.pdf in source and source backups. Runtime packages include UI_SOUND_NOTICE.txt and UI_SOUND_CC0.txt; the non-runtime PDF is not copied into them. This directory-byte exclusion does not establish a reduction in the WeChat developer tool's processed upload size.

@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import './helpers/cargo-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';

@@ -1,0 +1,425 @@
+{
+  "mainBytes": 3031601,
+  "subpackageBytes": {
+    "cosmetics": 2728095
+  },
+  "totalBytes": 5759696,
+  "limits": {
+    "mainBytes": 4194304,
+    "totalBytes": 31457280
+  },
+  "localConservativeCosmeticsBudget": 4194304,
+  "processedIdeBytes": null,
+  "processedIdeStatus": "NOT RUN; raw directory bytes are not WeChat processed upload size",
+  "officialSnapshot": "https://github.com/VaJoy/wx-minigame-helper/blob/ad99e35a0200d4548cd879aa218ce845fd1e9fa2/skills/wx-minigame-helper/references/guide/base-ability/code-package.md",
+  "inventory": [
+    {
+      "path": "MUSIC_LICENSE.txt",
+      "bytes": 7048
+    },
+    {
+      "path": "MUSIC_NOTICE.txt",
+      "bytes": 1067
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 5989
+    },
+    {
+      "path": "UI_SOUND_CC0.txt",
+      "bytes": 7048
+    },
+    {
+      "path": "UI_SOUND_NOTICE.txt",
+      "bytes": 762
+    },
+    {
+      "path": "assets/bgm.mp3",
+      "bytes": 1563002
+    },
+    {
+      "path": "assets/board-materials.png",
+      "bytes": 166727
+    },
+    {
+      "path": "assets/chain2.wav",
+      "bytes": 12392
+    },
+    {
+      "path": "assets/chain3.wav",
+      "bytes": 12392
+    },
+    {
+      "path": "assets/chain4.wav",
+      "bytes": 12392
+    },
+    {
+      "path": "assets/fail.wav",
+      "bytes": 11070
+    },
+    {
+      "path": "assets/forklift.wav",
+      "bytes": 11952
+    },
+    {
+      "path": "assets/invalid.wav",
+      "bytes": 6218
+    },
+    {
+      "path": "assets/pick.wav",
+      "bytes": 3792
+    },
+    {
+      "path": "assets/place.wav",
+      "bytes": 5116
+    },
+    {
+      "path": "assets/route_ready.wav",
+      "bytes": 7542
+    },
+    {
+      "path": "assets/shift.wav",
+      "bytes": 16802
+    },
+    {
+      "path": "assets/ship.wav",
+      "bytes": 11510
+    },
+    {
+      "path": "assets/static-art/cargo-core.png",
+      "bytes": 65461
+    },
+    {
+      "path": "assets/static-art/forklift-base.png",
+      "bytes": 13131
+    },
+    {
+      "path": "assets/static-art/frame-classic.png",
+      "bytes": 15898
+    },
+    {
+      "path": "assets/static-art/scene-day.png",
+      "bytes": 120512
+    },
+    {
+      "path": "assets/static-art/scene-night.png",
+      "bytes": 120026
+    },
+    {
+      "path": "assets/static-art/tools-core.png",
+      "bytes": 62433
+    },
+    {
+      "path": "assets/ui_click.wav",
+      "bytes": 33056
+    },
+    {
+      "path": "assets/upgrade.wav",
+      "bytes": 13274
+    },
+    {
+      "path": "build-manifest.json",
+      "bytes": 45533
+    },
+    {
+      "path": "cosmetics/assets/cargo-materials.png",
+      "bytes": 351513
+    },
+    {
+      "path": "cosmetics/assets/scene-materials.png",
+      "bytes": 219775
+    },
+    {
+      "path": "cosmetics/assets/static-art/forklift-styled.png",
+      "bytes": 96338
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-cold_chain-card.png",
+      "bytes": 6903
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-cold_chain-item.png",
+      "bytes": 12123
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-cold_chain-set.png",
+      "bytes": 18768
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-day-card.png",
+      "bytes": 975
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-day-classic.png",
+      "bytes": 3958
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-day-item.png",
+      "bytes": 1395
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-day-set.png",
+      "bytes": 4223
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-express_sorting-card.png",
+      "bytes": 7516
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-express_sorting-item.png",
+      "bytes": 14054
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-express_sorting-set.png",
+      "bytes": 20495
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-field_station-card.png",
+      "bytes": 10644
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-field_station-item.png",
+      "bytes": 17973
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-field_station-set.png",
+      "bytes": 33136
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-forest_depot-card.png",
+      "bytes": 22726
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-forest_depot-item.png",
+      "bytes": 54007
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-forest_depot-set.png",
+      "bytes": 83144
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-harbor-card.png",
+      "bytes": 17273
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-harbor-item.png",
+      "bytes": 23755
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-harbor-set.png",
+      "bytes": 41920
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ice_vault-card.png",
+      "bytes": 29875
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ice_vault-item.png",
+      "bytes": 69981
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ice_vault-set.png",
+      "bytes": 108548
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-lava_forge-card.png",
+      "bytes": 10638
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-lava_forge-item.png",
+      "bytes": 20835
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-lava_forge-set.png",
+      "bytes": 46219
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-neon_depot-card.png",
+      "bytes": 7740
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-neon_depot-item.png",
+      "bytes": 11008
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-neon_depot-set.png",
+      "bytes": 20904
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-night-card.png",
+      "bytes": 899
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-night-classic.png",
+      "bytes": 3855
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-night-item.png",
+      "bytes": 1330
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-night-set.png",
+      "bytes": 4137
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ocean_vault-card.png",
+      "bytes": 10861
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ocean_vault-item.png",
+      "bytes": 29199
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-ocean_vault-set.png",
+      "bytes": 45488
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-paper_warehouse-card.png",
+      "bytes": 9259
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-paper_warehouse-item.png",
+      "bytes": 17291
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-paper_warehouse-set.png",
+      "bytes": 28305
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-rail_freight-card.png",
+      "bytes": 9619
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-rail_freight-item.png",
+      "bytes": 16697
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-rail_freight-set.png",
+      "bytes": 28422
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-royal_store-card.png",
+      "bytes": 3907
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-royal_store-item.png",
+      "bytes": 8304
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-royal_store-set.png",
+      "bytes": 12407
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-space_cargo-card.png",
+      "bytes": 6360
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-space_cargo-item.png",
+      "bytes": 8885
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-space_cargo-set.png",
+      "bytes": 15182
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-steam_foundry-card.png",
+      "bytes": 6348
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-steam_foundry-item.png",
+      "bytes": 11091
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-steam_foundry-set.png",
+      "bytes": 18388
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-toy_workshop-card.png",
+      "bytes": 6651
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-toy_workshop-item.png",
+      "bytes": 17514
+    },
+    {
+      "path": "cosmetics/assets/static-art/preview-toy_workshop-set.png",
+      "bytes": 21741
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-cold_chain.png",
+      "bytes": 32699
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-express_sorting.png",
+      "bytes": 36648
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-field_station.png",
+      "bytes": 62231
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-forest_depot.png",
+      "bytes": 162082
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-harbor.png",
+      "bytes": 61996
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-ice_vault.png",
+      "bytes": 211089
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-lava_forge.png",
+      "bytes": 90299
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-neon_depot.png",
+      "bytes": 38096
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-ocean_vault.png",
+      "bytes": 73250
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-paper_warehouse.png",
+      "bytes": 50250
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-rail_freight.png",
+      "bytes": 52533
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-royal_store.png",
+      "bytes": 23994
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-space_cargo.png",
+      "bytes": 29080
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-steam_foundry.png",
+      "bytes": 32822
+    },
+    {
+      "path": "cosmetics/assets/static-art/scene-toy_workshop.png",
+      "bytes": 40453
+    },
+    {
+      "path": "cosmetics/game.js",
+      "bytes": 71
+    },
+    {
+      "path": "game.js",
+      "bytes": 679035
+    },
+    {
+      "path": "game.json",
+      "bytes": 154
+    },
+    {
+      "path": "project.config.json",
+      "bytes": 267
+    }
+  ]
+}

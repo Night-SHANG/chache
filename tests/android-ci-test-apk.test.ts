@@ -18,7 +18,7 @@ const manifest=`  E: manifest (line=2)
 async function fixture(){
  const root=await mkdtemp(join(tmpdir(),'test-apk-metadata-')),payload=join(root,'handoff'),sdk=join(root,'sdk'),tools=join(sdk,'build-tools/35.0.0');
  await mkdir(join(payload,'apks'),{recursive:true});await mkdir(tools,{recursive:true});
- const config=Object.fromEntries(Object.entries(names).map(([kind,name])=>[name,{badging:`package: name='io.github.nightshang.chache${kind==='test'?'.test':''}' versionCode='${kind==='test'?'':kind==='vc1'?'1':'2'}' versionName='${kind==='test'?'':'1.0.12'}'\napplication-label:'货箱最后一格'\n`,manifest,certificate}]));
+ const config=Object.fromEntries(Object.entries(names).map(([kind,name])=>[name,{badging:`package: name='io.github.nightshang.chache${kind==='test'?'.test':''}' versionCode='${kind==='test'?'':kind==='vc1'?'1':'2'}' versionName='${kind==='test'?'':'1.0.13'}'\napplication-label:'货箱最后一格'\n`,manifest,certificate}]));
  const configure=()=>writeFile(join(sdk,'config.json'),JSON.stringify(config));await configure();
  // Only SDK process boundaries are fixtures. Real inspector parsing, file hashes,
  // ZIP assets and failure diagnostics run unchanged; this is not signing evidence.
@@ -33,7 +33,7 @@ p=pathlib.Path(sys.argv[1]);names=json.loads(sys.argv[2])
 for kind,name in names.items():
  with zipfile.ZipFile(p/name,'w') as z:
   if kind=='test': z.writestr('assets/acceptance.js','fixture driver');continue
-  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.12','shopPricingMode':'paid','developerDiagnostics':False})}
+  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.13','shopPricingMode':'paid','developerDiagnostics':False})}
   for key,value in assets.items():z.writestr('assets/public/'+key,value)
   z.writestr('assets/public/SHA256SUMS',''.join(hashlib.sha256(value.encode()).hexdigest()+'  '+key+'\n' for key,value in assets.items()))
 `,join(payload,'apks'),JSON.stringify(names)],{encoding:'utf8'});assert.equal(zipped.status,0,zipped.stderr);
@@ -43,7 +43,7 @@ for kind,name in names.items():
 test('AGP instrumentation template without version metadata stays exact and does not invent product versions',async()=>{
  const template=await read('tests/fixtures/android-agp-8.13.0-test-manifest.xml');assert.doesNotMatch(template,/android:versionCode|android:versionName/);assert.match(template,/android:targetPackage="#TESTEDPACKAGE#"/);
  const f=await fixture();try{
-  const apks=await f.inspect();assert.deepEqual(apks.test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:null,versionName:''});assert.equal(apks.vc1.identity.versionCode,1);assert.equal(apks.vc2.identity.versionCode,2);assert.equal(apks.vc2.identity.versionName,'1.0.12');
+  const apks=await f.inspect();assert.deepEqual(apks.test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:null,versionName:''});assert.equal(apks.vc1.identity.versionCode,1);assert.equal(apks.vc2.identity.versionCode,2);assert.equal(apks.vc2.identity.versionName,'1.0.13');
   f.config[names.test].badging=f.config[names.test].badging.replace("versionCode='' versionName=''","versionCode='17' versionName='suite-17'");await f.configure();assert.deepEqual((await f.inspect()).test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:17,versionName:'suite-17'});
  }finally{await f.cleanup();}
 });

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { roundedPath } from '../../src/presentation/assets.ts';
-import { drawThemedForkliftBody } from '../../src/presentation/themed-forklift-art.ts';
-import type { ForkliftId } from '../../src/application/profile.ts';
+import { roundedPath } from '../../scripts/static-art-authoring/src/presentation/assets.ts';
+import { drawThemedForkliftBody } from '../../scripts/static-art-authoring/src/presentation/themed-forklift-art.ts';
+import type { ForkliftId } from '../../scripts/static-art-authoring/src/application/profile.ts';
 
 /** Historical v0.20 raster compositor, for frozen asset validation only.
  * The active v0.24 dispatch is verified separately by structural-forklift-art.test.ts.

@@ -1,17 +1,18 @@
+// Historical authoring contract: hashes and assertions remain unchanged; runtime textures are covered separately.
 import './helpers/board-material-atlas-fixture.ts';
 import './helpers/scene-material-atlas-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createCanvas } from '@napi-rs/canvas';
-import { BOARD_MATERIAL_ATLAS, drawBoardMaterialTile } from '../src/presentation/board-material-atlas.ts';
-import { drawThemedBoard } from '../src/presentation/board-theme.ts';
-import { boardGeometry } from '../src/presentation/board-geometry.ts';
-import { createProfile } from '../src/application/profile.ts';
-import { createRunV18 } from '../src/domain/v18/engine.ts';
-import { playableChecksum, reservedEntryCells } from '../src/domain/playable.ts';
-import { render } from '../src/presentation/renderer.ts';
-import type { ViewState } from '../src/presentation/view-types.ts';
+import { BOARD_MATERIAL_ATLAS, drawBoardMaterialTile } from '../scripts/static-art-authoring/src/presentation/board-material-atlas.ts';
+import { drawThemedBoard } from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
+import { boardGeometry } from '../scripts/static-art-authoring/src/presentation/board-geometry.ts';
+import { createProfile } from '../scripts/static-art-authoring/src/application/profile.ts';
+import { createRunV18 } from '../scripts/static-art-authoring/src/domain/v18/engine.ts';
+import { playableChecksum, reservedEntryCells } from '../scripts/static-art-authoring/src/domain/playable.ts';
+import { render } from '../scripts/static-art-authoring/src/presentation/renderer.ts';
+import type { ViewState } from '../scripts/static-art-authoring/src/presentation/view-types.ts';
 
 const digest = (data: Uint8ClampedArray) => createHash('sha256').update(data).digest('hex');
 test('the shipped raster atlas renders fifteen opaque, distinct materials at 7, 8 and 9-cell densities', () => {

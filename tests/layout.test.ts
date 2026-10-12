@@ -1,3 +1,4 @@
+import './helpers/static-art-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { L, getLayout, getTrayRects, hitTestPoint, pointToCell, cellCenter, mapClientPoint } from '../src/presentation/layout.ts';
@@ -44,7 +45,7 @@ import type { ViewState } from '../src/presentation/view-types.ts';
 /** Strict base Canvas2D test surface; unsupported platform methods fail loudly. */
 function canvasSurface(): { ctx: CanvasRenderingContext2D; labels: string[]; outlines: { x: number; y: number; w: number; h: number }[] } {
   const labels: string[] = [], outlines: { x: number; y: number; w: number; h: number }[] = [];
-  const supported = new Set(['save','restore','clearRect','fillRect','strokeRect','beginPath','closePath','moveTo','lineTo','quadraticCurveTo','bezierCurveTo','rect','arc','ellipse','fill','stroke','clip','translate','scale','rotate','setLineDash']);
+  const supported = new Set(['save','restore','drawImage', 'clearRect','fillRect','strokeRect','beginPath','closePath','moveTo','lineTo','quadraticCurveTo','bezierCurveTo','rect','arc','ellipse','fill','stroke','clip','translate','scale','rotate','setLineDash']);
   const values: Record<string, unknown> = { globalAlpha: 1 };
   const ctx = new Proxy({}, {
     get(_target, key) {

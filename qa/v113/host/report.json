@@ -1,0 +1,354 @@
+{
+  "version": "1.0.13",
+  "commit": "c01b77304065e60d3d80be58210c31d8e4822b6e",
+  "sourceSha256": "4a5ab0616a552882c2cbea404b68b0664ee9f3ee82ed1ae68b45a24d84e1b04f",
+  "kind": "Exact production bundles; native Canvas and simulated wx / DOM event hosts",
+  "limitations": [
+    "No WeChat developer tool, IDE processed upload size, physical phone, GPU or audible-output verification.",
+    "All accounts are isolated owned-item fixtures. No player data accessed."
+  ],
+  "cases": [
+    {
+      "name": "browser-day-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 6,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-night-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 6,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-harbor-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 7,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-cold_chain-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 7,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-forest_depot-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 7,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-ice_vault-startup",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "images": 7,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-day-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 6,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-night-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 6,
+      "packages": [],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-harbor-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 7,
+      "packages": [
+        "cosmetics"
+      ],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-cold_chain-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 7,
+      "packages": [
+        "cosmetics"
+      ],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-forest_depot-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 7,
+      "packages": [
+        "cosmetics"
+      ],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "wechat-ice_vault-startup",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "images": 7,
+      "packages": [
+        "cosmetics"
+      ],
+      "canvasCount": 1,
+      "exactSelectedTheme": true,
+      "musicBeforeReady": true
+    },
+    {
+      "name": "browser-shop-pagination-classic-and-return",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620",
+      "packages": [],
+      "canvasCount": 1,
+      "selectionPreserved": true
+    },
+    {
+      "name": "wechat-shop-pagination-classic-and-return",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e",
+      "packages": [
+        "cosmetics"
+      ],
+      "canvasCount": 1,
+      "selectionPreserved": true
+    },
+    {
+      "name": "wechat-package-failure-explicit-retry",
+      "attempts": 2,
+      "selectionPreserved": true,
+      "canvasCount": 1
+    },
+    {
+      "name": "wechat-no-subpackage-api-shows-supported-error",
+      "canvasCount": 1,
+      "selectionPreserved": true
+    }
+  ],
+  "images": [
+    {
+      "name": "browser-day-loading",
+      "path": "qa/v113/host/browser-day-loading.png",
+      "sha256": "ecb4cf69366553eaa98d84747ae3fba1b9551a935062bca37b7bd94711120523",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-day-ready",
+      "path": "qa/v113/host/browser-day-ready.png",
+      "sha256": "dde5e7429417a1feddbd9040d0439f74c018b75857247b80e3da2f76bc4318ca",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-night-loading",
+      "path": "qa/v113/host/browser-night-loading.png",
+      "sha256": "ecb4cf69366553eaa98d84747ae3fba1b9551a935062bca37b7bd94711120523",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-night-ready",
+      "path": "qa/v113/host/browser-night-ready.png",
+      "sha256": "4d6cdffbb26d26fa4c9b417c87d17d57915d88b5b2d93d04727278589dd44ae2",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-harbor-loading",
+      "path": "qa/v113/host/browser-harbor-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-harbor-ready",
+      "path": "qa/v113/host/browser-harbor-ready.png",
+      "sha256": "19bf14417b75662621d4eb492e3c21f5a050b613ccaedc974bd0ae2cf9dd79e3",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-cold_chain-loading",
+      "path": "qa/v113/host/browser-cold_chain-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-cold_chain-ready",
+      "path": "qa/v113/host/browser-cold_chain-ready.png",
+      "sha256": "dc5a3776d4bceac7de52cd293dda8c174e7bb865ddc6b3362173d77b4a0a4077",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-forest_depot-loading",
+      "path": "qa/v113/host/browser-forest_depot-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-forest_depot-ready",
+      "path": "qa/v113/host/browser-forest_depot-ready.png",
+      "sha256": "07582cf3bb2798bd9fe429ac2e5cba45dcaac54614582adda3e971b89cfd29cd",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-ice_vault-loading",
+      "path": "qa/v113/host/browser-ice_vault-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-ice_vault-ready",
+      "path": "qa/v113/host/browser-ice_vault-ready.png",
+      "sha256": "c308e0dbab35f354481920daf316b5f911e23f374dbb00afe4677205be99d8f9",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "wechat-day-loading",
+      "path": "qa/v113/host/wechat-day-loading.png",
+      "sha256": "ecb4cf69366553eaa98d84747ae3fba1b9551a935062bca37b7bd94711120523",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-day-ready",
+      "path": "qa/v113/host/wechat-day-ready.png",
+      "sha256": "dde5e7429417a1feddbd9040d0439f74c018b75857247b80e3da2f76bc4318ca",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-night-loading",
+      "path": "qa/v113/host/wechat-night-loading.png",
+      "sha256": "ecb4cf69366553eaa98d84747ae3fba1b9551a935062bca37b7bd94711120523",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-night-ready",
+      "path": "qa/v113/host/wechat-night-ready.png",
+      "sha256": "4d6cdffbb26d26fa4c9b417c87d17d57915d88b5b2d93d04727278589dd44ae2",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-harbor-loading",
+      "path": "qa/v113/host/wechat-harbor-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-harbor-ready",
+      "path": "qa/v113/host/wechat-harbor-ready.png",
+      "sha256": "19bf14417b75662621d4eb492e3c21f5a050b613ccaedc974bd0ae2cf9dd79e3",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-cold_chain-loading",
+      "path": "qa/v113/host/wechat-cold_chain-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-cold_chain-ready",
+      "path": "qa/v113/host/wechat-cold_chain-ready.png",
+      "sha256": "dc5a3776d4bceac7de52cd293dda8c174e7bb865ddc6b3362173d77b4a0a4077",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-forest_depot-loading",
+      "path": "qa/v113/host/wechat-forest_depot-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-forest_depot-ready",
+      "path": "qa/v113/host/wechat-forest_depot-ready.png",
+      "sha256": "07582cf3bb2798bd9fe429ac2e5cba45dcaac54614582adda3e971b89cfd29cd",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-ice_vault-loading",
+      "path": "qa/v113/host/wechat-ice_vault-loading.png",
+      "sha256": "be2bf3a9bd9b798bd6686b2fd71294df402fea2093aa43a4130d493cf49bb6b6",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-ice_vault-ready",
+      "path": "qa/v113/host/wechat-ice_vault-ready.png",
+      "sha256": "c308e0dbab35f354481920daf316b5f911e23f374dbb00afe4677205be99d8f9",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "browser-shop-first-page",
+      "path": "qa/v113/host/browser-shop-first-page.png",
+      "sha256": "d044292f54b1f4a3a664557781e002d7dffc23a6ddfce6d21cf49f476ffdac0a",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-shop-second-page",
+      "path": "qa/v113/host/browser-shop-second-page.png",
+      "sha256": "b94e7d14baae5d066d51d77d10e0211a1721b93b87c0230e2d0a07bcb5eb774b",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "browser-classic-preview",
+      "path": "qa/v113/host/browser-classic-preview.png",
+      "sha256": "bb5e32578f27e7c0b0ca7a4c5164dfc290214deedb598957f667d42ebc52823d",
+      "bundleSha256": "87dbbcbf21b4d27a43e957e1767374a3a9dee6368c65755197a8c2c90dde7620"
+    },
+    {
+      "name": "wechat-shop-first-page",
+      "path": "qa/v113/host/wechat-shop-first-page.png",
+      "sha256": "d044292f54b1f4a3a664557781e002d7dffc23a6ddfce6d21cf49f476ffdac0a",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-shop-second-page",
+      "path": "qa/v113/host/wechat-shop-second-page.png",
+      "sha256": "b94e7d14baae5d066d51d77d10e0211a1721b93b87c0230e2d0a07bcb5eb774b",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-classic-preview",
+      "path": "qa/v113/host/wechat-classic-preview.png",
+      "sha256": "bb5e32578f27e7c0b0ca7a4c5164dfc290214deedb598957f667d42ebc52823d",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-package-failure",
+      "path": "qa/v113/host/wechat-package-failure.png",
+      "sha256": "8937351f29f84990e4c1fe65ebdf439e0a9473c3efefa9d9262a921827c810ea",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    },
+    {
+      "name": "wechat-package-retry-ready",
+      "path": "qa/v113/host/wechat-package-retry-ready.png",
+      "sha256": "19bf14417b75662621d4eb492e3c21f5a050b613ccaedc974bd0ae2cf9dd79e3",
+      "bundleSha256": "96024049a21f0d1b6e0e57c4ba6a31533ab32c22f4365df9bbb00bf8b304dd8e"
+    }
+  ],
+  "failures": [],
+  "status": "PASS",
+  "completedAt": "2026-10-12T15:11:26.423Z",
+  "reproduction": "node scripts/verify-static-art-host.mjs --out artifacts/v113-static-host",
+  "evidenceCopy": "The following PNG bytes are copied unchanged from the candidate run; paths normalized to this checked-in evidence directory."
+}

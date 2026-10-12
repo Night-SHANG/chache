@@ -49,7 +49,7 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   assert.equal(existsSync(join(dir,'build/android/stale-remote.js')),false);
   const manifest=JSON.parse(await readFile(join(dir,'build/android/build-manifest.json'),'utf8'));
   const formal=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.12');
+  assert.equal(manifest.version,'1.0.13');
   assert.equal(manifest.shopPricingMode,'paid');
   assert.equal(manifest.developerDiagnostics,false);
   assert.equal(manifest.platform,'android');
@@ -72,14 +72,14 @@ test('Android production staging is fresh, offline and byte-identical to formal 
    const entries=await readdir(join(dir,path),{withFileTypes:true});
    return (await Promise.all(entries.map(async item=>item.isDirectory()?walk(`${path}/${item.name}`):[`${path}/${item.name}`]))).flat().sort();
   };
-  const formalAssets=await walk('build/browser/assets');
-  assert.deepEqual((await walk('build/android/assets')).map(path=>path.replace('build/android/','')),formalAssets.map(path=>path.replace('build/browser/','')));
+  const formalAssets=[...await walk('build/browser/assets'),...await walk('build/browser/cosmetics')].sort();
+  assert.deepEqual(([...await walk('build/android/assets'),...await walk('build/android/cosmetics')].sort()).map(path=>path.replace('build/android/','')),formalAssets.map(path=>path.replace('build/browser/','')));
   for(const path of formalAssets){
    const androidPath=path.replace('build/browser/','build/android/');
    const hash=(bytes:Buffer)=>createHash('sha256').update(bytes).digest('hex');
    assert.equal(hash(await readFile(join(dir,androidPath))),hash(await readFile(join(dir,path))),androidPath);
   }
-  for(const key of ['cargoAtlas','sceneMaterialAtlas','boardMaterialAtlas','themedForkliftAtlas','backgroundMusic'])assert.deepEqual(manifest[key],formal[key]);
+  for(const key of ['cargoAtlas','sceneMaterialAtlas','boardMaterialAtlas','staticArt','backgroundMusic'])assert.deepEqual(manifest[key],formal[key]);
   const checksumText=await readFile(join(dir,'build/android/SHA256SUMS'),'utf8');
   const files=(await walk('build/android')).filter(path=>!path.endsWith('/SHA256SUMS'));
   assert.equal(checksumText.trim().split('\n').length,files.length);
@@ -115,7 +115,7 @@ test('official Android project fixes version, SDK, Gradle and offline WebView re
  const app=await read('android/app/build.gradle');
  assert.match(app,/applicationId ['"]io\.github\.nightshang\.chache['"]/);
  assert.match(app,/versionCode 1\b/);
- assert.match(app,/versionName ['"]1\.0\.12['"]/);
+ assert.match(app,/versionName ['"]1\.0\.13['"]/);
  assert.match(app,/buildToolsVersion ['"]35\.0\.0['"]/);
  const vars=await read('android/variables.gradle');
  assert.match(vars,/minSdkVersion = 24/);
