@@ -1,0 +1,44 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 lint
+> eslint src tests scripts
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 typecheck
+> tsc --noEmit
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 preflight
+> node scripts/preflight.mjs
+
+PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks, packaged static artwork hashes/dimensions/source identity and local package paths.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 build:android
+> node scripts/build-android.mjs
+
+Built browser + real WeChat game.js/game.json (679035 B JS; main 3031601 B, cosmetics 2728095 B raw). Source 4a5ab0616a55. WeChat runtime NOT RUN.
+Staged isolated Android production assets. Native adapters/device acceptance remain required.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 verify:android
+> node scripts/verify-android-build.mjs staging
+
+{ phase: 'bootstrap', publishApk: false }

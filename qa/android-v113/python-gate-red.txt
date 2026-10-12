@@ -1,0 +1,36 @@
+✔ release vc3 is explicit while debug acceptance versions retain their original defaults (0.935537ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.357027ms)
+✔ release handoff rejects identity source archive and asset mismatches (6.514643ms)
+✔ signing refuses missing secrets before touching runner files (3.59235ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.282084ms)
+✖ fresh signing-runner Python rejects extra acceptance files and private key formats (45.222839ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 187.803525
+
+✖ failing tests:
+
+test at tests/android-release-signing.test.ts:48:1
+✖ fresh signing-runner Python rejects extra acceptance files and private key formats (45.222839ms)
+  AssertionError [ERR_ASSERTION]: Traceback (most recent call last):
+    File "<string>", line 2, in <module>
+  KeyError: 'validate_archive_entries'
+
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:58:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

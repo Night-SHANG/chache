@@ -1,0 +1,8 @@
+2026-10-12 independent security review approved the dedicated signing-enabled branch push.
+No unresolved blocking findings.
+Fixed/reverified: acceptance filenames and private-key suffixes excluded APK-wide; exact package/version tuple parsing; private-repository guards; observed-certificate wording.
+Independent checks: 7 signing tests, shell syntax, Python compilation and whitespace passed. Synthetic handoff rejection checked wrong source, failed unit evidence, debug/test-only/INTERNET, traversal, changed DEX, extra signed payload and zero/multiple signers. Invalid Base64 left no temporary key files or sensitive output. Old android.yml unchanged.
+Workflow SHA256: 7e49f0fa386b5e0a7b3f1f00c6bc3362787286d69ba778e5e347aefde7c4e7c9
+Python verifier SHA256: 63ffe8bb11f7f22cff308a969be256b0b010c9fba36b93e4f5ba038050ec0dac
+No real signing keys/Secrets/private signing artifacts were accessed.
+CI still must compile/sign and inspect the real artifact. Signed-release runtime, physical-phone acceptance and independently known original certificate comparison remain unverified.

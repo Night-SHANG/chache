@@ -1,0 +1,33 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 sync:android
+> npm run build:android && npm --prefix android-shell run sync
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.13 build:android
+> node scripts/build-android.mjs
+
+Built browser + real WeChat game.js/game.json (679035 B JS; main 3031601 B, cosmetics 2728095 B raw). Source a50c3c7018a9. WeChat runtime NOT RUN.
+Staged isolated Android production assets. Native adapters/device acceptance remain required.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-android-shell@1.0.13 sync
+> cap sync android
+
+✔ Copying web assets from android to ../android/app/src/main/assets/public in 28.78ms
+✔ Creating capacitor.config.json in ../android/app/src/main/assets in 658.13μs
+✔ copy android in 36.47ms
+✔ Updating Android plugins in 499.44μs
+✔ update android in 35.31ms
+[info] Sync finished in 0.097s
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

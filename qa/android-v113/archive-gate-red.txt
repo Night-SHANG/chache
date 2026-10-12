@@ -1,0 +1,29 @@
+✔ release vc3 is explicit while debug acceptance versions retain their original defaults (1.124951ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.37864ms)
+✖ release handoff rejects identity source archive and asset mismatches (6.657158ms)
+✔ signing refuses missing secrets before touching runner files (3.739952ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.548134ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.160361
+
+✖ failing tests:
+
+test at tests/android-release-signing.test.ts:28:1
+✖ release handoff rejects identity source archive and asset mismatches (6.657158ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:33:37)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

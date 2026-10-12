@@ -1,0 +1,126 @@
+✖ release vc3 is explicit while debug acceptance versions retain their original defaults (1.837091ms)
+✖ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.19987ms)
+✖ release handoff rejects identity source archive and asset mismatches (0.717368ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.608968
+
+✖ failing tests:
+
+test at tests/android-release-signing.test.ts:5:1
+✖ release vc3 is explicit while debug acceptance versions retain their original defaults (1.837091ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /warehouseReleaseVersionCode/. Input:
+
+  "apply plugin: 'com.android.application'\n" +
+    '\n' +
+    'android {\n' +
+    '    namespace = "io.github.nightshang.chache"\n' +
+    '    compileSdk = rootProject.ext.compileSdkVersion\n' +
+    '    buildToolsVersion "35.0.0"\n' +
+    '    defaultConfig {\n' +
+    '        applicationId "io.github.nightshang.chache"\n' +
+    '        minSdkVersion rootProject.ext.minSdkVersion\n' +
+    '        targetSdkVersion rootProject.ext.targetSdkVersion\n' +
+    "        def acceptanceCode = providers.gradleProperty('warehouseAcceptanceVersionCode').orElse('1').get()\n" +
+    "        if (!(acceptanceCode in ['1', '2'])) throw new GradleException('Acceptance version code must be 1 or 2')\n" +
+    '        versionCode 1\n' +
+    "        if (acceptanceCode == '2') versionCode 2\n" +
+    '        versionName "1.0.13"\n' +
+    '        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"\n' +
+    '        aaptOptions {\n' +
+    '             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.\n' +
+    '             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61\n' +
+    "            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'\n" +
+    '        }\n' +
+    '    }\n' +
+    '    sourceSets { androidTest.assets.srcDir "$buildDir/generated/acceptanceAssets" }\n' +
+    '    buildTypes {\n' +
+    '        release {\n' +
+    '            minifyEnabled false\n' +
+    "            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n" +
+    '        }\n' +
+    '    }\n' +
+    '}\n' +
+    '\n' +
+    'repositories {\n' +
+    '    flatDir{\n' +
+    "        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'\n" +
+    '    }\n' +
+    '}\n' +
+    '\n' +
+    'dependencies {\n' +
+    "    implementation fileTree(include: ['*.jar'], dir: 'libs')\n" +
+    '    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"\n' +
+    '    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"\n' +
+    '    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"\n' +
+    '    implementation "androidx.webkit:webkit:$androidxWebkitVersion"\n' +
+    "    implementation project(':capacitor-android')\n" +
+    '    testImplementation "junit:junit:$junitVersion"\n' +
+    '    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"\n' +
+    '    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"\n' +
+    "    implementation project(':capacitor-cordova-android-plugins')\n" +
+    '}\n' +
+    '\n' +
+    "apply from: 'capacitor.build.gradle'\n" +
+    '\n' +
+    'try {\n' +
+    "    def servicesJSON = file('google-services.json')\n" +
+    '    if (servicesJSON.text) {\n' +
+    "        apply plugin: 'com.google.gms.google-services'\n" +
+    '    }\n' +
+    '} catch(Exception e) {\n' +
+    `    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")\n` +
+    '}\n'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:7:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `apply plugin: 'com.android.application'\n\nandroid {\n    namespace = "io.github.nightshang.chache"\n    compileSdk = rootProject.ext.compileSdkVersion\n    buildToolsVersion "35.0.0"\n    defaultConfig {\n        applicationId "io.github.nightshang.chache"\n        minSdkVersion rootProject.ext.minSdkVersion\n        targetSdkVersion rootProject.ext.targetSdkVersion\n        def acceptanceCode = providers.gradleProperty('warehouseAcceptanceVersionCode').orElse('1').get()\n        if (!(acceptanceCode in ['1', '2'])) throw new GradleException('Acceptance version code must be 1 or 2')\n        versionCode 1\n        if (acceptanceCode == '2') versionCode 2\n        versionName "1.0.13"\n        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"\n        aaptOptions {\n             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.\n             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61\n            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'\n        }\n    }\n    sourceSets { androidTest.assets.srcDir "$buildDir/generated/acceptanceAssets" }\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n        }\n    }\n}\n\nrepositories {\n    flatDir{\n        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'\n    }\n}\n\ndependencies {\n    implementation fileTree(include: ['*.jar'], dir: 'libs')\n    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"\n    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"\n    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"\n    implementation "androidx.webkit:webkit:$androidxWebkitVersion"\n    implementation project(':capacitor-android')\n    testImplementation "junit:junit:$junitVersion"\n    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"\n    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"\n    implementation project(':capacitor-cordova-android-plugins')\n}\n\napply from: 'capacitor.build.gradle'\n\ntry {\n    def servicesJSON = file('google-services.json')\n    if (servicesJSON.text) {\n        apply plugin: 'com.google.gms.google-services'\n    }\n} catch(Exception e) {\n    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")\n}\n`,
+    expected: /warehouseReleaseVersionCode/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/android-release-signing.test.ts:14:1
+✖ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.19987ms)
+  Error: ENOENT: no such file or directory, open '.github/workflows/android-release.yml'
+      at readFileSync (node:fs:484:20)
+      at read (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:4:27)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:15:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '.github/workflows/android-release.yml'
+  }
+
+test at tests/android-release-signing.test.ts:27:1
+✖ release handoff rejects identity source archive and asset mismatches (0.717368ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/workspace/scratch/e6b59ff34222/android-v113-release-work/scripts/android-release-evidence.mjs' imported from /workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts
+      at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+      at moduleResolve (node:internal/modules/esm/resolve:865:10)
+      at defaultResolve (node:internal/modules/esm/resolve:992:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+      at #resolve (node:internal/modules/esm/loader:683:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+      at node:internal/modules/esm/loader:632:32
+      at TracingChannel.tracePromise (node:diagnostics_channel:362:14) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///workspace/scratch/e6b59ff34222/android-v113-release-work/scripts/android-release-evidence.mjs'
+  }

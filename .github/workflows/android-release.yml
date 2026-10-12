@@ -1,0 +1,378 @@
+name: Android v1.0.13 private signed candidate
+
+on:
+  push:
+    branches: [dev/android-v113-release]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-v113-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.repository == 'Night-SHANG/chache' && github.event.repository.private == true
+    outputs:
+      unsigned-artifact-id: ${{ steps.upload-unsigned.outputs.artifact-id }}
+      unsigned-artifact-digest: ${{ steps.upload-unsigned.outputs.artifact-digest }}
+      unsigned-receipt-sha256: ${{ steps.unsigned.outputs.receipt-sha256 }}
+      manifest-digest: ${{ steps.handoff.outputs.manifest-digest }}
+      artifact-id: ${{ steps.upload-handoff.outputs.artifact-id }}
+      artifact-digest: ${{ steps.upload-handoff.outputs.artifact-digest }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.19.0'
+          check-latest: false
+          package-manager-cache: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+          check-latest: false
+          overwrite-settings: false
+      - name: Initialize isolated task-owned package caches and time budget
+        run: |
+          node scripts/android-ci-cache.mjs init --github-env "$GITHUB_ENV"
+          printf 'ANDROID_CI_JOB_STARTED_AT=%s\n' "$(date +%s)" >> "$GITHUB_ENV"
+      - name: Assert toolchain and inspect existing official SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --global npm@11.9.0
+          test "$(node --version)" = v24.19.0
+          test "$(npm --version)" = 11.9.0
+          java -version 2>&1 | grep -E 'version "21[.]'
+          node scripts/verify-android-build.mjs sdk
+      - name: Install separate locked packages
+        run: |
+          npm ci
+          npm --prefix android-shell ci
+      - name: Restore pinned official frozen-render fonts
+        run: bash scripts/setup-android-ci-fonts.sh
+      - name: Probe unchanged frozen-render assertions
+        run: |
+          node --test --test-concurrency=2 --test-name-pattern='^(classic and legacy outline retain frozen pixels with only the authorized waste label normalized|classic and legacy outline match frozen pixels with only the authorized waste label normalized|retained vehicle previews stay exact while approved material, theme and v024 heavy previews change|real inbound board, pending tray and drag preserve normalized 3 2 1 foreground pixels for all new crates, colors and outlines|v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers|v0\.20 scenes preserve all historical pixels after normalizing only the approved v1\.0\.3 title rename|all fourteen old cargo renders remain exact with five semantic colors and live countdowns at five sizes|all unmodified materials retain frozen pixels in every color and state with authorized waste wording)$' \
+            tests/cosmetic-art.test.ts tests/material-crate-shells.test.ts \
+            tests/playful-cosmetic-art.test.ts tests/shop-button-consistency-v101.test.ts \
+            tests/v020-initial-scenes.test.ts tests/v021-rendered-art-preservation.test.ts tests/whole-crate-art.test.ts
+          node --input-type=module - <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const path='build/android-ci/font-report.json',report=JSON.parse(readFileSync(path,'utf8'));
+          report.requiredSimplifiedChineseAssertion={file:'tests/shop-button-consistency-v101.test.ts',name:'v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers',status:'passed',worker:'fresh Node test process'};
+          writeFileSync(path,JSON.stringify(report,null,2)+'\n');
+          console.log('Required Noto Sans CJK SC availability passed via unchanged v101 assertion');
+          NODE
+      - name: Static and production safety checks
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run preflight
+      - name: Build sync and verify isolated offline assets
+        run: |
+          npm run sync:android
+          npm run verify:android
+          node scripts/build-android-acceptance.mjs
+      - name: Compile and test native debug shell privately
+        id: compile
+        working-directory: android
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon --console=plain --version | tee ../build/android-ci/gradle-version.txt
+          grep -F 'Gradle 8.14.3' ../build/android-ci/gradle-version.txt
+          ./gradlew --no-daemon --console=plain :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
+          mkdir -p ../build/android-ci/acceptance-apks
+          cp app/build/outputs/apk/debug/app-debug.apk ../build/android-ci/acceptance-apks/warehouse-vc1-temporary-debug.apk
+          cp app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk ../build/android-ci/acceptance-apks/warehouse-androidTest.apk
+          ./gradlew --no-daemon --console=plain -PwarehouseAcceptanceVersionCode=2 :app:assembleDebug
+          cp app/build/outputs/apk/debug/app-debug.apk ../build/android-ci/acceptance-apks/warehouse-vc2-temporary-debug.apk
+      - name: Complete npm regression with exact baseline accounting
+        id: regression
+        run: node scripts/android-test-report.mjs run
+      - name: Compile unsigned release vc3 without signing credentials
+        working-directory: android
+        run: ./gradlew --no-daemon --console=plain -PwarehouseReleaseVersionCode=3 :app:testReleaseUnitTest :app:lintRelease :app:assembleRelease
+      - name: Verify exact unsigned release and complete build evidence
+        id: unsigned
+        run: |
+          node scripts/android-release-evidence.mjs
+          printf 'receipt-sha256=%s\n' "$(sha256sum build/android-ci/release-unsigned/unsigned-release-receipt.json | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      - name: Upload immutable current-run unsigned release handoff
+        id: upload-unsigned
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-unsigned-release-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: |
+            build/android-ci/release-unsigned/app-release-unsigned.apk
+            build/android-ci/release-unsigned/unsigned-release-receipt.json
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+      - name: Stop and release only this job isolated re-downloadable caches
+        run: node scripts/android-ci-cache.mjs release
+      - name: Verify private APK and write truthful bootstrap receipt
+        id: receipt
+        if: always() && steps.compile.outcome == 'success' && steps.regression.outcome == 'success'
+        env:
+          ANDROID_CI_COMPILE_OUTCOME: ${{ steps.compile.outcome }}
+          ANDROID_CI_REGRESSION_OUTCOME: ${{ steps.regression.outcome }}
+          ANDROID_CI_EMULATOR_OUTCOME: not-run
+        run: node scripts/verify-android-build.mjs receipt
+      - name: Manifest immutable same-job APK handoff
+        id: handoff
+        run: node scripts/android-ci-handoff.mjs create
+      - name: Upload private current-run runtime handoff
+        id: upload-handoff
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-runtime-handoff-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: |
+            build/android-ci/handoff/manifest.json
+            build/android-ci/handoff/apks/warehouse-vc1-temporary-debug.apk
+            build/android-ci/handoff/apks/warehouse-vc2-temporary-debug.apk
+            build/android-ci/handoff/apks/warehouse-androidTest.apk
+            build/android-ci/handoff/evidence/android-build-receipt.json
+            build/android-ci/handoff/evidence/cache-report.json
+            build/android-ci/handoff/evidence/cache-init-report.json
+            build/android-ci/handoff/evidence/node-test-report.json
+            build/android-ci/handoff/evidence/font-report.json
+            build/android-ci/handoff/evidence/sdk-report.json
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+      - name: Upload allowlisted verification reports only
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-bootstrap-verification-${{ github.sha }}
+          path: |
+            build/android-ci/android-build-receipt.json
+            build/android-ci/node-test-report.json
+            build/android-ci/node-events.jsonl
+            build/android-ci/sdk-report.json
+            build/android-ci/font-report.json
+            build/android-ci/cache-init-report.json
+            build/android-ci/cache-report.json
+            build/android-ci/SHA256SUMS
+            build/android-ci/apk-diagnostics/vc1-badging.txt
+            build/android-ci/apk-diagnostics/vc1-manifest.txt
+            build/android-ci/apk-diagnostics/vc2-badging.txt
+            build/android-ci/apk-diagnostics/vc2-manifest.txt
+            build/android-ci/apk-diagnostics/test-badging.txt
+            build/android-ci/apk-diagnostics/test-manifest.txt
+            build/android-ci/apk-diagnostics/probe-error.json
+            android/app/build/test-results/testDebugUnitTest/*.xml
+            android/app/build/reports/lint-results-debug.xml
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+          archive: true
+      - name: Preserve private phone candidate pending root delivery review
+        if: always() && steps.receipt.outcome == 'success'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-private-candidate-pending-review-${{ github.sha }}
+          path: |
+            build/android-ci/candidate/warehouse-last-slot-1.0.13-vc*-temporary-debug-candidate-*.apk
+            build/android-ci/candidate/android-build-receipt.json
+            build/android-ci/candidate/SHA256SUMS
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+          archive: true
+
+  runtime:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      ANDROID_CI_HANDOFF: ${{ github.workspace }}/build/android-ci/handoff
+      ANDROID_CI_HANDOFF_DIGEST: ${{ needs.build.outputs.manifest-digest }}
+      ANDROID_CI_ARTIFACT_ID: ${{ needs.build.outputs.artifact-id }}
+      ANDROID_CI_ARTIFACT_DIGEST: ${{ needs.build.outputs.artifact-digest }}
+    steps:
+      - name: Start bounded runtime budget before source and tool setup
+        run: printf 'ANDROID_CI_JOB_STARTED_AT=%s\n' "$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/android-ci-handoff.mjs
+            /scripts/android-ci-evidence.mjs
+            /scripts/android-ci-cache.mjs
+            /scripts/android-native-instrumentation.mjs
+            /scripts/android-emulator-test.sh
+            /scripts/android-emulator-mode.mjs
+            /scripts/android-device-check.sh
+            /scripts/android-device-summary.mjs
+            /scripts/android-acceptance-report.mjs
+            /scripts/android-product-smoke.sh
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.19.0'
+          check-latest: false
+          package-manager-cache: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+          check-latest: false
+          overwrite-settings: false
+      - name: Initialize empty owned runtime observation caches and measure download capacity
+        run: |
+          node scripts/android-ci-cache.mjs init --github-env "$GITHUB_ENV"
+      - name: Measure actual space before current-run handoff
+        run: node scripts/android-ci-cache.mjs space before-download
+      - name: Download only the immutable upstream current-run artifact
+        id: download
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1, verified official source
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+          path: build/android-ci/handoff
+          digest-mismatch: error
+      - name: Verify immutable source run APK identity certificates and payload allocation
+        id: verify-handoff
+        run: |
+          test "$(node --version)" = v24.19.0
+          java -version 2>&1 | grep -E 'version "21[.]'
+          node scripts/android-ci-cache.mjs space after-download
+          node scripts/android-ci-handoff.mjs verify
+      - name: Official headless emulator direct-adb instrumentation
+        id: emulator
+        shell: bash
+        run: |
+          set +e
+          remaining=$((120*60 - ($(date +%s) - ANDROID_CI_JOB_STARTED_AT) - 300))
+          if [ "$remaining" -gt 0 ]; then
+            timeout --signal=TERM --kill-after=90s "${remaining}s" bash scripts/android-emulator-test.sh
+            status=$?
+          else
+            node --input-type=module -e 'import{writeFileSync}from"node:fs";writeFileSync("build/android-ci/emulator-report.json",JSON.stringify({status:"blocked",reason:"No bounded runtime budget remains before receipt/artifact reserve",acceptanceScope:"not-run"})+"\n")'
+            status=78
+          fi
+          set -e
+          if [ "$status" -eq 78 ]; then
+            echo 'Measured emulator environment block; native acceptance remains unverified. See emulator-report.json.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            exit "$status"
+          fi
+      - name: Join immutable build and current runtime evidence without opening delivery
+        id: receipt
+        if: always() && steps.verify-handoff.outcome == 'success'
+        env:
+          ANDROID_CI_EMULATOR_OUTCOME: ${{ steps.emulator.outcome }}
+        run: node scripts/android-ci-handoff.mjs join
+      - name: Upload bounded current runtime evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-runtime-verification-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: |
+            build/android-ci/android-build-receipt.json
+            build/android-ci/handoff-verification.json
+            build/android-ci/apk-diagnostics/vc1-badging.txt
+            build/android-ci/apk-diagnostics/vc1-manifest.txt
+            build/android-ci/apk-diagnostics/vc2-badging.txt
+            build/android-ci/apk-diagnostics/vc2-manifest.txt
+            build/android-ci/apk-diagnostics/test-badging.txt
+            build/android-ci/apk-diagnostics/test-manifest.txt
+            build/android-ci/apk-diagnostics/probe-error.json
+            build/android-ci/cache-init-report.json
+            build/android-ci/space-before-download.json
+            build/android-ci/space-after-download.json
+            build/android-ci/space-preinstall.json
+            build/android-ci/space-postinstall.json
+            build/android-ci/space-postboot.json
+            build/android-ci/native-instrumentation.txt
+            build/android-ci/native-instrumentation-report.json
+            build/android-ci/native-install.txt
+            build/android-ci/emulator-report.json
+            build/android-ci/emulator-mode.json
+            build/android-ci/emulator-acceleration.log
+            build/android-ci/emulator-boot.log
+            build/android-ci/emulator-avd.log
+            build/android-ci/emulator-install.log
+            build/android-ci/emulator-endpoint.log
+            build/android-ci/emulator-identity.log
+            build/android-ci/emulator-api.txt
+            build/android-ci/emulator-release.txt
+            build/android-ci/emulator-build.txt
+            build/android-ci/emulator-webview.txt
+            build/android-ci/emulator-framework-probes.txt
+            build/android-ci/emulator-framework-services-early.txt
+            build/android-ci/emulator-framework-system-crash-early.txt
+            build/android-ci/emulator-framework-services-failure.txt
+            build/android-ci/emulator-framework-system-crash-failure.txt
+            build/android-ci/product-smoke-report.json
+            build/android-ci/product-cold-launch.png
+            build/android-ci/product-install.txt
+            build/android-ci/product-launch.txt
+            build/android-ci/product-window.txt
+            build/android-ci/device-acceptance/*.json
+            build/android-ci/device-acceptance/*.txt
+            build/android-ci/SHA256SUMS
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+          archive: true
+
+  sign:
+    if: github.repository == 'Night-SHANG/chache' && github.event.repository.private == true
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      UNSIGNED_RECEIPT_SHA256: ${{ needs.build.outputs.unsigned-receipt-sha256 }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/android-signing-verify.py
+            /scripts/android-sign-release.sh
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+          check-latest: false
+          overwrite-settings: false
+          cache-jdk: false
+      - name: Download only immutable current-run unsigned release
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          artifact-ids: ${{ needs.build.outputs.unsigned-artifact-id }}
+          path: build/android-ci/release-unsigned
+          digest-mismatch: error
+      - name: Verify handoff before supplying signing secrets
+        run: python scripts/android-signing-verify.py unsigned
+      - name: Sign only this verified APK with existing owner-managed identity
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: bash scripts/android-sign-release.sh
+      - name: Verify signed APK without signing secrets
+        run: python scripts/android-signing-verify.py signed
+      - name: Preserve private signed candidate and public receipt only
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-v113-signed-candidate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: |
+            build/android-ci/signed-release/warehouse-last-slot-1.0.13-vc3-release-candidate.apk
+            build/android-ci/signed-release/signed-release-receipt.json
+            build/android-ci/signed-release/SHA256SUMS
+          if-no-files-found: error
+          include-hidden-files: false
+          retention-days: 7
+          archive: true
