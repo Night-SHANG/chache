@@ -1,0 +1,40 @@
+Implementation commit 549be1572bff9d73511a9a6c00a57b2cbe2a98fc
+Full suite:
+✖ committed raster artwork verifies every generated source and exact encoded atlas (2.210431ms)
+✖ new generated atlas rows obey their incremental byte budgets and preserve source evidence (0.669606ms)
+ℹ tests 3131
+ℹ pass 3129
+ℹ fail 2
+ℹ duration_ms 188311.574752
+✖ failing tests:
+✖ committed raster artwork verifies every generated source and exact encoded atlas (2.210431ms)
+✖ new generated atlas rows obey their incremental byte budgets and preserve source evidence (0.669606ms)
+Targeted host/cache suite:
+✔ resource completion and hide/show invalidation release stale warehouse pixels before the next frame (56.757297ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4027.004684
+Standalone cache suite:
+✔ resource completion and hide/show invalidation release stale warehouse pixels before the next frame (58.760616ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3944.219081
+Pixel comparison:
+{"comparisons":238,"failed":0,"examples":[]}
+Android web build:
+Built browser + real WeChat game.js/game.json (906798 B JS). Source 63fc6ff5f4d6. WeChat runtime NOT RUN.
+Staged isolated Android production assets. Native adapters/device acceptance remain required.
+Preflight:
+PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks.
+Lint/typecheck final logs: passed (npm environmental http-proxy/dependency update notices only).
+Chromium QA: blocked by local socket EPERM; not a browser parity pass.

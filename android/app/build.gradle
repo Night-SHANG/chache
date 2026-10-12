@@ -12,7 +12,7 @@ android {
         if (!(acceptanceCode in ['1', '2'])) throw new GradleException('Acceptance version code must be 1 or 2')
         versionCode 1
         if (acceptanceCode == '2') versionCode 2
-        versionName "1.0.10"
+        versionName "1.0.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

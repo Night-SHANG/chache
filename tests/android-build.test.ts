@@ -49,7 +49,7 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   assert.equal(existsSync(join(dir,'build/android/stale-remote.js')),false);
   const manifest=JSON.parse(await readFile(join(dir,'build/android/build-manifest.json'),'utf8'));
   const formal=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.10');
+  assert.equal(manifest.version,'1.0.11');
   assert.equal(manifest.shopPricingMode,'paid');
   assert.equal(manifest.developerDiagnostics,false);
   assert.equal(manifest.platform,'android');
@@ -115,7 +115,7 @@ test('official Android project fixes version, SDK, Gradle and offline WebView re
  const app=await read('android/app/build.gradle');
  assert.match(app,/applicationId ['"]io\.github\.nightshang\.chache['"]/);
  assert.match(app,/versionCode 1\b/);
- assert.match(app,/versionName ['"]1\.0\.10['"]/);
+ assert.match(app,/versionName ['"]1\.0\.11['"]/);
  assert.match(app,/buildToolsVersion ['"]35\.0\.0['"]/);
  const vars=await read('android/variables.gradle');
  assert.match(vars,/minSdkVersion = 24/);

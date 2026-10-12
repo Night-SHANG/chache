@@ -1,10 +1,11 @@
+import {drawCachedWarehouse} from './warehouse-cache.ts';
 import {shade} from './overlay.ts';
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
 import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawCosmeticSetPreview,drawCosmeticPreview} from './cosmetic-art.ts';
-import {CLASSIC_RACKS,drawThemedSceneryFrame} from './scenery-frame.ts';
+import {drawWarehouse} from './warehouse-art.ts';
 import {MODE_MENU_CARD} from './mode-menu-layout.ts';
 import {shopItemPreviewOptions} from './shop-art.ts';
 import {drawReservedEntryMarkers} from './board-entry-markers.ts';
@@ -61,8 +62,8 @@ function drawPersistenceWarnings(ctx:Context,view:ViewState,y:number,x=540,width
 }
 
 /** Stateless shared renderer: platform scales this 1080 × 1920 composition. */
-export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect): void {
-  renderScene(ctx,state,view,backgroundBounds,overlayBounds);
+export function render(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect, frameBackdrop?:string): void {
+  renderScene(ctx,state,view,backgroundBounds,overlayBounds,frameBackdrop);
   const pressed=view.pressedControl;if(!pressed?.visible)return;
   const r=pressed.rect;ctx.save();
   roundedPath(ctx,r.x,r.y,r.w,r.h,Math.min(18,r.h/4));ctx.clip();
@@ -71,7 +72,7 @@ export function render(ctx: Context, state: GameRun, view: ViewState, background
   ctx.fillStyle='rgba(255,244,208,.20)';ctx.fillRect(r.x+9,r.y+r.h-4,r.w-18,2);
   ctx.restore();
 }
-function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect): void {
+function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBounds?:Rect, overlayBounds?:Rect, frameBackdrop?:string): void {
   view=staticPresentationView(view);
   const playerMessage=(value:string|undefined):string|undefined=>{
     if(value==='记录超出496KiB限制，请先结束本局')return view.account?.run&&view.accountRunId&&!view.accountBlocked&&!view.needsResume&&state.phase!=='result'?'本局记录已达保存上限，请先结束本局。':'记录已达保存上限，暂时无法保存。';
@@ -84,7 +85,7 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   view={...view,profile:{...(view.profile??createProfile()),cosmetics:view.account?appearance.cosmetics:(view.profile?.cosmetics??appearance.cosmetics)},cargoOutline:appearance.cargoOutline};
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, L.width, L.height);
-  drawWarehouse(ctx, view, backgroundBounds);
+  if(!drawCachedWarehouse(ctx,view.profile?.cosmetics.theme??'day',backgroundBounds,frameBackdrop,cached=>drawWarehouse(cached,view,backgroundBounds)))drawWarehouse(ctx, view, backgroundBounds);
   if(view.accountBlocked){drawFlow(ctx,state,view,view.readOnlyReason?'当前无法保存':'保存结果尚未确认',view.readOnlyReason??'请点“重试”，确认保存后继续游戏。',overlayBounds);ctx.restore();return;}
   if (view.confirmation) { drawConfirmation(ctx, state, view, overlayBounds); ctx.restore(); return; }
   if (!view.needsResume && view.screen === 'menu') { drawMenu(ctx, state, view); ctx.restore(); return; }
@@ -121,34 +122,6 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   ctx.restore();
 }
 
-function drawWarehouse(ctx: Context, view: ViewState, backgroundBounds?:Rect): void {
-  if(drawThemedSceneryFrame(ctx,view.profile?.cosmetics.theme??'day',backgroundBounds))return;
-  const night = view.profile?.cosmetics.theme === 'night';
-  ctx.fillStyle = gradient(ctx, 0, 0, 1920, night ? '#111c35' : '#243345', night ? '#080d1b' : '#111b25'); ctx.fillRect(0, 0, 1080, 1920);
-  // Fixed, muted rack silhouettes frame the playable floor rather than competing with it.
-  ctx.save(); ctx.globalAlpha = .68;
-  for (const sx of CLASSIC_RACKS.origins) {
-    for (let row = 0; row < 8; row++) {
-      const y = 62 + row * 230;
-      ctx.fillStyle = '#101b27'; ctx.fillRect(sx, y, CLASSIC_RACKS.bodyWidth, 185);
-      const cargo = (['cargo.machine', 'cargo.chem', 'cargo.cold', 'cargo.food'] as CargoId[])[row % 4];
-      cargoBox(ctx, cargo, sx + 12, y + 38, 74, .75); cargoBox(ctx, 'cargo.chem', sx + 80, y + 63, 64, .52);
-      ctx.fillStyle = '#3f4f5a'; ctx.fillRect(sx + CLASSIC_RACKS.shelfOffset, y + 180, CLASSIC_RACKS.shelfWidth, 14);
-      ctx.fillStyle = '#a77233'; ctx.fillRect(sx + CLASSIC_RACKS.shelfOffset, y + 180, CLASSIC_RACKS.shelfWidth, 5);
-      for (const xx of [sx + 4, sx + 157]) {
-        ctx.fillStyle = '#273a4d'; ctx.fillRect(xx, y, 16, 217); ctx.fillStyle = '#647184'; ctx.fillRect(xx, y, 3, 217);
-        for (let k = 0; k < 6; k++) { ctx.fillStyle = '#111d28'; ctx.fillRect(xx + 7, y + k * 33 + 16, 4, 7); }
-      }
-    }
-  }
-  ctx.restore();
-  // Upper warehouse joists, electrical conduits and a restrained warm light.
-  for (const y of [18, 234, 310, 1470, 1824]) {
-    ctx.fillStyle = 'rgba(8,17,25,.7)'; ctx.fillRect(0, y, 1080, 10);
-    ctx.fillStyle = 'rgba(138,153,160,.18)'; ctx.fillRect(0, y + 11, 1080, 3);
-  }
-  ctx.fillStyle = 'rgba(221,158,71,.07)'; ctx.beginPath(); ctx.moveTo(440, 0); ctx.lineTo(180, 520); ctx.lineTo(900, 520); ctx.lineTo(640, 0); ctx.fill();
-}
 
 function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 58, 35, 16, '#b6aa90', 'left', 600);

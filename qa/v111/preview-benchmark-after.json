@@ -1,0 +1,223 @@
+{
+  "method": "Cloud Node CPU only, not phone/browser/WeChat FPS. 20 warmups + 240 measured moves. Genuine reducer-replayed fixture traces, no synthetic history inflation; all tails below production 128-command boundary.",
+  "node": "v24.19.0",
+  "source": "release/v1.0.11-source",
+  "rows": [
+    {
+      "kind": "normal",
+      "stage": "opening",
+      "rulesetVersion": 16,
+      "commandIndex": 0,
+      "shift": 1,
+      "occupancy": 0,
+      "commandTail": 0,
+      "checksum": "a3005909",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0026440000000036434,
+        "p95": 0.007560999999981277,
+        "max": 0.04215300000001321
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 0.453361000000001,
+        "p95": 0.9123199999999656,
+        "max": 1.987146000000024
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "normal",
+      "stage": "late",
+      "rulesetVersion": 16,
+      "commandIndex": 59,
+      "shift": 4,
+      "occupancy": 34,
+      "commandTail": 59,
+      "checksum": "9c3b76bb",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0010919999999714491,
+        "p95": 0.0013820000000350774,
+        "max": 0.02711099999999078
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 0.879222000000027,
+        "p95": 1.2991220000000112,
+        "max": 4.1414629999999875
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "hard",
+      "stage": "opening",
+      "rulesetVersion": 18,
+      "commandIndex": 0,
+      "shift": 1,
+      "occupancy": 0,
+      "commandTail": 0,
+      "checksum": "c7d2de80",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.001322000000072876,
+        "p95": 0.002713999999969019,
+        "max": 0.13466299999993225
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 0.49716700000010405,
+        "p95": 0.8739329999999654,
+        "max": 1.346247999999946
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "hard",
+      "stage": "late",
+      "rulesetVersion": 18,
+      "commandIndex": 66,
+      "shift": 5,
+      "occupancy": 13,
+      "commandTail": 66,
+      "checksum": "168d22cb",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.000862000000097396,
+        "p95": 0.0012409999999363208,
+        "max": 0.3299459999999499
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 1.2871539999998731,
+        "p95": 1.8434799999999996,
+        "max": 2.7457170000000133
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "expert",
+      "stage": "opening",
+      "rulesetVersion": 18,
+      "commandIndex": 0,
+      "shift": 1,
+      "occupancy": 0,
+      "commandTail": 0,
+      "checksum": "5255e672",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0004200000000764703,
+        "p95": 0.0006820000000971049,
+        "max": 0.030005000000073778
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 0.48998600000004444,
+        "p95": 0.8234569999999621,
+        "max": 1.732042999999976
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "expert",
+      "stage": "late",
+      "rulesetVersion": 18,
+      "commandIndex": 86,
+      "shift": 5,
+      "occupancy": 29,
+      "commandTail": 86,
+      "checksum": "b868009a",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0004209999999602587,
+        "p95": 0.0006510000000616856,
+        "max": 0.0012319999998453568
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 1.6505499999998392,
+        "p95": 2.5046129999998357,
+        "max": 3.3926779999999326
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "rush",
+      "stage": "opening",
+      "rulesetVersion": 21,
+      "commandIndex": 1,
+      "shift": 1,
+      "occupancy": 0,
+      "commandTail": 1,
+      "checksum": "603c03ae",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0005710000000362925,
+        "p95": 0.0020130000000335713,
+        "max": 0.10225399999990259
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 0.6740330000000085,
+        "p95": 1.1043190000000322,
+        "max": 2.6954800000000887
+      },
+      "alternatingValidCells": true
+    },
+    {
+      "kind": "rush",
+      "stage": "late",
+      "rulesetVersion": 21,
+      "commandIndex": 75,
+      "shift": 5,
+      "occupancy": 32,
+      "commandTail": 75,
+      "checksum": "333d8d4f",
+      "sameCell": {
+        "samples": 240,
+        "p50": 0.0004409999996823899,
+        "p95": 0.00046999999995023245,
+        "max": 0.003145000000131404
+      },
+      "sameCellCalls": {
+        "preview": 1,
+        "risk": 1
+      },
+      "changingCell": {
+        "samples": 240,
+        "p50": 2.1363910000000033,
+        "p95": 2.938576000000012,
+        "max": 3.4813709999998537
+      },
+      "alternatingValidCells": false
+    }
+  ]
+}

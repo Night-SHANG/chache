@@ -86,7 +86,7 @@ export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidH
  const merged=()=>({...native,active:native.active&&!visibility.hidden});
  const adapter=createAndroidPlatform(canvas,storage,lease,merged()),platform=adapter.platform;
  const session=new GameSession(platform,{seed:20261005,mode:'standard',developerMode:false});
- platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else session.input[event.type](event.point,event.id);});
+ platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
  let sessionVisible=merged().active,painter:((context:CanvasRenderingContext2D)=>void)|undefined,scheduled:number|null=null,frameEpoch=0;
  const frame=(now:number,paint:(context:CanvasRenderingContext2D)=>void):boolean=>{
   if(disposed||!native.active||visibility.hidden||lease.status!=='held')return false;

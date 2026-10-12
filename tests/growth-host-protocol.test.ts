@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {ACCOUNT_KEYS, encodeAccount} from '../src/application/account-store.ts';
 import {makeAccountFixture} from './helpers/account-fixtures.ts';
-import {verifyEvidenceBinding, validateResumeStorage, probeBuiltHost} from '../scripts/growth-host-support.mjs';
+import {verifyEvidenceBinding, validateResumeStorage, probeBuiltHost, createGrowthHost} from '../scripts/growth-host-support.mjs';
 
 const ready=()=>{const account=makeAccountFixture({generation:1,lastOperation:{operationId:'fixture',expectedGeneration:0,requestDigest:'fixture',committedGeneration:1}}),raw=encodeAccount(account);return new Map([[ACCOUNT_KEYS.a,raw],[ACCOUNT_KEYS.b,raw]]);};
 
@@ -38,7 +38,12 @@ test('actual VM exceptions and absent native callbacks are failing host evidence
 
 test('strict actual game host uses native canvas and does not install compatibility globals',async()=>{
  const report=await probeBuiltHost({bundlePath:'build/wechat/game.js'});
- assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);
+ assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,2);
+ const host=await createGrowthHost({bundlePath:'build/wechat/game.js',deferImageLoads:true}),screen=host.canvas;
+ assert.equal(host.canvasCount,1,'screen is still the first and only startup canvas');assert.equal(host.context,screen.getContext('2d'));assert.equal(host.surfaceInfo.length,0);
+ host.frame(0);assert.equal(host.canvas,screen);assert.equal(host.canvasCount,2);assert.deepEqual(host.surfaceInfo,[{id:2,width:screen.width,height:screen.height}]);
+ assert.ok(host.surfaceInfo[0].width*host.surfaceInfo[0].height*4<=24*1024*1024,'only one bounded native warehouse layer');
+ host.frame(16);assert.equal(host.canvasCount,2,'warm frames must reuse the single offscreen layer');
  assert.deepEqual(report.extraGlobals,[]);assert.equal(report.executedChecks,1);
  const code=await readFile('build/wechat/game.js','utf8');
  assert.equal(/\bstructuredClone\s*\(|new\s+TextEncoder\s*\(|\beval\s*\(|new\s+Function\s*\(/.test(code),false);

@@ -1,0 +1,59 @@
+{
+  "viewport": [
+    1080,
+    1920
+  ],
+  "scale": 0.3333333333333333,
+  "synthetic": true,
+  "notice": "Actual Canvas renderer using synthetic input; white circle is an added touch-position marker, not game UI or a phone screenshot.",
+  "evidence": [
+    {
+      "pointerType": "mouse",
+      "finger": {
+        "x": 540,
+        "y": 1120
+      },
+      "drawPoint": {
+        "x": 540,
+        "y": 1120
+      },
+      "previewOrigin": {
+        "x": 3,
+        "y": 4
+      },
+      "cacheAllocations": 1,
+      "committed": {
+        "type": "place",
+        "pieceId": "probe-single",
+        "origin": {
+          "x": 3,
+          "y": 4
+        }
+      }
+    },
+    {
+      "pointerType": "touch",
+      "finger": {
+        "x": 540,
+        "y": 1120
+      },
+      "drawPoint": {
+        "x": 540,
+        "y": 970
+      },
+      "previewOrigin": {
+        "x": 3,
+        "y": 3
+      },
+      "cacheAllocations": 1,
+      "committed": {
+        "type": "place",
+        "pieceId": "probe-single",
+        "origin": {
+          "x": 3,
+          "y": 3
+        }
+      }
+    }
+  ]
+}

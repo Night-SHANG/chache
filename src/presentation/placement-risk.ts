@@ -1,5 +1,5 @@
 import {applyPlayableCommand,isInboundRun} from '../domain/playable.ts';
-import type {GameRun} from '../domain/playable.ts';
+import type {GameRun,PlayablePreview} from '../domain/playable.ts';
 import {inboundDocks} from './inbound-helpers.ts';
 import { DOCKS, RULES_V2_CONFIG, upgradeStackV2 } from '../domain/v2/content.ts';
 import type { Cell, Point } from '../domain/types.ts';
@@ -46,11 +46,13 @@ function activeAccess(state: GameRun, size: number): Access[] {
 }
 
 /** Advisory only: the actual reducer owns placement validity and every settlement side effect.
- * Its cloned result is discarded, including generated candidates, RNG and command history.
+ * Reuse a preview produced for this exact state/piece/origin when available. Otherwise
+ * its cloned result is discarded, including generated candidates, RNG and command history.
  */
-export function placementRisk(state: GameRun, pieceId: string, origin: Point): PlacementRisk | null {
-  const result = applyPlayableCommand(state, { type: 'place', pieceId, origin });
-  if (result.error) return null;
+export function placementRisk(state: GameRun, pieceId: string, origin: Point, preview?: PlayablePreview): PlacementRisk | null {
+  if(preview&&!preview.valid)return null;
+  const result = preview?.stateAfter ? {state:preview.stateAfter,events:preview.events} : applyPlayableCommand(state, { type: 'place', pieceId, origin });
+  if ('error' in result && result.error) return null;
   const placed = result.events.find(event => event.type === 'placed');
   if (!placed || placed.type !== 'placed') return null;
   const settled = result.state;

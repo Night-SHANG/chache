@@ -7,6 +7,7 @@ import {GameSession} from '../src/application/session.ts';
 import {startInbound} from './helpers/session-fixtures.ts';
 import {findPlayableMoves} from '../src/domain/playable.ts';
 import {cellCenter,getTrayRects} from '../src/presentation/layout.ts';
+import {touchDragLift} from '../src/presentation/touch-placement.ts';
 import {AUDIO_LEVELS} from '../src/shared/audio-levels.ts';
 import {MUSIC_LEVELS} from '../src/shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../src/shared/ui-click-level.ts';
@@ -105,4 +106,23 @@ test('captured dragging outside the interaction area emits no hittable point and
 });
 test('touches before input subscription cannot capture or start music during startup',()=>{
  const f=androidFixture();try{f.pointer('pointerdown',300,900);assert.equal(f.captured.size,0);assert.equal(f.audio.length,0);}finally{f.restore();}
+});
+
+test('Android preserves touch, mouse and pen source for placement adaptation',()=>{
+ const f=androidFixture();try{const events:PointerEvent[]=[];f.platform.onPointer(event=>events.push(event));
+  for(const [index,pointerType] of ['touch','mouse','pen'].entries())for(const name of ['pointerdown','pointermove','pointerup'])f.emit(name,{pointerId:index+1,pointerType,clientX:400,clientY:1000,preventDefault(){}});
+  assert.deepEqual(events.map(event=>event.pointerType),['touch','touch','touch','mouse','mouse','mouse','pen','pen','pen']);
+ }finally{f.restore();}
+});
+
+for(const interrupt of ['resize','hide'] as const)test(`Android lifted touch drag ${interrupt} cannot commit a stale release`,()=>{
+ const f=androidFixture();try{
+  const s=new GameSession(f.platform,{seed:123,mode:'standard'});startInbound(s);f.platform.onPointer(event=>{if(event.type==='cancel')s.input.cancel(event.id);else if(event.type==='down')s.input.down(event.point,event.id,event.pointerType);else s.input[event.type](event.point,event.id);});
+  const rect=getTrayRects(s.state.candidates.length)[0],move=findPlayableMoves(s.state).find(move=>move.pieceId===s.state.candidates[0].id);assert.ok(move);
+  const target=cellCenter(move.origin,s.state),finger={x:target.x,y:target.y+touchDragLift(s.state)},before=s.state.commandIndex;
+  const emit=(name:string,x:number,y:number)=>f.emit(name,{pointerId:7,pointerType:'touch',clientX:x,clientY:y+250,preventDefault(){}});
+  emit('pointerdown',rect.x+rect.w/2,rect.y+rect.h/2);emit('pointermove',finger.x,finger.y);assert.deepEqual(s.view.hoverOrigin,move.origin);
+  f.updateHost(interrupt==='resize'?{...androidHost,insetsPx:{...androidHost.insetsPx,top:150}}:{...androidHost,active:false});
+  assert.equal(s.view.selectedPieceId,null);emit('pointerup',finger.x,finger.y);assert.equal(s.state.commandIndex,before);
+ }finally{f.restore();}
 });

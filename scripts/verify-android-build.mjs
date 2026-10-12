@@ -33,9 +33,9 @@ export async function verifyStaging(root=process.cwd()) {
  const state=await json(join(root,'docs/android/ci-acceptance-state.json'));
  requireValue(state.phase==='bootstrap'&&state.publishApk===false,'Bootstrap publication gate must stay closed until separately reviewed integration');
  const dir=join(root,'build/android'),manifest=await json(join(dir,'build-manifest.json'));
- requireValue(manifest.platform==='android'&&manifest.version==='1.0.10'&&manifest.shopPricingMode==='paid'&&manifest.developerDiagnostics===false,'Android staging must use v1.0.10 paid production content');
+ requireValue(manifest.platform==='android'&&manifest.version==='1.0.11'&&manifest.shopPricingMode==='paid'&&manifest.developerDiagnostics===false,'Android staging must use v1.0.11 paid production content');
  requireValue(manifest.androidShellLockSha256===sha256(await readFile(join(root,'android-shell/package-lock.json'))),'Android shell lock checksum mismatch');
- requireValue(sha256(await readFile(join(root,'package-lock.json')))==='0630beb34c431334deb7652015a7630ae8a2958c3eb0b24757c45f99ea0181cc','Original root dependency lock changed');
+ requireValue(sha256(await readFile(join(root,'package-lock.json')))==='29d75f7f45a4be544c4872725e5bf48a60b36c6a231fd1d4d907e24a239db3a5','Release root dependency lock changed');
  const actual=(await files(dir)).filter(path=>path!=='SHA256SUMS');
  const lines=(await readFile(join(dir,'SHA256SUMS'),'utf8')).trim().split('\n');
  const expected=lines.map(line=>{const match=/^([a-f0-9]{64})  ([A-Za-z0-9_./-]+)$/.exec(line);requireValue(match&&!match[2].startsWith('/')&&!match[2].split('/').includes('..'),'Invalid staging checksum path');return {hash:match[1],path:match[2]};});

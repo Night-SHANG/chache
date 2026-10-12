@@ -7,18 +7,21 @@ import {InputController} from '../src/presentation/input.ts';
 import {getUiControls} from '../src/presentation/ui.ts';
 import {playableChecksum} from '../src/domain/playable.ts';
 import type {UiAction} from '../src/presentation/ui-types.ts';
-import {sessionHost} from './helpers/session-fixtures.ts';
+import {sessionHost,startInbound} from './helpers/session-fixtures.ts';
+import {findPlayableMoves} from '../src/domain/playable.ts';
+import {cellCenter,getTrayRects} from '../src/presentation/layout.ts';
+import {touchDragLift} from '../src/presentation/touch-placement.ts';
 
 type Touch={identifier:number;clientX:number;clientY:number};
 function fixture(pixelRatio=3){
- const callbacks=new Map<string,(event:{changedTouches:Touch[]})=>void>();let hide=()=>{};
+ const callbacks=new Map<string,(event:{changedTouches:Touch[]})=>void>();let hide=()=>{},resize=()=>{};
  const canvas={width:0,height:0,getContext:()=>({setTransform(){},fillRect(){}})};
  const safeArea={left:10,top:32,width:300,height:660},scale=300/1080,offsetY=32+(660-1920*scale)/2;
- const host={createCanvas:()=>canvas,getWindowInfo:()=>({windowWidth:320,windowHeight:740,pixelRatio,safeArea}),onTouchStart:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('down',cb),onTouchMove:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('move',cb),onTouchEnd:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('up',cb),onTouchCancel:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('cancel',cb),onHide:(callback:()=>void)=>{hide=callback;}} as unknown as WechatHost;
+ const host={createCanvas:()=>canvas,getWindowInfo:()=>({windowWidth:320,windowHeight:740,pixelRatio,safeArea}),onTouchStart:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('down',cb),onTouchMove:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('move',cb),onTouchEnd:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('up',cb),onTouchCancel:(cb:(event:{changedTouches:Touch[]})=>void)=>callbacks.set('cancel',cb),onHide:(callback:()=>void)=>{hide=callback;},onWindowResize:(callback:()=>void)=>{resize=callback;}} as unknown as WechatHost;
  const platform=createWechatPlatform(host,{requestAnimationFrame:()=>1,now:()=>0});
  const touch=(id:number,x:number,y:number):Touch=>({identifier:id,clientX:10+x*scale,clientY:offsetY+y*scale});
  const emit=(type:string,touches:Touch[])=>callbacks.get(type)?.({changedTouches:touches});
- return {platform,canvas,touch,emit,hide:()=>hide()};
+ return {platform,canvas,touch,emit,hide:()=>hide(),resize:()=>resize()};
 }
 
 test('WeChat cancels every changed finger rather than only the first one',()=>{
@@ -76,4 +79,26 @@ test('WeChat safe-area letterboxing never turns a touch in the margin into a sho
  const f=fixture(),events:PointerEvent[]=[];f.platform.onPointer(event=>events.push(event));
  f.emit('down',[{identifier:1,clientX:160,clientY:33},{identifier:2,clientX:9,clientY:400}]);
  assert.deepEqual(events.map(event=>event.point),[{x:-1,y:-1},{x:-1,y:-1}]);
+});
+
+test('WeChat labels touch events so placement can lift only finger drags',()=>{
+ const f=fixture(),events:PointerEvent[]=[];f.platform.onPointer(event=>events.push(event));
+ for(const type of ['down','move','up'])f.emit(type,[f.touch(1,330,800)]);
+ assert.deepEqual(events.map(event=>event.pointerType),['touch','touch','touch']);
+});
+
+test('WeChat resize cancels each active touch before a stale release',()=>{
+ const f=fixture(),events:PointerEvent[]=[];f.platform.onPointer(event=>events.push(event));
+ f.emit('down',[f.touch(7,330,800)]);f.resize();
+ assert.deepEqual(events.map(event=>[event.type,event.id]),[['down',7],['cancel',7]]);
+});
+
+for(const interrupt of ['resize','hide'] as const)test(`WeChat lifted drag ${interrupt} prevents a stale touchend placement`,()=>{
+ const f=fixture(),h=sessionHost(),s=h.session;startInbound(s);
+ f.platform.onPointer(event=>{if(event.type==='cancel')s.input.cancel(event.id);else if(event.type==='down')s.input.down(event.point,event.id,event.pointerType);else s.input[event.type](event.point,event.id);});
+ f.platform.onHide(()=>s.hide());
+ const rect=getTrayRects(s.state.candidates.length)[0],move=findPlayableMoves(s.state).find(move=>move.pieceId===s.state.candidates[0].id);assert.ok(move);
+ const target=cellCenter(move.origin,s.state),finger={x:target.x,y:target.y+touchDragLift(s.state)},before=s.state.commandIndex;
+ f.emit('down',[f.touch(7,rect.x+rect.w/2,rect.y+rect.h/2)]);f.emit('move',[f.touch(7,finger.x,finger.y)]);assert.deepEqual(s.view.hoverOrigin,move.origin);
+ f[interrupt]();assert.equal(s.view.selectedPieceId,null);f.emit('up',[f.touch(7,finger.x,finger.y)]);assert.equal(s.state.commandIndex,before);
 });

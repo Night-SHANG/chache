@@ -1,0 +1,41 @@
+/** Final-source real Canvas renderer with synthetic mouse/touch input, never a phone screenshot. */
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {join,resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const cwd=process.cwd(),require=createRequire(join(cwd,'package.json'));
+const {createCanvas,loadImage}=require('@napi-rs/canvas');
+const source=p=>import(pathToFileURL(join(cwd,p)).href);
+const {createRunV16}=await source('src/domain/v16/engine.ts');
+const {createProfile}=await source('src/application/profile.ts');
+const {previewPlayablePlacement}=await source('src/domain/playable.ts');
+const {render}=await source('src/presentation/renderer.ts');
+const {InputController}=await source('src/presentation/input.ts');
+const {loadCargoAtlas}=await source('src/presentation/cargo-atlas.ts');
+const {loadBoardMaterialAtlas}=await source('src/presentation/board-material-atlas.ts');
+const {loadSceneMaterialAtlas}=await source('src/presentation/scene-frame-atlas.ts');
+const {loadThemedForkliftAtlas}=await source('src/presentation/themed-forklift-art.ts');
+const {configureWarehouseCache}=await source('src/presentation/warehouse-cache.ts');
+const {placementRisk}=await source('src/presentation/placement-risk.ts');
+const output=resolve(process.argv[2]??'artifacts/v111/touch-renderer');mkdirSync(output,{recursive:true});
+for(const load of [loadCargoAtlas,loadBoardMaterialAtlas,loadSceneMaterialAtlas,loadThemedForkliftAtlas])assert.equal(await load(path=>loadImage(resolve(cwd,path))),true);
+const sheet=createCanvas(720,680),sctx=sheet.getContext('2d');sctx.fillStyle='#0c131c';sctx.fillRect(0,0,720,680);
+const evidence=[];
+for(const [index,pointerType] of ['mouse','touch'].entries()){
+ const state=createRunV16({seed:123,mode:'standard',guided:false});state.candidates[0]={id:'probe-single',shapeId:'shape.single',cargo:'cargo.food',quarterTurns:0};
+ const view={screen:'game',selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile()};
+ const commands=[];const input=new InputController({getState:()=>state,getView:()=>view,patchView:p=>Object.assign(view,p),preview:(id,origin)=>previewPlayablePlacement(state,id,origin),risk:(id,origin,preview)=>placementRisk(state,id,origin,preview),dispatch:c=>commands.push(c),togglePause(){},restart(){},resume(){},toggleDebug(){}});
+ const finger={x:540,y:1120};input.down({x:206,y:1666},1,pointerType);input.move(finger,1);
+ const canvas=createCanvas(360,640),ctx=canvas.getContext('2d');let allocations=0;
+ configureWarehouseCache(()=>{allocations++;return createCanvas(1,1);});
+ const draw=()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,360,640);ctx.setTransform(1/3,0,0,1/3,0,0);render(ctx,state,view,undefined,undefined,'#0c131c');};
+ draw();const cold=Buffer.from(ctx.getImageData(0,0,360,640).data);draw();assert.deepEqual(Buffer.from(ctx.getImageData(0,0,360,640).data),cold);assert.equal(allocations,1);
+ ctx.save();ctx.strokeStyle='#ffffff';ctx.fillStyle='#00000055';ctx.lineWidth=4;ctx.beginPath();ctx.arc(finger.x,finger.y,42,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();
+ sctx.drawImage(canvas,index*360,35);sctx.fillStyle='#ffffff';sctx.font='17px sans-serif';sctx.fillText(`${pointerType}: target + synthetic touch ring`,index*360+8,24);
+ evidence.push({pointerType,finger,drawPoint:{...view.dragPoint},previewOrigin:{...view.hoverOrigin},cacheAllocations:allocations});input.up(finger,1);evidence[index].committed=commands[0];
+ assert.equal(commands[0]?.type,'place');assert.deepEqual(commands[0].origin,evidence[index].previewOrigin);configureWarehouseCache();
+}
+writeFileSync(join(output,'mouse-touch-renderer-proof.png'),sheet.toBuffer('image/png'));
+writeFileSync(join(output,'projection-evidence.json'),JSON.stringify({viewport:[1080,1920],scale:1/3,synthetic:true,notice:'Actual Canvas renderer using synthetic input; white circle is an added touch-position marker, not game UI or a phone screenshot.',evidence},null,2)+'\n');
+console.log(JSON.stringify({output,evidence}));

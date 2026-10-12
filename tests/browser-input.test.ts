@@ -21,3 +21,24 @@ test('browser normal pointer capture release preserves tap selection and places 
   event('pointerdown',point.x,point.y);callbacks.get('lostpointercapture')?.({pointerId:1});assert.equal(s.view.selectedPieceId,null);event('pointerup',target.x,target.y);assert.equal(s.state.commandIndex,before+1);
  }finally{Object.defineProperty(globalThis,'window',{configurable:true,writable:true,value:previous});}
 });
+
+test('browser preserves the active pointer input type',()=>{
+ const previous=globalThis.window,callbacks=new Map<string,(event:unknown)=>void>(),types:unknown[]=[];
+ Object.defineProperty(globalThis,'window',{configurable:true,writable:true,value:{devicePixelRatio:1,addEventListener(){}}});
+ const canvas={width:0,height:0,getContext:()=>({}),getBoundingClientRect:()=>({left:0,top:0,width:1080,height:1920}),addEventListener:(name:string,cb:(event:unknown)=>void)=>callbacks.set(name,cb),setPointerCapture(){},hasPointerCapture:()=>false} as unknown as HTMLCanvasElement;
+ try{const platform=createBrowserPlatform(canvas,{status:'held',release(){}});platform.onPointer(event=>types.push(event.pointerType));
+  for(const pointerType of ['touch','mouse','pen'])for(const name of ['pointerdown','pointermove','pointerup'])callbacks.get(name)?.({pointerId:1,pointerType,clientX:400,clientY:1000,preventDefault(){}});
+  assert.deepEqual(types,['touch','touch','touch','mouse','mouse','mouse','pen','pen','pen']);
+ }finally{Object.defineProperty(globalThis,'window',{configurable:true,writable:true,value:previous});}
+});
+
+test('browser resize cancels a captured touch before the changed projection can place it',()=>{
+ const previous=globalThis.window,canvasCallbacks=new Map<string,(event:unknown)=>void>(),windowCallbacks=new Map<string,(()=>void)[]>(),captured=new Set<number>(),events:unknown[]=[];
+ Object.defineProperty(globalThis,'window',{configurable:true,writable:true,value:{devicePixelRatio:1,addEventListener:(name:string,cb:()=>void)=>windowCallbacks.set(name,[...windowCallbacks.get(name)??[],cb])}});
+ const canvas={width:0,height:0,getContext:()=>({}),getBoundingClientRect:()=>({left:0,top:0,width:1080,height:1920}),addEventListener:(name:string,cb:(event:unknown)=>void)=>canvasCallbacks.set(name,cb),setPointerCapture:(id:number)=>captured.add(id),hasPointerCapture:(id:number)=>captured.has(id),releasePointerCapture:(id:number)=>captured.delete(id)} as unknown as HTMLCanvasElement;
+ try{const platform=createBrowserPlatform(canvas,{status:'held',release(){}});platform.onPointer(event=>events.push([event.type,event.id]));
+  canvasCallbacks.get('pointerdown')?.({pointerId:7,pointerType:'touch',clientX:400,clientY:1000,preventDefault(){}});
+  for(const cb of windowCallbacks.get('resize')??[])cb();
+  assert.deepEqual(events,[['down',7],['cancel',7]]);assert.equal(captured.size,0);
+ }finally{Object.defineProperty(globalThis,'window',{configurable:true,writable:true,value:previous});}
+});

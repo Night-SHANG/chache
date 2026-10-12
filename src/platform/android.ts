@@ -5,7 +5,7 @@ import {MUSIC_LEVELS} from '../shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import {computeAndroidViewport,type AndroidViewport,type NativeHostState} from './android-viewport.ts';
 import {createMusicController} from './music.ts';
-import {SOUND_NAMES,type Platform,type PointerEvent,type SoundName} from './types.ts';
+import {FRAME_BACKDROP,SOUND_NAMES,type Platform,type PointerEvent,type SoundName} from './types.ts';
 import type {WriterLease} from './writer-lease.ts';
 
 export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePort,lease:WriterLease,state:NativeHostState):{platform:Platform;updateHost(next:NativeHostState):void} {
@@ -60,19 +60,20 @@ export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePo
   if(type==='down'){
    if(!logical||pointers.has(e.pointerId))return;pointers.add(e.pointerId);
    try{canvas.setPointerCapture(e.pointerId);}catch{cancel(e.pointerId);return;}
-   music.gesture(()=>dispatch({type,point:logical,id:e.pointerId}));
+   music.gesture(()=>dispatch({type,point:logical,id:e.pointerId,pointerType:e.pointerType==='touch'?'touch':e.pointerType==='pen'?'pen':e.pointerType==='mouse'?'mouse':'unknown'}));
   }else{
    if(!pointers.has(e.pointerId))return;
    // A captured drag may leave the interactive rectangle; its sentinel cannot hit game UI.
    if(type==='up')pointers.delete(e.pointerId);
-   dispatch({type,point:logical??{x:-1,y:-1},id:e.pointerId});if(type==='up')release(e.pointerId);
+   dispatch({type,point:logical??{x:-1,y:-1},id:e.pointerId,pointerType:e.pointerType==='touch'?'touch':e.pointerType==='pen'?'pen':e.pointerType==='mouse'?'mouse':'unknown'});if(type==='up')release(e.pointerId);
   }
  });
  canvas.addEventListener('lostpointercapture',event=>cancel((event as globalThis.PointerEvent).pointerId));
  const platform:Platform={
   storage,writerLease:lease,
+  frameBackdrop:FRAME_BACKDROP,
   createCanvasSurface:()=>{const surface=document.createElement('canvas');if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
-  beginFrame:()=>{const view=measure();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(view.scale*dpr,0,0,view.scale*dpr,(view.origin.x-rect.x)*dpr,(view.origin.y-rect.y)*dpr);return ctx;},
+  beginFrame:()=>{const view=measure();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=FRAME_BACKDROP;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(view.scale*dpr,0,0,view.scale*dpr,(view.origin.x-rect.x)*dpr,(view.origin.y-rect.y)*dpr);return ctx;},
   backgroundBounds:()=>viewport?{x:viewport.overlay.x,y:0,w:viewport.overlay.w,h:L.height}:undefined,
   overlayBounds:()=>viewport?{...viewport.overlay}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),

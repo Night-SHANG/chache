@@ -2,7 +2,7 @@ import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
 import {MUSIC_LEVELS} from '../shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
-import { SOUND_NAMES } from './types.ts';
+import { FRAME_BACKDROP, SOUND_NAMES } from './types.ts';
 import { createMusicController } from './music.ts';
 import { L, mapClientPoint } from '../presentation/layout.ts';
 import type {WriterLease} from './writer-lease.ts';
@@ -24,12 +24,13 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
   try{audio.currentTime=0;}catch{/* Some hosts cannot seek before decoding. */}
  }};
  return {
+  frameBackdrop:FRAME_BACKDROP,
   createCanvasSurface:()=>{const surface=document.createElement('canvas');if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
   writerLease,
   storage:{get:key=>window.localStorage.getItem(key),set:(key,value)=>window.localStorage.setItem(key,value),remove:key=>window.localStorage.removeItem(key),listKeys:prefix=>{
    const store=window.localStorage,keys:string[]=[];for(let i=0;i<store.length;i++){const key=store.key(i);if(key!==null&&key.startsWith(prefix))keys.push(key);}return keys.sort();
   }},
-  beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,(rect.w-L.width*scale)*dpr/2,(rect.h-L.height*scale)*dpr/2);return ctx;},
+  beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=FRAME_BACKDROP;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,(rect.w-L.width*scale)*dpr/2,(rect.h-L.height*scale)*dpr/2);return ctx;},
   backgroundBounds:()=>scale>0&&Number.isFinite(rect.w/scale)?{x:(L.width-rect.w/scale)/2,y:0,w:rect.w/scale,h:L.height}:undefined,
   overlayBounds:()=>scale>0&&Number.isFinite(canvas.width/(scale*dpr))?{x:(L.width-rect.w/scale)/2,y:(L.height-rect.h/scale)/2,w:canvas.width/(scale*dpr),h:canvas.height/(scale*dpr)}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
@@ -40,14 +41,14 @@ export function createBrowserPlatform(canvas:HTMLCanvasElement,writerLease:Write
     const e=event as globalThis.PointerEvent;e.preventDefault();
     if(type==='down'){activePointers.add(e.pointerId);canvas.setPointerCapture(e.pointerId);}
     else if(type==='up'||type==='cancel')activePointers.delete(e.pointerId);
-    const point=mapClientPoint({x:e.clientX,y:e.clientY},rect)??{x:-1,y:-1};const dispatch=()=>callback({type,point,id:e.pointerId});if(type==='down')music.gesture(dispatch);else dispatch();
+    const point=mapClientPoint({x:e.clientX,y:e.clientY},rect)??{x:-1,y:-1};const dispatch=()=>callback({type,point,id:e.pointerId,pointerType:e.pointerType==='touch'?'touch':e.pointerType==='pen'?'pen':e.pointerType==='mouse'?'mouse':'unknown'});if(type==='down')music.gesture(dispatch);else dispatch();
     if((type==='up'||type==='cancel')&&canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
    });
    bind('pointerdown','down');bind('pointermove','move');bind('pointerup','up');bind('pointercancel','cancel');
    canvas.addEventListener('lostpointercapture',event=>cancel((event as globalThis.PointerEvent).pointerId));
-   window.addEventListener('blur',()=>{for(const id of [...activePointers]){
+   const cancelAll=()=>{for(const id of [...activePointers]){
     cancel(id);try{if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);}catch{/* Focus loss may already have released native capture. */}
-   }});
+   }};window.addEventListener('blur',cancelAll);window.addEventListener('resize',cancelAll);
   },
   onWheel:callback=>canvas.addEventListener('wheel',event=>{
    if(event.ctrlKey||!Number.isFinite(event.deltaY)||event.deltaY===0||scale<=0)return;

@@ -1,3 +1,4 @@
+import {configureWarehouseCache,invalidateWarehouseCache} from './presentation/warehouse-cache.ts';
 import {configureCosmeticPreviewCache,invalidateCosmeticPreviewCache} from './presentation/cosmetic-preview-cache.ts';
 declare const __DEV_DIAGNOSTICS__:boolean;
 import { createBrowserPlatform } from './platform/browser.ts';
@@ -18,15 +19,17 @@ const platform=createBrowserPlatform(canvas,writer);
 const params=new URLSearchParams(window.location.search);
 const seed=__DEV_DIAGNOSTICS__?Number(params.get('seed')||20261005)>>>0:20261005;
 configureCosmeticPreviewCache(platform.createCanvasSurface);
-void loadCargoAtlas(platform.loadImage).then(invalidateCosmeticPreviewCache,invalidateCosmeticPreviewCache);
-void loadBoardMaterialAtlas(platform.loadImage).then(invalidateCosmeticPreviewCache,invalidateCosmeticPreviewCache);
-void loadSceneMaterialAtlas(platform.loadImage).then(invalidateCosmeticPreviewCache,invalidateCosmeticPreviewCache);
-void loadThemedForkliftAtlas(platform.loadImage).then(invalidateCosmeticPreviewCache,invalidateCosmeticPreviewCache);
+configureWarehouseCache(platform.createCanvasSurface);
+const invalidateArtwork=()=>{invalidateCosmeticPreviewCache();invalidateWarehouseCache();};
+void loadCargoAtlas(platform.loadImage).then(invalidateArtwork,invalidateArtwork);
+void loadBoardMaterialAtlas(platform.loadImage).then(invalidateArtwork,invalidateArtwork);
+void loadSceneMaterialAtlas(platform.loadImage).then(invalidateArtwork,invalidateArtwork);
+void loadThemedForkliftAtlas(platform.loadImage).then(invalidateArtwork,invalidateArtwork);
 const session=new GameSession(platform,{seed,mode:__DEV_DIAGNOSTICS__&&params.get('mode')==='standard'?'standard':'tutorial',developerMode:__DEV_DIAGNOSTICS__});
-platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else session.input[event.type](event.point,event.id);});
+platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
 platform.onWheel?.(event=>session.input.wheel(event.point,event.deltaY));
-platform.onHide(()=>session.hide());platform.onShow(()=>{invalidateCosmeticPreviewCache();session.show();});
-function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.());platform.frame(frame);}platform.frame(frame);
+platform.onHide(()=>{invalidateWarehouseCache();session.hide();});platform.onShow(()=>{invalidateWarehouseCache();invalidateCosmeticPreviewCache();session.show();});
+function frame(now:number){session.tick(now);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.(),platform.frameBackdrop);platform.frame(frame);}platform.frame(frame);
 // Local browser verification surface. Never imported by the WeChat entry point.
 if(__DEV_DIAGNOSTICS__)Object.assign(window,{__WAREHOUSE__:{getState:()=>session.state,getView:()=>session.view,legalMoves:()=>findPlayableMoves(session.state),preview:(pieceId:string,origin:{x:number;y:number})=>previewPlayablePlacement(session.state,pieceId,origin),checksum:()=>playableChecksum(session.state),version:__APP_VERSION__}});
 }

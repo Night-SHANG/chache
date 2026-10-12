@@ -1,0 +1,1910 @@
+{
+  "baseline": "/workspace/scratch/e6b59ff34222/android-v110-work",
+  "engine": "@napi-rs/canvas 1.0.10",
+  "rows": [
+    {
+      "theme": "day",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "day",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "night",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "harbor",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "cold_chain",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "rail_freight",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "toy_workshop",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "paper_warehouse",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "space_cargo",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "steam_foundry",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "neon_depot",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "lava_forge",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ocean_vault",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "royal_store",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "field_station",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "forest_depot",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "ice_vault",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr1",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr1",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr2",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr2",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr3",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "dpr3",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "fractional",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "fractional",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "wide-phase",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "wide-phase",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "landscape",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "landscape",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "phone1440",
+      "phase": "cold",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    },
+    {
+      "theme": "express_sorting",
+      "size": "phone1440",
+      "phase": "warm",
+      "channels": 0,
+      "maxDelta": 0,
+      "allocations": 1
+    }
+  ]
+}

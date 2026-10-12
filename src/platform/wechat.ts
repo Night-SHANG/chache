@@ -2,7 +2,7 @@ import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
 import {MUSIC_LEVELS} from '../shared/music-levels.ts';
 import {UI_CLICK_GAIN} from '../shared/ui-click-level.ts';
 import type { Platform, PointerEvent, SoundName } from './types.ts';
-import { SOUND_NAMES } from './types.ts';
+import { FRAME_BACKDROP, SOUND_NAMES } from './types.ts';
 import { createMusicController } from './music.ts';
 import { L, mapClientPoint } from '../presentation/layout.ts';
 interface MiniCanvas {width:number;height:number;getContext(type:'2d'):CanvasRenderingContext2D|null}
@@ -25,9 +25,12 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  // The first call is deliberately the screen canvas. No imported module creates a canvas.
  const canvas=host.createCanvas();
  const ctx=canvas.getContext('2d');if(!ctx)throw Error('无法创建2D画布');
+ const activeTouches=new Set<number>();
+ const resizeCancellers:((ids:number[])=>void)[]=[];
  let dpr=1,scale=1,offsetX=0,offsetY=0;
  let viewport={x:0,y:0,w:1080,h:1920};
  const resize=()=>{
+  const ids=[...activeTouches];activeTouches.clear();for(const cancel of resizeCancellers)cancel(ids);
   const info=host.getWindowInfo?host.getWindowInfo():host.getSystemInfoSync?.();
   if(!info)throw Error('缺少窗口尺寸接口');
   dpr=Math.min(Math.max(info.pixelRatio||1,1),3);
@@ -39,7 +42,6 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  };
  resize();host.onWindowResize?.(resize);
  const sounds=new Map<SoundName,MiniAudio>();
- const activeTouches=new Set<number>();
  const showCallbacks:(()=>void)[]=[];
  let soundtrack:MiniAudio|undefined;
  const music=createMusicController(onError=>{
@@ -49,6 +51,7 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
  });
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
  const platform:Platform={
+  frameBackdrop:FRAME_BACKDROP,
   createCanvasSurface:()=>{const surface=host.createCanvas();if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
   writerLease:{status:context==='main'?'held':'unsupported',release(){this.status='unsupported';}},
   storage:{get:key=>{const value=host.getStorageSync(key);if(value===''||value===undefined||value===null)return null;if(typeof value!=='string')throw Error('存储格式无效');return value;},set:(key,value)=>host.setStorageSync(key,value),remove:key=>host.removeStorageSync(key),
@@ -57,17 +60,18 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
     return {usedBytes:Math.ceil(info.currentSize*1024),limitBytes:Math.floor(info.limitSize*1024)};
    }}:{}),
   },
-  beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#0c131c';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,offsetX*dpr,offsetY*dpr);return ctx;},
+  beginFrame:()=>{ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=FRAME_BACKDROP;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,offsetX*dpr,offsetY*dpr);return ctx;},
   backgroundBounds:()=>scale>0&&Number.isFinite(viewport.w/scale)?{x:(L.width-viewport.w/scale)/2,y:0,w:viewport.w/scale,h:L.height}:undefined,
   overlayBounds:()=>scale>0&&Number.isFinite(canvas.width/(scale*dpr))?{x:-offsetX/scale,y:-offsetY/scale,w:canvas.width/(scale*dpr),h:canvas.height/(scale*dpr)}:undefined,
   frame:callback=>clock.requestAnimationFrame(()=>callback(clock.now())),now:clock.now,wallTime:()=>Date.now(),
   onPointer:callback=>{
+   resizeCancellers.push(ids=>{for(const id of ids)callback({type:'cancel',point:{x:-1,y:-1},id,pointerType:'touch'});});
    const convert=(type:PointerEvent['type'])=>(event:TouchEvent)=>{
     if(type==='cancel'){
      const ids=event.changedTouches.length?event.changedTouches.map(touch=>touch.identifier):[...activeTouches];
      for(const id of ids){activeTouches.delete(id);callback({type,point:{x:-1,y:-1},id});}return;
     }
-    const dispatch=()=>{for(const touch of event.changedTouches){if(type==='down')activeTouches.add(touch.identifier);else if(type==='up')activeTouches.delete(touch.identifier);const point=mapClientPoint({x:touch.clientX,y:touch.clientY},viewport)??{x:-1,y:-1};callback({type,point,id:touch.identifier});}};
+    const dispatch=()=>{for(const touch of event.changedTouches){if(type==='down')activeTouches.add(touch.identifier);else if(type==='up')activeTouches.delete(touch.identifier);const point=mapClientPoint({x:touch.clientX,y:touch.clientY},viewport)??{x:-1,y:-1};callback({type,point,id:touch.identifier,pointerType:'touch'});}};
     if(type==='down'&&event.changedTouches.length)music.gesture(dispatch);else dispatch();
    };
    host.onTouchStart(convert('down'));host.onTouchMove(convert('move'));host.onTouchEnd(convert('up'));host.onTouchCancel(convert('cancel'));

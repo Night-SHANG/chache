@@ -1,3 +1,5 @@
+import type {PointerType} from '../platform/types.ts';
+import {projectPlacementPoint} from './touch-placement.ts';
 import {isInboundRun,isToolRun,isOutboundToolsRun,reservedEntryCells} from '../domain/playable.ts';
 import {toolboxVisible} from './economy-ui.ts';
 import type {PlacementRisk} from './placement-risk.ts';
@@ -11,7 +13,7 @@ import {controlContext,majorControl} from './control-feedback.ts';
 import type {UiAction} from './ui-types.ts';
 import type { Rect } from './layout.ts';
 import {shopListViewport,shopScrollLimit,shopSection} from './shop-layout.ts';
-export interface InputPort { getState():GameRun;getView():ViewState;patchView(patch:Partial<ViewState>):void;preview(pieceId:string,origin:Point):PlayablePreview;risk?(pieceId:string,origin:Point):PlacementRisk|null;dispatch(command:GameCommand):void;togglePause():void;restart():void;resume():void;toggleDebug():void;action?(action:UiAction):void;activate?(act:()=>void,major:boolean):void;feedback?(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void }
+export interface InputPort { getState():GameRun;getView():ViewState;patchView(patch:Partial<ViewState>):void;preview(pieceId:string,origin:Point):PlayablePreview;risk?(pieceId:string,origin:Point,preview:PlayablePreview):PlacementRisk|null;dispatch(command:GameCommand):void;togglePause():void;restart():void;resume():void;toggleDebug():void;action?(action:UiAction):void;activate?(act:()=>void,major:boolean):void;feedback?(kind:'pick'|'routeReady'|'invalid',pieceId?:string):void }
 /** Both drag/drop and tap/tap end at the same immutable domain command. */
 export class InputController {
  private port:InputPort;
@@ -21,7 +23,9 @@ export class InputController {
  private buttonQuantity:number|undefined;
  private start:Point|null=null;
  private dragging=false;
+ private pointerType:PointerType='unknown';
  private routeReady=false;
+ private previewCache:{state:GameRun;pieceId:string;origin:Point;preview:PlayablePreview;risk:PlacementRisk|null}|null=null;
  private button:{rect:Rect;act:()=>void;major:boolean;action?:UiAction;state:GameRun;context:string}|null=null;
  private shopGesture:{last:Point;section:ReturnType<typeof shopSection>}|null=null;
  constructor(port:InputPort){this.port=port;}
@@ -40,10 +44,11 @@ export class InputController {
  refresh():void {if(this.button&&!this.validButton())this.cancel();}
  private activate(button:NonNullable<InputController['button']>):void {if(this.port.activate)this.port.activate(button.act,button.major);else button.act();}
  private captureButton(point:Point,rect:Rect,act:()=>void):boolean { if(!hitTestPoint(point,rect))return false;this.setButton(rect,act);return true; }
- down(point:Point,id=0):void {
+ down(point:Point,id=0,pointerType:PointerType='unknown'):void {
   if(this.active!==null)return;
   if(this.dismissedPurchase){if(Date.now()-this.dismissedPurchase.at<350&&hitTestPoint(point,this.dismissedPurchase.rect))return;this.dismissedPurchase=null;}
-  this.active=id;this.start=point;this.dragging=false;this.button=null;this.port.patchView({pressedControl:null});this.routeReady=false;this.shopGesture=null;
+  this.previewCache=null;
+  this.active=id;this.pointerType=pointerType;this.start=point;this.dragging=false;this.button=null;this.port.patchView({pressedControl:null});this.routeReady=false;this.shopGesture=null;
   const v=this.port.getView(),s=this.port.getState();
   this.buttonModal=v.confirmation??null;this.buttonQuantity=v.confirmation?.quantity;
   const shopViewport=shopListViewport(v);
@@ -80,10 +85,17 @@ export class InputController {
  private updatePreview(point:Point,dragging:boolean):void {
   const pieceId=this.port.getView().selectedPieceId;
   if(!pieceId||!this.canPlace())return;
-  const origin=pointToCell(point,this.port.getState());
+  const state=this.port.getState(),projected=projectPlacementPoint(point,state,dragging&&this.pointerType==='touch');
+  const origin=projected?pointToCell(projected,state):null;
   const guide=this.port.getView().guide;if(guide?.selectedPieceId&&guide.selectedPieceId!==pieceId)return;
-  const preview=origin?this.port.preview(pieceId,origin):null,ready=!!preview?.valid&&preview.shipments.length>0;if(ready&&!this.routeReady)this.port.feedback?.('routeReady',pieceId);this.routeReady=ready;
-  this.port.patchView({dragPoint:dragging?point:null,hoverOrigin:origin,preview,placementRisk:preview?.valid&&origin?this.port.risk?.(pieceId,origin)??null:null});
+  let cached=this.previewCache;
+  if(!origin){cached=null;this.previewCache=null;}
+  else if(!cached||cached.state!==state||cached.pieceId!==pieceId||cached.origin.x!==origin.x||cached.origin.y!==origin.y){
+   const preview=this.port.preview(pieceId,origin);
+   cached={state,pieceId,origin,preview,risk:preview.valid?this.port.risk?.(pieceId,origin,preview)??null:null};this.previewCache=cached;
+  }
+  const preview=cached?.preview??null,ready=!!preview?.valid&&preview.shipments.length>0;if(ready&&!this.routeReady)this.port.feedback?.('routeReady',pieceId);this.routeReady=ready;
+  this.port.patchView({dragPoint:dragging?projected:null,hoverOrigin:origin,preview,placementRisk:cached?.risk??null});
  }
  move(point:Point,id=0):void {
   if(this.active!==id||!this.start)return;
@@ -103,6 +115,7 @@ export class InputController {
  }
  up(point:Point,id=0):void {
   if(this.active!==id)return;
+  this.previewCache=null;
   if(this.button&&!this.validButton()){this.cancel(id);return;}
   this.port.patchView({pressedControl:null});
   const modal=this.port.getView().confirmation??null;
@@ -115,7 +128,8 @@ export class InputController {
   }
   const button=this.button;this.active=null;this.button=null;this.start=null;
   if(button){if(hitTestPoint(point,button.rect)){const wasPurchase=['purchase','purchaseCosmetic','purchaseCosmeticSet'].includes(this.port.getView().confirmation?.kind??'');this.activate(button);if(wasPurchase&&!this.port.getView().confirmation)this.dismissedPurchase={rect:button.rect,at:Date.now()};}return;}
-  const pieceId=this.port.getView().selectedPieceId,origin=pointToCell(point,this.port.getState());
+  const projected=projectPlacementPoint(point,this.port.getState(),this.dragging&&this.pointerType==='touch');
+  const pieceId=this.port.getView().selectedPieceId,origin=projected?pointToCell(projected,this.port.getState()):null;
   if(pieceId&&origin&&this.canPlace()){
    const preview=this.port.preview(pieceId,origin);
    const guide=this.port.getView().guide,allowed=!guide?.allowedOrigins||((!guide.selectedPieceId||guide.selectedPieceId===pieceId)&&guide.allowedOrigins.some(p=>p.x===origin.x&&p.y===origin.y));
@@ -132,5 +146,5 @@ export class InputController {
   if(this.shopGesture){this.dragging=true;this.button=null;this.port.patchView({pressedControl:null});}
   this.port.action({type:'scrollShop',deltaY});return true;
  }
- cancel(id?:number):void {if(id!==undefined&&this.active!==id)return;this.active=null;this.start=null;this.button=null;this.shopGesture=null;this.dragging=false;this.port.patchView({pressedControl:null,dragPoint:null,hoverOrigin:null,preview:null,selectedPieceId:null,placementRisk:null});}
+ cancel(id?:number):void {if(id!==undefined&&this.active!==id)return;this.previewCache=null;this.active=null;this.start=null;this.button=null;this.shopGesture=null;this.dragging=false;this.port.patchView({pressedControl:null,dragPoint:null,hoverOrigin:null,preview:null,selectedPieceId:null,placementRisk:null});}
 }

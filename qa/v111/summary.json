@@ -1,0 +1,78 @@
+{
+  "version": "1.0.11",
+  "baselineCommit": "0143e3436934a8c627af5a9e354f6aba8907e1c6",
+  "branch": "release/v1.0.11",
+  "runtimeStatus": "Native Canvas/Node and synthetic-host checks only; browser GUI, WeChat developer tools and physical devices not run",
+  "checks": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "preflight": "passed",
+    "combinedFocused": {
+      "tests": 50,
+      "pass": 50
+    },
+    "releaseLockRegression": {
+      "tests": 35,
+      "pass": 35
+    },
+    "full": {
+      "command": "node --test --test-concurrency=2 tests/*.test.ts",
+      "tests": 3199,
+      "pass": 3197,
+      "fail": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 196514.163039,
+      "exitCode": 1,
+      "failures": [
+        {
+          "testFile": "tests/cargo-atlas.test.ts",
+          "firstMissingFile": "artifacts/v0200-art-source/cargo-wood-generated.png",
+          "errno": "ENOENT"
+        },
+        {
+          "testFile": "tests/v021-cargo-forklift-art.test.ts",
+          "firstMissingFile": "artifacts/v0210-art-source/cargo-harbor_container-generated.png",
+          "errno": "ENOENT"
+        }
+      ]
+    },
+    "buildDefault": "passed",
+    "buildProductionBrowserWechat": "passed",
+    "buildAndroidWebStaging": "passed",
+    "verifyAndroidStaging": "passed",
+    "nativeApkCompilation": "not-run",
+    "previewPixelFrames": 32,
+    "previewChangedChannels": 0,
+    "staticPixelFrames": 238,
+    "staticChangedChannels": 0,
+    "touchProjection": "mouse and touch cold/warm frames match; current previews equal dispatched origins"
+  },
+  "scope": {
+    "warehouseBackgroundCached": true,
+    "boardFloorCached": false,
+    "touchLiftCells": 1.25,
+    "mousePenTapUnchanged": true,
+    "dependencyGraphUnchanged": true,
+    "domainFilesUnchanged": true,
+    "assetsUnchanged": true,
+    "androidSigningOrCITriggered": false
+  },
+  "rootPackageLockSha256": "29d75f7f45a4be544c4872725e5bf48a60b36c6a231fd1d4d907e24a239db3a5",
+  "sourceSha256": "88c52dd829d2ff790fef8f6b4f1e3d5db7184de83b9fd9c6e5ff3b65714a1993",
+  "generatedRuntimeBytes": {
+    "wechatJavaScript": 908485,
+    "wechatPackage": 3792923
+  },
+  "evidence": {
+    "fullLog": "artifacts/v111/full-tests.log",
+    "initialFailureLog": "artifacts/v111/full-tests-before-lock-pin.log",
+    "previewParity": "qa/v111/preview-pixel-parity.json",
+    "staticParity": "artifacts/mobile-static-cache/native-pixels.json",
+    "touchProof": "qa/v111/touch-renderer-proof.png",
+    "touchProjection": "qa/v111/touch-projection-evidence.json",
+    "previewBefore": "qa/v111/preview-benchmark-before.json",
+    "previewAfter": "qa/v111/preview-benchmark-after.json",
+    "warehouseBenchmark": "qa/v111/warehouse-benchmark.json"
+  }
+}

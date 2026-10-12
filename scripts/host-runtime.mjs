@@ -10,7 +10,7 @@ const code=await readFile('build/wechat/game.js','utf8');
 export function createHost(width=540,height=960,storage=new Map(),safeTop=0,dpr=1,epoch=Date.parse('2026-10-05T12:00:00.000Z')){
  let now=0;const callbacks={};const frames=[];let canvas;let canvasCount=0;const sounds=[];const audioEvents=[];
  const wx={
-  createCanvas:()=>{canvasCount++;canvas=createCanvas(width,height);return canvas;},
+  createCanvas:()=>{canvasCount++;if(canvas)return createCanvas(1,1);canvas=createCanvas(width,height);return canvas;},
   getWindowInfo:()=>({windowWidth:width,windowHeight:height,pixelRatio:dpr,safeArea:{left:0,top:safeTop,width,height:height-safeTop}}),
   getStorageSync:key=>storage.get(key)||'',setStorageSync:(key,value)=>storage.set(key,value),removeStorageSync:key=>storage.delete(key),
   onTouchStart:cb=>callbacks.down=cb,onTouchMove:cb=>callbacks.move=cb,onTouchEnd:cb=>callbacks.up=cb,onTouchCancel:cb=>callbacks.cancel=cb,

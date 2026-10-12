@@ -12,7 +12,7 @@ test('Android registered plugin installs owned KV synchronously before asynchron
  for(const name of ['handleOnPause()','handleOnStop()']){const offset=plugin.indexOf(name),next=plugin.indexOf('@Override',offset);assert.doesNotMatch(plugin.slice(offset,next),/store\.close\(\)/);}
 });
 test('integrated Android entry uses actual production session while trusted shell and security tests remain present',async()=>{
- const entry=await readFile('src/android-main.ts','utf8');assert.match(entry,/startAndroidSession/);assert.match(entry,/connectAndroidHost/);assert.match(entry,/runtime\.startFrames/);assert.doesNotMatch(entry,/runtime\.platform\.frame/);assert.doesNotMatch(entry,/__WAREHOUSE__|acquireBrowserWriter|原生适配尚未完成/);
+ const entry=await readFile('src/android-main.ts','utf8');assert.match(entry,/startAndroidSession/);assert.match(entry,/connectAndroidHost/);assert.match(entry,/runtime\.startFrames/);assert.doesNotMatch(entry,/runtime\.platform\.frame\b/);assert.match(entry,/runtime\.platform\.frameBackdrop\b/);assert.doesNotMatch(entry,/__WAREHOUSE__|acquireBrowserWriter|原生适配尚未完成/);
  const activity=await readFile(`${path}MainActivity.java`,'utf8');assert.match(activity,/OfflineServiceWorkerClient\.install\(\)/);assert.match(activity,/registerPlugin\(FixedAssetWebViewPlugin\.class\)/);assert.match(activity,/ServerPath\.PathType\.ASSET_PATH/);
  const security=await readFile('android/app/src/androidTest/java/io/github/nightshang/chache/HostSecurityTest.java','utf8');assert.match(security,/preNavigationBridge/);assert.match(security,/foreignNavigation/);assert.match(security,/iframe/);assert.match(security,/LateDestroy/);
 });

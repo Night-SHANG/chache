@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { applyCommand, createRun } from '../src/domain/engine.ts';
+import {previewPlayablePlacement} from '../src/domain/playable.ts';
 import { checksum } from '../src/domain/replay.ts';
 import type { CargoId, Point, RunState } from '../src/domain/types.ts';
 
@@ -11,7 +12,9 @@ const helper = await import('../src/presentation/placement-risk.ts').catch(error
 const F: CargoId = 'cargo.food', M: CargoId = 'cargo.machine', C: CargoId = 'cargo.chem';
 function risk(state: RunState, origin: Point, pieceId = 'fixture.single') {
   assert.ok(helper, 'The read-only placement risk helper must exist');
-  return helper.placementRisk(state, pieceId, origin);
+  const expected=helper.placementRisk(state,pieceId,origin);
+  assert.deepEqual(helper.placementRisk(state,pieceId,origin,previewPlayablePlacement(state,pieceId,origin)),expected);
+  return expected;
 }
 function prepared(version = 4, cargo: CargoId = F): RunState {
   const state = version === 7 ? createRun(17, 'endless', 7) : version >= 4 ? createRun(17, 'color_exit', version, version === 6 ? 'easy' : version === 5 ? 'entry' : undefined) : createRun(17, 'standard', version);

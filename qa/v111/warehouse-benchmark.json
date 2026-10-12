@@ -1,0 +1,198 @@
+{
+  "engine": "@napi-rs/canvas 1.0.10",
+  "method": "60 warmed render + synchronous full-pixel readback samples; CPU/native backend only, not device frame timing",
+  "rows": [
+    {
+      "width": 360,
+      "height": 800,
+      "target": "warehouse",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 6092,
+        "properties": 1666,
+        "paints": 1
+      },
+      "p50ms": 7.481863000000089,
+      "p95ms": 9.896050999999943,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "target": "warehouse",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 1152000,
+      "calls": {
+        "methods": 10,
+        "properties": 2,
+        "paints": 0
+      },
+      "p50ms": 0.8798919999999271,
+      "p95ms": 1.782558999999992,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "target": "fullFrame",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 9772,
+        "properties": 2576,
+        "paints": 0
+      },
+      "p50ms": 15.822767000000113,
+      "p95ms": 22.711217000000033,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "target": "fullFrame",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 1152000,
+      "calls": {
+        "methods": 3690,
+        "properties": 912,
+        "paints": 0
+      },
+      "p50ms": 8.524308999999903,
+      "p95ms": 9.61267399999997,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1080,
+      "height": 2400,
+      "target": "warehouse",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 6092,
+        "properties": 1666,
+        "paints": 1
+      },
+      "p50ms": 15.147531999999956,
+      "p95ms": 18.563074000000142,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1080,
+      "height": 2400,
+      "target": "warehouse",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 10368000,
+      "calls": {
+        "methods": 10,
+        "properties": 2,
+        "paints": 0
+      },
+      "p50ms": 11.361692999999832,
+      "p95ms": 13.55760199999986,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1080,
+      "height": 2400,
+      "target": "fullFrame",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 9772,
+        "properties": 2576,
+        "paints": 0
+      },
+      "p50ms": 31.52922799999942,
+      "p95ms": 35.0897589999995,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1080,
+      "height": 2400,
+      "target": "fullFrame",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 10368000,
+      "calls": {
+        "methods": 3690,
+        "properties": 912,
+        "paints": 0
+      },
+      "p50ms": 27.17448400000103,
+      "p95ms": 33.39393999999993,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1440,
+      "height": 3200,
+      "target": "warehouse",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 6092,
+        "properties": 1666,
+        "paints": 1
+      },
+      "p50ms": 23.47270000000026,
+      "p95ms": 27.47341299999971,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1440,
+      "height": 3200,
+      "target": "warehouse",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 18432000,
+      "calls": {
+        "methods": 10,
+        "properties": 2,
+        "paints": 0
+      },
+      "p50ms": 21.679729999999836,
+      "p95ms": 28.03589800000009,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1440,
+      "height": 3200,
+      "target": "fullFrame",
+      "cached": false,
+      "allocations": 0,
+      "nativeSurfaceBytes": 0,
+      "calls": {
+        "methods": 9772,
+        "properties": 2576,
+        "paints": 0
+      },
+      "p50ms": 46.767745999997715,
+      "p95ms": 53.95100199999979,
+      "coldWarmDifferentChannels": 0
+    },
+    {
+      "width": 1440,
+      "height": 3200,
+      "target": "fullFrame",
+      "cached": true,
+      "allocations": 1,
+      "nativeSurfaceBytes": 18432000,
+      "calls": {
+        "methods": 3690,
+        "properties": 912,
+        "paints": 0
+      },
+      "p50ms": 45.66312200000175,
+      "p95ms": 52.74216399999932,
+      "coldWarmDifferentChannels": 0
+    }
+  ]
+}
