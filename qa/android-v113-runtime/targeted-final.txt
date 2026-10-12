@@ -1,0 +1,12 @@
+✔ runtime-only workflow consumes exact delivered APK without rebuilding or signing (1.415959ms)
+✔ runtime preserves disk safety and uses full same-API AOSP system with no host security changes (0.537619ms)
+✔ runtime records a block before touching devices when official SDK is absent (34.165485ms)
+✔ runtime rejects an already occupied emulator endpoint before SDK installation (36.647212ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 194.698039

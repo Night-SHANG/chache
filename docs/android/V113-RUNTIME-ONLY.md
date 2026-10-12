@@ -1,0 +1,15 @@
+# Exact delivered v1.0.13 runtime-only verification
+
+Scope: verify the already delivered APK, never rebuild or re-sign it. Artifact11760973241 comes from run38279507392, sourcea1a7dec23055b9e1f6a030b864d7e4490c11d189; fixed SHA25644fec43dbfb4afb77a326dde1e3db574ce82d40280029a3830012601f3264610 and public certificate0033e1a1078d85c73f4eef88184eba06e039b76d8e311c364a55500686bc1bdb are verified before installation. Private branch dev/android-v113-runtime, contents/actions read only, no signing Secrets, npm or Gradle.
+
+The original Google APIs image runtime did not launch: postinstall available7,341,998,080B, below the unchanged8,267,812,045B reserve by925,813,965B. Task-owned cache was only4KiB. No evidence supports deleting caches as a solution, and host preinstalled/user files are not removed.
+
+Use the official full AOSP API36 x86_64 system image, not ATD. The same official SDK catalog lists AOSP revision2 archive844,217,077B; HTTP Range inspection of its ZIP central directory shows2,049,707,357B expanded files, including1,898,971,136B system.img. The former Google APIs image's system.img is larger than4GiB. Both refer to the existing android-sdk-license; no new agreement is accepted. API, ABI, full SystemUI process and actual current WebView provider are explicitly checked. The unchanged disk reserve is measured before install, after install and after boot; actual failure stops rather than lowering it. No sudo, KVM permission changes, host cleanup or provider sideload.
+
+A unique task-owned disposable AVD and reserved-serial identity protect unrelated devices. Existing occupied endpoint blocks. Only this process/session is terminated. Boot uses existing acceleration when available or bounded software TCG; no phone performance claim.
+
+Planned observations: install the exact release, cold launch, Home/resume and force-stop/restart, each with focused live MainActivity and actual PNG screenshot. Screenshots require visual review; foreground evidence alone is not proof the game canvas loaded. This is a signed-release smoke check, not replacement for blocked native debug instrumentation, same-key version upgrade, gameplay interaction, physical-device, audio or frame-time acceptance. It never uninstalls or clears data. Stop at completed smoke with reviewed screenshots or an explicit measured environment/application failure.
+
+Sources: https://developer.android.com/studio/run/managing-avds ; https://developer.android.com/studio/run/emulator-commandline ; official catalog https://dl.google.com/android/repository/sys-img/android/sys-img2-3.xml . ATD removes SystemUI and rendering-related capability, so it is deliberately not used here.
+
+Independent pre-trigger review required explicit Home foreground departure with retained PID, observed process absence after force-stop, strict boot-deadline probes, software-TCG opt-in and the current swiftshader renderer. These corrections passed the four targeted tests; lint/typecheck passed. The full 3,282-test regression accepted only the two unchanged missing source-art baseline failures (3,280 passed, no skipped tests). Runtime observations remain pending.
