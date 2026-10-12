@@ -70,3 +70,14 @@ for invalid in [valid.replace('1.0.13','1x0x13'),valid.replace('io.github.nights
 `],{encoding:'utf8'});
  assert.equal(result.status,0,result.stderr);
 });
+test('Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception',async()=>{
+ const {releaseAssetManifest,validateReleaseFacts}=await import('../scripts/android-release-evidence.mjs');
+ const expected=releaseAssetManifest({'app.js':'a'.repeat(64)});
+ const empty='e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+ assert.deepEqual(expected,{'app.js':'a'.repeat(64),'cordova.js':empty,'cordova_plugins.js':empty});
+ const facts={applicationId:'io.github.nightshang.chache',versionName:'1.0.13',versionCode:3,appName:'货箱最后一格',debuggable:false,testOnly:false,internet:false,entries:['assets/public/app.js','assets/public/cordova.js','assets/public/cordova_plugins.js'],expectedAssets:expected,actualAssets:{...expected}};
+ assert.equal(validateReleaseFacts(facts),true);
+ assert.throws(()=>validateReleaseFacts({...facts,actualAssets:{...expected,'cordova.js':'b'.repeat(64)}}));
+ assert.throws(()=>validateReleaseFacts({...facts,actualAssets:{...expected,'unexpected.js':empty}}));
+ assert.throws(()=>releaseAssetManifest({'cordova.js':'b'.repeat(64)}));
+});

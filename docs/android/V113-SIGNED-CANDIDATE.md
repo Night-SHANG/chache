@@ -29,3 +29,7 @@ The permanent key may differ from any earlier temporary debug APK. Android will 
 ## Verification state
 
 Record the exact new CI commit, run, signed APK SHA256 and observed certificate before delivery. Local staging/tests are preparation evidence only. Deep debug native instrumentation, signed-release cold launch, same-permanent-key upgrade and physical-phone acceptance are separate fields. Unrun stages stay unverified. The coordinator monitors CI and diagnoses recoverable failures without requiring manual build feedback.
+
+## First CI run and exact asset-manifest repair
+
+Run38276761764 (commit8897e7cb0a7dcd62b0695a9e26d9f1894c42f2dd) completed the full3277-test regression with only the two original source-art failures, and compiled/tested/linted release vc3 successfully. Before signing, the strict asset-list gate failed. Same-run real APK inspection and pinned CLI8.5.3 source confirmed exactly two additional files: `cordova.js` and `cordova_plugins.js`, both empty. Capacitor's `createEmptyCordovaJS` generates these when no Cordova plugins are present. The repair adds only those exact paths with the fixed empty-content SHA256; collisions, changed content, missing files and all other extras still fail closed. Signing never ran in that first workflow. Independent repair review approved the second push. No game or audio changes.

@@ -8,6 +8,15 @@ import {readJUnitEvidence} from './android-ci-evidence.mjs';
 import {classifyNodeEvents} from './android-test-report.mjs';
 const requireValue=(v,m)=>{if(!v)throw Error(m);};
 const hash=b=>createHash('sha256').update(b).digest('hex');
+export function releaseAssetManifest(stagedAssets){
+ const result={...stagedAssets},emptyHash=hash(Buffer.alloc(0));
+ // Pinned Capacitor 8.5.3 createEmptyCordovaJS writes exactly these empty stubs.
+ for(const path of ['cordova.js','cordova_plugins.js']){
+  requireValue(!Object.hasOwn(result,path),'Staging must not shadow Capacitor generated bridge stubs');
+  result[path]=emptyHash;
+ }
+ return result;
+}
 export function validateReleaseFacts(facts){
  requireValue(facts.applicationId==='io.github.nightshang.chache'&&facts.versionName==='1.0.13'&&facts.versionCode===3&&facts.appName==='货箱最后一格','Release identity mismatch');
  requireValue(facts.debuggable===false&&facts.testOnly===false&&facts.internet===false,'Release must be non-debuggable, non-test-only and offline');
@@ -29,6 +38,7 @@ export async function prepareUnsigned(root=process.cwd()){
  const expectedAssets={},actualAssets={};
  for(const line of readFileSync(join(root,'build/android/SHA256SUMS'),'utf8').trim().split('\n')){const m=/^([a-f0-9]{64})  (.+)$/.exec(line);requireValue(m,'Invalid staging checksum');expectedAssets[m[2]]=m[1];}
  expectedAssets.SHA256SUMS=hash(readFileSync(join(root,'build/android/SHA256SUMS')));
+ Object.assign(expectedAssets,releaseAssetManifest(expectedAssets));
  for(const p of entries.filter(p=>p.startsWith('assets/public/')&&!p.endsWith('/')))actualAssets[p.slice(14)]=hash(execFileSync('unzip',['-p',apk,p],{maxBuffer:32*1024*1024}));
  const facts={applicationId:pkg[1],versionCode:Number(pkg[2]),versionName:pkg[3],appName:/^application-label:'([^']+)'$/m.exec(badging)?.[1],debuggable:/application-debuggable/.test(badging)||/android:debuggable[^\n]*(?:0xffffffff|true)/.test(manifest),testOnly:/android:testOnly[^\n]*(?:0xffffffff|true)/.test(manifest),internet:/uses-permission[^\n]*android.permission.INTERNET/.test(badging),entries,expectedAssets,actualAssets};
  validateReleaseFacts(facts);

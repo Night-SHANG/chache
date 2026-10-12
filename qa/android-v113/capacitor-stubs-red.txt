@@ -1,0 +1,25 @@
+✔ release vc3 is explicit while debug acceptance versions retain their original defaults (1.634056ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.484798ms)
+✔ release handoff rejects identity source archive and asset mismatches (6.943615ms)
+✔ signing refuses missing secrets before touching runner files (4.441045ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.437237ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (70.23796ms)
+✔ fresh signing runner compares exact package and version values (54.123629ms)
+✖ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.106773ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 275.681036
+
+✖ failing tests:
+
+test at tests/android-release-signing.test.ts:73:1
+✖ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.106773ms)
+  TypeError: releaseAssetManifest is not a function
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v113-release-work/tests/android-release-signing.test.ts:75:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

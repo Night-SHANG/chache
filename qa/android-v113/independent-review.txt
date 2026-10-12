@@ -6,3 +6,5 @@ Workflow SHA256: 7e49f0fa386b5e0a7b3f1f00c6bc3362787286d69ba778e5e347aefde7c4e7c
 Python verifier SHA256: 63ffe8bb11f7f22cff308a969be256b0b010c9fba36b93e4f5ba038050ec0dac
 No real signing keys/Secrets/private signing artifacts were accessed.
 CI still must compile/sign and inspect the real artifact. Signed-release runtime, physical-phone acceptance and independently known original certificate comparison remain unverified.
+
+Second-push review: approved the exact empty Capacitor stub allowlist repair. Pinned CLI8.5.3 generator and local0-byte outputs verified; both collisions, missing/modified stubs and unexpected files reject. All8 signing tests passed. Signing script, Python verifier and workflow hashes unchanged. Reviewed evidence-script SHA256: 618a7633afe58167844895821587780ee93d992955cdc00f23c9119697be7f0b.

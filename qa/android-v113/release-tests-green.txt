@@ -1,15 +1,16 @@
-✔ release vc3 is explicit while debug acceptance versions retain their original defaults (1.046893ms)
-✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.320732ms)
-✔ release handoff rejects identity source archive and asset mismatches (6.535683ms)
-✔ signing refuses missing secrets before touching runner files (10.841043ms)
-✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.33262ms)
-✔ fresh signing-runner Python rejects extra acceptance files and private key formats (97.022731ms)
-✔ fresh signing runner compares exact package and version values (162.665909ms)
-ℹ tests 7
+✔ release vc3 is explicit while debug acceptance versions retain their original defaults (0.950729ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.347342ms)
+✔ release handoff rejects identity source archive and asset mismatches (5.438033ms)
+✔ signing refuses missing secrets before touching runner files (3.357315ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.315184ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (36.637108ms)
+✔ fresh signing runner compares exact package and version values (42.116011ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (2.007046ms)
+ℹ tests 8
 ℹ suites 0
-ℹ pass 7
+ℹ pass 8
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 530.526666
+ℹ duration_ms 209.915361

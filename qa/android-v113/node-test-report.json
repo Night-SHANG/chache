@@ -5,13 +5,13 @@
   "rawPassed": false,
   "accepted": true,
   "counts": {
-    "tests": 3277,
+    "tests": 3278,
     "failed": 2,
-    "passed": 3275,
+    "passed": 3276,
     "cancelled": 0,
     "skipped": 0,
     "todo": 0,
-    "topLevel": 3277,
+    "topLevel": 3278,
     "suites": 0
   },
   "knownBaseline": [
@@ -22,11 +22,11 @@
       "failure": {
         "name": "committed raster artwork verifies every generated source and exact encoded atlas",
         "nesting": 0,
-        "testNumber": 561,
+        "testNumber": 562,
         "testId": 3,
         "parentId": 0,
         "details": {
-          "duration_ms": 15.873664,
+          "duration_ms": 10.265157,
           "type": "test",
           "error": {
             "name": "Error",
@@ -58,11 +58,11 @@
       "failure": {
         "name": "new generated atlas rows obey their incremental byte budgets and preserve source evidence",
         "nesting": 0,
-        "testNumber": 3093,
+        "testNumber": 3094,
         "testId": 3,
         "parentId": 0,
         "details": {
-          "duration_ms": 0.74537,
+          "duration_ms": 0.796136,
           "type": "test",
           "error": {
             "name": "Error",
@@ -92,5 +92,5 @@
   "invalidSummary": false,
   "invalidTerminal": false,
   "validExit": true,
-  "durationMs": 130309.92216
+  "durationMs": 121465.506534
 }

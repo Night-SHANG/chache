@@ -1,0 +1,20 @@
+{
+  "runId": 38276761764,
+  "commit": "8897e7cb0a7dcd62b0695a9e26d9f1894c42f2dd",
+  "failure": "Release asset file set differs",
+  "realSameRunDebugPublicExtraFiles": [
+    {
+      "path": "cordova.js",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cordova_plugins.js",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "missing": [],
+  "unsignedReleaseCompiled": true,
+  "signingRan": false
+}

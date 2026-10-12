@@ -4,13 +4,13 @@
   "rawPassed": false,
   "accepted": true,
   "counts": {
-    "tests": 3277,
+    "tests": 3278,
     "failed": 2,
-    "passed": 3275,
+    "passed": 3276,
     "cancelled": 0,
     "skipped": 0,
     "todo": 0,
-    "topLevel": 3277,
+    "topLevel": 3278,
     "suites": 0
   },
   "knownBaseline": [
