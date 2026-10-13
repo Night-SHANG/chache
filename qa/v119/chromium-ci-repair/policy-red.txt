@@ -1,0 +1,42 @@
+✖ Android DOM gate uses the runner-installed Chrome with its existing sandbox support (1.42068ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.493145
+
+✖ failing tests:
+
+test at tests/android-startup-host-policy.test.ts:5:1
+✖ Android DOM gate uses the runner-installed Chrome with its existing sandbox support (1.42068ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /export CHROMIUM_PATH=\/opt\/google\/chrome\/chrome/. Input:
+  
+  '      - name: Verify silent Android bootstrap with pinned Chromium DOM and CSS\n' +
+    '        timeout-minutes: 15\n' +
+    '        shell: bash\n' +
+    '        run: |\n' +
+    '          set -euo pipefail\n' +
+    '          qa_tools="$(mktemp -d "$RUNNER_TEMP/android-startup-chromium.XXXXXX")"\n' +
+    `          trap 'rm -rf -- "$qa_tools"' EXIT\n` +
+    '          export PLAYWRIGHT_BROWSERS_PATH="$qa_tools/browsers"\n' +
+    '          npm install --prefix "$qa_tools" --no-save --package-lock=false --ignore-scripts playwright@1.62.1\n' +
+    '          node "$qa_tools/node_modules/playwright/cli.js" install --with-deps chromium\n' +
+    '          export PLAYWRIGHT_MODULE="$qa_tools/node_modules/playwright/index.js"\n' +
+    '          export ANDROID_HOST_QA_DIR=build/android-ci/startup-host\n' +
+    '          node scripts/verify-android-startup-host.mjs\n'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-startup-audio-v119/tests/android-startup-host-policy.test.ts:8:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `      - name: Verify silent Android bootstrap with pinned Chromium DOM and CSS\n        timeout-minutes: 15\n        shell: bash\n        run: |\n          set -euo pipefail\n          qa_tools="$(mktemp -d "$RUNNER_TEMP/android-startup-chromium.XXXXXX")"\n          trap 'rm -rf -- "$qa_tools"' EXIT\n          export PLAYWRIGHT_BROWSERS_PATH="$qa_tools/browsers"\n          npm install --prefix "$qa_tools" --no-save --package-lock=false --ignore-scripts playwright@1.62.1\n          node "$qa_tools/node_modules/playwright/cli.js" install --with-deps chromium\n          export PLAYWRIGHT_MODULE="$qa_tools/node_modules/playwright/index.js"\n          export ANDROID_HOST_QA_DIR=build/android-ci/startup-host\n          node scripts/verify-android-startup-host.mjs\n`,
+    expected: /export CHROMIUM_PATH=\/opt\/google\/chrome\/chrome/,
+    operator: 'match',
+    diff: 'simple'
+  }

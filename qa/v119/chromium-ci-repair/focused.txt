@@ -1,0 +1,50 @@
+✔ Android CI runs only branch pushes with read-only credentials and fixed official Actions (7.90983ms)
+✔ Android bootstrap installs both locks and compiles before reporting without publishing an APK (7.97659ms)
+✔ candidate preservation stays gated on verified receipt and never implies delivery acceptance (0.968298ms)
+✔ CI font setup uses the exact official baseline bytes and verifies real embedded font families (488.944985ms)
+✔ bootstrap obtains native compiler feedback before the complete unchanged regression gate (1.088167ms)
+✔ native CI targets the application tests and APKs instead of library instrumentation variants (0.907178ms)
+✔ Node classifier accepts captured genuine terminal records with IDs scoped to each file (1.073986ms)
+✔ Node classifier reconciles captured nested suites separately from test pass totals (0.160789ms)
+✔ Node classifier rejects a summary without pass evidence and any terminal record after the root summary (0.1548ms)
+✔ Node classifier rejects deleted real pass records and duplicated passes with truthful or forged totals (0.759498ms)
+✔ Node classifier rejects malformed terminal identities, missing ancestry and cross-outcome duplicates (0.711838ms)
+✔ Node classifier preserves npm test failure while accepting only both exact missing-art baselines (0.265845ms)
+✔ Node classifier rejects matching names with altered file, errno, path, wrapper or message (0.630566ms)
+✔ Node classifier fails closed for extra failures, duplicate baselines, skipped tests, missing summary and abnormal exit (0.433844ms)
+✔ Android verifier accepts genuine hashed production staging but keeps its bootstrap publication gate closed (3111.689715ms)
+✔ Android staging identity requires matching v1.0.19 release and source content (176.149161ms)
+✔ Android verifier still rejects any changed release lock after a project-only version bump (33.882615ms)
+✔ Android verifier rejects tampered asset bytes and extra unlisted files (37.895296ms)
+✔ Android verifier rejects remote config and any attempt to open the bootstrap APK gate (18.894018ms)
+✔ official emulator bootstrap has bounded installation and boot with no license or security changes (1.320652ms)
+✔ build receipt records the actual Java runtime patch emitted on stderr (28.835341ms)
+✔ product cold-launch capture is bounded and preserves acceptance failure before emulator cleanup (8.728778ms)
+✔ release vc9 is explicit while debug acceptance versions retain their original defaults (1.159873ms)
+✔ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (0.388027ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.425382ms)
+✔ release handoff rejects identity source archive and asset mismatches (7.119596ms)
+✔ signing refuses missing secrets before touching runner files (3.862799ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.661122ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (43.743463ms)
+✔ fresh signing runner compares exact package and version values (39.983818ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.774786ms)
+✔ Android DOM gate uses the runner-installed Chrome with its existing sandbox support (1.138421ms)
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (135.942508ms)
+✔ missing bridge and false native owner block startup without inventing writer success (1.415292ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (1.633918ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (1.094977ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.528295ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (0.453814ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (157.110825ms)
+✔ Android HTML is empty and hidden during ordinary startup (1.963207ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4067.85693
+
+EXIT:0

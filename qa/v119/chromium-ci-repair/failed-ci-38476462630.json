@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "kind": "Chromium Android bridge harness",
+  "nativeAndroidAcceptance": "NOT RUN",
+  "phoneAcceptance": "NOT RUN",
+  "generatedAt": "2026-10-13T22:16:59.299Z",
+  "viewport": {
+    "width": 540,
+    "height": 960
+  },
+  "origin": "https://localhost",
+  "animation": "Harness-controlled game queue advanced inside native Chromium requestAnimationFrame",
+  "security": {
+    "chromiumSandbox": true,
+    "ignoreHTTPSErrors": false,
+    "network": "All requests intercepted; external requests rejected"
+  },
+  "status": "BLOCKED",
+  "cases": {
+    "html-before-app-is-silent": {
+      "status": "NOT RUN"
+    },
+    "native-readiness-before-storage": {
+      "status": "NOT RUN"
+    },
+    "all-pngs-held-complete-first-frame": {
+      "status": "NOT RUN"
+    },
+    "computed-status-display-none": {
+      "status": "NOT RUN"
+    },
+    "pre-ready-pointer-release-does-not-act": {
+      "status": "NOT RUN"
+    },
+    "cold-input-works": {
+      "status": "NOT RUN"
+    },
+    "foreground-resume-with-pngs-held": {
+      "status": "NOT RUN"
+    },
+    "late-pngs-enhance-current-screen": {
+      "status": "NOT RUN"
+    },
+    "all-png-failures-input-works": {
+      "status": "NOT RUN"
+    },
+    "fast-assets-first-frame": {
+      "status": "NOT RUN"
+    },
+    "missing-storage-blocked": {
+      "status": "NOT RUN"
+    },
+    "invalid-storage-response-blocked": {
+      "status": "NOT RUN"
+    },
+    "invalid-native-state-blocked": {
+      "status": "NOT RUN"
+    },
+    "missing-native-capability-blocked": {
+      "status": "NOT RUN"
+    }
+  },
+  "screenshots": [],
+  "scenarios": [],
+  "assertions": 0,
+  "inputs": {
+    "index.html": "8db6a294d4d02b53d4d1f2c575555322bb148777db103eed5a8ebbd12eee1010",
+    "app.js": "1feb9cd737d33b48314f8ae696043d861cd1cdfe247e81baac9f7d7ab1871d88",
+    "build-manifest.json": "fa8ca6bdd2a27b066eecb1d5201a42a7aac2e78603461a1a2437e0737fa865b3",
+    "SHA256SUMS": "3651a43ef8bc11878a5bf1415394a0593bd2b0b067de61e2e57b4f3d6414010e",
+    "assets/static-art/scene-day.png": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+    "assets/static-art/cargo-core.png": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+    "assets/static-art/forklift-base.png": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+    "assets/static-art/forklift-styled.png": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+    "assets/static-art/frame-classic.png": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+    "assets/static-art/tools-core.png": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+    "assets/board-materials.png": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+    "assets/cargo-materials.png": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+    "assets/scene-materials.png": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+  },
+  "scriptSha256": "e98e1fc852b6a9755a39a1e0cc302a57486bf51ffd285307451820ccace9e9f7",
+  "error": "browserType.launch: Target page, context or browser has been closed\nBrowser logs:\nChromium sandboxing failed!\n================================\nTo avoid the sandboxing issue, do either of the following:\n  - (preferred): Configure your environment to support sandboxing\n  - (alternative): Launch Chromium without sandbox using 'chromiumSandbox: false' option\n================================\n\nCall log:\n  - <launching> /home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-Mb4TMn --remote-debugging-pipe --no-startup-window\n  - <launched> pid=3369\n  - [pid=3369][err] [3369:3369:1013/221659.908740:FATAL:content/browser/zygote_host/zygote_host_impl_linux.cc:128] No usable sandbox! If you are running on Ubuntu 23.10+ or another Linux distro that has disabled unprivileged user namespaces with AppArmor, see https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md. Otherwise see https://chromium.googlesource.com/chromium/src/+/main/docs/linux/suid_sandbox_development.md for more information on developing with the (older) SUID sandbox. If you want to live dangerously and need an immediate workaround, you can try using --no-sandbox.\n  - [pid=3369][err] [1013/221659.920169:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)\n  - [pid=3369][err] [1013/221659.920360:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)\n  - [pid=3369][err] Received signal 6\n  - [pid=3369][err] #0 0x55a1706b66f3 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x69f56f2)\n  - [pid=3369][err] #1 0x55a17512e0e4 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0xb46d0e3)\n  - [pid=3369][err] #2 0x7f609d045330 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4532f)\n  - [pid=3369][err] #3 0x7f609d04527e (/usr/lib/x86_64-linux-gnu/libc.so.6+0x4527d)\n  - [pid=3369][err] #4 0x7f609d0288ff (/usr/lib/x86_64-linux-gnu/libc.so.6+0x288fe)\n  - [pid=3369][err] #5 0x55a175125ea5 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0xb464ea4)\n  - [pid=3369][err] #6 0x55a1750e8e3d (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0xb427e3c)\n  - [pid=3369][err] #7 0x55a1750e8dce (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0xb427dcd)\n  - [pid=3369][err] #8 0x55a1703472a8 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x66862a7)\n  - [pid=3369][err] #9 0x55a16f95ceb9 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x5c9beb8)\n  - [pid=3369][err] #10 0x55a16f20a82b (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x554982a)\n  - [pid=3369][err] #11 0x55a1745184bc (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0xa8574bb)\n  - [pid=3369][err] #12 0x55a16fdd30ac (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x61120ab)\n  - [pid=3369][err] #13 0x55a16fdd28a5 (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x61118a4)\n  - [pid=3369][err] #14 0x7f609d02a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)\n  - [pid=3369][err] #15 0x7f609d02a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)\n  - [pid=3369][err] #16 0x55a1708b3fba (/home/runner/work/_temp/android-startup-chromium.tKdbZF/browsers/chromium-1234/chrome-linux64/chrome+0x6bf2fb9)\n  - [pid=3369][err]   r8: 0000174800150263  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246\n  - [pid=3369][err]  r12: 0000000000000006 r13: 0000000000000264 r14: 0000000000000016 r15: 00007fff2238dd38\n  - [pid=3369][err]   di: 0000000000000d29  si: 0000000000000d29  bp: 00007fff2238d6b0  bx: 0000000000000d29\n  - [pid=3369][err]   dx: 0000000000000006  ax: 0000000000000000  cx: 00007f609d09ec0c  sp: 00007fff2238d670\n  - [pid=3369][err]   ip: 00007f609d09ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000\n  - [pid=3369][err]  trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000\n  - [pid=3369][err] [end of stack trace]\n  - [pid=3369] <gracefully close start>\n  - [pid=3369] <kill>\n  - [pid=3369] <will force kill>\n  - [pid=3369] <process did exit: exitCode=null, signal=SIGABRT>\n  - [pid=3369] starting temporary directories cleanup\n  - [pid=3369] finished temporary directories cleanup\n  - [pid=3369] <gracefully close end>\n\n    at /home/runner/work/chache/chache/scripts/verify-android-startup-host.mjs:224:25"
+}

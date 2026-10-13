@@ -221,7 +221,10 @@ try {
  receipt.inputs=Object.fromEntries(await Promise.all(inputs.map(async path=>[path,hash(await readFile(resolve(staging,path)))])));
  receipt.scriptSha256=hash(await readFile(new URL(import.meta.url)));
  const {chromium}=require(process.env.PLAYWRIGHT_MODULE??'/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.js');
- browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),headless:true,chromiumSandbox:true,
+ const browserExecutable=process.env.CHROMIUM_PATH??chromium.executablePath();
+ receipt.browserExecutable=browserExecutable;
+ receipt.browserChannel=browserExecutable==='/opt/google/chrome/chrome'?'chrome-stable-installed':'chromium-or-explicit-executable';
+ browser=await chromium.launch({executablePath:browserExecutable,headless:true,chromiumSandbox:true,
   env:{...process.env,HOME:'/tmp/warehouse-android-startup-home',XDG_CACHE_HOME:'/tmp/warehouse-android-startup-cache',XDG_CONFIG_HOME:'/tmp/warehouse-android-startup-config'}});
  receipt.browserVersion=await browser.version();
 

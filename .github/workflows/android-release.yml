@@ -80,16 +80,18 @@ jobs:
           npm run sync:android
           npm run verify:android
           node scripts/build-android-acceptance.mjs
-      - name: Verify silent Android bootstrap with pinned Chromium DOM and CSS
+      - name: Verify silent Android bootstrap with installed Chrome and pinned Playwright
         timeout-minutes: 15
         shell: bash
         run: |
           set -euo pipefail
           qa_tools="$(mktemp -d "$RUNNER_TEMP/android-startup-chromium.XXXXXX")"
           trap 'rm -rf -- "$qa_tools"' EXIT
-          export PLAYWRIGHT_BROWSERS_PATH="$qa_tools/browsers"
           npm install --prefix "$qa_tools" --no-save --package-lock=false --ignore-scripts playwright@1.62.1
-          node "$qa_tools/node_modules/playwright/cli.js" install --with-deps chromium
+          export CHROMIUM_PATH=/opt/google/chrome/chrome
+          test -x "$CHROMIUM_PATH"
+          dpkg-query -W google-chrome-stable
+          "$CHROMIUM_PATH" --version
           export PLAYWRIGHT_MODULE="$qa_tools/node_modules/playwright/index.js"
           export ANDROID_HOST_QA_DIR=build/android-ci/startup-host
           node scripts/verify-android-startup-host.mjs
