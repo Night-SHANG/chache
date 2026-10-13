@@ -1,0 +1,800 @@
+{
+  "kind": "Source renderer native-Canvas frame sequence",
+  "status": "PASS",
+  "nativeAndroidAcceptance": "NOT RUN",
+  "cases": [
+    {
+      "theme": "day",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "0711d26208d2f3fa4db5a77fac3156b645edebd0d807460c43a5a62ba20e4817",
+        "0711d26208d2f3fa4db5a77fac3156b645edebd0d807460c43a5a62ba20e4817",
+        "0711d26208d2f3fa4db5a77fac3156b645edebd0d807460c43a5a62ba20e4817"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "51ec2d65f96ac58363fc3e6c58dbe98bbc3e3207b6dd4c9ddd916e3b3edbacb0",
+        "51ec2d65f96ac58363fc3e6c58dbe98bbc3e3207b6dd4c9ddd916e3b3edbacb0",
+        "51ec2d65f96ac58363fc3e6c58dbe98bbc3e3207b6dd4c9ddd916e3b3edbacb0"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "fc8ad90a68bb37877c76857ffee19a1e6a95e8ab9094c0bb754b44cc7de34e95",
+        "fc8ad90a68bb37877c76857ffee19a1e6a95e8ab9094c0bb754b44cc7de34e95",
+        "fc8ad90a68bb37877c76857ffee19a1e6a95e8ab9094c0bb754b44cc7de34e95"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "fb45072912754449af2dceba697083c2b2bfc4de2838cc3509f86519ee045173",
+        "fb45072912754449af2dceba697083c2b2bfc4de2838cc3509f86519ee045173",
+        "fb45072912754449af2dceba697083c2b2bfc4de2838cc3509f86519ee045173"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "dd301b438c7e632e6360b9a0f533fd5c4b935e39bab0ee69793be11562b36db8",
+        "dd301b438c7e632e6360b9a0f533fd5c4b935e39bab0ee69793be11562b36db8",
+        "dd301b438c7e632e6360b9a0f533fd5c4b935e39bab0ee69793be11562b36db8"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "2d24cac44782cadd07bd2ecf8b93d919533b0ee9a62aae7ffeeaaacab24ddb8a",
+        "2d24cac44782cadd07bd2ecf8b93d919533b0ee9a62aae7ffeeaaacab24ddb8a",
+        "2d24cac44782cadd07bd2ecf8b93d919533b0ee9a62aae7ffeeaaacab24ddb8a"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "708f3a11aa5f702e1776843d642ecaed3016367788d9c509f618afe319391046",
+        "708f3a11aa5f702e1776843d642ecaed3016367788d9c509f618afe319391046",
+        "708f3a11aa5f702e1776843d642ecaed3016367788d9c509f618afe319391046"
+      ]
+    },
+    {
+      "theme": "day",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "8f4ca30c0c81b262f928bec540f2abd22046755aed94ae91902e85ebf777c481",
+        "8f4ca30c0c81b262f928bec540f2abd22046755aed94ae91902e85ebf777c481",
+        "8f4ca30c0c81b262f928bec540f2abd22046755aed94ae91902e85ebf777c481"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "eb6b70cd856a9a18ca17c414ec678ecad3bf4a7d2658de16989b97f3b85e4648",
+        "eb6b70cd856a9a18ca17c414ec678ecad3bf4a7d2658de16989b97f3b85e4648",
+        "eb6b70cd856a9a18ca17c414ec678ecad3bf4a7d2658de16989b97f3b85e4648"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "15a687ea9e1cad4f24a2b9da8d3cd4a16cf05b98a02a47552f1f35d187acd572",
+        "15a687ea9e1cad4f24a2b9da8d3cd4a16cf05b98a02a47552f1f35d187acd572",
+        "15a687ea9e1cad4f24a2b9da8d3cd4a16cf05b98a02a47552f1f35d187acd572"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "d14f5b2878e3ffcfb6c812455f7ae76a4366308975b6e9e32949b18601877047",
+        "d14f5b2878e3ffcfb6c812455f7ae76a4366308975b6e9e32949b18601877047",
+        "d14f5b2878e3ffcfb6c812455f7ae76a4366308975b6e9e32949b18601877047"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "bb85180b8123090927dfa7b3b2e8479bb61c31430d8b0004e4bd1fbcd12069be",
+        "bb85180b8123090927dfa7b3b2e8479bb61c31430d8b0004e4bd1fbcd12069be",
+        "bb85180b8123090927dfa7b3b2e8479bb61c31430d8b0004e4bd1fbcd12069be"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "a3275ee745e7d12d623f24b31256873159cc28faf33ae1e0af1b3675363a48eb",
+        "a3275ee745e7d12d623f24b31256873159cc28faf33ae1e0af1b3675363a48eb",
+        "a3275ee745e7d12d623f24b31256873159cc28faf33ae1e0af1b3675363a48eb"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "3cead67f7e1dd8161bbf2ce1e51c0403d543a1c81d39413d5dd5771acc2527aa",
+        "3cead67f7e1dd8161bbf2ce1e51c0403d543a1c81d39413d5dd5771acc2527aa",
+        "3cead67f7e1dd8161bbf2ce1e51c0403d543a1c81d39413d5dd5771acc2527aa"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "fe64f41dda03deb21d6810755de46387ddeca2055146d90719bc0ead6f2867d9",
+        "fe64f41dda03deb21d6810755de46387ddeca2055146d90719bc0ead6f2867d9",
+        "fe64f41dda03deb21d6810755de46387ddeca2055146d90719bc0ead6f2867d9"
+      ]
+    },
+    {
+      "theme": "night",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "19020c0ddb80593b9e2a615a25decf0312cee69055b04569abcf26811c441087",
+        "19020c0ddb80593b9e2a615a25decf0312cee69055b04569abcf26811c441087",
+        "19020c0ddb80593b9e2a615a25decf0312cee69055b04569abcf26811c441087"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "a892cb8d590a713cb410cf13d42f77f3daf771672b6d803214e9270fc02eba69",
+        "a892cb8d590a713cb410cf13d42f77f3daf771672b6d803214e9270fc02eba69",
+        "a892cb8d590a713cb410cf13d42f77f3daf771672b6d803214e9270fc02eba69"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "f2c945b3bac89d87dd7dff6174e5252ad1e6df55a33a1cf358610916daf3bc23",
+        "f2c945b3bac89d87dd7dff6174e5252ad1e6df55a33a1cf358610916daf3bc23",
+        "f2c945b3bac89d87dd7dff6174e5252ad1e6df55a33a1cf358610916daf3bc23"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "d8d4cf29034a19b1de53dcfa57c6e635b205daf5f9c2c8c9da43598f17df2999",
+        "d8d4cf29034a19b1de53dcfa57c6e635b205daf5f9c2c8c9da43598f17df2999",
+        "d8d4cf29034a19b1de53dcfa57c6e635b205daf5f9c2c8c9da43598f17df2999"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "a3dd71bd0791fa9323fd95d85e22b88735a121309d17772340721ae72afb7c55",
+        "a3dd71bd0791fa9323fd95d85e22b88735a121309d17772340721ae72afb7c55",
+        "a3dd71bd0791fa9323fd95d85e22b88735a121309d17772340721ae72afb7c55"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "de050f6db557fa53e6dd2e971b1b10270f454e833398058e32cf2f7b0f611fcd",
+        "de050f6db557fa53e6dd2e971b1b10270f454e833398058e32cf2f7b0f611fcd",
+        "de050f6db557fa53e6dd2e971b1b10270f454e833398058e32cf2f7b0f611fcd"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "5d832704d08e0e4511a22de28e172931fb80a56f024ac6edcf3188874fe16546",
+        "5d832704d08e0e4511a22de28e172931fb80a56f024ac6edcf3188874fe16546",
+        "5d832704d08e0e4511a22de28e172931fb80a56f024ac6edcf3188874fe16546"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "9057e53f56dfc9d76f2570b19a5b2506c7583ad7fda7fcda755fa509f0486a56",
+        "9057e53f56dfc9d76f2570b19a5b2506c7583ad7fda7fcda755fa509f0486a56",
+        "9057e53f56dfc9d76f2570b19a5b2506c7583ad7fda7fcda755fa509f0486a56"
+      ]
+    },
+    {
+      "theme": "cold_chain",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "fd1f6537a38428bf3b928146e6098bf3732fc7f7e854a47aaf1b230088f4cd7c",
+        "fd1f6537a38428bf3b928146e6098bf3732fc7f7e854a47aaf1b230088f4cd7c",
+        "fd1f6537a38428bf3b928146e6098bf3732fc7f7e854a47aaf1b230088f4cd7c"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "439069a6dfd42a5fc16760b587ba2528d057f01ef19a8355a94ed9fdba420c45",
+        "439069a6dfd42a5fc16760b587ba2528d057f01ef19a8355a94ed9fdba420c45",
+        "439069a6dfd42a5fc16760b587ba2528d057f01ef19a8355a94ed9fdba420c45"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "52dfa238b6c5bd7106cdba47991430231d17adb2349a9653d25501489df0a309",
+        "52dfa238b6c5bd7106cdba47991430231d17adb2349a9653d25501489df0a309",
+        "52dfa238b6c5bd7106cdba47991430231d17adb2349a9653d25501489df0a309"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "3e6bf32514308376dfefafa9f5f034c2414165e1f290a6da5776293151d1a1e0",
+        "3e6bf32514308376dfefafa9f5f034c2414165e1f290a6da5776293151d1a1e0",
+        "3e6bf32514308376dfefafa9f5f034c2414165e1f290a6da5776293151d1a1e0"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "f61d1ca64999b6ce7d26f39607b2be2bf94d6e81d056bac7fe37bab51a632c85",
+        "f61d1ca64999b6ce7d26f39607b2be2bf94d6e81d056bac7fe37bab51a632c85",
+        "f61d1ca64999b6ce7d26f39607b2be2bf94d6e81d056bac7fe37bab51a632c85"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "ac5df5d38798989094212cb90a66bc8eb814b3f2f4f29be561d1abafc5c0167c",
+        "ac5df5d38798989094212cb90a66bc8eb814b3f2f4f29be561d1abafc5c0167c",
+        "ac5df5d38798989094212cb90a66bc8eb814b3f2f4f29be561d1abafc5c0167c"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "7904023d703bc6dd43570f4aba539d0ecab430b3e0e84d6fb70eb05ade09ea0b",
+        "7904023d703bc6dd43570f4aba539d0ecab430b3e0e84d6fb70eb05ade09ea0b",
+        "7904023d703bc6dd43570f4aba539d0ecab430b3e0e84d6fb70eb05ade09ea0b"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "7104b5283678ece526739c93b07ec95e28a306a0779ca82708aa619decef7c5b",
+        "7104b5283678ece526739c93b07ec95e28a306a0779ca82708aa619decef7c5b",
+        "7104b5283678ece526739c93b07ec95e28a306a0779ca82708aa619decef7c5b"
+      ]
+    },
+    {
+      "theme": "rail_freight",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "76b4f375c434cfec4330d9e93ab41f3285a56b8d79fe0251e50bf67136da4adf",
+        "76b4f375c434cfec4330d9e93ab41f3285a56b8d79fe0251e50bf67136da4adf",
+        "76b4f375c434cfec4330d9e93ab41f3285a56b8d79fe0251e50bf67136da4adf"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "01650b4b24e13eaa63b0fb4886668cbc6aabcb9a5b66bc8d3e82c94cb4647c9d",
+        "01650b4b24e13eaa63b0fb4886668cbc6aabcb9a5b66bc8d3e82c94cb4647c9d",
+        "01650b4b24e13eaa63b0fb4886668cbc6aabcb9a5b66bc8d3e82c94cb4647c9d"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "045151ce5568f4ce9be4fcce6349bdda38d1757170402f9f98aad9fe53a5de02",
+        "045151ce5568f4ce9be4fcce6349bdda38d1757170402f9f98aad9fe53a5de02",
+        "045151ce5568f4ce9be4fcce6349bdda38d1757170402f9f98aad9fe53a5de02"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "2ba01c9491ce8d7a90b292b7c1717cb45207013859655659570c2d8da5fd03e8",
+        "2ba01c9491ce8d7a90b292b7c1717cb45207013859655659570c2d8da5fd03e8",
+        "2ba01c9491ce8d7a90b292b7c1717cb45207013859655659570c2d8da5fd03e8"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "a2a4c1555c26ee179dd21f61ee9a84ae2ffe641477e9f64b109139189a9c8197",
+        "a2a4c1555c26ee179dd21f61ee9a84ae2ffe641477e9f64b109139189a9c8197",
+        "a2a4c1555c26ee179dd21f61ee9a84ae2ffe641477e9f64b109139189a9c8197"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "411718bc096b8d53edbe0e73971b97796fad2a2dd53c78b5948ed31b261fa402",
+        "411718bc096b8d53edbe0e73971b97796fad2a2dd53c78b5948ed31b261fa402",
+        "411718bc096b8d53edbe0e73971b97796fad2a2dd53c78b5948ed31b261fa402"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "09be0a7ba70dee03812a6aef0abc64b8689b5787945bec79d8d874c854188c2e",
+        "09be0a7ba70dee03812a6aef0abc64b8689b5787945bec79d8d874c854188c2e",
+        "09be0a7ba70dee03812a6aef0abc64b8689b5787945bec79d8d874c854188c2e"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "516fe2fe91c1a17e9b7cc473bd64ff97a911e5f8e9f65680c2d68ba2176ffe06",
+        "516fe2fe91c1a17e9b7cc473bd64ff97a911e5f8e9f65680c2d68ba2176ffe06",
+        "516fe2fe91c1a17e9b7cc473bd64ff97a911e5f8e9f65680c2d68ba2176ffe06"
+      ]
+    },
+    {
+      "theme": "toy_workshop",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "d93044f0397ffb67225fbb3e13e43615bd06d51d33cc4c7706efc8496006be35",
+        "d93044f0397ffb67225fbb3e13e43615bd06d51d33cc4c7706efc8496006be35",
+        "d93044f0397ffb67225fbb3e13e43615bd06d51d33cc4c7706efc8496006be35"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "1c9c8d5b14a58986f739b32094056fba13cc3b3f8ce73807267aa4b8bf4a09bf",
+        "1c9c8d5b14a58986f739b32094056fba13cc3b3f8ce73807267aa4b8bf4a09bf",
+        "1c9c8d5b14a58986f739b32094056fba13cc3b3f8ce73807267aa4b8bf4a09bf"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "302e5f85ffe526379307ba35baff2deae785995d0ce1cb75de585163b80e12a1",
+        "302e5f85ffe526379307ba35baff2deae785995d0ce1cb75de585163b80e12a1",
+        "302e5f85ffe526379307ba35baff2deae785995d0ce1cb75de585163b80e12a1"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "9303e8345067700023169902c535effa82f3079cb42919998fed3eac79934142",
+        "9303e8345067700023169902c535effa82f3079cb42919998fed3eac79934142",
+        "9303e8345067700023169902c535effa82f3079cb42919998fed3eac79934142"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "f0ec61083ad7b847588419fee3e27b441eda50b4487df8716216abd011b376fb",
+        "f0ec61083ad7b847588419fee3e27b441eda50b4487df8716216abd011b376fb",
+        "f0ec61083ad7b847588419fee3e27b441eda50b4487df8716216abd011b376fb"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "3f52baa578f060ead9b9debff3c4726dc02a2f8553270599fb2e854b2e060b8d",
+        "3f52baa578f060ead9b9debff3c4726dc02a2f8553270599fb2e854b2e060b8d",
+        "3f52baa578f060ead9b9debff3c4726dc02a2f8553270599fb2e854b2e060b8d"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "19d5e248c432d2084c1081e54bb8f6b722eea72af5863eabb6883501778bb469",
+        "19d5e248c432d2084c1081e54bb8f6b722eea72af5863eabb6883501778bb469",
+        "19d5e248c432d2084c1081e54bb8f6b722eea72af5863eabb6883501778bb469"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "ceca968a78050c2d2f1e9836fe1d1613b9c6ef484cefcd67e1e9a40bc66dc90e",
+        "ceca968a78050c2d2f1e9836fe1d1613b9c6ef484cefcd67e1e9a40bc66dc90e",
+        "ceca968a78050c2d2f1e9836fe1d1613b9c6ef484cefcd67e1e9a40bc66dc90e"
+      ]
+    },
+    {
+      "theme": "paper_warehouse",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "f1225536ed356232044f4378549f116829f230904f9fd10bded13607d9a5ffb3",
+        "f1225536ed356232044f4378549f116829f230904f9fd10bded13607d9a5ffb3",
+        "f1225536ed356232044f4378549f116829f230904f9fd10bded13607d9a5ffb3"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "d05499401b2d790cb4882f07e6ae843fa68d3fec8ec0d18c865c24570bd26ecd",
+        "d05499401b2d790cb4882f07e6ae843fa68d3fec8ec0d18c865c24570bd26ecd",
+        "d05499401b2d790cb4882f07e6ae843fa68d3fec8ec0d18c865c24570bd26ecd"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "410151ca20eaf4b9a3702773d4499b7ace4cc148db45ab98cc68bd1cae8d2688",
+        "410151ca20eaf4b9a3702773d4499b7ace4cc148db45ab98cc68bd1cae8d2688",
+        "410151ca20eaf4b9a3702773d4499b7ace4cc148db45ab98cc68bd1cae8d2688"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "61fc5023cae4dac967dbadb2b88039a8a1971790194518612c6c904f52fed97c",
+        "61fc5023cae4dac967dbadb2b88039a8a1971790194518612c6c904f52fed97c",
+        "61fc5023cae4dac967dbadb2b88039a8a1971790194518612c6c904f52fed97c"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "5e1dd6642501a3e76b865424f7e3b75223c23423dd57f9f00616611fd9bcbfb1",
+        "5e1dd6642501a3e76b865424f7e3b75223c23423dd57f9f00616611fd9bcbfb1",
+        "5e1dd6642501a3e76b865424f7e3b75223c23423dd57f9f00616611fd9bcbfb1"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "317ced9b45acb7e19e95f9c7783df049af8a911a877a7ba5e51e270b52ea22b3",
+        "317ced9b45acb7e19e95f9c7783df049af8a911a877a7ba5e51e270b52ea22b3",
+        "317ced9b45acb7e19e95f9c7783df049af8a911a877a7ba5e51e270b52ea22b3"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "6cd5380e027ed9745bdbb4ac49f37a144a2a7194c6fd01fca908406a5025293d",
+        "6cd5380e027ed9745bdbb4ac49f37a144a2a7194c6fd01fca908406a5025293d",
+        "6cd5380e027ed9745bdbb4ac49f37a144a2a7194c6fd01fca908406a5025293d"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "27b4910e67784f79d2e4e3612061f2e1a2af75c9ad5123c1d4a868f9a281be25",
+        "27b4910e67784f79d2e4e3612061f2e1a2af75c9ad5123c1d4a868f9a281be25",
+        "27b4910e67784f79d2e4e3612061f2e1a2af75c9ad5123c1d4a868f9a281be25"
+      ]
+    },
+    {
+      "theme": "space_cargo",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "573978d3ff019201e84478fbd2aa9382e7a421d0a4de50e9e4e0b78b85638775",
+        "573978d3ff019201e84478fbd2aa9382e7a421d0a4de50e9e4e0b78b85638775",
+        "573978d3ff019201e84478fbd2aa9382e7a421d0a4de50e9e4e0b78b85638775"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "a0d1c1419a0559930b9560864e8361ffaca5992c7a1127f1c9c86f293ca5cbba",
+        "a0d1c1419a0559930b9560864e8361ffaca5992c7a1127f1c9c86f293ca5cbba",
+        "a0d1c1419a0559930b9560864e8361ffaca5992c7a1127f1c9c86f293ca5cbba"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "bf797c9ea38ec47173876054976ff7bdf2d00f50a5792546975db3330b0bb8b4",
+        "bf797c9ea38ec47173876054976ff7bdf2d00f50a5792546975db3330b0bb8b4",
+        "bf797c9ea38ec47173876054976ff7bdf2d00f50a5792546975db3330b0bb8b4"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "be196a927d35ffc15f71dd03c3da24df1c6afb1550ff19dd47b4643527b8920f",
+        "be196a927d35ffc15f71dd03c3da24df1c6afb1550ff19dd47b4643527b8920f",
+        "be196a927d35ffc15f71dd03c3da24df1c6afb1550ff19dd47b4643527b8920f"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "9c42a3d933e381411b2207d81ac57d105a208ea73c0004a13292a9cf6c673fae",
+        "9c42a3d933e381411b2207d81ac57d105a208ea73c0004a13292a9cf6c673fae",
+        "9c42a3d933e381411b2207d81ac57d105a208ea73c0004a13292a9cf6c673fae"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "b016ec96e53f302ca1b6eb2551b22436cf9344f3b0b113a5f0a1ed1511d7a72a",
+        "b016ec96e53f302ca1b6eb2551b22436cf9344f3b0b113a5f0a1ed1511d7a72a",
+        "b016ec96e53f302ca1b6eb2551b22436cf9344f3b0b113a5f0a1ed1511d7a72a"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "a5788a66abe8b18f1be442f2dbf55425bb12b32bca818c4cc3819dec23f0e644",
+        "a5788a66abe8b18f1be442f2dbf55425bb12b32bca818c4cc3819dec23f0e644",
+        "a5788a66abe8b18f1be442f2dbf55425bb12b32bca818c4cc3819dec23f0e644"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "6c5237dded15cb5b442d2625e9ddb540121ced88f1f89b4bec3f3438301b1d24",
+        "6c5237dded15cb5b442d2625e9ddb540121ced88f1f89b4bec3f3438301b1d24",
+        "6c5237dded15cb5b442d2625e9ddb540121ced88f1f89b4bec3f3438301b1d24"
+      ]
+    },
+    {
+      "theme": "steam_foundry",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "9227a7f719391b710bc25f686f076735ea4c87e6f031348e6ede0e70120c4ca8",
+        "9227a7f719391b710bc25f686f076735ea4c87e6f031348e6ede0e70120c4ca8",
+        "9227a7f719391b710bc25f686f076735ea4c87e6f031348e6ede0e70120c4ca8"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 1.7777777777777777,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "06746f7fedca625f4e714da1b21ea9d21a35d8b9a2613e3dc97c2a593b8031ef",
+        "06746f7fedca625f4e714da1b21ea9d21a35d8b9a2613e3dc97c2a593b8031ef",
+        "06746f7fedca625f4e714da1b21ea9d21a35d8b9a2613e3dc97c2a593b8031ef"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 1.7777777777777777,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "093ab82456cc8f2a538227d9efc772333bf56be1b35fe6493a7686ce18861a51",
+        "093ab82456cc8f2a538227d9efc772333bf56be1b35fe6493a7686ce18861a51",
+        "093ab82456cc8f2a538227d9efc772333bf56be1b35fe6493a7686ce18861a51"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "782ea18e44c6336c34b232ad2919259ffb70b3b592158ab465b07cb940a47a1a",
+        "782ea18e44c6336c34b232ad2919259ffb70b3b592158ab465b07cb940a47a1a",
+        "782ea18e44c6336c34b232ad2919259ffb70b3b592158ab465b07cb940a47a1a"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "f8abbf51264c5d46ee538891e3b3fc41135b9d3406d155fcbd8d73473c9fe168",
+        "f8abbf51264c5d46ee538891e3b3fc41135b9d3406d155fcbd8d73473c9fe168",
+        "f8abbf51264c5d46ee538891e3b3fc41135b9d3406d155fcbd8d73473c9fe168"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2.2222222222222223,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "fef26a88998d8ff4ed70fc6668023c6a76ebdbd7b108d5af7ec7e37744bcc8c0",
+        "fef26a88998d8ff4ed70fc6668023c6a76ebdbd7b108d5af7ec7e37744bcc8c0",
+        "fef26a88998d8ff4ed70fc6668023c6a76ebdbd7b108d5af7ec7e37744bcc8c0"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2.2222222222222223,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "aad29be48886e8d92a78b6b48bd0288a38acb4d0620f6f361c49688d6954223a",
+        "aad29be48886e8d92a78b6b48bd0288a38acb4d0620f6f361c49688d6954223a",
+        "aad29be48886e8d92a78b6b48bd0288a38acb4d0620f6f361c49688d6954223a"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2.3333333333333335,
+      "mode": "ready PNG first frame",
+      "frames": 3,
+      "hashes": [
+        "7378fa92d4092f7bd8c5dcabbac805bc4f754b5dd195de82aa5fd38e704029ba",
+        "7378fa92d4092f7bd8c5dcabbac805bc4f754b5dd195de82aa5fd38e704029ba",
+        "7378fa92d4092f7bd8c5dcabbac805bc4f754b5dd195de82aa5fd38e704029ba"
+      ]
+    },
+    {
+      "theme": "ocean_vault",
+      "ratio": 2.3333333333333335,
+      "mode": "stable error fallback",
+      "frames": 3,
+      "hashes": [
+        "55bc6fbf4f9fa7a15f4af58e9a3bc762dd52ae6ea319c7e376ec9a0efb7571a0",
+        "55bc6fbf4f9fa7a15f4af58e9a3bc762dd52ae6ea319c7e376ec9a0efb7571a0",
+        "55bc6fbf4f9fa7a15f4af58e9a3bc762dd52ae6ea319c7e376ec9a0efb7571a0"
+      ]
+    }
+  ],
+  "frames": 216
+}

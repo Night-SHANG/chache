@@ -1,0 +1,1327 @@
+{
+  "status": "PASS",
+  "version": "1.0.20",
+  "target": "android",
+  "bundleSha256": "7ea73146ce403f9b76c63ad22d9c13ea7360a50ebbe9aa7f8c9a35842d2d3717",
+  "images": [
+    {
+      "name": "android-01-cold-day-owned.png",
+      "sha256": "0c226c42bf13d28bc73f3ee9c47c4cdc93c86e795337d06e32253f5db0487671"
+    },
+    {
+      "name": "android-02-cold-gameplay-after-move.png",
+      "sha256": "beee781dd58d7f24304537867a8ae5089e0e557d6aa19d12f1d7ad8d41f0e4c5"
+    },
+    {
+      "name": "android-03-permanent-failure-gameplay-after-move.png",
+      "sha256": "f999c99059c4458fb868d67c395c4167bddf4646b6a4902770033aa641cbeeee"
+    },
+    {
+      "name": "android-04-cold-day-owned.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-05-owned-theme-page-1.png",
+      "sha256": "990a2350d54934dae4558e20c1e1a9928a0e658d72468aa91d857edc95dd65ec"
+    },
+    {
+      "name": "android-06-owned-theme-page-2.png",
+      "sha256": "89c3ebd4d59818f690254e9a8aae3df8ca1f3b78c85d513e219adf391d937aef"
+    },
+    {
+      "name": "android-07-owned-theme-page-3.png",
+      "sha256": "d6f502876749f1ed458620d3f7fa9490cee0aa230763015e341897e8c0980328"
+    },
+    {
+      "name": "android-08-owned-cargo-page-1.png",
+      "sha256": "f98a60b07a457da1a3ba0f01c5663f77910f9f077118d86dd7b02966575ced3f"
+    },
+    {
+      "name": "android-09-owned-cargo-page-2.png",
+      "sha256": "2acb71bac7ea1e2a7142ac39333307ca2a68cec75e8729a0448d6ba5d0ed57c1"
+    },
+    {
+      "name": "android-10-owned-cargo-page-3.png",
+      "sha256": "00820ae5adc55e0b051ce4919ee4004ec111fbf3f9c928c331345de0b7f6293d"
+    },
+    {
+      "name": "android-11-owned-forklift-page-1.png",
+      "sha256": "c5730447abd74baa69ce090335046d13dfbc17778bb07bed82270951ee1aefe4"
+    },
+    {
+      "name": "android-12-owned-forklift-page-2.png",
+      "sha256": "d5d55df6a3ff578e280c5faa9f0ad6f08f0fa58545be6c820de98b7c48692fb1"
+    },
+    {
+      "name": "android-13-owned-forklift-page-3.png",
+      "sha256": "43c065fc19d0623f884105d8dd49914b7edca1e15db11e1d916dbef18adc4d6e"
+    },
+    {
+      "name": "android-14-cold-day-sale.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-15-sale-theme-page-1.png",
+      "sha256": "4bca99432cd0173683f57527c0952080d65e7d7ab39c11a8d7df98f537529502"
+    },
+    {
+      "name": "android-16-sale-theme-page-2.png",
+      "sha256": "5052f7511690f90d6ef29c984ea948d5289ade94a394a63c6ed7d67344d9a986"
+    },
+    {
+      "name": "android-17-sale-theme-page-3.png",
+      "sha256": "9e0dbe4373ab7b16c4cd1d3c5873173d6981e5ae8201d96f919d8d88028a93c1"
+    },
+    {
+      "name": "android-18-sale-cargo-page-1.png",
+      "sha256": "b9e75680f14078a751511c0b4dfe80e03facb24b38c721184804973fd6ecad19"
+    },
+    {
+      "name": "android-19-sale-cargo-page-2.png",
+      "sha256": "68e0c1cd824103932a8b1fb3dda402b8deb12b4d7aba911e77145f84e81b85d7"
+    },
+    {
+      "name": "android-20-sale-cargo-page-3.png",
+      "sha256": "ad42951420e9c4fbcf480f77725a21f1f585982198ff59f43b2a5ff64c6217d3"
+    },
+    {
+      "name": "android-21-sale-forklift-page-1.png",
+      "sha256": "6cc98005936e2376cbc6db234ccfae4345d24d2c96532862fb82ba40be232d73"
+    },
+    {
+      "name": "android-22-sale-forklift-page-2.png",
+      "sha256": "4fd5ebfbc22722c5a65eff2adf6ae743691db310c11f7e99eed7c0de71521b24"
+    },
+    {
+      "name": "android-23-sale-forklift-page-3.png",
+      "sha256": "5940dcb4c2b98427760ec540030619e59ef9a54df529f570de8de7c735370aa7"
+    },
+    {
+      "name": "android-24-cold-day-owned.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-25-equip-cold-first-frame.png",
+      "sha256": "6707e162a18a5f1a8653c4b87c06be4b7f522fd7c204224f291a22a702b09637"
+    },
+    {
+      "name": "android-26-equip-ready-png.png",
+      "sha256": "bc10e67d20afac3d51a929278353609f3269b75f05968a58378c5af4acc31f12"
+    },
+    {
+      "name": "android-27-cold-cold_chain-owned.png",
+      "sha256": "86f9e348f72ca42b6d66ee607779d29f8e24ad0abc31687e824947e792067b6c"
+    },
+    {
+      "name": "android-28-failed-art-menu.png",
+      "sha256": "86f9e348f72ca42b6d66ee607779d29f8e24ad0abc31687e824947e792067b6c"
+    },
+    {
+      "name": "android-29-cold-day-owned.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-30-cold-day-owned.png",
+      "sha256": "c947d5afdbc31045d5eab4afdd8e649fc42fb74d96c309b8a54f38ddf22e1865"
+    },
+    {
+      "name": "android-31-cold-day-owned.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-32-startup-day.png",
+      "sha256": "dff535b1398c075c42c1e9bbfc7d54b510f4ad30beac9eca47c82159a3bc69ea"
+    },
+    {
+      "name": "android-33-cold-night-owned.png",
+      "sha256": "f3666aac9f002e116a6c979f75b7977a5f8d9bbb3427c242b93211a561ee63b8"
+    },
+    {
+      "name": "android-34-startup-night.png",
+      "sha256": "f3666aac9f002e116a6c979f75b7977a5f8d9bbb3427c242b93211a561ee63b8"
+    },
+    {
+      "name": "android-35-cold-cold_chain-owned.png",
+      "sha256": "ab628af15bd6dae29620055ec22192f90547cc57184fc54b871b663ff860eaa3"
+    },
+    {
+      "name": "android-36-startup-cold_chain.png",
+      "sha256": "ab628af15bd6dae29620055ec22192f90547cc57184fc54b871b663ff860eaa3"
+    },
+    {
+      "name": "android-37-cold-rail_freight-owned.png",
+      "sha256": "ec787d0ef79520b40eb7ddeb072dad10f3f9b2f30516d25127e13818cf2539ad"
+    },
+    {
+      "name": "android-38-startup-rail_freight.png",
+      "sha256": "ec787d0ef79520b40eb7ddeb072dad10f3f9b2f30516d25127e13818cf2539ad"
+    },
+    {
+      "name": "android-39-cold-toy_workshop-owned.png",
+      "sha256": "2a6121e4348af066e2c8a0adc035fc19effdb32f3d71b6cef4339ca398aab913"
+    },
+    {
+      "name": "android-40-startup-toy_workshop.png",
+      "sha256": "2a6121e4348af066e2c8a0adc035fc19effdb32f3d71b6cef4339ca398aab913"
+    },
+    {
+      "name": "android-41-cold-paper_warehouse-owned.png",
+      "sha256": "44715aa18140246d90ff2e9a6f95a132d6d91470e4889741fd434beaf1638d8b"
+    },
+    {
+      "name": "android-42-startup-paper_warehouse.png",
+      "sha256": "44715aa18140246d90ff2e9a6f95a132d6d91470e4889741fd434beaf1638d8b"
+    },
+    {
+      "name": "android-43-cold-space_cargo-owned.png",
+      "sha256": "a3e84033ffe272d0a21a0207c65f93f87d6b4c106e42b1726ee80c122fe5999b"
+    },
+    {
+      "name": "android-44-startup-space_cargo.png",
+      "sha256": "a3e84033ffe272d0a21a0207c65f93f87d6b4c106e42b1726ee80c122fe5999b"
+    },
+    {
+      "name": "android-45-cold-steam_foundry-owned.png",
+      "sha256": "eaecb5904de6d7a4b77c822e5325356fb344c6afd17ca047ec66fb73f232b4d1"
+    },
+    {
+      "name": "android-46-startup-steam_foundry.png",
+      "sha256": "eaecb5904de6d7a4b77c822e5325356fb344c6afd17ca047ec66fb73f232b4d1"
+    },
+    {
+      "name": "android-47-cold-ocean_vault-owned.png",
+      "sha256": "17912ff6037a9bd8a21de65f169c6f22e5654824b4a29901530e7c748eee9366"
+    },
+    {
+      "name": "android-48-startup-ocean_vault.png",
+      "sha256": "17912ff6037a9bd8a21de65f169c6f22e5654824b4a29901530e7c748eee9366"
+    }
+  ],
+  "decodedImages": [
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/static-art/scene-day.png",
+      "status": "error",
+      "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+      "bytes": 120512,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "error",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "error",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "error",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/board-materials.png",
+      "status": "error",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/cargo-materials.png",
+      "status": "error",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/scene-materials.png",
+      "status": "error",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "cold-play:each-image",
+      "source": "assets/static-art/tools-core.png",
+      "status": "error",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "equip:decode",
+      "source": "assets/static-art/scene-cold_chain.png",
+      "status": "loaded",
+      "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4",
+      "bytes": 32699,
+      "width": 1205,
+      "height": 1920
+    },
+    {
+      "name": "rapid:old-scene-completion",
+      "source": "assets/static-art/scene-rail_freight.png",
+      "status": "loaded",
+      "sha256": "3d1b338dc1c73c01ffc655029fa9e0e2481c84bd8703ffdf82f56c88fe171db7",
+      "bytes": 52533,
+      "width": 1205,
+      "height": 1920
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "error",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "error",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "error",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "error",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "error",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "error",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "error",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "failed-target:decode",
+      "source": "assets/static-art/scene-cold_chain.png",
+      "status": "error",
+      "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4",
+      "bytes": 32699,
+      "injectedFailure": true,
+      "error": "Error: Injected one-shot packaged image failure"
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-base.png",
+      "status": "loaded",
+      "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+      "bytes": 13131,
+      "width": 1024,
+      "height": 192
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/cargo-core.png",
+      "status": "loaded",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+      "bytes": 65461,
+      "width": 1792,
+      "height": 256
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/forklift-styled.png",
+      "status": "loaded",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+      "bytes": 96338,
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/frame-classic.png",
+      "status": "loaded",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+      "bytes": 15898,
+      "width": 1024,
+      "height": 272
+    },
+    {
+      "name": "startup",
+      "source": "assets/board-materials.png",
+      "status": "loaded",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+      "bytes": 166727,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "name": "startup",
+      "source": "assets/cargo-materials.png",
+      "status": "loaded",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+      "bytes": 351513,
+      "width": 670,
+      "height": 2010
+    },
+    {
+      "name": "startup",
+      "source": "assets/scene-materials.png",
+      "status": "loaded",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+      "bytes": 219775,
+      "width": 512,
+      "height": 960
+    },
+    {
+      "name": "startup",
+      "source": "assets/static-art/tools-core.png",
+      "status": "loaded",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+      "bytes": 62433,
+      "width": 1024,
+      "height": 256
+    }
+  ],
+  "visited": [
+    "owned:theme.day",
+    "owned:theme.night",
+    "owned:theme.cold_chain",
+    "owned:theme.rail_freight",
+    "owned:theme.toy_workshop",
+    "owned:theme.paper_warehouse",
+    "owned:theme.space_cargo",
+    "owned:theme.steam_foundry",
+    "owned:theme.ocean_vault",
+    "owned:cargo.classic",
+    "owned:cargo.outline",
+    "owned:cargo.insulated",
+    "owned:cargo.reinforced",
+    "owned:cargo.toy_brick",
+    "owned:cargo.paper_fold",
+    "owned:cargo.space_case",
+    "owned:cargo.steam_brass",
+    "owned:cargo.ocean_relic",
+    "owned:forklift.yellow",
+    "owned:forklift.blue",
+    "owned:forklift.red",
+    "owned:forklift.white",
+    "owned:forklift.electric",
+    "owned:forklift.heavy",
+    "owned:forklift.toy",
+    "owned:forklift.paper",
+    "owned:forklift.space",
+    "owned:forklift.steam",
+    "owned:forklift.diving",
+    "sale:theme.day",
+    "sale:theme.night",
+    "sale:theme.cold_chain",
+    "sale:theme.rail_freight",
+    "sale:theme.toy_workshop",
+    "sale:theme.paper_warehouse",
+    "sale:theme.space_cargo",
+    "sale:theme.steam_foundry",
+    "sale:theme.ocean_vault",
+    "sale:cargo.classic",
+    "sale:cargo.outline",
+    "sale:cargo.insulated",
+    "sale:cargo.reinforced",
+    "sale:cargo.toy_brick",
+    "sale:cargo.paper_fold",
+    "sale:cargo.space_case",
+    "sale:cargo.steam_brass",
+    "sale:cargo.ocean_relic",
+    "sale:forklift.yellow",
+    "sale:forklift.blue",
+    "sale:forklift.red",
+    "sale:forklift.white",
+    "sale:forklift.electric",
+    "sale:forklift.heavy",
+    "sale:forklift.toy",
+    "sale:forklift.paper",
+    "sale:forklift.space",
+    "sale:forklift.steam",
+    "sale:forklift.diving"
+  ],
+  "cases": [
+    "cold-first-frame-gameplay-move-pause-help-hide-show",
+    "permanent-failure-gameplay-move",
+    "owned-all-active-cold-hot",
+    "unowned-all-active-cold-hot",
+    "purchase-cancel",
+    "equip-commits-before-target-decode",
+    "rapid-equip-late-scene-no-account-write",
+    "equipped-scene-hide-show",
+    "permanent-image-failure-keeps-menu-and-input",
+    "failed-target-retains-committed-identity",
+    "second-page-equipped-first-entry-and-visit-reset",
+    "all-nine-current-themes-cold-startup"
+  ],
+  "kind": "Unchanged bundle / native PNG and Canvas / simulated platform; no device or Chromium claim",
+  "browserAcceptance": "NOT RUN",
+  "cssAcceptance": "NOT RUN",
+  "nativeAndroidAcceptance": "NOT RUN",
+  "phoneAcceptance": "NOT RUN",
+  "frameCount": 726,
+  "fullTraceSha256": "bdd3b9e8c1ca683d9fd210df3e49cce5be814608decf7f32a7727c1bff7dcd0e"
+}

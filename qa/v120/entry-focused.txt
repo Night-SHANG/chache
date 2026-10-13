@@ -1,0 +1,17 @@
+✔ Android initial menu requests only its committed scene and visible forklift atlas (11.560503ms)
+✔ successful startup resolves as soon as its two images finish, without waiting for a delay (2.148402ms)
+✔ startup timeout permanently rejects late images and still allows later deliberate scene loading (11.279622ms)
+✔ immediate image failure settles to usable fallback without waiting for deadline (1.317357ms)
+✔ browser first frame and every pending or failed image frame remain playable without an art gate (276.840013ms)
+✔ wechat first frame and every pending or failed image frame remain playable without an art gate (234.005816ms)
+✔ android first frame and every pending or failed image frame remain playable without an art gate (164.790002ms)
+✔ Android startup stays silent through native bridge, zero geometry, readiness and held PNGs (79.998711ms)
+✔ Android first rendered menu has its real images and stays pixel-identical after optional atlases arrive (155.87584ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1445.135101

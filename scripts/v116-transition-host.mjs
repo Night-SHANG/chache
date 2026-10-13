@@ -9,14 +9,14 @@ import {createCanvas,Image} from '@napi-rs/canvas';
 import {authoritativeAccount,sha256} from './growth-host-support.mjs';
 import {attachPixelWitness} from './refinement-host-support.mjs';
 
-export async function createV116TransitionHost({target,bundlePath,storage=new Map(),width=540,height=960,rejectImageLoads=()=>false,holdNativeState=false,initialGeometryReady=true}={}) {
+export async function createV116TransitionHost({target,bundlePath,storage=new Map(),width=540,height=960,rejectImageLoads=()=>false,holdNativeState=false,initialGeometryReady=true,holdLaunchVisual=false}={}) {
  const bytes=await readFile(bundlePath),root=await realpath(dirname(resolve(bundlePath)));
  const canvas=createCanvas(width,height),context=canvas.getContext('2d'),labels=[],draws=[],imageTrace=[],jobs=[],frames=new Map(),events=new Map(),nativeListeners=new Map(),operations=[],audioTrace=[];
  let now=0,frameId=0,listenerId=0,canvasCount=target==='wechat'?0:1,hidden=false;
- const callbacks={},captures=new Set(),coverWrites=[];let coverHidden=true,coverText='';
+ const callbacks={},captures=new Set(),coverWrites=[],launchTrace=[],timers=new Map(),swallowed=new Set();let timerId=0,launchReady=false;let coverHidden=true,coverText='';
  const cover={get hidden(){return coverHidden;},set hidden(value){coverHidden=value;coverWrites.push({hidden:coverHidden,text:coverText});},get textContent(){return coverText;},set textContent(value){coverText=value;coverWrites.push({hidden:coverHidden,text:coverText});}};
  let releaseNativeState;const nativeStateBarrier=new Promise(resolve=>{releaseNativeState=resolve;});
- let state={active:true,owner:true,widthPx:initialGeometryReady?width:0,heightPx:initialGeometryReady?height:0,insetsPx:{top:0,right:0,bottom:0,left:0}};
+ let state={launchGeneration:1,active:true,owner:true,widthPx:initialGeometryReady?width:0,heightPx:initialGeometryReady?height:0,insetsPx:{top:0,right:0,bottom:0,left:0}};
  const bind=(scope,name,fn)=>{const key=`${scope}:${name}`;if(!events.has(key))events.set(key,new Set());events.get(key).add(fn);};
  const unbind=(scope,name,fn)=>events.get(`${scope}:${name}`)?.delete(fn);
  const emit=(scope,name,event={})=>{for(const fn of events.get(`${scope}:${name}`)??[])fn(event);};
@@ -60,16 +60,17 @@ export async function createV116TransitionHost({target,bundlePath,storage=new Ma
  const wx={createCanvas(){canvasCount++;assert.equal(canvasCount,1,'Only the screen canvas may be created');return canvas;},getWindowInfo:()=>({windowWidth:width,windowHeight:height,pixelRatio:1}),getStorageSync:key=>get(key)??'',setStorageSync:set,removeStorageSync:remove,getStorageInfoSync:()=>({keys:[...storage.keys()],currentSize:0,limitSize:16384}),createImage:HostImage,createInnerAudioContext:()=>audio(),onWindowResize:fn=>callbacks.resize=fn};
  for(const [name,type] of [['onTouchStart','down'],['onTouchMove','move'],['onTouchEnd','up'],['onTouchCancel','cancel'],['onHide','hide'],['onShow','show']])wx[name]=fn=>callbacks[type]=fn;
  class Clock extends Date{static now(){return Date.parse('2026-10-13T12:00:00Z')+now;}}
- const sandbox={Date:Clock,console,performance:{now:()=>now},requestAnimationFrame,cancelAnimationFrame};
+ const sandbox={Date:Clock,console,performance:{now:()=>now},requestAnimationFrame,cancelAnimationFrame,setTimeout:(fn,delay)=>{const id=++timerId;timers.set(id,{fn,delay});return id;},clearTimeout:id=>timers.delete(id)};
+ if(target==='android')sandbox.WarehouseLaunch={isReady:()=>launchReady,frameReady(value){launchTrace.push({kind:'rendered-frame',state:JSON.parse(value),labels:labels.map(row=>row.text),time:now});if(!holdLaunchVisual){launchReady=true;launchTrace.push({kind:'visual-ready',time:now});}},failed(message){launchTrace.push({kind:'failure',message,time:now});launchReady=true;}};
  if(target==='wechat')sandbox.wx=wx;
  else Object.assign(sandbox,{document,Capacitor,WarehouseStorage,androidBridge:{},location:{origin:'https://localhost',search:''},devicePixelRatio:1,localStorage,Image:HostImage,Audio,URLSearchParams,navigator:{locks:{request:async(_name,_options,fn)=>fn({name:'warehouse.account.s1.writer'})},vibrate:()=>true},addEventListener:(name,fn)=>bind('window',name,fn),removeEventListener:(name,fn)=>unbind('window',name,fn)});
  if(target!=='wechat')sandbox.window=sandbox;
  vm.runInNewContext(bytes.toString('utf8'),sandbox,{timeout:10000,filename:bundlePath});
- const flush=async()=>{for(let n=0;n<40;n++)await Promise.resolve();};await flush();if(!holdNativeState)assert.ok(frames.size,'Exact bundle must schedule a frame');
+ const flush=async()=>{for(let n=0;n<40;n++)await Promise.resolve();};await flush();if(!holdNativeState&&target!=='android')assert.ok(frames.size,'Exact bundle must schedule a frame');
  const scale=Math.min(width/1080,height/1920),ox=(width-1080*scale)/2,oy=(height-1920*scale)/2;
- const pointer=(type,x,y,id=1)=>{const point={identifier:id,clientX:ox+x*scale,clientY:oy+y*scale};if(target==='wechat')callbacks[type]({changedTouches:[point]});else emit('canvas',`pointer${type}`,{...point,pointerId:id,pointerType:'touch',preventDefault(){}});};
+ const pointer=(type,x,y,id=1)=>{if(target==='android'&&(!launchReady||swallowed.has(id))){if(type==='down')swallowed.add(id);if(type==='up'||type==='cancel')swallowed.delete(id);return;}const point={identifier:id,clientX:ox+x*scale,clientY:oy+y*scale};if(target==='wechat')callbacks[type]({changedTouches:[point]});else emit('canvas',`pointer${type}`,{...point,pointerId:id,pointerType:'touch',preventDefault(){}});};
  const emitHost=active=>{state={...state,active};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(JSON.parse(JSON.stringify(state)));};
- const host={canvas,context,storage,labels,draws,imageTrace,operations,audioTrace,cover,coverWrites,releaseNativeState,releaseGeometry(){state={...state,widthPx:width,heightPx:height};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(JSON.parse(JSON.stringify(state)));},viewport:{w:width,h:height,safe:0,dpr:1},gameJsSha256:sha256(bytes),get time(){return now;},get canvasCount(){return canvasCount;},pendingImages:()=>jobs.map(job=>job.row.source),flush,
+ const host={canvas,context,storage,labels,draws,imageTrace,operations,audioTrace,cover,coverWrites,launchTrace,get launchReady(){return launchReady;},get pendingFrames(){return frames.size;},releaseLaunch(){launchReady=true;launchTrace.push({kind:'visual-ready',time:now});},expireStartupArt(){for(const [id,timer]of [...timers]){timers.delete(id);timer.fn();}},releaseNativeState,releaseGeometry(){state={...state,widthPx:width,heightPx:height};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(JSON.parse(JSON.stringify(state)));},viewport:{w:width,h:height,safe:0,dpr:1},gameJsSha256:sha256(bytes),get time(){return now;},get canvasCount(){return canvasCount;},pendingImages:()=>jobs.map(job=>job.row.source),flush,
   frame(){labels.length=0;draws.length=0;now+=16;const pending=[...frames.values()];frames.clear();for(const fn of pending)fn(now);return {texts:labels.map(row=>row.text),draws:[...draws],cover:target==='android'&&!cover.hidden};},
   pointer,tap(x,y){pointer('down',x,y);pointer('up',x,y);},account:()=>authoritativeAccount(storage),storageSnapshot:()=>JSON.stringify([...storage].sort()),
   async decodeNext(){const job=jobs.shift();assert.ok(job,'Expected an actual pending PNG decode');await job.run();await flush();return {...job.row};},

@@ -26,6 +26,7 @@ const copy=(state:NativeHostState):NativeHostState=>({...state,insetsPx:{...stat
 function decodeState(value:unknown):NativeHostState {
  if(!value||typeof value!=='object')throw Error('Android 宿主 state 无效');
  const state=value as NativeHostState,insets=state.insetsPx;
+ if(state.launchGeneration!==undefined&&(!Number.isSafeInteger(state.launchGeneration)||state.launchGeneration<0))throw Error('Android 宿主启动代次无效');
  if(typeof state.active!=='boolean'||typeof state.owner!=='boolean'||![state.widthPx,state.heightPx].every(number=>Number.isFinite(number)&&number>=0)||!insets||![insets.top,insets.right,insets.bottom,insets.left].every(number=>Number.isFinite(number)&&number>=0))throw Error('Android 宿主 state 无效');
  if(state.widthPx>0&&state.heightPx>0&&(insets.left+insets.right>=state.widthPx||insets.top+insets.bottom>=state.heightPx))throw Error('Android 宿主安全区无效');
  return copy(state);

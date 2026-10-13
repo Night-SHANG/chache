@@ -3,6 +3,7 @@ import {L,type Rect} from '../presentation/layout.ts';
 
 /** Native window and insets are physical pixels; never CSS safe-area values. */
 export interface NativeHostState {
+ launchGeneration?:number;
  active:boolean;
  owner:boolean;
  widthPx:number;

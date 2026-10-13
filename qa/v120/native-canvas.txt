@@ -1,0 +1,2 @@
+Android v120: 726 exact-bundle frames; stable startup, direct play, PNG completions and failures verified.
+ACTUAL_EXIT_CODE=0

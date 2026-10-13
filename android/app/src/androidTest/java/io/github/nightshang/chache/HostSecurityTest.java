@@ -41,7 +41,7 @@ public class HostSecurityTest {
     private static void awaitStartup(WebView view) throws Exception {
         long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);
         while (System.nanoTime() < end) {
-            if ("ready".equals(evaluate(view,"document.querySelector('#startup-status')?.hidden === true ? 'ready' : 'waiting'"))) return;
+            if ("ready".equals(evaluate(view,"typeof window.WarehouseLaunch?.isReady === 'function' && WarehouseLaunch.isReady() && document.querySelector('#startup-status')?.hidden === true ? 'ready' : 'waiting'"))) return;
             Thread.sleep(100);
         }
         fail("Bundled production entry did not pass native startup: " + evaluate(view,"document.querySelector('#startup-status')?.textContent"));
@@ -51,6 +51,17 @@ public class HostSecurityTest {
             MainActivity activity = activity(scenario);WebView view = activity.getBridge().getWebView();awaitStartup(view);
             assertEquals("https://localhost",evaluate(view,"location.origin"));
             assertEquals("function",evaluate(view,"typeof WarehouseStorage.get"));
+            assertEquals("function",evaluate(view,"typeof WarehouseLaunch.frameReady"));
+            assertEquals("function",evaluate(view,"typeof WarehouseLaunch.failed"));
+            assertEquals("true",evaluate(view,"WarehouseLaunch.isReady()"));
+            Field launchField = MainActivity.class.getDeclaredField("launch");launchField.setAccessible(true);
+            Object launch = launchField.get(activity);
+            Field overlayField = WarehouseLaunchHandoff.class.getDeclaredField("overlay");overlayField.setAccessible(true);
+            scenario.onActivity(current -> {
+                assertTrue(current.launchReady());
+                try { assertNull("Splash overlay must be removed only after native visual completion", overlayField.get(launch)); }
+                catch (IllegalAccessException failure) { throw new AssertionError(failure); }
+            });
             assertEquals("undefined",evaluate(view,"typeof window.__WAREHOUSE__"));
             assertTrue(store(host(activity)).ownsHost());
             assertEquals("true",evaluate(view,"JSON.parse(WarehouseStorage.listKeys('warehouse.')).ok"));
@@ -90,6 +101,8 @@ public class HostSecurityTest {
             Field field = WarehouseHostPlugin.class.getDeclaredField("currentHost");field.setAccessible(true);assertSame(successor,field.get(null));assertTrue(current.ownsHost());
             Method state = WarehouseHostPlugin.class.getDeclaredMethod("state");state.setAccessible(true);AtomicReference<JSONObject> snapshot = new AtomicReference<>();
             scenario.onActivity(ignored -> {try {snapshot.set((JSONObject)state.invoke(successor));}catch(Exception failure){throw new AssertionError(failure);}});
+            assertTrue("Recreated host publishes a fresh launch generation", snapshot.get().getLong("launchGeneration") > 0);
+            assertTrue(after.launchReady());
             assertTrue(snapshot.get().getBoolean("owner"));assertTrue(snapshot.get().getBoolean("active"));assertEquals("function",evaluate(after.getBridge().getWebView(),"typeof WarehouseStorage.get"));
         }
     }

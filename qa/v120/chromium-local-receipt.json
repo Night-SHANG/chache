@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 3,
+  "kind": "Chromium Android bridge harness",
+  "nativeAndroidAcceptance": "NOT RUN",
+  "systemSplashAcceptance": "NOT RUN",
+  "phoneAcceptance": "NOT RUN",
+  "generatedAt": "2026-10-13T23:13:10.517Z",
+  "viewport": {
+    "width": 540,
+    "height": 960
+  },
+  "origin": "https://localhost",
+  "animation": "Harness-controlled game queue advanced inside native Chromium requestAnimationFrame",
+  "launch": "Simulated WarehouseLaunch and visual callback only; actual native compositor and 15 s foreground watchdog NOT RUN",
+  "continuity": "Every advanced native rAF is recorded, including empty pre-art frames; SHA-256 PNG hashes of fixed edge strips exclude the central forklift and controls",
+  "startupImages": [
+    "assets/static-art/scene-day.png",
+    "assets/static-art/forklift-base.png"
+  ],
+  "security": {
+    "chromiumSandbox": true,
+    "ignoreHTTPSErrors": false,
+    "network": "All requests intercepted; external requests rejected"
+  },
+  "status": "BLOCKED",
+  "cases": {
+    "html-before-app-is-silent": {
+      "status": "NOT RUN"
+    },
+    "native-readiness-before-storage": {
+      "status": "NOT RUN"
+    },
+    "required-pngs-held-no-reveal": {
+      "status": "NOT RUN"
+    },
+    "required-pngs-first-complete-frame": {
+      "status": "NOT RUN"
+    },
+    "computed-status-display-none": {
+      "status": "NOT RUN"
+    },
+    "current-visual-callback-reveals": {
+      "status": "NOT RUN"
+    },
+    "continuous-menu-background-stable": {
+      "status": "NOT RUN"
+    },
+    "pre-ready-pointer-release-does-not-act": {
+      "status": "NOT RUN"
+    },
+    "cold-input-works": {
+      "status": "NOT RUN"
+    },
+    "foreground-resume-keeps-current-screen": {
+      "status": "NOT RUN"
+    },
+    "stale-geometry-callback-rejected": {
+      "status": "NOT RUN"
+    },
+    "all-png-errors-settle-without-deadline-delay": {
+      "status": "NOT RUN"
+    },
+    "timeout-fallback-is-final": {
+      "status": "NOT RUN"
+    },
+    "partial-timeout-uses-absolute-deadline": {
+      "status": "NOT RUN"
+    },
+    "fast-assets-first-frame": {
+      "status": "NOT RUN"
+    },
+    "canvas-render-failure-displayed": {
+      "status": "NOT RUN"
+    },
+    "missing-storage-blocked": {
+      "status": "NOT RUN"
+    },
+    "invalid-storage-response-blocked": {
+      "status": "NOT RUN"
+    },
+    "invalid-native-state-blocked": {
+      "status": "NOT RUN"
+    },
+    "missing-native-capability-blocked": {
+      "status": "NOT RUN"
+    },
+    "missing-launch-bridge-blocked": {
+      "status": "NOT RUN"
+    }
+  },
+  "screenshots": [],
+  "scenarios": [],
+  "assertions": 0,
+  "inputs": {
+    "index.html": "8db6a294d4d02b53d4d1f2c575555322bb148777db103eed5a8ebbd12eee1010",
+    "app.js": "7ea73146ce403f9b76c63ad22d9c13ea7360a50ebbe9aa7f8c9a35842d2d3717",
+    "build-manifest.json": "99f1d76cf6045292ae4a1ea8857108af24e0b8c9154fd518f684c99b92da5ee0",
+    "SHA256SUMS": "9853c1cdb16e51d7acaae0acf96eb74f2ceec035cd50a38df32471b77bfd28c5",
+    "assets/static-art/scene-day.png": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+    "assets/static-art/cargo-core.png": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+    "assets/static-art/forklift-base.png": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+    "assets/static-art/forklift-styled.png": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+    "assets/static-art/frame-classic.png": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+    "assets/static-art/tools-core.png": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+    "assets/board-materials.png": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+    "assets/cargo-materials.png": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+    "assets/scene-materials.png": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+  },
+  "scriptSha256": "a98bc7568392fdffc45d5ca6fa57c46a9c3f2e9cc8017bcd99092d2890e947e9",
+  "browserExecutable": "/usr/bin/chromium",
+  "browserChannel": "chromium-or-explicit-executable",
+  "error": "browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-wVNYXX --remote-debugging-pipe --no-startup-window\n<launched> pid=84\n[pid=84][err] [84:84:1014/081310.861738:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\n[pid=84][err] [1014/081310.861991:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-wVNYXX --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=84\u001b[22m\n\u001b[2m  - [pid=84][err] [84:84:1014/081310.861738:FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=84][err] [1014/081310.861991:ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=84] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=84] <kill>\u001b[22m\n\u001b[2m  - [pid=84] <will force kill>\u001b[22m\n\u001b[2m  - [pid=84] <process did exit: exitCode=null, signal=SIGABRT>\u001b[22m\n\u001b[2m  - [pid=84] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=84] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=84] <gracefully close end>\u001b[22m\n\n    at /workspace/scratch/e6b59ff34222/android-stable-startup-v120/scripts/verify-android-startup-host.mjs:326:25"
+}

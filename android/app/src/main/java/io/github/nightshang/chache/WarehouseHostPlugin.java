@@ -49,6 +49,7 @@ public final class WarehouseHostPlugin extends Plugin {
         // All current-host bookkeeping is on the Activity UI thread; the KV bridge itself
         // never waits for this thread and owns its separate lifetime storage capability.
         if (Looper.myLooper() != Looper.getMainLooper()) throw new IllegalStateException("Android host must initialize on UI thread");
+        ((MainActivity) getActivity()).attachLaunchWebView(bridge.getWebView(), this::state);
         WarehouseHostPlugin previous = currentHost;
         try {
             store = WarehouseStore.replace(getContext());
@@ -92,14 +93,32 @@ public final class WarehouseHostPlugin extends Plugin {
             webView.addOnLayoutChangeListener(layoutListener);
             backCallback = new OnBackPressedCallback(true) {
                 @Override public void handleOnBackPressed() {
-                    if (hasListeners("backButton")) notifyListeners("backButton", new JSObject());
-                    else getActivity().moveTaskToBack(true); // Startup may be blocked before JS subscribes.
+                    if (((MainActivity) getActivity()).launchReady() && hasListeners("backButton")) notifyListeners("backButton", new JSObject());
+                    else {
+                        // Invalidate callbacks before the OS delivers onPause after Back.
+                        ((MainActivity) getActivity()).pauseLaunchForBackground();
+                        if (!getActivity().moveTaskToBack(true)) ((MainActivity) getActivity()).resumeLaunchAfterBackgroundFailure();
+                    }
                 }
             };
             getActivity().getOnBackPressedDispatcher().addCallback(getActivity(), backCallback);
             ViewCompat.requestApplyInsets(webView);
             publishState();
         });
+    }
+
+    /** SplashScreen 1.2.0 can restore decorFits on API 31/32; remeasure before reveal. */
+    void restoreImmersiveAfterSplash() {
+        if (destroyed || webView == null) return;
+        insetsReady = false;
+        Window window = getActivity().getWindow();
+        applyCutoutMode(window);
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, window.getDecorView());
+        controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        controller.hide(WindowInsetsCompat.Type.systemBars());
+        publishState();
+        ViewCompat.requestApplyInsets(webView);
     }
 
     /** Older Android versions do not infer the immersive cutout policy from target SDK. */
@@ -130,11 +149,14 @@ public final class WarehouseHostPlugin extends Plugin {
         result.put("widthPx", size.widthPx);
         result.put("heightPx", size.heightPx);
         result.put("insetsPx", insets);
+        result.put("launchGeneration", ((MainActivity) getActivity()).launchGeneration(
+            active && !destroyed, !destroyed && WarehouseHostGeometry.owns(ownerSupplier), size.widthPx, size.heightPx, safe));
         return result;
     }
 
     // Subscribe before getState(): a snapshot closes startup races without retaining stale event history.
     private void publishState() { notifyListeners("state", state()); }
+    void publishLaunchState() { publishState(); }
 
     @PluginMethod
     public void getState(PluginCall call) {
@@ -145,7 +167,11 @@ public final class WarehouseHostPlugin extends Plugin {
     public void minimize(PluginCall call) {
         bridge.executeOnMainThread(() -> {
             if (destroyed) { call.reject("Android host is destroyed", "HOST_INACTIVE"); return; }
-            if (!getActivity().moveTaskToBack(true)) { call.reject("Cannot move Android task to background", "MINIMIZE_FAILED"); return; }
+            ((MainActivity) getActivity()).pauseLaunchForBackground();
+            if (!getActivity().moveTaskToBack(true)) {
+                ((MainActivity) getActivity()).resumeLaunchAfterBackgroundFailure();
+                call.reject("Cannot move Android task to background", "MINIMIZE_FAILED"); return;
+            }
             call.resolve();
         });
     }
@@ -164,6 +190,7 @@ public final class WarehouseHostPlugin extends Plugin {
         ownerSupplier = null;
         if (currentHost == this) currentHost = null;
         bridge.getWebView().removeJavascriptInterface("WarehouseStorage");
+        bridge.getWebView().removeJavascriptInterface("WarehouseLaunch");
         if (webView != null) {
             if (layoutListener != null) webView.removeOnLayoutChangeListener(layoutListener);
             ViewCompat.setOnApplyWindowInsetsListener(webView, null);

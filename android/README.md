@@ -7,9 +7,9 @@ template. It is isolated from the existing browser and WeChat entry points.
 
 - Application: 货箱最后一格
 - Package: `io.github.nightshang.chache`
-- Android version: `1.0.19`; signed release version code `8`
+- Android version: `1.0.20`; signed release version code `10`
 - Debug acceptance builds retain version codes `1` and `2`
-- Browser/WeChat and source content use the same `1.0.19` release
+- Browser/WeChat and source content use the same `1.0.20` release
 - Node `24.19.0`, npm `11.9.0`, JDK `21`
 - Capacitor core, CLI and Android: `8.5.3`
 - AGP `8.13.0`, Gradle Wrapper `8.14.3`
@@ -30,13 +30,13 @@ cd android
 `build:android` first runs the unmodified formal production build, then copies
 its verified assets and licenses into a fresh `build/android` directory. It
 bundles only `src/android-main.ts` with paid shop pricing, diagnostics disabled,
-and Android version `1.0.19`. Its staging manifest records `sourceContentVersion: 1.0.19`
+and Android version `1.0.20`. Its staging manifest records `sourceContentVersion: 1.0.20`
 for the unchanged formal media. `sync:android` also copies staging into Capacitor's native
 asset directory. Generated assets, local SDK configuration, Gradle outputs and
 signing files are excluded from Git.
 
 Capacitor's npm dependencies and lockfile are isolated in `android-shell/`.
-The root lockfile is unchanged, preserving the existing formal release graph.
+Only release metadata in the root lockfile changes; the dependency graph is preserved.
 The shell config uses the official `android.path: ../android` and
 `webDir: ../build/android` paths. TypeScript resolves `@capacitor/core` via a
 public-package directory mapping in root `tsconfig.json`; esbuild uses
@@ -46,12 +46,17 @@ lockfile SHA-256 for receipt verification.
 
 ## Current acceptance gate
 
-Task 1 deliberately displays a clear blocked startup message. Native storage,
-viewport and lifecycle integration must replace that gate before an APK may be
-delivered. A successful staging build is not a device or native compilation
-result. The local environment currently has a Java 21 runtime, but no discovered
-Android SDK or `javac` executable. Full native compilation and runtime checks
-remain required in the configured build environment.
+Android retains the system splash overlay while its attached WebView draws the
+current scene. The initial menu prepares only its selected scene and forklift
+images. Decode failures have a 4-second fault deadline, with stable fallback;
+a 15-second foreground native watchdog presents a genuine startup failure.
+Successful startup advances immediately. The current geometry generation and
+WebView visual callback must agree before the original overlay is removed.
+There is no custom normal loading page. See `docs/v120-stable-android-startup.md`.
+
+A successful staging build is not a device or native compilation result. The
+local environment has a Java runtime but no Android SDK. Full compilation and
+native runtime checks remain separate evidence in the build environment.
 The compiler itself is available locally through
 `java -m jdk.compiler/com.sun.tools.javac.Main`; the pure URL-policy probe uses
 that real compiler without Android API stubs.

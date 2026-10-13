@@ -3,6 +3,7 @@ import type {Rect} from './layout.ts';
 import type {StaticArtSprite} from './static-art-manifest.ts';
 import {STATIC_ART_SCENES} from './static-art-manifest.ts';
 import {drawStaticArtSprite,validArtRect} from './static-art-draw.ts';
+import {getStaticArtImage} from './static-art-resources.ts';
 
 type Band=readonly [number,number];
 const rows=(count:number,start:number,step:number,height:number):Band[]=>Array.from({length:count},(_,index)=>[Math.floor(start+index*step),Math.ceil(start+index*step+height)]);
@@ -63,7 +64,7 @@ export function androidWarehouseBands(theme:ThemeId,bounds:Readonly<Rect>):reado
  * a runtime backing canvas. The existing readiness service owns the image. */
 export function drawAndroidWarehouse(ctx:CanvasRenderingContext2D,theme:ThemeId,bounds:Readonly<Rect>):boolean {
  const bands=androidWarehouseBands(theme,bounds);if(!bands.length)return false;
- const original=STATIC_ART_SCENES[theme];if(!original)return false;
+ const original=STATIC_ART_SCENES[theme];if(!original||!getStaticArtImage(original.resource))return false;
  const transform=typeof ctx.getTransform==='function'?ctx.getTransform():undefined;
  // Native viewport scales are fractional. Adjacent fractional drawImage edges
  // otherwise leave one alpha-blended scanline between independently drawn bands.

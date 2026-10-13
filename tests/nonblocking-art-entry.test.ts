@@ -16,6 +16,7 @@ for(const target of ['browser','wechat','android'] as const)test(`${target} firs
   await build({...androidBundleOptions(),entryPoints:[`src/${target}-main.ts`],outfile:bundlePath});
   for(const resource of Object.values(STATIC_ART_RESOURCES)){const destination=join(dir,resource.src);await mkdir(resolve(destination,'..'),{recursive:true});await cp(resource.sourcePath,destination);}
   const host=await createV116TransitionHost({target,bundlePath,rejectImageLoads:()=>true});
+  if(target==='android'){assert.equal(host.pendingFrames,0);host.expireStartupArt();await host.flush();}
   const check=()=>{const frame=host.frame();assert.equal(frame.cover,false,'platform-ready Android must not wait for art');assert.ok(frame.texts.includes('入库模式'),'the actual menu must paint before any PNG resolves');assert.ok(!frame.texts.some((s:string)=>/加载|准备预览/.test(s)));return frame;};
   const first=check();assert.equal(first.draws.length,0,'all PNG completions are deliberately held');
   const before=host.storageSnapshot();
@@ -36,6 +37,23 @@ for(const target of ['browser','wechat','android'] as const)test(`${target} firs
   host.releaseNativeState();await host.flush();silent();
   for(let n=0;n<5;n++){host.frame();await host.flush();silent();}assert.equal(host.storage.size,0,'pending geometry must not initialize storage');
   host.releaseGeometry();host.frame();await host.flush();silent();
-  const frame=host.frame();silent();assert.ok(frame.texts.includes('入库模式'),'actual cold menu is painted after real bootstrap completes');assert.ok(host.pendingImages().length>0,'PNGs are deliberately still pending');
+  assert.equal(host.pendingFrames,0);host.expireStartupArt();await host.flush();const frame=host.frame();silent();assert.ok(frame.texts.includes('入库模式'),'actual cold menu is painted after real bootstrap completes');assert.ok(host.pendingImages().length>0,'PNGs are deliberately still pending');
+ }finally{await rm(dir,{recursive:true,force:true});}
+});
+
+test('Android first rendered menu has its real images and stays pixel-identical after optional atlases arrive',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'stable-android-'));
+ try {
+  const bundlePath=join(dir,'app.js');await build({...androidBundleOptions(),entryPoints:['src/android-main.ts'],outfile:bundlePath});
+  for(const resource of Object.values(STATIC_ART_RESOURCES)){const destination=join(dir,resource.src);await mkdir(resolve(destination,'..'),{recursive:true});await cp(resource.sourcePath,destination);}
+  const host=await createV116TransitionHost({target:'android',bundlePath,width:540,height:1200,holdLaunchVisual:true});
+  assert.equal(host.pendingFrames,0);assert.equal(host.launchReady,false);host.pointer('down',355,1485,9);
+  await host.decodeNext();assert.equal(host.pendingFrames,0,'scene alone is not the complete menu');
+  await host.decodeNext();assert.ok(host.pendingFrames>0);assert.equal(host.imageTrace.filter((r:{status:string})=>r.status==='loaded').length,2);
+  const first=host.frame();assert.ok(first.texts.includes('入库模式'));assert.equal(host.launchReady,false,'render is not a native visual-state acknowledgement');
+  assert.equal(host.launchTrace[0].kind,'rendered-frame');const pixels=Buffer.from(host.context.getImageData(0,0,540,1200).data);
+  host.releaseLaunch();host.pointer('up',355,1485,9);assert.ok(host.frame().texts.includes('入库模式'),'pre-reveal down must not turn into a later click');
+  while(host.pendingImages().length)await host.decodeNext();host.frame();
+  assert.deepEqual(Buffer.from(host.context.getImageData(0,0,540,1200).data),pixels,'first visible menu must not change after background shared PNG arrivals');
  }finally{await rm(dir,{recursive:true,force:true});}
 });

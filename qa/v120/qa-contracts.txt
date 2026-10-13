@@ -1,0 +1,13 @@
+✔ Android DOM gate uses the runner-installed Chrome with its existing sandbox support (5.316629ms)
+✔ platform explicitly reports the same opaque backdrop its beginFrame actually paints (4.864448ms)
+✔ actual WeChat entry paints immediately through image failures with one screen canvas only (376.766487ms)
+✔ entries prepare images with no loading UI and retain the platform frame backdrop without static surfaces (0.776483ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1464.23086
+ACTUAL_EXIT_CODE=0

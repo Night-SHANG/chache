@@ -1,0 +1,21 @@
+v120 Chromium startup harness targeted checks
+UTC 2026-10-13T23:07:50Z
+
+node --check scripts/verify-android-startup-host.mjs
+
+Focused ESLint
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+Focused policy test
+✔ Android DOM gate uses the runner-installed Chrome with its existing sandbox support (1.919843ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.212157
+
+Harness SHA-256
+eba862dda99eb1610b46b6c444e8d56dde304714dfe94b2f2bcd5dcd980e976e  scripts/verify-android-startup-host.mjs

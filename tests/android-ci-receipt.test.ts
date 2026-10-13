@@ -45,7 +45,7 @@ async function buildEvidenceSeed(failedTiming=false){
  const anr={schema:1,status:'passed',observation:'no target ANR event observed in events buffer during driver',observedEvents:[],frameTiming:'not-measured',eventBufferMayBeBounded:true};await write('anr-report',anr);
  const summary={schema:1,status:failedTiming?'failed':'passed',anr,frameTiming:'not-measured',target:'explicit-disposable-emulator',applicationId:'io.github.nightshang.chache',fromVersionCode:1,toVersionCode:2,certificateSha256:certificate,processDeathPhases:[...fixture.CRASH_PHASES],recovery:'passed',upgrade:'passed',performance,physicalPhone:'not-verified',audibleOutput:'not-verified',finiteHistoryMaximum:false};await write('summary',summary);
  for(const name of ['apk-vc1','apk-vc2','test-apk'])await writeFile(join(out,name+'-signature.txt'),`Signer #1 certificate SHA-256 digest: ${certificate}\n`);
- for(const code of [1,2])await writeFile(join(out,`apk-vc${code}-badging.txt`),`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.19'\napplication-label:'货箱最后一格'\n`);
+ for(const code of [1,2])await writeFile(join(out,`apk-vc${code}-badging.txt`),`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.20'\napplication-label:'货箱最后一格'\n`);
  await writeFile(join(out,'installed-package.txt'),'versionCode=2 targetSdk=36\n');
  await writeFile(join(out,'anr-before.txt'),'');await writeFile(join(out,'anr-after.txt'),'');
  return {root,out,summary,write};
@@ -60,10 +60,10 @@ async function evidenceFixture(failedTiming=false){
 test('candidate identity and filename use actual verified APK version code',()=>{
  assert.ok(ci,'CI evidence verifier is missing');
  for(const code of [1,2]){
-  assert.equal(ci.parseApkIdentity(`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.19'\napplication-label:'货箱最后一格'`).versionCode,code);
-  assert.equal(ci.candidateFileName(code,'b'.repeat(40)),`warehouse-last-slot-1.0.19-vc${code}-temporary-debug-candidate-${'b'.repeat(12)}.apk`);
+  assert.equal(ci.parseApkIdentity(`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.20'\napplication-label:'货箱最后一格'`).versionCode,code);
+  assert.equal(ci.candidateFileName(code,'b'.repeat(40)),`warehouse-last-slot-1.0.20-vc${code}-temporary-debug-candidate-${'b'.repeat(12)}.apk`);
  }
- for(const code of ['0','3','NaN'])assert.throws(()=>ci?.parseApkIdentity(`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.19'\napplication-label:'货箱最后一格'`));
+ for(const code of ['0','3','NaN'])assert.throws(()=>ci?.parseApkIdentity(`package: name='io.github.nightshang.chache' versionCode='${code}' versionName='1.0.20'\napplication-label:'货箱最后一格'`));
 });
 test('snapshot provenance parses inert commit text and requires a matching verified tree',()=>{
  assert.ok(ci);const local='a'.repeat(40),tree='b'.repeat(40);
@@ -138,7 +138,7 @@ test('receipt CLI preserves only the verified actual-version candidate and truth
   await writeFile(join(lint,'lint-results-debug.xml'),'<issues format="6"/>');
   const apk=join(root,'android/app/build/outputs/apk/debug/app-debug.apk');await mkdir(join(apk,'..'),{recursive:true});
   assert.equal(run('python',['-c','import pathlib,zipfile,sys;r=pathlib.Path(sys.argv[1]);z=zipfile.ZipFile(sys.argv[2],"w");[(z.write(p,"assets/public/"+str(p.relative_to(r)))) for p in r.rglob("*") if p.is_file()];z.writestr("classes.dex",b"command-boundary-fixture");z.close()',join(root,'build/android'),apk]).status,0);
-  await writeFile(join(tools,'aapt'),"#!/bin/sh\nprintf \"package: name='io.github.nightshang.chache' versionCode='2' versionName='1.0.19'\\napplication-label:'货箱最后一格'\\n\"\n",{mode:0o755});
+  await writeFile(join(tools,'aapt'),"#!/bin/sh\nprintf \"package: name='io.github.nightshang.chache' versionCode='2' versionName='1.0.20'\\napplication-label:'货箱最后一格'\\n\"\n",{mode:0o755});
   await writeFile(join(tools,'apksigner'),`#!/bin/sh\nprintf 'Signer #1 certificate SHA-256 digest: ${certificate}\\n'\n`,{mode:0o755});
   await writeFile(join(tools,'zipalign'),'#!/bin/sh\nexit 0\n',{mode:0o755});
   assert.equal(run('git',['init','--quiet']).status,0);await writeFile(join(root,'metadata'),'command-boundary-fixture');assert.equal(run('git',['add','metadata']).status,0);assert.equal(run('git',['-c','user.name=dot','-c','user.email=dot@users.noreply.github.com','commit','--quiet','-m','Receipt command fixture']).status,0);

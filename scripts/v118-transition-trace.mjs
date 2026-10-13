@@ -77,10 +77,17 @@ export async function runV118PlatformTransitions({root,target,out}={}) {
  };
  const create=async({owned=true,theme='day',cosmetics,rejectImageLoads,decode=true}={})=>{
   ordinary=false;current=undefined;saveProtected=true;h=await createV116TransitionHost({target,bundlePath:resolve(root,target,target==='wechat'?'game.js':'app.js'),storage:ownedStorage(owned,theme,cosmetics),rejectImageLoads});
-  result.bundleSha256=h.gameJsSha256;saveBefore=h.storageSnapshot();frame('startup:first');
-  assert.equal(h.imageTrace.length,1,'Startup requests only the current scene before its eight shared atlases');
-  assertTextPaint(h,'商店');assert.equal(h.draws.length,0,'Initial real menu frame uses existing synchronous artwork before PNG decoding');
-  assert.ok(h.audioTrace.some(row=>row.src==='assets/bgm.mp3'&&row.plays>0),'Music begins before PNG decoding');
+  result.bundleSha256=h.gameJsSha256;saveBefore=h.storageSnapshot();
+  if(target==='android'){
+   assert.equal(h.pendingFrames,0,'System startup waits only for its actual first-screen image set');
+   assert.equal(h.launchReady,false);assert.equal(h.imageTrace.length,1);
+   if(decode){while(!h.pendingFrames){await h.decodeNext();await h.flush();}}else{h.expireStartupArt();await h.flush();}
+   frame('startup:first-stable-frame');assert.equal(h.launchReady,true);assertTextPaint(h,'商店');
+  }else{
+   frame('startup:first');assert.equal(h.imageTrace.length,1,'Startup requests only the current scene before its eight shared atlases');
+   assertTextPaint(h,'商店');assert.equal(h.draws.length,0,'Initial real menu frame uses existing synchronous artwork before PNG decoding');
+   assert.ok(h.audioTrace.some(row=>row.src==='assets/bgm.mp3'&&row.plays>0),'Music begins before PNG decoding');
+  }
   frame('startup:still-cold');await capture(`cold-${theme}-${owned?'owned':'sale'}`);if(decode)await drain('startup');frame('startup:after-decodes');
   assert.equal(h.storageSnapshot(),saveBefore,'Startup and stale touch release do not write storage');
   return h;
@@ -105,7 +112,7 @@ export async function runV118PlatformTransitions({root,target,out}={}) {
  h.tap(L.pause.x+L.pause.w/2,L.pause.y+L.pause.h/2);frame('cold-play:pause',null);assertTextPaint(h,'继续游戏');
  await tap('玩法说明','cold-play:help',{item:null});await tap('返回游戏','cold-play:help-back',{item:null});assertTextPaint(h,'继续游戏');
  await tap('继续游戏','cold-play:resume',{item:null});h.callbacks.hide();h.callbacks.show();await h.flush();frame('cold-play:hide-show',null);assertTextPaint(h,'继续游戏');
- await drain('cold-play:each-image',null);assert.ok(account().run);assert.equal(h.imageTrace.filter(row=>row.status==='error').length,9);
+ await drain('cold-play:each-image',null);assert.ok(account().run);assert.ok(h.imageTrace.every(row=>row.status==='error'),'Every actually requested image failed; expired unrequested resources remain failed too');
  await tap('继续游戏','failed-play:resume',{item:null});
  const failedState=account().run.state,failedMove=findPlayableMoves(failedState)[0];assert.ok(failedMove);
  const failedTray=getTrayRects(failedState.candidates.length)[failedState.candidates.findIndex(piece=>piece.id===failedMove.pieceId)],fg=boardGeometry(failedState);

@@ -45,7 +45,7 @@ test('actual WeChat entry paints immediately through image failures with one scr
  assert.equal(surfaces.length,1);assert.equal(pending.length,0);assert.equal(surfaces[0].width,1170);assert.equal(surfaces[0].height,2532);assert.equal(contracts.reduce((sum,contract)=>sum+contract.unsupportedWrites(),0),0);
 });
 
-test('all entries prepare images without a gate and retain the platform frame backdrop without static surfaces',()=>{
- for(const name of ['browser','wechat','android']){const text=readFileSync(`src/${name}-main.ts`,'utf8');assert.match(text,/configureStaticArt/);assert.match(text,/prepareStaticArtForView/);assert.doesNotMatch(text,/StaticArtGate/);assert.match(text,/frameBackdrop/);assert.doesNotMatch(text,/configureWarehouseCache|invalidateWarehouseCache|configureCosmeticPreviewCache|invalidateCosmeticPreviewCache|createCanvasSurface/);}
+test('entries prepare images with no loading UI and retain the platform frame backdrop without static surfaces',()=>{
+ for(const name of ['browser','wechat','android']){const text=readFileSync(`src/${name}-main.ts`,'utf8');assert.match(text,name==='android'?/prepareAndroidStartupArt/:/configureStaticArt/);assert.match(text,/prepareStaticArtForView/);assert.doesNotMatch(text,/StaticArtGate/);assert.match(text,/frameBackdrop/);assert.doesNotMatch(text,/configureWarehouseCache|invalidateWarehouseCache|configureCosmeticPreviewCache|invalidateCosmeticPreviewCache|createCanvasSurface/);}
  for(const path of ['static-art-resources','static-art-requirements'])assert.doesNotMatch(readFileSync(`src/presentation/${path}.ts`,'utf8'),/createCanvas|OffscreenCanvas/);
 });

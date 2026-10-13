@@ -64,13 +64,12 @@ test('cold board frames and material floors match v112 at all board sizes and th
  }
 });
 
-test('cold warehouse scenery matches v112 without waiting for images, including Android cold starts',()=>{
+test('browser and WeChat cold warehouse scenery still matches v112 without waiting for images',()=>{
  cold();
- for(const theme of themes)for(const android of [false,true]){
+ for(const theme of themes){
   const a=surface(1205,1920),b=surface(1205,1920),state=view(theme),bounds={x:-57,y:0,w:1205,h:1920};
-  if(android)state.androidContentBounds={x:0,y:0,w:1080,h:1920};
   a.ctx.translate(57,0);b.ctx.translate(57,0);a.ctx.lineWidth=13;
-  drawWarehouse(a.ctx,state,bounds);oldWarehouse(b.ctx,state,bounds);same(a,b,`${theme}/${android?'android':'web'}`);assert.equal(a.ctx.lineWidth,13);
+  drawWarehouse(a.ctx,state,bounds);oldWarehouse(b.ctx,state,bounds);same(a,b,theme);assert.equal(a.ctx.lineWidth,13);
  }
 });
 

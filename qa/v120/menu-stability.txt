@@ -1,0 +1,12 @@
+✔ all 99 current Android menus have identical pixels before and after optional shared images (1586.764694ms)
+✔ all 297 scene vehicle and combined failures keep three consecutive complete menu frames stable (6595.522054ms)
+✔ deadline fallback remains pixel-identical after late scene or forklift onload (61.508636ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8837.439148
+ACTUAL_EXIT_CODE=0

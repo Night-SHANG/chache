@@ -16,7 +16,7 @@ sdk="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}/build-tools/35.0.0"
 out=build/android-ci/signed-release
 mkdir -p "$out"
 "$sdk/zipalign" -P 16 -f 4 build/android-ci/release-unsigned/app-release-unsigned.apk "$private/aligned.apk"
-if ! "$sdk/apksigner" sign --ks "$private/release.p12" --ks-type PKCS12 --ks-key-alias chache-release --ks-pass env:ANDROID_KEYSTORE_PASSWORD --key-pass env:ANDROID_KEYSTORE_PASSWORD --v4-signing-enabled false --out "$out/warehouse-last-slot-1.0.19-vc9-release-candidate.apk" "$private/aligned.apk" > "$private/sign.log" 2>&1; then
+if ! "$sdk/apksigner" sign --ks "$private/release.p12" --ks-type PKCS12 --ks-key-alias chache-release --ks-pass env:ANDROID_KEYSTORE_PASSWORD --key-pass env:ANDROID_KEYSTORE_PASSWORD --v4-signing-enabled false --out "$out/warehouse-last-slot-1.0.20-vc10-release-candidate.apk" "$private/aligned.apk" > "$private/sign.log" 2>&1; then
   echo '::error::Signing failed. Check the owner-managed keystore, alias and password; signing tool output is intentionally withheld.'
   exit 1
 fi

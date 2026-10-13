@@ -1,0 +1,3 @@
+WarehouseLaunchState: 40 assertions passed (Android APIs not run)
+
+ACTUAL_EXIT_CODE=0

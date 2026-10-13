@@ -1,3 +1,4 @@
+import {STATIC_ART_FORKLIFTS} from './static-art-manifest.ts';
 import {accountCosmeticState} from '../application/cosmetics.ts';
 import {staticPresentationView} from './static-help.ts';
 import type {ViewState} from './view-types.ts';
@@ -16,4 +17,12 @@ export function staticArtRequirementsForView(source:ViewState):StaticArtRequirem
 export function prepareStaticArtForView(view:ViewState):void {
  const requirements=staticArtRequirementsForView(view);
  if(staticArtStatus(requirements).status==='superseded')void prepareStaticArt(requirements);
+}
+
+/** Android's visible initial menu needs only its scene and the selected forklift. */
+export function staticArtStartupRequirementsForView(view:ViewState):StaticArtRequirements {
+ if(view.screen!=='menu'||view.needsResume||view.confirmation||view.accountBlocked)return staticArtCoreRequirementsForView(view);
+ const cosmetics=accountCosmeticState(view.account??null,view.profile).cosmetics;
+ const forklift=STATIC_ART_FORKLIFTS[cosmetics.forklift];
+ return {scene:`scene.${cosmetics.theme}`,shared:forklift?[forklift.resource]:[],previews:[]};
 }

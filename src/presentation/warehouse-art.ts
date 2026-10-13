@@ -3,14 +3,14 @@ import type {ViewState} from './view-types.ts';
 import {STATIC_ART_SCENES} from './static-art-manifest.ts';
 import {drawStaticArtSprite,validArtRect} from './static-art-draw.ts';
 import {drawAndroidWarehouse} from './android-warehouse-background.ts';
-import {getStaticArtImage} from './static-art-resources.ts';
+import {drawAndroidWarehouseFallback} from './android-warehouse-fallback.ts';
 import {drawWarehouseFallback} from './warehouse-fallback.ts';
 
 /** One finite image blit preserves the classic racks' transparent exterior gaps. */
 export function drawWarehouse(ctx:CanvasRenderingContext2D,view:ViewState,backgroundBounds?:Rect):void {
  const theme=view.profile?.cosmetics.theme??'day';
  const sprite=STATIC_ART_SCENES[theme];
- if(sprite&&getStaticArtImage(sprite.resource)&&view.androidContentBounds&&backgroundBounds&&drawAndroidWarehouse(ctx,theme,backgroundBounds))return;
+ if(view.androidContentBounds&&backgroundBounds&&(drawAndroidWarehouse(ctx,theme,backgroundBounds)||drawAndroidWarehouseFallback(ctx,theme,backgroundBounds)))return;
  ctx.save();
  // Only nonclassic architecture followed the usable-width clip in the original painter.
  if(theme!=='day'&&theme!=='night'&&backgroundBounds&&validArtRect(backgroundBounds)&&Number.isFinite(backgroundBounds.x+backgroundBounds.w)&&backgroundBounds.x<=0&&backgroundBounds.x+backgroundBounds.w>=1080){
