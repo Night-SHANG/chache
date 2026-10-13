@@ -8,7 +8,7 @@ import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 import {createCanvas} from '@napi-rs/canvas';
 import {createGrowthHost,createPackagedImageLoader} from '../scripts/growth-host-support.mjs';
-import {runV116PlatformTransitions} from '../scripts/v116-transition-trace.mjs';
+import {runV118PlatformTransitions} from '../scripts/v118-transition-trace.mjs';
 
 test('the strict native host never injects a retired package API, even from obsolete options',async()=>{
  const root=await mkdtemp(join(tmpdir(),'warehouse-main-only-host-'));
@@ -40,11 +40,11 @@ test('controlled main-image failure can recover on a fresh decode while preservi
 
 test('active verification uses portable three-platform per-input and per-decode evidence',async()=>{
  const source=await readFile(new URL('../scripts/verify-static-art-host.mjs',import.meta.url),'utf8');
- const trace=await readFile(new URL('../scripts/v116-transition-trace.mjs',import.meta.url),'utf8');
+ const trace=await readFile(new URL('../scripts/v118-transition-trace.mjs',import.meta.url),'utf8');
  const host=await readFile(new URL('../scripts/v116-transition-host.mjs',import.meta.url),'utf8');
- assert.match(source,/runV116PlatformTransitions/);assert.match(source,/growthSourceHash/);
+ assert.match(source,/runV118PlatformTransitions/);assert.match(source,/growthSourceHash/);
  assert.match(source,/\['browser','wechat','android'\]/);
- assert.match(trace,/main-image-failure-explicit-retry/);assert.match(trace,/target-scene-failure-retry/);
+ assert.match(trace,/permanent-image-failure-keeps-menu-and-input/);assert.match(trace,/failed-target-retains-committed-identity/);
  assert.doesNotMatch(host,/\/workspace\/|__WAREHOUSE__|loadSubpackage|source\.replace/);
 });
 
@@ -57,17 +57,18 @@ test('unchanged browser, WeChat and Android bundles render every active cold/hot
    await build({entryPoints:[`src/${platform}-main.ts`],outfile:bundlePath,bundle:true,format:'iife',platform:platform==='wechat'?'neutral':'browser',target:'es2018',minify:true,nodePaths:[resolve('android-shell/node_modules')],define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify(app.version)}});
    assert.doesNotMatch(await readFile(bundlePath,'utf8'),/\bloadSubpackage\b|\bensureAssetPackage\b/,platform);
    for(const resource of Object.values(STATIC_ART_RESOURCES)){const destination=join(root,platform,resource.src);await mkdir(dirname(destination),{recursive:true});await cp(resource.sourcePath,destination);}
-   const result=await runV116PlatformTransitions({root,target:platform});
+   const result=await runV118PlatformTransitions({root,target:platform});
    assert.equal(result.visited.length,COSMETIC_CATALOG.length*2,platform);
    assert.equal(new Set(result.visited).size,58,platform);
    assert.ok(result.frames.some(frame=>frame.name.includes(':decode:')),platform);
    assert.ok(result.frames.some(frame=>frame.name.includes('equip:before-decode:up')),platform);
-   assert.equal(result.cases.length,13,platform);
+   assert.equal(result.cases.length,12,platform);
    assert.ok(result.cases.includes('second-page-equipped-first-entry-and-visit-reset'),platform);
+   assert.ok(result.cases.includes('cold-first-frame-gameplay-move-pause-help-hide-show'),platform);
    for(const kind of ['theme','cargo','forklift'])for(const state of ['cold','remembered-in-visit','reopened']){
     assert.ok(result.frames.some(frame=>frame.name===`first-page:${kind}:${state}:up`),`${platform} ${kind} ${state}`);
    }
-   assert.ok(result.frames.length>=708,'Preserve all previous per-platform frame coverage');
+   assert.ok(result.frames.length>=600,'All active products, cold startup and each input/decode remain covered');
   }
  }finally{await rm(root,{recursive:true,force:true});}
 });

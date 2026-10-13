@@ -1,5 +1,5 @@
 import {configureStaticArt} from './presentation/static-art-resources.ts';
-import {StaticArtGate} from './presentation/static-art-gate.ts';
+import {prepareStaticArtForView} from './presentation/static-art-requirements.ts';
 declare const __DEV_DIAGNOSTICS__:boolean;
 import { createBrowserPlatform } from './platform/browser.ts';
 import { GameSession } from './application/session.ts';
@@ -16,11 +16,11 @@ const params=new URLSearchParams(window.location.search);
 const seed=__DEV_DIAGNOSTICS__?Number(params.get('seed')||20261005)>>>0:20261005;
 configureStaticArt(platform.loadImage);
 const session=new GameSession(platform,{seed,mode:__DEV_DIAGNOSTICS__&&params.get('mode')==='standard'?'standard':'tutorial',developerMode:__DEV_DIAGNOSTICS__});
-const art=new StaticArtGate(session);art.refresh();
-platform.onPointer(event=>art.pointer(event));
-platform.onWheel?.(event=>art.wheel(event));
-platform.onHide(()=>{art.hide();session.hide();});platform.onShow(()=>{session.show();art.show();});
-function frame(now:number){art.tick(now);const context=platform.beginFrame();if(art.paint(context,platform.overlayBounds?.())){render(context,session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.(),platform.frameBackdrop);art.didPaint();}platform.frame(frame);}platform.frame(frame);
+prepareStaticArtForView(session.view);
+platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
+platform.onWheel?.(event=>session.input.wheel(event.point,event.deltaY));
+platform.onHide(()=>session.hide());platform.onShow(()=>session.show());
+function frame(now:number){session.tick(now);prepareStaticArtForView(session.view);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.(),platform.frameBackdrop);platform.frame(frame);}platform.frame(frame);
 // Local browser verification surface. Never imported by the WeChat entry point.
 if(__DEV_DIAGNOSTICS__)Object.assign(window,{__WAREHOUSE__:{getState:()=>session.state,getView:()=>session.view,legalMoves:()=>findPlayableMoves(session.state),preview:(pieceId:string,origin:{x:number;y:number})=>previewPlayablePlacement(session.state,pieceId,origin),checksum:()=>playableChecksum(session.state),version:__APP_VERSION__}});
 }

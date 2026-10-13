@@ -1,0 +1,33 @@
+✖ invalid tool destinations stay empty instead of triggering a procedural fallback (6.285825ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 715.015363
+
+✖ failing tests:
+
+test at tests/cold-art-fallbacks.test.ts:94:1
+✖ invalid tool destinations stay empty instead of triggering a procedural fallback (6.285825ms)
+  AssertionError [ERR_ASSERTION]: -60
+  + actual - expected
+  
+  + '408cd3484a4622bb78155a048112cef0d57b700b35f5b2aae1645b0c06ec63fd'
+  - '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431'
+  
+      at same (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/cold-art-fallbacks.test.ts:97:115)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '408cd3484a4622bb78155a048112cef0d57b700b35f5b2aae1645b0c06ec63fd',
+    expected: '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

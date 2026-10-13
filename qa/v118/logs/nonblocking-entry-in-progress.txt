@@ -1,0 +1,11 @@
+✔ browser first frame and every pending or failed image frame remain playable without an art gate (245.272518ms)
+✔ wechat first frame and every pending or failed image frame remain playable without an art gate (155.900398ms)
+✔ android first frame and every pending or failed image frame remain playable without an art gate (173.02717ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1162.050713

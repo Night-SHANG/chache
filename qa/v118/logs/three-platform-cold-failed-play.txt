@@ -1,0 +1,14 @@
+✔ the strict native host never injects a retired package API, even from obsolete options (78.371415ms)
+✔ controlled main-image failure can recover on a fresh decode while preserving hashed PNG evidence (54.760886ms)
+✔ active verification uses portable three-platform per-input and per-decode evidence (3.236089ms)
+✔ unchanged browser, WeChat and Android bundles render every active cold/hot selection and each PNG completion correctly (78409.285382ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79577.51628
+
+EXIT=0

@@ -1,0 +1,138 @@
+Reproduction of original RED against the four HEAD presentation entrypoints, in an isolated temporary source tree.
+Command: node --test tests/cold-art-fallbacks.test.ts
+
+✖ cold cargo restores the complete v112 body, live traits, alpha and final outline for every material (3.973689ms)
+✖ cold tools and toolbox restore complete v112 equipment silhouettes synchronously (3.334718ms)
+✖ cold forklifts restore v112 vehicles including forks, rotation and caller state (1.535343ms)
+✖ cold board frames and material floors match v112 at all board sizes and themes (25.355874ms)
+✖ cold warehouse scenery matches v112 without waiting for images, including Android cold starts (39.222905ms)
+✔ ready PNG cargo, tools, forklift and scenery keep exact pixels and one-blit drawing (150.207694ms)
+✔ invalid tool destinations stay empty instead of triggering a procedural fallback (2.077549ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 2
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 831.950651
+
+✖ failing tests:
+
+test at tests/cold-art-fallbacks.test.ts:33:1
+✖ cold cargo restores the complete v112 body, live traits, alpha and final outline for every material (3.973689ms)
+  AssertionError [ERR_ASSERTION]: cargo.food/classic/undefined
+  + actual - expected
+  
+  + '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431'
+  - '7e567509a119e94c951a132f66054d471ed6fd1c444338150279094c8ac47b55'
+  
+      at same (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:39:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431',
+    expected: '7e567509a119e94c951a132f66054d471ed6fd1c444338150279094c8ac47b55',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cold-art-fallbacks.test.ts:43:1
+✖ cold tools and toolbox restore complete v112 equipment silhouettes synchronously (3.334718ms)
+  AssertionError [ERR_ASSERTION]: rotate/37
+  + actual - expected
+  
+  + '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431'
+  - '0839f3266d05fcdc5cda817a883f4ba8704bd4b2aa4babab03205ad09a674a5c'
+  
+      at same (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:46:158)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431',
+    expected: '0839f3266d05fcdc5cda817a883f4ba8704bd4b2aa4babab03205ad09a674a5c',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cold-art-fallbacks.test.ts:51:1
+✖ cold forklifts restore v112 vehicles including forks, rotation and caller state (1.535343ms)
+  AssertionError [ERR_ASSERTION]: yellow/0
+  + actual - expected
+  
+  + '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431'
+  - '2ff6801f76992b37b864d6595fb6e5840aaf1f5ce3a2c1ae2485c69fc59c6047'
+  
+      at same (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:55:86)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '47ad3dd9a039c01aca46b21b72737fd70f495bd5d98b87d133b9ddaf6fcd2431',
+    expected: '2ff6801f76992b37b864d6595fb6e5840aaf1f5ce3a2c1ae2485c69fc59c6047',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cold-art-fallbacks.test.ts:59:1
+✖ cold board frames and material floors match v112 at all board sizes and themes (25.355874ms)
+  AssertionError [ERR_ASSERTION]: day/7
+  + actual - expected
+  
+  + '063ba8db18584ffc748b7258f1154b72a351ba85cfb855c2ae39a2c96330c37f'
+  - '22e2cdf83b023b259bb756eba988a777b444f8a639b0cac3d50b3f1bd7567135'
+  
+      at same (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:63:72)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '063ba8db18584ffc748b7258f1154b72a351ba85cfb855c2ae39a2c96330c37f',
+    expected: '22e2cdf83b023b259bb756eba988a777b444f8a639b0cac3d50b3f1bd7567135',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/cold-art-fallbacks.test.ts:67:1
+✖ cold warehouse scenery matches v112 without waiting for images, including Android cold starts (39.222905ms)
+  AssertionError [ERR_ASSERTION]: day/web
+  + actual - expected
+  
+  + '97a8b65fe62c88ed6672b30a01f7e41d009f3b0a9096177b9e94662717987ec9'
+  - '1539b62457695b4780183353501b04ce35203b9bb04010249119589893971590'
+  
+      at same (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:30:94)
+      at TestContext.<anonymous> (file:///tmp/v118-cold-art-baseline.Yqx11j/tests/cold-art-fallbacks.test.ts:73:70)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '97a8b65fe62c88ed6672b30a01f7e41d009f3b0a9096177b9e94662717987ec9',
+    expected: '1539b62457695b4780183353501b04ce35203b9bb04010249119589893971590',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

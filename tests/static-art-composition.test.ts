@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 
 const source=(name:string)=>readFileSync(new URL(`../src/presentation/${name}.ts`,import.meta.url),'utf8');
-test('gameplay static artwork stays PNG-only while shop background painting is synchronous',()=>{
+test('ready gameplay artwork keeps its PNG path while cold artwork and shop painting stay synchronous',()=>{
  for(const name of ['warehouse-art','tool-art']){
   const code=source(name);
   assert.doesNotMatch(code,/drawCached|createCanvas|drawReferenceBackground|drawColdChain|drawRailFreight|drawPlayfulBackground/,name);
@@ -11,8 +11,6 @@ test('gameplay static artwork stays PNG-only while shop background painting is s
  }
  assert.doesNotMatch(source('cosmetic-art'),/drawCached|createCanvas|staticArtKeysStatus|正在准备预览/);
  assert.match(source('cosmetic-art'),/drawLogisticsBackground/);
- assert.doesNotMatch(source('assets'),/drawStructuralForkliftBody|drawThemedForkliftBody|drawPlayfulForkliftBody|drawLogisticsForkliftBody|drawMaterialCrate|drawCrateFrame/);
- assert.doesNotMatch(source('board-theme'),/function drawMaterial|function frameMotif/);
  assert.doesNotMatch(source('renderer')+source('shop-art'),/drawCachedWarehouse|drawCachedCosmetic/);
 });
 
@@ -149,6 +147,6 @@ test('every live tool item, including wildcard, and toolbox produces one complet
  drawToolboxIcon(a.ctx,450,0,150);assert.equal(draws,4);
 });
 
-test('missing decoded static art never invokes a procedural fallback or paints a substitute selection',()=>{
- configureStaticArt(async()=>{throw Error('missing fixture');});const a=surface(160,160);assert.equal(drawStaticArtSprite(a.ctx,STATIC_ART_FORKLIFTS.yellow),false);forklift(a.ctx,80,80,110,0,'yellow');assert.ok(pixels(a).every(value=>value===0));
+test('missing decoded static art uses the complete existing synchronous forklift',()=>{
+ configureStaticArt(async()=>{throw Error('missing fixture');});const a=surface(160,160);assert.equal(drawStaticArtSprite(a.ctx,STATIC_ART_FORKLIFTS.yellow),false);forklift(a.ctx,80,80,110,0,'yellow');assert.ok(pixels(a).some(value=>value!==0));
 });

@@ -1,0 +1,20 @@
+browser AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '1.0.18-dev'
+- '1.0.18'
+         ^
+
+    at file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/scripts/verify-static-art-host.mjs:18:10
+wechat AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '1.0.18-dev'
+- '1.0.18'
+         ^
+
+    at file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/scripts/verify-static-art-host.mjs:18:10
+android: 757 verified frames, 58 owned/sale items, 12 cases
+{"status":"FAIL","platforms":1,"frames":757,"failures":2,"out":"/workspace/scratch/e6b59ff34222/nonblocking-art-v118/artifacts/v118-static-host"}
+
+EXIT=1

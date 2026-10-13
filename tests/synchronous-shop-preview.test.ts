@@ -9,12 +9,12 @@ import {staticArtCoreRequirementsForView,staticArtRequirementsForView} from '../
 import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 import {sessionHost} from './helpers/session-fixtures.ts';
 const shared=['cargo.core','tools.core','forklift.base','forklift.styled','frame.classic','material.board','material.cargo','material.scene'];
-test('all shared preview atlases are pinned by startup and ordinary shop requires no preview PNG',()=>{
+test('optional shared preview atlases have fixed requirements and ordinary shop requires no preview PNG',()=>{
  const {session}=sessionHost();assert.deepEqual(staticArtCoreRequirementsForView(session.view).shared,[...shared].sort());
  session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});
  for(const item of COSMETIC_CATALOG){session.action({type:'previewCosmetic',kind:item.kind,id:item.id});assert.deepEqual(staticArtRequirementsForView(session.view),staticArtCoreRequirementsForView(session.view),item.key);}
 });
-test('every active cosmetic draws immediately with only fixed startup atlases, without preparation text or preview PNG',async()=>{
+test('every active cosmetic draws immediately with only fixed shared atlases, without preparation text or preview PNG',async()=>{
  const calls:string[]=[];
  configureStaticArt(async path=>{calls.push(path);const resource=Object.values(STATIC_ART_RESOURCES).find(r=>r.src===path)!;assert.ok(resource);assert.ok(!resource.key.startsWith('preview.'),'ordinary shop must not request preview PNG');return await loadImage(resolve(resource.sourcePath)) as unknown as CanvasImageSource;});
  assert.equal((await prepareStaticArt({scene:'scene.day',shared,previews:[]})).status,'ready');

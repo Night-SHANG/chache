@@ -1,0 +1,61 @@
+✖ browser first frame and every pending or failed image frame remain playable without an art gate (105.830932ms)
+✖ wechat first frame and every pending or failed image frame remain playable without an art gate (86.011506ms)
+✖ android first frame and every pending or failed image frame remain playable without an art gate (91.940579ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 925.745534
+
+✖ failing tests:
+
+test at tests/nonblocking-art-entry.test.ts:11:61
+✖ browser first frame and every pending or failed image frame remain playable without an art gate (105.830932ms)
+  AssertionError [ERR_ASSERTION]: the actual menu must paint before any PNG resolves
+      at check (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:18:131)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:19:15)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/nonblocking-art-entry.test.ts:11:61
+✖ wechat first frame and every pending or failed image frame remain playable without an art gate (86.011506ms)
+  AssertionError [ERR_ASSERTION]: the actual menu must paint before any PNG resolves
+      at check (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:18:131)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:19:15)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/nonblocking-art-entry.test.ts:11:61
+✖ android first frame and every pending or failed image frame remain playable without an art gate (91.940579ms)
+  AssertionError [ERR_ASSERTION]: platform-ready Android must not wait for art
+  
+  true !== false
+  
+      at check (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:18:52)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/nonblocking-art-v118/tests/nonblocking-art-entry.test.ts:19:15)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

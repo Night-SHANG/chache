@@ -1,8 +1,8 @@
-# 货箱最后一格 v1.0.17 · 即时外观预览
+# 货箱最后一格 v1.0.18 · 恢复直接显示与操作
 
-微信、浏览器与 Android 使用同一份单包资源代码。商店只保留场景、货箱、叉车三个单品分类，移除套装入口与优惠。此前四套停售基础上，本次再停售冰晶货仓、林间货仓、熔岩铸造厂三组及各自货箱/叉车。历史购买记录与库存保留；已装备的退役外观安全显示经典默认外观，金币与其他进度保持。音乐文件、音量与编码不变。
+微信、浏览器与 Android 使用同一份单包资源代码。商店只保留场景、货箱、叉车三个单品分类，移除套装入口与优惠。保持v1.0.15以来已停售的外观目录不变。历史购买记录与库存保留；已装备的退役外观安全显示经典默认外观，金币与其他进度保持。音乐文件、音量与编码不变。
 
-商店恢复历史同步画法，首次启动准备好固定共享图集后，浏览、分类与翻页即时画出正确商品，不再依赖每件预览图片或显示准备提示。游戏大背景仍用PNG。装备动作先准备目标场景再保存，期间保留正确商品页面、防重复点击；读取失败可明确重试。启动与真实故障保护保留。
+浏览器、微信、Android恢复分包前的直接绘制与输入：不再等待9张图集、显示整页加载或暂停装备保存。PNG未就绪时复用v112原有同步画法，加载后继续使用当前PNG优化。装备直接走已有账户事务；图片完成或失败不写存档。三端保持单主包、现有皮肤目录和原音频字节。Android仅保留原生宿主、存储与屏幕能力检查和实际平台错误报告。
 
 ## 打开与继续旧存档
 
@@ -14,8 +14,8 @@
 
 ## 构建与验证边界
 
-使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.17/vc7；staging构建不代表已生成或签名APK。
+使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.18/vc8；staging构建不代表已生成或签名APK。
 
 历史两项美术母图缺失检查保留，不能表述为全量测试全绿。运行PNG和当前构建不依赖这两张缺失母图的重新生成。当前三页真实截图使用生产renderer与native Canvas，不能替代浏览器、微信开发者工具或实体手机验证。
 
-详情见[本次记录](docs/v116-synchronous-preview.md)。[v1.0.14入口说明](docs/v114-entry-readme-history.md)保留为历史，其中分包、套装和旧版本说明不适用于当前版本。
+详情见[本次记录](docs/v118-nonblocking-art.md)。[v1.0.14入口说明](docs/v114-entry-readme-history.md)保留为历史，其中分包、套装和旧版本说明不适用于当前版本。

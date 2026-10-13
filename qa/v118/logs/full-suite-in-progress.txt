@@ -1,0 +1,9 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.18 test
+> node --test tests/*.test.ts
+
+✔ classic hundred-order achievement adds disjoint legacy sixty and new fifty formal orders (4.797741ms)
+✔ outbound direct endless and guided buckets preserve independent scores without unlocking classic inbound achievements (0.515597ms)
+✔ daily wins count formal results without granting the standard five-shift cosmetic (0.330972ms)
+✔ a recorded standard checkpoint counts once while only fresh overtime orders add to legacy totals (406.264512ms)

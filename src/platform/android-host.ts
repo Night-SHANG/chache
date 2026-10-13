@@ -2,7 +2,6 @@ import {handleAndroidBack} from './android-back.ts';
 import {createAndroidStorage,type NativeStorageBridge} from './android-storage.ts';
 import type {NativeHostState} from './android-viewport.ts';
 import type {WriterLease} from './writer-lease.ts';
-import type {PointerEvent} from './types.ts';
 
 interface ListenerHandle {remove():Promise<void>}
 export interface AndroidHostPlugin {
@@ -73,15 +72,8 @@ async function waitGeometry(canvas:HTMLCanvasElement,host:AndroidHostConnection,
  }
 }
 
-export interface AndroidPresentationHooks {
- /** Return true when the visible startup/retry surface consumed the event. */
- onPointer?(event:PointerEvent):boolean;
- onBack?():boolean;
- isBlocked?():boolean;
-}
-
 /** Android-only wiring: storage/account rules remain the existing synchronous GameSession. */
-export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidHostConnection,bridge:NativeStorageBridge|undefined,visibility:AndroidVisibility=document,presentation:AndroidPresentationHooks={}) {
+export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidHostConnection,bridge:NativeStorageBridge|undefined,visibility:AndroidVisibility=document) {
  assertAndroidCapabilities(canvas);
  const [{GameSession},{createAndroidPlatform},{computeAndroidViewport}]=await Promise.all([import('../application/session.ts'),import('./android.ts'),import('./android-viewport.ts')]);
  await waitGeometry(canvas,host,computeAndroidViewport);
@@ -98,12 +90,12 @@ export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidH
  const syncContentBounds=()=>{session.view.androidContentBounds=platform.contentBounds?.();};
  useHomeBounds=()=>session.view.screen==='menu'&&!session.view.needsResume&&!session.view.confirmation&&!session.view.accountBlocked;
  syncContentBounds();
- platform.onPointer(event=>{syncContentBounds();if(presentation.onPointer?.(event))return;if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
+ platform.onPointer(event=>{syncContentBounds();if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
  let sessionVisible=merged().active,painter:((context:CanvasRenderingContext2D)=>void)|undefined,scheduled:number|null=null,frameEpoch=0;
  const frame=(now:number,paint:(context:CanvasRenderingContext2D)=>void):boolean=>{
   if(disposed||!native.active||visibility.hidden||lease.status!=='held')return false;
   let context:CanvasRenderingContext2D;try{context=platform.beginFrame();}catch{return false;}
-  syncContentBounds();session.tick(now,presentation.isBlocked?.()??false);paint(context);return true;
+  syncContentBounds();session.tick(now);paint(context);return true;
  };
  const cancelFrames=()=>{frameEpoch++;if(scheduled!==null){window.cancelAnimationFrame(scheduled);scheduled=null;}};
  const scheduleFrame=()=>{
@@ -124,7 +116,6 @@ export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidH
  };
  const offState=host.subscribe(state=>{native=state;update();}),offBack=host.onBack(()=>{
   if(disposed||!native.active||visibility.hidden)return;
-  if(presentation.onBack?.())return;
   if(handleAndroidBack(session)==='background')void host.minimize().catch(()=>{session.view.message='无法切到后台，请使用系统主页键';});
  });
  visibility.addEventListener('visibilitychange',update);

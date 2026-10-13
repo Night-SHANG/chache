@@ -70,9 +70,6 @@ export class GameSession {
  private recoveryPending=false;
  private closureUncertain=false;
  private profileReadBlocked=false;
- private prepareCosmeticScene:((theme:string)=>Promise<boolean>)|null=null;
- private cancelCosmeticScene:(()=>void)|null=null;
- private cosmeticEquipSerial=0;
  private dailyDateIndex=-1;
 
  private helpPaused=false;
@@ -248,27 +245,6 @@ export class GameSession {
   if(tool.item==='rotate'&&tool.pieceId&&tool.quarterTurns)command={type:'rotate',pieceId:tool.pieceId,quarterTurns:tool.quarterTurns};
   tool.command=command;const result=command?toolPreview(this.state,command):undefined;tool.preview=result&&!result.error?result.state:undefined;tool.error=result?.error;
  }
- /** Presentation readiness delays only the existing equip transaction, never browsing or selection. */
- setCosmeticScenePreparation(prepare:(theme:string)=>Promise<boolean>,cancel:()=>void):void {this.prepareCosmeticScene=prepare;this.cancelCosmeticScene=cancel;}
- cancelCosmeticEquip():void {this.cosmeticEquipSerial++;this.view.cosmeticEquipPending=false;this.view.cosmeticEquipError=undefined;if(!this.pendingRequest)this.cancelCosmeticScene?.();}
- private equipCosmetic(request:Extract<RequestBody,{type:'setCosmetic'|'setCargoOutline'}>):void {
-  if(this.view.cosmeticEquipPending||this.view.accountBlocked||this.view.account?.run)return;
-  if(request.type==='setCosmetic'){
-   const item=getCosmetic(request.kind,request.id),appearance=accountCosmeticState(this.view.account??null,this.profile);
-   if(!item||!appearance.ownedCosmetics.includes(item.key))return;
-  }
-  if(!this.prepareCosmeticScene){this.requestAccount(request);return;}
-  const serial=++this.cosmeticEquipSerial,generation=this.view.account?.generation,screen=this.view.screen;
-  const theme=request.type==='setCosmetic'&&request.kind==='theme'?request.id:accountCosmeticState(this.view.account??null,this.profile).cosmetics.theme;
-  this.view.cosmeticEquipPending=true;this.view.cosmeticEquipError=undefined;this.input.cancel();
-  void this.prepareCosmeticScene(theme).catch(()=>false).then(ready=>{
-   if(serial!==this.cosmeticEquipSerial)return;
-   this.view.cosmeticEquipPending=false;
-   if(!this.writerHeld()||this.view.accountBlocked||this.view.account?.run||this.view.account?.generation!==generation||this.view.screen!==screen)return;
-   if(!ready){this.view.cosmeticEquipError='外观未能读取，请再次点装备重试';return;}
-   this.requestAccount(request);
-  });
- }
  private resetShopVisit():void {
   Object.assign(this.view,{shopTab:'tools',shopSection:'theme',classicSetSelection:undefined,shopScroll:{sets:0,theme:0,cargo:0,forklift:0},shopItemDetail:undefined,cosmeticBrowse:'items',cosmeticCategory:'theme',cosmeticPreview:undefined,cosmeticSetPage:0,cosmeticSetPreview:undefined,cosmeticSetNotice:undefined,cosmeticReturnSet:undefined});
  }
@@ -330,8 +306,8 @@ export class GameSession {
   }
   if(action.type==='previewCosmetic'){if(this.view.screen==='shop'&&this.view.shopTab==='cosmetics'&&getCosmetic(action.kind,action.id)){if(this.view.shopSection!==action.kind)this.selectShopSection(action.kind);this.view.cosmeticPreview={...this.view.cosmeticPreview,[action.kind]:action.id};this.view.shopItemDetail=undefined;}return true;}
   if(action.type==='purchaseCosmetic'){const item=getCosmetic(action.kind,action.id),owned=accountCosmeticState(this.view.account??null,this.profile).ownedCosmetics;if(this.view.screen==='shop'&&!this.view.account?.run&&item&&(PLAYTEST_FREE_SHOP||item.price>0)&&!owned.includes(item.key)&&(this.view.account?.wallet??0)>=shopPrice(item.price))this.view.confirmation={kind:'purchaseCosmetic',cosmeticKind:item.kind,cosmeticId:item.id};return true;}
-  if(action.type==='equipCosmetic'){if(this.view.screen==='shop')this.equipCosmetic({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
-  if(action.type==='setCargoOutline'){if(this.view.screen==='shop')this.equipCosmetic({type:'setCargoOutline',enabled:action.enabled});return true;}
+  if(action.type==='equipCosmetic'){if(this.view.screen==='shop')this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
+  if(action.type==='setCargoOutline'){if(this.view.screen==='shop')this.requestAccount({type:'setCargoOutline',enabled:action.enabled});return true;}
   if(action.type==='purchase'){openToolPurchase(this.view,action.item);return true;}
   if(action.type==='toggleItem'){const intent=this.view.prepareIntent;if(!intent||intent.guide!=='direct'||intent.spec.family==='inbound'&&intent.spec.mode==='daily')return true;const index=intent.items.indexOf(action.item);if(index>=0)intent.items=intent.items.filter(i=>i!==action.item);else if(intent.items.length<2&&(this.view.account?.inventory[action.item]??0)>0)intent.items=[...intent.items,action.item];return true;}
   if(action.type==='guidedStart'||action.type==='directStart'){const intent=this.view.prepareIntent;if(!intent)return true;if(action.type==='guidedStart'&&(this.view.screen!=='guideOffer'||intent.spec.family==='outbound'&&(intent.spec.variant!=='normal'||intent.spec.difficultyId!=='easy')))return true;intent.guide=action.type==='guidedStart'?'guided':'direct';if(intent.spec.family==='inbound')intent.spec.guided=intent.guide==='guided';this.prepareStart();return true;}
@@ -350,7 +326,7 @@ export class GameSession {
   if(action.type==='supplyCargo'){const upgradeId=this.view.supplyUpgrade;this.view.supplyUpgrade=null;if(upgradeId)this.dispatchAccount({type:'upgrade',upgradeId,cargo:action.cargo});return true;}
   if(action.type==='supplyCancel'){this.view.supplyUpgrade=null;return true;}
   if(action.type==='toggleMusic'||action.type==='toggleSound'||action.type==='toggleMotion'||action.type==='toggleVibration'){const patch=controlSettingsPatch(action.type,this.profile.settings);this.requestAccount({type:'setSettings',patch},()=>{if(!this.profile.settings.sound)this.platform.stopSounds?.();});return true;}
-  if(action.type==='cosmetic'){this.equipCosmetic({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
+  if(action.type==='cosmetic'){this.requestAccount({type:'setCosmetic',kind:action.kind,id:action.id});return true;}
   if(!this.accountOwned)return false;
   if(action.type==='home'||action.type==='chooseInbound'||action.type==='chooseColorTier'){const screen=action.type==='home'?'menu':action.type==='chooseInbound'?'inboundMenu':'colorTiers';if(this.view.account?.run){this.input.cancel();this.view.confirmation={kind:'leaveRun',nextScreen:screen};}else this.openSelection(screen);return true;}
   if(action.type==='skipTutorial'){const run=this.view.account?.run;if(run)this.requestAccount({type:'skipGuide',runId:run.identity.runId,track:this.view.guideTrack??'inbound'},()=>{this.view.message=isInboundRun(this.state)&&!isInboundV16(this.state)&&this.state.guided?'讲解已跳过，本局第2阶段引入加急；下一局正常起步':'讲解已跳过，可以自由操作';this.messageExpiresAt=this.platform.now()+3500;});return true;}
@@ -440,14 +416,13 @@ export class GameSession {
  }
  private persist():boolean{if(this.practice)return false;if(!this.writerHeld()){this.blockWriter();return false;}if(this.accountOwned)return !this.view.accountBlocked;if(this.recoveryPending){this.view.saveStatus='此模式需先恢复存档，旧文件仍保留';return false;}const elapsedMs=Math.floor(this.view.elapsed);if(this.legacyState.elapsedMs!==elapsedMs)this.legacyState={...this.legacyState,elapsedMs};const result=saveRun(this.platform.storage,this.legacyState,this.slot);this.view.saveStatus=result.message;return result.ok;}
  private nextAnimation(now:number):void{const next=this.animationQueue.shift();this.animationStarted=now;this.animationCues={move:false,delivery:false};this.view.animation=next?{...next,progress:0,...('transport' in next.shipment&&next.shipment.transport==='conveyor'?{transportPlan:buildOutboundTransport(next.shipment as Shipment,next.board)??undefined}:{})}:null;if(next)this.routeCue();else this.startNotice(now);}
- tick(now:number,presentationBlocked=false):void{
+ tick(now:number):void{
   this.input.refresh();
   this.syncMusic();
   if(Math.floor(((this.platform.wallTime?.()??Date.now())+8*60*60*1000)/(24*60*60*1000))!==this.dailyDateIndex)this.refreshDailyAvailability();
   const delta=Math.max(0,now-this.lastTick);this.lastTick=now;
-  if(presentationBlocked)this.growthStarted+=delta;
   if(this.view.growthFx){this.view.growthFx.progress=Math.min(1,(now-this.growthStarted)/650);if(this.view.growthFx.progress>=1)this.view.growthFx=null;}
-  if(presentationBlocked||this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
+  if(this.view.accountBlocked||this.view.toolSelection||this.view.toolboxOpen&&!this.view.animation||this.view.supplyUpgrade||this.view.confirmation){this.animationStarted+=delta;this.placementStarted+=delta;this.invalidStarted+=delta;this.noticeStarted+=delta;if(this.messageExpiresAt)this.messageExpiresAt+=delta;return;}
   if(this.view.screen==='game'&&!this.view.paused&&!this.view.needsResume&&!this.view.confirmation&&this.state.phase!=='result'&&!((isTieredInbound(this.state)||[11,14,15].includes(this.state.rulesetVersion))&&this.state.phase==='cleanup'&&this.state.commandIndex===0))this.view.elapsed+=delta;
   if(this.messageExpiresAt&&now>=this.messageExpiresAt){this.view.message='';this.messageExpiresAt=0;}
   const reduced=this.profile.settings.reducedMotion;
@@ -591,7 +566,7 @@ export class GameSession {
   }
   return true;
  }
- action(action:UiAction):void{try{if(!['equipCosmetic','setCargoOutline','cosmetic'].includes(action.type)&&(this.view.cosmeticEquipPending||this.view.cosmeticEquipError))this.cancelCosmeticEquip();this.performAction(action);}finally{this.syncMusic();}}
+ action(action:UiAction):void{try{this.performAction(action);}finally{this.syncMusic();}}
  private performAction(action:UiAction):void{
   if(action.type==='newRun'&&action.mode==='daily')action={...action,mode:'rush'};
   if(['toggleTutorials','openPracticeSelect','startPractice','guidedStart','directStart','skipTutorial','introStart'].includes(action.type))return;

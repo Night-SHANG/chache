@@ -31,8 +31,6 @@ export interface ViewState {
   cosmeticSetNotice?:string;
   toolPurchaseNotice?:string;
   cosmeticReturnSet?:string;
-  cosmeticEquipPending?:boolean;
-  cosmeticEquipError?:string;
   cosmeticCategory?:CosmeticKind;
   cosmeticPreview?:Partial<Record<CosmeticKind,string>>;
   cargoOutline?:boolean;

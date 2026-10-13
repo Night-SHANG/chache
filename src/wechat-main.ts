@@ -1,5 +1,5 @@
 import {configureStaticArt} from './presentation/static-art-resources.ts';
-import {StaticArtGate} from './presentation/static-art-gate.ts';
+import {prepareStaticArtForView} from './presentation/static-art-requirements.ts';
 declare const __DEV_DIAGNOSTICS__:boolean;
 import { createWechatPlatform } from './platform/wechat.ts';
 import type { WechatHost } from './platform/wechat.ts';
@@ -9,7 +9,7 @@ declare const wx:WechatHost;
 const platform=createWechatPlatform(wx,{requestAnimationFrame:callback=>requestAnimationFrame(callback),now:()=>Date.now()});
 configureStaticArt(platform.loadImage);
 const session=new GameSession(platform,{seed:20261005,mode:'tutorial',developerMode:__DEV_DIAGNOSTICS__});
-const art=new StaticArtGate(session);art.refresh();
-platform.onPointer(event=>art.pointer(event));
-platform.onHide(()=>{art.hide();session.hide();});platform.onShow(()=>{session.show();art.show();});
-function frame(now:number){art.tick(now);const context=platform.beginFrame();if(art.paint(context,platform.overlayBounds?.())){render(context,session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.(),platform.frameBackdrop);art.didPaint();}platform.frame(frame);}platform.frame(frame);
+prepareStaticArtForView(session.view);
+platform.onPointer(event=>{if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
+platform.onHide(()=>session.hide());platform.onShow(()=>session.show());
+function frame(now:number){session.tick(now);prepareStaticArtForView(session.view);render(platform.beginFrame(),session.state,session.view,platform.backgroundBounds?.(),platform.overlayBounds?.(),platform.frameBackdrop);platform.frame(frame);}platform.frame(frame);

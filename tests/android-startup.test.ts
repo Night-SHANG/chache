@@ -42,10 +42,8 @@ test('bundled Android entry explains missing primitives before gameplay modules 
 
 test('Android HTML retains a readable fail-closed fallback even when app.js cannot parse',async()=>{
  const {readFile}=await import('node:fs/promises');const script=await readFile('scripts/build-android.mjs','utf8');
- assert.match(script,/<div id="startup-status"[^>]*><strong>货箱最后一格<\/strong><span>正在启动…<\/span>/);
- assert.match(script,/class="startup-help"[^>]*>[^<]*WebView[^<]*存档/);
- assert.match(script,/\.startup-help\{[^}]*visibility:hidden[^}]*animation:startup-help 0s 12s forwards/);
- assert.match(script,/@keyframes startup-help\{to\{visibility:visible/);
+ assert.match(script,/<div id="startup-status"[^>]*>正在检查启动能力[^<]*WebView[^<]*存档/);
+ assert.doesNotMatch(script,/startup-help|正在启动/);
  assert.match(script,/#startup-status\[hidden\]\{display:none!important\}/);
  assert.doesNotMatch(script,/<script(?! src=)/);
 });

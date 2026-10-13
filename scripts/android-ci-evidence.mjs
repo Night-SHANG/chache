@@ -17,14 +17,14 @@ export function parseApkIdentity(badging){
  const packages=[...badging.matchAll(/^package: name='([^']+)' versionCode='([^']+)' versionName='([^']+)'/gm)];
  requireValue(packages.length===1,'APK must contain exactly one package identity');
  const [,applicationId,code,versionName]=packages[0];
- requireValue(applicationId==='io.github.nightshang.chache'&&versionName==='1.0.17'&&['1','2'].includes(code),'Compiled APK identity/version mismatch');
+ requireValue(applicationId==='io.github.nightshang.chache'&&versionName==='1.0.18'&&['1','2'].includes(code),'Compiled APK identity/version mismatch');
  requireValue(/^application-label:'货箱最后一格'$/m.test(badging),'Compiled APK label mismatch');
  requireValue(!/uses-permission[^\n]*name='android.permission.INTERNET'/.test(badging),'Offline APK must not request INTERNET');
  return {applicationId,appName:'货箱最后一格',versionName,versionCode:Number(code)};
 }
 export function candidateFileName(code,commit){
  requireValue([1,2].includes(code)&&/^[a-f0-9]{40}$/.test(commit),'Invalid candidate version/source identity');
- return `warehouse-last-slot-1.0.17-vc${code}-temporary-debug-candidate-${commit.slice(0,12)}.apk`;
+ return `warehouse-last-slot-1.0.18-vc${code}-temporary-debug-candidate-${commit.slice(0,12)}.apk`;
 }
 export function aggregateAcceptanceStatus(...reports){
  if(reports.some(report=>report?.status==='failed'))return 'failed';

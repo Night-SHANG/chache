@@ -1,0 +1,20 @@
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (199.150509ms)
+✔ missing bridge and false native owner block startup without inventing writer success (2.120985ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (2.101666ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (1.388786ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.603528ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (0.516568ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (221.189487ms)
+✔ Android HTML retains a readable fail-closed fallback even when app.js cannot parse (2.215876ms)
+✔ optional artwork cannot freeze gameplay clocks, music or input refresh (48.023786ms)
+✔ optional artwork cannot freeze existing growth animation progress (12.081091ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 595.753827
+
+EXIT=0

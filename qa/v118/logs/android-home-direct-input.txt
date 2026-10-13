@@ -1,0 +1,11 @@
+✔ Android host shares safe content geometry with presentation and enables extended input only on home (180.314173ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 401.898959
+
+EXIT=0

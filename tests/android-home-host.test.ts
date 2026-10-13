@@ -7,7 +7,8 @@ import {androidHost} from './helpers/android-platform-fixture.ts';
 test('Android host shares safe content geometry with presentation and enables extended input only on home',async()=>{
  const f=androidSessionFixture(),native=nativeHostFixture();let events=0;
  try{
-  const host=await connectAndroidHost(native.plugin),runtime=await startAndroidSession(f.canvas,host,f.bridge,f.visibility,{onPointer:()=>{events++;return true;}});
+  const host=await connectAndroidHost(native.plugin),runtime=await startAndroidSession(f.canvas,host,f.bridge,f.visibility);
+  runtime.session.input.down=()=>{events++;};runtime.session.input.up=()=>{events++;};
   assert.equal(runtime.session.view.screen,'menu');assert.deepEqual(runtime.session.view.androidContentBounds,{x:0,y:-150,w:1080,h:2220});
   f.pointer('pointerdown',540,150);f.pointer('pointerup',540,150);assert.equal(events,2);
   runtime.session.view.confirmation={kind:'resetProfile'};f.pointer('pointerdown',540,150);f.pointer('pointerup',540,150);assert.equal(events,2);

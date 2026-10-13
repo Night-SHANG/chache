@@ -4,6 +4,9 @@ import type { Rect } from './layout.ts';
 import { CARGO_ATLAS, drawCargoAtlas } from './cargo-atlas.ts';
 import {STATIC_ART_CARGO,STATIC_ART_FORKLIFTS} from './static-art-manifest.ts';
 import {drawStaticArtSprite} from './static-art-draw.ts';
+import {getStaticArtImage} from './static-art-resources.ts';
+import {drawCargoBodyFallback,drawCargoOutlineFallback} from './cargo-fallback.ts';
+import {drawForkliftFallback} from './forklift-fallback.ts';
 
 type Context = CanvasRenderingContext2D;
 export const INK = '#111b27';
@@ -141,9 +144,11 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(x, y); ctx.scale(size / 110, size / 110);
   const waste=trait?.kind==='waste',classic=style==='classic'||style==='outline';
   if(waste){
-    drawStaticArtSprite(ctx,STATIC_ART_CARGO.waste);
+    if(!drawStaticArtSprite(ctx,STATIC_ART_CARGO.waste))drawCargoBodyFallback(ctx,cargo,true);
     text(ctx,'废弃箱',54,87,20,'#f2f0df','center',900);
-  }else if(classic)drawStaticArtSprite(ctx,STATIC_ART_CARGO[cargo]);
+  }else if(classic){
+    if(!drawStaticArtSprite(ctx,STATIC_ART_CARGO[cargo]))drawCargoBodyFallback(ctx,cargo);
+  }else if(CARGO_ATLAS.styles.includes(style)&&!getStaticArtImage('material.cargo'))drawCargoBodyFallback(ctx,cargo);
   else if(CARGO_ATLAS.styles.includes(style)){
     // Existing approved material bodies are unchanged. Semantic symbols stay live above them.
     roundedPath(ctx,6,13,103,97,10);ctx.fillStyle='rgba(9,14,16,.36)';ctx.fill();
@@ -154,7 +159,9 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   }
   if(trait&&!waste)drawTraitBadge(ctx,trait,largeRushCountdown);
   // The high-contrast option is always the last artwork layer, including over dynamic badges.
-  if(style==='outline'||outlineOverride)drawStaticArtSprite(ctx,STATIC_ART_CARGO.outline);
+  if(style==='outline'||outlineOverride){
+    if(!drawStaticArtSprite(ctx,STATIC_ART_CARGO.outline))drawCargoOutlineFallback(ctx);
+  }
   ctx.restore();
 }
 
@@ -191,7 +198,7 @@ function drawTraitBadge(ctx: Context, trait: CellTrait, largeRushCountdown = fal
 /** Complete current vehicle, including shadow and forks; transport/load anchors remain unchanged. */
 export function forklift(ctx:Context,x:number,y:number,size:number,angle:number,paint:ForkliftId='yellow'):void {
  ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(size/110,size/110);
- drawStaticArtSprite(ctx,STATIC_ART_FORKLIFTS[paint]);ctx.restore();
+ if(!drawStaticArtSprite(ctx,STATIC_ART_FORKLIFTS[paint]))drawForkliftFallback(ctx,0,0,110,0,paint);ctx.restore();
 }
 
 export function arrow(ctx: Context, x: number, y: number, size: number, angle: number, color: string): void {

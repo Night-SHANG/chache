@@ -1,0 +1,160 @@
+[
+  {
+    "version": "v117",
+    "pixelSha256": "c2cabab3f764df0d16f1bbd92114c0fa26cb30b4e9e206ba43ddc58a032c9975",
+    "bundleSha256": "5891f56ef44147a7bf4f6fdc2a0ebb0c10bbc839e8a8717da00a3088c013edd7",
+    "images": [
+      {
+        "source": "assets/static-art/scene-day.png",
+        "status": "loaded",
+        "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+        "bytes": 120512,
+        "width": 1205,
+        "height": 1920
+      },
+      {
+        "source": "assets/static-art/cargo-core.png",
+        "status": "loaded",
+        "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+        "bytes": 65461,
+        "width": 1792,
+        "height": 256
+      },
+      {
+        "source": "assets/static-art/forklift-base.png",
+        "status": "loaded",
+        "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+        "bytes": 13131,
+        "width": 1024,
+        "height": 192
+      },
+      {
+        "source": "assets/static-art/forklift-styled.png",
+        "status": "loaded",
+        "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+        "bytes": 96338,
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "source": "assets/static-art/frame-classic.png",
+        "status": "loaded",
+        "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+        "bytes": 15898,
+        "width": 1024,
+        "height": 272
+      },
+      {
+        "source": "assets/board-materials.png",
+        "status": "loaded",
+        "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+        "bytes": 166727,
+        "width": 512,
+        "height": 512
+      },
+      {
+        "source": "assets/cargo-materials.png",
+        "status": "loaded",
+        "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+        "bytes": 351513,
+        "width": 670,
+        "height": 2010
+      },
+      {
+        "source": "assets/scene-materials.png",
+        "status": "loaded",
+        "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+        "bytes": 219775,
+        "width": 512,
+        "height": 960
+      },
+      {
+        "source": "assets/static-art/tools-core.png",
+        "status": "loaded",
+        "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+        "bytes": 62433,
+        "width": 1024,
+        "height": 256
+      }
+    ]
+  },
+  {
+    "version": "v118",
+    "pixelSha256": "c2cabab3f764df0d16f1bbd92114c0fa26cb30b4e9e206ba43ddc58a032c9975",
+    "bundleSha256": "929d1f7a32b65fd61e0f0bf71452271bd59b932ba0208a3e0e8ee262c938d4a4",
+    "images": [
+      {
+        "source": "assets/static-art/scene-day.png",
+        "status": "loaded",
+        "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+        "bytes": 120512,
+        "width": 1205,
+        "height": 1920
+      },
+      {
+        "source": "assets/static-art/cargo-core.png",
+        "status": "loaded",
+        "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+        "bytes": 65461,
+        "width": 1792,
+        "height": 256
+      },
+      {
+        "source": "assets/static-art/forklift-base.png",
+        "status": "loaded",
+        "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+        "bytes": 13131,
+        "width": 1024,
+        "height": 192
+      },
+      {
+        "source": "assets/static-art/forklift-styled.png",
+        "status": "loaded",
+        "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956",
+        "bytes": 96338,
+        "width": 1024,
+        "height": 768
+      },
+      {
+        "source": "assets/static-art/frame-classic.png",
+        "status": "loaded",
+        "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+        "bytes": 15898,
+        "width": 1024,
+        "height": 272
+      },
+      {
+        "source": "assets/board-materials.png",
+        "status": "loaded",
+        "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+        "bytes": 166727,
+        "width": 512,
+        "height": 512
+      },
+      {
+        "source": "assets/cargo-materials.png",
+        "status": "loaded",
+        "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65",
+        "bytes": 351513,
+        "width": 670,
+        "height": 2010
+      },
+      {
+        "source": "assets/scene-materials.png",
+        "status": "loaded",
+        "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e",
+        "bytes": 219775,
+        "width": 512,
+        "height": 960
+      },
+      {
+        "source": "assets/static-art/tools-core.png",
+        "status": "loaded",
+        "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+        "bytes": 62433,
+        "width": 1024,
+        "height": 256
+      }
+    ]
+  }
+]

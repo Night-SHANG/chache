@@ -1,0 +1,15 @@
+✔ cold cargo restores the complete v112 body, live traits, alpha and final outline for every material (847.99571ms)
+✔ cold tools and toolbox restore complete v112 equipment silhouettes synchronously (15.074426ms)
+✔ cold forklifts restore v112 vehicles including forks, rotation and caller state (44.611959ms)
+✔ cold board frames and material floors match v112 at all board sizes and themes (1744.612734ms)
+✔ cold warehouse scenery matches v112 without waiting for images, including Android cold starts (1174.660238ms)
+✔ ready PNG cargo, tools, forklift and scenery keep exact pixels and one-blit drawing (174.704653ms)
+✔ invalid tool destinations stay empty instead of triggering a procedural fallback (1.732806ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4715.067601

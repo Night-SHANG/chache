@@ -42,18 +42,18 @@ test('strict actual game host uses only its screen canvas and does not install c
  const folder=await mkdtemp(join(tmpdir(),'warehouse-current-game-host-'));
  try{
   const bundlePath=join(folder,'game.js');
-  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.17')}});
+  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.18')}});
   for(const resource of Object.values(STATIC_ART_RESOURCES)){const target=join(folder,resource.src);await mkdir(dirname(target),{recursive:true});await cp(resource.sourcePath,target);}
   const report=await probeBuiltHost({bundlePath});
   assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);
   const host=await createGrowthHost({bundlePath,deferImageLoads:true,rejectOffscreenCanvases:true}),screen=host.canvas;
   assert.equal(host.canvasCount,1,'screen is the first and only startup canvas');assert.equal(host.context,screen.getContext('2d'));assert.deepEqual(host.surfaceInfo,[]);
-  host.frame(0);assert.equal(host.canvas,screen);assert.ok(host.labels.some(row=>row.text.includes('正在加载')));assert.equal(host.canvasCount,1);
+  host.frame(0);assert.equal(host.canvas,screen);assert.ok(host.labels.some(row=>row.text==='入库模式'));assert.ok(!host.labels.some(row=>/加载/.test(row.text)));assert.equal(host.canvasCount,1);
   for(let n=0;n<5;n++)await host.settleImages();
   assert.ok(host.imageTrace.length>0&&host.imageTrace.every(row=>row.status==='loaded'));
-  assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')),'No speculative images before the first ready paint');
+  assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')),'No preview images are needed by the first synchronous paint');
   host.frame(16);
-  const warm=host.imageTrace.filter(row=>row.status==='pending');assert.equal(warm.length,0);assert.equal(host.imageTrace.length,9,'Startup prepares eight fixed shared atlases and the current scene');assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')));
+  const warm=host.imageTrace.filter(row=>row.status==='pending');assert.equal(warm.length,0);assert.equal(host.imageTrace.length,9,'Optional image work contains eight shared atlases and the current scene');assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')));
   assert.ok(host.imageTrace.every(row=>row.source.startsWith('assets/')));
   for(let n=0;n<4;n++){await host.settleImages();host.frame(32+n*16);}
   assert.ok(host.imageTrace.every(row=>row.status==='loaded'),'Ready home frames do not schedule obsolete per-item previews');

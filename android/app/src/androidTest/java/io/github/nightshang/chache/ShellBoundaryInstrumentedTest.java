@@ -46,7 +46,7 @@ public class ShellBoundaryInstrumentedTest {
         String oldCode = prefs.getString("lastBinaryVersionCode", null);
         String oldName = prefs.getString("lastBinaryVersionName", null);
         assertTrue(prefs.edit().putString("serverBasePath", marker.getParent())
-            .putString("lastBinaryVersionCode", "1").putString("lastBinaryVersionName", "1.0.17").commit());
+            .putString("lastBinaryVersionCode", "1").putString("lastBinaryVersionName", "1.0.18").commit());
         MainActivity activity = null;
         try {
             activity = (MainActivity) instrumentation.startActivitySync(

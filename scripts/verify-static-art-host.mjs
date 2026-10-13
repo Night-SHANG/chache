@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {growthSourceHash} from './growth-host-support.mjs';
-import {runV116PlatformTransitions} from './v116-transition-trace.mjs';
+import {runV118PlatformTransitions} from './v118-transition-trace.mjs';
 import {COSMETIC_CATALOG,HISTORICAL_COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
 const argument=name=>{const at=process.argv.indexOf(name);return at<0?undefined:process.argv[at+1];};
 const root=resolve(argument('--build')??'build'),out=resolve(argument('--out')??'artifacts/single-package-static-host');
@@ -19,7 +19,7 @@ for(const target of ['browser','wechat','android']){
   assert.equal(source,manifest.sourceSha256,'Actual package must bind every current source/script/asset byte');
   assert.deepEqual(manifest.cosmetics,{catalogSize:29,setCount:0,navigation:'sections-pagination-inline-preview',sections:['theme','cargo','forklift'],columns:2,pageSize:4});
   assert.ok(manifest.staticArt.resources.every(row=>row.src.startsWith('assets/')),'All images ship in the main package');
-  const evidence=await runV116PlatformTransitions({root,target,out});report.platforms.push(evidence);
+  const evidence=await runV118PlatformTransitions({root,target,out});report.platforms.push(evidence);
   await writeFile(resolve(out,`${target}-frames.json`),JSON.stringify(evidence,null,2)+'\n');
   console.log(`${target}: ${evidence.frames.length} verified frames, ${evidence.visited.length} owned/sale items, ${evidence.cases.length} cases`);
  }catch(error){report.failures.push({target,error:String(error),stack:error.stack});console.error(target,error.stack);}

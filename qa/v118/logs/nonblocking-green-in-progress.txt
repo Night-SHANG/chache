@@ -1,0 +1,19 @@
+✔ browser first frame and every pending or failed image frame remain playable without an art gate (244.869969ms)
+✔ wechat first frame and every pending or failed image frame remain playable without an art gate (185.543513ms)
+✔ android first frame and every pending or failed image frame remain playable without an art gate (160.401337ms)
+✔ equip commits immediately while every PNG is still pending and never changes price or wallet (28.618597ms)
+✔ late old scene completion cannot replace the newest equipped appearance or write its account (14.066051ms)
+✔ permanent image failure does not block equip and repeated frames never retry or write (10.446283ms)
+✔ existing writer and uncertain-save rules still own immediate equip (3.691665ms)
+✔ uncertain equip save retains the old visible identity until existing exact retry confirms it (9.286109ms)
+✔ platform explicitly reports the same opaque backdrop its beginFrame actually paints (3.665797ms)
+✔ actual WeChat entry paints immediately through image failures with one screen canvas only (184.900582ms)
+✔ all entries prepare images without a gate and retain the platform frame backdrop without static surfaces (0.663486ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1212.859146

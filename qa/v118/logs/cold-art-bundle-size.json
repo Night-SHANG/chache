@@ -1,0 +1,24 @@
+[
+  {
+    "target": "browser",
+    "baseline": "Current nonblocking source with assets/tool-art/board-theme/warehouse-art restored to HEAD; only fallback impact measured",
+    "rawBefore": 654652,
+    "rawAfter": 677696,
+    "rawDelta": 23044,
+    "gzipBefore": 166047,
+    "gzipAfter": 174299,
+    "gzipDelta": 8252,
+    "authoringDependencyBundled": false
+  },
+  {
+    "target": "wechat",
+    "baseline": "Current nonblocking source with assets/tool-art/board-theme/warehouse-art restored to HEAD; only fallback impact measured",
+    "rawBefore": 653996,
+    "rawAfter": 677040,
+    "rawDelta": 23044,
+    "gzipBefore": 165798,
+    "gzipAfter": 174047,
+    "gzipDelta": 8249,
+    "authoringDependencyBundled": false
+  }
+]
