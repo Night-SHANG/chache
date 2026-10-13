@@ -1,0 +1,183 @@
+{
+  "version": "1.0.14",
+  "versionCode": 4,
+  "source": {
+    "localCommit": "fbd97ba21bf8c8e11eab1aab3a537356a8987359",
+    "packageRemoteCommit": "b26fa84b85235fc76a0ebbd26bb56ed19719e937",
+    "signedRemoteCommit": "cd63117503ace9db98628a6fdaf1ddb176c9d03b",
+    "tree": "3bf52056b3da67cd3d2206b0ea2cb2401599637e",
+    "recovery": "same-tree metadata-only descendant for exact local-source provenance trailers"
+  },
+  "ci": {
+    "runId": 38351365730,
+    "attempt": 1,
+    "jobs": {
+      "build": "success",
+      "sign": "success",
+      "runtimeJob": "success"
+    },
+    "runtimeAcceptance": {
+      "mode": "not-selected",
+      "phonePerformanceRepresentative": false,
+      "status": "blocked",
+      "reason": "Actual disk after SDK install is below6GiB×1.2 plus512MiB unchanged headroom",
+      "launchAttempts": 0,
+      "acceptanceScope": "full",
+      "headless": true,
+      "audibleOutput": "not-verified",
+      "licenseChanges": false,
+      "securityPermissionChanges": false
+    },
+    "firstRun": {
+      "runId": 38349570053,
+      "status": "failed",
+      "reason": "Remote mapping trailers absent; no product build or test failure; signing skipped"
+    },
+    "signedArtifact": {
+      "id": 11790719593,
+      "zipBytes": 7756908,
+      "zipSha256": "4b5fa4525e32d8f8829176916081a34401032b2898b584557740771e2411ab1b"
+    }
+  },
+  "apk": {
+    "filename": "warehouse-last-slot-1.0.14-vc4-release-candidate.apk",
+    "sha256": "5eda9b56ed6f29aa2831857ce29198820702ab0cabb61a61673e0ab774eb6e29",
+    "certificateSha256": "0033e1a1078d85c73f4eef88184eba06e039b76d8e311c364a55500686bc1bdb",
+    "signing": "observed owner-configured PKCS12 identity; official apksigner verified; original-generation certificate not independently matched",
+    "alignment": "verified",
+    "bundledAssets": "verified byte-exact",
+    "debuggable": false,
+    "testOnly": false
+  },
+  "identity": {
+    "applicationId": "io.github.nightshang.chache",
+    "appName": "货箱最后一格",
+    "versionName": "1.0.14",
+    "versionCode": 4
+  },
+  "verification": {
+    "node": {
+      "tests": 3314,
+      "failed": 2,
+      "passed": 3312,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 3314,
+      "suites": 0
+    },
+    "nativeReleaseUnit": {
+      "tests": 3,
+      "passed": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "localCertificateExtraction": "OpenSSL extracted embedded public certificate; matches prior1.0.13 permanent cert0033e1a1078d85c73f4eef88184eba06e039b76d8e311c364a55500686bc1bdb; not full local signature validation",
+    "fullSignaturePackageAlignment": "Official Android Build Tools35 in isolated signing CI",
+    "actualBundleCanvas": {
+      "cases": 10,
+      "assertions": 52,
+      "captures": 14,
+      "appJsSha256": "5e053104a3689ea5498acbd08935bd90fa1ff662a0a933c8d71d5e219feb7857"
+    },
+    "themeMatrixFrames": 816,
+    "unchangedBoardCrops": 204,
+    "audio": "13Android/browserWAV+BGM exact v113 bytes; only8WeChat positive cues+2dB;0clips"
+  },
+  "limits": [
+    "HTML/CSS real-browser capture blocked by Chromium socket EPERM",
+    "Android emulator never launched because disk safety threshold",
+    "SignedAPK physical phone, save-preserving same-key upgrade, native startup/resume not verified",
+    "WeChat IDE/physical audio listening not run"
+  ],
+  "publicationApproved": false,
+  "libraryStatus": "all five writes succeeded; guarded original identities preserved; local metadata applied; metadata size/file_id readback verified",
+  "userDelivery": {
+    "status": "Messaging tool accepted APK/test ZIP and both source volumes on 2026-10-13T05:48Z; download/install not verified"
+  },
+  "library": [
+    {
+      "purpose": "replace_library_file",
+      "status": "succeeded",
+      "file_id": "file_000000009a2481f590135cf7cd8bdb7c",
+      "library_file_id": "libfile_66240366bd908191a900f3a78f5e1847",
+      "file_name": "货箱最后一格-v1.0.14-安卓长期签名版.apk",
+      "local_metadata_applied": true,
+      "path": "/货箱最后一格-v1.0.14-安卓长期签名版.apk",
+      "current_version_number": 1
+    },
+    {
+      "purpose": "replace_library_file",
+      "status": "succeeded",
+      "file_id": "file_00000000cc3481f5b556e2335836969c",
+      "library_file_id": "libfile_54f587894d80819188125691b51f3d73",
+      "file_name": "货箱最后一格-v1.0.14-微信浏览器测试包.zip",
+      "local_metadata_applied": true,
+      "path": "/货箱最后一格-v1.0.14-微信浏览器测试包.zip",
+      "current_version_number": 41
+    },
+    {
+      "purpose": "replace_library_file",
+      "status": "succeeded",
+      "file_id": "file_0000000054c481f5b65c01447a6a55fd",
+      "library_file_id": "libfile_a605d5370c2081919c5a9bcb223a656a",
+      "file_name": "货箱最后一格-v1.0.14-可重建源码备份.7z",
+      "local_metadata_applied": true,
+      "path": "/货箱最后一格-v1.0.14-可重建源码备份.7z",
+      "current_version_number": 20
+    },
+    {
+      "purpose": "create_library_file",
+      "status": "succeeded",
+      "file_id": "file_00000000cb2c81f5a67a1bd8850e53f4",
+      "library_file_id": "libfile_96e296b1697081919bb129120ceb2856",
+      "file_name": "货箱最后一格-v1.0.14-可重建源码备份.7z.001",
+      "local_metadata_applied": true,
+      "path": "/货箱最后一格-v1.0.14-可重建源码备份.7z.001",
+      "current_version_number": 0
+    },
+    {
+      "purpose": "create_library_file",
+      "status": "succeeded",
+      "file_id": "file_00000000023081f58190f36ab8dd4597",
+      "library_file_id": "libfile_eab5ae694ab881919647b6dc1d792be5",
+      "file_name": "货箱最后一格-v1.0.14-可重建源码备份.7z.002",
+      "local_metadata_applied": true,
+      "path": "/货箱最后一格-v1.0.14-可重建源码备份.7z.002",
+      "current_version_number": 0
+    }
+  ],
+  "crossplatformArtifacts": [
+    {
+      "kind": "runtime",
+      "filename": "货箱最后一格-v1.0.14-微信浏览器测试包.zip",
+      "bytes": 9925701,
+      "sha256": "ba273f035eb4fa200a251d52af2f2841113e1024d1f1b258302b94d16612f708",
+      "entries": 212,
+      "rootChecksumEntriesVerified": 211,
+      "library_file_id": "libfile_54f587894d80819188125691b51f3d73"
+    },
+    {
+      "kind": "source",
+      "filename": "货箱最后一格-v1.0.14-可重建源码备份.7z",
+      "bytes": 25083286,
+      "sha256": "bed2b575b5b6883af51417db594029ed7cb404b3cdd8a72ac3da1db5b23c9c81",
+      "entries": 2164,
+      "rootChecksumEntriesVerified": 2163,
+      "library_file_id": "libfile_a605d5370c2081919c5a9bcb223a656a"
+    }
+  ],
+  "sourceVolumes": [
+    {
+      "filename": "货箱最后一格-v1.0.14-可重建源码备份.7z.001",
+      "bytes": 19922944,
+      "sha256": "1608c634869b5bc4865f87360d8958215f3a45b1bb7c3988027b7616927ab56e"
+    },
+    {
+      "filename": "货箱最后一格-v1.0.14-可重建源码备份.7z.002",
+      "bytes": 5160342,
+      "sha256": "8ac332a91503828aaa8fda26ac487d9d031a73cd745d7a8fd3c342f4dd455918"
+    }
+  ]
+}
