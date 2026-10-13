@@ -29,21 +29,21 @@ test('funded cosmetic fixtures require explicit provenance and create strict acc
 });
 test('cosmetic fixture validation refuses unowned equipment duplicate and unknown rights',()=>{
  assert.equal(typeof support.cosmeticAccountStorage,'function');
- for(const options of [{cosmetics:{theme:'day',cargo:'wood',forklift:'yellow'} as const},{owned:['cargo.wood','cargo.wood']},{owned:['cargo.unknown']}])assert.throws(()=>support.cosmeticAccountStorage({label:'FUNDED: invalid cosmetic fixture',...options}),/cosmetic|外观|owned|duplicate|unknown/i);
- const storage=support.cosmeticAccountStorage({label:'FUNDED: owned combination',owned:['cargo.wood','forklift.white','theme.cold_chain'],cosmetics:{cargo:'wood',forklift:'white',theme:'cold_chain'},outline:true});assert.equal(validateResumeStorage(storage).account!.profile.cargoOutline,true);
+ for(const options of [{cosmetics:{theme:'day',cargo:'insulated',forklift:'yellow'} as const},{owned:['cargo.insulated','cargo.insulated']},{owned:['cargo.unknown']}])assert.throws(()=>support.cosmeticAccountStorage({label:'FUNDED: invalid cosmetic fixture',...options}),/cosmetic|外观|owned|duplicate|unknown/i);
+ const storage=support.cosmeticAccountStorage({label:'FUNDED: owned combination',owned:['cargo.insulated','forklift.white','theme.cold_chain'],cosmetics:{cargo:'insulated',forklift:'white',theme:'cold_chain'},outline:true});assert.equal(validateResumeStorage(storage).account!.profile.cargoOutline,true);
 });
 test('cosmetic resume fixture labels constructed boards and preserves run economics and history',()=>{
  assert.equal(typeof support.cosmeticResumeStorage,'function');
  const state=createPlayableRun(spec);state.board[0]='cargo.food';
  assert.throws(()=>support.cosmeticResumeStorage(spec,[],{constructedState:state}),/CONSTRUCTED|label/);
- const storage=support.cosmeticResumeStorage(spec,[],{constructedState:state,label:'CONSTRUCTED: occupied board for cosmetic native pixel comparison',owned:['cargo.wood'],cosmetics:{cargo:'wood',forklift:'yellow',theme:'day'}}),account=validateResumeStorage(storage).account!;
+ const storage=support.cosmeticResumeStorage(spec,[],{constructedState:state,label:'CONSTRUCTED: occupied board for cosmetic native pixel comparison',owned:['cargo.insulated'],cosmetics:{cargo:'insulated',forklift:'yellow',theme:'day'}}),account=validateResumeStorage(storage).account!;
  assert.equal(account.formatVersion,3);assert.equal(account.run!.identity.economyVersion,2);assert.equal(account.run!.state.board[0],'cargo.food');assert.equal(account.run!.creditedBase,0);assert.equal(account.wallet,0);
 });
 test('cosmetic host validates account3 before executing exact native bundle bytes',async()=>{
  assert.equal(typeof support.createBoundCosmeticStage15Host,'function');
  const dir=await mkdtemp(join(tmpdir(),'cosmetic-host-'));
  try{const bundlePath=join(dir,'game.js'),bytes='throw Error("intentional native cosmetic probe")';await writeFile(bundlePath,bytes);const hashes={...binding(),gameJsSha256:sha256(bytes),expectedGameJsSha256:sha256(bytes)};
- const valid=support.cosmeticAccountStorage({label:'FUNDED: protocol fixture'}),account=validateResumeStorage(valid).account!;account.profile.cosmetics.cargo='wood';const raw=canonicalStringify({formatVersion:1,generation:account.generation,account,digest:accountDigest(canonicalStringify(account))}),invalid=new Map([[ACCOUNT_KEYS.a,raw],[ACCOUNT_KEYS.b,raw]]);
+ const valid=support.cosmeticAccountStorage({label:'FUNDED: protocol fixture'}),account=validateResumeStorage(valid).account!;account.profile.cosmetics.cargo='insulated';const raw=canonicalStringify({formatVersion:1,generation:account.generation,account,digest:accountDigest(canonicalStringify(account))}),invalid=new Map([[ACCOUNT_KEYS.a,raw],[ACCOUNT_KEYS.b,raw]]);
  await assert.rejects(support.createBoundCosmeticStage15Host(hashes,{bundlePath,storage:invalid}),/fixture|account|外观/i);
  await assert.rejects(support.createBoundCosmeticStage15Host(hashes,{bundlePath,storage:valid}),/intentional native cosmetic probe/);
  await writeFile(bundlePath,'globalThis.unbound=true;');await assert.rejects(support.createBoundCosmeticStage15Host(hashes,{bundlePath,storage:valid}),/game.*hash|bytes/i);

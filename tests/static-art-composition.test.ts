@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 
 const source=(name:string)=>readFileSync(new URL(`../src/presentation/${name}.ts`,import.meta.url),'utf8');
-test('runtime static artwork uses ready-image composition without painter or surface cache fallback',()=>{
- for(const name of ['warehouse-art','cosmetic-art','tool-art']){
+test('gameplay static artwork stays PNG-only while shop background painting is synchronous',()=>{
+ for(const name of ['warehouse-art','tool-art']){
   const code=source(name);
   assert.doesNotMatch(code,/drawCached|createCanvas|drawReferenceBackground|drawColdChain|drawRailFreight|drawPlayfulBackground/,name);
   assert.match(code,/drawStaticArtSprite|drawStaticPreviewBackground/,name);
  }
+ assert.doesNotMatch(source('cosmetic-art'),/drawCached|createCanvas|staticArtKeysStatus|正在准备预览/);
+ assert.match(source('cosmetic-art'),/drawLogisticsBackground/);
  assert.doesNotMatch(source('assets'),/drawStructuralForkliftBody|drawThemedForkliftBody|drawPlayfulForkliftBody|drawLogisticsForkliftBody|drawMaterialCrate|drawCrateFrame/);
  assert.doesNotMatch(source('board-theme'),/function drawMaterial|function frameMotif/);
  assert.doesNotMatch(source('renderer')+source('shop-art'),/drawCachedWarehouse|drawCachedCosmetic/);
@@ -17,12 +19,12 @@ test('runtime static artwork uses ready-image composition without painter or sur
 import {createCanvas,loadImage} from '@napi-rs/canvas';
 import {STATIC_ART_RESOURCES,STATIC_ART_SCENES,STATIC_ART_PREVIEWS,STATIC_ART_FORKLIFTS,STATIC_ART_CARGO} from '../src/presentation/static-art-manifest.ts';
 import {configureStaticArt,prepareStaticArt} from '../src/presentation/static-art-resources.ts';
-import {drawStaticArtSprite,drawStaticPreviewBackground,staticPreviewShape} from '../src/presentation/static-art-draw.ts';
+import {drawStaticArtSprite,staticPreviewShape} from '../src/presentation/static-art-draw.ts';
 import {drawWarehouse} from '../src/presentation/warehouse-art.ts';
 import {forklift,cargoBox} from '../src/presentation/assets.ts';
 import {CARGO_ATLAS} from '../src/presentation/cargo-atlas.ts';
 import {drawThemedBoard} from '../src/presentation/board-theme.ts';
-import {drawCosmeticPreview} from '../src/presentation/cosmetic-art.ts';
+import {drawCosmeticPreview,drawLogisticsBackground} from '../src/presentation/cosmetic-art.ts';
 import {boardGeometry} from '../src/presentation/board-geometry.ts';
 import {render} from '../src/presentation/renderer.ts';
 import {drawToolIcon,drawToolboxIcon} from '../src/presentation/tool-art.ts';
@@ -35,7 +37,7 @@ import {playableChecksum} from '../src/domain/playable.ts';
 import {drawWarehouse as authorWarehouse} from '../scripts/static-art-authoring/src/presentation/warehouse-art.ts';
 import {forklift as authorForklift,cargoBox as authorCargo,gradient} from '../scripts/static-art-authoring/src/presentation/assets.ts';
 import {drawThemedBoard as authorBoard} from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
-import {drawHarborBackground as authorHarbor,drawLogisticsBackground as authorLogistics,drawCosmeticPreview as authorPreview} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import {drawLogisticsBackground as authorLogistics,drawCosmeticPreview as authorPreview} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
 import {loadCargoAtlas} from '../scripts/static-art-authoring/src/presentation/cargo-atlas.ts';
 import {loadBoardMaterialAtlas} from '../scripts/static-art-authoring/src/presentation/board-material-atlas.ts';
 import {loadSceneMaterialAtlas} from '../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts';
@@ -55,8 +57,8 @@ test('preview architecture selects only the four exact authored aspect families'
  for(const [w,h] of [[360,230],[1080,1920],[0,246],[NaN,246],[816,-232]])assert.equal(staticPreviewShape({x:0,y:0,w,h}),null);
 });
 
-test('all 12 active finite scenes preserve native source pixels, transparency and caller state with one image blit',async()=>{
- assert.equal(Object.keys(STATIC_ART_SCENES).length,12);
+test('all 9 active finite scenes preserve native source pixels, transparency and caller state with one image blit',async()=>{
+ assert.equal(Object.keys(STATIC_ART_SCENES).length,9);
  for(const theme of Object.keys(STATIC_ART_SCENES) as ThemeId[]){
   await ready(theme);const actual=surface(1205,1920),expected=surface(1205,1920),view={...base,profile:{...createProfile(),cosmetics:{theme,cargo:'classic',forklift:'yellow'} as const}};
   for(const s of [actual,expected]){s.ctx.translate(57,0);s.ctx.lineWidth=13;}
@@ -66,19 +68,19 @@ test('all 12 active finite scenes preserve native source pixels, transparency an
  }
 });
 
-test('all 12 item preview background variants retain native aspect-dependent architecture and clipping',async()=>{
- let count=0;
- for(const theme of Object.keys(STATIC_ART_PREVIEWS) as ThemeId[])for(const sprite of Object.values(STATIC_ART_PREVIEWS[theme]??{})){
-  if(!sprite)continue;count++;await ready('day',[sprite.resource]);const {w,h}=sprite.destination,rect={x:7,y:9,w,h},a=surface(w+14,h+18),b=surface(w+14,h+18);
-  assert.equal(drawStaticPreviewBackground(a.ctx,rect,theme),true);
-  if(theme==='harbor')authorHarbor(b.ctx,rect);else if(!authorLogistics(b.ctx,rect,theme)){b.ctx.fillStyle=gradient(b.ctx,rect.x,rect.y,rect.h,theme==='night'?'#111c35':'#243345',theme==='night'?'#080d1b':'#111b25');b.ctx.fillRect(rect.x,rect.y,rect.w,rect.h);}
-  const diff=difference(pixels(a),pixels(b));assert.ok(diff.mean<.05,`${theme}/${w}x${h}: ${JSON.stringify(diff)}`);assert.equal(a.ctx.getImageData(0,0,1,1).data[3],0);
+test('synchronous backgrounds retain native aspect and clipping with zero packaged preview mappings',async()=>{
+ assert.equal(Object.keys(STATIC_ART_PREVIEWS).length,0);await ready();
+ for(const theme of Object.keys(STATIC_ART_SCENES) as ThemeId[]){
+  const rect={x:7,y:9,w:816,h:232},a=surface(830,250),b=surface(830,250);
+  for(const [target,paint] of [[a,drawLogisticsBackground],[b,authorLogistics]] as const){
+   if(!paint(target.ctx,rect,theme)){target.ctx.fillStyle=gradient(target.ctx,rect.x,rect.y,rect.h,theme==='night'?'#111c35':'#243345',theme==='night'?'#080d1b':'#111b25');target.ctx.fillRect(rect.x,rect.y,rect.w,rect.h);}
+  }
+  assert.equal(difference(pixels(a),pixels(b)).changed,0,theme);assert.equal(a.ctx.getImageData(0,0,1,1).data[3],0);
  }
- assert.equal(count,12);
 });
 
-test('all 14 active complete vehicles retain silhouettes, forward forks and rotation anchors at five sizes and 32 headings',async()=>{
- await ready();assert.equal(Object.keys(STATIC_ART_FORKLIFTS).length,14);let worstMean=0,worstOverlap=1;
+test('all 11 active complete vehicles retain silhouettes, forward forks and rotation anchors at five sizes and 32 headings',async()=>{
+ await ready();assert.equal(Object.keys(STATIC_ART_FORKLIFTS).length,11);let worstMean=0,worstOverlap=1;
  for(const paint of Object.keys(STATIC_ART_FORKLIFTS) as ForkliftId[])for(const size of [29,37,44,80,110])for(let heading=0;heading<32;heading++){
   const a=surface(180,180),b=surface(180,180),angle=heading*Math.PI/16;forklift(a.ctx,90,90,size,angle,paint);authorForklift(b.ctx,90,90,size,angle,paint);const diff=difference(pixels(a),pixels(b));worstMean=Math.max(worstMean,diff.mean);worstOverlap=Math.min(worstOverlap,diff.maskOverlap);
   assert.ok(diff.mean<2,`${paint}/${size}/${heading}: mean ${diff.mean}`);assert.ok(diff.maskOverlap>.90,`${paint}/${size}/${heading}: silhouette ${diff.maskOverlap}`);
@@ -122,9 +124,9 @@ test('day/night packed frames and every material floor preserve all 7/8/9 native
  }
 });
 
-test('current composite previews reuse exact variants and selected sprites without surface allocation',async()=>{
- for(const theme of ['day','night','forest_depot','space_cargo'] as const){
-  const rect={x:0,y:0,w:816,h:232};await ready(theme,[`preview.${theme}.item`]);const a=surface(rect.w,rect.h),b=surface(rect.w,rect.h),options={theme,cargoStyle:'wood',forklift:'heavy',cargoOutline:true,category:'cargo'} as const;
+test('current synchronous previews match historical composition with accurate ready sprites and no surface allocation',async()=>{
+ for(const theme of ['day','night','rail_freight','space_cargo'] as const){
+  const rect={x:0,y:0,w:816,h:232};await ready(theme);const a=surface(rect.w,rect.h),b=surface(rect.w,rect.h),options={theme,cargoStyle:'insulated',forklift:'heavy',cargoOutline:true,category:'cargo'} as const;
   drawCosmeticPreview(a.ctx,rect,options);authorPreview(b.ctx,rect,options);
   const diff=difference(pixels(a),pixels(b));assert.ok(diff.mean<3,`${theme}/item: ${diff.mean}`);assert.ok(diff.maskOverlap>.99);
  }
@@ -132,7 +134,7 @@ test('current composite previews reuse exact variants and selected sprites witho
 
 test('actual renderer keeps finite scenery, usable safe-area clips and full-screen pause coverage',async()=>{
  const run=createRunV18({seed:17,mode:'standard',inboundDifficulty:'hard'}),checksum=playableChecksum(run);
- for(const theme of ['day','night','cold_chain','ice_vault'] as const){await ready(theme);
+ for(const theme of ['day','night','cold_chain','ocean_vault'] as const){await ready(theme);
   for(const [w,h,scale,x,y] of [[360,800,1/3,0,80],[540,1000,.5,0,20.3],[800,1000,.5,130.25,20.3],[1080,2340,1,0,210],[1440,3120,4/3,0,280]]){
    const a=surface(w,h),view={...base,profile:{...createProfile(),cosmetics:{theme,cargo:'classic',forklift:'yellow'} as const}},bounds={x:-60,y:0,w:1200,h:1920};a.ctx.fillStyle='#0c131c';a.ctx.fillRect(0,0,w,h);a.ctx.setTransform(scale,0,0,scale,x,y);render(a.ctx,run,view,bounds,{x:-x/scale,y:-y/scale,w:w/scale,h:h/scale},'#0c131c');
    const top=a.ctx.getImageData(0,0,1,1).data;assert.deepEqual([...top],[12,19,28,255]);const before=pixels(a);render(a.ctx,run,{...view,paused:true},bounds,{x:-x/scale,y:-y/scale,w:w/scale,h:h/scale},'#0c131c');assert.notDeepEqual([...a.ctx.getImageData(0,0,1,1).data],[...top]);assert.notDeepEqual(pixels(a),before);

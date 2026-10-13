@@ -22,8 +22,8 @@ test('failure keeps exact selection and retries only a complete visible button g
  f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));await settle();assert.equal(attempts,failed);f.gate.pointer(pointer('down',center(STATIC_ART_RETRY_RECT)));f.gate.pointer(pointer('cancel'));f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));assert.equal(attempts,failed);
  fail=false;f.gate.pointer(pointer('down',center(STATIC_ART_RETRY_RECT)));f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));await settle();assert.equal(f.gate.refresh().status,'ready');assert.equal(JSON.stringify(f.session.view.profile?.cosmetics),before);
 });
-test('shop preview failure remains local and back leaves the usable shop',async()=>{
- const f=fixture(async path=>{if(path.includes('preview'))throw Error('preview unavailable');return goodImage(path);});f.session.action({type:'shop'});f.session.action({type:'selectShopTab',tab:'cosmetics'});f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'ready');assert.equal(f.resources.status().status,'error');assert.equal(f.gate.canGoBack(),true);
+test('obsolete preview PNG failures cannot affect the synchronous shop or back',async()=>{
+ const f=fixture(async path=>{if(path.includes('preview'))throw Error('preview unavailable');return goodImage(path);});f.session.action({type:'shop'});f.session.action({type:'selectShopTab',tab:'cosmetics'});f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'ready');assert.equal(f.resources.status().status,'ready');assert.equal(f.gate.canGoBack(),true);
  f.gate.back();await settle();assert.notEqual(f.session.view.screen,'shop');assert.equal(f.gate.refresh().status,'ready');assert.equal(f.events.filter(value=>value.type!=='cancel').length,0);
 });
 test('hide/show cancels touches without allocating, decoding again, or retaining previews for a closed page',async()=>{

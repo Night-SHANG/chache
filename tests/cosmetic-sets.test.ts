@@ -17,10 +17,7 @@ const TRIPLES = [
   ['paper_warehouse', 'paper_fold', 'paper'],
   ['space_cargo', 'space_case', 'space'],
   ['steam_foundry', 'steam_brass', 'steam'],
-  ['lava_forge', 'lava_core', 'lava'],
   ['ocean_vault', 'ocean_relic', 'diving'],
-  ['forest_depot', 'wood', 'timber'],
-  ['ice_vault', 'ice_crystal', 'ice'],
 ] as const;
 const members = ([theme, cargo, forklift]: readonly string[]) => [`theme.${theme}`, `cargo.${cargo}`, `forklift.${forklift}`];
 
@@ -40,7 +37,7 @@ function setup(owned = members(TRIPLES[0]), factory = createAccountService, acti
 }
 const request = (id: string, operationId = 'set.once'): AccountRequest => ({ type: 'equipCosmeticSet', id, operationId });
 
-test('the immutable set catalogue names exactly ten active triples and leaves eight independent entries', () => {
+test('the immutable set catalogue names exactly seven active triples and leaves eight independent entries', () => {
   assert.deepEqual(cosmeticSets.COSMETIC_SETS.map(set => [set.theme, set.cargo, set.forklift]), TRIPLES);
   assert.ok(Object.isFrozen(cosmeticSets.COSMETIC_SETS));
   const used = new Set<string>();
@@ -56,8 +53,8 @@ test('the immutable set catalogue names exactly ten active triples and leaves ei
       used.add(item.key);
     }
   }
-  assert.equal(COSMETIC_CATALOG.length, 38);
-  assert.equal(used.size, 30);
+  assert.equal(COSMETIC_CATALOG.length, 29);
+  assert.equal(used.size, 21);
   assert.equal(COSMETIC_CATALOG.filter(item => !used.has(item.key)).length, 8);
   for (const id of ['', 'unknown', '__proto__', 'day', 'outline']) assert.equal(cosmeticSets.getCosmeticSet(id), undefined);
 });
@@ -191,10 +188,10 @@ test('compiled free playtest still rejects any unowned set member and only equip
   }
 });
 
-test('explicit outline selection restores classic cargo from ice crystal and disabling keeps classic', () => {
+test('explicit outline selection restores classic cargo from ocean relic and disabling keeps classic', () => {
   for (const selection of [{ type: 'setCargoOutline', enabled: true }, { type: 'setCosmetic', kind: 'cargo', id: 'outline' }] as const) {
-    const { service } = setup(['cargo.ice_crystal']);
-    assert.equal(service.transact({ type: 'setCosmetic', kind: 'cargo', id: 'ice_crystal', operationId: 'outline.ice' }, 0).status, 'acknowledged');
+    const { service } = setup(['cargo.ocean_relic']);
+    assert.equal(service.transact({ type: 'setCosmetic', kind: 'cargo', id: 'ocean_relic', operationId: 'outline.ocean' }, 0).status, 'acknowledged');
     const before = service.getSnapshot()!;
     assert.equal(service.transact({ ...selection, operationId: 'outline.select' }, 1).status, 'acknowledged');
     const after = service.getSnapshot()!;
@@ -209,10 +206,10 @@ test('explicit outline selection restores classic cargo from ice crystal and dis
   }
 });
 
-test('failed outline selection keeps the previous ice crystal until the whole classic outline state is acknowledged', () => {
+test('failed outline selection keeps the previous ocean relic until the whole classic outline state is acknowledged', () => {
   for (const selection of [{ type: 'setCargoOutline', enabled: true }, { type: 'setCosmetic', kind: 'cargo', id: 'outline' }] as const) {
-    const { service, storage } = setup(['cargo.ice_crystal']);
-    assert.equal(service.transact({ type: 'setCosmetic', kind: 'cargo', id: 'ice_crystal', operationId: 'outline.ice' }, 0).status, 'acknowledged');
+    const { service, storage } = setup(['cargo.ocean_relic']);
+    assert.equal(service.transact({ type: 'setCosmetic', kind: 'cargo', id: 'ocean_relic', operationId: 'outline.ocean' }, 0).status, 'acknowledged');
     assert.equal(service.transact({ type: 'setCargoOutline', enabled: false, operationId: 'outline.off' }, 1).status, 'acknowledged');
     const before = service.getSnapshot(), set = storage.set.bind(storage);
     storage.set = (key, value) => { if (key === ACCOUNT_KEYS.a) throw Error('mirror unavailable'); set(key, value); };

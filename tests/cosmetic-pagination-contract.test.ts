@@ -10,19 +10,19 @@ test('inline appearance keeps the original 816 by 232 preview banner',()=>{
 test('three direct categories retain inline selection and explicit four-tile page controls',()=>{
  const {session:s}=sessionHost({wallet:3000});s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
  assert.equal(s.view.shopSection,'theme');
- s.action({type:'selectShopSection',section:'cargo'});s.action({type:'previewCosmetic',kind:'cargo',id:'wood'});
+ s.action({type:'selectShopSection',section:'cargo'});s.action({type:'previewCosmetic',kind:'cargo',id:'insulated'});
  assert.equal(s.view.shopItemDetail,undefined);
  assert.deepEqual(getShopControls(s.view).filter(c=>c.action.type==='selectShopSection').map(c=>c.label),['场景','货箱','叉车']);
  assert.equal(getShopControls(s.view).filter(c=>c.action.type==='previewCosmetic').length,4);
  assert.deepEqual(getShopControls(s.view).find(c=>c.action.type==='selectCosmeticPage'&&c.action.page===1)?.rect,{x:708,y:1450,w:240,h:150});
  assert.equal(getShopControls(s.view).some(c=>['previewCosmeticSet','selectCosmeticSetPage','closeShopDetail','previewCosmeticSetMember'].includes(c.action.type)),false);
 });
-test('category counts and page totals match the reduced catalog, including the last partial forklift page',()=>{
+test('category counts and page totals match the reduced catalog, including every last partial page',()=>{
  const {session:s}=sessionHost();s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
  for(const section of sections){
-  s.action({type:'selectShopSection',section});const pages=section==='forklift'?4:3,ids:string[]=[];
+  s.action({type:'selectShopSection',section});const pages=3,ids:string[]=[];
   for(let page=0;page<pages;page++){s.action({type:'selectCosmeticPage',page});const current=cosmeticShopPage(s.view);assert.equal(current.pages,pages);ids.push(...current.items.map(item=>item.id));}
-  assert.equal(ids.length,section==='forklift'?14:12);assert.equal(new Set(ids).size,ids.length);
+  assert.equal(ids.length,section==='forklift'?11:9);assert.equal(new Set(ids).size,ids.length);
  }
 });
 test('page navigation cancels a pending old-page pointer in every category',()=>{

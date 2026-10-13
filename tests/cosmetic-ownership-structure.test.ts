@@ -19,9 +19,9 @@ function fundedPurchase(version:3|4) {
   const storage = new FaultStorage(), oldRaw = encodeAccount(old);
   storage.values.set(ACCOUNT_KEYS.a, oldRaw); storage.values.set(ACCOUNT_KEYS.b, oldRaw);
   const service = createAccountService(storage, held(), () => 0);
-  const purchased = service.transact({ operationId: 'purchase.wood', type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' }, 1);
+  const purchased = service.transact({ operationId: 'purchase.insulated', type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' }, 1);
   assert.equal(purchased.status, 'acknowledged'); assert.equal(purchased.account?.wallet, 1500);
-  assert.ok(purchased.account?.profile.ownedCosmetics?.includes('cargo.wood'));
+  assert.ok(purchased.account?.profile.ownedCosmetics?.includes('cargo.insulated'));
   const newer=structuredClone(purchased.account!);
   if(version===3){newer.formatVersion=3;delete newer.guides.daily;delete newer.tutorialsEnabled;}
   assertAccountSnapshot(newer);

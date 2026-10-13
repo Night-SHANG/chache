@@ -80,7 +80,7 @@ test('v23 each new shop home visit resets Tools, theme, pages and previews witho
 
 test('v23 peer sections and Tools retain independent pages derived from each selected preview',()=>{
  const h=sessionHost(),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);
- const pages={theme:1,cargo:2,forklift:3} as const;
+ const pages={theme:0,cargo:1,forklift:2} as const;
  for(const kind of ['theme','cargo','forklift'] as const){
   act(s,{type:'selectShopSection',section:kind});act(s,{type:'selectCosmeticPage',page:pages[kind]});
   const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),item=options[pages[kind]*4+1];
@@ -117,7 +117,7 @@ test('v23 independent item preview remains on its page and Back directly returns
 test('Back from every inline category has exactly one layer before the shop caller',()=>{
  for(const section of ['theme','cargo','forklift'] as const){
   const h=sessionHost(),s=h.session,before=durableSnapshot(h);h.storage.resetFault();act(s,{type:'settings'});appearance(s);act(s,{type:'selectShopSection',section});act(s,{type:'selectCosmeticPage',page:2});
-  const item=cosmeticShopPage(s.view).items[1];act(s,{type:'previewCosmetic',kind:section,id:item.id});
+  const items=cosmeticShopPage(s.view).items,item=items[items.length-1];assert.ok(item);act(s,{type:'previewCosmetic',kind:section,id:item.id});
   assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticSetPreview,undefined);assert.equal(s.view.cosmeticReturnSet,undefined);
   act(s,{type:'back'});assert.equal(s.view.screen,'settings');assertReadOnly(h,before);
  }
@@ -126,7 +126,7 @@ test('Back from every inline category has exactly one layer before the shop call
 test('legacy detail close aliases only clear stale detail fields and never reopen retired sets',()=>{
  for(const type of ['closeShopDetail','closeCosmeticSet']){
   const h=sessionHost(),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);act(s,{type:'selectShopSection',section:'cargo'});act(s,{type:'selectCosmeticPage',page:2});const item=selectedShopCosmetic(s.view).id;
-  Object.assign(s.view,{cosmeticSetPreview:'cold_chain',cosmeticReturnSet:'cold_chain',shopItemDetail:{kind:'cargo',id:'wood'}});
+  Object.assign(s.view,{cosmeticSetPreview:'cold_chain',cosmeticReturnSet:'cold_chain',shopItemDetail:{kind:'cargo',id:'insulated'}});
   act(s,{type});assert.equal(s.view.screen,'shop');assert.equal(s.view.shopSection,'cargo');assert.equal(selectedShopCosmetic(s.view).id,item);
   assert.equal(s.view.cosmeticSetPreview,undefined);assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticReturnSet,undefined);
   const cleared=browseSnapshot(s);act(s,{type});assert.deepEqual(browseSnapshot(s),cleared);assertReadOnly(h,before);
@@ -135,7 +135,7 @@ test('legacy detail close aliases only clear stale detail fields and never reope
 
 test('explicit category navigation discards stale set origins before Back exits the shop',()=>{
  const h=sessionHost(),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);
- Object.assign(s.view,{cosmeticReturnSet:'cold_chain',cosmeticSetPreview:'cold_chain',shopItemDetail:{kind:'cargo',id:'wood'}});act(s,{type:'selectShopSection',section:'forklift'});
+ Object.assign(s.view,{cosmeticReturnSet:'cold_chain',cosmeticSetPreview:'cold_chain',shopItemDetail:{kind:'cargo',id:'insulated'}});act(s,{type:'selectShopSection',section:'forklift'});
  assert.equal(s.view.cosmeticReturnSet,undefined);assert.equal(s.view.cosmeticSetPreview,undefined);assert.equal(s.view.shopItemDetail,undefined);
  act(s,{type:'back'});assert.equal(s.view.screen,'menu');assertReadOnly(h,before);
 });
@@ -143,7 +143,7 @@ test('explicit category navigation discards stale set origins before Back exits 
 test('Tools tab round trips retain each category page and inline preview without writes',()=>{
  const h=sessionHost(),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);
  for(const section of ['theme','cargo','forklift'] as const){
-  act(s,{type:'selectShopSection',section});act(s,{type:'selectCosmeticPage',page:2});act(s,{type:'previewCosmetic',kind:section,id:cosmeticShopPage(s.view).items[1].id});
+  act(s,{type:'selectShopSection',section});act(s,{type:'selectCosmeticPage',page:2});const items=cosmeticShopPage(s.view).items,item=items[items.length-1];assert.ok(item);act(s,{type:'previewCosmetic',kind:section,id:item.id});
   const before=browseSnapshot(s);act(s,{type:'selectShopTab',tab:'tools'});act(s,{type:'selectShopTab',tab:'cosmetics'});assert.deepEqual(browseSnapshot(s),before);
  }
  assertReadOnly(h,before);
@@ -157,8 +157,8 @@ test('v23 all legacy scroll actions and wheel inputs leave pages, selection and 
 });
 
 test('v23 blocked, confirming and nonshop views reject page, preview and other shop navigation actions',()=>{
- const h=sessionHost({wallet:300}),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);act(s,{type:'selectShopSection',section:'cargo'});act(s,{type:'previewCosmetic',kind:'cargo',id:'wood'});
- act(s,{type:'purchaseCosmetic',kind:'cargo',id:'wood'});const confirming=browseSnapshot(s);assert.ok(s.view.confirmation);
+ const h=sessionHost({wallet:300}),s=h.session,before=durableSnapshot(h);h.storage.resetFault();appearance(s);act(s,{type:'selectShopSection',section:'cargo'});act(s,{type:'previewCosmetic',kind:'cargo',id:'insulated'});
+ act(s,{type:'purchaseCosmetic',kind:'cargo',id:'insulated'});const confirming=browseSnapshot(s);assert.ok(s.view.confirmation);
  const actions=[{type:'selectShopTab',tab:'tools'},{type:'selectShopSection',section:'theme'},{type:'selectCosmeticPage',page:2},{type:'selectCosmeticSetPage',page:3},{type:'previewCosmetic',kind:'cargo',id:'toy_brick'},{type:'previewCosmeticSet',id:'cold_chain'},{type:'scrollShop',deltaY:100},{type:'closeShopDetail'}];
  for(const action of actions)act(s,action);
  assert.deepEqual(browseSnapshot(s),confirming);act(s,{type:'cancel'});s.view.accountBlocked=true;

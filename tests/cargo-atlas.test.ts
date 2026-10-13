@@ -41,7 +41,7 @@ test('atlas completion changes only shop pixels, preserving active session check
  assert.ok(atlas);
  const [{sessionHost},{playableChecksum},{render}]=await Promise.all([import('./helpers/session-fixtures.ts'),import('../scripts/static-art-authoring/src/domain/playable.ts'),import('../scripts/static-art-authoring/src/presentation/renderer.ts')]);
  await atlas.loadCargoAtlas(async()=>{throw Error('not loaded');});
- const {session,data}=sessionHost({wallet:57});session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});session.action({type:'selectShopSection',section:'cargo'});session.action({type:'previewCosmetic',kind:'cargo',id:'ice_crystal'});assert.equal(session.view.shopItemDetail,undefined);assert.equal(session.view.cosmeticPreview?.cargo,'ice_crystal');
+ const {session,data}=sessionHost({wallet:57});session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});session.action({type:'selectShopSection',section:'cargo'});session.action({type:'previewCosmetic',kind:'cargo',id:'insulated'});assert.equal(session.view.shopItemDetail,undefined);assert.equal(session.view.cosmeticPreview?.cargo,'insulated');
  const state=playableChecksum(session.state),account=JSON.stringify(session.view.account),stored=[...data];
  const pixels=()=>{const ctx=createCanvas(1080,1920).getContext('2d');render(ctx as unknown as CanvasRenderingContext2D,session.state,session.view);const {x,y,w,h}=COSMETIC_PREVIEW_RECT;return ctx.getImageData(x,y,w,h).data;};
  const pending=pixels();assert.equal(await atlas.loadCargoAtlas(async()=>await loadImage(imagePath) as unknown as CanvasImageSource),true);assert.notDeepEqual(pixels(),pending);

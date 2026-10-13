@@ -19,7 +19,7 @@ function setup(version: 1 | 2 = 1) {
 }
 
 test('every before/after purchase I/O atomically migrates and charges with ownership, then exact retry converges once', () => {
-  for (const version of [1, 2] as const) for (const [kind, id, price] of [['cargo', 'wood', 300], ['forklift', 'white', 600], ['theme', 'cold_chain', 900]] as const) {
+  for (const version of [1, 2] as const) for (const [kind, id, price] of [['cargo', 'insulated', 300], ['forklift', 'white', 600], ['theme', 'cold_chain', 900]] as const) {
     const request: AccountRequest = { type: 'purchaseCosmetic', operationId: 'fault.purchase', kind, id }, baseline = setup(version);
     const success = baseline.service.transact(request, 0); assert.equal(success.status, 'acknowledged');
     const expected = success.account!, count = baseline.storage.operations.length;
@@ -48,18 +48,18 @@ test('every before/after purchase I/O atomically migrates and charges with owner
 test('mirror failure hides new paid rights until repair and restart retains the exact purchase receipt', () => {
   const { storage, service, old } = setup(), set = storage.set.bind(storage);
   storage.set = (key, value) => { if (key === ACCOUNT_KEYS.a) throw Error('mirror unavailable'); set(key, value); };
-  const request: AccountRequest = { operationId: 'wood.once', type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' };
+  const request: AccountRequest = { operationId: 'insulated.once', type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' };
   assert.equal(service.transact(request, 0).status, 'committed_unmirrored');
   assert.deepEqual(service.getSnapshot(), old);
-  assert.equal(accountCosmeticState(service.getSnapshot()).ownedCosmetics.includes('cargo.wood'), false);
-  assert.equal(service.transact({ ...request, operationId: 'wood.other' }, 0).status, 'not_committed');
+  assert.equal(accountCosmeticState(service.getSnapshot()).ownedCosmetics.includes('cargo.insulated'), false);
+  assert.equal(service.transact({ ...request, operationId: 'insulated.other' }, 0).status, 'not_committed');
   const restarted = createAccountService(storage, { status: 'held', release() {} }, () => 0);
-  assert.equal(restarted.getSnapshot(), null); assert.equal(restarted.getPendingOperationId(), 'wood.once');
+  assert.equal(restarted.getSnapshot(), null); assert.equal(restarted.getPendingOperationId(), 'insulated.once');
   storage.set = set;
-  assert.equal(restarted.retryPending('wood.once').status, 'acknowledged');
+  assert.equal(restarted.retryPending('insulated.once').status, 'acknowledged');
   assert.equal(restarted.getSnapshot()?.wallet, 1500);
-  assert.ok(restarted.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.wood'));
-  assert.equal(restarted.transact({ ...request, operationId: 'wood.again' }, 1).status, 'acknowledged');
+  assert.ok(restarted.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.insulated'));
+  assert.equal(restarted.transact({ ...request, operationId: 'insulated.again' }, 1).status, 'acknowledged');
   assert.equal(restarted.getSnapshot()?.wallet, 1500);
 });
 
@@ -67,13 +67,13 @@ test('paid ownership survives tool purchase, active reservation and classic outl
   const { service } = setup(2);
   let op = 0;
   const transact = (request: Record<string, unknown>) => service.transact({ operationId: `isolation.${++op}`, ...request } as AccountRequest, service.getSnapshot()!.generation);
-  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' }).status, 'acknowledged');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' }).status, 'acknowledged');
   assert.equal(transact({ type: 'purchase', item: 'rotate' }).status, 'acknowledged');
   const start = transact({ type: 'start', intent: { spec: { family: 'inbound', rulesetVersion: 14, mode: 'standard', seed: 7, guided: false, toolCharges: { rotate: 0, clear: 0, wildcard: 0 } }, items: ['rotate', 'clear'], guide: 'direct' } });
   assert.equal(start.status, 'acknowledged'); const before = start.account!;
   assert.deepEqual(before.run?.reserved, ['rotate', 'clear']);
   assert.equal(before.run?.identity.economyVersion, 2);
-  for (const request of [{ type: 'setCosmetic', kind: 'cargo', id: 'wood' }, { type: 'setCargoOutline', enabled: true }] as const) {
+  for (const request of [{ type: 'setCosmetic', kind: 'cargo', id: 'insulated' }, { type: 'setCargoOutline', enabled: true }] as const) {
     assert.equal(transact(request).status, 'acknowledged');
     assert.deepEqual(service.getSnapshot()?.run, before.run);
     assert.deepEqual(service.getSnapshot()?.inventory, before.inventory);
@@ -81,7 +81,7 @@ test('paid ownership survives tool purchase, active reservation and classic outl
   }
   const reset = transact({ type: 'resetResults' }); assert.equal(reset.status, 'acknowledged');
   assert.equal(reset.account?.profile.cosmetics.cargo, 'classic'); assert.equal(reset.account?.profile.cargoOutline, true);
-  assert.ok(reset.account?.profile.ownedCosmetics?.includes('cargo.wood'));
+  assert.ok(reset.account?.profile.ownedCosmetics?.includes('cargo.insulated'));
   assert.deepEqual(reset.account?.run?.identity, before.run?.identity);
   assert.deepEqual(reset.account?.run?.state, before.run?.state);
   assert.deepEqual(reset.account?.run?.reserved, before.run?.reserved);

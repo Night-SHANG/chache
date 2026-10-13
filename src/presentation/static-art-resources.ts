@@ -4,6 +4,8 @@ import type {StaticArtKey,StaticArtResource} from './static-art-manifest.ts';
 export const STATIC_ART_PREVIEW_LIMIT=6*1024*1024;
 export interface StaticArtRequirements {readonly scene:StaticArtKey;readonly shared:readonly StaticArtKey[];readonly previews:readonly StaticArtKey[]}
 export interface StaticArtReadiness {readonly status:'loading'|'ready'|'error'|'superseded';readonly loaded:number;readonly total:number;readonly error?:string}
+export interface StaticArtSceneOptions {readonly retry?:boolean}
+interface ScenePreparation {readonly key:StaticArtKey;error?:string;waiters:((value:StaticArtReadiness)=>void)[]}
 type ImageLoader=(path:string)=>Promise<CanvasImageSource>;
 const normalize=(value:StaticArtRequirements):StaticArtRequirements=>({scene:value.scene,shared:[...new Set(value.shared)].sort(),previews:[...new Set(value.previews)].sort()});
 const signature=(value:StaticArtRequirements):string=>JSON.stringify(normalize(value));
@@ -31,6 +33,7 @@ export class StaticArtResources {
  private core:StaticArtRequirements|null=null;
  private requirementError:string|undefined;
  private waiters:((value:StaticArtReadiness)=>void)[]=[];
+ private scenePreparation:ScenePreparation|null=null;
  constructor(load:ImageLoader,resources:Readonly<Record<StaticArtKey,StaticArtResource>>=STATIC_ART_RESOURCES){this.load=load;this.resources=resources;}
  getImage(key:StaticArtKey):CanvasImageSource|null{return this.images.get(key)??null;}
  readiness(needed:readonly string[]):StaticArtReadiness {
@@ -73,6 +76,7 @@ export class StaticArtResources {
   if(this.disposed)return Promise.resolve(this.status(requirements));
   const next=normalize(requirements),identity=signature(next);
   if(identity!==this.identity){
+   if(this.desired?.scene!==next.scene&&this.scenePreparation?.key!==next.scene)this.cancelScenePreparation();
    this.resolveWaiters({status:'superseded',loaded:0,total:this.desired?keys(this.desired).length:0});
    this.desired=next;this.identity=identity;this.requirementError=undefined;
    const needed=keys(next),unknown=needed.find(key=>!this.resources[key]);
@@ -82,6 +86,10 @@ export class StaticArtResources {
    const retained=new Set(needed);for(const key of needed){const image=this.images.get(key);if(image){this.images.delete(key);this.images.set(key,image);}}this.trim();
    for(const key of this.errors.keys())if(!retained.has(key))this.errors.delete(key);
   }
+  if(!this.requirementError&&this.images.has(next.scene)){
+   this.promoteScene(next.scene);
+   if(this.scenePreparation?.key===next.scene){this.resolveSceneWaiters(this.scenePreparation,{status:'ready',loaded:1,total:1});this.scenePreparation=null;}
+  }
   const status=this.status();if(this.requirementError||status.status==='ready'||!keys(next).some(key=>!this.images.has(key)&&!this.errors.has(key)))return Promise.resolve(status);
   const pending=new Promise<StaticArtReadiness>(resolve=>this.waiters.push(resolve));void this.pump();return pending;
  }
@@ -89,30 +97,67 @@ export class StaticArtResources {
   for(const key of keys(requirements))this.errors.delete(key);
   return this.prepare(requirements,this.core??requirements);
  }
+ /** Decode one candidate without changing the committed requirements or their readiness. */
+ prepareScene(sceneKey:StaticArtKey,options:StaticArtSceneOptions={}):Promise<StaticArtReadiness> {
+  if(this.disposed)return Promise.resolve({status:'superseded',loaded:0,total:1});
+  if(this.scenePreparation?.key!==sceneKey){
+   this.cancelScenePreparation();
+   const error=!this.resources[sceneKey]?`缺少美术资源：${sceneKey}`:!sceneKey.startsWith('scene.')?`场景美术资源分组无效：${sceneKey}`:undefined;
+   this.scenePreparation={key:sceneKey,error,waiters:[]};
+  }else if(options.retry&&this.resources[sceneKey]&&sceneKey.startsWith('scene.'))this.scenePreparation.error=undefined;
+  const preparation=this.scenePreparation,status=this.sceneStatus(preparation);
+  if(status.status!=='loading')return Promise.resolve(status);
+  const pending=new Promise<StaticArtReadiness>(resolve=>preparation.waiters.push(resolve));void this.pump();return pending;
+ }
+ cancelScenePreparation():void {
+  const preparation=this.scenePreparation;this.scenePreparation=null;
+  if(preparation)this.resolveSceneWaiters(preparation,{status:'superseded',loaded:0,total:1});
+  for(const key of this.images.keys())if(key.startsWith('scene.')&&key!==this.currentScene)this.images.delete(key);
+ }
  retention():{retainedKeys:string[];sceneImages:number;inFlightScenes:number;previewImages:number;previewBytes:number;inFlightPreviewBytes:number} {
   const retainedKeys=[...this.images.keys()],previews=retainedKeys.filter(key=>key.startsWith('preview.'));
   return {retainedKeys,sceneImages:retainedKeys.filter(key=>key.startsWith('scene.')).length,inFlightScenes:this.inFlight?.startsWith('scene.')?1:0,previewImages:previews.length,previewBytes:previews.reduce((sum,key)=>sum+bytes(this.resources[key]),0),inFlightPreviewBytes:this.inFlight?.startsWith('preview.')?bytes(this.resources[this.inFlight]):0};
  }
- dispose():void {this.disposed=true;this.images.clear();this.errors.clear();this.currentScene=null;this.resolveWaiters({status:'superseded',loaded:0,total:0});}
+ dispose():void {this.disposed=true;this.cancelScenePreparation();this.images.clear();this.errors.clear();this.currentScene=null;this.resolveWaiters({status:'superseded',loaded:0,total:0});}
  private resolveWaiters(value:StaticArtReadiness):void {const waiters=this.waiters;this.waiters=[];for(const resolve of waiters)resolve(value);}
+ private sceneStatus(preparation:ScenePreparation):StaticArtReadiness {return {status:preparation.error?'error':this.images.has(preparation.key)?'ready':'loading',loaded:this.images.has(preparation.key)?1:0,total:1,...(preparation.error?{error:preparation.error}:{})};}
+ private resolveSceneWaiters(preparation:ScenePreparation,value:StaticArtReadiness):void {const waiters=preparation.waiters;preparation.waiters=[];for(const resolve of waiters)resolve(value);}
+ private promoteScene(key:StaticArtKey):void {if(this.currentScene&&this.currentScene!==key)this.images.delete(this.currentScene);this.currentScene=key;}
  private async pump():Promise<void> {
   if(this.pumping||this.disposed)return;this.pumping=true;
   try {
-   while(this.desired&&!this.disposed){
-    const status=this.status();if(this.requirementError){this.resolveWaiters(status);break;}
-    const key=[...new Set([...this.priority,...keys(this.desired)])].filter(key=>keys(this.desired!).includes(key)).find(key=>!this.images.has(key)&&!this.errors.has(key));if(!key){this.resolveWaiters(status);break;}
+   while(!this.disposed){
+    const needed=this.desired?keys(this.desired):[];
+    const key=this.requirementError?undefined:[...new Set([...this.priority,...needed])].filter(key=>needed.includes(key)).find(key=>!this.images.has(key)&&!this.errors.has(key));
+    if(!key){
+     this.resolveWaiters(this.status());
+     const preparation=this.scenePreparation;if(!preparation)break;
+     const status=this.sceneStatus(preparation);if(status.status!=='loading'){this.resolveSceneWaiters(preparation,status);break;}
+     this.inFlight=preparation.key;
+     try {
+      const resource=this.resources[preparation.key],next=await this.load(resource.src),size=next as {width?:number;height?:number};
+      if(size.width!==resource.width||size.height!==resource.height)throw Error(`图片尺寸不符：${preparation.key}`);
+      // Identity, rather than key equality, also rejects cancelled-and-reselected targets.
+      if(!this.disposed&&this.scenePreparation===preparation){
+       this.images.set(preparation.key,next);
+       if(this.desired?.scene===preparation.key)this.promoteScene(preparation.key);
+      }
+     }catch(error){if(!this.disposed&&this.scenePreparation===preparation)preparation.error=error instanceof Error?`${preparation.key}：${error.message}`:`无法加载美术资源：${preparation.key}`;}
+     finally{this.inFlight=null;}
+     continue;
+    }
     const resource=this.resources[key];if(key.startsWith('preview.'))this.trim(bytes(resource));this.inFlight=key;
     try {
      // Ignore work no longer needed by the current page or selection.
-     if(!keys(this.desired).includes(key))continue;
+     if(!this.desired||!keys(this.desired).includes(key))continue;
      const next=await this.load(resource.src),size=next as {width?:number;height?:number};
      if(size.width!==resource.width||size.height!==resource.height)throw Error(`图片尺寸不符：${key}`);
      if(this.disposed)break;
      if(keys(this.desired).includes(key)){
-      if(key.startsWith('scene.')){if(this.currentScene&&this.currentScene!==key)this.images.delete(this.currentScene);this.currentScene=key;}
+      if(key.startsWith('scene.'))this.promoteScene(key);
       this.images.set(key,next);this.trim();
      }
-    }catch(error){if(!this.disposed&&keys(this.desired).includes(key))this.errors.set(key,error instanceof Error?`${key}：${error.message}`:`无法加载美术资源：${key}`);}
+    }catch(error){if(!this.disposed&&this.desired&&keys(this.desired).includes(key))this.errors.set(key,error instanceof Error?`${key}：${error.message}`:`无法加载美术资源：${key}`);}
     finally{this.inFlight=null;}
    }
   }finally{this.pumping=false;}
@@ -124,6 +169,8 @@ export function getStaticArtImage(key:StaticArtKey):CanvasImageSource|null {retu
 export function staticArtStatus(requirements:StaticArtRequirements):StaticArtReadiness {return service?.status(requirements)??{status:'error',loaded:0,total:keys(requirements).length,error:'美术资源加载器尚未就绪'};}
 export function prepareStaticArt(requirements:StaticArtRequirements,core?:StaticArtRequirements):Promise<StaticArtReadiness> {return service?.prepare(requirements,core)??Promise.resolve({status:'error',loaded:0,total:keys(requirements).length,error:'美术资源加载器尚未就绪'});}
 export function retryStaticArt(requirements:StaticArtRequirements):Promise<StaticArtReadiness> {return service?.retry(requirements)??prepareStaticArt(requirements);}
+export function prepareStaticArtScene(sceneKey:StaticArtKey,options?:StaticArtSceneOptions):Promise<StaticArtReadiness> {return service?.prepareScene(sceneKey,options)??Promise.resolve({status:'error',loaded:0,total:1,error:'美术资源加载器尚未就绪'});}
+export function cancelStaticArtScenePreparation():void {service?.cancelScenePreparation();}
 
 export function staticArtKeysStatus(keys:readonly string[]):StaticArtReadiness {return service?.readiness(keys)??{status:'error',loaded:0,total:keys.length,error:'美术资源加载器尚未就绪'};}
 export function setStaticArtWarmPaused(paused:boolean):void {service?.setWarmPaused(paused);}

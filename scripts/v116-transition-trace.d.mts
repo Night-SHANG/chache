@@ -1,0 +1,1 @@
+export function runV116PlatformTransitions(options:{root:string;target:string;out?:string}):Promise<{target:string;bundleSha256:string;frames:{name:string;texts:string[];pending:string[];loaded:string[];storageSha256:string;scene:string;preview:string|null;previewSha256:string|null}[];images:{name:string;sha256:string}[];visited:string[];cases:string[];kind:string}>;

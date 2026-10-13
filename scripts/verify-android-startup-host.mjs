@@ -15,7 +15,7 @@ import {resolve,relative,sep,extname} from 'node:path';
  * records NOT RUN cases; it must not be converted to a passing visual receipt.
  */
 const require=createRequire(import.meta.url);
-const out=resolve(process.env.ANDROID_HOST_QA_DIR??'qa/android-v115/host');
+const out=resolve(process.env.ANDROID_HOST_QA_DIR??'qa/android-v116/host');
 const staging=resolve('build/android');
 const viewport={width:540,height:960};
 const requiredImages=[

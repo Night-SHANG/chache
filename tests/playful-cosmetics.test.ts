@@ -21,11 +21,11 @@ function setup(wallet = 5400) {
 }
 
 test('nine independent playful cosmetics extend the exact old catalog in category order at existing price anchors', () => {
-  assert.equal(COSMETIC_CATALOG.length, 38);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 38);
+  assert.equal(COSMETIC_CATALOG.length, 29);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 29);
   for (const [kind, ids] of [
     ['theme', ['day', 'night', 'cold_chain', 'rail_freight', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
-    ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
+    ['cargo', ['classic', 'outline', 'insulated', 'reinforced', 'toy_brick', 'paper_fold', 'space_case']],
     ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'toy', 'paper', 'space']],
   ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
   for (const [kind, id, price] of NEW) {
@@ -37,7 +37,7 @@ test('nine independent playful cosmetics extend the exact old catalog in categor
   assert.deepEqual(COSMETIC_CATALOG.filter(item => item.achievementId).map(item => [item.key, item.achievementId, item.price]), [
     ['forklift.blue', 'first_shipment', 0], ['forklift.red', 'five_shifts', 0],
   ]);
-  for (const [key, price] of [['cargo.wood', 300], ['forklift.white', 600], ['theme.cold_chain', 900]] as const) assert.equal(COSMETIC_CATALOG.find(item => item.key === key)?.price, price);
+  for (const [key, price] of [['cargo.insulated', 300], ['forklift.white', 600], ['theme.cold_chain', 900]] as const) assert.equal(COSMETIC_CATALOG.find(item => item.key === key)?.price, price);
 });
 
 test('each new item is an independent permanent purchase, equips free, survives reset and restores from both roots', () => {
@@ -121,7 +121,7 @@ test('v23 paginated item previews cancel, buy, equip, reload and reset each new 
    click('shop');click('selectShopTab','cosmetics');click('selectShopSection',kind);
    for(let page=1;page<=targetPage;page++){click('selectCosmeticPage',page);assert.equal(cosmeticShopPage(s.view).page,page);}
    click('previewCosmetic',id);assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticPreview?.[kind],id);assert.equal(selectedShopCosmetic(s.view).id,id);assert.equal(cosmeticShopPage(s.view).page,targetPage);
-   const controls=getUiControls(s.state,s.view);assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,3);assert.equal(controls.filter(c=>c.action.type==='previewCosmetic').length,4);assert.equal(controls.some(c=>c.action.type==='closeShopDetail'),false);assert.ok(controls.find(c=>c.action.type==='previewCosmetic'&&c.action.id===id)?.selected);
+   const controls=getUiControls(s.state,s.view);assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,3);assert.equal(controls.filter(c=>c.action.type==='previewCosmetic').length,Math.min(4,options.length-targetPage*4));assert.equal(controls.some(c=>c.action.type==='closeShopDetail'),false);assert.ok(controls.find(c=>c.action.type==='previewCosmetic'&&c.action.id===id)?.selected);
    assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,`${price}金币 · 购买`);
   };
   openItem();click('back');assert.equal(s.view.screen,'menu','ordinary preview adds no extra Back layer');openItem();
@@ -150,7 +150,7 @@ test('all 53 historical rights coexist and every active paginated item retains r
  };
  for(const kind of ['theme','cargo','forklift'] as const){
   s.action({type:'selectShopSection',section:kind});const options=COSMETIC_CATALOG.filter(item=>item.kind===kind),seenCategory=new Set<string>();
-  assert.equal(options.length,kind==='forklift'?14:12);
+  assert.equal(options.length,kind==='forklift'?11:9);
   for(let page=0;page<Math.ceil(options.length/4);page++){
    s.action({type:'selectCosmeticPage',page});assert.equal(cosmeticShopPage(s.view).page,page);
    const controls=checkControls(),tiles=controls.filter(c=>c.action.type==='previewCosmetic'),expected=options.slice(page*4,page*4+4);
@@ -165,5 +165,5 @@ test('all 53 historical rights coexist and every active paginated item retains r
   }
   assert.deepEqual([...seenCategory].sort(),options.map(item=>item.id).sort());
  }
- assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());assert.equal(seen.size,38);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
+ assert.deepEqual([...seen].sort(),COSMETIC_CATALOG.map(item=>item.key).sort());assert.equal(seen.size,29);assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account,initialAccount);assert.equal(playableChecksum(s.state),checksum);assert.equal(h.storage.operations.some(op=>op.kind==='set'||op.kind==='remove'),false);
 });

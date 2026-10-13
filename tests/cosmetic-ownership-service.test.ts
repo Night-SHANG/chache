@@ -16,25 +16,25 @@ function setup(account = makeAccountFixture({ wallet: 1800 })) {
 }
 const owned = (account: Readonly<AccountSnapshot> | null) => (account?.profile as AccountSnapshot['profile'] & {ownedCosmetics?: string[]})?.ownedCosmetics;
 
-test('buying wood commits exactly 300 coins and permanent ownership without equipping it', () => {
+test('buying insulated commits exactly 300 coins and permanent ownership without equipping it', () => {
   const { service, transact, storage } = setup();
-  const result = transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' });
+  const result = transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' });
   assert.equal(result.status, 'acknowledged');
   assert.equal(result.account?.wallet, 1500);
   assert.equal(result.account?.formatVersion, 4);
   assert.equal(result.account?.economyVersion, 2);
-  assert.ok(owned(result.account)?.includes('cargo.wood'));
+  assert.ok(owned(result.account)?.includes('cargo.insulated'));
   assert.equal(result.account?.profile.cosmetics.cargo, 'classic');
   assert.equal(storage.values.get(ACCOUNT_KEYS.a), storage.values.get(ACCOUNT_KEYS.b));
-  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' }).status, 'acknowledged');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' }).status, 'acknowledged');
   assert.equal(service.getSnapshot()?.wallet, 1500);
-  assert.equal(transact({ type: 'setCosmetic', kind: 'cargo', id: 'wood' }).status, 'acknowledged');
-  assert.equal(service.getSnapshot()?.profile.cosmetics.cargo, 'wood');
+  assert.equal(transact({ type: 'setCosmetic', kind: 'cargo', id: 'insulated' }).status, 'acknowledged');
+  assert.equal(service.getSnapshot()?.profile.cosmetics.cargo, 'insulated');
 });
 
 test('all paid prices are authoritative and exact balance can reach zero', () => {
   const { service, transact } = setup();
-  for (const [kind, id, wallet] of [['cargo', 'wood', 1500], ['forklift', 'white', 900], ['theme', 'cold_chain', 0]] as const) {
+  for (const [kind, id, wallet] of [['cargo', 'insulated', 1500], ['forklift', 'white', 900], ['theme', 'cold_chain', 0]] as const) {
     assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged');
     assert.equal(service.getSnapshot()?.wallet, wallet);
   }
@@ -44,18 +44,18 @@ test('all paid prices are authoritative and exact balance can reach zero', () =>
 
 test('unowned paid equip, insufficient coins and unknown purchases leave legacy bytes untouched', () => {
   for (const request of [
-    { type: 'setCosmetic', kind: 'cargo', id: 'wood' },
-    { type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' },
+    { type: 'setCosmetic', kind: 'cargo', id: 'insulated' },
+    { type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' },
     { type: 'purchaseCosmetic', kind: 'cargo', id: 'missing' },
     { type: 'purchaseCosmetic', kind: 'forklift', id: 'red' },
-    { type: 'purchaseCosmetic', kind: '__proto__', id: 'wood' },
+    { type: 'purchaseCosmetic', kind: '__proto__', id: 'insulated' },
   ]) {
     const { storage, transact, raw } = setup(makeAccountFixture({ wallet: 299 })); storage.resetFault();
     assert.equal(transact(request).status, 'not_committed');
     assert.deepEqual([...storage.values.values()], [raw, raw]);
     assert.equal(storage.operations.some(op => op.kind === 'set'), false);
   }
-  assert.ok(setProfileCosmetic(createProfile(), 'cargo', 'wood').error);
+  assert.ok(setProfileCosmetic(createProfile(), 'cargo', 'insulated').error);
 });
 
 test('legacy worn red survives reset and can be equipped again after switching away', () => {
@@ -68,15 +68,15 @@ test('legacy worn red survives reset and can be equipped again after switching a
   assert.equal(service.getSnapshot()?.profile.cosmetics.forklift, 'red');
 });
 
-test('outline migrates to a free independent overlay and remains on wood across reset', () => {
+test('outline migrates to a free independent overlay and remains on insulated across reset', () => {
   const account = makeAccountFixture({ wallet: 300 }); account.profile.cosmetics.cargo = 'outline';
   const { service, transact } = setup(account);
-  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'wood' }).status, 'acknowledged');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'cargo', id: 'insulated' }).status, 'acknowledged');
   assert.equal(service.getSnapshot()?.profile.cosmetics.cargo, 'classic');
   assert.equal((service.getSnapshot()?.profile as {cargoOutline?: boolean}).cargoOutline, true);
-  assert.equal(transact({ type: 'setCosmetic', kind: 'cargo', id: 'wood' }).status, 'acknowledged');
+  assert.equal(transact({ type: 'setCosmetic', kind: 'cargo', id: 'insulated' }).status, 'acknowledged');
   assert.equal(transact({ type: 'resetResults' }).status, 'acknowledged');
-  assert.equal(service.getSnapshot()?.profile.cosmetics.cargo, 'wood');
+  assert.equal(service.getSnapshot()?.profile.cosmetics.cargo, 'insulated');
   assert.equal((service.getSnapshot()?.profile as {cargoOutline?: boolean}).cargoOutline, true);
   assert.equal(transact({ type: 'setCargoOutline', enabled: false }).status, 'acknowledged');
   assert.equal((service.getSnapshot()?.profile as {cargoOutline?: boolean}).cargoOutline, false);

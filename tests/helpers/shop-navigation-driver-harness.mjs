@@ -34,14 +34,14 @@ export function exerciseShopDriver(scenario){
  }else if(scenario==='scroll'){
   d.appearance('cargo');d.itemPage(2);check();const chosen=d.selected().id;for(const end of ['up','cancel']){d.h.pointer('down',330,1160);d.h.pointer('move',330,950);d.h.pointer(end,330,950);d.frame(0);check();assert.equal(d.selected().id,chosen);}d.action({type:'selectShopSection',section:'theme'});d.itemPage(2);check();d.action({type:'selectShopSection',section:'cargo'});check();assert.equal(d.page(),2);d.action({type:'selectShopTab',tab:'tools'});d.action({type:'selectShopTab',tab:'cosmetics'});check();d.action({type:'back'});d.shop();check();
  }else if(scenario==='transactions'){
-  for(const [kind,id]of [['cargo','wood'],['theme','paper_warehouse'],['forklift','white']]){
+  for(const [kind,id]of [['cargo','insulated'],['theme','paper_warehouse'],['forklift','white']]){
    const item=COSMETIC_CATALOG.find(item=>item.kind===kind&&item.id===id);d.preview(kind,id);check();const before=structuredClone(f.session.view.account),stored=[...f.data];
    d.purchase({type:'purchaseCosmetic',kind,id});assert.equal(f.session.view.confirmation.kind,'purchaseCosmetic');d.cancel();check();assert.deepEqual([...f.data],stored);
    d.purchase({type:'purchaseCosmetic',kind,id});d.confirm();check();assert.equal(f.session.view.account.wallet,before.wallet-item.price);assert.deepEqual(f.session.view.account.profile.cosmetics,before.profile.cosmetics);
    d.action({type:'equipCosmetic',kind,id});check();assert.equal(f.session.view.account.profile.cosmetics[kind],id);
   }
  }else if(scenario==='root-reset'){
-  d.preview('forklift','ice');check();assert.ok(d.page()>0);d.action({type:'back'});check();d.shop();check();assert.equal(d.shopTab,'tools');d.appearance();check();assert.equal(d.shopSection,'theme');assert.equal(d.page(),0);assert.equal(f.session.view.classicSetSelection,undefined);
+  d.preview('forklift','diving');check();assert.ok(d.page()>0);d.action({type:'back'});check();d.shop();check();assert.equal(d.shopTab,'tools');d.appearance();check();assert.equal(d.shopSection,'theme');assert.equal(d.page(),0);assert.equal(f.session.view.classicSetSelection,undefined);
  }else throw Error(`Unknown driver test ${scenario}`);
  return {scenario,status:'PASS',nativeAcceptance:false};
 }

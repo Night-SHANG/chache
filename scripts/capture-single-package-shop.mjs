@@ -13,7 +13,7 @@ GlobalFonts.loadSystemFonts();
 configureStaticArt(async path=>{const resource=Object.values(STATIC_ART_RESOURCES).find(value=>value.src===path);if(!resource)throw Error(path);return loadImage(resolve(resource.sourcePath));});
 const {session}=sessionHost({wallet:3000});session.action({type:'shop'});session.action({type:'selectShopTab',tab:'cosmetics'});
 const report={kind:'Actual production renderer with native Canvas, current working source and real packaged image bytes',limitations:['Not physical phone or browser/WeChat DevTools evidence.','Isolated test account, not player data.'],screens:[]};
-for(const [section,title,selected] of [['theme','场景','cold_chain'],['cargo','货箱','wood'],['forklift','叉车','white']]){
+for(const [section,title,selected] of [['theme','场景','cold_chain'],['cargo','货箱','reinforced'],['forklift','叉车','white']]){
  session.action({type:'selectShopSection',section});session.action({type:'previewCosmetic',kind:section,id:selected});
  const ready=await prepareStaticArt(staticArtRequirementsForView(session.view));if(ready.status!=='ready')throw Error(JSON.stringify(ready));
  const canvas=createCanvas(1080,1920),context=canvas.getContext('2d');render(context,session.state,session.view);

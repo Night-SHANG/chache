@@ -14,9 +14,8 @@ export async function verifyStaticArtAssets(root=process.cwd(),{verifySources=tr
  const resources=Object.values(manifest.resources);let bytes=0,mainBytes=0,cosmeticsBytes=0;
  const themes=COSMETIC_CATALOG.filter(item=>item.kind==='theme').map(item=>item.id),forklifts=COSMETIC_CATALOG.filter(item=>item.kind==='forklift').map(item=>item.id);
  const sameKeys=(value,expected)=>JSON.stringify(Object.keys(value).sort())===JSON.stringify([...expected].sort());
- const expectedKeys=[...themes.map(id=>`scene.${id}`),...themes.map(id=>`preview.${id}.item`),'forklift.base','forklift.styled','cargo.core','tools.core','frame.classic','material.board','material.cargo','material.scene'];
- if(!sameKeys(manifest.resources,expectedKeys)||!sameKeys(manifest.scenes,themes)||!sameKeys(manifest.previews,themes)||!sameKeys(manifest.forklifts,forklifts))throw Error('Static art active catalog coverage mismatch');
- for(const variants of Object.values(manifest.previews))if(!sameKeys(variants,['item']))throw Error('Static art includes a retired preview variant');
+ const expectedKeys=[...themes.map(id=>`scene.${id}`),'forklift.base','forklift.styled','cargo.core','tools.core','frame.classic','material.board','material.cargo','material.scene'];
+ if(!sameKeys(manifest.resources,expectedKeys)||!sameKeys(manifest.scenes,themes)||!sameKeys(manifest.previews,[])||!sameKeys(manifest.forklifts,forklifts))throw Error('Static art active catalog coverage mismatch');
  for(const resource of resources){
   if(resource.package!=='main'||resource.src!==resource.sourcePath||!resource.src.startsWith('assets/'))throw Error(`Static art single-package path mismatch: ${resource.key}`);
   const path=resolve(root,runtimePaths?resource.src:resource.sourcePath),encoded=await readFile(path);

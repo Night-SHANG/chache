@@ -2,28 +2,28 @@ import type {GameSession} from '../application/session.ts';
 import type {PointerEvent,WheelEvent} from '../platform/types.ts';
 import {hitTestPoint} from './layout.ts';
 import type {Rect} from './layout.ts';
-import {COSMETIC_PREVIEW_RECT} from './economy-ui.ts';
-import {staticArtRequirementsForView,staticArtCoreRequirementsForView,staticArtWarmKeys} from './static-art-requirements.ts';
-import {prepareStaticArt,staticArtStatus,retryStaticArt,staticArtKeysStatus,setStaticArtWarmPaused,warmStaticArt} from './static-art-resources.ts';
+import {selectedShopCosmetic} from './economy-ui.ts';
+import {staticArtRequirementsForView,staticArtCoreRequirementsForView} from './static-art-requirements.ts';
+import {prepareStaticArt,staticArtStatus,retryStaticArt,staticArtKeysStatus,setStaticArtWarmPaused,prepareStaticArtScene,cancelStaticArtScenePreparation} from './static-art-resources.ts';
 import type {StaticArtReadiness,StaticArtRequirements} from './static-art-resources.ts';
 
 export const STATIC_ART_RETRY_RECT:Readonly<Rect>={x:240,y:1100,w:600,h:120};
 export const STATIC_ART_BACK_RECT:Readonly<Rect>={x:240,y:1260,w:600,h:120};
 const FONT_FAMILY='"Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
-interface ReadinessAuthority {readiness(keys:readonly string[]):StaticArtReadiness;setWarmPaused(paused:boolean):void;warm(keys:readonly string[]):void;prepare(value:StaticArtRequirements,core?:StaticArtRequirements):Promise<StaticArtReadiness>;status(value?:StaticArtRequirements):StaticArtReadiness;retry(value:StaticArtRequirements):Promise<StaticArtReadiness>}
-const globalAuthority:ReadinessAuthority={readiness:staticArtKeysStatus,setWarmPaused:setStaticArtWarmPaused,warm:warmStaticArt,prepare:prepareStaticArt,status:requirements=>staticArtStatus(requirements!),retry:retryStaticArt};
+interface ReadinessAuthority {readiness(keys:readonly string[]):StaticArtReadiness;setWarmPaused(paused:boolean):void;prepareScene(scene:string,options?:{retry?:boolean}):Promise<StaticArtReadiness>;cancelScenePreparation():void;prepare(value:StaticArtRequirements,core?:StaticArtRequirements):Promise<StaticArtReadiness>;status(value?:StaticArtRequirements):StaticArtReadiness;retry(value:StaticArtRequirements):Promise<StaticArtReadiness>}
+const globalAuthority:ReadinessAuthority={readiness:staticArtKeysStatus,setWarmPaused:setStaticArtWarmPaused,prepareScene:prepareStaticArtScene,cancelScenePreparation:cancelStaticArtScenePreparation,prepare:prepareStaticArt,status:requirements=>staticArtStatus(requirements!),retry:retryStaticArt};
 
-/** A single visible gate protects startup, equipped-art changes, and the currently drawn shop page. */
+/** Startup/error protection only; ordinary shop previews draw synchronously and equips prepare before commit. */
 export class StaticArtGate {
  private session:GameSession;
  private authority:ReadinessAuthority;
  private requirements:StaticArtRequirements;
  private identity='';
  private visible=true;
- private firstHomePainted=false;
+ private scenePrefetchKey='';
  private allowedPointers=new Set<number>();
- private button:{id:number;action:'retry'|'back'|'preview'}|null=null;
- constructor(session:GameSession,authority:ReadinessAuthority=globalAuthority){this.session=session;this.authority=authority;this.requirements=staticArtRequirementsForView(session.view);}
+ private button:{id:number;action:'retry'|'back'}|null=null;
+ constructor(session:GameSession,authority:ReadinessAuthority=globalAuthority){this.session=session;this.authority=authority;this.requirements=staticArtRequirementsForView(session.view);this.session.setCosmeticScenePreparation(async theme=>(await this.authority.prepareScene(`scene.${theme}`,{retry:true})).status==='ready',()=>this.authority.cancelScenePreparation());}
  refresh():StaticArtReadiness {
   if(!this.visible||!['menu','shop'].includes(this.session.view.screen??''))this.authority.setWarmPaused(true);
   const next=staticArtRequirementsForView(this.session.view),identity=JSON.stringify(next);
@@ -40,14 +40,6 @@ export class StaticArtGate {
   if(!this.visible)return;
   const status=this.refresh();
   if(status.status==='ready'){
-   const view=this.session.view,previewVisible=view.screen==='shop'&&view.shopTab==='cosmetics'&&!view.confirmation&&!view.accountBlocked;
-   const previewError=previewVisible&&this.authority.status(this.requirements).status==='error';
-   if(this.button?.action==='preview'&&this.button.id!==event.id)return;
-   if(this.button?.action==='preview'&&this.button.id===event.id){
-    if(!hitTestPoint(event.point,COSMETIC_PREVIEW_RECT)){this.button=null;return;}
-    if(event.type==='up'){this.button=null;if(previewError)void this.authority.retry(this.requirements);}return;
-   }
-   if(event.type==='down'&&previewError&&hitTestPoint(event.point,COSMETIC_PREVIEW_RECT)){if(!this.allowedPointers.size)this.button={id:event.id,action:'preview'};return;}
    // Never turn the release of a loading-screen touch into a gameplay action.
    if(event.type==='down'){this.allowedPointers.add(event.id);this.session.input.down(event.point,event.id,event.pointerType);}
    else if(this.allowedPointers.has(event.id)){this.session.input[event.type](event.point,event.id);if(event.type==='up')this.allowedPointers.delete(event.id);}
@@ -64,15 +56,20 @@ export class StaticArtGate {
   }
  }
  wheel(event:WheelEvent):boolean {return this.isReady()?this.session.input.wheel(event.point,event.deltaY):false;}
- hide():void {this.visible=false;this.authority.setWarmPaused(true);this.cancel();}
+ hide():void {this.refresh();this.visible=false;this.authority.setWarmPaused(true);this.scenePrefetchKey='';this.session.cancelCosmeticEquip();this.cancel();}
  show():void {this.visible=true;this.cancel();this.refresh();}
  /** Called only after an actual successful render, never from a readiness probe. */
  didPaint():void {
   const view=this.session.view;
-  if(this.visible&&view.screen==='menu')this.firstHomePainted=true;
-  const idle=this.visible&&this.firstHomePainted&&(view.screen==='menu'||view.screen==='shop')&&!view.confirmation&&!view.accountBlocked;
-  this.authority.setWarmPaused(!idle);
-  if(idle)this.authority.warm(staticArtWarmKeys(view));
+  this.authority.setWarmPaused(true);
+  if(!this.visible||view.screen!=='shop'||view.shopTab!=='cosmetics'||view.confirmation||view.accountBlocked){
+   if(this.scenePrefetchKey&&!view.cosmeticEquipPending&&!view.accountBlocked){this.scenePrefetchKey='';this.authority.cancelScenePreparation();}return;
+  }
+  const item=selectedShopCosmetic(view),key=item.kind==='theme'?`scene.${item.id}`:'';
+  if(key!==this.scenePrefetchKey&&!view.cosmeticEquipPending){
+   this.scenePrefetchKey=key;
+   if(key)void this.authority.prepareScene(key);else this.authority.cancelScenePreparation();
+  }
  }
  private cancel():void {this.allowedPointers.clear();this.button=null;this.session.input.cancel();}
  /** Uses the already-created display surface, simple fills and text. No decoded art or offscreen surfaces. */

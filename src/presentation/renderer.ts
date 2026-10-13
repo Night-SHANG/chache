@@ -780,6 +780,7 @@ function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
   drawCosmeticPreview(ctx,COSMETIC_PREVIEW_RECT,shopItemPreviewOptions(item,view));
   text(ctx,`${pagination.page+1} / ${pagination.pages}`,540,1525,30,'#c6d8d4','center');
   text(ctx,item.name,540,1020,38,'#ffe8b4','center');
+  if(view.cosmeticEquipError)text(ctx,view.cosmeticEquipError,540,690,27,'#ffe3a3','center',500);
   text(ctx,!PLAYTEST_FREE_SHOP&&item.achievementId&&!appearance.ownedCosmetics.includes(item.key)?item.description:cosmeticStatus(item,view),540,1068,27,'#c6d8d4','center');
  }
  for(const control of getUiControls(state,view))drawControl(ctx,control,control.buttonRole==='primary'||['purchase','purchaseCosmetic','equipCosmetic','setCargoOutline'].includes(control.action.type));

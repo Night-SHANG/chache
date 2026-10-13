@@ -65,7 +65,7 @@ for(const dpr of [1,2,3])test(`WeChat real-shop swipes preserve every section's 
  const dataBefore=[...h.data],checksum=playableChecksum(s.state);h.storage.resetFault();
  for(const section of ['theme','cargo','forklift'] as const){
   s.action({type:'selectShopSection',section});s.action({type:'selectCosmeticPage',page:2});
-  const card=getUiControls(s.state,s.view).filter(control=>control.action.type==='previewCosmetic')[1];assert.ok(card);
+  const cards=getUiControls(s.state,s.view).filter(control=>control.action.type==='previewCosmetic'),card=cards[cards.length-1];assert.ok(card);
   const point={x:card.rect.x+card.rect.w/2,y:card.rect.y+card.rect.h/2},before=structuredClone(s.view);
   f.emit('down',[f.touch(7,point.x,point.y)]);f.emit('move',[f.touch(7,point.x,point.y-50)]);assert.deepEqual(s.view,before,section);
   f.emit('move',[f.touch(7,point.x,point.y)]);f.emit('up',[f.touch(7,point.x,point.y)]);assert.deepEqual(s.view,before,section);

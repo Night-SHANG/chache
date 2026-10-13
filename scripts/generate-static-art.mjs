@@ -3,9 +3,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { cargoBox, forklift, roundedPath, gradient } from './static-art-authoring/src/presentation/assets.ts';
+import { cargoBox, forklift, roundedPath } from './static-art-authoring/src/presentation/assets.ts';
 import { drawWarehouse } from './static-art-authoring/src/presentation/warehouse-art.ts';
-import { drawHarborBackground, drawLogisticsBackground } from './static-art-authoring/src/presentation/cosmetic-art.ts';
 import { drawThemedBoard } from './static-art-authoring/src/presentation/board-theme.ts';
 import { boardGeometry } from './static-art-authoring/src/presentation/board-geometry.ts';
 import { drawToolIcon, drawToolboxIcon } from './static-art-authoring/src/presentation/tool-art.ts';
@@ -39,12 +38,8 @@ export async function generateStaticArt({write=true,outputRoot=root}={}) {
  for(const {id:theme} of COSMETIC_CATALOG.filter(item=>item.kind==='theme')){
   const key=`scene.${theme}`,canvas=createCanvas(1205,1920),ctx=canvas.getContext('2d');ctx.translate(57,0);drawWarehouse(ctx,{profile:{cosmetics:{theme}}});
   await record(key,`scene-${theme}.png`,canvas.toBuffer('image/png'));
-  scenes[theme]=sprite(key,rect(0,0,1205,1920),rect(-57,0,1205,1920));previews[theme]={};
-  for(const [variant,w,h] of [['item',816,232]]){
-   const key=`preview.${theme}.${variant}`,canvas=createCanvas(w,h),ctx=canvas.getContext('2d');
-   if(theme==='harbor')drawHarborBackground(ctx,rect(0,0,w,h));else if(!drawLogisticsBackground(ctx,rect(0,0,w,h),theme)){ctx.fillStyle=gradient(ctx,0,0,h,theme==='night'?'#111c35':'#243345',theme==='night'?'#080d1b':'#111b25');ctx.fillRect(0,0,w,h);}
-   await record(key,`preview-${theme}-${variant}.png`,canvas.toBuffer('image/png'));previews[theme][variant]=sprite(key,rect(0,0,w,h),rect(0,0,w,h));
-  }
+  scenes[theme]=sprite(key,rect(0,0,1205,1920),rect(-57,0,1205,1920));
+  // Shop previews now paint synchronously from shared atlases; no separate PNG is packaged.
  }
  for(const [group,paints] of [['base',baseForklifts],['styled',HISTORICAL_COSMETIC_CATALOG.filter(item=>item.kind==='forklift'&&!baseForklifts.includes(item.id)).map(item=>item.id)]]){
   const key=`forklift.${group}`,canvas=createCanvas(1024,Math.ceil(paints.length/4)*192),ctx=canvas.getContext('2d');

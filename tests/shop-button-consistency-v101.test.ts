@@ -47,7 +47,7 @@ test('v101 insufficient individual items retain their full price without discoun
 });
 test('v101 actual loaded-font paint shares family size weight and one baseline across affordable and disabled item footers',()=>{
  assert.ok(GlobalFonts.families.some(f=>f.family==='Noto Sans CJK SC'),'Chinese font must really be available');
- const views=(['theme','cargo','forklift']as const).flatMap(kind=>[0,9000].map(wallet=>view({account:account(wallet),shopSection:kind,cosmeticPreview:{[kind]:kind==='theme'?'cold_chain':kind==='cargo'?'wood':'white'}})));
+ const views=(['theme','cargo','forklift']as const).flatMap(kind=>[0,9000].map(wallet=>view({account:account(wallet),shopSection:kind,cosmeticPreview:{[kind]:kind==='theme'?'cold_chain':kind==='cargo'?'insulated':'white'}})));
  let expected:string|undefined;for(const v of views){const c=primary(v),rows=paints(v).filter(p=>p.y>c.rect.y&&p.y<c.rect.y+c.rect.h&&p.x>c.rect.x);assert.equal(rows.length,1,c.label);assert.equal(rows[0].text,c.label);assert.equal(rows[0].y,c.rect.y+c.rect.h/2);assert.ok(rows[0].width<=c.rect.w-48);assert.match(rows[0].font,/^800 42px /);expected??=rows[0].font;assert.equal(rows[0].font,expected);}
 });
 test('v101 outline equipment is labeled consistently and classic is available to remove it',()=>{

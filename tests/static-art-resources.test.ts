@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {StaticArtResources,STATIC_ART_PREVIEW_LIMIT,staticArtStatus,prepareStaticArt} from '../src/presentation/static-art-resources.ts';
+import * as staticArt from '../src/presentation/static-art-resources.ts';
+import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import type {StaticArtRequirements} from '../src/presentation/static-art-resources.ts';
 import type {StaticArtResource} from '../src/presentation/static-art-manifest.ts';
 
@@ -59,4 +61,15 @@ test('recent cards and a detail coexist only while they fit the shared preview b
 
 test('an unconfigured shared service reports an explicit initialization error',async()=>{
  assert.equal(staticArtStatus(requirements()).status,'error');assert.equal((await prepareStaticArt(requirements())).status,'error');
+});
+
+test('global scene preparation reports initialization errors and delegates preparation, cancellation, and explicit retries',async()=>{
+ assert.equal(typeof staticArt.prepareStaticArtScene,'function');assert.equal(typeof staticArt.cancelStaticArtScenePreparation,'function');
+ assert.equal((await staticArt.prepareStaticArtScene('scene.night')).status,'error');staticArt.cancelStaticArtScenePreparation();
+ let fail=true;const paths:string[]=[],core={scene:'scene.day',shared:[],previews:[]};
+ staticArt.configureStaticArt(async path=>{paths.push(path);const resource=Object.values(STATIC_ART_RESOURCES).find(value=>value.src===path)!;if(resource.key==='scene.night'&&fail)throw Error('fixture failed');return {width:resource.width,height:resource.height} as CanvasImageSource;});
+ assert.equal((await staticArt.prepareStaticArt(core)).status,'ready');assert.equal((await staticArt.prepareStaticArtScene('scene.night')).status,'error');
+ fail=false;assert.equal((await staticArt.prepareStaticArtScene('scene.night')).status,'error');assert.equal(paths.length,2);
+ assert.equal((await staticArt.prepareStaticArtScene('scene.night',{retry:true})).status,'ready');assert.ok(staticArt.getStaticArtImage('scene.night'));
+ staticArt.cancelStaticArtScenePreparation();assert.equal(staticArt.getStaticArtImage('scene.night'),null);assert.equal(staticArt.staticArtStatus(core).status,'ready');
 });

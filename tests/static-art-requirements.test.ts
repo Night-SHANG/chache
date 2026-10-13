@@ -17,12 +17,12 @@ test('retired legacy and account profiles use safe active resources without muta
 });
 test('retired set navigation state cannot request removed preview shapes',()=>{
  const view=sessionHost().session.view;Object.assign(view,{screen:'shop',shopTab:'cosmetics',shopSection:'sets',cosmeticSetPage:3,cosmeticSetPreview:'classic'});
- assert.deepEqual(staticArtRequirementsForView(view).previews,['preview.day.item']);
+ assert.deepEqual(staticArtRequirementsForView(view).previews,[]);
 });
-test('theme selection and cargo previews retain the item aspect and selected dependencies',()=>{
+test('theme and cargo browsing use already-pinned shared art without per-item image requests',()=>{
  const view=sessionHost().session.view;Object.assign(view,{screen:'shop',shopTab:'cosmetics',shopSection:'theme',cosmeticPreview:{theme:'cold_chain'}});
- assert.deepEqual(staticArtRequirementsForView(view).previews,['preview.cold_chain.item']);view.shopSection='cargo';view.cosmeticPreview={cargo:'wood'};
- assert.deepEqual(staticArtRequirementsForView(view).previews,['preview.day.item']);assert.ok(staticArtRequirementsForView(view).shared.includes('material.cargo'));
+ assert.deepEqual(staticArtRequirementsForView(view).previews,[]);view.shopSection='cargo';view.cosmeticPreview={cargo:'wood'};
+ assert.deepEqual(staticArtRequirementsForView(view).previews,[]);assert.ok(staticArtRequirementsForView(view).shared.includes('material.cargo'));
 });
 test('confirmation and save blocker require no invisible shop previews',()=>{
  const view=sessionHost().session.view;Object.assign(view,{screen:'shop',shopTab:'cosmetics',shopSection:'sets',confirmation:{kind:'purchaseCosmeticSet',cosmeticSetId:'harbor'}});assert.deepEqual(staticArtRequirementsForView(view).previews,[]);view.confirmation=null;view.accountBlocked=true;assert.deepEqual(staticArtRequirementsForView(view).previews,[]);

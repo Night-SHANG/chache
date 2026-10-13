@@ -63,7 +63,7 @@ test('retired set actions cannot open a route, create a confirmation, equip or s
 
 for(const kind of kinds)test(`v23 ${kind} exposes all catalog items through four-text-tile pages`,()=>{
  const {session:s}=sessionHost();open(s,kind);const catalog=COSMETIC_CATALOG.filter(item=>item.kind===kind),seen:string[]=[];
- assert.equal(catalog.length,kind==='forklift'?14:12);
+ assert.equal(catalog.length,kind==='forklift'?11:9);
  for(let page=0;page<Math.ceil(COSMETIC_CATALOG.filter(item=>item.kind===kind).length/4);page++){
   act(s,{type:'selectCosmeticPage',page});const result=cosmeticShopPage(s.view),tiles=itemTiles(s),expected=catalog.slice(page*4,page*4+4);
   assert.equal(result.page,page);assert.equal(result.pages,Math.ceil(catalog.length/4));
@@ -86,14 +86,14 @@ for(const kind of kinds)test(`v23 ${kind} exposes all catalog items through four
 
 test('v23 ordinary selection updates the same-screen banner, text tiles and explicit purchase button',()=>{
  const {session:s}=sessionHost({wallet:900});open(s,'cargo');
- act(s,{type:'previewCosmetic',kind:'cargo',id:'wood'});
+ act(s,{type:'previewCosmetic',kind:'cargo',id:'insulated'});
  assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticSetPreview,undefined);
- assert.equal(selectedShopCosmetic(s.view).id,'wood');
+ assert.equal(selectedShopCosmetic(s.view).id,'insulated');
  assert.equal(controls(s).filter(c=>c.action.type==='selectShopSection').length,3);
  assert.equal(itemTiles(s).length,4);assert.equal(controls(s).some(c=>c.action.type==='closeShopDetail'),false);
  assert.equal(find(s,'purchaseCosmetic').label,'300金币 · 购买');
- assert.ok(itemTiles(s).find(c=>c.action.type==='previewCosmetic'&&c.action.id==='wood')?.selected);
- const labels=capture(s).labels;assert.ok(labels.some(label=>label.includes('原木藤箱')));
+ assert.ok(itemTiles(s).find(c=>c.action.type==='previewCosmetic'&&c.action.id==='insulated')?.selected);
+ const labels=capture(s).labels;assert.ok(labels.some(label=>label.includes('保温周转箱')));
  act(s,{type:'back'});assert.equal(s.view.screen,'menu','ordinary item selection does not add an extra Back layer');
 });
 
@@ -191,12 +191,12 @@ test('v23 dragging a cosmetic option more than fourteen logical pixels permanent
 
 test('v23 pointer cancel and hide-show abandon a pending cosmetic tap, then a fresh small-motion tap works',()=>{
  const h=sessionHost(),s=h.session;open(s,'cargo');h.storage.resetFault();const before=[...h.data],checksum=playableChecksum(s.state);
- const wood=find(s,'previewCosmetic');
- const target=itemTiles(s).find(c=>c.action.type==='previewCosmetic'&&c.action.id==='wood')??wood,point=center(target.rect);
+ const insulated=find(s,'previewCosmetic');
+ const target=itemTiles(s).find(c=>c.action.type==='previewCosmetic'&&c.action.id==='insulated')??insulated,point=center(target.rect);
  const selectedBefore=selectedShopCosmetic(s.view).id;
  s.input.down(point,7);s.input.cancel(7);s.input.up(point,7);assert.equal(selectedShopCosmetic(s.view).id,selectedBefore);
  s.input.down(point,8);s.hide();s.show();s.input.up(point,8);assert.equal(selectedShopCosmetic(s.view).id,selectedBefore);
  s.input.down(point,9);s.input.move({x:point.x+3,y:point.y+4},9);s.input.up(point,9);
- assert.equal(selectedShopCosmetic(s.view).id,'wood');assert.equal(s.view.shopItemDetail,undefined);assert.equal(itemTiles(s).length,4);
+ assert.equal(selectedShopCosmetic(s.view).id,'insulated');assert.equal(s.view.shopItemDetail,undefined);assert.equal(itemTiles(s).length,4);
  assertNoWrites(h,before,checksum);
 });

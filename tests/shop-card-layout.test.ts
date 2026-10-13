@@ -32,7 +32,7 @@ test('appearance lists three peer categories and four compact inline tiles witho
 });
 
 test('inline items retain global tabs and Back left, action right, with no detail route',()=>{
- const item=getShopControls(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}})),back=item.find(c=>c.action.type==='back'),action=item.find(c=>c.action.type==='purchaseCosmetic');
+ const item=getShopControls(view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}})),back=item.find(c=>c.action.type==='back'),action=item.find(c=>c.action.type==='purchaseCosmetic');
  assert.equal(item.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(item.filter(c=>c.action.type==='selectShopSection').length,3);assert.equal(item.filter(c=>c.action.type==='previewCosmetic').length,4);
  assert.equal(item.some(c=>['closeShopDetail','previewCosmeticSetMember','purchaseCosmeticSet','equipCosmeticSet','equipClassicSet'].includes(c.action.type)),false);
  assert.ok(back);assert.ok(action);assert.ok(back.rect.x+back.rect.w<action.rect.x);assert.equal(back.buttonRole,'secondary');assert.equal(action.buttonRole,'primary');
@@ -67,15 +67,15 @@ test('page artwork uses ready images with zero surface allocation while wallet a
   const v=view();await paint(v);for(let i=0;i<5;i++)await paint(v);
   await paint({...v,account:makeAccountFixture({wallet:1234})});assert.ok(labels.includes('金币 1234'));
   for(const shopSection of ['theme','cargo','forklift'] as const)for(const item of COSMETIC_CATALOG.filter(item=>item.kind===shopSection)){await paint(view({shopSection,cosmeticPreview:{[shopSection]:item.id}}));}
-  await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.ok(labels.includes('原木藤箱'));
+  await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'reinforced'}}));assert.ok(labels.includes('铆接钢箱'));
   await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}));assert.ok(labels.includes('保温周转箱'));
   const selected=view({shopSection:'forklift',cosmeticPreview:{forklift:'white'}});await paint(selected);await paint(selected);
  }finally{configureCosmeticPreviewCache();}
 });
 
-test('the reduced catalog exposes exactly 38 individual cosmetics and no classic or set card',()=>{
- assert.equal(COSMETIC_CATALOG.length,38);
- assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[12,12,14]);
+test('the reduced catalog exposes exactly 29 individual cosmetics and no classic or set card',()=>{
+ assert.equal(COSMETIC_CATALOG.length,29);
+ assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[9,9,11]);
  for(const legacy of [{shopSection:'sets' as const},{cosmeticSetPreview:'classic'},{cosmeticSetPreview:'cold_chain'}]){
   const controls=getShopControls(view(legacy));assert.equal(controls.filter(c=>c.action.type==='previewCosmetic').length,4);
   assert.equal(controls.some(c=>['previewCosmeticSet','selectClassicSetVariant','previewCosmeticSetMember','purchaseCosmeticSet','equipCosmeticSet','equipClassicSet','closeShopDetail'].includes(c.action.type)),false);

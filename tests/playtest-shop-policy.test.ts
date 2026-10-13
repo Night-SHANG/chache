@@ -24,7 +24,7 @@ function setup(api:Pick<API,'createAccountService'>,wallet=0,storage=new FaultSt
  const service=api.createAccountService(storage,lease(),()=>Date.parse('2026-10-08T12:00:00Z'));storage.resetFault();return {storage,service};
 }
 const send=(service:ReturnType<typeof createAccountService>,request:AccountRequest)=>service.transact(request,service.getSnapshot()?.generation??0);
-const claim:AccountRequest={type:'purchaseCosmetic',kind:'cargo',id:'wood',operationId:'claim.wood'};
+const claim:AccountRequest={type:'purchaseCosmetic',kind:'cargo',id:'insulated',operationId:'claim.insulated'};
 function view(account:AccountSnapshot,patch:Partial<ViewState>={}):ViewState{return {screen:'shop',selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,account,...patch};}
 
 for(const [name,api] of [['source',{createAccountService}],['compiled false',paid],['compiled absent',fallback]] as const)test(`${name} retains regular prices and achievement gates`,()=>{
@@ -66,11 +66,11 @@ test('compiled UI shows free claims at zero wallet, separate equip, and paid fal
   const labels:string[]=[];ctx.fillText=value=>labels.push(value);paid.render(ctx,state,detail);assert.ok(labels.includes(item.achievementId?item.description:`${item.price}金币 · 购买`),`${item.key} keeps its visible purchase restriction`);
  }
  assert.ok(paid.getShopControls(view(account)).filter(c=>c.action.type==='purchase').every(c=>c.disabled&&/^\d+金币 · 购买$/.test(c.label)));
- assert.equal(send(service,claim).status,'acknowledged');const owned=service.getSnapshot()!,v=view(owned,{shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}});assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'装备');owned.profile.cosmetics.cargo='wood';assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'使用中');
+ assert.equal(send(service,claim).status,'acknowledged');const owned=service.getSnapshot()!,v=view(owned,{shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}});assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'装备');owned.profile.cosmetics.cargo='insulated';assert.equal(free.getShopControls(v).find(c=>c.action.type==='equipCosmetic')?.label,'使用中');
 });
 
 test('actual compiled Session permits free zero-wallet and achievement claims through confirmation, cancel, and equip',()=>{
- for(const item of [COSMETIC_CATALOG.find(item=>item.key==='cargo.wood')!,COSMETIC_CATALOG.find(item=>item.key==='forklift.red')!]){
+ for(const item of [COSMETIC_CATALOG.find(item=>item.key==='cargo.insulated')!,COSMETIC_CATALOG.find(item=>item.key==='forklift.red')!]){
   const {session:s,data}=free.sessionHost({wallet:0});s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'selectShopSection',section:item.kind});s.action({type:'previewCosmetic',kind:item.kind,id:item.id});assert.equal(s.view.shopItemDetail,undefined);assert.equal(s.view.cosmeticPreview?.[item.kind],item.id);assert.equal(free.getShopControls(s.view).filter(c=>c.action.type==='selectShopSection').length,3);const before=[...data];
   s.action({type:'purchaseCosmetic',kind:item.kind,id:item.id});assert.equal(s.view.confirmation?.kind,'purchaseCosmetic');assert.equal(free.getUiControls(s.state,s.view).find(c=>c.action.type==='confirm')?.label,'确认领取');
   const ctx=createCanvas(1080,1920).getContext('2d') as unknown as CanvasRenderingContext2D,words:string[]=[];ctx.fillText=(value)=>words.push(value);free.render(ctx,s.state,s.view);assert.ok(words.some(value=>value.includes(`领取${item.name}`)));assert.ok(words.some(value=>value.includes('余额 0 → 0')));assert.equal(words.some(value=>/花费 [1-9]|还差|成就解锁/.test(value)),false);
@@ -91,14 +91,14 @@ for(const request of [{type:'purchase' as const,item:'rotate' as const,operation
  storage.set=(key,value)=>{originalSet(key,value);if(key===ACCOUNT_KEYS.b)blocked=true;};storage.get=key=>{if(blocked)throw Error('readback unavailable');return originalGet(key);};
  const result=service.transact(request,before.generation);assert.equal(result.status,'unknown');assert.deepEqual(service.getSnapshot(),before);storage.get=originalGet;storage.set=originalSet;
  const restarted=paid.createAccountService(storage,lease(),()=>0);assert.equal(restarted.getStatus(),'degraded');assert.equal(restarted.retryPending(request.operationId).status,'acknowledged');const recovered=restarted.getSnapshot()!;assert.equal(recovered.wallet,1000);assert.equal(recovered.generation,before.generation+1);
- if(request.type==='purchase')assert.equal(recovered.inventory.rotate,1);else assert.equal(recovered.profile.ownedCosmetics?.filter(key=>key==='cargo.wood').length,1);
+ if(request.type==='purchase')assert.equal(recovered.inventory.rotate,1);else assert.equal(recovered.profile.ownedCosmetics?.filter(key=>key==='cargo.insulated').length,1);
  const writes=storage.operations.filter(op=>op.kind==='set').length;assert.equal(restarted.transact(request,before.generation).status,'acknowledged');assert.equal(storage.operations.filter(op=>op.kind==='set').length,writes);
- assert.equal(send(restarted,{type:'purchase',item:'clear',operationId:'paid.again'}).account?.wallet,880);if(request.type==='purchaseCosmetic')assert.ok(restarted.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.wood'));
+ assert.equal(send(restarted,{type:'purchase',item:'clear',operationId:'paid.again'}).account?.wallet,880);if(request.type==='purchaseCosmetic')assert.ok(restarted.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.insulated'));
 });
 
 test('paid rollback retains free achievement rights, prior ownership and wallet, and charges only new purchases',()=>{
  const {service,storage}=setup(free,1000);assert.equal(send(service,claim).status,'acknowledged');assert.equal(send(service,{type:'purchaseCosmetic',kind:'forklift',id:'red',operationId:'free.red'}).status,'acknowledged');const before=service.getSnapshot()!;
- const restored=paid.createAccountService(storage,lease(),()=>0);assert.deepEqual(restored.getSnapshot(),before);assert.equal(send(restored,{type:'setCosmetic',kind:'forklift',id:'red',operationId:'equip.red'}).status,'acknowledged');assert.equal(send(restored,{type:'purchaseCosmetic',kind:'theme',id:'cold_chain',operationId:'paid.cold_chain'}).account?.wallet,100);assert.ok(restored.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.wood'));assert.ok(restored.getSnapshot()?.profile.ownedCosmetics?.includes('forklift.red'));assert.equal(free.accountDisplayProfile(restored.getSnapshot()!).achievements.includes('five_shifts'),false);
+ const restored=paid.createAccountService(storage,lease(),()=>0);assert.deepEqual(restored.getSnapshot(),before);assert.equal(send(restored,{type:'setCosmetic',kind:'forklift',id:'red',operationId:'equip.red'}).status,'acknowledged');assert.equal(send(restored,{type:'purchaseCosmetic',kind:'theme',id:'cold_chain',operationId:'paid.cold_chain'}).account?.wallet,100);assert.ok(restored.getSnapshot()?.profile.ownedCosmetics?.includes('cargo.insulated'));assert.ok(restored.getSnapshot()?.profile.ownedCosmetics?.includes('forklift.red'));assert.equal(free.accountDisplayProfile(restored.getSnapshot()!).achievements.includes('five_shifts'),false);
 });
 
 for(const request of [{type:'purchase' as const,item:'rotate' as const,operationId:'matrix.tool'},claim])test(`free ${request.type} remains atomic through every before/after storage fault and later paid recovery`,()=>{
@@ -110,7 +110,7 @@ for(const request of [{type:'purchase' as const,item:'rotate' as const,operation
   if(recovery.getStatus()==='degraded')assert.equal(recovery.retryPending(request.operationId).status,'acknowledged');
   assert.equal(recovery.transact(request,before.generation).status,'acknowledged',`${timing} ${at}`);
   const recovered=recovery.getSnapshot()!;assert.equal(recovered.generation,before.generation+1);assert.equal(recovered.wallet,57);
-  if(request.type==='purchase')assert.equal(recovered.inventory.rotate,1);else assert.equal(recovered.profile.ownedCosmetics?.filter(key=>key==='cargo.wood').length,1);
+  if(request.type==='purchase')assert.equal(recovered.inventory.rotate,1);else assert.equal(recovered.profile.ownedCosmetics?.filter(key=>key==='cargo.insulated').length,1);
   const rollback=paid.createAccountService(storage,lease(),()=>0);assert.deepEqual(rollback.getSnapshot(),recovered);const writes=storage.operations.filter(op=>op.kind==='set').length;assert.equal(rollback.transact(request,before.generation).status,'acknowledged');assert.equal(storage.operations.filter(op=>op.kind==='set').length,writes);
  }
 });

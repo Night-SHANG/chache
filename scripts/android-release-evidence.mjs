@@ -18,7 +18,7 @@ export function releaseAssetManifest(stagedAssets){
  return result;
 }
 export function validateReleaseFacts(facts){
- requireValue(facts.applicationId==='io.github.nightshang.chache'&&facts.versionName==='1.0.15'&&facts.versionCode===5&&facts.appName==='货箱最后一格','Release identity mismatch');
+ requireValue(facts.applicationId==='io.github.nightshang.chache'&&facts.versionName==='1.0.16'&&facts.versionCode===6&&facts.appName==='货箱最后一格','Release identity mismatch');
  requireValue(facts.debuggable===false&&facts.testOnly===false&&facts.internet===false,'Release must be non-debuggable, non-test-only and offline');
  requireValue(Array.isArray(facts.entries)&&new Set(facts.entries).size===facts.entries.length&&!facts.entries.some(p=>p.startsWith('/')||p.split('/').includes('..')||/(?:^|\/)(?:acceptance\.js|bundle-inputs\.json)$/.test(p)||/\.(?:p12|pfx|jks|keystore|pem|key|pk8|p8)$/i.test(p)),'Invalid release ZIP entries or private material');
  requireValue(JSON.stringify(Object.keys(facts.expectedAssets).sort())===JSON.stringify(Object.keys(facts.actualAssets).sort()),'Release asset file set differs');
@@ -54,6 +54,6 @@ export async function prepareUnsigned(root=process.cwd()){
  writeFileSync(join(out,'app-release-unsigned.apk'),readFileSync(apk));
  const receipt={schemaVersion:1,source:{commit,tree,runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT},apkSha256:hash(readFileSync(apk)),facts,verification:{node:classified,unit,lint,staging:'passed',releaseRuntime:'not-run',physicalPhone:'not-verified',samePermanentSignatureUpgrade:'not-verified'},publicationApproved:false};
  writeFileSync(join(out,'unsigned-release-receipt.json'),JSON.stringify(receipt,null,2)+'\n');
- console.log('Verified unsigned release vc5, production assets and release native unit/lint evidence.');
+ console.log('Verified unsigned release vc6, production assets and release native unit/lint evidence.');
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)await prepareUnsigned();

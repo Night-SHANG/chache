@@ -12,8 +12,8 @@ import {createCanvas,GlobalFonts,Image} from '@napi-rs/canvas';
  * acceptance. HTML cover state is observed as a DOM test double, never drawn
  * as if it were an actual HTML screenshot. No production code is rewritten.
  */
-const out=resolve(process.env.ANDROID_CANVAS_QA_DIR??'qa/android-v115/host-canvas');
-const imageOut=resolve(process.env.ANDROID_CANVAS_IMAGE_DIR??'artifacts/android-v115-startup');
+const out=resolve(process.env.ANDROID_CANVAS_QA_DIR??'qa/android-v116/host-canvas');
+const imageOut=resolve(process.env.ANDROID_CANVAS_IMAGE_DIR??'artifacts/android-v116-startup');
 const root=resolve('build/android'),bundle=await readFile(resolve(root,'app.js'));
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const images=['assets/static-art/scene-day.png','assets/static-art/cargo-core.png','assets/static-art/forklift-base.png','assets/static-art/frame-classic.png','assets/board-materials.png','assets/static-art/tools-core.png'];

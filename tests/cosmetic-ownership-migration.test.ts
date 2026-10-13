@@ -49,15 +49,14 @@ test('previews and refresh leave account1/2 bytes unchanged until the requested 
   }
 });
 
-test('current catalog retains five free rights, 38 active unique identifiers and exact independent prices', () => {
+test('current catalog retains five free rights, 29 active unique identifiers and exact independent prices', () => {
   assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
-  assert.equal(COSMETIC_CATALOG.length, 38);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 38);
+  assert.equal(COSMETIC_CATALOG.length, 29);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 29);
   assert.deepEqual(COSMETIC_CATALOG.filter(item => item.price > 0).map(item => [item.key, item.price]).sort(), [
-    ['forklift.timber', 600], ['forklift.ice', 600], ['theme.forest_depot', 900], ['theme.ice_vault', 900],
-    ['cargo.ice_crystal', 300], ['cargo.lava_core', 300], ['cargo.ocean_relic', 300], ['cargo.steam_brass', 300], ['cargo.insulated', 300], ['cargo.paper_fold', 300], ['cargo.reinforced', 300], ['cargo.space_case', 300], ['cargo.toy_brick', 300], ['cargo.wood', 300],
-    ['forklift.diving', 600], ['forklift.lava', 600], ['forklift.steam', 600], ['forklift.electric', 600], ['forklift.heavy', 600], ['forklift.paper', 600], ['forklift.space', 600], ['forklift.toy', 600], ['forklift.white', 600],
-    ['theme.lava_forge', 900], ['theme.ocean_vault', 900], ['theme.steam_foundry', 900], ['theme.cold_chain', 900], ['theme.paper_warehouse', 900], ['theme.rail_freight', 900], ['theme.space_cargo', 900], ['theme.toy_workshop', 900],
+    ['cargo.ocean_relic', 300], ['cargo.steam_brass', 300], ['cargo.insulated', 300], ['cargo.paper_fold', 300], ['cargo.reinforced', 300], ['cargo.space_case', 300], ['cargo.toy_brick', 300],
+    ['forklift.diving', 600], ['forklift.steam', 600], ['forklift.electric', 600], ['forklift.heavy', 600], ['forklift.paper', 600], ['forklift.space', 600], ['forklift.toy', 600], ['forklift.white', 600],
+    ['theme.ocean_vault', 900], ['theme.steam_foundry', 900], ['theme.cold_chain', 900], ['theme.paper_warehouse', 900], ['theme.rail_freight', 900], ['theme.space_cargo', 900], ['theme.toy_workshop', 900],
   ].sort());
 });
 

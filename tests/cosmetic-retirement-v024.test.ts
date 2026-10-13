@@ -13,20 +13,20 @@ const retired = ['theme.express_sorting', 'cargo.taped', 'forklift.compact'];
 function fixture(version:3|4=4, mask=7, all=false) {
   let account=retainAccountCosmetics(upgradeEconomy(makeAccountFixture({wallet:4200,inventory:{rotate:2,clear:1,wildcard:1}})));
   if(version===4)account=upgradeAccountGuides(account);
-  account.profile.ownedCosmetics=[...new Set([...FREE_COSMETICS,'theme.night','cargo.wood','forklift.white',...(all?HISTORICAL_COSMETIC_CATALOG.map(item=>item.key):[]),...retired.filter((_,i)=>all||(mask&(1<<i)))])].sort();
-  account.profile.cosmetics={theme:mask&1?'express_sorting':'night',cargo:mask&2?'taped':'wood',forklift:mask&4?'compact':'white'};
+  account.profile.ownedCosmetics=[...new Set([...FREE_COSMETICS,'theme.night','cargo.insulated','forklift.white',...(all?HISTORICAL_COSMETIC_CATALOG.map(item=>item.key):[]),...retired.filter((_,i)=>all||(mask&(1<<i)))])].sort();
+  account.profile.cosmetics={theme:mask&1?'express_sorting':'night',cargo:mask&2?'taped':'insulated',forklift:mask&4?'compact':'white'};
   account.profile.cargoOutline=true;
   const storage=new FaultStorage(),raw=encodeAccount(account);
   for(const key of [ACCOUNT_KEYS.a,ACCOUNT_KEYS.b])storage.values.set(key,raw);
   const service=createAccountService(storage,{status:'held',release(){}},()=>0);
   storage.resetFault();return {account,storage,raw,service};
 }
-const normalize=(mask:number)=>({theme:mask&1?'day':'night',cargo:mask&2?'classic':'wood',forklift:mask&4?'yellow':'white'});
+const normalize=(mask:number)=>({theme:mask&1?'day':'night',cargo:mask&2?'classic':'insulated',forklift:mask&4?'yellow':'white'});
 
-test('retired set and exclusive members disappear from every active lookup without changing other catalog counts',()=>{
-  assert.equal(COSMETIC_CATALOG.length,38);assert.equal(HISTORICAL_COSMETIC_CATALOG.length,53);assert.ok(Object.isFrozen(HISTORICAL_COSMETIC_CATALOG));
-  assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[12,12,14]);
-  assert.equal(COSMETIC_SETS.length,10);assert.equal(SHOP_COSMETIC_SETS.length,11);
+test('original retired set and exclusive members stay absent from the current active catalog',()=>{
+  assert.equal(COSMETIC_CATALOG.length,29);assert.equal(HISTORICAL_COSMETIC_CATALOG.length,53);assert.ok(Object.isFrozen(HISTORICAL_COSMETIC_CATALOG));
+  assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[9,9,11]);
+  assert.equal(COSMETIC_SETS.length,7);assert.equal(SHOP_COSMETIC_SETS.length,8);
   assert.equal(getCosmeticSet('express_sorting'),undefined);
   assert.equal(quoteCosmeticSetPurchase('express_sorting',{ownedCosmetics:[]}),null);
   for(const key of retired){const [kind,id]=key.split('.');assert.equal(getCosmetic(kind,id),undefined);}

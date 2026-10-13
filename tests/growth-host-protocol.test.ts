@@ -42,7 +42,7 @@ test('strict actual game host uses only its screen canvas and does not install c
  const folder=await mkdtemp(join(tmpdir(),'warehouse-current-game-host-'));
  try{
   const bundlePath=join(folder,'game.js');
-  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.15')}});
+  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.16')}});
   for(const resource of Object.values(STATIC_ART_RESOURCES)){const target=join(folder,resource.src);await mkdir(dirname(target),{recursive:true});await cp(resource.sourcePath,target);}
   const report=await probeBuiltHost({bundlePath});
   assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);
@@ -53,10 +53,10 @@ test('strict actual game host uses only its screen canvas and does not install c
   assert.ok(host.imageTrace.length>0&&host.imageTrace.every(row=>row.status==='loaded'));
   assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')),'No speculative images before the first ready paint');
   host.frame(16);
-  const warm=host.imageTrace.filter(row=>row.status==='pending');assert.equal(warm.length,1);assert.match(warm[0].source,/^assets\/static-art\/preview-.+-item[.]png$/);
+  const warm=host.imageTrace.filter(row=>row.status==='pending');assert.equal(warm.length,0);assert.equal(host.imageTrace.length,9,'Startup prepares eight fixed shared atlases and the current scene');assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')));
   assert.ok(host.imageTrace.every(row=>row.source.startsWith('assets/')));
   for(let n=0;n<4;n++){await host.settleImages();host.frame(32+n*16);}
-  assert.ok(host.imageTrace.every(row=>row.status==='loaded'),'Frame-by-frame warming completes without blocking ready rendering');
+  assert.ok(host.imageTrace.every(row=>row.status==='loaded'),'Ready home frames do not schedule obsolete per-item previews');
   assert.ok(!host.labels.some(row=>row.text.includes('正在加载')||row.text.includes('加载失败')));
   assert.deepEqual(host.surfaceInfo,[]);assert.equal(host.canvasCount,1,'ready frames never create a static offscreen layer');
   assert.deepEqual(report.extraGlobals,[]);assert.equal(report.executedChecks,1);

@@ -6,15 +6,23 @@ const manifest = await import(manifestUrl).catch(() => null);
 
 test('release static artwork manifest covers only active scene and vehicle IDs', () => {
   assert.ok(manifest, 'production static artwork manifest must exist');
-  assert.equal(Object.keys(manifest.STATIC_ART_SCENES).length, 12);
-  assert.equal(Object.keys(manifest.STATIC_ART_FORKLIFTS).length, 14);
+  assert.equal(Object.keys(manifest.STATIC_ART_SCENES).length, 9);
+  assert.equal(Object.keys(manifest.STATIC_ART_FORKLIFTS).length, 11);
   assert.equal(manifest.STATIC_ART_SCENES.express_sorting, undefined);
   assert.equal(manifest.STATIC_ART_FORKLIFTS.compact, undefined);
+  for (const theme of ['ice_vault', 'forest_depot', 'lava_forge']) {
+    assert.equal(manifest.STATIC_ART_SCENES[theme], undefined);
+    assert.equal(manifest.STATIC_ART_PREVIEWS[theme], undefined);
+    assert.equal(manifest.STATIC_ART_RESOURCES[`scene.${theme}`], undefined);
+    assert.equal(manifest.STATIC_ART_RESOURCES[`preview.${theme}.item`], undefined);
+  }
+  for (const forklift of ['ice', 'timber', 'lava']) assert.equal(manifest.STATIC_ART_FORKLIFTS[forklift], undefined);
 });
 
-test('release static artwork offers only 12 active item preview backgrounds', () => {
+test('release static artwork excludes all obsolete item preview backgrounds', () => {
   assert.ok(manifest, 'production static artwork manifest must exist');
-  assert.equal(Object.values(manifest.STATIC_ART_PREVIEWS).reduce((n: number, value) => n + Object.keys(value as object).length, 0), 12);
+  assert.deepEqual(manifest.STATIC_ART_PREVIEWS, {});
+  assert.equal(Object.keys(manifest.STATIC_ART_RESOURCES).some(key => key.startsWith('preview.')), false);
 });
 
 const { readFile, mkdtemp, writeFile, rm } = await import('node:fs/promises');
@@ -41,7 +49,7 @@ function crop(image:Pixels, rect:Rect):Buffer { const output={width:rect.w,heigh
 test('all production PNGs have verified source/encoded/pixel hashes and valid crop rectangles', async () => {
  assert.ok(manifest);
  const result=await verifier.verifyStaticArtAssets(root);
- assert.equal(result.resources,32);
+ assert.equal(result.resources,17);
  assert.equal(result.bytes,result.mainBytes+result.cosmeticsBytes);
  assert.equal(result.sourceCommit,'dd847c3174466f0004111b8667a2ff45c563e889');
 });
@@ -67,6 +75,8 @@ test('lossless PNG optimization preserves every RGBA byte including transparent 
 
 test('repeat generation reproduces every committed PNG byte in the pinned authoring environment', async () => {
  const generated=await generator.generateStaticArt({write:false});
+ assert.deepEqual(Object.keys(generated.resources).sort(),resourceList().map(resource=>resource.key).sort());
+ assert.deepEqual(generated.previews,{});
  for(const resource of resourceList()) {
   assert.equal(generated.resources[resource.key].sha256,resource.sha256,resource.key);
   assert.deepEqual(generated.buffers.get(resource.key),await readFile(join(root,resource.sourcePath)),resource.key);
@@ -117,15 +127,13 @@ test('clockwise-packed classic frame strips restore exactly with all corner rive
  }
 });
 
-test('classic scenes retain transparent rack gaps while every preview background is opaque', async () => {
+test('classic scenes retain transparent rack gaps without packaged preview backgrounds', async () => {
  for(const theme of ['day','night']) {
   const scene=await image(`scene.${theme}`);
   assert.equal(scene.pixels[3],0,`${theme} outer gap`);
   assert.equal(scene.pixels[(540*4)+3],255,`${theme} center backdrop`);
  }
- for(const resource of resourceList().filter(item=>item.key.startsWith('preview.'))) {
-  const decoded=await image(resource.key);for(let i=3;i<decoded.pixels.length;i+=4)assert.equal(decoded.pixels[i],255,`${resource.key} unexpected transparent hole`);
- }
+ assert.equal(resourceList().some(item=>item.key.startsWith('preview.')),false);
 });
 
 test('verification rejects a corrupt packaged image before runtime', async () => {

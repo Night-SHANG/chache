@@ -70,6 +70,9 @@ const RETIRED_COSMETIC_KEYS: ReadonlySet<string> = new Set([
   'theme.field_station', 'cargo.field_supply', 'forklift.field',
   'theme.harbor', 'cargo.harbor_container', 'forklift.harbor',
   'theme.royal_store', 'cargo.royal_gold', 'forklift.royal',
+  'theme.ice_vault', 'cargo.ice_crystal', 'forklift.ice',
+  'theme.forest_depot', 'cargo.wood', 'forklift.timber',
+  'theme.lava_forge', 'cargo.lava_core', 'forklift.lava',
 ]);
 export const COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze(HISTORICAL_COSMETIC_CATALOG.filter(item => !RETIRED_COSMETIC_KEYS.has(item.key)));
 export const FREE_COSMETICS: readonly string[] = Object.freeze(COSMETIC_CATALOG.filter(item => item.price === 0 && !item.achievementId).map(item => item.key).sort());

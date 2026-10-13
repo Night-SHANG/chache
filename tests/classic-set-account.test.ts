@@ -12,17 +12,17 @@ import {FaultStorage,makeAccountFixture,makeAccountRun} from './helpers/account-
 
 function setup(owned:string[]=[],factory=createAccountService,active=false){
  const account=upgradeAccountGuides(retainAccountCosmetics(upgradeEconomy(makeAccountFixture({wallet:1800,inventory:{rotate:2,clear:1,wildcard:1},...(active?{run:makeAccountRun(),nextRunSerial:2}:{})}))));
- account.profile.ownedCosmetics=[...new Set([...account.profile.ownedCosmetics!,'theme.cold_chain','cargo.wood','forklift.electric',...owned])].sort();
- account.profile.cosmetics={theme:'cold_chain',cargo:'wood',forklift:'electric'};account.profile.cargoOutline=true;
+ account.profile.ownedCosmetics=[...new Set([...account.profile.ownedCosmetics!,'theme.cold_chain','cargo.insulated','forklift.electric',...owned])].sort();
+ account.profile.cosmetics={theme:'cold_chain',cargo:'insulated',forklift:'electric'};account.profile.cargoOutline=true;
  const storage=new FaultStorage(),raw=encodeAccount(account);storage.values.set(ACCOUNT_KEYS.a,raw);storage.values.set(ACCOUNT_KEYS.b,raw);
  const service=factory(storage,{status:'held',release(){}},()=>0);storage.resetFault();return {account,storage,service,raw};
 }
 const request=(selection:unknown={theme:'night',cargo:'outline',forklift:'yellow'},operationId='classic.once')=>({type:'equipClassicSet',selection,operationId}) as AccountRequest;
 
-test('legacy classic preset helpers retain ten active triples and 38 independently priced items',()=>{
- assert.equal(COSMETIC_CATALOG.length,38);assert.equal(sets.COSMETIC_SETS.length,10);
+test('legacy classic preset helpers retain seven active triples and 29 independently priced items',()=>{
+ assert.equal(COSMETIC_CATALOG.length,29);assert.equal(sets.COSMETIC_SETS.length,7);
  assert.deepEqual(sets.CLASSIC_COSMETIC_SET,{id:'classic',name:'经典套装',theme:'day',cargo:'classic',forklift:'yellow'});
- assert.deepEqual(sets.SHOP_COSMETIC_SETS,[sets.CLASSIC_COSMETIC_SET,...sets.COSMETIC_SETS]);assert.equal(sets.SHOP_COSMETIC_SETS.length,11);
+ assert.deepEqual(sets.SHOP_COSMETIC_SETS,[sets.CLASSIC_COSMETIC_SET,...sets.COSMETIC_SETS]);assert.equal(sets.SHOP_COSMETIC_SETS.length,8);
  assert.equal(sets.getCosmeticSet('classic'),sets.CLASSIC_COSMETIC_SET);assert.equal(sets.quoteCosmeticSetPurchase('classic',{ownedCosmetics:[]}),null);
  assert.deepEqual(sets.DEFAULT_CLASSIC_SET_SELECTION,{theme:'day',cargo:'classic',forklift:'yellow'});
  assert.ok(Object.isFrozen(sets.CLASSIC_COSMETIC_SET));assert.ok(Object.isFrozen(sets.SHOP_COSMETIC_SETS));assert.ok(Object.isFrozen(sets.DEFAULT_CLASSIC_SET_SELECTION));
@@ -40,7 +40,7 @@ test('all sixteen owned classic choices atomically equip three slots and the exa
 });
 
 test('classic validates allowed values, exact shape and selected ownership without fallback or partial writes',()=>{
- for(const selection of [null,[],{},'classic',{theme:'day',cargo:'classic'}, {theme:'harbor',cargo:'classic',forklift:'yellow'},{theme:'day',cargo:'wood',forklift:'yellow'},{theme:'day',cargo:'classic',forklift:'electric'},{theme:'day',cargo:'classic',forklift:'yellow',cargoOutline:true},...['blue','red','white'].map(forklift=>({theme:'night',cargo:'outline',forklift}))]){
+ for(const selection of [null,[],{},'classic',{theme:'day',cargo:'classic'}, {theme:'harbor',cargo:'classic',forklift:'yellow'},{theme:'day',cargo:'insulated',forklift:'yellow'},{theme:'day',cargo:'classic',forklift:'electric'},{theme:'day',cargo:'classic',forklift:'yellow',cargoOutline:true},...['blue','red','white'].map(forklift=>({theme:'night',cargo:'outline',forklift}))]){
   const {account,storage,service,raw}=setup();assert.equal(service.transact(request(selection),0).status,'not_committed',JSON.stringify(selection));assert.deepEqual(service.getSnapshot(),account);assert.deepEqual([...storage.values.values()],[raw,raw]);assert.equal(storage.operations.some(op=>op.kind==='set'),false);
  }
  for(const type of ['purchaseCosmeticSet','equipCosmeticSet']){
@@ -91,15 +91,15 @@ test('free playtest classic still requires an explicit existing-item claim befor
 });
 
 
-test('classic outline replaces ice crystal with classic cargo and classic choice explicitly clears the outline',()=>{
- const {service}=setup(['cargo.ice_crystal']);
- assert.equal(service.transact({type:'setCargoOutline',enabled:false,operationId:'ice.outline.off'},0).status,'acknowledged');
- assert.equal(service.transact({type:'setCosmetic',kind:'cargo',id:'ice_crystal',operationId:'ice.equip'},1).status,'acknowledged');
- const icy=service.getSnapshot()!;assert.equal(icy.profile.cosmetics.cargo,'ice_crystal');assert.equal(icy.profile.cargoOutline,false);
- assert.equal(service.transact(request({theme:'night',cargo:'outline',forklift:'yellow'},'ice.classic.outline'),2).status,'acknowledged');
+test('classic outline replaces ocean relic with classic cargo and classic choice explicitly clears the outline',()=>{
+ const {service}=setup(['cargo.ocean_relic']);
+ assert.equal(service.transact({type:'setCargoOutline',enabled:false,operationId:'ocean.outline.off'},0).status,'acknowledged');
+ assert.equal(service.transact({type:'setCosmetic',kind:'cargo',id:'ocean_relic',operationId:'ocean.equip'},1).status,'acknowledged');
+ const oceanic=service.getSnapshot()!;assert.equal(oceanic.profile.cosmetics.cargo,'ocean_relic');assert.equal(oceanic.profile.cargoOutline,false);
+ assert.equal(service.transact(request({theme:'night',cargo:'outline',forklift:'yellow'},'ocean.classic.outline'),2).status,'acknowledged');
  assert.deepEqual(service.getSnapshot()?.profile.cosmetics,{theme:'night',cargo:'classic',forklift:'yellow'});assert.equal(service.getSnapshot()?.profile.cargoOutline,true);
- assert.equal(service.transact(request({theme:'day',cargo:'classic',forklift:'yellow'},'ice.classic.plain'),3).status,'acknowledged');
- assert.deepEqual(service.getSnapshot()?.profile.cosmetics,{theme:'day',cargo:'classic',forklift:'yellow'});assert.equal(service.getSnapshot()?.profile.cargoOutline,false);assert.equal(service.getSnapshot()?.wallet,icy.wallet);assert.deepEqual(service.getSnapshot()?.profile.ownedCosmetics,icy.profile.ownedCosmetics);
+ assert.equal(service.transact(request({theme:'day',cargo:'classic',forklift:'yellow'},'ocean.classic.plain'),3).status,'acknowledged');
+ assert.deepEqual(service.getSnapshot()?.profile.cosmetics,{theme:'day',cargo:'classic',forklift:'yellow'});assert.equal(service.getSnapshot()?.profile.cargoOutline,false);assert.equal(service.getSnapshot()?.wallet,oceanic.wallet);assert.deepEqual(service.getSnapshot()?.profile.ownedCosmetics,oceanic.profile.ownedCosmetics);
 });
 
 test('restart repairs a pending classic outfit with the original outline and no partial publication',()=>{

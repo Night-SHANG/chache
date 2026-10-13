@@ -37,14 +37,14 @@ function setup(factory = createAccountService, owned: string[] = [], active = fa
   return open(account, factory);
 }
 
-test('historical catalog stays byte-identical while ten active internal sets retain independent prices', () => {
+test('historical catalog stays byte-identical while seven active internal sets retain independent prices', () => {
   assert.equal(createHash('sha256').update(JSON.stringify(HISTORICAL_COSMETIC_CATALOG.slice(0, 47))).digest('hex'), 'deeb6101976258546aea1ec4e7b0b7d15b9897fcdacf0554a0b1de17ce425d78');
-  assert.equal(COSMETIC_CATALOG.length, 38);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 38);
-  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [12, 12, 14]);
-  assert.equal(cosmeticSets.COSMETIC_SETS.length, 10);
+  assert.equal(COSMETIC_CATALOG.length, 29);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 29);
+  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [9, 9, 11]);
+  assert.equal(cosmeticSets.COSMETIC_SETS.length, 7);
   const used = new Set(cosmeticSets.COSMETIC_SETS.flatMap(memberKeys));
-  assert.equal(used.size, 30);
+  assert.equal(used.size, 21);
   assert.deepEqual(COSMETIC_CATALOG.filter(item => !used.has(item.key)).map(item => item.key).sort(), [
     'cargo.classic', 'cargo.outline', 'forklift.blue', 'forklift.red', 'forklift.white', 'forklift.yellow', 'theme.day', 'theme.night',
   ]);
@@ -117,9 +117,9 @@ test('a previously committed discounted bundle receipt can still repair a missin
   assert.equal(storage.operations.some(op => op.kind === 'set'), false);
 });
 
-test('retained forest and ice cosmetics support exact independent prices, purchase, equip and reload', () => {
+test('retained steam and ocean cosmetics support exact independent prices, purchase, equip and reload', () => {
   const { account, service, storage } = setup(); let spent = 0;
-  const additions = [['theme', 'forest_depot', 900], ['theme', 'ice_vault', 900], ['forklift', 'timber', 600], ['forklift', 'ice', 600]] as const;
+  const additions = [['theme', 'steam_foundry', 900], ['theme', 'ocean_vault', 900], ['forklift', 'steam', 600], ['forklift', 'diving', 600]] as const;
   for (const [kind, id, price] of additions) {
     assert.equal(getCosmetic(kind, id)?.price, price);
     const generation = service.getSnapshot()!.generation;

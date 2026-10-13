@@ -61,7 +61,7 @@ test('shop cancellation releases its pending card and permits a fresh pointer ta
 });
 
 test('shop gesture is abandoned when a modal, blocked account, detail, tab, section or screen replaces its list',()=>{
- for(const patch of [{confirmation:{kind:'purchase'}},{accountBlocked:true},{cosmeticSetPreview:'cold_chain'},{shopItemDetail:{kind:'cargo',id:'wood'}},{shopTab:'tools'},{shopSection:'cargo'},{screen:'game'}]){
+ for(const patch of [{confirmation:{kind:'purchase'}},{accountBlocked:true},{cosmeticSetPreview:'cold_chain'},{shopItemDetail:{kind:'cargo',id:'insulated'}},{shopTab:'tools'},{shopSection:'cargo'},{screen:'game'}]){
   for(const move of [false,true]){
    const f=fixture();f.input.down(origin);Object.assign(f.view,patch);if(move)f.input.move({x:330,y:1080});f.input.up(origin);assert.deepEqual(f.actions,[],JSON.stringify({patch,move}));assert.deepEqual(f.commands,[]);assert.deepEqual(f.previews,[]);
   }
@@ -77,7 +77,7 @@ test('shop wheel is unclaimed at every viewport edge and for all finite or inval
 });
 
 test('wheel cannot change gameplay, tools, modals, blocked saves, ordinary previews or set details',()=>{
- for(const patch of [{screen:'game'},{shopTab:'tools'},{confirmation:{kind:'purchase'}},{accountBlocked:true},{cosmeticSetPreview:'cold_chain'},{shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}]){
+ for(const patch of [{screen:'game'},{shopTab:'tools'},{confirmation:{kind:'purchase'}},{accountBlocked:true},{cosmeticSetPreview:'cold_chain'},{shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}]){
   const f=fixture();Object.assign(f.view,patch);const before=structuredClone(f.view);assert.equal(f.wheel(origin,100),false,JSON.stringify(patch));assert.deepEqual(f.actions,[]);assert.deepEqual(f.view,before);assert.deepEqual(f.commands,[]);assert.deepEqual(f.previews,[]);
  }
 });
@@ -133,7 +133,7 @@ test('real paginated shop drags preserve pages, previews, account data and game 
  const dataBefore=[...h.data],checksum=playableChecksum(s.state);
  for(const section of ['theme','cargo','forklift'] as const){
   s.action({type:'selectShopSection',section});s.action({type:'selectCosmeticPage',page:2});
-  const card=getUiControls(s.state,s.view).filter(control=>control.action.type==='previewCosmetic')[1];assert.ok(card);
+  const cards=getUiControls(s.state,s.view).filter(control=>control.action.type==='previewCosmetic'),card=cards[cards.length-1];assert.ok(card);
   const point={x:card.rect.x+card.rect.w/2,y:card.rect.y+card.rect.h/2},before=structuredClone(s.view);
   s.input.down(point,7);s.input.move({x:point.x,y:point.y-50},7);assert.deepEqual(s.view,before,section);
   s.input.move(point,7);s.input.up(point,7);assert.deepEqual(s.view,before,section);

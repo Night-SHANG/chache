@@ -10,7 +10,7 @@ import {readFileSync} from 'node:fs';
 import {mobileCanvasContext} from './helpers/wechat-canvas-contract.ts';
 import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import {getUiControls} from '../src/presentation/ui.ts';
-import {getShopControls,COSMETIC_PREVIEW_RECT} from '../src/presentation/economy-ui.ts';
+import {getShopControls} from '../src/presentation/economy-ui.ts';
 import {sessionHost} from './helpers/session-fixtures.ts';
 
 const settle=()=>new Promise<void>(resolve=>setImmediate(resolve));
@@ -32,16 +32,17 @@ test('actual WeChat entry paints visible loading/error/retry and exact ready art
  // Input coordinates are CSS, scaled by the real platform to logical retry center (540,1160).
  const event={changedTouches:[{identifier:1,clientX:195,clientY:(844-1920*(390/1080))/2+1160*(390/1080)}]};touch.get('down')!(event);touch.get('up')!(event);await settle();assert.ok(pending.length>0);for(let safety=0;pending.length&&safety<20;safety++){await pending.shift()!.load();await settle();}
  labels.length=0;frames.shift()!(3);assert.ok(!labels.includes('正在加载画面资源'));assert.ok(!labels.includes('画面资源加载失败'));assert.equal(surfaces.length,1);assert.deepEqual([...storage],saved,'loading/retry does not modify the selected appearance or save');
- assert.equal(pending.length,1,'The first ready home paint starts one optional preview image');assert.match(pending[0].path,/preview-.+-item[.]png$/);
+ assert.equal(pending.length,0,'Ready home never starts a per-item preview PNG');
  const mirror=sessionHost().session,tap=(rect:{x:number;y:number;w:number;h:number})=>{const e={changedTouches:[{identifier:2,clientX:(rect.x+rect.w/2)*(390/1080),clientY:(844-1920*(390/1080))/2+(rect.y+rect.h/2)*(390/1080)}]};touch.get('down')!(e);touch.get('up')!(e);};
  const openShop=getUiControls(mirror.state,mirror.view).find(c=>c.action.type==='shop')!;tap(openShop.rect);mirror.action(openShop.action);
  const appearance=getShopControls(mirror.view).find(c=>c.action.type==='selectShopTab'&&c.action.tab==='cosmetics')!;tap(appearance.rect);mirror.action(appearance.action);
  const cold=getShopControls(mirror.view).find(c=>c.action.type==='previewCosmetic'&&c.action.id==='cold_chain')!;tap(cold.rect);mirror.action(cold.action);
- labels.length=0;frames.shift()!(4);assert.ok(labels.includes('场景')&&labels.includes('货箱')&&labels.includes('叉车'));assert.ok(labels.includes('正在准备预览…'));assert.ok(!labels.includes('正在加载画面资源'));
- let injected=false;for(let safety=0;pending.length&&safety<20;safety++){const request=pending.shift()!;if(request.path.endsWith('preview-cold_chain-item.png')){request.image.onerror!(Error('injected local preview failure'));injected=true;}else await request.load();await settle();}
- assert.equal(injected,true);labels.length=0;frames.shift()!(5);assert.ok(labels.includes('预览加载失败，点此重试'));assert.ok(labels.includes('场景')&&labels.includes('货箱')&&labels.includes('叉车'));assert.ok(!labels.includes('画面资源加载失败'));assert.deepEqual([...storage],saved);
- tap(COSMETIC_PREVIEW_RECT);for(let safety=0;pending.length&&safety<20;safety++){await pending.shift()!.load();await settle();}
- labels.length=0;frames.shift()!(6);assert.ok(!labels.some(label=>label.includes('正在准备预览')||label.includes('预览加载失败')||label.includes('正在加载画面资源')));assert.deepEqual([...storage],saved,'preview failure/retry does not purchase or equip anything');
+ labels.length=0;frames.shift()!(4);assert.ok(labels.includes('场景')&&labels.includes('货箱')&&labels.includes('叉车'));assert.ok(labels.includes('冷链仓库'));assert.ok(!labels.some(label=>/加载|准备预览/.test(label)),'The first cold-selection frame is already complete');
+ assert.equal(pending.length,1,'Only the selected full scene may be prepared speculatively');assert.ok(pending[0].path.endsWith('scene-cold_chain.png'));
+ pending.shift()!.image.onerror!(Error('injected target scene failure'));await settle();labels.length=0;frames.shift()!(5);
+ assert.ok(labels.includes('冷链仓库'));assert.ok(!labels.some(label=>/加载|准备预览/.test(label)),'Optional scene failure never replaces the synchronous shop preview');assert.deepEqual([...storage],saved);
+ const cargo=getShopControls(mirror.view).find(c=>c.action.type==='selectShopSection'&&c.action.section==='cargo')!;tap(cargo.rect);mirror.action(cargo.action);
+ labels.length=0;frames.shift()!(6);assert.ok(labels.includes('经典货箱'));assert.ok(!labels.some(label=>/加载|准备预览/.test(label)));assert.deepEqual([...storage],saved,'Synchronous browsing does not purchase or equip');
  const beforeHide=pending.length;for(const hide of hides)hide();assert.equal(pending.length,beforeHide);for(const show of shows)show();frames.shift()!(7);assert.equal(pending.length,beforeHide,'show does not duplicate an image already in flight');
  for(let frame=8;frame<14;frame++){for(let safety=0;pending.length&&safety<20;safety++){await pending.shift()!.load();await settle();}frames.shift()!(frame);}
  assert.equal(surfaces.length,1);assert.equal(pending.length,0);assert.equal(surfaces[0].width,1170);assert.equal(surfaces[0].height,2532);assert.equal(contracts.reduce((sum,contract)=>sum+contract.unsupportedWrites(),0),0);

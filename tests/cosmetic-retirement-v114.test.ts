@@ -17,7 +17,7 @@ const retired = [
 ] as const;
 const kinds = ['theme', 'cargo', 'forklift'] as const;
 const retiredKeys = retired.flatMap(triple => kinds.map((kind, index) => `${kind}.${triple[index]}`));
-const retained = { theme: 'night', cargo: 'wood', forklift: 'white' } as const;
+const retained = { theme: 'night', cargo: 'insulated', forklift: 'white' } as const;
 const fallback = { theme: 'day', cargo: 'classic', forklift: 'yellow' } as const;
 
 function fixture(triple: typeof retired[number], version: 3 | 4 = 4, mask = 7, active = true) {
@@ -46,11 +46,11 @@ function expectedCosmetics(mask: number) {
   return Object.fromEntries(kinds.map((kind, index) => [kind, mask & (1 << index) ? fallback[kind] : retained[kind]]));
 }
 
-test('four retired sets remove exactly twelve active cosmetics while preserving all historical identifiers', () => {
+test('four earlier retired sets stay absent while all historical identifiers remain valid', () => {
   assert.equal(HISTORICAL_COSMETIC_CATALOG.length, 53);
-  assert.equal(COSMETIC_CATALOG.length, 38);
-  assert.deepEqual(kinds.map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [12, 12, 14]);
-  assert.equal(COSMETIC_SETS.length, 10);
+  assert.equal(COSMETIC_CATALOG.length, 29);
+  assert.deepEqual(kinds.map(kind => COSMETIC_CATALOG.filter(item => item.kind === kind).length), [9, 9, 11]);
+  assert.equal(COSMETIC_SETS.length, 7);
   for (const triple of retired) assert.equal(getCosmeticSet(triple[0]), undefined);
   for (const key of retiredKeys) {
     const [kind, id] = key.split('.');

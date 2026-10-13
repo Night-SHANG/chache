@@ -7,7 +7,7 @@ const center=(r:{x:number;y:number;w:number;h:number})=>({x:r.x+r.w/2,y:r.y+r.h/
 for(const kind of ['theme','cargo','forklift'] as const)for(const dismiss of ['confirm','cancel'] as const)test(`${kind} ${dismiss}: rapid repeat does not hit the shop underneath; intentional later input works`,t=>{
  let now=1000;t.mock.method(Date,'now',()=>now);
  const h=sessionHost({wallet:10000}),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
- const id=kind==='theme'?'paper_warehouse':kind==='cargo'?'wood':'white';
+ const id=kind==='theme'?'paper_warehouse':kind==='cargo'?'insulated':'white';
  s.action({type:'selectShopSection',section:kind});s.action({type:'previewCosmetic',kind,id});const purchase:UiAction={type:'purchaseCosmetic',kind,id};
  s.action(purchase);const modal=getUiControls(s.state,s.view).find(c=>c.action.type===dismiss)!;assert.ok(modal);const p=center(modal.rect);s.input.down(p);s.input.up(p);assert.equal(s.view.confirmation,null);
  const state=structuredClone({preview:s.view.cosmeticPreview,set:s.view.cosmeticSetPreview,section:s.view.shopSection,classic:s.view.classicSetSelection}),stored=[...h.data];

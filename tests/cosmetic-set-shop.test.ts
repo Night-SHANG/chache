@@ -34,7 +34,7 @@ test('appearance opens the scene category with exactly three individual categori
   assert.equal(controls(session.view).filter(control => control.action.type === 'purchase').length, 3);
 });
 
-test('all 38 active cosmetics remain reachable through individual pages without writes or equipment changes', () => {
+test('all 29 active cosmetics remain reachable through individual pages without writes or equipment changes', () => {
   const host = sessionHost(), session = host.session; open(session);
   const before = [...host.data], account = structuredClone(session.view.account), ids = new Set<string>(); host.storage.resetFault();
   for (const kind of ['theme', 'cargo', 'forklift'] as const) {
@@ -54,7 +54,7 @@ test('all 38 active cosmetics remain reachable through individual pages without 
     }
   }
   assert.deepEqual([...ids].sort(), COSMETIC_CATALOG.map(item => item.key).sort());
-  assert.equal(ids.size, 38); assert.deepEqual(session.view.account, account); assert.deepEqual([...host.data], before);
+  assert.equal(ids.size, 29); assert.deepEqual(session.view.account, account); assert.deepEqual([...host.data], before);
   session.action({ type: 'back' }); assert.equal(session.view.screen, 'menu');
   assert.equal(host.storage.operations.some(op => op.kind === 'set' || op.kind === 'remove'), false);
 });
@@ -68,18 +68,18 @@ test('stale set, classic and old-browse view metadata cannot render old controls
   }
 });
 
-test('standalone outline preview keeps the classic body even when ice cargo is equipped', async () => {
+test('standalone outline preview keeps the classic body even when ocean cargo is equipped', async () => {
   const account = retainAccountCosmetics(makeAccountFixture({ formatVersion: 2, economyVersion: 2, dailyRewards: {}, wallet: 900 }));
-  account.profile.ownedCosmetics = [...account.profile.ownedCosmetics!, 'cargo.ice_crystal'].sort();
+  account.profile.ownedCosmetics = [...account.profile.ownedCosmetics!, 'cargo.ocean_relic'].sort();
   const plain = await capture(view({ account, shopSection: 'cargo', cosmeticPreview: { cargo: 'outline' } }));
-  account.profile.cosmetics.cargo = 'ice_crystal';
-  const ice = await capture(view({ account, shopSection: 'cargo', cosmeticPreview: { cargo: 'outline' } })), r = COSMETIC_PREVIEW_RECT;
-  assert.equal(digest(ice.c.getContext('2d').getImageData(r.x, r.y, r.w, r.h).data), digest(plain.c.getContext('2d').getImageData(r.x, r.y, r.w, r.h).data));
+  account.profile.cosmetics.cargo = 'ocean_relic';
+  const ocean = await capture(view({ account, shopSection: 'cargo', cosmeticPreview: { cargo: 'outline' } })), r = COSMETIC_PREVIEW_RECT;
+  assert.equal(digest(ocean.c.getContext('2d').getImageData(r.x, r.y, r.w, r.h).data), digest(plain.c.getContext('2d').getImageData(r.x, r.y, r.w, r.h).data));
 });
 
-test('outline selection after ice is explicit and free and leaves classic cargo when disabled', () => {
+test('outline selection after ocean cargo is explicit and free and leaves classic cargo when disabled', () => {
   const account = retainAccountCosmetics(makeAccountFixture({ formatVersion: 2, economyVersion: 2, dailyRewards: {}, wallet: 900 }));
-  account.profile.ownedCosmetics = [...account.profile.ownedCosmetics!, 'cargo.ice_crystal'].sort(); account.profile.cosmetics.cargo = 'ice_crystal';
+  account.profile.ownedCosmetics = [...account.profile.ownedCosmetics!, 'cargo.ocean_relic'].sort(); account.profile.cosmetics.cargo = 'ocean_relic';
   const host = sessionHost(account), session = host.session; open(session);
   session.action({ type: 'previewCosmetic', kind: 'cargo', id: 'outline' }); const before = [...host.data];
   assert.deepEqual([...host.data], before);
