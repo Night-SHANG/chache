@@ -16,7 +16,7 @@ import {COSMETIC_PREVIEW_RECT} from '../src/presentation/economy-ui.ts';
 
 const baseline={theme:'day',cargo:'classic',forklift:'yellow'};
 const scenePath=id=>STATIC_ART_RESOURCES[`scene.${id}`].src;
-const ownedStorage=(owned=true,theme='day')=>cosmeticAccountStorage({label:'FUNDED: isolated v116 per-frame verification',wallet:5000,owned:owned?COSMETIC_CATALOG.map(item=>item.key):[],cosmetics:{...baseline,theme}});
+const ownedStorage=(owned=true,theme='day',cosmetics={})=>cosmeticAccountStorage({label:'FUNDED: isolated v116 per-frame verification',wallet:5000,owned:owned?COSMETIC_CATALOG.map(item=>item.key):[],cosmetics:{...baseline,theme,...cosmetics}});
 const crop={x:68,y:377,w:404,h:112};
 const cropHash=context=>sha256(context.getImageData(crop.x,crop.y,crop.w,crop.h).data);
 
@@ -76,8 +76,8 @@ export async function runV116PlatformTransitions({root,target,out}={}) {
   h.pointer('down',row.logicalX,row.logicalY);frame(`${name}:down`);
   h.pointer('up',row.logicalX,row.logicalY);if(after){current=item;frame(`${name}:up`);}await h.flush();
  };
- const create=async({owned=true,theme='day',rejectImageLoads}={})=>{
-  ordinary=false;current=undefined;saveProtected=true;h=await createV116TransitionHost({target,bundlePath:resolve(root,target,target==='wechat'?'game.js':'app.js'),storage:ownedStorage(owned,theme),rejectImageLoads});
+ const create=async({owned=true,theme='day',cosmetics,rejectImageLoads}={})=>{
+  ordinary=false;current=undefined;saveProtected=true;h=await createV116TransitionHost({target,bundlePath:resolve(root,target,target==='wechat'?'game.js':'app.js'),storage:ownedStorage(owned,theme,cosmetics),rejectImageLoads});
   result.bundleSha256=h.gameJsSha256;saveBefore=h.storageSnapshot();frame('startup:first');
   assert.equal(h.imageTrace.length,1,'Startup requests only the current scene before its eight shared atlases');
   if(target==='android')assert.equal(h.cover.hidden,false);else assertTextPaint(h,'正在加载画面资源');
@@ -92,7 +92,7 @@ export async function runV116PlatformTransitions({root,target,out}={}) {
   const loaded=h.imageTrace.filter(row=>row.status==='loaded').map(row=>row.source).sort();
   assert.deepEqual(loaded,[scenePath(account().profile.cosmetics.theme),...STATIC_ART_SHARED_KEYS.map(key=>STATIC_ART_RESOURCES[key].src)].sort(),'Exactly current scene + eight fixed shared atlases at startup');
  };
- const open=async()=>{await tap('商店','shop:open');await tap('外观','shop:cosmetics',{item:COSMETIC_CATALOG.find(item=>item.kind==='theme'&&item.id===account().profile.cosmetics.theme)});};
+ const open=async()=>{await tap('商店','shop:open');await tap('外观','shop:cosmetics',{item:COSMETIC_CATALOG.find(item=>item.kind==='theme')});};
  for(const owned of [true,false]){
   await create({owned});ready();await open();
   for(const [kind,label] of [['theme','场景'],['cargo','货箱'],['forklift','叉车']]){
@@ -157,6 +157,27 @@ export async function runV116PlatformTransitions({root,target,out}={}) {
  // Target failure cannot replace old scene or write ownership; pressing Equip retries the same PNG.
  fail=true;attempts=0;await create({rejectImageLoads:path=>{if(path!==scenePath('cold_chain'))return false;attempts++;return fail;}});ready();await open();await tap(cold.name,'target-error:select',{item:cold,card:true});await tap('装备','target-error:equip');await drain('target-error:failed-decode');assert.equal(h.storageSnapshot(),saveBefore);assert.equal(attempts,1);assertTextPaint(h,'外观未能读取，请再次点装备重试');
  fail=false;await tap('装备','target-error:explicit-equip-retry');assert.equal(h.storageSnapshot(),saveBefore);saveProtected=false;await drain('target-error:retry-decode');assert.equal(attempts,2);assert.equal(account().profile.cosmetics.theme,cold.id);assert.equal(account().wallet,5000);result.cases.push('target-scene-failure-retry');
+ // Fresh category entry starts at the first item, independently of equipped second-page art.
+ const categories=[['theme','场景'],['cargo','货箱'],['forklift','叉车']].map(([kind,label])=>({kind,label,items:COSMETIC_CATALOG.filter(item=>item.kind===kind)}));
+ const secondPageCosmetics=Object.fromEntries(categories.map(({kind,items})=>[kind,items[5].id]));
+ await create({cosmetics:secondPageCosmetics});ready();await open();
+ const firstPage=items=>assertTextPaint(h,`1 / ${Math.ceil(items.length/4)}`);
+ for(const {kind,label,items} of categories){
+  await tap(label,`first-page:${kind}:cold`,{item:items[0]});firstPage(items);await drain(`first-page:${kind}:cold-decodes`);
+  assert.deepEqual(account().profile.cosmetics,secondPageCosmetics,'Cold category entry must not change equipped appearance');
+  await tap('下一页',`first-page:${kind}:deliberate-page-two`,{item:items[4]});
+  await tap(items[6].name,`first-page:${kind}:deliberate-item`,{item:items[6],card:true});await drain(`first-page:${kind}:selection-decodes`);
+ }
+ for(const {kind,label,items} of categories){
+  await tap(label,`first-page:${kind}:remembered-in-visit`,{item:items[6]});assertTextPaint(h,`2 / ${Math.ceil(items.length/4)}`);await drain(`first-page:${kind}:remembered-decodes`);
+ }
+ await tap('返回','first-page:exit-shop',{item:null});assertTextPaint(h,'商店');
+ await tap('商店','first-page:reopen-tools');assertTextPaint(h,'每局最多携带2种道具');
+ assert.ok(!h.labels.some(row=>row.logicalY===1020),'Reopening the shop resets to the tools tab');
+ await tap('外观','first-page:reopen-cosmetics',{item:categories[0].items[0]});firstPage(categories[0].items);
+ for(const {kind,label,items} of categories){await tap(label,`first-page:${kind}:reopened`,{item:items[0]});firstPage(items);await drain(`first-page:${kind}:reopened-decodes`);}
+ assert.deepEqual(account().profile.cosmetics,secondPageCosmetics);assert.equal(h.storageSnapshot(),saveBefore,'First-page defaults and per-visit selections never write account bytes');
+ result.cases.push('second-page-equipped-first-entry-and-visit-reset');
  for(const theme of COSMETIC_CATALOG.filter(item=>item.kind==='theme')){await create({theme:theme.id});ready();await capture(`startup-${theme.id}`);assert.equal(h.storageSnapshot(),saveBefore);}
  result.cases.push('all-nine-current-themes-cold-startup');
  return result;

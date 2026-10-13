@@ -25,13 +25,13 @@ test('real sparse runtime CLI verifies and joins immutable handoff without sourc
   await writeFile(join(tools,'aapt'),`#!/usr/bin/env node
 const test=process.argv.some(p=>p.includes('androidTest.apk')),code=process.argv.some(p=>p.includes('vc2-'))?2:1;
 if(process.argv.includes('xmltree'))console.log('E: manifest\\n  E: instrumentation\\n    A: android:name(0x01010003)="androidx.test.runner.AndroidJUnitRunner"\\n    A: android:targetPackage(0x01010021)="io.github.nightshang.chache"');
-else console.log("package: name='io.github.nightshang.chache"+(test?".test":"")+"' versionCode='"+(test?"":code)+"' versionName='"+(test?"":"1.0.16")+"'\\napplication-label:'货箱最后一格'");
+else console.log("package: name='io.github.nightshang.chache"+(test?".test":"")+"' versionCode='"+(test?"":code)+"' versionName='"+(test?"":"1.0.17")+"'\\napplication-label:'货箱最后一格'");
 `,{mode:0o755});
   await writeFile(join(tools,'apksigner'),`#!/bin/sh\nprintf 'Signer #1 certificate SHA-256 digest: ${cert}\\n'\n`,{mode:0o755});
   await writeFile(join(tools,'zipalign'),'#!/bin/sh\nexit 0\n',{mode:0o755});
   const payload=join(root,'build/android-ci/handoff');await mkdir(join(payload,'apks'),{recursive:true});await mkdir(join(payload,'evidence'));
   const zip=run(root,'python',['-c',`import zipfile,sys,json,hashlib,pathlib
-p=pathlib.Path(sys.argv[1]);assets={'app.js':b'formal paid fixture','build-manifest.json':json.dumps({'platform':'android','version':'1.0.16','sourceContentVersion':'1.0.16','shopPricingMode':'paid','developerDiagnostics':False}).encode()}
+p=pathlib.Path(sys.argv[1]);assets={'app.js':b'formal paid fixture','build-manifest.json':json.dumps({'platform':'android','version':'1.0.17','sourceContentVersion':'1.0.17','shopPricingMode':'paid','developerDiagnostics':False}).encode()}
 sums=''.join(hashlib.sha256(v).hexdigest()+'  '+k+'\\n' for k,v in sorted(assets.items()));assets['SHA256SUMS']=sums.encode()
 for name in ['warehouse-vc1-temporary-debug.apk','warehouse-vc2-temporary-debug.apk']:
  with zipfile.ZipFile(p/'apks'/name,'w') as z:

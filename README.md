@@ -1,4 +1,4 @@
-# 货箱最后一格 v1.0.16 · 即时外观预览
+# 货箱最后一格 v1.0.17 · 即时外观预览
 
 微信、浏览器与 Android 使用同一份单包资源代码。商店只保留场景、货箱、叉车三个单品分类，移除套装入口与优惠。此前四套停售基础上，本次再停售冰晶货仓、林间货仓、熔岩铸造厂三组及各自货箱/叉车。历史购买记录与库存保留；已装备的退役外观安全显示经典默认外观，金币与其他进度保持。音乐文件、音量与编码不变。
 
@@ -14,7 +14,7 @@
 
 ## 构建与验证边界
 
-使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.16/vc6；staging构建不代表已生成或签名APK。
+使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.17/vc7；staging构建不代表已生成或签名APK。
 
 历史两项美术母图缺失检查保留，不能表述为全量测试全绿。运行PNG和当前构建不依赖这两张缺失母图的重新生成。当前三页真实截图使用生产renderer与native Canvas，不能替代浏览器、微信开发者工具或实体手机验证。
 

@@ -34,8 +34,8 @@ export function cosmeticSetShopPage(view:ViewState):{page:number;pages:number;it
 }
 export const COSMETICS_PER_PAGE=4;
 export function selectedShopCosmetic(view:ViewState):CosmeticDefinition {
- const kind=view.shopItemDetail?.kind??(shopSection(view)==='sets'?'theme':shopSection(view)) as CosmeticDefinition['kind'],appearance=accountCosmeticState(view.account??null,view.profile);
- return getCosmetic(kind,view.shopItemDetail?.id??view.cosmeticPreview?.[kind]??appearance.cosmetics[kind])??COSMETIC_CATALOG.find(item=>item.kind===kind)!;
+ const kind=view.shopItemDetail?.kind??(shopSection(view)==='sets'?'theme':shopSection(view)) as CosmeticDefinition['kind'];
+ return getCosmetic(kind,view.shopItemDetail?.id??view.cosmeticPreview?.[kind]??'')??COSMETIC_CATALOG.find(item=>item.kind===kind)!;
 }
 export function cosmeticShopPage(view:ViewState):{page:number;pages:number;items:readonly CosmeticDefinition[]} {
  const selected=selectedShopCosmetic(view),options=COSMETIC_CATALOG.filter(item=>item.kind===selected.kind),page=Math.floor(options.findIndex(item=>item.id===selected.id)/COSMETICS_PER_PAGE);

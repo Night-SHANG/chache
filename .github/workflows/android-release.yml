@@ -1,4 +1,4 @@
-name: Android v1.0.16 private signed candidate
+name: Android v1.0.17 private signed candidate
 
 on:
   push:
@@ -97,9 +97,9 @@ jobs:
       - name: Complete npm regression with exact baseline accounting
         id: regression
         run: node scripts/android-test-report.mjs run
-      - name: Compile unsigned release vc6 without signing credentials
+      - name: Compile unsigned release vc7 without signing credentials
         working-directory: android
-        run: ./gradlew --no-daemon --console=plain -PwarehouseReleaseVersionCode=6 :app:testReleaseUnitTest :app:lintRelease :app:assembleRelease
+        run: ./gradlew --no-daemon --console=plain -PwarehouseReleaseVersionCode=7 :app:testReleaseUnitTest :app:lintRelease :app:assembleRelease
       - name: Verify exact unsigned release and complete build evidence
         id: unsigned
         run: |
@@ -181,7 +181,7 @@ jobs:
         with:
           name: android-private-candidate-pending-review-${{ github.sha }}
           path: |
-            build/android-ci/candidate/warehouse-last-slot-1.0.16-vc*-temporary-debug-candidate-*.apk
+            build/android-ci/candidate/warehouse-last-slot-1.0.17-vc*-temporary-debug-candidate-*.apk
             build/android-ci/candidate/android-build-receipt.json
             build/android-ci/candidate/SHA256SUMS
           if-no-files-found: error
@@ -367,9 +367,9 @@ jobs:
       - name: Preserve private signed candidate and public receipt only
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: android-v116-signed-candidate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          name: android-v117-signed-candidate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
           path: |
-            build/android-ci/signed-release/warehouse-last-slot-1.0.16-vc6-release-candidate.apk
+            build/android-ci/signed-release/warehouse-last-slot-1.0.17-vc7-release-candidate.apk
             build/android-ci/signed-release/signed-release-receipt.json
             build/android-ci/signed-release/SHA256SUMS
           if-no-files-found: error

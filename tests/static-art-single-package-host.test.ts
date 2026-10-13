@@ -62,7 +62,12 @@ test('unchanged browser, WeChat and Android bundles render every active cold/hot
    assert.equal(new Set(result.visited).size,58,platform);
    assert.ok(result.frames.some(frame=>frame.name.includes(':decode:')),platform);
    assert.ok(result.frames.some(frame=>frame.name.includes('equip:before-decode:up')),platform);
-   assert.equal(result.cases.length,12,platform);
+   assert.equal(result.cases.length,13,platform);
+   assert.ok(result.cases.includes('second-page-equipped-first-entry-and-visit-reset'),platform);
+   for(const kind of ['theme','cargo','forklift'])for(const state of ['cold','remembered-in-visit','reopened']){
+    assert.ok(result.frames.some(frame=>frame.name===`first-page:${kind}:${state}:up`),`${platform} ${kind} ${state}`);
+   }
+   assert.ok(result.frames.length>=708,'Preserve all previous per-platform frame coverage');
   }
  }finally{await rm(root,{recursive:true,force:true});}
 });
