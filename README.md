@@ -1,8 +1,8 @@
-# 货箱最后一格 v1.0.18 · 恢复直接显示与操作
+# 货箱最后一格 v1.0.19 · 安卓启动与按钮音效
 
 微信、浏览器与 Android 使用同一份单包资源代码。商店只保留场景、货箱、叉车三个单品分类，移除套装入口与优惠。保持v1.0.15以来已停售的外观目录不变。历史购买记录与库存保留；已装备的退役外观安全显示经典默认外观，金币与其他进度保持。音乐文件、音量与编码不变。
 
-浏览器、微信、Android恢复分包前的直接绘制与输入：不再等待9张图集、显示整页加载或暂停装备保存。PNG未就绪时复用v112原有同步画法，加载后继续使用当前PNG优化。装备直接走已有账户事务；图片完成或失败不写存档。三端保持单主包、现有皮肤目录和原音频字节。Android仅保留原生宿主、存储与屏幕能力检查和实际平台错误报告。
+浏览器、微信、Android直接绘制与输入：不再等待9张图集、显示整页加载或暂停装备保存。PNG未就绪时复用v112原有同步画法，加载后继续使用当前PNG优化。装备直接走已有账户事务；图片完成或失败不写存档。三端保持单主包、现有皮肤目录和原音频字节。Android正常启动表现对齐当前浏览器与微信，不显示额外检查或加载文字；实际启动失败才显示原因。Android按钮音效提升，浏览器、微信及背景音乐音量保持。
 
 ## 打开与继续旧存档
 
@@ -14,7 +14,7 @@
 
 ## 构建与验证边界
 
-使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.18/vc8；staging构建不代表已生成或签名APK。
+使用Node.js24，运行npm ci --ignore-scripts，再执行npm run lint、npm run typecheck、npm test、npm run preflight。正式构建为npm run build:production；Android网页staging为npm run build:android。新Android标识为v1.0.19/vc9；staging构建不代表已生成或签名APK。
 
 历史两项美术母图缺失检查保留，不能表述为全量测试全绿。运行PNG和当前构建不依赖这两张缺失母图的重新生成。当前三页真实截图使用生产renderer与native Canvas，不能替代浏览器、微信开发者工具或实体手机验证。
 

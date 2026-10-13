@@ -25,3 +25,17 @@ for(const target of ['browser','wechat','android'] as const)test(`${target} firs
   assert.equal(host.canvasCount,1);
  }finally{await rm(dir,{recursive:true,force:true});}
 });
+
+ test('Android startup stays silent through native bridge, zero geometry, readiness and held PNGs',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'silent-android-'));
+ try {
+  const bundlePath=join(dir,'app.js');await build({...androidBundleOptions(),entryPoints:['src/android-main.ts'],outfile:bundlePath});
+  const host=await createV116TransitionHost({target:'android',bundlePath,holdNativeState:true,initialGeometryReady:false});
+  const silent=()=>{assert.equal(host.cover.hidden,true);assert.equal(host.cover.textContent,'');assert.ok(host.coverWrites.every((row:{hidden:boolean;text:string})=>row.hidden&&row.text===''),'no transient visible or normal-status write at any bootstrap stage');};
+  silent();assert.equal(host.storage.size,0);
+  host.releaseNativeState();await host.flush();silent();
+  for(let n=0;n<5;n++){host.frame();await host.flush();silent();}assert.equal(host.storage.size,0,'pending geometry must not initialize storage');
+  host.releaseGeometry();host.frame();await host.flush();silent();
+  const frame=host.frame();silent();assert.ok(frame.texts.includes('入库模式'),'actual cold menu is painted after real bootstrap completes');assert.ok(host.pendingImages().length>0,'PNGs are deliberately still pending');
+ }finally{await rm(dir,{recursive:true,force:true});}
+});

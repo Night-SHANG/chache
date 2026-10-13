@@ -9,12 +9,14 @@ import {createCanvas,Image} from '@napi-rs/canvas';
 import {authoritativeAccount,sha256} from './growth-host-support.mjs';
 import {attachPixelWitness} from './refinement-host-support.mjs';
 
-export async function createV116TransitionHost({target,bundlePath,storage=new Map(),width=540,height=960,rejectImageLoads=()=>false}={}) {
+export async function createV116TransitionHost({target,bundlePath,storage=new Map(),width=540,height=960,rejectImageLoads=()=>false,holdNativeState=false,initialGeometryReady=true}={}) {
  const bytes=await readFile(bundlePath),root=await realpath(dirname(resolve(bundlePath)));
  const canvas=createCanvas(width,height),context=canvas.getContext('2d'),labels=[],draws=[],imageTrace=[],jobs=[],frames=new Map(),events=new Map(),nativeListeners=new Map(),operations=[],audioTrace=[];
  let now=0,frameId=0,listenerId=0,canvasCount=target==='wechat'?0:1,hidden=false;
- const callbacks={},captures=new Set(),cover={hidden:false,textContent:'货箱最后一格\n正在启动…'};
- let state={active:true,owner:true,widthPx:width,heightPx:height,insetsPx:{top:0,right:0,bottom:0,left:0}};
+ const callbacks={},captures=new Set(),coverWrites=[];let coverHidden=true,coverText='';
+ const cover={get hidden(){return coverHidden;},set hidden(value){coverHidden=value;coverWrites.push({hidden:coverHidden,text:coverText});},get textContent(){return coverText;},set textContent(value){coverText=value;coverWrites.push({hidden:coverHidden,text:coverText});}};
+ let releaseNativeState;const nativeStateBarrier=new Promise(resolve=>{releaseNativeState=resolve;});
+ let state={active:true,owner:true,widthPx:initialGeometryReady?width:0,heightPx:initialGeometryReady?height:0,insetsPx:{top:0,right:0,bottom:0,left:0}};
  const bind=(scope,name,fn)=>{const key=`${scope}:${name}`;if(!events.has(key))events.set(key,new Set());events.get(key).add(fn);};
  const unbind=(scope,name,fn)=>events.get(`${scope}:${name}`)?.delete(fn);
  const emit=(scope,name,event={})=>{for(const fn of events.get(`${scope}:${name}`)??[])fn(event);};
@@ -53,7 +55,7 @@ export async function createV116TransitionHost({target,bundlePath,storage=new Ma
  Object.assign(canvas,{getBoundingClientRect:()=>({left:0,top:0,width,height}),addEventListener:(name,fn)=>bind('canvas',name,fn),removeEventListener:(name,fn)=>unbind('canvas',name,fn),setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)});
  const document={querySelector:selector=>selector==='#game'?canvas:selector==='#startup-status'?cover:null,get hidden(){return hidden;},addEventListener:(name,fn)=>bind('document',name,fn),removeEventListener:(name,fn)=>unbind('document',name,fn),createElement(){canvasCount++;throw Error('Offscreen surfaces are not allowed');}};
  const Capacitor={PluginHeaders:[{name:'WarehouseHost',methods:[{name:'getState',rtype:'promise'},{name:'minimize',rtype:'promise'},{name:'addListener',rtype:'callback'},{name:'removeListener',rtype:'promise'}]}],
-  async nativePromise(plugin,method,options){assert.equal(plugin,'WarehouseHost');if(method==='getState')return JSON.parse(JSON.stringify(state));if(method==='removeListener'){nativeListeners.delete(options.callbackId);return {};}if(method==='minimize')return {};throw Error(`Unexpected native method ${method}`);},
+  async nativePromise(plugin,method,options){assert.equal(plugin,'WarehouseHost');if(method==='getState'){if(holdNativeState)await nativeStateBarrier;return JSON.parse(JSON.stringify(state));}if(method==='removeListener'){nativeListeners.delete(options.callbackId);return {};}if(method==='minimize')return {};throw Error(`Unexpected native method ${method}`);},
   nativeCallback(plugin,method,options,callback){assert.equal(plugin,'WarehouseHost');assert.equal(method,'addListener');const id=String(++listenerId);nativeListeners.set(id,{event:options.eventName,callback});return id;}};
  const wx={createCanvas(){canvasCount++;assert.equal(canvasCount,1,'Only the screen canvas may be created');return canvas;},getWindowInfo:()=>({windowWidth:width,windowHeight:height,pixelRatio:1}),getStorageSync:key=>get(key)??'',setStorageSync:set,removeStorageSync:remove,getStorageInfoSync:()=>({keys:[...storage.keys()],currentSize:0,limitSize:16384}),createImage:HostImage,createInnerAudioContext:()=>audio(),onWindowResize:fn=>callbacks.resize=fn};
  for(const [name,type] of [['onTouchStart','down'],['onTouchMove','move'],['onTouchEnd','up'],['onTouchCancel','cancel'],['onHide','hide'],['onShow','show']])wx[name]=fn=>callbacks[type]=fn;
@@ -63,11 +65,11 @@ export async function createV116TransitionHost({target,bundlePath,storage=new Ma
  else Object.assign(sandbox,{document,Capacitor,WarehouseStorage,androidBridge:{},location:{origin:'https://localhost',search:''},devicePixelRatio:1,localStorage,Image:HostImage,Audio,URLSearchParams,navigator:{locks:{request:async(_name,_options,fn)=>fn({name:'warehouse.account.s1.writer'})},vibrate:()=>true},addEventListener:(name,fn)=>bind('window',name,fn),removeEventListener:(name,fn)=>unbind('window',name,fn)});
  if(target!=='wechat')sandbox.window=sandbox;
  vm.runInNewContext(bytes.toString('utf8'),sandbox,{timeout:10000,filename:bundlePath});
- const flush=async()=>{for(let n=0;n<40;n++)await Promise.resolve();};await flush();assert.ok(frames.size,'Exact bundle must schedule a frame');
+ const flush=async()=>{for(let n=0;n<40;n++)await Promise.resolve();};await flush();if(!holdNativeState)assert.ok(frames.size,'Exact bundle must schedule a frame');
  const scale=Math.min(width/1080,height/1920),ox=(width-1080*scale)/2,oy=(height-1920*scale)/2;
  const pointer=(type,x,y,id=1)=>{const point={identifier:id,clientX:ox+x*scale,clientY:oy+y*scale};if(target==='wechat')callbacks[type]({changedTouches:[point]});else emit('canvas',`pointer${type}`,{...point,pointerId:id,pointerType:'touch',preventDefault(){}});};
  const emitHost=active=>{state={...state,active};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(JSON.parse(JSON.stringify(state)));};
- const host={canvas,context,storage,labels,draws,imageTrace,operations,audioTrace,cover,viewport:{w:width,h:height,safe:0,dpr:1},gameJsSha256:sha256(bytes),get time(){return now;},get canvasCount(){return canvasCount;},pendingImages:()=>jobs.map(job=>job.row.source),flush,
+ const host={canvas,context,storage,labels,draws,imageTrace,operations,audioTrace,cover,coverWrites,releaseNativeState,releaseGeometry(){state={...state,widthPx:width,heightPx:height};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(JSON.parse(JSON.stringify(state)));},viewport:{w:width,h:height,safe:0,dpr:1},gameJsSha256:sha256(bytes),get time(){return now;},get canvasCount(){return canvasCount;},pendingImages:()=>jobs.map(job=>job.row.source),flush,
   frame(){labels.length=0;draws.length=0;now+=16;const pending=[...frames.values()];frames.clear();for(const fn of pending)fn(now);return {texts:labels.map(row=>row.text),draws:[...draws],cover:target==='android'&&!cover.hidden};},
   pointer,tap(x,y){pointer('down',x,y);pointer('up',x,y);},account:()=>authoritativeAccount(storage),storageSnapshot:()=>JSON.stringify([...storage].sort()),
   async decodeNext(){const job=jobs.shift();assert.ok(job,'Expected an actual pending PNG decode');await job.run();await flush();return {...job.row};},

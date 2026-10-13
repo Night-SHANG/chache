@@ -1,4 +1,4 @@
-name: Android v1.0.18 private signed candidate
+name: Android v1.0.19 private signed candidate
 
 on:
   push:
@@ -80,6 +80,27 @@ jobs:
           npm run sync:android
           npm run verify:android
           node scripts/build-android-acceptance.mjs
+      - name: Verify silent Android bootstrap with pinned Chromium DOM and CSS
+        timeout-minutes: 15
+        shell: bash
+        run: |
+          set -euo pipefail
+          qa_tools="$(mktemp -d "$RUNNER_TEMP/android-startup-chromium.XXXXXX")"
+          trap 'rm -rf -- "$qa_tools"' EXIT
+          export PLAYWRIGHT_BROWSERS_PATH="$qa_tools/browsers"
+          npm install --prefix "$qa_tools" --no-save --package-lock=false --ignore-scripts playwright@1.62.1
+          node "$qa_tools/node_modules/playwright/cli.js" install --with-deps chromium
+          export PLAYWRIGHT_MODULE="$qa_tools/node_modules/playwright/index.js"
+          export ANDROID_HOST_QA_DIR=build/android-ci/startup-host
+          node scripts/verify-android-startup-host.mjs
+      - name: Preserve Chromium startup screenshots and receipt
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-v119-startup-host-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: build/android-ci/startup-host/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Compile and test native debug shell privately
         id: compile
         working-directory: android
@@ -97,9 +118,9 @@ jobs:
       - name: Complete npm regression with exact baseline accounting
         id: regression
         run: node scripts/android-test-report.mjs run
-      - name: Compile unsigned release vc8 without signing credentials
+      - name: Compile unsigned release vc9 without signing credentials
         working-directory: android
-        run: ./gradlew --no-daemon --console=plain -PwarehouseReleaseVersionCode=8 :app:testReleaseUnitTest :app:lintRelease :app:assembleRelease
+        run: ./gradlew --no-daemon --console=plain -PwarehouseReleaseVersionCode=9 :app:testReleaseUnitTest :app:lintRelease :app:assembleRelease
       - name: Verify exact unsigned release and complete build evidence
         id: unsigned
         run: |
@@ -181,7 +202,7 @@ jobs:
         with:
           name: android-private-candidate-pending-review-${{ github.sha }}
           path: |
-            build/android-ci/candidate/warehouse-last-slot-1.0.18-vc*-temporary-debug-candidate-*.apk
+            build/android-ci/candidate/warehouse-last-slot-1.0.19-vc*-temporary-debug-candidate-*.apk
             build/android-ci/candidate/android-build-receipt.json
             build/android-ci/candidate/SHA256SUMS
           if-no-files-found: error
@@ -367,9 +388,9 @@ jobs:
       - name: Preserve private signed candidate and public receipt only
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: android-v118-signed-candidate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          name: android-v119-signed-candidate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
           path: |
-            build/android-ci/signed-release/warehouse-last-slot-1.0.18-vc8-release-candidate.apk
+            build/android-ci/signed-release/warehouse-last-slot-1.0.19-vc9-release-candidate.apk
             build/android-ci/signed-release/signed-release-receipt.json
             build/android-ci/signed-release/SHA256SUMS
           if-no-files-found: error

@@ -10,7 +10,7 @@ import {cellCenter,getTrayRects} from '../src/presentation/layout.ts';
 import {touchDragLift} from '../src/presentation/touch-placement.ts';
 import {AUDIO_LEVELS} from '../src/shared/audio-levels.ts';
 import {MUSIC_LEVELS} from '../src/shared/music-levels.ts';
-import {UI_CLICK_GAIN} from '../src/shared/ui-click-level.ts';
+import {ANDROID_UI_CLICK_GAIN} from '../src/shared/ui-click-level.ts';
 
 test('Android input inverse matches the rendering transform at DPR 1, 2 and 3',()=>{
  for(const dpr of [1,2,3]){
@@ -63,11 +63,11 @@ test('normal capture release preserves tap selection and placement through the s
   f.pointer('pointerdown',piece.x,piece.y+250);f.updateHost({...androidHost,insetsPx:{...androidHost.insetsPx,bottom:120}});assert.equal(session.view.selectedPieceId,null);f.pointer('pointerup',target.x,target.y+250);assert.equal(session.state.commandIndex,before+1);
  }finally{f.restore();}
 });
-test('Android uses shared local audio levels, cached effects, ducking and optional haptics',async()=>{
+test('Android uses its click gain, shared other audio levels, cached effects, ducking and optional haptics',async()=>{
  const f=androidFixture();try{
   f.platform.setMusicState?.(true,false);const music=f.audio[0];assert.equal(music.src,'assets/bgm.mp3');assert.equal(music.loop,true);assert.equal(music.volume,MUSIC_LEVELS.normal);music.currentTime=23;
   f.platform.setMusicState?.(true,false,true);assert.equal(music.volume,MUSIC_LEVELS.paused);assert.equal(music.plays,1);assert.equal(music.currentTime,23);
-  f.platform.playSound('pick');f.platform.playSound('ui_click');f.platform.playSound('pick');f.platform.playSound('unknown' as SoundName);assert.equal(f.audio.length,3);assert.equal(f.audio[1].volume,AUDIO_LEVELS.browserEffects);assert.equal(f.audio[2].volume,AUDIO_LEVELS.browserEffects*UI_CLICK_GAIN);
+  f.platform.playSound('pick');f.platform.playSound('ui_click');f.platform.playSound('pick');f.platform.playSound('unknown' as SoundName);assert.equal(f.audio.length,3);assert.equal(f.audio[1].volume,AUDIO_LEVELS.browserEffects);assert.equal(f.audio[2].volume,AUDIO_LEVELS.browserEffects*ANDROID_UI_CLICK_GAIN);
   f.platform.vibrate?.();assert.equal(f.vibrations,1);f.platform.stopSounds?.();assert.equal(music.audible,true);assert.equal(f.audio[1].currentTime,0);await new Promise(resolve=>setImmediate(resolve));
  }finally{f.restore();}
 });

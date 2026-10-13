@@ -1,12 +1,10 @@
 import {assertAndroidCapabilities,connectAndroidHost,startAndroidSession} from './platform/android-host.ts';
 import type {NativeStorageBridge} from './platform/android-storage.ts';
 
-declare const __APP_VERSION__:string;
 declare const __DEV_DIAGNOSTICS__:boolean;
 declare const __PLAYTEST_FREE_SHOP__:boolean;
 const status=document.querySelector<HTMLElement>('#startup-status'),canvas=document.querySelector<HTMLCanvasElement>('#game');
 if(!status||!canvas)throw Error('Missing Android startup surface');
-status.textContent=`货箱最后一格 ${__APP_VERSION__}\n正在检查本地存储与屏幕…`;
 const fail=(error:unknown)=>{status.hidden=false;status.textContent=`无法开始游戏\n${error instanceof Error?error.message:'Android 启动检查失败'}\n已有存档未被清空。`;};
 async function start(canvas:HTMLCanvasElement,status:HTMLElement):Promise<void> {
  if(__DEV_DIAGNOSTICS__||__PLAYTEST_FREE_SHOP__)throw Error('Android 构建必须使用正式付费内容');
@@ -18,7 +16,7 @@ async function start(canvas:HTMLCanvasElement,status:HTMLElement):Promise<void> 
    import('./presentation/static-art-resources.ts'),import('./presentation/static-art-requirements.ts'),import('./presentation/renderer.ts'),
   ]);
   configureStaticArt(runtime.platform.loadImage);prepareStaticArtForView(runtime.session.view);
-  // As before the split, the native/storage check ends here; images never cover the game.
+  // Bootstrap remains silent; only genuine failures reveal the status surface.
   status.textContent='';status.hidden=true;
   runtime.startFrames(context=>{
    try{prepareStaticArtForView(runtime.session.view);render(context,runtime.session.state,runtime.session.view,runtime.platform.backgroundBounds?.(),runtime.platform.overlayBounds?.(),runtime.platform.frameBackdrop);}

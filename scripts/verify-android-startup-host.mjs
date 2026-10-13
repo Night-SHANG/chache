@@ -1,4 +1,4 @@
-/* global window, document, HTMLElement, HTMLCanvasElement, CanvasRenderingContext2D, getComputedStyle */
+/* global window, document, Node, HTMLElement, HTMLCanvasElement, CanvasRenderingContext2D, getComputedStyle */
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
@@ -15,7 +15,7 @@ import {resolve,relative,sep,extname} from 'node:path';
  * Launch failures exit nonzero and record NOT RUN cases, never a visual pass.
  */
 const require=createRequire(import.meta.url);
-const out=resolve(process.env.ANDROID_HOST_QA_DIR??'qa/android-v118/host');
+const out=resolve(process.env.ANDROID_HOST_QA_DIR??'qa/android-v119/host');
 const staging=resolve('build/android');
 const viewport={width:540,height:960};
 const optionalImages=[
@@ -24,7 +24,7 @@ const optionalImages=[
  'assets/static-art/frame-classic.png','assets/static-art/tools-core.png',
  'assets/board-materials.png','assets/cargo-materials.png','assets/scene-materials.png',
 ];
-const cases=['native-readiness-before-storage','all-pngs-held-complete-first-frame',
+const cases=['html-before-app-is-silent','native-readiness-before-storage','all-pngs-held-complete-first-frame',
  'computed-status-display-none','pre-ready-pointer-release-does-not-act',
  'cold-input-works','foreground-resume-with-pngs-held','late-pngs-enhance-current-screen',
  'all-png-failures-input-works','fast-assets-first-frame',
@@ -56,6 +56,8 @@ function installBridge({viewport,holdHost,missingStorage,invalidStorage,invalidH
   ...nativeHidden,
   set(value){nativeHidden.set.call(this,value);if(this.id==='startup-status')trace.statusWrites.push({...status(),frame:frameNumber,time:performance.now()});},
  });
+ const nativeText=Object.getOwnPropertyDescriptor(Node.prototype,'textContent');
+ Object.defineProperty(Node.prototype,'textContent',{...nativeText,set(value){nativeText.set.call(this,value);if(this.id==='startup-status')trace.statusWrites.push({...status(),frame:frameNumber,time:performance.now()});}});
  const nativeImage=window.Image;
  function TracedImage(...args){
   const image=new nativeImage(...args);
@@ -179,7 +181,8 @@ async function tapText(page,text){
 }
 async function newScenario(name,options={}){
  const context=await browser.newContext({viewport,deviceScaleFactor:1,ignoreHTTPSErrors:false});
- const page=await context.newPage(),errors=[],consoleErrors=[],requests=[],heldRoutes=new Map();let holdPNGs=Boolean(options.holdPNGs);
+ const page=await context.newPage(),errors=[],consoleErrors=[],requests=[],heldRoutes=new Map();let holdPNGs=Boolean(options.holdPNGs),releaseApp,appHeld;
+ const appGate=new Promise(resolve=>{appHeld=resolve;});
  page.on('pageerror',error=>errors.push({name:error.name,message:error.message}));
  page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});
  await context.addInitScript(installBridge,{viewport,...options});
@@ -191,17 +194,20 @@ async function newScenario(name,options={}){
   if(!absolute.startsWith(`${staging}${sep}`))throw Error(`Unsafe staged path: ${path}`);
   const contentType={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.wav':'audio/wav','.mp3':'audio/mpeg','.json':'application/json'}[extname(path)]??'application/octet-stream';
   const body=await readFile(absolute),entry={path,sha256:hash(body)};requests.push(entry);
+  if(path==='app.js'&&options.holdApp){releaseApp=()=>route.fulfill({status:200,contentType,body});appHeld();return;}
   if(extname(path)==='.png'&&options.failPNGs){entry.injection='Intentional HTTP 503 for every PNG';await route.fulfill({status:503,contentType:'text/plain',body:'Injected optional image failure'});return;}
   if(extname(path)==='.png'&&holdPNGs){entry.delayed=true;heldRoutes.set(path,()=>route.fulfill({status:200,contentType,body}));return;}
   await route.fulfill({status:200,contentType,body});
  });
- await page.goto('https://localhost/',{waitUntil:'domcontentloaded',timeout:15000});
- return {page,requests,
+ await page.goto('https://localhost/',{waitUntil:options.holdApp?'commit':'domcontentloaded',timeout:15000});
+ if(options.holdApp)await page.waitForSelector('#startup-status',{state:'attached'});
+ return {page,requests,async releaseApp(){await appGate;return releaseApp();},
   async waitPNG(){for(let count=0;count<750&&!heldRoutes.size;count++)await new Promise(resolve=>setTimeout(resolve,20));check(heldRoutes.size>0,'No held PNG request was observed');},
   async releasePNGs(){holdPNGs=false;const routes=[...heldRoutes.values()];heldRoutes.clear();await Promise.all(routes.map(release=>release()));},
   async finish(){
    const state=await stateOf(page);delete state.firstFrame?.png;
    receipt.scenarios.push({name,options,errors,consoleErrors,requests,state});
+   if(!options.missingStorage&&!options.invalidStorage&&!options.invalidHost&&!options.missingCapability)check(state.statusWrites.every(write=>write.hidden&&write.display==='none'&&write.text===''),'Every normal-bootstrap status write must remain empty and invisible');
    check(errors.length===0,`${name} unexpected pageerror: ${JSON.stringify(errors)}`);
    check(requests.every(request=>!request.rejected),`${name} attempted unexpected external request`);
    await context.close();
@@ -215,14 +221,21 @@ try {
  receipt.inputs=Object.fromEntries(await Promise.all(inputs.map(async path=>[path,hash(await readFile(resolve(staging,path)))])));
  receipt.scriptSha256=hash(await readFile(new URL(import.meta.url)));
  const {chromium}=require(process.env.PLAYWRIGHT_MODULE??'/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.js');
- browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',headless:true,chromiumSandbox:true,
+ browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),headless:true,chromiumSandbox:true,
   env:{...process.env,HOME:'/tmp/warehouse-android-startup-home',XDG_CACHE_HOME:'/tmp/warehouse-android-startup-cache',XDG_CONFIG_HOME:'/tmp/warehouse-android-startup-config'}});
  receipt.browserVersion=await browser.version();
+
+ const htmlOnly=await newScenario('html-before-app-is-silent',{holdApp:true,holdHost:true,holdPNGs:true});
+ const htmlState=await stateOf(htmlOnly.page);
+ check(htmlState.hidden&&htmlState.display==='none'&&htmlState.text==='','Actual HTML must be empty and hidden before app.js executes');
+ check(htmlState.bridgeCalls.length===0,'Held app.js must not have run');
+ await screenshot(htmlOnly.page,'00-html-before-app.png');passed('html-before-app-is-silent');
+ await htmlOnly.releaseApp();await htmlOnly.page.waitForLoadState('domcontentloaded');await htmlOnly.finish();
 
  const cold=await newScenario('native-host-delayed-and-all-pngs-held',{holdHost:true,holdPNGs:true}),page=cold.page;
  await page.waitForFunction(()=>window.__ANDROID_HOST_TEST__.trace.bridgeCalls.some(call=>call.method==='getState'),null,{polling:20});
  const initial=await stateOf(page);
- check(!initial.hidden&&initial.display!=='none'&&initial.text.includes('正在检查本地存储与屏幕'),'Native/storage readiness must remain visible until the host resolves');
+ check(initial.hidden&&initial.display==='none'&&initial.text==='','Native/storage readiness must remain silent until the host resolves');
  check(initial.storageCalls.length===0&&initial.pendingFrames===0,'Unready native host must not open storage or schedule gameplay');
  await screenshot(page,'01-native-host-readiness.png');passed('native-readiness-before-storage');
  // A pointer begun before the session is ready must never become a fresh input.

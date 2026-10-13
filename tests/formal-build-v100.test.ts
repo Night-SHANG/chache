@@ -5,14 +5,14 @@ import {tmpdir} from 'node:os';
 import {resolve,join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 
-test('formal v1.0.18 production artifacts are paid, non-debug and carry the release version',async()=>{
+test('formal v1.0.19 production artifacts are paid, non-debug and carry the release version',async()=>{
  const root=process.cwd(),dir=await mkdtemp(join(tmpdir(),'warehouse-formal-build-'));
  try{
   for(const path of ['src','scripts','assets','node_modules','package.json','package-lock.json','THIRD_PARTY_NOTICES.md'])await symlink(resolve(root,path),join(dir,path));
   const built=spawnSync(process.execPath,[resolve(root,'scripts/build.mjs'),'--production'],{cwd:dir,encoding:'utf8'});
   assert.equal(built.status,0,built.stdout+built.stderr);
   const manifest=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.18');
+  assert.equal(manifest.version,'1.0.19');
   const html=await readFile(join(dir,'build/browser/index.html'),'utf8');
   assert.match(html,/<title>货箱最后一格<\/title>/);assert.match(html,/aria-label="货箱最后一格。/);
   assert.equal(manifest.uiClick.assetGain,1);assert.equal(manifest.uiClick.playbackGain,0.2428740327036814);assert.equal(manifest.uiClick.effectiveTargetPeak,0.24);

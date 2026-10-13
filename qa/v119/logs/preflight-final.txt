@@ -1,0 +1,8 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.19 preflight
+> node scripts/preflight.mjs
+
+PASS: content IDs/shapes/upgrade effects, 5 shift pools, locked dependencies, core platform isolation, forbidden API/secret checks, packaged static artwork hashes/dimensions/source identity and local package paths.
+
+EXIT:0

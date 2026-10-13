@@ -1,0 +1,38 @@
+{
+  "scope": "Android ui_click only; offline numeric analysis, not physical-device listening or a guarantee for arbitrary overlapping game cues",
+  "waveform": {
+    "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+    "frames": 8253,
+    "channels": 2,
+    "sampleRate": 44100,
+    "sourcePeak": 0.9881591796875,
+    "sourceRms": 0.2278214509418605
+  },
+  "androidPlayback": {
+    "boostDb": 6,
+    "amplitudeRatio": 1.9952623149688795,
+    "oldVolume": 0.10929331471665664,
+    "newVolume": 0.21806883213217862,
+    "oldPeak": 0.1079991922157392,
+    "newPeak": 0.21548671827514476,
+    "newRms": 0.04968075774154994,
+    "legalHtmlAudioVolume": true
+  },
+  "unchangedBgm": {
+    "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+    "normalVolume": 0.14297908225037068,
+    "decodedPeak": 0.453825443983078,
+    "effectivePeak": 0.0648875454825675
+  },
+  "singleClickWithBgm": {
+    "conservativePeakBound": 0.28037426375771224,
+    "conservativeHeadroomDb": 11.045237076659781
+  },
+  "verification": {
+    "focusedTests": 67,
+    "focusedTestsPassed": 67,
+    "physicalAndroidListening": "NOT RUN",
+    "apkBuild": "NOT RUN",
+    "ci": "NOT RUN"
+  }
+}

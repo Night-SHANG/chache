@@ -34,15 +34,16 @@ test('bundled Android entry explains missing primitives before gameplay modules 
  const {build}=await import('esbuild'),{androidBundleOptions}=await import('../scripts/android-bundle-options.ts'),{runInNewContext}=await import('node:vm');
  const bundle=await build({...androidBundleOptions(),entryPoints:['src/android-main.ts'],write:false});
  for(const missing of ['Promise','Map','Set','Object.fromEntries','Array.prototype.flat','Array.prototype.flatMap']){
-  const status={textContent:'',hidden:false},canvas={getContext:()=>({}),setPointerCapture(){},releasePointerCapture(){},hasPointerCapture(){return false;}};
+  const status={textContent:'',hidden:true},canvas={getContext:()=>({}),setPointerCapture(){},releasePointerCapture(){},hasPointerCapture(){return false;}};
   const context={window:{location:{origin:'https://localhost'},requestAnimationFrame(){}},document:{querySelector:(selector:string)=>selector==='#game'?canvas:status},performance:{now:()=>0},Image:class {},console};
   assert.doesNotThrow(()=>runInNewContext(`${missing}=undefined;\n${bundle.outputFiles![0].text}`,context));await settle();assert.match(status.textContent,/无法开始游戏/);assert.ok(status.textContent.includes(missing.replace('.prototype','')),status.textContent);assert.equal(status.hidden,false);
  }
 });
 
-test('Android HTML retains a readable fail-closed fallback even when app.js cannot parse',async()=>{
+test('Android HTML is empty and hidden during ordinary startup',async()=>{
  const {readFile}=await import('node:fs/promises');const script=await readFile('scripts/build-android.mjs','utf8');
- assert.match(script,/<div id="startup-status"[^>]*>正在检查启动能力[^<]*WebView[^<]*存档/);
+ assert.match(script,/<div id="startup-status"[^>]*\bhidden[^>]*><\/div>/);
+ assert.doesNotMatch(script,/正在检查|正在启动|startup-help/);
  assert.doesNotMatch(script,/startup-help|正在启动/);
  assert.match(script,/#startup-status\[hidden\]\{display:none!important\}/);
  assert.doesNotMatch(script,/<script(?! src=)/);

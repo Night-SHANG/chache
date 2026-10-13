@@ -39,6 +39,9 @@
     "relativeToV108GainDb": 12.041199826559248,
     "browserMaster": 0.45,
     "wechatMaster": 1,
-    "appliedAt": "Once before every ui_click play in each platform adapter; other cue gains unchanged."
+    "androidMaster": 0.45,
+    "androidBoostDb": 6,
+    "androidClickOnlyGainLinear": 0.4845974047381747,
+    "appliedAt": "Once before every ui_click play. Browser and WeChat retain clickOnlyGainLinear; Android uses androidClickOnlyGainLinear (+6 dB). Other cue gains unchanged."
   }
 }

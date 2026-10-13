@@ -1,0 +1,86 @@
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (146.476726ms)
+✔ missing bridge and false native owner block startup without inventing writer success (1.377917ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (1.271919ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (0.950021ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.507484ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (0.415107ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (163.898378ms)
+✖ Android HTML is empty and hidden during ordinary startup (2.765328ms)
+✔ browser first frame and every pending or failed image frame remain playable without an art gate (282.786362ms)
+✔ wechat first frame and every pending or failed image frame remain playable without an art gate (260.617732ms)
+✔ android first frame and every pending or failed image frame remain playable without an art gate (264.529935ms)
+✖ Android startup stays silent through native bridge, zero geometry, readiness and held PNGs (71.423883ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 10
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1413.117342
+
+✖ failing tests:
+
+test at tests/android-startup.test.ts:43:1
+✖ Android HTML is empty and hidden during ordinary startup (2.765328ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /<div id="startup-status"[^>]*\bhidden[^>]*><\/div>/. Input:
+  
+  "import {build} from 'esbuild';\n" +
+    "import {createHash} from 'node:crypto';\n" +
+    "import {execFileSync} from 'node:child_process';\n" +
+    "import {cp,mkdir,readFile,readdir,rm,writeFile} from 'node:fs/promises';\n" +
+    "import {androidBundleOptions} from './android-bundle-options.ts';\n" +
+    '\n' +
+    '// Verify the unmodified formal build first; Android consumes those exact media bytes.\n' +
+    "execFileSync(process.execPath,['scripts/build.mjs','--production'],{stdio:'inherit'});\n" +
+    "const out='build/android';\n" +
+    'await rm(out,{recursive:true,force:true});\n' +
+    'await mkdir(out,{recursive:true});\n' +
+    "for(const path of ['assets','THIRD_PARTY_NOTICES.md','MUSIC_NOTICE.txt','MUSIC_LICENSE.txt','UI_SOUND_NOTICE.txt','UI_SOUND_CC0.txt'])await cp(`build/browser/${path}`,`${out}/${path}`,{recursive:true});\n" +
+    "await cp('android-shell/node_modules/@capacitor/android/LICENSE',`${out}/CAPACITOR_LICENSE.txt`);\n" +
+    "await build({...androidBundleOptions(),entryPoints:['src/android-main.ts'],outfile:`${out}/app.js`});\n" +
+    '// Native WindowInsets will own geometry. CSS never consumes another safe-area inset.\n' +
+    'await writeFile(`${out}/index.html`,`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:; media-src \'self\'; connect-src \'self\'; frame-src \'none\'; worker-src \'none\'; object-src \'none\'; base-uri \'none\'; form-action \'none\'"><title>货箱最后一格</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0c131c;color:#e9edf2;touch-action:none}main{position:fixed;inset:0}canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}#startup-status[hidden]{display:none!important}#startup-status{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:24px;font-family:system-ui,sans-serif;pointer-events:none}</style></head><body><main><canvas id="game" aria-label="货箱最后一格" tabindex="0"></canvas><div id="startup-status" role="status">正在检查启动能力。若长时间停留在此提示，请更新 Android 系统 WebView 后重新打开；已有存档未被清空。</div></main><script src="app.js"></script></body></html>`);\n' +
+    "const formal=JSON.parse(await readFile('build/browser/build-manifest.json','utf8'));\n" +
+    "if(formal.version!=='1.0.18'||formal.shopPricingMode!=='paid'||formal.developerDiagnostics!==false)throw Error('Android requires verified v1.0.18 paid production assets');\n" +
+    "const androidShellLockSha256=createHash('sha256').update(await readFile('android-shell/package-lock.json')).digest('hex');\n" +
+    "await writeFile(`${out}/build-manifest.json`,JSON.stringify({...formal,version:'1.0.18',sourceContentVersion:formal.version,platform:'android',androidShellLockSha256,runtimeStatus:'Android native adapters and device acceptance NOT RUN'},null,2)+'\\n');\n" +
+    'async function files(path){\n' +
+    ' const entries=await readdir(path,{withFileTypes:true});\n' +
+    ' return (await Promise.all(entries.map(entry=>entry.isDirectory()?files(`${path}/${entry.name}`):[`${path}/${entry.name}`]))).flat().sort();\n' +
+    '}\n' +
+    'const sums=[];\n' +
+    "for(const path of await files(out))sums.push(`${createHash('sha256').update(await readFile(path)).digest('hex')}  ${path.slice(out.length+1)}`);\n" +
+    "await writeFile(`${out}/SHA256SUMS`,sums.join('\\n')+'\\n');\n" +
+    "console.log('Staged isolated Android production assets. Native adapters/device acceptance remain required.');\n"
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-startup-audio-v119/tests/android-startup.test.ts:45:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'import {build} from \'esbuild\';\nimport {createHash} from \'node:crypto\';\nimport {execFileSync} from \'node:child_process\';\nimport {cp,mkdir,readFile,readdir,rm,writeFile} from \'node:fs/promises\';\nimport {androidBundleOptions} from \'./android-bundle-options.ts\';\n\n// Verify the unmodified formal build first; Android consumes those exact media bytes.\nexecFileSync(process.execPath,[\'scripts/build.mjs\',\'--production\'],{stdio:\'inherit\'});\nconst out=\'build/android\';\nawait rm(out,{recursive:true,force:true});\nawait mkdir(out,{recursive:true});\nfor(const path of [\'assets\',\'THIRD_PARTY_NOTICES.md\',\'MUSIC_NOTICE.txt\',\'MUSIC_LICENSE.txt\',\'UI_SOUND_NOTICE.txt\',\'UI_SOUND_CC0.txt\'])await cp(`build/browser/${path}`,`${out}/${path}`,{recursive:true});\nawait cp(\'android-shell/node_modules/@capacitor/android/LICENSE\',`${out}/CAPACITOR_LICENSE.txt`);\nawait build({...androidBundleOptions(),entryPoints:[\'src/android-main.ts\'],outfile:`${out}/app.js`});\n// Native WindowInsets will own geometry. CSS never consumes another safe-area inset.\nawait writeFile(`${out}/index.html`,`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'self\'; style-src \'unsafe-inline\'; img-src \'self\' data:; media-src \'self\'; connect-src \'self\'; frame-src \'none\'; worker-src \'none\'; object-src \'none\'; base-uri \'none\'; form-action \'none\'"><title>货箱最后一格</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0c131c;color:#e9edf2;touch-action:none}main{position:fixed;inset:0}canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}#startup-status[hidden]{display:none!important}#startup-status{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:24px;font-family:system-ui,sans-serif;pointer-events:none}</style></head><body><main><canvas id="game" aria-label="货箱最后一格" tabindex="0"></canvas><div id="startup-status" role="status">正在检查启动能力。若长时间停留在此提示，请更新 Android 系统 WebView 后重新打开；已有存档未被清空。</div></main><script src="app.js"></script></body></html>`);\nconst formal=JSON.parse(await readFile(\'build/browser/build-manifest.json\',\'utf8\'));\nif(formal.version!==\'1.0.18\'||formal.shopPricingMode!==\'paid\'||formal.developerDiagnostics!==false)throw Error(\'Android requires verified v1.0.18 paid production assets\');\nconst androidShellLockSha256=createHash(\'sha256\').update(await readFile(\'android-shell/package-lock.json\')).digest(\'hex\');\nawait writeFile(`${out}/build-manifest.json`,JSON.stringify({...formal,version:\'1.0.18\',sourceContentVersion:formal.version,platform:\'android\',androidShellLockSha256,runtimeStatus:\'Android native adapters and device acceptance NOT RUN\'},null,2)+\'\\n\');\nasync function files(path){\n const entries=await readdir(path,{withFileTypes:true});\n return (await Promise.all(entries.map(entry=>entry.isDirectory()?files(`${path}/${entry.name}`):[`${path}/${entry.name}`]))).flat().sort();\n}\nconst sums=[];\nfor(const path of await files(out))sums.push(`${createHash(\'sha256\').update(await readFile(path)).digest(\'hex\')}  ${path.slice(out.length+1)}`);\nawait writeFile(`${out}/SHA256SUMS`,sums.join(\'\\n\')+\'\\n\');\nconsole.log(\'Staged isolated Android production assets. Native adapters/device acceptance remain required.\');\n',
+    expected: /<div id="startup-status"[^>]*\bhidden[^>]*><\/div>/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/nonblocking-art-entry.test.ts:29:2
+✖ Android startup stays silent through native bridge, zero geometry, readiness and held PNGs (71.423883ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '货箱最后一格 1.0.18\n正在检查本地存储与屏幕…'
+  - ''
+  
+      at silent (file:///workspace/scratch/e6b59ff34222/android-startup-audio-v119/tests/nonblocking-art-entry.test.ts:34:65)
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-startup-audio-v119/tests/nonblocking-art-entry.test.ts:35:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '货箱最后一格 1.0.18\n正在检查本地存储与屏幕…',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

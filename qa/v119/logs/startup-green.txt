@@ -1,0 +1,20 @@
+✔ Android startup waits zero native and CSS geometry without reading or creating a save (136.389691ms)
+✔ missing bridge and false native owner block startup without inventing writer success (1.307913ms)
+✔ storage protocol, native read failures and corrupt envelopes block startup before account initialization (1.418628ms)
+✔ every existing warehouse record is probed and a read fault cannot become an empty fresh account (0.981248ms)
+✔ actual built-in capabilities, 2D canvas and exact trusted origin are checked before storage access (0.478191ms)
+✔ malformed native state rejects initial connection and malformed later events revoke capability (0.522636ms)
+✔ bundled Android entry explains missing primitives before gameplay modules initialize (158.501271ms)
+✔ Android HTML is empty and hidden during ordinary startup (2.033681ms)
+✔ browser first frame and every pending or failed image frame remain playable without an art gate (350.17246ms)
+✔ wechat first frame and every pending or failed image frame remain playable without an art gate (265.283846ms)
+✔ android first frame and every pending or failed image frame remain playable without an art gate (245.644759ms)
+✔ Android startup stays silent through native bridge, zero geometry, readiness and held PNGs (100.737514ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1499.972441

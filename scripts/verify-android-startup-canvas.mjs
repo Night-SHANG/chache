@@ -5,7 +5,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {growthSourceHash} from './growth-host-support.mjs';
 import {runV118PlatformTransitions} from './v118-transition-trace.mjs';
-const out=resolve(process.env.ANDROID_CANVAS_QA_DIR??'qa/android-v118/host-canvas');
+const out=resolve(process.env.ANDROID_CANVAS_QA_DIR??'qa/android-v119/host-canvas');
 await mkdir(out,{recursive:true});
 const manifest=JSON.parse(await readFile('build/android/build-manifest.json','utf8'));
 assert.equal(manifest.sourceSha256,await growthSourceHash(),'Staged bytes must match all current source files');

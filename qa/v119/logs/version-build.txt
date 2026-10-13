@@ -1,0 +1,46 @@
+✔ Android shell has a fixed offline identity and pinned Capacitor toolchain (10.548837ms)
+✔ Android production staging is fresh, offline and byte-identical to formal assets (3410.463609ms)
+✔ Android public Capacitor imports resolve through real production bundle and TypeScript options (762.778413ms)
+✔ official Android project fixes version, SDK, Gradle and offline WebView restrictions (3.32487ms)
+✔ Android supported Insets and worker policy survive the official native config copy (215.813605ms)
+✔ Android real Java asset policy rejects file routes, foreign origins and traversal (734.683137ms)
+✔ Android app declares its directly imported WebKit API at the pinned Capacitor version (4.250795ms)
+✔ Android CI runs only branch pushes with read-only credentials and fixed official Actions (5.931543ms)
+✔ Android bootstrap installs both locks and compiles before reporting without publishing an APK (5.484488ms)
+✔ candidate preservation stays gated on verified receipt and never implies delivery acceptance (0.712679ms)
+✔ CI font setup uses the exact official baseline bytes and verifies real embedded font families (484.675715ms)
+✔ bootstrap obtains native compiler feedback before the complete unchanged regression gate (1.053446ms)
+✔ native CI targets the application tests and APKs instead of library instrumentation variants (2.944154ms)
+✔ Node classifier accepts captured genuine terminal records with IDs scoped to each file (0.637336ms)
+✔ Node classifier reconciles captured nested suites separately from test pass totals (0.16136ms)
+✔ Node classifier rejects a summary without pass evidence and any terminal record after the root summary (0.199386ms)
+✔ Node classifier rejects deleted real pass records and duplicated passes with truthful or forged totals (0.643055ms)
+✔ Node classifier rejects malformed terminal identities, missing ancestry and cross-outcome duplicates (0.643987ms)
+✔ Node classifier preserves npm test failure while accepting only both exact missing-art baselines (0.2827ms)
+✔ Node classifier rejects matching names with altered file, errno, path, wrapper or message (0.642013ms)
+✔ Node classifier fails closed for extra failures, duplicate baselines, skipped tests, missing summary and abnormal exit (0.426945ms)
+✔ Android verifier accepts genuine hashed production staging but keeps its bootstrap publication gate closed (3500.137982ms)
+✔ Android staging identity requires matching v1.0.19 release and source content (304.578883ms)
+✔ Android verifier still rejects any changed release lock after a project-only version bump (42.270822ms)
+✔ Android verifier rejects tampered asset bytes and extra unlisted files (29.190649ms)
+✔ Android verifier rejects remote config and any attempt to open the bootstrap APK gate (15.358027ms)
+✔ official emulator bootstrap has bounded installation and boot with no license or security changes (1.057801ms)
+✔ build receipt records the actual Java runtime patch emitted on stderr (28.533517ms)
+✔ product cold-launch capture is bounded and preserves acceptance failure before emulator cleanup (5.968477ms)
+✔ release vc9 is explicit while debug acceptance versions retain their original defaults (1.068938ms)
+✔ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (0.231784ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.300056ms)
+✔ release handoff rejects identity source archive and asset mismatches (5.735711ms)
+✔ signing refuses missing secrets before touching runner files (3.471808ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.24225ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (35.51922ms)
+✔ fresh signing runner compares exact package and version values (38.1779ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.830559ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5482.161307
