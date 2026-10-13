@@ -2,7 +2,7 @@
 import type { ThemeId, ForkliftId } from '../application/profile.ts';
 export type StaticArtKey = string;
 export interface StaticArtRect { readonly x:number; readonly y:number; readonly w:number; readonly h:number }
-export interface StaticArtResource { readonly key:StaticArtKey; readonly src:string; readonly sourcePath:string; readonly package:'main'|'cosmetics'; readonly width:number; readonly height:number; readonly bytes:number; readonly sha256:string; readonly pixelSha256:string }
+export interface StaticArtResource { readonly key:StaticArtKey; readonly src:string; readonly sourcePath:string; readonly package:'main'; readonly width:number; readonly height:number; readonly bytes:number; readonly sha256:string; readonly pixelSha256:string }
 export interface StaticArtSprite { readonly resource:StaticArtKey; readonly source:StaticArtRect; readonly destination:StaticArtRect }
 /** rotated90 means packed clockwise; rotate the sampled pixels counterclockwise to restore them. */
 export interface StaticArtFrameSprite extends StaticArtSprite { readonly part:string; readonly rotated90:boolean }
@@ -11,7 +11,7 @@ export const STATIC_ART_SOURCE = {
   "generatorInputs": [
     {
       "path": "scripts/generate-static-art.mjs",
-      "sha256": "d57a3d755f5eecd30e5721a3176f59f434fc7df2f53643f780676db2713482a2"
+      "sha256": "49802439150674ca5c89bd564f4c923ad43bb373e96630682c2d60c9a6267c91"
     },
     {
       "path": "scripts/static-art-authoring/png.mjs",
@@ -19,13 +19,17 @@ export const STATIC_ART_SOURCE = {
     },
     {
       "path": "scripts/static-art-authoring/manifest-source.mjs",
-      "sha256": "6f1ffc71b0e4b2034518c81f3aef517e94f91eb23f6f7e125350b7a159811dea"
+      "sha256": "2b31afb9aa3454d07c2580ae50023e21e2779ed61ef87432a847d9b08d4076eb"
+    },
+    {
+      "path": "src/application/cosmetics.ts",
+      "sha256": "cbec0c12960f3a34ca2a5b65c353726ddadbed8d5108e503fa58df0b49989769"
     }
   ],
   "sourceCommit": "dd847c3174466f0004111b8667a2ff45c563e889",
   "sourceManifestSha256": "24331b14ac7d3c1e4117cdc82dd2f64a5623c65e88bcb66c6ba14df0a7319bb6",
   "canvasVersion": "1.0.10",
-  "generatorVersion": 1
+  "generatorVersion": 2
 } as const;
 export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource>> = {
   "scene.day": {
@@ -39,49 +43,16 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
     "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
     "pixelSha256": "1539b62457695b4780183353501b04ce35203b9bb04010249119589893971590"
   },
-  "preview.day.card": {
-    "key": "preview.day.card",
-    "src": "cosmetics/assets/static-art/preview-day-card.png",
-    "sourcePath": "assets/static-art/preview-day-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 975,
-    "sha256": "74637624b3e2591e0addeb2519d6bc323e2e2d1ef1e0dcda49e092cef2c68a54",
-    "pixelSha256": "25a803816fdff7be64f45bce520d7f4e7c8b35389723160c66ef3c4215fe577f"
-  },
   "preview.day.item": {
     "key": "preview.day.item",
-    "src": "cosmetics/assets/static-art/preview-day-item.png",
+    "src": "assets/static-art/preview-day-item.png",
     "sourcePath": "assets/static-art/preview-day-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 1395,
     "sha256": "6dae76411bdc7b2dc7fe8e7e30c1e6649a229ee234db5f3bce9d1f78e4cc468f",
     "pixelSha256": "1e613113ad18a800e171b8d478b56ab42e63eedc2d27e3fa3c410e2bb7b864f3"
-  },
-  "preview.day.set": {
-    "key": "preview.day.set",
-    "src": "cosmetics/assets/static-art/preview-day-set.png",
-    "sourcePath": "assets/static-art/preview-day-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 4223,
-    "sha256": "f161899dbdf626ebe1088082abff3e01cfa186df47e5466ccf890cfc2c7787ce",
-    "pixelSha256": "62aeff0d736be7f6151606652f051ff6d58021f907814d3924ff2c5b7c7d3da3"
-  },
-  "preview.day.classic": {
-    "key": "preview.day.classic",
-    "src": "cosmetics/assets/static-art/preview-day-classic.png",
-    "sourcePath": "assets/static-art/preview-day-classic.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 780,
-    "bytes": 3958,
-    "sha256": "a718c6ed073be448c3479250facbf5048c035668da30fd73c4686b7ec75e6f56",
-    "pixelSha256": "bbaf2ebea3305e633b39abb702db539b7d7b9159b420b4a99a3622063dc3f448"
   },
   "scene.night": {
     "key": "scene.night",
@@ -94,709 +65,236 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
     "sha256": "082adccb330b0e155581c36a3cee50f63c0777e9fefb591b1634e0db21dfddfa",
     "pixelSha256": "9b22eb41ae6e8d455e633807fa6134c01854fa19df7742001f759192a85af970"
   },
-  "preview.night.card": {
-    "key": "preview.night.card",
-    "src": "cosmetics/assets/static-art/preview-night-card.png",
-    "sourcePath": "assets/static-art/preview-night-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 899,
-    "sha256": "bd591660c90bab1100a951944e68bd22bb32d50317b1c741e887ae6b19a52785",
-    "pixelSha256": "48740f1f17dacc08786e2e4cdbfc9afb88fdca3e12706778c8cf1c1af2f878ed"
-  },
   "preview.night.item": {
     "key": "preview.night.item",
-    "src": "cosmetics/assets/static-art/preview-night-item.png",
+    "src": "assets/static-art/preview-night-item.png",
     "sourcePath": "assets/static-art/preview-night-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 1330,
     "sha256": "c109d7b5e7ed7247bed1678255e8ed89914a8fbfa95665e763db30da7bd1fd0d",
     "pixelSha256": "c16f7b6c5553ecdbaa65a79bf575f34054b80e19cdebffa7d19f314c748b70c7"
   },
-  "preview.night.set": {
-    "key": "preview.night.set",
-    "src": "cosmetics/assets/static-art/preview-night-set.png",
-    "sourcePath": "assets/static-art/preview-night-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 4137,
-    "sha256": "bb590da8fb20978110fe7d7ea4a99b2ae24f9a2a29b801bb3f46a6dfe4446533",
-    "pixelSha256": "20b2398b144ae8d16c16dbb133df2d6f874c6567580646d929fdcdb9de06ad6a"
-  },
-  "preview.night.classic": {
-    "key": "preview.night.classic",
-    "src": "cosmetics/assets/static-art/preview-night-classic.png",
-    "sourcePath": "assets/static-art/preview-night-classic.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 780,
-    "bytes": 3855,
-    "sha256": "c47382d05efbe8345faa66092be921f4190cf5968fb1e4d4f43ee4fe19e97763",
-    "pixelSha256": "a531df370e81cb5daffd3ac6eb1de9787e8a0855365588c3afd27c9577862a57"
-  },
-  "scene.harbor": {
-    "key": "scene.harbor",
-    "src": "cosmetics/assets/static-art/scene-harbor.png",
-    "sourcePath": "assets/static-art/scene-harbor.png",
-    "package": "cosmetics",
-    "width": 1205,
-    "height": 1920,
-    "bytes": 61996,
-    "sha256": "ccb0e083ec6471e571a5be121bdf36b17016883de71a838271f0e54e6246cb65",
-    "pixelSha256": "f331c634668656dc058afc0d20a276c552d261406c132018db8409055e4f80b1"
-  },
-  "preview.harbor.card": {
-    "key": "preview.harbor.card",
-    "src": "cosmetics/assets/static-art/preview-harbor-card.png",
-    "sourcePath": "assets/static-art/preview-harbor-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 17273,
-    "sha256": "da9a5bcc038ebe4368a6c0480194af1f7823b531a485e05b7ac49c071db87d4b",
-    "pixelSha256": "5ce3a22d39c449c0b7e3279323f30b6755646d64c04dcb4b4f38d834bd82e977"
-  },
-  "preview.harbor.item": {
-    "key": "preview.harbor.item",
-    "src": "cosmetics/assets/static-art/preview-harbor-item.png",
-    "sourcePath": "assets/static-art/preview-harbor-item.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 232,
-    "bytes": 23755,
-    "sha256": "349a3d94eec3afebe4b2da7bcc1548174b95d9a2648a85225205d2f5cca7f800",
-    "pixelSha256": "e6b775c2c62ca5b5c154e83b3976786a124dbe9bf2d8a2f639b4afa4a4801c42"
-  },
-  "preview.harbor.set": {
-    "key": "preview.harbor.set",
-    "src": "cosmetics/assets/static-art/preview-harbor-set.png",
-    "sourcePath": "assets/static-art/preview-harbor-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 41920,
-    "sha256": "f863d660527cf8c7371d25bf3ca08dad7683c6a8c7da4120c29af293ca9559f5",
-    "pixelSha256": "67c763bf83306f5fa63ffc6bf97d016877e94e157c3a7eb533ee1396d5a4a45b"
-  },
   "scene.cold_chain": {
     "key": "scene.cold_chain",
-    "src": "cosmetics/assets/static-art/scene-cold_chain.png",
+    "src": "assets/static-art/scene-cold_chain.png",
     "sourcePath": "assets/static-art/scene-cold_chain.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 32699,
     "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4",
     "pixelSha256": "f2e29517da7d6dda3ae4d9f6ea4546faa0ce56b3e32847b252ea9a860b11906a"
   },
-  "preview.cold_chain.card": {
-    "key": "preview.cold_chain.card",
-    "src": "cosmetics/assets/static-art/preview-cold_chain-card.png",
-    "sourcePath": "assets/static-art/preview-cold_chain-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 6903,
-    "sha256": "e2329f08f12a1e05221da97eb8ce48bbf5a7d31a3720b8cf96397da9bb9ee092",
-    "pixelSha256": "2ade9bc3df81f7d924025a1d77d17ea20889499cd97bef6d6398d480856e0e34"
-  },
   "preview.cold_chain.item": {
     "key": "preview.cold_chain.item",
-    "src": "cosmetics/assets/static-art/preview-cold_chain-item.png",
+    "src": "assets/static-art/preview-cold_chain-item.png",
     "sourcePath": "assets/static-art/preview-cold_chain-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 12123,
     "sha256": "0a69afda60b61923ac66057a4ca4aa4d3c899f27bd9dd7603e7b715e3af40ae9",
     "pixelSha256": "af5852eed0a90085ded3e500fe1b2270b5cf7f02ee1df68f52b6cbe1b43f8f7d"
   },
-  "preview.cold_chain.set": {
-    "key": "preview.cold_chain.set",
-    "src": "cosmetics/assets/static-art/preview-cold_chain-set.png",
-    "sourcePath": "assets/static-art/preview-cold_chain-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 18768,
-    "sha256": "80664743018a9488872ccca75d9a63066f6c2a9e8c407be767dc7cf615a81abe",
-    "pixelSha256": "ab0a9f4b6aea401c82be9e38ead7ee4f02fc7d0f02fc0f92a4808ea1175ac05b"
-  },
   "scene.rail_freight": {
     "key": "scene.rail_freight",
-    "src": "cosmetics/assets/static-art/scene-rail_freight.png",
+    "src": "assets/static-art/scene-rail_freight.png",
     "sourcePath": "assets/static-art/scene-rail_freight.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 52533,
     "sha256": "3d1b338dc1c73c01ffc655029fa9e0e2481c84bd8703ffdf82f56c88fe171db7",
     "pixelSha256": "27de30edf0501d4b31a273f119f4c3858563e9d797aefa4e608f053aa0689427"
   },
-  "preview.rail_freight.card": {
-    "key": "preview.rail_freight.card",
-    "src": "cosmetics/assets/static-art/preview-rail_freight-card.png",
-    "sourcePath": "assets/static-art/preview-rail_freight-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 9619,
-    "sha256": "75a16de1c1d016ab75ac1b09bc13cf02a118a539489891a81c923a7a4440919d",
-    "pixelSha256": "e13ed8d0f12ea96c6fb81dc41e23a90c8b7aa259f56c5a09fb7fbf716bfc971a"
-  },
   "preview.rail_freight.item": {
     "key": "preview.rail_freight.item",
-    "src": "cosmetics/assets/static-art/preview-rail_freight-item.png",
+    "src": "assets/static-art/preview-rail_freight-item.png",
     "sourcePath": "assets/static-art/preview-rail_freight-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 16697,
     "sha256": "703f9dad5a3aafa5ec5065b43a830b634ee1bc050fe820c757878f427f81106e",
     "pixelSha256": "c0cf4c270664b0a4ad6df1c81d0ae3bf0bc57df8370defe7bea3fe983ee10bdb"
   },
-  "preview.rail_freight.set": {
-    "key": "preview.rail_freight.set",
-    "src": "cosmetics/assets/static-art/preview-rail_freight-set.png",
-    "sourcePath": "assets/static-art/preview-rail_freight-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 28422,
-    "sha256": "0b7500f5e731432082a42b81110414ad583119354700da93f3bf8b6da05ad24e",
-    "pixelSha256": "f01cebbbb75e3ced2327ebc5f9e5bd7666c7595aae27e6972d41748ee304a54d"
-  },
-  "scene.express_sorting": {
-    "key": "scene.express_sorting",
-    "src": "cosmetics/assets/static-art/scene-express_sorting.png",
-    "sourcePath": "assets/static-art/scene-express_sorting.png",
-    "package": "cosmetics",
-    "width": 1205,
-    "height": 1920,
-    "bytes": 36648,
-    "sha256": "b013c1457783ad9d8f05e6d9eafa398b29717866d175825f827b0fd2fb936701",
-    "pixelSha256": "63a35183ef4e3aa8eaa1e0aac0c6e3082130866271649fb0de65eb1ccfb88a9e"
-  },
-  "preview.express_sorting.card": {
-    "key": "preview.express_sorting.card",
-    "src": "cosmetics/assets/static-art/preview-express_sorting-card.png",
-    "sourcePath": "assets/static-art/preview-express_sorting-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 7516,
-    "sha256": "568f36c0facf76e3338bd37fa8fdbc9bca33697b9242111c31ab0dccfc210526",
-    "pixelSha256": "ccbf3dfbb6b71a5462856318cb0eccaeef35cde657ff39b9717145bfed35890d"
-  },
-  "preview.express_sorting.item": {
-    "key": "preview.express_sorting.item",
-    "src": "cosmetics/assets/static-art/preview-express_sorting-item.png",
-    "sourcePath": "assets/static-art/preview-express_sorting-item.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 232,
-    "bytes": 14054,
-    "sha256": "9d6eb65a398b49e0dd1c9d0e21cab3a596058b137cc5c5fec3e2eb33a79e34b4",
-    "pixelSha256": "2e7cc52b36be02d857c47bec527c09699e06ce16b1b887830ff5efd732fb3aaf"
-  },
-  "preview.express_sorting.set": {
-    "key": "preview.express_sorting.set",
-    "src": "cosmetics/assets/static-art/preview-express_sorting-set.png",
-    "sourcePath": "assets/static-art/preview-express_sorting-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 20495,
-    "sha256": "bdda4580d93ce3fd57a89bda0625dffc2bd48180048de59c595a9bf68daefc1d",
-    "pixelSha256": "163386693da1e4cc40e365a7dd2b6d696bd645a7d9ba72eee3dd8ec98d4d672a"
-  },
   "scene.toy_workshop": {
     "key": "scene.toy_workshop",
-    "src": "cosmetics/assets/static-art/scene-toy_workshop.png",
+    "src": "assets/static-art/scene-toy_workshop.png",
     "sourcePath": "assets/static-art/scene-toy_workshop.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 40453,
     "sha256": "30c6ab8c65cb5afff963181a0752c1e65186e220efef97cc54e22d2c670336b9",
     "pixelSha256": "048526656d4c1e7ac725652878a6f8c203c122312355e6bb59d065128f0462ca"
   },
-  "preview.toy_workshop.card": {
-    "key": "preview.toy_workshop.card",
-    "src": "cosmetics/assets/static-art/preview-toy_workshop-card.png",
-    "sourcePath": "assets/static-art/preview-toy_workshop-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 6651,
-    "sha256": "e78d8234136d27b7bcf94840d5a5ec46b23eadf8d0258feaea1c1a699b810f89",
-    "pixelSha256": "59ce5b40aae6fe4f5a67c962364ae348a8d06bbd087e52142f3d6a7589b714e9"
-  },
   "preview.toy_workshop.item": {
     "key": "preview.toy_workshop.item",
-    "src": "cosmetics/assets/static-art/preview-toy_workshop-item.png",
+    "src": "assets/static-art/preview-toy_workshop-item.png",
     "sourcePath": "assets/static-art/preview-toy_workshop-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 17514,
     "sha256": "053aecafc66da8a8b0abed95b1a7669d44e1b4e7266edaac570d4a060a40a90c",
     "pixelSha256": "bdc6a1dd5020dd7b517e3f4abb708151b6dc5e03a971578568cee590ade91732"
   },
-  "preview.toy_workshop.set": {
-    "key": "preview.toy_workshop.set",
-    "src": "cosmetics/assets/static-art/preview-toy_workshop-set.png",
-    "sourcePath": "assets/static-art/preview-toy_workshop-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 21741,
-    "sha256": "24b9b157a89313e425f53786c7c27b9dd61aa69104c4d449626a17ce951e76d1",
-    "pixelSha256": "89750156d2b007149477ec9b7b9b3e0bc438f5eea0de7182a9d84cf891177c65"
-  },
   "scene.paper_warehouse": {
     "key": "scene.paper_warehouse",
-    "src": "cosmetics/assets/static-art/scene-paper_warehouse.png",
+    "src": "assets/static-art/scene-paper_warehouse.png",
     "sourcePath": "assets/static-art/scene-paper_warehouse.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 50250,
     "sha256": "63a1eae6d9d46b779714e2ad205f4c83c92f091d9db51e43cf4c256ea81c8080",
     "pixelSha256": "b02e147a6a8049f6d41e9590a2b1a74ac203d314e17bdf0e9b39a599955a66fd"
   },
-  "preview.paper_warehouse.card": {
-    "key": "preview.paper_warehouse.card",
-    "src": "cosmetics/assets/static-art/preview-paper_warehouse-card.png",
-    "sourcePath": "assets/static-art/preview-paper_warehouse-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 9259,
-    "sha256": "c2b5151987c5981badf4dc0f9103d2a51c7543ee5beb2fb425d16d4b57bfdec1",
-    "pixelSha256": "2d14b71734579d6cda693b934bfe85804719ba863911fa2396228c4dbef90a25"
-  },
   "preview.paper_warehouse.item": {
     "key": "preview.paper_warehouse.item",
-    "src": "cosmetics/assets/static-art/preview-paper_warehouse-item.png",
+    "src": "assets/static-art/preview-paper_warehouse-item.png",
     "sourcePath": "assets/static-art/preview-paper_warehouse-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 17291,
     "sha256": "cf172066fea3cac70c53fe44142a2e8ef6643e636058fb2ab68202b8e7d064ce",
     "pixelSha256": "6ec6c2bd1deddc284240285badf756e052e8ec5e620ec4f5a6e72f3bc6770df7"
   },
-  "preview.paper_warehouse.set": {
-    "key": "preview.paper_warehouse.set",
-    "src": "cosmetics/assets/static-art/preview-paper_warehouse-set.png",
-    "sourcePath": "assets/static-art/preview-paper_warehouse-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 28305,
-    "sha256": "332a670de84859303b472f3cb928de108384d0e03456d4db316e4d7def1f78d2",
-    "pixelSha256": "adf6073eb0cd6714517a954abd1e9238f381113fc618b4594e538ce6940aad30"
-  },
   "scene.space_cargo": {
     "key": "scene.space_cargo",
-    "src": "cosmetics/assets/static-art/scene-space_cargo.png",
+    "src": "assets/static-art/scene-space_cargo.png",
     "sourcePath": "assets/static-art/scene-space_cargo.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 29080,
     "sha256": "d4d7025d55b9a8ee343aca8c94e1dcaf2674a8a65fdc985b71468939ca0ff9c8",
     "pixelSha256": "7e641ec68bec457690a1f4727972f4e9281c9311f36998bcb4f096cbde65f7fa"
   },
-  "preview.space_cargo.card": {
-    "key": "preview.space_cargo.card",
-    "src": "cosmetics/assets/static-art/preview-space_cargo-card.png",
-    "sourcePath": "assets/static-art/preview-space_cargo-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 6360,
-    "sha256": "747928fa408092d3f11a94463dac5ae354cbf0a94861ad6653798ab2914a4cde",
-    "pixelSha256": "932f3af69df69d67d6576b900206533fc0e94fcc1d132a14ad580008b271a873"
-  },
   "preview.space_cargo.item": {
     "key": "preview.space_cargo.item",
-    "src": "cosmetics/assets/static-art/preview-space_cargo-item.png",
+    "src": "assets/static-art/preview-space_cargo-item.png",
     "sourcePath": "assets/static-art/preview-space_cargo-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 8885,
     "sha256": "bb64338e48943ea6903f7d5601bc97609c469e8581ff98b4d7cb29cbc0e32b07",
     "pixelSha256": "e2d0898abac093402fb3e0877af98c02600e18fe133c0af12070bd89d8c432bf"
   },
-  "preview.space_cargo.set": {
-    "key": "preview.space_cargo.set",
-    "src": "cosmetics/assets/static-art/preview-space_cargo-set.png",
-    "sourcePath": "assets/static-art/preview-space_cargo-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 15182,
-    "sha256": "688911607d6b7a9c78dec1572abd4e4348b16cd5b8d77233b7a65d572e96ed72",
-    "pixelSha256": "80a1cd3bc3e8374ee737eb420be3cb7747249698c7852a602c4e6c000ab9c037"
-  },
   "scene.steam_foundry": {
     "key": "scene.steam_foundry",
-    "src": "cosmetics/assets/static-art/scene-steam_foundry.png",
+    "src": "assets/static-art/scene-steam_foundry.png",
     "sourcePath": "assets/static-art/scene-steam_foundry.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 32822,
     "sha256": "23a730cda63862ec65d6da8510047b5a6927cd6dae7a76670e4ab1a8aa300e00",
     "pixelSha256": "8b780f69d7aec3bbd218ac4c24c440d608d2003ea82b2d7a89c2719e0d8078be"
   },
-  "preview.steam_foundry.card": {
-    "key": "preview.steam_foundry.card",
-    "src": "cosmetics/assets/static-art/preview-steam_foundry-card.png",
-    "sourcePath": "assets/static-art/preview-steam_foundry-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 6348,
-    "sha256": "98d9c1aad1f230d29db3a5be49abe44704644a09d6a7b74459283b240e5eeb63",
-    "pixelSha256": "78a35a6279e886200b681c8270b0081bc9f1923c06e1c3ce29f387d937207b2b"
-  },
   "preview.steam_foundry.item": {
     "key": "preview.steam_foundry.item",
-    "src": "cosmetics/assets/static-art/preview-steam_foundry-item.png",
+    "src": "assets/static-art/preview-steam_foundry-item.png",
     "sourcePath": "assets/static-art/preview-steam_foundry-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 11091,
     "sha256": "2291956b2eda120e4fc3dc0d08b976e9ee7dd56144ae2fe2dcf7bba88a57f486",
     "pixelSha256": "a0842ea0b8e3690a928d3cbdabd98576a2ee1ff67567052e2095374a352a235a"
   },
-  "preview.steam_foundry.set": {
-    "key": "preview.steam_foundry.set",
-    "src": "cosmetics/assets/static-art/preview-steam_foundry-set.png",
-    "sourcePath": "assets/static-art/preview-steam_foundry-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 18388,
-    "sha256": "4cb7b0c30b30de055828f89eb3cd6e83122d5cf515981a687fdc0945267f68d3",
-    "pixelSha256": "9cdf6dc916a330431484ba305d92eb121cda16d5b4f36e787ca4feadfe7e0a55"
-  },
-  "scene.neon_depot": {
-    "key": "scene.neon_depot",
-    "src": "cosmetics/assets/static-art/scene-neon_depot.png",
-    "sourcePath": "assets/static-art/scene-neon_depot.png",
-    "package": "cosmetics",
-    "width": 1205,
-    "height": 1920,
-    "bytes": 38096,
-    "sha256": "17bebc758ab306c33d822b87f17826d1ebcb7cd674b7416ac30cae427511c33f",
-    "pixelSha256": "4a3330b581ddc0eb5a7880239923549df6ebe79a3f20f8631f98feb72c8bc1c0"
-  },
-  "preview.neon_depot.card": {
-    "key": "preview.neon_depot.card",
-    "src": "cosmetics/assets/static-art/preview-neon_depot-card.png",
-    "sourcePath": "assets/static-art/preview-neon_depot-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 7740,
-    "sha256": "fb8359bad7f90afd5bf2c017b9e5006b326df0b89980efdb37df6df0979e4d07",
-    "pixelSha256": "a4c82c33f1b284034834d0ae7ee016f3b11edf767732405c9ab0e7cb020dd6a4"
-  },
-  "preview.neon_depot.item": {
-    "key": "preview.neon_depot.item",
-    "src": "cosmetics/assets/static-art/preview-neon_depot-item.png",
-    "sourcePath": "assets/static-art/preview-neon_depot-item.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 232,
-    "bytes": 11008,
-    "sha256": "3ad40dcfbe899da54bdf42f1f16e55f60bc9cbe445476c9ed0cb8a66391b6fe9",
-    "pixelSha256": "2b09c079d1ea8b3c631c233ba4084fda2c86164962f378db119b88047fc91744"
-  },
-  "preview.neon_depot.set": {
-    "key": "preview.neon_depot.set",
-    "src": "cosmetics/assets/static-art/preview-neon_depot-set.png",
-    "sourcePath": "assets/static-art/preview-neon_depot-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 20904,
-    "sha256": "c9f1aa2efaa6819796d6c44a7a4b8dd1b9acfdf3858249e012f35a965f5b7f9e",
-    "pixelSha256": "36511c8167b08a8dc79e5b13c294adb5724b11bd63884899097caf5378f7e112"
-  },
   "scene.lava_forge": {
     "key": "scene.lava_forge",
-    "src": "cosmetics/assets/static-art/scene-lava_forge.png",
+    "src": "assets/static-art/scene-lava_forge.png",
     "sourcePath": "assets/static-art/scene-lava_forge.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 90299,
     "sha256": "97035b5e084b33af8679d7665074d11c4b48f2c76d13c099507f0c6a6133cdef",
     "pixelSha256": "c23c56588967d69d79435cad0cf0671c2a30f3791a240f6eb23e4f25c2853951"
   },
-  "preview.lava_forge.card": {
-    "key": "preview.lava_forge.card",
-    "src": "cosmetics/assets/static-art/preview-lava_forge-card.png",
-    "sourcePath": "assets/static-art/preview-lava_forge-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 10638,
-    "sha256": "04edef7bb2cf304a66f2a0db19679347231f469231925c1fae01b52338b295c5",
-    "pixelSha256": "34e1d195c2d93986093810d5f0ae80373c1cdaf3b95fb67e5186d7d02ec98146"
-  },
   "preview.lava_forge.item": {
     "key": "preview.lava_forge.item",
-    "src": "cosmetics/assets/static-art/preview-lava_forge-item.png",
+    "src": "assets/static-art/preview-lava_forge-item.png",
     "sourcePath": "assets/static-art/preview-lava_forge-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 20835,
     "sha256": "2c5652ff042e8d7a7a053d2ab62cc173a00fb95fde4c0d89073ebc9c77978807",
     "pixelSha256": "cecbf6f2aaeca555c1a2491a573d56bec85a02154d9e66296cd6df10f49cb3db"
   },
-  "preview.lava_forge.set": {
-    "key": "preview.lava_forge.set",
-    "src": "cosmetics/assets/static-art/preview-lava_forge-set.png",
-    "sourcePath": "assets/static-art/preview-lava_forge-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 46219,
-    "sha256": "e27bc09151e5055acf089693eb145944e7603e8131d9a99c7f5580623d78b6bf",
-    "pixelSha256": "a495689a9310114fecb76d516cdb6c6c51f2affd2e6e1610155074d90621bdce"
-  },
   "scene.ocean_vault": {
     "key": "scene.ocean_vault",
-    "src": "cosmetics/assets/static-art/scene-ocean_vault.png",
+    "src": "assets/static-art/scene-ocean_vault.png",
     "sourcePath": "assets/static-art/scene-ocean_vault.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 73250,
     "sha256": "b74e8b622b695de192a35c669d0702f5326d3d3ea44ada80ea76418950465832",
     "pixelSha256": "e11ff2c228ff8d946ac3e2661d730db57d088dfa57ca74be88d76d454d7af505"
   },
-  "preview.ocean_vault.card": {
-    "key": "preview.ocean_vault.card",
-    "src": "cosmetics/assets/static-art/preview-ocean_vault-card.png",
-    "sourcePath": "assets/static-art/preview-ocean_vault-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 10861,
-    "sha256": "52ac7e9e0b1ea9ec2e58f1066638006c5fb70c47ba029765cd7481cc03545b59",
-    "pixelSha256": "7a7ef7480fa99bcd42ac632466682fa36f2e2681d9939b1804631c3150bbd3c8"
-  },
   "preview.ocean_vault.item": {
     "key": "preview.ocean_vault.item",
-    "src": "cosmetics/assets/static-art/preview-ocean_vault-item.png",
+    "src": "assets/static-art/preview-ocean_vault-item.png",
     "sourcePath": "assets/static-art/preview-ocean_vault-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 29199,
     "sha256": "3cca2e457a941709917007fa2b72ecfaf43fa46a82aed61e7e088df46375a38d",
     "pixelSha256": "6a43e858b7d48cd75f2f2af1519a671c02c2d71a898a319c39aed64430b1c81a"
   },
-  "preview.ocean_vault.set": {
-    "key": "preview.ocean_vault.set",
-    "src": "cosmetics/assets/static-art/preview-ocean_vault-set.png",
-    "sourcePath": "assets/static-art/preview-ocean_vault-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 45488,
-    "sha256": "c67aab19f72bb72c772df584db428b8a4abf4258d0e92879ae87b72197c4bf13",
-    "pixelSha256": "139cb29ae8146cbbe858993d5f4817b49ea018224f28d685c4909b808c3678fb"
-  },
-  "scene.royal_store": {
-    "key": "scene.royal_store",
-    "src": "cosmetics/assets/static-art/scene-royal_store.png",
-    "sourcePath": "assets/static-art/scene-royal_store.png",
-    "package": "cosmetics",
-    "width": 1205,
-    "height": 1920,
-    "bytes": 23994,
-    "sha256": "558a04b7fd88a9c380b16cd3a08a7f989960456a121cd693376f2812f73de6a2",
-    "pixelSha256": "0ec0d9a66e8a1fc3e121058dbe9f1d2083d20038d1439a5927f066a84d35c7ed"
-  },
-  "preview.royal_store.card": {
-    "key": "preview.royal_store.card",
-    "src": "cosmetics/assets/static-art/preview-royal_store-card.png",
-    "sourcePath": "assets/static-art/preview-royal_store-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 3907,
-    "sha256": "0bd76bac840f169816afc9e1ddc0039de5a7a58ee11ec887eea6e5a959e28e77",
-    "pixelSha256": "6685402d683b34b35e95b442a46b6a1158ff5c8186786aa7baae3e58527e6a2f"
-  },
-  "preview.royal_store.item": {
-    "key": "preview.royal_store.item",
-    "src": "cosmetics/assets/static-art/preview-royal_store-item.png",
-    "sourcePath": "assets/static-art/preview-royal_store-item.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 232,
-    "bytes": 8304,
-    "sha256": "681a3e37138cdff9a80d7901b39f8656a5f9b488d2040ed244ae181104a236f9",
-    "pixelSha256": "58473c4658da77a9dea4c108306254ff62d535e6a6f83adb485ad0b04e0d81d0"
-  },
-  "preview.royal_store.set": {
-    "key": "preview.royal_store.set",
-    "src": "cosmetics/assets/static-art/preview-royal_store-set.png",
-    "sourcePath": "assets/static-art/preview-royal_store-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 12407,
-    "sha256": "bdecaf8b3e68f109da458a632d84a6f8b59b2e0354bec86265cba4f67f2c4822",
-    "pixelSha256": "3e8ff5fb6f38f732075f1f887661453b7d08e5d00c9024f85e64f6403c05e0bc"
-  },
-  "scene.field_station": {
-    "key": "scene.field_station",
-    "src": "cosmetics/assets/static-art/scene-field_station.png",
-    "sourcePath": "assets/static-art/scene-field_station.png",
-    "package": "cosmetics",
-    "width": 1205,
-    "height": 1920,
-    "bytes": 62231,
-    "sha256": "d6dc79104913a2cf2942b098f2860bb11bc70db64b1c4ff0c803c4d707ad7ffe",
-    "pixelSha256": "1b8831831b193c6c965da326b5e99d01584f32fc7170b920f7e46f5c8e92dea3"
-  },
-  "preview.field_station.card": {
-    "key": "preview.field_station.card",
-    "src": "cosmetics/assets/static-art/preview-field_station-card.png",
-    "sourcePath": "assets/static-art/preview-field_station-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 10644,
-    "sha256": "2639bb769b1290a10d30228ff8872c0ae2202faeb84313397dbdbaf8f7dd42ce",
-    "pixelSha256": "ecb91f5cd858e7081ed7771a5900f09b8427c3860e868d3792ae6a902371039b"
-  },
-  "preview.field_station.item": {
-    "key": "preview.field_station.item",
-    "src": "cosmetics/assets/static-art/preview-field_station-item.png",
-    "sourcePath": "assets/static-art/preview-field_station-item.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 232,
-    "bytes": 17973,
-    "sha256": "46a45f2c59a19895119996f1590f6ef2577bcf0119d7cd280ffb62e59f0be5a6",
-    "pixelSha256": "605ec1e182320968611cf7bdb573e1cc686416484920995d4278629e983d7606"
-  },
-  "preview.field_station.set": {
-    "key": "preview.field_station.set",
-    "src": "cosmetics/assets/static-art/preview-field_station-set.png",
-    "sourcePath": "assets/static-art/preview-field_station-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 33136,
-    "sha256": "6443bd59c09586da97d0aaed0f961c961fed38690908dbad013a03b8d2d9b05c",
-    "pixelSha256": "145fae07f39cd0300ec524570a8652242185e12f7858adb2e6ceced0aeb7da1f"
-  },
   "scene.forest_depot": {
     "key": "scene.forest_depot",
-    "src": "cosmetics/assets/static-art/scene-forest_depot.png",
+    "src": "assets/static-art/scene-forest_depot.png",
     "sourcePath": "assets/static-art/scene-forest_depot.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 162082,
     "sha256": "0ac69a2d6d5811c6885384a68fbdd6e5745e86a829cd697a8a94b9407ce59467",
     "pixelSha256": "7fc05d47aeeca0b67a5ee0b9ed0e419824a428978fd92fd9094f28f4c219c68b"
   },
-  "preview.forest_depot.card": {
-    "key": "preview.forest_depot.card",
-    "src": "cosmetics/assets/static-art/preview-forest_depot-card.png",
-    "sourcePath": "assets/static-art/preview-forest_depot-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 22726,
-    "sha256": "e47f50532885be9f02eb1a761d39a730e4426a2989e296772e5c0b50dd181f73",
-    "pixelSha256": "b6416672922d2e72d52cb44403cd8ec17cf298388b7dcb2dcfba3932b70c4d75"
-  },
   "preview.forest_depot.item": {
     "key": "preview.forest_depot.item",
-    "src": "cosmetics/assets/static-art/preview-forest_depot-item.png",
+    "src": "assets/static-art/preview-forest_depot-item.png",
     "sourcePath": "assets/static-art/preview-forest_depot-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 54007,
     "sha256": "4e0bc996ea5c211d6c6344bac111af6998acb10565cc1f5501d85e1599b4f6d3",
     "pixelSha256": "c1bda8835dc98e13cf8b3de633e86cfd862aca94dff2ed840ce1df5a0da4a31f"
   },
-  "preview.forest_depot.set": {
-    "key": "preview.forest_depot.set",
-    "src": "cosmetics/assets/static-art/preview-forest_depot-set.png",
-    "sourcePath": "assets/static-art/preview-forest_depot-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 83144,
-    "sha256": "b21c0aac6a6fa33d321debf792833378b1704d3e0c18fe052910cd630213508e",
-    "pixelSha256": "cf98519970fc54179a5cf695d9780f9c0a6674059c762e167834487586f32da3"
-  },
   "scene.ice_vault": {
     "key": "scene.ice_vault",
-    "src": "cosmetics/assets/static-art/scene-ice_vault.png",
+    "src": "assets/static-art/scene-ice_vault.png",
     "sourcePath": "assets/static-art/scene-ice_vault.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1205,
     "height": 1920,
     "bytes": 211089,
     "sha256": "a42e5c13c86b81e669cb68c329b9e3173411c05165cc1f511a38a606f784b838",
     "pixelSha256": "c3895a2dc26af9a323ae5486227868dbf5409d309757f48f36a1eb49fa7f381b"
   },
-  "preview.ice_vault.card": {
-    "key": "preview.ice_vault.card",
-    "src": "cosmetics/assets/static-art/preview-ice_vault-card.png",
-    "sourcePath": "assets/static-art/preview-ice_vault-card.png",
-    "package": "cosmetics",
-    "width": 360,
-    "height": 246,
-    "bytes": 29875,
-    "sha256": "111deffa91d09bcd768691713853d46e53bf856ad155825c6cb34de932fbb9a8",
-    "pixelSha256": "e90f6a9d4a87ac4a0a295787deac2db46d4593e7bb44b0fc26ba960296680567"
-  },
   "preview.ice_vault.item": {
     "key": "preview.ice_vault.item",
-    "src": "cosmetics/assets/static-art/preview-ice_vault-item.png",
+    "src": "assets/static-art/preview-ice_vault-item.png",
     "sourcePath": "assets/static-art/preview-ice_vault-item.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 816,
     "height": 232,
     "bytes": 69981,
     "sha256": "2ac658cac49e95faa7b7075b4a5f8731a46298cb36edfbcde7c7df4c5cf54c8b",
     "pixelSha256": "d6295b5ff29b101fbf9a6200a67f32ebf3614bf74518fadddb864558efc4d328"
-  },
-  "preview.ice_vault.set": {
-    "key": "preview.ice_vault.set",
-    "src": "cosmetics/assets/static-art/preview-ice_vault-set.png",
-    "sourcePath": "assets/static-art/preview-ice_vault-set.png",
-    "package": "cosmetics",
-    "width": 816,
-    "height": 840,
-    "bytes": 108548,
-    "sha256": "95d44ec5277c0750c3847230491590192d12ede1a4074f998375fc28ea06e5b8",
-    "pixelSha256": "2c866361f3530d8473fed63c06e5f10605941979e55938ff9bbb84d955f6e626"
   },
   "forklift.base": {
     "key": "forklift.base",
@@ -811,9 +309,9 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
   },
   "forklift.styled": {
     "key": "forklift.styled",
-    "src": "cosmetics/assets/static-art/forklift-styled.png",
+    "src": "assets/static-art/forklift-styled.png",
     "sourcePath": "assets/static-art/forklift-styled.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 1024,
     "height": 768,
     "bytes": 96338,
@@ -866,9 +364,9 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
   },
   "material.cargo": {
     "key": "material.cargo",
-    "src": "cosmetics/assets/cargo-materials.png",
+    "src": "assets/cargo-materials.png",
     "sourcePath": "assets/cargo-materials.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 670,
     "height": 2010,
     "bytes": 351513,
@@ -877,9 +375,9 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
   },
   "material.scene": {
     "key": "material.scene",
-    "src": "cosmetics/assets/scene-materials.png",
+    "src": "assets/scene-materials.png",
     "sourcePath": "assets/scene-materials.png",
-    "package": "cosmetics",
+    "package": "main",
     "width": 512,
     "height": 960,
     "bytes": 219775,
@@ -887,7 +385,7 @@ export const STATIC_ART_RESOURCES:Readonly<Record<StaticArtKey,StaticArtResource
     "pixelSha256": "9290e81645573bca5b025429a758ca38d82000754f09e5b06debff6a66de5fff"
   }
 };
-export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
+export const STATIC_ART_SCENES:Readonly<Partial<Record<ThemeId,StaticArtSprite>>> = {
   "day": {
     "resource": "scene.day",
     "source": {
@@ -918,21 +416,6 @@ export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
       "h": 1920
     }
   },
-  "harbor": {
-    "resource": "scene.harbor",
-    "source": {
-      "x": 0,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    },
-    "destination": {
-      "x": -57,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    }
-  },
   "cold_chain": {
     "resource": "scene.cold_chain",
     "source": {
@@ -950,21 +433,6 @@ export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
   },
   "rail_freight": {
     "resource": "scene.rail_freight",
-    "source": {
-      "x": 0,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    },
-    "destination": {
-      "x": -57,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    }
-  },
-  "express_sorting": {
-    "resource": "scene.express_sorting",
     "source": {
       "x": 0,
       "y": 0,
@@ -1038,21 +506,6 @@ export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
       "h": 1920
     }
   },
-  "neon_depot": {
-    "resource": "scene.neon_depot",
-    "source": {
-      "x": 0,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    },
-    "destination": {
-      "x": -57,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    }
-  },
   "lava_forge": {
     "resource": "scene.lava_forge",
     "source": {
@@ -1070,36 +523,6 @@ export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
   },
   "ocean_vault": {
     "resource": "scene.ocean_vault",
-    "source": {
-      "x": 0,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    },
-    "destination": {
-      "x": -57,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    }
-  },
-  "royal_store": {
-    "resource": "scene.royal_store",
-    "source": {
-      "x": 0,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    },
-    "destination": {
-      "x": -57,
-      "y": 0,
-      "w": 1205,
-      "h": 1920
-    }
-  },
-  "field_station": {
-    "resource": "scene.field_station",
     "source": {
       "x": 0,
       "y": 0,
@@ -1144,23 +567,8 @@ export const STATIC_ART_SCENES:Readonly<Record<ThemeId,StaticArtSprite>> = {
     }
   }
 };
-export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticArtPreviewVariant,StaticArtSprite>>>> = {
+export const STATIC_ART_PREVIEWS:Readonly<Partial<Record<ThemeId,Partial<Record<StaticArtPreviewVariant,StaticArtSprite>>>>> = {
   "day": {
-    "card": {
-      "resource": "preview.day.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.day.item",
       "source": {
@@ -1175,54 +583,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.day.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    },
-    "classic": {
-      "resource": "preview.day.classic",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 780
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 780
-      }
     }
   },
   "night": {
-    "card": {
-      "resource": "preview.night.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.night.item",
       "source": {
@@ -1237,101 +600,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.night.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    },
-    "classic": {
-      "resource": "preview.night.classic",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 780
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 780
-      }
-    }
-  },
-  "harbor": {
-    "card": {
-      "resource": "preview.harbor.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
-    "item": {
-      "resource": "preview.harbor.item",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      }
-    },
-    "set": {
-      "resource": "preview.harbor.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "cold_chain": {
-    "card": {
-      "resource": "preview.cold_chain.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.cold_chain.item",
       "source": {
@@ -1346,39 +617,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.cold_chain.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "rail_freight": {
-    "card": {
-      "resource": "preview.rail_freight.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.rail_freight.item",
       "source": {
@@ -1393,86 +634,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.rail_freight.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    }
-  },
-  "express_sorting": {
-    "card": {
-      "resource": "preview.express_sorting.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
-    "item": {
-      "resource": "preview.express_sorting.item",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      }
-    },
-    "set": {
-      "resource": "preview.express_sorting.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "toy_workshop": {
-    "card": {
-      "resource": "preview.toy_workshop.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.toy_workshop.item",
       "source": {
@@ -1487,39 +651,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.toy_workshop.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "paper_warehouse": {
-    "card": {
-      "resource": "preview.paper_warehouse.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.paper_warehouse.item",
       "source": {
@@ -1534,39 +668,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.paper_warehouse.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "space_cargo": {
-    "card": {
-      "resource": "preview.space_cargo.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.space_cargo.item",
       "source": {
@@ -1581,39 +685,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.space_cargo.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "steam_foundry": {
-    "card": {
-      "resource": "preview.steam_foundry.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.steam_foundry.item",
       "source": {
@@ -1628,86 +702,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.steam_foundry.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    }
-  },
-  "neon_depot": {
-    "card": {
-      "resource": "preview.neon_depot.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
-    "item": {
-      "resource": "preview.neon_depot.item",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      }
-    },
-    "set": {
-      "resource": "preview.neon_depot.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "lava_forge": {
-    "card": {
-      "resource": "preview.lava_forge.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.lava_forge.item",
       "source": {
@@ -1722,39 +719,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.lava_forge.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "ocean_vault": {
-    "card": {
-      "resource": "preview.ocean_vault.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.ocean_vault.item",
       "source": {
@@ -1769,133 +736,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.ocean_vault.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    }
-  },
-  "royal_store": {
-    "card": {
-      "resource": "preview.royal_store.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
-    "item": {
-      "resource": "preview.royal_store.item",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      }
-    },
-    "set": {
-      "resource": "preview.royal_store.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
-    }
-  },
-  "field_station": {
-    "card": {
-      "resource": "preview.field_station.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
-    "item": {
-      "resource": "preview.field_station.item",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 232
-      }
-    },
-    "set": {
-      "resource": "preview.field_station.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "forest_depot": {
-    "card": {
-      "resource": "preview.forest_depot.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.forest_depot.item",
       "source": {
@@ -1910,39 +753,9 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.forest_depot.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   },
   "ice_vault": {
-    "card": {
-      "resource": "preview.ice_vault.card",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 360,
-        "h": 246
-      }
-    },
     "item": {
       "resource": "preview.ice_vault.item",
       "source": {
@@ -1957,25 +770,10 @@ export const STATIC_ART_PREVIEWS:Readonly<Record<ThemeId,Partial<Record<StaticAr
         "w": 816,
         "h": 232
       }
-    },
-    "set": {
-      "resource": "preview.ice_vault.set",
-      "source": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      },
-      "destination": {
-        "x": 0,
-        "y": 0,
-        "w": 816,
-        "h": 840
-      }
     }
   }
 };
-export const STATIC_ART_FORKLIFTS:Readonly<Record<ForkliftId,StaticArtSprite>> = {
+export const STATIC_ART_FORKLIFTS:Readonly<Partial<Record<ForkliftId,StaticArtSprite>>> = {
   "yellow": {
     "resource": "forklift.base",
     "source": {
@@ -2066,21 +864,6 @@ export const STATIC_ART_FORKLIFTS:Readonly<Record<ForkliftId,StaticArtSprite>> =
       "h": 96
     }
   },
-  "compact": {
-    "resource": "forklift.styled",
-    "source": {
-      "x": 512,
-      "y": 0,
-      "w": 256,
-      "h": 192
-    },
-    "destination": {
-      "x": -60,
-      "y": -44,
-      "w": 128,
-      "h": 96
-    }
-  },
   "toy": {
     "resource": "forklift.styled",
     "source": {
@@ -2141,21 +924,6 @@ export const STATIC_ART_FORKLIFTS:Readonly<Record<ForkliftId,StaticArtSprite>> =
       "h": 96
     }
   },
-  "neon": {
-    "resource": "forklift.styled",
-    "source": {
-      "x": 768,
-      "y": 192,
-      "w": 256,
-      "h": 192
-    },
-    "destination": {
-      "x": -60,
-      "y": -44,
-      "w": 128,
-      "h": 96
-    }
-  },
   "lava": {
     "resource": "forklift.styled",
     "source": {
@@ -2186,36 +954,6 @@ export const STATIC_ART_FORKLIFTS:Readonly<Record<ForkliftId,StaticArtSprite>> =
       "h": 96
     }
   },
-  "royal": {
-    "resource": "forklift.styled",
-    "source": {
-      "x": 512,
-      "y": 384,
-      "w": 256,
-      "h": 192
-    },
-    "destination": {
-      "x": -60,
-      "y": -44,
-      "w": 128,
-      "h": 96
-    }
-  },
-  "field": {
-    "resource": "forklift.styled",
-    "source": {
-      "x": 768,
-      "y": 384,
-      "w": 256,
-      "h": 192
-    },
-    "destination": {
-      "x": -60,
-      "y": -44,
-      "w": 128,
-      "h": 96
-    }
-  },
   "timber": {
     "resource": "forklift.styled",
     "source": {
@@ -2235,21 +973,6 @@ export const STATIC_ART_FORKLIFTS:Readonly<Record<ForkliftId,StaticArtSprite>> =
     "resource": "forklift.styled",
     "source": {
       "x": 256,
-      "y": 576,
-      "w": 256,
-      "h": 192
-    },
-    "destination": {
-      "x": -60,
-      "y": -44,
-      "w": 128,
-      "h": 96
-    }
-  },
-  "harbor": {
-    "resource": "forklift.styled",
-    "source": {
-      "x": 512,
       "y": 576,
       "w": 256,
       "h": 192

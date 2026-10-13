@@ -19,7 +19,7 @@ test('shop preserves tool purchases and selected root tabs while settings contai
 });
 test('cosmetic selection exposes preview-only cards, exact prices, locked achievements and free separate equip',()=>{
  const v=view({shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}),controls=getUiControls(state,v),out=words(v);
- assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,4);const list=getUiControls(state,view({shopTab:'cosmetics',shopSection:'cargo'}));assert.equal(list.filter(c=>c.action.type==='selectShopSection').length,4);assert.deepEqual(list.filter(c=>c.action.type==='previewCosmetic').slice(0,4).map(c=>c.action.type==='previewCosmetic'&&`${c.action.kind}.${c.action.id}`),['cargo.classic','cargo.outline','cargo.wood','cargo.insulated']);assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,'300金币 · 购买');assert.match(out,/原木藤箱/);
+ assert.equal(controls.filter(c=>c.action.type==='selectShopSection').length,3);const list=getUiControls(state,view({shopTab:'cosmetics',shopSection:'cargo'}));assert.equal(list.filter(c=>c.action.type==='selectShopSection').length,3);assert.deepEqual(list.filter(c=>c.action.type==='previewCosmetic').slice(0,4).map(c=>c.action.type==='previewCosmetic'&&`${c.action.kind}.${c.action.id}`),['cargo.classic','cargo.outline','cargo.wood','cargo.insulated']);assert.equal(controls.find(c=>c.action.type==='purchaseCosmetic')?.label,'300金币 · 购买');assert.match(out,/原木藤箱/);
  const locked=words(view({shopTab:'cosmetics',shopSection:'forklift',cosmeticPreview:{forklift:'red'}}));assert.match(locked,/成就解锁/);assert.match(locked,/通关入库五班后解锁/);
  const account=retainAccountCosmetics(makeAccountFixture({wallet:0}));account.profile.ownedCosmetics!.push('cargo.wood');account.profile.ownedCosmetics!.sort();
  const owned=getUiControls(state,view({account,shopTab:'cosmetics',shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.equal(owned.find(c=>c.action.type==='equipCosmetic')?.label,'装备');
@@ -78,9 +78,9 @@ test('outbound loaded cargo and white forklift apply source-account appearance o
   const classic=draw();account.profile.cosmetics.cargo='wood';const wood=draw();assert.notDeepEqual(wood,classic);account.profile.cargoOutline=true;assert.notDeepEqual(draw(),wood);const yellow=draw();account.profile.cosmetics.forklift='white';assert.notDeepEqual(draw(),yellow);assert.equal(JSON.stringify({shipment,plan,board}),snapshot);
  }
 });
-test('legacy outline projection survives renderer normalization and harbor changes board material without changing cargo overlays',()=>{
+test('legacy outline projection survives renderer normalization and cold chain changes board material without changing cargo overlays',()=>{
  const run=applyCommandV14(createRunV14({seed:7,mode:'standard'}),{type:'chooseCleanup',branch:'orders'}).state;run.board[10]='cargo.food';
  const profile=createProfile();profile.cosmetics.cargo='outline';const old=view({screen:'game',account:null,profile});
  const account=retainAccountCosmetics(makeAccountFixture());account.profile.cargoOutline=true;const modern=view({screen:'game',account,profile:undefined}),region={x:120,y:560,w:840,h:840};assert.deepEqual(pixels(run,old,region),pixels(run,modern,region));
- account.profile.cosmetics.theme='harbor';assert.notDeepEqual(pixels(run,old,{x:126,y:566,w:30,h:30}),pixels(run,modern,{x:126,y:566,w:30,h:30}));assert.notDeepEqual(pixels(run,old,{x:0,y:0,w:120,h:400}),pixels(run,modern,{x:0,y:0,w:120,h:400}));
+ account.profile.cosmetics.theme='cold_chain';assert.notDeepEqual(pixels(run,old,{x:126,y:566,w:30,h:30}),pixels(run,modern,{x:126,y:566,w:30,h:30}));assert.notDeepEqual(pixels(run,old,{x:0,y:0,w:120,h:400}),pixels(run,modern,{x:0,y:0,w:120,h:400}));
 });

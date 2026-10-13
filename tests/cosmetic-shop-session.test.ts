@@ -35,7 +35,7 @@ test('active run and reserved items survive attempted shop access and purchase',
  const h=sessionHost({wallet:900,inventory:{rotate:1,clear:0,wildcard:0}}),s=h.session;
  act(s,{type:'newRun',mode:'color_exit',difficultyId:'normal',outboundMode:'normal'});act(s,{type:'toggleItem',item:'rotate'});act(s,{type:'prepareNext'});
  const run=s.view.account!.run!,before=[...h.data],checksum=playableChecksum(s.state);assert.deepEqual(run.reserved,['rotate']);
- wood(s);act(s,{type:'purchaseCosmetic',kind:'theme',id:'harbor'});act(s,{type:'confirm'});
+ wood(s);act(s,{type:'purchaseCosmetic',kind:'theme',id:'cold_chain'});act(s,{type:'confirm'});
  assert.equal(s.view.screen,'game');assert.deepEqual([...h.data],before);assert.equal(playableChecksum(s.state),checksum);assert.equal(s.view.account?.run?.identity.runId,run.identity.runId);assert.deepEqual(s.view.account?.run?.reserved,['rotate']);assert.equal(s.view.account?.inventory.rotate,0);
 });
 

@@ -4,17 +4,17 @@ import assert from 'node:assert/strict';
 const manifestUrl = new URL('../src/presentation/static-art-manifest.ts', import.meta.url).href;
 const manifest = await import(manifestUrl).catch(() => null);
 
-test('release static artwork manifest covers all current and retired scene and vehicle IDs', () => {
+test('release static artwork manifest covers only active scene and vehicle IDs', () => {
   assert.ok(manifest, 'production static artwork manifest must exist');
-  assert.equal(Object.keys(manifest.STATIC_ART_SCENES).length, 17);
-  assert.equal(Object.keys(manifest.STATIC_ART_FORKLIFTS).length, 19);
-  assert.ok(manifest.STATIC_ART_SCENES.express_sorting);
-  assert.ok(manifest.STATIC_ART_FORKLIFTS.compact);
+  assert.equal(Object.keys(manifest.STATIC_ART_SCENES).length, 12);
+  assert.equal(Object.keys(manifest.STATIC_ART_FORKLIFTS).length, 14);
+  assert.equal(manifest.STATIC_ART_SCENES.express_sorting, undefined);
+  assert.equal(manifest.STATIC_ART_FORKLIFTS.compact, undefined);
 });
 
-test('release static artwork offers all 53 aspect-specific preview backgrounds', () => {
+test('release static artwork offers only 12 active item preview backgrounds', () => {
   assert.ok(manifest, 'production static artwork manifest must exist');
-  assert.equal(Object.values(manifest.STATIC_ART_PREVIEWS).reduce((n: number, value) => n + Object.keys(value as object).length, 0), 53);
+  assert.equal(Object.values(manifest.STATIC_ART_PREVIEWS).reduce((n: number, value) => n + Object.keys(value as object).length, 0), 12);
 });
 
 const { readFile, mkdtemp, writeFile, rm } = await import('node:fs/promises');
@@ -37,23 +37,22 @@ const resourceList = ():Resource[] => Object.values(manifest.STATIC_ART_RESOURCE
 async function image(key:string):Promise<Pixels> { return png.decodePng(await readFile(join(root, manifest.STATIC_ART_RESOURCES[key].sourcePath))); }
 function crop(image:Pixels, rect:Rect):Buffer { const output={width:rect.w,height:rect.h,pixels:Buffer.alloc(rect.w*rect.h*4)};png.copyPixels(image,output,rect,0,0);return output.pixels; }
 
-// A one-byte asset mutation, changed rectangle, missing retired ID, or changed authoring source must break these checks.
+// A one-byte asset mutation, changed rectangle, missing active ID, or changed authoring source must break these checks.
 test('all production PNGs have verified source/encoded/pixel hashes and valid crop rectangles', async () => {
  assert.ok(manifest);
  const result=await verifier.verifyStaticArtAssets(root);
- assert.equal(result.resources,78);
+ assert.equal(result.resources,32);
  assert.equal(result.bytes,result.mainBytes+result.cosmeticsBytes);
  assert.equal(result.sourceCommit,'dd847c3174466f0004111b8667a2ff45c563e889');
 });
 
-test('package B keeps defaults in main and optional artwork under the local cosmetics root', () => {
- const main=['scene.day','scene.night','forklift.base','cargo.core','tools.core','frame.classic','material.board'];
+test('all active static artwork uses a single local main package', () => {
  for(const resource of resourceList()) {
-  assert.equal(resource.package,main.includes(resource.key)?'main':'cosmetics');
-  assert.equal(resource.src,resource.package==='main'?resource.sourcePath:`cosmetics/${resource.sourcePath}`);
+  assert.equal(resource.package,'main');
+  assert.equal(resource.src,resource.sourcePath);
   assert.equal(resource.src.includes('://'),false);
  }
- assert.equal(manifest.STATIC_ART_FORKLIFTS.compact.resource,'forklift.styled');
+ assert.equal(manifest.STATIC_ART_FORKLIFTS.compact,undefined);
 });
 
 test('lossless PNG optimization preserves every RGBA byte including transparent pixel color', () => {

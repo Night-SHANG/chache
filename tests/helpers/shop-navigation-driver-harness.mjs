@@ -9,7 +9,6 @@ import {render} from '../../src/presentation/renderer.ts';
 import {attachPixelWitness} from '../../scripts/refinement-host-support.mjs';
 import {authoritativeAccount} from '../../scripts/growth-host-support.mjs';
 import {COSMETIC_CATALOG} from '../../src/application/cosmetics.ts';
-import {COSMETIC_SETS} from '../../src/application/cosmetic-sets.ts';
 
 export function fixture(storage){
  const f=sessionHost(authoritativeAccount(shopNavigationFixtureStorage(50000)).account),canvas=createCanvas(360,640),context=canvas.getContext('2d'),labels=[];let now=0;
@@ -27,14 +26,22 @@ export function exerciseShopDriver(scenario){
   d.action({type:'chooseInbound'});check();d.action({type:'selectInboundDifficulty',inboundDifficulty:'expert'});check();d.action({type:'newRun',mode:'standard',inboundDifficulty:'expert'});check();d.action({type:'back'});check();d.action({type:'home'});d.action({type:'chooseInbound'});check();d.action({type:'home'});d.action({type:'chooseColorTier'});d.action({type:'selectOutboundMode',mode:'endless'});d.action({type:'newRun',mode:'color_exit',difficultyId:'easy',outboundMode:'endless'});check();d.action({type:'back'});check();d.action({type:'home'});d.action({type:'chooseColorTier'});check();
  }else if(scenario==='items'){
   for(const item of COSMETIC_CATALOG.filter((item,index,all)=>{const category=all.filter(row=>row.kind===item.kind);return [category[0].id,category[Math.floor(category.length/2)].id,category.at(-1).id].includes(item.id);})){ d.preview(item.kind,item.id);check();assert.ok(d.h.labels.some(row=>row.text===item.name));assert.equal(d.controls().filter(c=>c.action.type==='previewCosmetic').length,COSMETIC_CATALOG.filter(row=>row.kind===item.kind).slice(d.page()*4,d.page()*4+4).length);}assert.equal(f.session.view.account.wallet,50000);
- }else if(scenario==='sets'){
-  for(const set of [COSMETIC_SETS[0],COSMETIC_SETS[7],COSMETIC_SETS.at(-1)]){d.previewSet(set.id);check();assert.ok(d.h.labels.some(row=>row.text.startsWith(set.name)));for(const kind of ['theme','cargo','forklift']){d.action({type:'previewCosmeticSetMember',kind});check();d.itemPage(Math.ceil(COSMETIC_CATALOG.filter(item=>item.kind===kind).length/4)-1);check();d.action({type:'back'});check();}d.action({type:'closeShopDetail'});check();}
+ }else if(scenario==='retired-sets'){
+  d.appearance('cargo');d.itemPage(1);check();const before=structuredClone(f.session.view),stored=[...f.data];f.storage.resetFault();
+  const retired=[{type:'selectShopSection',section:'sets'},{type:'previewCosmeticSet',id:'classic'},{type:'previewCosmeticSet',id:'cold_chain'},{type:'selectCosmeticSetPage',page:1},{type:'previewCosmeticSetMember',kind:'cargo'},{type:'selectClassicSetVariant',kind:'forklift',id:'white'},{type:'purchaseCosmeticSet',id:'cold_chain'},{type:'equipCosmeticSet',id:'cold_chain'},{type:'equipClassicSet'}];
+  for(const action of retired){assert.ok(!d.controls().some(c=>Object.entries(action).every(([key,value])=>c.action[key]===value)));f.session.action(action);assert.deepEqual(f.session.view,before);assert.deepEqual([...f.data],stored);check();}
+  assert.ok(!f.storage.operations.some(op=>['set','remove'].includes(op.kind)));assert.throws(()=>d.previewSet('classic'),/retired/);assert.throws(()=>d.setPage(0),/retired/);
  }else if(scenario==='scroll'){
-  d.appearance('cargo');d.itemPage(3);check();const chosen=d.selected().id;for(const end of ['up','cancel']){d.h.pointer('down',330,1160);d.h.pointer('move',330,950);d.h.pointer(end,330,950);d.frame(0);check();assert.equal(d.selected().id,chosen);}d.action({type:'selectShopSection',section:'theme'});d.itemPage(2);check();d.action({type:'selectShopSection',section:'cargo'});check();assert.equal(d.page(),3);d.action({type:'selectShopTab',tab:'tools'});d.action({type:'selectShopTab',tab:'cosmetics'});check();d.action({type:'back'});d.shop();check();
+  d.appearance('cargo');d.itemPage(2);check();const chosen=d.selected().id;for(const end of ['up','cancel']){d.h.pointer('down',330,1160);d.h.pointer('move',330,950);d.h.pointer(end,330,950);d.frame(0);check();assert.equal(d.selected().id,chosen);}d.action({type:'selectShopSection',section:'theme'});d.itemPage(2);check();d.action({type:'selectShopSection',section:'cargo'});check();assert.equal(d.page(),2);d.action({type:'selectShopTab',tab:'tools'});d.action({type:'selectShopTab',tab:'cosmetics'});check();d.action({type:'back'});d.shop();check();
  }else if(scenario==='transactions'){
-  d.previewSet('harbor');d.purchase({type:'purchaseCosmeticSet',id:'harbor'});assert.equal(f.session.view.confirmation.kind,'purchaseCosmeticSet');d.cancel();check();d.purchase({type:'purchaseCosmeticSet',id:'harbor'});d.confirm();check();assert.equal(f.session.view.account.wallet,48560);d.action({type:'equipCosmeticSet',id:'harbor'});check();assert.equal(f.session.view.account.profile.cosmetics.theme,'harbor');
- }else if(scenario==='classic'){
-  d.previewSet('classic');check();for(const [kind,id]of Object.entries({theme:'night',cargo:'outline',forklift:'white'})){d.action({type:'selectClassicSetVariant',kind,id});check();assert.deepEqual(f.session.view.classicSetSelection,d.view().classicSetSelection);}d.purchase({type:'purchaseCosmetic',kind:'forklift',id:'white'});d.cancel();check();d.purchase({type:'purchaseCosmetic',kind:'forklift',id:'white'});d.confirm();check();d.action({type:'equipClassicSet'});check();assert.deepEqual(f.session.view.account.profile.cosmetics,{theme:'night',cargo:'classic',forklift:'white'});assert.equal(f.session.view.account.profile.cargoOutline,true);d.action({type:'closeShopDetail'});d.action({type:'back'});d.shop();d.appearance();d.action({type:'previewCosmeticSet',id:'classic'});check();assert.deepEqual(f.session.view.classicSetSelection,{theme:'day',cargo:'classic',forklift:'yellow'});
+  for(const [kind,id]of [['cargo','wood'],['theme','paper_warehouse'],['forklift','white']]){
+   const item=COSMETIC_CATALOG.find(item=>item.kind===kind&&item.id===id);d.preview(kind,id);check();const before=structuredClone(f.session.view.account),stored=[...f.data];
+   d.purchase({type:'purchaseCosmetic',kind,id});assert.equal(f.session.view.confirmation.kind,'purchaseCosmetic');d.cancel();check();assert.deepEqual([...f.data],stored);
+   d.purchase({type:'purchaseCosmetic',kind,id});d.confirm();check();assert.equal(f.session.view.account.wallet,before.wallet-item.price);assert.deepEqual(f.session.view.account.profile.cosmetics,before.profile.cosmetics);
+   d.action({type:'equipCosmetic',kind,id});check();assert.equal(f.session.view.account.profile.cosmetics[kind],id);
+  }
+ }else if(scenario==='root-reset'){
+  d.preview('forklift','ice');check();assert.ok(d.page()>0);d.action({type:'back'});check();d.shop();check();assert.equal(d.shopTab,'tools');d.appearance();check();assert.equal(d.shopSection,'theme');assert.equal(d.page(),0);assert.equal(f.session.view.classicSetSelection,undefined);
  }else throw Error(`Unknown driver test ${scenario}`);
  return {scenario,status:'PASS',nativeAcceptance:false};
 }

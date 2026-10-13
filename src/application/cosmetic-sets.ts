@@ -1,6 +1,5 @@
 import type { Profile } from './profile.ts';
 import { getCosmetic, type AccountCosmeticState } from './cosmetics.ts';
-import { shopPrice } from '../shared/build-policy.ts';
 
 /** Sets are a read-only view over the original, independently owned cosmetic slots. */
 export interface CosmeticSetDefinition {
@@ -26,7 +25,8 @@ export const COSMETIC_SETS: readonly CosmeticSetDefinition[] = Object.freeze([
   { id: 'forest_depot', name: '林间货仓', theme: 'forest_depot', cargo: 'wood', forklift: 'timber' },
   { id: 'ice_vault', name: '冰晶货仓', theme: 'ice_vault', cargo: 'ice_crystal', forklift: 'ice' },
   { id: 'harbor', name: '海港仓库', theme: 'harbor', cargo: 'harbor_container', forklift: 'harbor' },
-].map(set => Object.freeze(set)) as CosmeticSetDefinition[]);
+].filter(set => (['theme', 'cargo', 'forklift'] as const).every(kind => getCosmetic(kind, set[kind])))
+  .map(set => Object.freeze(set)) as CosmeticSetDefinition[]);
 
 /** Classic is a configurable preset of existing items, never a purchasable bundle. */
 export interface ClassicSetSelection {
@@ -56,24 +56,21 @@ export function getCosmeticSet(id: string): CosmeticSetDefinition | undefined {
   return id==='classic'?CLASSIC_COSMETIC_SET:COSMETIC_SETS.find(set => set.id === id);
 }
 
-/** The current purchase quantity alone selects the fixed-set tier; owned items never count. */
-export function cosmeticSetDiscountPercent(missingCount: number): 80 | 90 | 100 {
-  return missingCount >= 3 ? 80 : missingCount === 2 ? 90 : 100;
+/** Legacy callers may read the original-price label; bundle discounts are retired. */
+export function cosmeticSetDiscountPercent(missingCount: number): 100 {
+  void missingCount;
+  return 100;
 }
 export function cosmeticSetDiscountLabel(missingCount: number): string {
   const percent = cosmeticSetDiscountPercent(missingCount);
   return percent === 100 ? '原价' : `${percent / 10}折`;
 }
 
-/** Only missing members are discounted; previous purchases are never charged or refunded. */
+/** Compatibility only: no bundle can produce an actionable purchase quote. */
 export function quoteCosmeticSetPurchase(id: string, state: Pick<AccountCosmeticState, 'ownedCosmetics'>): { missingKeys: string[]; originalPrice: number; price: number } | null {
-  const set = COSMETIC_SETS.find(set => set.id === id);
-  if (!set) return null;
-  const missing = (['theme', 'cargo', 'forklift'] as const)
-    .map(kind => getCosmetic(kind, set[kind])!)
-    .filter(item => !state.ownedCosmetics.includes(item.key));
-  const originalPrice = missing.reduce((sum, item) => sum + item.price, 0);
-  return { missingKeys: missing.map(item => item.key), originalPrice, price: shopPrice(Math.ceil(originalPrice * cosmeticSetDiscountPercent(missing.length) / 100)) };
+  void id;
+  void state;
+  return null;
 }
 
 export interface CosmeticSetStatus { ownedCount: number; complete: boolean; equipped: boolean }

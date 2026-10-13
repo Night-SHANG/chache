@@ -14,7 +14,7 @@ import type {ThemeId} from '../src/application/profile.ts';
 
 /** Instrument the actual bundled painter, including all callers; do not infer needs from catalog order. */
 test('every image drawn by actual shop pages/details and main screens belongs to the shared requirements',async()=>{
- const bundle=await build({stdin:{contents:"import {render} from './src/presentation/renderer.ts';globalThis.__render=render;",resolveDir:process.cwd()},bundle:true,format:'iife',platform:'neutral',write:false,define:{__PLAYTEST_FREE_SHOP__:'false'},plugins:[{name:'record-images',setup(builder){builder.onLoad({filter:/\/static-art-resources\.ts$/},()=>({contents:'export const getStaticArtImage=key=>({key});',loader:'ts'}));}}]});
+ const bundle=await build({stdin:{contents:"import {render} from './src/presentation/renderer.ts';globalThis.__render=render;",resolveDir:process.cwd()},bundle:true,format:'iife',platform:'neutral',write:false,define:{__PLAYTEST_FREE_SHOP__:'false'},plugins:[{name:'record-images',setup(builder){builder.onLoad({filter:/\/static-art-resources\.ts$/},()=>({contents:'export const getStaticArtImage=key=>({key});export const staticArtKeysStatus=()=>({status:"ready"});',loader:'ts'}));}}]});
  const sandbox:{__render?:(ctx:CanvasRenderingContext2D,state:GameRun,view:ViewState)=>void}={};runInNewContext(bundle.outputFiles[0].text,sandbox);assert.ok(sandbox.__render);
  const host=sessionHost(),canvas=createCanvas(1080,1920),ctx=canvas.getContext('2d') as unknown as CanvasRenderingContext2D,drawn=new Set<string>();ctx.drawImage=((image:{key:string})=>{drawn.add(image.key);}) as unknown as CanvasRenderingContext2D['drawImage'];
  const view=host.session.view;

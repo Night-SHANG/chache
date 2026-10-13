@@ -5,6 +5,8 @@ import type {Rect} from './layout.ts';
 import {cargoBox,forklift,roundedPath} from './assets.ts';
 import {drawThemedBoard} from './board-theme.ts';
 import {boardGeometry} from './board-geometry.ts';
+import {staticArtKeysStatus} from './static-art-resources.ts';
+import {staticArtPreviewKeys} from './static-art-requirements.ts';
 import {drawStaticPreviewBackground,validArtRect as validRect} from './static-art-draw.ts';
 
 type Context=CanvasRenderingContext2D;
@@ -19,6 +21,11 @@ export function drawLogisticsBackground(ctx:Context,rect:Rect,theme:string):bool
 /** One clear product subject, drawn through the same helpers as real cargo and vehicles. */
 export function drawCosmeticPreview(ctx: Context, rect: Rect, options: CosmeticPreviewOptions = {}): void {
   if (!validRect(rect)) return;
+  const status=staticArtKeysStatus(staticArtPreviewKeys({theme:options.theme??'day',cargo:options.cargoStyle??'classic',forklift:options.forklift??'yellow'}));
+  if(status.status!=='ready'){
+   ctx.save();ctx.fillStyle='#263d50';ctx.fillRect(rect.x,rect.y,rect.w,rect.h);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#d0dedb';ctx.font='500 28px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
+   ctx.fillText(status.status==='error'?'预览加载失败，点此重试':'正在准备预览…',rect.x+rect.w/2,rect.y+rect.h/2,rect.w-32);ctx.restore();return;
+  }
   ctx.save(); ctx.beginPath(); ctx.rect(rect.x, rect.y, rect.w, rect.h); ctx.clip();
   const theme = options.theme ?? 'day', category = options.category ?? 'cargo';
   drawStaticPreviewBackground(ctx,rect,theme);

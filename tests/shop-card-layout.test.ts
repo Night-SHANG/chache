@@ -4,49 +4,47 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createCanvas,type Canvas} from '@napi-rs/canvas';
-import {getShopControls,cosmeticSetCardRect,COSMETIC_PREVIEW_RECT} from '../src/presentation/economy-ui.ts';
+import {getShopControls,COSMETIC_PREVIEW_RECT} from '../src/presentation/economy-ui.ts';
 import {render} from '../src/presentation/renderer.ts';
 import {createRunV14} from '../src/domain/v14/engine.ts';
 import {createProfile} from '../src/application/profile.ts';
 import {makeAccountFixture} from './helpers/account-fixtures.ts';
 import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
-import {COSMETIC_SETS,SHOP_COSMETIC_SETS} from '../src/application/cosmetic-sets.ts';
 import type {ViewState} from '../src/presentation/view-types.ts';
 import type {CanvasSurface} from '../src/platform/types.ts';
 import {configureCosmeticPreviewCache} from '../src/presentation/cosmetic-preview-cache.ts';
 const state=createRunV14({seed:11,mode:'standard'});
-const view=(patch:Partial<ViewState>={}):ViewState=>({screen:'shop',shopTab:'cosmetics',shopSection:'sets',selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile(),account:makeAccountFixture({wallet:900}),...patch});
+const view=(patch:Partial<ViewState>={}):ViewState=>({screen:'shop',shopTab:'cosmetics',shopSection:'theme',selectedPieceId:null,hoverOrigin:null,preview:null,dragPoint:null,paused:false,message:'',saveStatus:'',elapsed:0,animation:null,debug:false,needsResume:false,profile:createProfile(),account:makeAccountFixture({wallet:900}),...patch});
 const sectionCards=(v:ViewState)=>getShopControls(v).filter(c=>['previewCosmetic','previewCosmeticSet'].includes(c.action.type));
 const disjoint=(a:{x:number;y:number;w:number;h:number},b:{x:number;y:number;w:number;h:number})=>a.x+a.w<=b.x||b.x+b.w<=a.x||a.y+a.h<=b.y||b.y+b.h<=a.y;
 
-test('appearance lists four peer sections, four page-scoped set cards and four compact item tiles',()=>{
+test('appearance lists three peer categories and four compact inline tiles without set cards',()=>{
  const controls=getShopControls(view());
- assert.deepEqual(controls.filter(c=>c.action.type==='selectShopSection').map(c=>c.label),['套装','场景','货箱','叉车']);
- assert.equal(controls.some(c=>['selectCosmeticBrowse','selectCosmeticCategory'].includes(c.action.type)),false);
- const cards=sectionCards(view());assert.equal(cards.length,4);assert.deepEqual(cards.map(c=>c.rect),Array.from({length:4},(_,index)=>cosmeticSetCardRect(index)));
- assert.equal(controls.filter(c=>c.action.type==='selectCosmeticSetPage').length,2);
- const itemControls=getShopControls(view({shopSection:'cargo'})),tiles=sectionCards(view({shopSection:'cargo'}));
- assert.deepEqual(tiles.map(c=>c.rect),[{x:132,y:1110,w:396,h:150},{x:552,y:1110,w:396,h:150},{x:132,y:1280,w:396,h:150},{x:552,y:1280,w:396,h:150}]);
- assert.equal(itemControls.filter(c=>c.action.type==='selectCosmeticPage').length,2);assert.deepEqual(COSMETIC_PREVIEW_RECT,{x:132,y:750,w:816,h:232});
+ assert.deepEqual(controls.filter(c=>c.action.type==='selectShopSection').map(c=>c.label),['场景','货箱','叉车']);
+ assert.deepEqual(controls.filter(c=>c.action.type==='selectShopSection').map(c=>c.rect),[{x:132,y:414,w:256,h:150},{x:412,y:414,w:256,h:150},{x:692,y:414,w:256,h:150}]);
+ assert.equal(controls.some(c=>['selectCosmeticBrowse','selectCosmeticCategory','previewCosmeticSet','selectCosmeticSetPage'].includes(c.action.type)),false);
+ for(const shopSection of ['theme','cargo','forklift'] as const){
+  const itemControls=getShopControls(view({shopSection})),tiles=sectionCards(view({shopSection}));
+  assert.deepEqual(tiles.map(c=>c.rect),[{x:132,y:1110,w:396,h:150},{x:552,y:1110,w:396,h:150},{x:132,y:1280,w:396,h:150},{x:552,y:1280,w:396,h:150}]);
+  assert.equal(itemControls.filter(c=>c.action.type==='selectCosmeticPage').length,2);
+ }
+ assert.deepEqual(COSMETIC_PREVIEW_RECT,{x:132,y:750,w:816,h:232});
 });
 
-test('standard set detail keeps global tabs and member links while ordinary items keep Back left and action right',()=>{
- const set=getShopControls(view({cosmeticSetPreview:'cold_chain'}));
- assert.equal(set.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(set.filter(c=>c.action.type==='selectShopSection').length,4);
- assert.equal(set.some(c=>['previewCosmetic','previewCosmeticSet'].includes(c.action.type)),false);
- const setBack=set.find(c=>c.action.type==='closeShopDetail'),setAction=set.find(c=>c.action.type==='purchaseCosmeticSet');
- assert.ok(setBack);assert.ok(setAction);assert.ok(setBack.rect.x+setBack.rect.w<setAction.rect.x);assert.equal(setBack.buttonRole,'secondary');assert.equal(setAction.buttonRole,'primary');assert.equal(set.filter(c=>c.action.type==='previewCosmeticSetMember').length,3);
+test('inline items retain global tabs and Back left, action right, with no detail route',()=>{
  const item=getShopControls(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}})),back=item.find(c=>c.action.type==='back'),action=item.find(c=>c.action.type==='purchaseCosmetic');
- assert.equal(item.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(item.filter(c=>c.action.type==='selectShopSection').length,4);assert.equal(item.filter(c=>c.action.type==='previewCosmetic').length,4);assert.equal(item.some(c=>c.action.type==='closeShopDetail'||c.action.type==='previewCosmeticSetMember'),false);
+ assert.equal(item.filter(c=>c.action.type==='selectShopTab').length,2);assert.equal(item.filter(c=>c.action.type==='selectShopSection').length,3);assert.equal(item.filter(c=>c.action.type==='previewCosmetic').length,4);
+ assert.equal(item.some(c=>['closeShopDetail','previewCosmeticSetMember','purchaseCosmeticSet','equipCosmeticSet','equipClassicSet'].includes(c.action.type)),false);
  assert.ok(back);assert.ok(action);assert.ok(back.rect.x+back.rect.w<action.rect.x);assert.equal(back.buttonRole,'secondary');assert.equal(action.buttonRole,'primary');
+ assert.deepEqual(back.rect,{x:132,y:1640,w:264,h:150});assert.deepEqual(action.rect,{x:420,y:1640,w:528,h:150});
 });
 
 test('every section pages through every catalog entry with disabled bounds, disjoint controls and 44px targets',async()=>{
  const layout=await import('../src/presentation/shop-layout.ts');
- for(const section of ['sets','theme','cargo','forklift'] as const){
-  const catalog=section==='sets'?SHOP_COSMETIC_SETS:COSMETIC_CATALOG.filter(c=>c.kind===section),seen:string[]=[],pages=Math.ceil(catalog.length/4);
+ for(const section of ['theme','cargo','forklift'] as const){
+  const catalog=COSMETIC_CATALOG.filter(c=>c.kind===section),seen:string[]=[],pages=Math.ceil(catalog.length/4);
   for(let page=0;page<pages;page++){
-   const current=view(section==='sets'?{shopSection:section,cosmeticSetPage:page}:{shopSection:section,cosmeticPreview:{[section]:catalog[page*4].id}}),controls=getShopControls(current),cards=sectionCards(current);
+   const current=view({shopSection:section,cosmeticPreview:{[section]:catalog[page*4].id}}),controls=getShopControls(current),cards=sectionCards(current);
    assert.equal(layout.shopScrollLimit(current),0);assert.equal(layout.shopScrollOffset({...current,shopScroll:{[section]:500}}),0);assert.equal(cards.length,Math.min(4,catalog.length-page*4));
    for(const [i,c]of controls.entries()){
     assert.ok(c.rect.w*320/1080>=44&&c.rect.h*320/1080>=44,c.action.type);assert.ok(c.rect.x>=0&&c.rect.x+c.rect.w<=1080&&c.rect.y>=0&&c.rect.y+c.rect.h<=1856);for(const other of controls.slice(i+1))assert.ok(disjoint(c.rect,other.rect));
@@ -68,29 +66,26 @@ test('page artwork uses ready images with zero surface allocation while wallet a
  try{
   const v=view();await paint(v);for(let i=0;i<5;i++)await paint(v);
   await paint({...v,account:makeAccountFixture({wallet:1234})});assert.ok(labels.includes('金币 1234'));
-  for(let page=1;page<4;page++){await paint(view({cosmeticSetPage:page}));await paint(view({cosmeticSetPage:page}));}
+  for(const shopSection of ['theme','cargo','forklift'] as const)for(const item of COSMETIC_CATALOG.filter(item=>item.kind===shopSection)){await paint(view({shopSection,cosmeticPreview:{[shopSection]:item.id}}));}
   await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'wood'}}));assert.ok(labels.includes('原木藤箱'));
   await paint(view({shopSection:'cargo',cosmeticPreview:{cargo:'insulated'}}));assert.ok(labels.includes('保温周转箱'));
-  const selected=view({classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}});await paint(selected);await paint(selected);
+  const selected=view({shopSection:'forklift',cosmeticPreview:{forklift:'white'}});await paint(selected);await paint(selected);
  }finally{configureCosmeticPreviewCache();}
 });
 
-test('classic preset is pinned before the fourteen paid sets without expanding the 50-item catalog',()=>{
- const cards=sectionCards(view());assert.equal(cards[0].action.type,'previewCosmeticSet');assert.equal('id'in cards[0].action?cards[0].action.id:undefined,'classic');assert.match(cards[0].label,/经典套装/);assert.equal(COSMETIC_CATALOG.length,50);assert.equal(COSMETIC_SETS.length,14);
-});
-
-test('classic detail has compact preview-only variants and owned-state primary route with 44px targets',()=>{
- const v=view({cosmeticSetPreview:'classic'}),controls=getShopControls(v),variants=controls.filter(c=>c.action.type==='selectClassicSetVariant');
- assert.deepEqual(variants.map(c=>c.action.type==='selectClassicSetVariant'?[c.action.kind,c.action.id]:[]),[['theme','day'],['theme','night'],['cargo','classic'],['cargo','outline'],['forklift','yellow'],['forklift','blue'],['forklift','red'],['forklift','white']]);
- assert.ok(controls.some(c=>c.action.type==='equipClassicSet'));assert.equal(controls.some(c=>c.action.type==='purchaseCosmeticSet'),false);
- for(const [i,c]of controls.entries()){assert.ok(c.rect.w*320/1080>=44&&c.rect.h*320/1080>=44);for(const b of controls.slice(i+1))assert.ok(disjoint(c.rect,b.rect));}
- const missing=getShopControls(view({cosmeticSetPreview:'classic',classicSetSelection:{theme:'night',cargo:'outline',forklift:'white'}}));assert.ok(missing.some(c=>c.action.type==='purchaseCosmetic'&&c.action.kind==='forklift'&&c.action.id==='white'));assert.equal(missing.some(c=>c.action.type==='purchaseCosmeticSet'),false);
+test('the reduced catalog exposes exactly 38 individual cosmetics and no classic or set card',()=>{
+ assert.equal(COSMETIC_CATALOG.length,38);
+ assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[12,12,14]);
+ for(const legacy of [{shopSection:'sets' as const},{cosmeticSetPreview:'classic'},{cosmeticSetPreview:'cold_chain'}]){
+  const controls=getShopControls(view(legacy));assert.equal(controls.filter(c=>c.action.type==='previewCosmetic').length,4);
+  assert.equal(controls.some(c=>['previewCosmeticSet','selectClassicSetVariant','previewCosmeticSetMember','purchaseCosmeticSet','equipCosmeticSet','equipClassicSet','closeShopDetail'].includes(c.action.type)),false);
+ }
 });
 
 test('ready page images are exact across repeated frames and ignore legacy surface-cache configuration',async()=>{
- for(const width of [320,360,540])for(const section of ['sets','theme','cargo','forklift'] as const){
-  const dpr=width===320?3:2,canvas=createCanvas(width*dpr,Math.ceil(width*1920/1080)*dpr),ctx=canvas.getContext('2d') as unknown as CanvasRenderingContext2D,v=view(section==='sets'?{shopSection:section,cosmeticSetPage:1}:{shopSection:section,cosmeticPreview:{[section]:COSMETIC_CATALOG.filter(item=>item.kind===section)[4].id}}),scale=width*dpr/1080;ctx.scale(scale,scale);
-  const digest=(outside=false)=>{const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data,hash=createHash('sha256'),left=Math.floor((section==='sets'?150:132)*scale),right=Math.ceil((section==='sets'?930:948)*scale),top=Math.floor((section==='sets'?648:750)*scale),bottom=Math.ceil((section==='sets'?1296:982)*scale);
+ for(const width of [320,360,540])for(const section of ['theme','cargo','forklift'] as const){
+  const dpr=width===320?3:2,canvas=createCanvas(width*dpr,Math.ceil(width*1920/1080)*dpr),ctx=canvas.getContext('2d') as unknown as CanvasRenderingContext2D,v=view({shopSection:section,cosmeticPreview:{[section]:COSMETIC_CATALOG.filter(item=>item.kind===section)[4].id}}),scale=width*dpr/1080;ctx.scale(scale,scale);
+  const digest=(outside=false)=>{const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data,hash=createHash('sha256'),left=Math.floor(132*scale),right=Math.ceil(948*scale),top=Math.floor(750*scale),bottom=Math.ceil(982*scale);
    if(!outside)return hash.update(pixels).digest('hex');for(let y=0;y<canvas.height;y++){const row=y*canvas.width*4;if(y<top||y>=bottom)hash.update(pixels.subarray(row,row+canvas.width*4));else{hash.update(pixels.subarray(row,row+left*4));hash.update(pixels.subarray(row+right*4,row+canvas.width*4));}}return hash.digest('hex');};
   await prepareViewArt(v);configureCosmeticPreviewCache();render(ctx,state,v);const outside=digest(true);
   configureCosmeticPreviewCache(()=>createCanvas(1,1) as unknown as CanvasSurface);

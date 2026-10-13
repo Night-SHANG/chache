@@ -49,7 +49,7 @@ test('pressed pixels are visible, bounded to control, and cancel restores exact 
 });
 
 test('shop card pressure follows sub-threshold edge exit and reentry, larger drag permanently cancels',()=>{
- const h=fixture();h.view.screen='shop';h.view.shopTab='cosmetics';h.view.shopSection='sets';const c=getUiControls(h.state,h.view).find(c=>c.action.type==='previewCosmeticSet')!;const point={x:c.rect.x+1,y:c.rect.y+30};h.input.down(point);assert.equal(h.view.pressedControl?.visible,true);
+ const h=fixture();h.view.screen='shop';h.view.shopTab='cosmetics';h.view.shopSection='theme';const c=getUiControls(h.state,h.view).find(c=>c.action.type==='previewCosmetic')!;const point={x:c.rect.x+1,y:c.rect.y+30};h.input.down(point);assert.equal(h.view.pressedControl?.visible,true);
  h.input.move({x:c.rect.x-4,y:point.y});assert.equal(h.view.pressedControl?.visible,false);h.input.move(point);assert.equal(h.view.pressedControl?.visible,true);h.input.move({x:point.x+20,y:point.y});assert.equal(h.view.pressedControl,null);h.input.move(point);h.input.up(point);assert.equal(h.actions.length,0);
 });
 test('refresh discards replaced modal and changed purchase quantity while held',()=>{

@@ -15,8 +15,9 @@ test('Android back dismisses tool selection and toolbox ahead of the running gam
 test('Android back cancels supply selection before pause',()=>{
  const h=sessionHost(),s=h.session;startInbound(s);s.view.supplyUpgrade='cargo_supply';const before=[...h.data];assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.supplyUpgrade,null);assert.equal(s.view.paused,false);assert.deepEqual([...h.data],before);
 });
-test('Android back closes shop item and set details before leaving the shop',()=>{
- const h=sessionHost(),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'previewCosmeticSet',id:'classic'});const before=[...h.data];assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.cosmeticSetPreview,undefined);assert.equal(s.view.screen,'shop');assert.deepEqual([...h.data],before);assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.screen,'menu');
+test('Android back leaves inline cosmetic previews without a removed set navigation layer',()=>{
+ const h=sessionHost(),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'previewCosmetic',kind:'theme',id:'cold_chain'});const before=[...h.data];
+ assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.screen,'menu');assert.deepEqual([...h.data],before);
 });
 test('Android back follows existing help, settings, preparation and selection back paths',()=>{
  const h=sessionHost(),s=h.session;s.action({type:'helpMenu'});s.action({type:'selectHelp',topic:'inbound'});s.action({type:'helpDetails'});assert.equal(s.view.screen,'helpDetails');assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.screen,'helpMenu');assert.equal(handleAndroidBack(s),'handled');assert.equal(s.view.screen,'menu');

@@ -42,19 +42,25 @@ test('strict actual game host uses only its screen canvas and does not install c
  const folder=await mkdtemp(join(tmpdir(),'warehouse-current-game-host-'));
  try{
   const bundlePath=join(folder,'game.js');
-  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.13')}});
+  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.15')}});
   for(const resource of Object.values(STATIC_ART_RESOURCES)){const target=join(folder,resource.src);await mkdir(dirname(target),{recursive:true});await cp(resource.sourcePath,target);}
   const report=await probeBuiltHost({bundlePath});
   assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);
   const host=await createGrowthHost({bundlePath,deferImageLoads:true,rejectOffscreenCanvases:true}),screen=host.canvas;
   assert.equal(host.canvasCount,1,'screen is the first and only startup canvas');assert.equal(host.context,screen.getContext('2d'));assert.deepEqual(host.surfaceInfo,[]);
   host.frame(0);assert.equal(host.canvas,screen);assert.ok(host.labels.some(row=>row.text.includes('正在加载')));assert.equal(host.canvasCount,1);
-  for(let n=0;n<5;n++)await host.settleImages();host.frame(16);
+  for(let n=0;n<5;n++)await host.settleImages();
   assert.ok(host.imageTrace.length>0&&host.imageTrace.every(row=>row.status==='loaded'));
+  assert.ok(host.imageTrace.every(row=>!row.source.includes('preview-')),'No speculative images before the first ready paint');
+  host.frame(16);
+  const warm=host.imageTrace.filter(row=>row.status==='pending');assert.equal(warm.length,1);assert.match(warm[0].source,/^assets\/static-art\/preview-.+-item[.]png$/);
+  assert.ok(host.imageTrace.every(row=>row.source.startsWith('assets/')));
+  for(let n=0;n<4;n++){await host.settleImages();host.frame(32+n*16);}
+  assert.ok(host.imageTrace.every(row=>row.status==='loaded'),'Frame-by-frame warming completes without blocking ready rendering');
   assert.ok(!host.labels.some(row=>row.text.includes('正在加载')||row.text.includes('加载失败')));
   assert.deepEqual(host.surfaceInfo,[]);assert.equal(host.canvasCount,1,'ready frames never create a static offscreen layer');
   assert.deepEqual(report.extraGlobals,[]);assert.equal(report.executedChecks,1);
-  const code=await readFile(bundlePath,'utf8');
+  const code=await readFile(bundlePath,'utf8');assert.doesNotMatch(code,/\bloadSubpackage\b/);
   assert.equal(/\bstructuredClone\s*\(|new\s+TextEncoder\s*\(|\beval\s*\(|new\s+Function\s*\(/.test(code),false);
  }finally{await rm(folder,{recursive:true,force:true});}
 });

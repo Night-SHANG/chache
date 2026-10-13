@@ -26,7 +26,7 @@ import { createProfile, encodeProfile, localDailyChallenge, PROFILE_KEYS, record
 import { isRunSlot, slotForRun, type RunSlot } from './run-slots.ts';
 import { loadPlayableRun } from './run-lifecycle.ts';
 import { accountCosmeticState, getCosmetic, retainAccountCosmetics } from './cosmetics.ts';
-import { getCosmeticSet, quoteCosmeticSetPurchase, isClassicSetSelection, classicSetDefinition, classicSetStatus } from './cosmetic-sets.ts';
+import { getCosmeticSet, isClassicSetSelection, classicSetDefinition, classicSetStatus } from './cosmetic-sets.ts';
 import type { ClassicSetSelection } from './cosmetic-sets.ts';
 
 export interface StartIntent { spec: RunSpec; items: ItemId[]; guide: 'guided' | 'direct'; cleanupBranch?: 'orders' | 'placements' }
@@ -129,7 +129,7 @@ function validateRequest(request: unknown, generation: number): asserts request 
   const fields: Record<string, string[]> = {
     start: ['intent'], command: ['runId', 'command'], purchase: ['item'], skipGuide: ['runId', 'track'],
     saveElapsed: ['runId', 'elapsedMs'], purchaseCosmetic: ['kind', 'id'], setCargoOutline: ['enabled'], equipCosmeticSet: ['id'],
-    purchaseCosmeticSet: ['id', 'quotedKeys', 'quotedPrice'], equipClassicSet: ['selection'],
+    equipClassicSet: ['selection'],
     close: ['runId', 'reason'], resetResults: [], setTutorialsEnabled:['enabled'], setSettings: ['patch'], setCosmetic: ['kind', 'id'], recordLegacyResult: ['slot'],
   };
   requireValue(typeof request.type === 'string' && owns(fields, request.type) && keys(request, ['operationId', 'type', ...fields[request.type],
@@ -272,6 +272,7 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
   }
   function prepare(operation: Pending, account: AccountSnapshot): AccountSnapshot {
     const request = operation.request;
+    if (request.type === 'purchaseCosmeticSet') throw Error('套装购买已停用');
     if (request.type === 'start') {
       requireValue(account.run === null, '请先确认结束当前局');
       const intent = request.intent;
@@ -340,18 +341,6 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
       const price = shopPrice(item.price);
       requireValue(account.wallet >= price, '金币不足');
       return { ...account, wallet: account.wallet - price, profile: { ...account.profile, ownedCosmetics: [...owned, item.key].sort() } };
-    }
-    if (request.type === 'purchaseCosmeticSet') {
-      const quote = quoteCosmeticSetPurchase(request.id, { ownedCosmetics: account.profile.ownedCosmetics! });
-      requireValue(quote, '套装不存在');
-      requireValue(account.run === null, '当前不能购买套装');
-      requireValue(Array.isArray(request.quotedKeys) && request.quotedKeys.length === quote.missingKeys.length
-        && quote.missingKeys.every((key, index) => request.quotedKeys[index] === key)
-        && safe(request.quotedPrice) && request.quotedPrice === quote.price, '套装报价已变化，请重新确认');
-      if (quote.missingKeys.length === 0) return account;
-      requireValue(account.wallet >= quote.price, '金币不足');
-      return { ...account, wallet: account.wallet - quote.price, profile: { ...account.profile,
-        ownedCosmetics: [...account.profile.ownedCosmetics!, ...quote.missingKeys].sort() } };
     }
     if (request.type === 'setCargoOutline') {
       requireValue(typeof request.enabled === 'boolean', '轮廓偏好无效');
@@ -473,8 +462,8 @@ export function createAccountService(storage: StoragePort, lease: WriterLease, w
         operation.previous = loaded.account ? clone(loaded.account) : null;
         const prepared = upgradeAccountGuides(retainAccountCosmetics(upgradeEconomy(clone(base))));
         const next = retainAccountCosmetics(prepare(operation, prepared));
-        if ((operation.request.type === 'saveElapsed' || operation.request.type === 'purchaseCosmetic' || operation.request.type === 'purchaseCosmeticSet' || operation.request.type === 'equipCosmeticSet' || operation.request.type === 'equipClassicSet') && canonicalStringify(next) === canonicalStringify(base)) {
-          const result = acknowledge(base, operation); result.message = operation.request.type === 'saveElapsed' ? '计时未变化' : operation.request.type === 'equipCosmeticSet' || operation.request.type === 'equipClassicSet' ? '已使用该套装' : operation.request.type === 'purchaseCosmeticSet' ? '已拥有该套装全部外观' : '已拥有该外观'; return result;
+        if ((operation.request.type === 'saveElapsed' || operation.request.type === 'purchaseCosmetic' || operation.request.type === 'equipCosmeticSet' || operation.request.type === 'equipClassicSet') && canonicalStringify(next) === canonicalStringify(base)) {
+          const result = acknowledge(base, operation); result.message = operation.request.type === 'saveElapsed' ? '计时未变化' : operation.request.type === 'equipCosmeticSet' || operation.request.type === 'equipClassicSet' ? '已使用该套装' : '已拥有该外观'; return result;
         }
         operation.next = { ...next, generation: operation.expectedGeneration + 1, lastOperation: { operationId: operation.request.operationId,
           expectedGeneration: operation.expectedGeneration, requestDigest: operation.digest, committedGeneration: operation.expectedGeneration + 1 } };

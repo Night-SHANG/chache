@@ -38,9 +38,9 @@ test('game board remains identical and scenery never mutates the run',async()=>{
  assert.deepEqual([...after.getImageData(0,400,1,1).data],base);
 });
 test('bounded shop previews never paint beyond their own rectangle',async()=>{
- await prepareArt('cold_chain',['preview.cold_chain.card']);
+ await prepareArt('cold_chain',['preview.cold_chain.item']);
  const context=createCanvas(400,300).getContext('2d');context.fillStyle='#0c131c';context.fillRect(0,0,400,300);
- drawCosmeticPreview(context as unknown as CanvasRenderingContext2D,{x:40,y:20,w:320,h:246*320/360},{theme:'cold_chain',category:'theme'});
+ drawCosmeticPreview(context as unknown as CanvasRenderingContext2D,{x:40,y:20,w:320,h:232*320/816},{theme:'cold_chain',category:'theme'});
  for(const [x,y]of [[0,100],[39,100],[360,100],[399,100]])assert.deepEqual([...context.getImageData(x,y,1,1).data],base);
 });
 test('missing or invalid viewport hints preserve the finite frame',async()=>{

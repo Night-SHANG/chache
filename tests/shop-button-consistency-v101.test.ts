@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {createCanvas,GlobalFonts} from '@napi-rs/canvas';
 import {getShopControls,cosmeticStatus} from '../src/presentation/economy-ui.ts';
 import {COSMETIC_CATALOG,getCosmetic,retainAccountCosmetics} from '../src/application/cosmetics.ts';
-import {COSMETIC_SETS,quoteCosmeticSetPurchase} from '../src/application/cosmetic-sets.ts';
+import {COSMETIC_SETS} from '../src/application/cosmetic-sets.ts';
 import {createProfile} from '../src/application/profile.ts';
 import {createRunV14} from '../src/domain/v14/engine.ts';
 import {render} from '../src/presentation/renderer.ts';
@@ -19,31 +19,35 @@ const view=(patch:Partial<ViewState>={}):ViewState=>({screen:'shop',shopTab:'cos
 const account=(wallet=0)=>retainAccountCosmetics(makeAccountFixture({wallet}));
 const primary=(v:ViewState)=>getShopControls(v).find(c=>c.buttonRole==='primary')!;
 function paints(v:ViewState){const ctx=createCanvas(1080,1920).getContext('2d'),rows:{text:string;font:string;x:number;y:number;width:number}[]=[];const fill=ctx.fillText.bind(ctx);ctx.fillText=(text,x,y,...rest)=>{rows.push({text,font:ctx.font,x,y,width:ctx.measureText(text).width});fill(text,x,y,...rest);};render(ctx as unknown as CanvasRenderingContext2D,createRunV14({seed:11,mode:'standard'}),v);return rows;}
-test('v101 all ordinary and set-member paid prices stay single-line whether affordable or disabled',()=>{
+test('v101 ordinary prices stay single-line and stale set-origin metadata cannot change them',()=>{
  for(const item of COSMETIC_CATALOG.filter(i=>i.price>0))for(const wallet of [0,item.price-1,item.price,9000])for(const member of [false,true]){
   const v=view({account:account(wallet),shopSection:item.kind,cosmeticPreview:{[item.kind]:item.id},...(member?{cosmeticReturnSet:'harbor'}:{})}),c=primary(v);
   assert.equal(c.label,`${item.price}金币 · 购买`,item.key);assert.equal(!!c.disabled,wallet<item.price);assert.equal(getShopControls(v).find(c=>c.action.type==='back')!.label,'返回');
  }
 });
-test('v101 partial bundle quote keeps purchase-set wording and exactly reuses ordinary footer proportions',()=>{
- for(const set of COSMETIC_SETS)for(let mask=0;mask<7;mask++)for(const wallet of [0,9000]){
+test('v101 partial sibling ownership never discounts the selected individual item or changes footer proportions',()=>{
+ for(const set of COSMETIC_SETS)for(let mask=0;mask<8;mask++)for(const wallet of [0,9000])for(const kind of ['theme','cargo','forklift'] as const){
   const a=account(wallet),members=['theme','cargo','forklift'].map(kind=>`${kind}.${set[kind as 'theme'|'cargo'|'forklift']}`);a.profile.ownedCosmetics=[...new Set([...a.profile.ownedCosmetics!,...members.filter((_,i)=>mask&(1<<i))])].sort();
-  const v=view({account:a,shopSection:'sets',cosmeticSetPreview:set.id}),controls=getShopControls(v),c=primary(v),quote=quoteCosmeticSetPurchase(set.id,{ownedCosmetics:a.profile.ownedCosmetics!})!;
-  assert.equal(c.label,`${quote.price}金币 · 购买套装`);assert.equal(!!c.disabled,wallet<quote.price);assert.deepEqual(c.rect,{x:420,y:1692,w:528,h:150});
-  const back=controls.find(c=>c.action.type==='closeShopDetail')!;assert.equal(back.label,'返回');assert.deepEqual(back.rect,{x:132,y:1692,w:264,h:150});
+  const item=getCosmetic(kind,set[kind])!,v=view({account:a,shopSection:kind,cosmeticPreview:{[kind]:item.id}}),controls=getShopControls(v),c=primary(v),owned=a.profile.ownedCosmetics.includes(item.key);
+  assert.equal(c.label,owned?'装备':`${item.price}金币 · 购买`);assert.equal(!!c.disabled,!owned&&wallet<item.price);assert.deepEqual(c.rect,{x:420,y:1640,w:528,h:150});
+  const back=controls.find(c=>c.action.type==='back')!;assert.equal(back.label,'返回');assert.deepEqual(back.rect,{x:132,y:1640,w:264,h:150});
+  assert.equal(controls.some(c=>c.action.type==='purchaseCosmeticSet'),false);
  }
 });
-test('v101 classic white purchase uses the same price-first single line and narrow Back',()=>{
- const v=view({account:account(599),shopSection:'sets',cosmeticSetPreview:'classic',classicSetSelection:{theme:'day',cargo:'classic',forklift:'white'}});assert.equal(primary(v).label,'600金币 · 购买');assert.equal(primary(v).disabled,true);assert.deepEqual(primary(v).rect,{x:420,y:1692,w:528,h:150});
+test('v101 independent white purchase keeps the same price-first single line and narrow Back',()=>{
+ const v=view({account:account(599),shopSection:'forklift',cosmeticPreview:{forklift:'white'}});assert.equal(primary(v).label,'600金币 · 购买');assert.equal(primary(v).disabled,true);assert.deepEqual(primary(v).rect,{x:420,y:1640,w:528,h:150});
  assert.ok(paints(v).every(p=>!p.text.includes('还差')));
 });
-test('v101 insufficient bundles show original price and discount without a deficit annotation',()=>{
- const set=COSMETIC_SETS.find(s=>s.theme==='harbor')!,a=account(684);a.profile.ownedCosmetics!.push('theme.harbor');a.profile.ownedCosmetics!.sort();const v=view({account:a,shopSection:'sets',cosmeticSetPreview:set.id});
- assert.equal(primary(v).label,'810金币 · 购买套装');const rows=paints(v);assert.ok(rows.some(p=>p.text==='原价900 · 9折'));assert.ok(rows.every(p=>!p.text.includes('还差')));
+test('v101 insufficient individual items retain their full price without discount or deficit annotations',()=>{
+ for(const [kind,id,price]of [['theme','cold_chain',900],['cargo','insulated',300],['forklift','electric',600]]as const){
+  const a=account(price-1);a.profile.ownedCosmetics=[...new Set([...a.profile.ownedCosmetics!,...['theme.cold_chain','cargo.insulated','forklift.electric'].filter(key=>key!==`${kind}.${id}`)])].sort();
+  const v=view({account:a,shopSection:kind,cosmeticPreview:{[kind]:id}}),rows=paints(v);
+  assert.equal(primary(v).label,`${price}金币 · 购买`);assert.equal(primary(v).disabled,true);assert.ok(rows.some(p=>p.text===`${price}金币 · 购买`));assert.ok(rows.every(p=>!/还差|8折|9折|购买套装/.test(p.text)));
+ }
 });
-test('v101 actual loaded-font paint shares family size weight and one baseline across all purchase footers',()=>{
+test('v101 actual loaded-font paint shares family size weight and one baseline across affordable and disabled item footers',()=>{
  assert.ok(GlobalFonts.families.some(f=>f.family==='Noto Sans CJK SC'),'Chinese font must really be available');
- const set=COSMETIC_SETS.find(s=>s.theme==='harbor')!;const views=[...['theme','cargo','forklift'].map(kind=>view({account:account(9000),shopSection:kind as 'theme'|'cargo'|'forklift',cosmeticPreview:{[kind]:kind==='theme'?'harbor':kind==='cargo'?'wood':'white'}})),view({account:account(0),shopSection:'sets',cosmeticSetPreview:set.id}),view({account:account(599),shopSection:'sets',cosmeticSetPreview:'classic',classicSetSelection:{theme:'day',cargo:'classic',forklift:'white'}})];
+ const views=(['theme','cargo','forklift']as const).flatMap(kind=>[0,9000].map(wallet=>view({account:account(wallet),shopSection:kind,cosmeticPreview:{[kind]:kind==='theme'?'cold_chain':kind==='cargo'?'wood':'white'}})));
  let expected:string|undefined;for(const v of views){const c=primary(v),rows=paints(v).filter(p=>p.y>c.rect.y&&p.y<c.rect.y+c.rect.h&&p.x>c.rect.x);assert.equal(rows.length,1,c.label);assert.equal(rows[0].text,c.label);assert.equal(rows[0].y,c.rect.y+c.rect.h/2);assert.ok(rows[0].width<=c.rect.w-48);assert.match(rows[0].font,/^800 42px /);expected??=rows[0].font;assert.equal(rows[0].font,expected);}
 });
 test('v101 outline equipment is labeled consistently and classic is available to remove it',()=>{
@@ -57,6 +61,8 @@ test('v101 outline to classic through actual input is one durable transaction an
  const restored=new GameSession(h.platform,{seed:71,mode:'standard'});assert.equal(restored.view.account!.profile.cargoOutline,false);assert.equal(restored.view.account!.wallet,684);
 });
 test('v101 tools keep the required price and purchase word when wallet is insufficient',()=>{for(const wallet of [0,9000]){const controls=getShopControls(view({shopTab:'tools',account:account(wallet)}));for(const c of controls.filter(c=>c.action.type==='purchase'))assert.match(c.label,/^\d+金币 · 购买$/);}});
-test('v101 rejected set intent keeps a useful insufficient-wallet error without a deficit amount',()=>{
- const h=sessionHost({wallet:684}),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'previewCosmeticSet',id:'harbor'});s.action({type:'purchaseCosmeticSet',id:'harbor'});assert.equal(s.view.confirmation,null);assert.equal(s.view.cosmeticSetNotice,'金币不足');
+test('v101 rejected retired set intent cannot replace an individual price or write an insufficient-wallet notice',()=>{
+ const h=sessionHost({wallet:684}),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'previewCosmetic',kind:'theme',id:'cold_chain'});
+ const before=[...h.data],appearance=structuredClone(s.view.account),button=primary(s.view);assert.equal(button.label,'900金币 · 购买');assert.equal(button.disabled,true);
+ s.action({type:'previewCosmeticSet',id:'harbor'});s.action({type:'purchaseCosmeticSet',id:'harbor'});s.action({type:'confirm'});assert.equal(s.view.confirmation,null);assert.equal(s.view.cosmeticSetNotice,undefined);assert.deepEqual(primary(s.view),button);assert.deepEqual(s.view.account,appearance);assert.deepEqual([...h.data],before);
 });

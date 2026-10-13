@@ -22,7 +22,7 @@ import {drawWarehouse} from '../src/presentation/warehouse-art.ts';
 import {forklift,cargoBox} from '../src/presentation/assets.ts';
 import {CARGO_ATLAS} from '../src/presentation/cargo-atlas.ts';
 import {drawThemedBoard} from '../src/presentation/board-theme.ts';
-import {drawCosmeticSetPreview,drawCosmeticPreview} from '../src/presentation/cosmetic-art.ts';
+import {drawCosmeticPreview} from '../src/presentation/cosmetic-art.ts';
 import {boardGeometry} from '../src/presentation/board-geometry.ts';
 import {render} from '../src/presentation/renderer.ts';
 import {drawToolIcon,drawToolboxIcon} from '../src/presentation/tool-art.ts';
@@ -35,7 +35,7 @@ import {playableChecksum} from '../src/domain/playable.ts';
 import {drawWarehouse as authorWarehouse} from '../scripts/static-art-authoring/src/presentation/warehouse-art.ts';
 import {forklift as authorForklift,cargoBox as authorCargo,gradient} from '../scripts/static-art-authoring/src/presentation/assets.ts';
 import {drawThemedBoard as authorBoard} from '../scripts/static-art-authoring/src/presentation/board-theme.ts';
-import {drawHarborBackground as authorHarbor,drawLogisticsBackground as authorLogistics,drawCosmeticSetPreview as authorSet,drawCosmeticPreview as authorPreview} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
+import {drawHarborBackground as authorHarbor,drawLogisticsBackground as authorLogistics,drawCosmeticPreview as authorPreview} from '../scripts/static-art-authoring/src/presentation/cosmetic-art.ts';
 import {loadCargoAtlas} from '../scripts/static-art-authoring/src/presentation/cargo-atlas.ts';
 import {loadBoardMaterialAtlas} from '../scripts/static-art-authoring/src/presentation/board-material-atlas.ts';
 import {loadSceneMaterialAtlas} from '../scripts/static-art-authoring/src/presentation/scene-frame-atlas.ts';
@@ -55,8 +55,8 @@ test('preview architecture selects only the four exact authored aspect families'
  for(const [w,h] of [[360,230],[1080,1920],[0,246],[NaN,246],[816,-232]])assert.equal(staticPreviewShape({x:0,y:0,w,h}),null);
 });
 
-test('all 17 finite scenes preserve native source pixels, transparency and caller state with one image blit',async()=>{
- assert.equal(Object.keys(STATIC_ART_SCENES).length,17);
+test('all 12 active finite scenes preserve native source pixels, transparency and caller state with one image blit',async()=>{
+ assert.equal(Object.keys(STATIC_ART_SCENES).length,12);
  for(const theme of Object.keys(STATIC_ART_SCENES) as ThemeId[]){
   await ready(theme);const actual=surface(1205,1920),expected=surface(1205,1920),view={...base,profile:{...createProfile(),cosmetics:{theme,cargo:'classic',forklift:'yellow'} as const}};
   for(const s of [actual,expected]){s.ctx.translate(57,0);s.ctx.lineWidth=13;}
@@ -66,19 +66,19 @@ test('all 17 finite scenes preserve native source pixels, transparency and calle
  }
 });
 
-test('all 53 preview background variants retain native aspect-dependent architecture and clipping',async()=>{
+test('all 12 item preview background variants retain native aspect-dependent architecture and clipping',async()=>{
  let count=0;
- for(const theme of Object.keys(STATIC_ART_PREVIEWS) as ThemeId[])for(const sprite of Object.values(STATIC_ART_PREVIEWS[theme])){
+ for(const theme of Object.keys(STATIC_ART_PREVIEWS) as ThemeId[])for(const sprite of Object.values(STATIC_ART_PREVIEWS[theme]??{})){
   if(!sprite)continue;count++;await ready('day',[sprite.resource]);const {w,h}=sprite.destination,rect={x:7,y:9,w,h},a=surface(w+14,h+18),b=surface(w+14,h+18);
   assert.equal(drawStaticPreviewBackground(a.ctx,rect,theme),true);
   if(theme==='harbor')authorHarbor(b.ctx,rect);else if(!authorLogistics(b.ctx,rect,theme)){b.ctx.fillStyle=gradient(b.ctx,rect.x,rect.y,rect.h,theme==='night'?'#111c35':'#243345',theme==='night'?'#080d1b':'#111b25');b.ctx.fillRect(rect.x,rect.y,rect.w,rect.h);}
   const diff=difference(pixels(a),pixels(b));assert.ok(diff.mean<.05,`${theme}/${w}x${h}: ${JSON.stringify(diff)}`);assert.equal(a.ctx.getImageData(0,0,1,1).data[3],0);
  }
- assert.equal(count,53);
+ assert.equal(count,12);
 });
 
-test('all 19 complete vehicles retain silhouettes, forward forks and rotation anchors at five sizes and 32 headings',async()=>{
- await ready();assert.equal(Object.keys(STATIC_ART_FORKLIFTS).length,19);let worstMean=0,worstOverlap=1;
+test('all 14 active complete vehicles retain silhouettes, forward forks and rotation anchors at five sizes and 32 headings',async()=>{
+ await ready();assert.equal(Object.keys(STATIC_ART_FORKLIFTS).length,14);let worstMean=0,worstOverlap=1;
  for(const paint of Object.keys(STATIC_ART_FORKLIFTS) as ForkliftId[])for(const size of [29,37,44,80,110])for(let heading=0;heading<32;heading++){
   const a=surface(180,180),b=surface(180,180),angle=heading*Math.PI/16;forklift(a.ctx,90,90,size,angle,paint);authorForklift(b.ctx,90,90,size,angle,paint);const diff=difference(pixels(a),pixels(b));worstMean=Math.max(worstMean,diff.mean);worstOverlap=Math.min(worstOverlap,diff.maskOverlap);
   assert.ok(diff.mean<2,`${paint}/${size}/${heading}: mean ${diff.mean}`);assert.ok(diff.maskOverlap>.90,`${paint}/${size}/${heading}: silhouette ${diff.maskOverlap}`);
@@ -123,16 +123,16 @@ test('day/night packed frames and every material floor preserve all 7/8/9 native
 });
 
 test('current composite previews reuse exact variants and selected sprites without surface allocation',async()=>{
- for(const [theme,shape,rect] of [['day','classic',{x:0,y:0,w:816,h:780}],['night','card',{x:0,y:0,w:360,h:246}],['forest_depot','set',{x:0,y:0,w:816,h:840}],['space_cargo','item',{x:0,y:0,w:816,h:232}]] as const){
-  await ready(theme,[`preview.${theme}.${shape}`]);const a=surface(rect.w,rect.h),b=surface(rect.w,rect.h),options={theme,cargoStyle:'wood',forklift:'heavy',cargoOutline:true,category:'cargo'} as const;
-  if(shape==='item'){drawCosmeticPreview(a.ctx,rect,options);authorPreview(b.ctx,rect,options);}else{drawCosmeticSetPreview(a.ctx,rect,options);authorSet(b.ctx,rect,options);}
-  const diff=difference(pixels(a),pixels(b));assert.ok(diff.mean<3,`${theme}/${shape}: ${diff.mean}`);assert.ok(diff.maskOverlap>.99);
+ for(const theme of ['day','night','forest_depot','space_cargo'] as const){
+  const rect={x:0,y:0,w:816,h:232};await ready(theme,[`preview.${theme}.item`]);const a=surface(rect.w,rect.h),b=surface(rect.w,rect.h),options={theme,cargoStyle:'wood',forklift:'heavy',cargoOutline:true,category:'cargo'} as const;
+  drawCosmeticPreview(a.ctx,rect,options);authorPreview(b.ctx,rect,options);
+  const diff=difference(pixels(a),pixels(b));assert.ok(diff.mean<3,`${theme}/item: ${diff.mean}`);assert.ok(diff.maskOverlap>.99);
  }
 });
 
 test('actual renderer keeps finite scenery, usable safe-area clips and full-screen pause coverage',async()=>{
  const run=createRunV18({seed:17,mode:'standard',inboundDifficulty:'hard'}),checksum=playableChecksum(run);
- for(const theme of ['day','night','harbor','ice_vault'] as const){await ready(theme);
+ for(const theme of ['day','night','cold_chain','ice_vault'] as const){await ready(theme);
   for(const [w,h,scale,x,y] of [[360,800,1/3,0,80],[540,1000,.5,0,20.3],[800,1000,.5,130.25,20.3],[1080,2340,1,0,210],[1440,3120,4/3,0,280]]){
    const a=surface(w,h),view={...base,profile:{...createProfile(),cosmetics:{theme,cargo:'classic',forklift:'yellow'} as const}},bounds={x:-60,y:0,w:1200,h:1920};a.ctx.fillStyle='#0c131c';a.ctx.fillRect(0,0,w,h);a.ctx.setTransform(scale,0,0,scale,x,y);render(a.ctx,run,view,bounds,{x:-x/scale,y:-y/scale,w:w/scale,h:h/scale},'#0c131c');
    const top=a.ctx.getImageData(0,0,1,1).data;assert.deepEqual([...top],[12,19,28,255]);const before=pixels(a);render(a.ctx,run,{...view,paused:true},bounds,{x:-x/scale,y:-y/scale,w:w/scale,h:h/scale},'#0c131c');assert.notDeepEqual([...a.ctx.getImageData(0,0,1,1).data],[...top]);assert.notDeepEqual(pixels(a),before);

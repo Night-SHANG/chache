@@ -30,7 +30,7 @@ test('funded cosmetic fixtures require explicit provenance and create strict acc
 test('cosmetic fixture validation refuses unowned equipment duplicate and unknown rights',()=>{
  assert.equal(typeof support.cosmeticAccountStorage,'function');
  for(const options of [{cosmetics:{theme:'day',cargo:'wood',forklift:'yellow'} as const},{owned:['cargo.wood','cargo.wood']},{owned:['cargo.unknown']}])assert.throws(()=>support.cosmeticAccountStorage({label:'FUNDED: invalid cosmetic fixture',...options}),/cosmetic|外观|owned|duplicate|unknown/i);
- const storage=support.cosmeticAccountStorage({label:'FUNDED: owned combination',owned:['cargo.wood','forklift.white','theme.harbor'],cosmetics:{cargo:'wood',forklift:'white',theme:'harbor'},outline:true});assert.equal(validateResumeStorage(storage).account!.profile.cargoOutline,true);
+ const storage=support.cosmeticAccountStorage({label:'FUNDED: owned combination',owned:['cargo.wood','forklift.white','theme.cold_chain'],cosmetics:{cargo:'wood',forklift:'white',theme:'cold_chain'},outline:true});assert.equal(validateResumeStorage(storage).account!.profile.cargoOutline,true);
 });
 test('cosmetic resume fixture labels constructed boards and preserves run economics and history',()=>{
  assert.equal(typeof support.cosmeticResumeStorage,'function');

@@ -60,7 +60,7 @@ test('candidate preservation stays gated on verified receipt and never implies d
  assert.match(workflow,/id: receipt/);
  const candidate=workflow.slice(workflow.indexOf('Preserve private phone candidate'));
  assert.match(candidate,/steps\.receipt\.outcome == 'success'/);
- assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.14-vc\*-temporary-debug-candidate-\*\.apk/);
+ assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.15-vc\*-temporary-debug-candidate-\*\.apk/);
  assert.doesNotMatch(candidate,/\.jks|\.keystore|acceptance-apks|androidTest|release upload/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.json/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.txt/);
@@ -231,19 +231,19 @@ test('Android verifier accepts genuine hashed production staging but keeps its b
  try{assert.deepEqual(await verifier.verifyStaging(dir),{phase:'bootstrap',publishApk:false});}finally{await rm(dir,{recursive:true,force:true});}
 });
 
-test('Android staging identity requires matching v1.0.14 release and source content',async()=>{
+test('Android staging identity requires matching v1.0.15 release and source content',async()=>{
  assert.ok(verifier,'Android staging verifier is missing');
  for(const identity of [
-  {version:'1.0.13',sourceContentVersion:'1.0.14'},
-  {version:'1.0.14',sourceContentVersion:'1.0.13'},
-  {version:'1.0.14',sourceContentVersion:undefined}
+  {version:'1.0.13',sourceContentVersion:'1.0.15'},
+  {version:'1.0.15',sourceContentVersion:'1.0.13'},
+  {version:'1.0.15',sourceContentVersion:undefined}
  ]){
   const dir=await stagingFixture();
   try{
    const path=join(dir,'build/android/build-manifest.json');
    const manifest=JSON.parse(await readFile(path,'utf8'));
    await writeFile(path,JSON.stringify({...manifest,...identity}));
-   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.14 with v1\.0\.14 paid production content/);
+   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.15 with v1\.0\.15 paid production content/);
   }finally{await rm(dir,{recursive:true,force:true});}
  }
 });
@@ -252,6 +252,7 @@ test('Android verifier still rejects any changed release lock after a project-on
  assert.ok(verifier,'Android staging verifier is missing');
  const dir=await stagingFixture();
  try{
+  assert.deepEqual(await verifier.verifyStaging(dir),{phase:'bootstrap',publishApk:false});
   const path=join(dir,'package-lock.json'),lock=JSON.parse(await readFile(path,'utf8'));
   lock.packages['node_modules/pure-rand'].version='0.0.0';
   // The staging seed uses symlinks; replace the fixture link before mutating bytes.

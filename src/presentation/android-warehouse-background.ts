@@ -36,7 +36,8 @@ export interface AndroidWarehouseBand {readonly source:Rect;readonly destination
  * retain that same uniform scale. Extra height is distributed between them. */
 export function androidWarehouseBands(theme:ThemeId,bounds:Readonly<Rect>):readonly AndroidWarehouseBand[] {
  if(!validArtRect(bounds))return [];
- const sprite=STATIC_ART_SCENES[theme],source=sprite.source,scale=bounds.w/source.w;
+ const sprite=STATIC_ART_SCENES[theme];if(!sprite)return [];
+ const source=sprite.source,scale=bounds.w/source.w;
  if(!Number.isFinite(scale)||bounds.h+1e-7<source.h*scale)return [];
  const protectedBands:Band[]=[];
  for(const [start,end] of [...PROTECTED[theme]].sort((a,b)=>a[0]-b[0])){
@@ -62,7 +63,8 @@ export function androidWarehouseBands(theme:ThemeId,bounds:Readonly<Rect>):reado
  * a runtime backing canvas. The existing readiness service owns the image. */
 export function drawAndroidWarehouse(ctx:CanvasRenderingContext2D,theme:ThemeId,bounds:Readonly<Rect>):boolean {
  const bands=androidWarehouseBands(theme,bounds);if(!bands.length)return false;
- const original=STATIC_ART_SCENES[theme],transform=typeof ctx.getTransform==='function'?ctx.getTransform():undefined;
+ const original=STATIC_ART_SCENES[theme];if(!original)return false;
+ const transform=typeof ctx.getTransform==='function'?ctx.getTransform():undefined;
  // Native viewport scales are fractional. Adjacent fractional drawImage edges
  // otherwise leave one alpha-blended scanline between independently drawn bands.
  const snapY=(y:number):number=>transform&&transform.b===0&&transform.c===0&&transform.d>0&&Number.isFinite(transform.d)&&Number.isFinite(transform.f)?(Math.round(y*transform.d+transform.f)-transform.f)/transform.d:y;

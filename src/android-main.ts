@@ -22,11 +22,11 @@ async function start(canvas:HTMLCanvasElement):Promise<void> {
   const [{configureStaticArt},{StaticArtGate},{render}]=await Promise.all([
    import('./presentation/static-art-resources.ts'),import('./presentation/static-art-gate.ts'),import('./presentation/renderer.ts'),
   ]);
-  configureStaticArt(runtime.platform.loadImage,runtime.platform.ensureAssetPackage);
+  configureStaticArt(runtime.platform.loadImage);
   const art=new StaticArtGate(runtime.session);presentation.art=art;art.refresh();
   runtime.platform.onHide(()=>art.hide());runtime.platform.onShow(()=>art.show());
   runtime.startFrames(context=>{
-   try{launch.paint(art.refresh().status,()=>{if(art.paint(context,runtime.platform.overlayBounds?.()))render(context,runtime.session.state,runtime.session.view,runtime.platform.backgroundBounds?.(),runtime.platform.overlayBounds?.(),runtime.platform.frameBackdrop);});}
+   try{launch.paint(art.refresh().status,()=>{if(art.paint(context,runtime.platform.overlayBounds?.())){render(context,runtime.session.state,runtime.session.view,runtime.platform.backgroundBounds?.(),runtime.platform.overlayBounds?.(),runtime.platform.frameBackdrop);art.didPaint();}});}
    catch(error){launch.fail(error);art.hide();runtime.dispose();void host.disconnect();}
   });
   window.addEventListener('pagehide',()=>{art.hide();runtime.dispose();void host.disconnect();},{once:true});

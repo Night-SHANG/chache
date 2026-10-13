@@ -46,7 +46,7 @@ export function createPackagedImageLoader(packageRoot,{defer=false,rejectLoads=f
      assert.ok(source&&!isAbsolute(source)&&!source.includes('\\')&&!/^[a-z][a-z0-9+.-]*:/i.test(source),'Images must use local relative package paths');
      const path=resolve(root,source);assert.ok(inside(root,path),'Image path escapes package');const [canonicalRoot,canonicalPath]=await Promise.all([realpath(root),realpath(path)]);assert.ok(inside(canonicalRoot,canonicalPath),'Image symlink escapes package');
      const bytes=await readFile(canonicalPath);row.sha256=sha256(bytes);row.bytes=bytes.length;
-     if(rejectLoads){row.injectedFailure=true;throw Error('Injected packaged image load failure');}
+     if(typeof rejectLoads==='function'?rejectLoads(source):rejectLoads){row.injectedFailure=true;throw Error('Injected packaged image load failure');}
      await new Promise(done=>{
       image.onload=()=>{if(finished)return;finished=true;row.status='loaded';row.width=image.width;row.height=image.height;try{if(typeof onload==='function')onload.call(image);}finally{done();}};
       image.onerror=error=>{try{fail(error);}finally{done();}};
@@ -59,7 +59,7 @@ export function createPackagedImageLoader(packageRoot,{defer=false,rejectLoads=f
  const settle=async()=>{for(let index=0;index<jobs.length;index++)await jobs[index]();await Promise.resolve();await Promise.resolve();return trace;};
  return {create,settle,trace};
 }
-export async function createGrowthHost({audioFactory,vibrate,loadSubpackage,width=540,height=960,safeTop=0,dpr=1,storage=new Map(),epoch=Date.parse('2026-10-06T12:00:00Z'),bundlePath='build/wechat/game.js',limitBytes=16*1024*1024,faults={},deferImageLoads=false,rejectImageLoads=false,rejectOffscreenCanvases=false}={}){
+export async function createGrowthHost({audioFactory,vibrate,width=540,height=960,safeTop=0,dpr=1,storage=new Map(),epoch=Date.parse('2026-10-06T12:00:00Z'),bundlePath='build/wechat/game.js',limitBytes=16*1024*1024,faults={},deferImageLoads=false,rejectImageLoads=false,rejectOffscreenCanvases=false}={}){
  const bytes=await readFile(bundlePath);let now=0,canvas,canvasCount=0,io=0;const callbacks={},frames=[],labels=[],forklifts=[],operations=[],canvasObservers=[],surfaceRefs=[];
  const audioTrace=createPassiveAudioTrace(()=>now);
  const imageLoader=createPackagedImageLoader(dirname(resolve(bundlePath)),{defer:deferImageLoads,rejectLoads:rejectImageLoads});
@@ -79,7 +79,6 @@ export async function createGrowthHost({audioFactory,vibrate,loadSubpackage,widt
   onHide:cb=>callbacks.hide=cb,onShow:cb=>callbacks.show=cb,onWindowResize:cb=>callbacks.resize=cb,
   createInnerAudioContext:audioFactory??audioTrace.create,createImage:imageLoader.create,
   ...(vibrate?{vibrateShort:vibrate}:{}),
-  ...(loadSubpackage?{loadSubpackage}:{}),
  };
  class Clock extends Date{static now(){return epoch+now;}}
  // Node vm supplies language intrinsics only. No structuredClone, TextEncoder, DOM, Buffer, process, or require.

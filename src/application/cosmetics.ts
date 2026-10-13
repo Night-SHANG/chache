@@ -64,7 +64,13 @@ export const HISTORICAL_COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object
   { kind: 'forklift', id: 'ice', key: 'forklift.ice', name: '冰晶叉车', description: '冰晶车壳、霜雪护顶与透明切面', price: 600 },
   { kind: 'forklift', id: 'harbor', key: 'forklift.harbor', name: '码头叉车', description: '海港钢壳、加固护顶与码头配重', price: 600 },
 ].map(item => Object.freeze(item)) as CosmeticDefinition[]);
-const RETIRED_COSMETIC_KEYS: ReadonlySet<string> = new Set(['theme.express_sorting', 'cargo.taped', 'forklift.compact']);
+const RETIRED_COSMETIC_KEYS: ReadonlySet<string> = new Set([
+  'theme.express_sorting', 'cargo.taped', 'forklift.compact',
+  'theme.neon_depot', 'cargo.neon_circuit', 'forklift.neon',
+  'theme.field_station', 'cargo.field_supply', 'forklift.field',
+  'theme.harbor', 'cargo.harbor_container', 'forklift.harbor',
+  'theme.royal_store', 'cargo.royal_gold', 'forklift.royal',
+]);
 export const COSMETIC_CATALOG: readonly CosmeticDefinition[] = Object.freeze(HISTORICAL_COSMETIC_CATALOG.filter(item => !RETIRED_COSMETIC_KEYS.has(item.key)));
 export const FREE_COSMETICS: readonly string[] = Object.freeze(COSMETIC_CATALOG.filter(item => item.price === 0 && !item.achievementId).map(item => item.key).sort());
 export function getCosmetic(kind: string, id: string): CosmeticDefinition | undefined {
@@ -76,9 +82,9 @@ export interface AccountCosmeticState {
 /** Retired slots use free defaults; every other slot and the independent outline stay intact. */
 function activeCosmetics(cosmetics: Profile['cosmetics']): Profile['cosmetics'] {
   return {
-    theme: cosmetics.theme === 'express_sorting' ? 'day' : cosmetics.theme,
-    cargo: cosmetics.cargo === 'taped' || cosmetics.cargo === 'outline' ? 'classic' : cosmetics.cargo,
-    forklift: cosmetics.forklift === 'compact' ? 'yellow' : cosmetics.forklift,
+    theme: RETIRED_COSMETIC_KEYS.has(cosmeticKey('theme', cosmetics.theme)) ? 'day' : cosmetics.theme,
+    cargo: RETIRED_COSMETIC_KEYS.has(cosmeticKey('cargo', cosmetics.cargo)) || cosmetics.cargo === 'outline' ? 'classic' : cosmetics.cargo,
+    forklift: RETIRED_COSMETIC_KEYS.has(cosmeticKey('forklift', cosmetics.forklift)) ? 'yellow' : cosmetics.forklift,
   };
 }
 /** A pure projection: previews never migrate an account or write storage. */

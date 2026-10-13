@@ -34,11 +34,11 @@ test('buying wood commits exactly 300 coins and permanent ownership without equi
 
 test('all paid prices are authoritative and exact balance can reach zero', () => {
   const { service, transact } = setup();
-  for (const [kind, id, wallet] of [['cargo', 'wood', 1500], ['forklift', 'white', 900], ['theme', 'harbor', 0]] as const) {
+  for (const [kind, id, wallet] of [['cargo', 'wood', 1500], ['forklift', 'white', 900], ['theme', 'cold_chain', 0]] as const) {
     assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged');
     assert.equal(service.getSnapshot()?.wallet, wallet);
   }
-  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'theme', id: 'harbor' }).status, 'acknowledged');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'theme', id: 'cold_chain' }).status, 'acknowledged');
   assert.equal(service.getSnapshot()?.wallet, 0);
 });
 
@@ -86,7 +86,7 @@ test('outline migrates to a free independent overlay and remains on wood across 
 test('active run purchase rejection preserves the run identity and reserved tool inventory', () => {
   const run = makeAccountRun(), account = makeAccountFixture({ wallet: 1800, nextRunSerial: 2, run });
   const { service, transact, storage, raw } = setup(account);
-  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'theme', id: 'harbor' }).status, 'not_committed');
+  assert.equal(transact({ type: 'purchaseCosmetic', kind: 'theme', id: 'cold_chain' }).status, 'not_committed');
   assert.deepEqual(service.getSnapshot(), account);
   assert.deepEqual([...storage.values.values()], [raw, raw]);
 });

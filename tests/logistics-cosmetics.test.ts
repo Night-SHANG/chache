@@ -20,11 +20,11 @@ function setup(wallet = 3600) {
   return { storage, service, transact, raw };
 }
 
-test('current 50-item catalog preserves active earlier items and logistics price anchors', () => {
-  assert.equal(COSMETIC_CATALOG.length, 50);
-  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
+test('current 38-item catalog preserves active earlier items and logistics price anchors', () => {
+  assert.equal(COSMETIC_CATALOG.length, 38);
+  assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 38);
   for (const [kind, ids] of [
-    ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight']],
+    ['theme', ['day', 'night', 'cold_chain', 'rail_freight']],
     ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced']],
     ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy']],
   ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
@@ -37,7 +37,7 @@ test('current 50-item catalog preserves active earlier items and logistics price
   assert.deepEqual(COSMETIC_CATALOG.filter(item => item.achievementId).map(item => [item.key, item.achievementId, item.price]), [
     ['forklift.blue', 'first_shipment', 0], ['forklift.red', 'five_shifts', 0],
   ]);
-  for (const [key, price] of [['cargo.wood', 300], ['forklift.white', 600], ['theme.harbor', 900]] as const) assert.equal(COSMETIC_CATALOG.find(item => item.key === key)?.price, price);
+  for (const [key, price] of [['cargo.wood', 300], ['forklift.white', 600], ['theme.cold_chain', 900]] as const) assert.equal(COSMETIC_CATALOG.find(item => item.key === key)?.price, price);
 });
 
 test('each new item is an independent permanent purchase, equips free, survives reset and restores from both roots', () => {

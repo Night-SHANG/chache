@@ -17,14 +17,10 @@ const TRIPLES = [
   ['paper_warehouse', 'paper_fold', 'paper'],
   ['space_cargo', 'space_case', 'space'],
   ['steam_foundry', 'steam_brass', 'steam'],
-  ['neon_depot', 'neon_circuit', 'neon'],
   ['lava_forge', 'lava_core', 'lava'],
   ['ocean_vault', 'ocean_relic', 'diving'],
-  ['royal_store', 'royal_gold', 'royal'],
-  ['field_station', 'field_supply', 'field'],
   ['forest_depot', 'wood', 'timber'],
   ['ice_vault', 'ice_crystal', 'ice'],
-  ['harbor', 'harbor_container', 'harbor'],
 ] as const;
 const members = ([theme, cargo, forklift]: readonly string[]) => [`theme.${theme}`, `cargo.${cargo}`, `forklift.${forklift}`];
 
@@ -44,7 +40,7 @@ function setup(owned = members(TRIPLES[0]), factory = createAccountService, acti
 }
 const request = (id: string, operationId = 'set.once'): AccountRequest => ({ type: 'equipCosmeticSet', id, operationId });
 
-test('the immutable set catalogue names exactly fourteen triples and leaves eight independent entries', () => {
+test('the immutable set catalogue names exactly ten active triples and leaves eight independent entries', () => {
   assert.deepEqual(cosmeticSets.COSMETIC_SETS.map(set => [set.theme, set.cargo, set.forklift]), TRIPLES);
   assert.ok(Object.isFrozen(cosmeticSets.COSMETIC_SETS));
   const used = new Set<string>();
@@ -60,8 +56,8 @@ test('the immutable set catalogue names exactly fourteen triples and leaves eigh
       used.add(item.key);
     }
   }
-  assert.equal(COSMETIC_CATALOG.length, 50);
-  assert.equal(used.size, 42);
+  assert.equal(COSMETIC_CATALOG.length, 38);
+  assert.equal(used.size, 30);
   assert.equal(COSMETIC_CATALOG.filter(item => !used.has(item.key)).length, 8);
   for (const id of ['', 'unknown', '__proto__', 'day', 'outline']) assert.equal(cosmeticSets.getCosmeticSet(id), undefined);
 });

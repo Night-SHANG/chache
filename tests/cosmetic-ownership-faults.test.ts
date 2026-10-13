@@ -19,7 +19,7 @@ function setup(version: 1 | 2 = 1) {
 }
 
 test('every before/after purchase I/O atomically migrates and charges with ownership, then exact retry converges once', () => {
-  for (const version of [1, 2] as const) for (const [kind, id, price] of [['cargo', 'wood', 300], ['forklift', 'white', 600], ['theme', 'harbor', 900]] as const) {
+  for (const version of [1, 2] as const) for (const [kind, id, price] of [['cargo', 'wood', 300], ['forklift', 'white', 600], ['theme', 'cold_chain', 900]] as const) {
     const request: AccountRequest = { type: 'purchaseCosmetic', operationId: 'fault.purchase', kind, id }, baseline = setup(version);
     const success = baseline.service.transact(request, 0); assert.equal(success.status, 'acknowledged');
     const expected = success.account!, count = baseline.storage.operations.length;

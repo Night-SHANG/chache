@@ -39,8 +39,6 @@ export interface Platform {
  vibrate?():void;
  stopSounds?():void;
  setMusicState?(enabled:boolean,paused:boolean,ducked?:boolean):void;
- /** Optional ordinary local package loader; absent on fully bundled browser/Android hosts. */
- ensureAssetPackage?(name:string):Promise<void>;
  loadImage(path:string):Promise<CanvasImageSource>;
  now():number;
  wallTime?():number;

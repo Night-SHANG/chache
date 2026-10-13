@@ -13,7 +13,7 @@ const retired = ['theme.express_sorting', 'cargo.taped', 'forklift.compact'];
 function fixture(version:3|4=4, mask=7, all=false) {
   let account=retainAccountCosmetics(upgradeEconomy(makeAccountFixture({wallet:4200,inventory:{rotate:2,clear:1,wildcard:1}})));
   if(version===4)account=upgradeAccountGuides(account);
-  account.profile.ownedCosmetics=[...new Set([...FREE_COSMETICS,'theme.night','cargo.wood','forklift.white',...(all?COSMETIC_CATALOG.map(item=>item.key):[]),...retired.filter((_,i)=>all||(mask&(1<<i)))])].sort();
+  account.profile.ownedCosmetics=[...new Set([...FREE_COSMETICS,'theme.night','cargo.wood','forklift.white',...(all?HISTORICAL_COSMETIC_CATALOG.map(item=>item.key):[]),...retired.filter((_,i)=>all||(mask&(1<<i)))])].sort();
   account.profile.cosmetics={theme:mask&1?'express_sorting':'night',cargo:mask&2?'taped':'wood',forklift:mask&4?'compact':'white'};
   account.profile.cargoOutline=true;
   const storage=new FaultStorage(),raw=encodeAccount(account);
@@ -24,9 +24,9 @@ function fixture(version:3|4=4, mask=7, all=false) {
 const normalize=(mask:number)=>({theme:mask&1?'day':'night',cargo:mask&2?'classic':'wood',forklift:mask&4?'yellow':'white'});
 
 test('retired set and exclusive members disappear from every active lookup without changing other catalog counts',()=>{
-  assert.equal(COSMETIC_CATALOG.length,50);assert.equal(HISTORICAL_COSMETIC_CATALOG.length,53);assert.ok(Object.isFrozen(HISTORICAL_COSMETIC_CATALOG));
-  assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[16,16,18]);
-  assert.equal(COSMETIC_SETS.length,14);assert.equal(SHOP_COSMETIC_SETS.length,15);
+  assert.equal(COSMETIC_CATALOG.length,38);assert.equal(HISTORICAL_COSMETIC_CATALOG.length,53);assert.ok(Object.isFrozen(HISTORICAL_COSMETIC_CATALOG));
+  assert.deepEqual(['theme','cargo','forklift'].map(kind=>COSMETIC_CATALOG.filter(item=>item.kind===kind).length),[12,12,14]);
+  assert.equal(COSMETIC_SETS.length,10);assert.equal(SHOP_COSMETIC_SETS.length,11);
   assert.equal(getCosmeticSet('express_sorting'),undefined);
   assert.equal(quoteCosmeticSetPurchase('express_sorting',{ownedCosmetics:[]}),null);
   for(const key of retired){const [kind,id]=key.split('.');assert.equal(getCosmetic(kind,id),undefined);}

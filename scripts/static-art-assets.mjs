@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { manifestSource } from './static-art-authoring/manifest-source.mjs';
+import { COSMETIC_CATALOG } from '../src/application/cosmetics.ts';
 import { decodePng, sha256 } from './static-art-authoring/png.mjs';
 
 const sourceRoot=fileURLToPath(new URL('../',import.meta.url));
@@ -11,8 +12,13 @@ export async function verifyStaticArtAssets(root=process.cwd(),{verifySources=tr
  const manifest=JSON.parse(await readFile(resolve(manifestRoot,'scripts/static-art-authoring/resources.json'),'utf8'));
  if(await readFile(resolve(manifestRoot,'src/presentation/static-art-manifest.ts'),'utf8')!==manifestSource(manifest))throw Error('Static art runtime manifest mismatch');
  const resources=Object.values(manifest.resources);let bytes=0,mainBytes=0,cosmeticsBytes=0;
- if(resources.length!==78)throw Error(`Static art resource count mismatch: ${resources.length}`);
+ const themes=COSMETIC_CATALOG.filter(item=>item.kind==='theme').map(item=>item.id),forklifts=COSMETIC_CATALOG.filter(item=>item.kind==='forklift').map(item=>item.id);
+ const sameKeys=(value,expected)=>JSON.stringify(Object.keys(value).sort())===JSON.stringify([...expected].sort());
+ const expectedKeys=[...themes.map(id=>`scene.${id}`),...themes.map(id=>`preview.${id}.item`),'forklift.base','forklift.styled','cargo.core','tools.core','frame.classic','material.board','material.cargo','material.scene'];
+ if(!sameKeys(manifest.resources,expectedKeys)||!sameKeys(manifest.scenes,themes)||!sameKeys(manifest.previews,themes)||!sameKeys(manifest.forklifts,forklifts))throw Error('Static art active catalog coverage mismatch');
+ for(const variants of Object.values(manifest.previews))if(!sameKeys(variants,['item']))throw Error('Static art includes a retired preview variant');
  for(const resource of resources){
+  if(resource.package!=='main'||resource.src!==resource.sourcePath||!resource.src.startsWith('assets/'))throw Error(`Static art single-package path mismatch: ${resource.key}`);
   const path=resolve(root,runtimePaths?resource.src:resource.sourcePath),encoded=await readFile(path);
   if(encoded.length!==resource.bytes||sha256(encoded)!==resource.sha256)throw Error(`Static art hash mismatch: ${resource.key}`);
   const decoded=decodePng(encoded);

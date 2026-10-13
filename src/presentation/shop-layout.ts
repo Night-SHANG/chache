@@ -7,8 +7,8 @@ import type {Rect} from './layout.ts';
 
 export const SHOP_LIST_RECT:Readonly<Rect>={x:132,y:600,w:816,h:1020};
 export const SHOP_CARD_WIDTH=396,SHOP_CARD_HEIGHT=340,SHOP_CARD_GAP=24;
-export const SHOP_SECTIONS:readonly ShopSection[]=['sets','theme','cargo','forklift'];
-export const shopSection=(view:ViewState):ShopSection=>view.shopSection??(view.cosmeticCategory??'sets');
+export const SHOP_SECTIONS:readonly ShopSection[]=['theme','cargo','forklift'];
+export const shopSection=(view:ViewState):ShopSection=>view.shopSection&&view.shopSection!=='sets'?view.shopSection:(view.cosmeticCategory??'theme');
 export const shopItems=(view:ViewState):readonly (CosmeticSetDefinition|CosmeticDefinition)[]=>shopSection(view)==='sets'?SHOP_COSMETIC_SETS:COSMETIC_CATALOG.filter(item=>item.kind===shopSection(view));
 /** Geometry is shared by the renderer, pointer gestures, wheel input, and accessibility hitboxes. */
 export function shopListViewport(view:ViewState):Rect|null {

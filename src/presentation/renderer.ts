@@ -1,9 +1,8 @@
 import {shade} from './overlay.ts';
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
-import {getCosmeticSet,cosmeticSetStatus,quoteCosmeticSetPurchase,cosmeticSetDiscountLabel,classicSetStatus,classicSetDefinition,DEFAULT_CLASSIC_SET_SELECTION} from '../application/cosmetic-sets.ts';
 import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
-import {drawCosmeticSetPreview,drawCosmeticPreview} from './cosmetic-art.ts';
+import {drawCosmeticPreview} from './cosmetic-art.ts';
 import {drawWarehouse} from './warehouse-art.ts';
 import {MODE_MENU_CARD} from './mode-menu-layout.ts';
 import {homeLayout} from './home-layout.ts';
@@ -27,7 +26,7 @@ import { CARGO, DOCKS, SHAPES, UPGRADES, RULES_V4_CONFIG } from '../domain/conte
 import { colorExitCargoPose } from './color-exit-motion.ts';
 import {drawColorExitCards,colorExitBoardHint,drawColorExitGates,drawColorExitRoutes,drawColorExitShipment,drawMixedRemainder} from './color-exit-renderer.ts';
 import {growthFeedback} from './growth-feedback.ts';
-import {TOOL_ITEMS,TOOLBOX_RECT,CLEANUP_RECTS,ITEM_EFFECTS,economyCardRect,toolboxVisible,toolStatus,ITEM_NAMES,resultEarnedCoins,dailyChallengeDay,COSMETIC_PREVIEW_RECT,COSMETIC_SET_PREVIEW_RECT,CLASSIC_SET_PREVIEW_RECT,selectedShopCosmetic,cosmeticStatus,selectedShopCosmeticSet,cosmeticBrowseMode,cosmeticSetShopPage,cosmeticShopPage} from './economy-ui.ts';
+import {TOOL_ITEMS,TOOLBOX_RECT,CLEANUP_RECTS,ITEM_EFFECTS,economyCardRect,toolboxVisible,toolStatus,ITEM_NAMES,resultEarnedCoins,dailyChallengeDay,COSMETIC_PREVIEW_RECT,selectedShopCosmetic,cosmeticStatus,cosmeticShopPage} from './economy-ui.ts';
 import {UPGRADES_V9} from '../domain/v9/content.ts';
 import {chooseUpgradeV9} from '../domain/v9/upgrades.ts';
 import {generationDistributionV9} from '../domain/v9/generation.ts';
@@ -83,7 +82,7 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
   };
   view={...view,saveStatus:playerMessage(view.saveStatus)??'',profileStatus:playerMessage(view.profileStatus),message:playerMessage(view.message)??''};
   const appearance=accountCosmeticState(view.account??null,view.profile);
-  view={...view,profile:{...(view.profile??createProfile()),cosmetics:view.account?appearance.cosmetics:(view.profile?.cosmetics??appearance.cosmetics)},cargoOutline:appearance.cargoOutline};
+  view={...view,profile:{...(view.profile??createProfile()),cosmetics:appearance.cosmetics},cargoOutline:appearance.cargoOutline};
   ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, L.width, L.height);
   drawWarehouse(ctx,view,backgroundBounds);
@@ -724,8 +723,8 @@ function drawActivePause(ctx:Context,state:GameRun,view:ViewState,overlayBounds?
 
 function drawConfirmation(ctx:Context,state:GameRun,view:ViewState,overlayBounds?:Rect):void {
   shade(ctx,overlayBounds);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
-  const confirmation=view.confirmation,kind=confirmation?.kind,set=confirmation?.cosmeticSetId?getCosmeticSet(confirmation.cosmeticSetId):undefined,quote=confirmation?.cosmeticSetQuote,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
-  const title=kind==='purchaseCosmeticSet'&&set?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${set.name}套装？`:kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置成绩记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
+  const confirmation=view.confirmation,kind=confirmation?.kind,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
+  const title=kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置成绩记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
   outlinedText(ctx,title,540,747,kind==='purchaseCosmeticSet'||kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center');
   if(kind==='purchase'&&confirmation?.item){
     const quantity=confirmation.quantity??1,quote=toolPurchaseQuote(view.account,confirmation.item,quantity);
@@ -736,7 +735,7 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState,overlayBounds
     text(ctx,count,540,1067,size,CREAM,'center',700);drawControls(ctx,state,view);return;
   }
   const target=confirmation?.variant?runSlotLabel(confirmation.variant):'入库模式';
-  const lines=kind==='purchaseCosmeticSet'&&quote?[`补齐 ${quote.missingKeys.length} 件未拥有外观。`,PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`未拥有原价 ${quote.originalPrice} 金币 · ${cosmeticSetDiscountLabel(quote.missingKeys.length)} ${quote.price} 金币。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-quote.price)}。`]:kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
+  const lines=kind==='purchaseCosmetic'&&cosmetic?[PLAYTEST_FREE_SHOP?'免费领取，永久拥有。':`花费 ${cosmetic.price} 金币，永久拥有。`,`余额 ${view.account?.wallet??0} → ${Math.max(0,(view.account?.wallet??0)-shopPrice(cosmetic.price))}。`]:kind==='switchMode'?['当前进度会保留。',`切换到${target}。`]
     :kind==='resetProfile'?['清空成绩和成就记录。','金币、道具库存、已领奖励、设置和已拥有外观会保留。']
     :kind==='finishOvertime'||kind==='finishEndless'?['将记录当前分数。','结束后不能继续本局。']
     :view.recoveryError?['本局进度将丢失。','原存档仅留作恢复备份。','历史成绩和设置会保留。']
@@ -772,25 +771,10 @@ function drawShopToolCards(ctx:Context,view:ViewState):void {
 }
 
 function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
- const appearance=accountCosmeticState(view.account??null,view.profile),set=selectedShopCosmeticSet(view),classic=view.shopTab==='cosmetics'&&set?.id==='classic';
- outlinedText(ctx,classic?'经典套装':'金币商店',540,136,classic?58:64,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,220,31,'#ffe3a3','center');
+ const appearance=accountCosmeticState(view.account??null,view.profile);
+ outlinedText(ctx,'金币商店',540,136,64,CREAM,'center');text(ctx,`金币 ${view.account?.wallet??0}`,540,220,31,'#ffe3a3','center');
  if((view.shopTab??'tools')==='tools'){
   text(ctx,'每局最多携带2种道具',540,468,27,'#c6d8d4','center');drawShopToolCards(ctx,view);
- }else if(classic){
-  const selection=view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION,definition=classicSetDefinition(selection),status=classicSetStatus(selection,appearance),fork=getCosmetic('forklift',selection.forklift)!;
-  drawCosmeticSetPreview(ctx,CLASSIC_SET_PREVIEW_RECT,{theme:definition.theme,cargoStyle:'classic',forklift:definition.forklift,cargoOutline:selection.cargo==='outline'});
-  if(!status.complete)text(ctx,PLAYTEST_FREE_SHOP?'领取后可装备整套':fork.achievementId?fork.description:'工程白 · 600金币',540,1122,30,'#d0dedb','center');
- }else if(cosmeticBrowseMode(view)==='sets'){
-  if(set){
-   const status=cosmeticSetStatus(set,appearance),quote=quoteCosmeticSetPurchase(set.id,appearance);
-   text(ctx,`${set.name} · 已拥有 ${status.ownedCount}/3`,540,608,35,'#ffe8b4','center');
-   drawCosmeticSetPreview(ctx,COSMETIC_SET_PREVIEW_RECT,{theme:set.theme,cargoStyle:set.cargo,forklift:set.forklift,cargoOutline:appearance.cargoOutline});
-   if(quote?.missingKeys.length&&!PLAYTEST_FREE_SHOP)text(ctx,quote.missingKeys.length===1?`剩余1件 · 原价${quote.price}`:`原价${quote.originalPrice} · ${cosmeticSetDiscountLabel(quote.missingKeys.length)}`,540,1674,24,'#c6d8d4','center');
-  }else{
-   text(ctx,'场景 · 货箱 · 叉车',540,596,28,'#c6d8d4','center');const pagination=cosmeticSetShopPage(view);
-   text(ctx,`${pagination.page+1} / ${pagination.pages}`,540,1505,30,'#c6d8d4','center');
-   text(ctx,PLAYTEST_FREE_SHOP?'领取套装，自由搭配':'补齐3件8折、2件9折、1件原价',540,1630,28,'#c6d8d4','center');
-  }
  }else{
   const item=selectedShopCosmetic(view),pagination=cosmeticShopPage(view);
   drawCosmeticPreview(ctx,COSMETIC_PREVIEW_RECT,shopItemPreviewOptions(item,view));
@@ -798,21 +782,8 @@ function drawShop(ctx:Context,state:GameRun,view:ViewState):void {
   text(ctx,item.name,540,1020,38,'#ffe8b4','center');
   text(ctx,!PLAYTEST_FREE_SHOP&&item.achievementId&&!appearance.ownedCosmetics.includes(item.key)?item.description:cosmeticStatus(item,view),540,1068,27,'#c6d8d4','center');
  }
- for(const control of getUiControls(state,view)){
-  if(control.action.type==='previewCosmeticSet'){
-   const card=getCosmeticSet(control.action.id);if(!card)continue;
-   const choice=view.classicSetSelection??DEFAULT_CLASSIC_SET_SELECTION,isClassic=card.id==='classic',definition=isClassic?classicSetDefinition(choice):card,status=isClassic?classicSetStatus(choice,appearance):cosmeticSetStatus(card,appearance),r=control.rect;
-   panel(ctx,r,control.selected?'#435245':'#263d50',control.selected?'#e0bf67':'#718d98',18);
-   drawCosmeticSetPreview(ctx,{x:r.x+18,y:r.y+18,w:r.w-36,h:246},{theme:definition.theme,cargoStyle:definition.cargo,forklift:definition.forklift,cargoOutline:isClassic?choice.cargo==='outline':appearance.cargoOutline});
-   text(ctx,card.name,r.x+r.w/2,r.y+291,card.name.length>5?31:36,'#ffe8b4','center');
-   text(ctx,`已拥有 ${status.ownedCount}/3${status.equipped?' · 使用中':''}`,r.x+r.w/2,r.y+336,29,'#d0dedb','center');
-  }else if(control.action.type==='previewCosmeticSetMember'){
-   drawControl(ctx,{...control,label:''},false);const [status,name]=control.label.split('\n'),r=control.rect;
-   text(ctx,status,r.x+r.w/2,r.y+r.h/2-25,30,CREAM,'center');text(ctx,name,r.x+r.w/2,r.y+r.h/2+25,32,CREAM,'center',600);
-  }else drawControl(ctx,control,control.buttonRole==='primary'||['purchase','purchaseCosmetic','purchaseCosmeticSet','equipCosmetic','equipCosmeticSet','setCargoOutline'].includes(control.action.type));
- }
+ for(const control of getUiControls(state,view))drawControl(ctx,control,control.buttonRole==='primary'||['purchase','purchaseCosmetic','equipCosmetic','setCargoOutline'].includes(control.action.type));
  if((view.shopTab??'tools')==='tools'&&view.toolPurchaseNotice&&!persistenceWarnings(view).length)text(ctx,view.toolPurchaseNotice,540,1740,27,'#ffe3a3','center',500);
- if(view.shopTab==='cosmetics'&&set&&view.cosmeticSetNotice&&!persistenceWarnings(view).length)text(ctx,view.cosmeticSetNotice,540,1876,24,'#ffe3a3','center',500);
  drawPersistenceWarnings(ctx,view,1876,540,816);
 }
 

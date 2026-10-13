@@ -30,38 +30,34 @@ export const V21_GEOMETRY={banner:{x:132,y:750,w:816,h:232},setCards:[{x:132,y:6
 
 /** Independent intent mirror only locates pointers. Actual truth is observed canvas and A/B storage. */
 export class PaginatedCosmeticsDriver extends ShopNavigationDriver{
- constructor(...args){super(...args);this.cosmeticPreview={};this.cosmeticSetPage=0;this.cosmeticReturnSet=undefined;this.frame(0);}
- view(){return {...super.view(),cosmeticPreview:this.cosmeticPreview??{},cosmeticSetPage:this.cosmeticSetPage??0,cosmeticReturnSet:this.cosmeticReturnSet,cosmeticCategory:kinds.includes(this.shopSection)?this.shopSection:undefined,shopItemDetail:undefined};}
- selected(){const kind=this.shopSection;return COSMETIC_CATALOG.find(item=>item.kind===kind&&item.id===(this.cosmeticPreview[kind]??this.h.account().account?.profile.cosmetics[kind]??{theme:'day',cargo:'classic',forklift:'yellow'}[kind]));}
+ constructor(...args){super(...args);this.shopSection='theme';this.classicSetSelection=undefined;this.cosmeticPreview={};this.cosmeticSetPage=0;this.cosmeticReturnSet=undefined;this.frame(0);}
+ view(){return {...super.view(),cosmeticPreview:this.cosmeticPreview??{},cosmeticSetPage:this.cosmeticSetPage??0,cosmeticReturnSet:undefined,classicSetSelection:undefined,cosmeticCategory:kinds.includes(this.shopSection)?this.shopSection:'theme',shopItemDetail:undefined};}
+ selected(){const kind=this.shopSection,items=COSMETIC_CATALOG.filter(item=>item.kind===kind),id=this.cosmeticPreview[kind]??this.h.account().account?.profile.cosmetics[kind];return items.find(item=>item.id===id)??items[0];}
  page(){return Math.floor(COSMETIC_CATALOG.filter(i=>i.kind===this.shopSection).findIndex(i=>i.id===this.selected()?.id)/4);}
  action(action,options={}){
-  const shopTypes=['shop','selectShopTab','selectShopSection','selectCosmeticSetPage','previewCosmeticSet','previewCosmeticSetMember','selectCosmeticPage','previewCosmetic','closeShopDetail','closeCosmeticSet'];
+  const retired=['selectCosmeticSetPage','previewCosmeticSet','previewCosmeticSetMember','selectClassicSetVariant','equipClassicSet','purchaseCosmeticSet','equipCosmeticSet','closeShopDetail','closeCosmeticSet'];
+  assert.ok(!retired.includes(action.type),'Retired set/detail controls are unreachable in the current shop');
+  const shopTypes=['shop','selectShopTab','selectShopSection','selectCosmeticPage','previewCosmetic'];
   if(!shopTypes.includes(action.type)&&!(action.type==='back'&&this.screen==='shop'))return super.action(action,options);
-  const previous=this.screen,set=getCosmeticSet(this.cosmeticSetPreview),control=Driver.prototype.action.call(this,action,options);
+  const previous=this.screen,control=Driver.prototype.action.call(this,action,options);
   if(!options.disabled){
-   if(action.type==='shop'){this.shopReturn=previous;this.screen='shop';if(previous==='menu'){this.shopTab='tools';this.shopSection='sets';this.cosmeticSetPage=0;this.cosmeticSetPreview=undefined;this.cosmeticReturnSet=undefined;this.cosmeticPreview={};this.classicSetSelection={theme:'day',cargo:'classic',forklift:'yellow'};}}
+   if(action.type==='shop'){this.shopReturn=previous;this.screen='shop';if(previous==='menu'){this.shopTab='tools';this.shopSection='theme';this.shopScroll={};this.cosmeticSetPage=0;this.cosmeticSetPreview=undefined;this.cosmeticReturnSet=undefined;this.cosmeticPreview={};this.classicSetSelection=undefined;}}
    if(action.type==='selectShopTab')this.shopTab=action.tab;
-   if(action.type==='selectShopSection'){this.shopSection=action.section;this.cosmeticSetPreview=undefined;this.cosmeticReturnSet=undefined;}
-   if(action.type==='selectCosmeticSetPage'){this.cosmeticSetPage=action.page;this.cosmeticSetPreview=undefined;}
-   if(action.type==='previewCosmeticSet'){this.shopSection='sets';this.cosmeticSetPreview=action.id;this.cosmeticReturnSet=undefined;}
-   if(action.type==='previewCosmeticSetMember'){assert.ok(set);this.shopSection=action.kind;this.cosmeticPreview={...this.cosmeticPreview,[action.kind]:set[action.kind]};this.cosmeticReturnSet=set.id;this.cosmeticSetPreview=undefined;}
+   if(action.type==='selectShopSection'){assert.ok(kinds.includes(action.section));this.shopSection=action.section;}
    if(action.type==='selectCosmeticPage'){const item=COSMETIC_CATALOG.filter(i=>i.kind===this.shopSection)[action.page*4];assert.ok(item);this.cosmeticPreview={...this.cosmeticPreview,[this.shopSection]:item.id};}
    if(action.type==='previewCosmetic'){this.shopSection=action.kind;this.cosmeticPreview={...this.cosmeticPreview,[action.kind]:action.id};}
-   if(['back','closeShopDetail','closeCosmeticSet'].includes(action.type)){
-    if(this.shopTab==='cosmetics'&&this.cosmeticReturnSet){this.cosmeticSetPreview=this.cosmeticReturnSet;this.cosmeticReturnSet=undefined;this.shopSection='sets';}
-    else if(this.shopTab==='cosmetics'&&this.cosmeticSetPreview)this.cosmeticSetPreview=undefined;
-    else if(action.type==='back')this.screen=this.shopReturn??'menu';
-   }
+   if(action.type==='back')this.screen=this.shopReturn??'menu';
   }
   this.frame(0);return control;
  }
- closeAllDetails(){while(this.cosmeticSetPreview||this.cosmeticReturnSet)this.action({type:this.cosmeticReturnSet?'back':'closeShopDetail'});}
- appearance(section='sets'){if(this.screen!=='shop')this.shop();if(this.shopTab!=='cosmetics')this.action({type:'selectShopTab',tab:'cosmetics'});this.closeAllDetails();if(this.shopSection!==section)this.action({type:'selectShopSection',section});}
- setPage(page){while(this.cosmeticSetPage!==page)this.action({type:'selectCosmeticSetPage',page:this.cosmeticSetPage+Math.sign(page-this.cosmeticSetPage)});}
- itemPage(page){while(this.page()!==page)this.action({type:'selectCosmeticPage',page:this.page()+Math.sign(page-this.page())});}
+ closeAllDetails(){assert.ok(!this.cosmeticSetPreview&&!this.cosmeticReturnSet,'The current shop has no detail route');}
+ appearance(section='theme'){assert.ok(kinds.includes(section),'Only three individual cosmetic categories exist');if(this.screen!=='shop')this.shop();if(this.shopTab!=='cosmetics')this.action({type:'selectShopTab',tab:'cosmetics'});this.closeAllDetails();if(this.shopSection!==section)this.action({type:'selectShopSection',section});}
+ setPage(){throw Error('Set pagination has been retired');}
+ itemPage(page){const pages=Math.ceil(COSMETIC_CATALOG.filter(item=>item.kind===this.shopSection).length/4);assert.ok(Number.isInteger(page)&&page>=0&&page<pages,'Item page must exist');while(this.page()!==page)this.action({type:'selectCosmeticPage',page:this.page()+Math.sign(page-this.page())});}
  preview(kind,id){this.appearance(kind);const index=COSMETIC_CATALOG.filter(i=>i.kind===kind).findIndex(i=>i.id===id);assert.ok(index>=0);this.itemPage(Math.floor(index/4));return this.action({type:'previewCosmetic',kind,id});}
- previewSet(id){this.appearance();const index=SHOP_COSMETIC_SETS.findIndex(s=>s.id===id);assert.ok(index>=0);this.setPage(Math.floor(index/4));return this.action({type:'previewCosmeticSet',id});}
+ previewSet(){throw Error('Set previews have been retired');}
 }
+
 const pixel=(d,x,y)=>{const p=physicalRect(d.h,{x,y,w:0,h:0});return [...d.h.context.getImageData(Math.round(p.x),Math.round(p.y),1,1).data];};
 export function nativeToneSamples(d,c){return [.10,.16].map(f=>pixel(d,c.rect.x+32,c.rect.y+c.rect.h*f));}
 const tone=(d,c,expected)=>assertControlTone(nativeToneSamples(d,c),expected);

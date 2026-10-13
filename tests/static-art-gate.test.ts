@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {StaticArtGate,STATIC_ART_RETRY_RECT,STATIC_ART_BACK_RECT} from '../src/presentation/static-art-gate.ts';
+import {StaticArtGate,STATIC_ART_RETRY_RECT} from '../src/presentation/static-art-gate.ts';
 import {StaticArtResources} from '../src/presentation/static-art-resources.ts';
+import {staticArtCoreRequirementsForView} from '../src/presentation/static-art-requirements.ts';
 import {STATIC_ART_RESOURCES} from '../src/presentation/static-art-manifest.ts';
 import {sessionHost} from './helpers/session-fixtures.ts';
 import type {PointerEvent} from '../src/platform/types.ts';
@@ -21,16 +22,16 @@ test('failure keeps exact selection and retries only a complete visible button g
  f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));await settle();assert.equal(attempts,failed);f.gate.pointer(pointer('down',center(STATIC_ART_RETRY_RECT)));f.gate.pointer(pointer('cancel'));f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));assert.equal(attempts,failed);
  fail=false;f.gate.pointer(pointer('down',center(STATIC_ART_RETRY_RECT)));f.gate.pointer(pointer('up',center(STATIC_ART_RETRY_RECT)));await settle();assert.equal(f.gate.refresh().status,'ready');assert.equal(JSON.stringify(f.session.view.profile?.cosmetics),before);
 });
-test('shop preview failure exposes back without allowing hidden purchases',async()=>{
- const f=fixture(async path=>{if(path.includes('preview'))throw Error('preview unavailable');return goodImage(path);});f.session.action({type:'shop'});f.session.action({type:'selectShopTab',tab:'cosmetics'});f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'error');assert.equal(f.gate.canGoBack(),true);
- f.gate.pointer(pointer('down',center(STATIC_ART_BACK_RECT)));f.gate.pointer(pointer('up',center(STATIC_ART_BACK_RECT)));await settle();assert.notEqual(f.session.view.screen,'shop');assert.equal(f.gate.refresh().status,'ready');assert.equal(f.events.filter(value=>value.type!=='cancel').length,0);
+test('shop preview failure remains local and back leaves the usable shop',async()=>{
+ const f=fixture(async path=>{if(path.includes('preview'))throw Error('preview unavailable');return goodImage(path);});f.session.action({type:'shop'});f.session.action({type:'selectShopTab',tab:'cosmetics'});f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'ready');assert.equal(f.resources.status().status,'error');assert.equal(f.gate.canGoBack(),true);
+ f.gate.back();await settle();assert.notEqual(f.session.view.screen,'shop');assert.equal(f.gate.refresh().status,'ready');assert.equal(f.events.filter(value=>value.type!=='cancel').length,0);
 });
 test('hide/show cancels touches without allocating, decoding again, or retaining previews for a closed page',async()=>{
  let loads=0;const f=fixture(async path=>{loads++;return goodImage(path);});f.gate.refresh();await settle();f.gate.pointer(pointer('down'));f.gate.hide();f.gate.pointer(pointer('up'));const before=loads;assert.equal(f.gate.isReady(),false);f.gate.show();assert.equal(f.gate.isReady(),true);assert.equal(loads,before);f.gate.pointer(pointer('up'));assert.deepEqual(f.events.filter(value=>value.type!=='cancel').map(value=>value.type),['down']);
 });
 
 test('a saved non-default decode failure retains exact selected identity and all saved bytes',async()=>{
- const requested:string[]=[],f=fixture(async path=>{requested.push(path);throw Error('saved art unavailable');});const account=structuredClone(f.session.view.account!);account.profile.cosmetics={theme:'harbor',cargo:'wood',forklift:'heavy'};f.session.view.account=account;const before=JSON.stringify(account),saved=[...f.data];f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'error');assert.deepEqual(requested,[STATIC_ART_RESOURCES['scene.harbor'].src]);assert.equal(JSON.stringify(f.session.view.account),before);assert.deepEqual([...f.data],saved);assert.equal(f.resources.getImage('scene.day'),null);assert.equal(f.resources.getImage('scene.harbor'),null);
+ const requested:string[]=[],f=fixture(async path=>{requested.push(path);throw Error('saved art unavailable');});const account=structuredClone(f.session.view.account!);account.profile.cosmetics={theme:'cold_chain',cargo:'wood',forklift:'heavy'};f.session.view.account=account;const before=JSON.stringify(account),saved=[...f.data];f.gate.refresh();await settle();assert.equal(f.gate.refresh().status,'error');const core=staticArtCoreRequirementsForView(f.session.view);assert.deepEqual(requested,[core.scene,...core.shared].map(key=>STATIC_ART_RESOURCES[key].src));assert.equal(JSON.stringify(f.session.view.account),before);assert.deepEqual([...f.data],saved);assert.equal(f.resources.getImage('scene.day'),null);assert.equal(f.resources.getImage('scene.cold_chain'),null);
 });
 
 test('native Canvas paints visible Chinese loading/error explanations and retry labels with the shared CJK font stack',async()=>{

@@ -20,7 +20,6 @@ export interface WechatHost {
  onHide(callback:()=>void):void;onShow(callback:()=>void):void;onWindowResize?(callback:()=>void):void;
  createInnerAudioContext():MiniAudio;createImage():MiniImage;
  vibrateShort?(options:{type:'light';fail?:(error:unknown)=>void}):void;
- loadSubpackage?(options:{name:string;success:()=>void;fail:(error:unknown)=>void}):unknown;
 }
 export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFrame:(callback:(time:number)=>void)=>number;now:()=>number},context:'main'|'sub'='main'):Platform {
  // The first call is deliberately the screen canvas. No imported module creates a canvas.
@@ -51,21 +50,6 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
   const audio=soundtrack;return {play:()=>audio.play(),pause:()=>{if(audio.pause)audio.pause();else audio.stop();},setVolume:(volume:number)=>{audio.volume=volume;}};
  });
  const stopSounds=()=>{for(const sound of sounds.values())try{sound.stop();}catch{/* One unavailable context cannot block lifecycle callbacks or other cues. */}};
- let cosmeticsReady=false,cosmeticsLoading:Promise<void>|undefined;
- const ensureAssetPackage=(name:string):Promise<void>=>{
-  if(name!=='cosmetics')return Promise.reject(Error('未知的资源包'));
-  if(cosmeticsReady)return Promise.resolve();
-  if(cosmeticsLoading)return cosmeticsLoading;
-  if(typeof host.loadSubpackage!=='function')return Promise.reject(Error('当前微信版本不支持外观分包，请更新微信后重试'));
-  const request=new Promise<void>((resolve,reject)=>{
-   host.loadSubpackage!({name,success:resolve,fail:error=>{
-    const message=error&&typeof error==='object'&&'errMsg' in error?String(error.errMsg):String(error);
-    reject(Error(`外观资源包加载失败：${message}`));
-   }});
-  });
-  cosmeticsLoading=request.then(()=>{cosmeticsReady=true;cosmeticsLoading=undefined;},error=>{cosmeticsLoading=undefined;throw error;});
-  return cosmeticsLoading;
- };
  const platform:Platform={
   frameBackdrop:FRAME_BACKDROP,
   createCanvasSurface:()=>{const surface=host.createCanvas();if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
@@ -108,7 +92,6 @@ export function createWechatPlatform(host:WechatHost,clock:{requestAnimationFram
   },
   stopSounds,setMusicState:music.setState,
   vibrate:()=>{try{host.vibrateShort?.({type:'light',fail:()=>{}});}catch{/* Unsupported haptics never fall back to a long vibration. */}},
-  ensureAssetPackage,
   loadImage:path=>new Promise((resolve,reject)=>{const image=host.createImage();image.onload=()=>resolve(image as unknown as CanvasImageSource);image.onerror=reject;image.src=path;}),
  };
  return platform;

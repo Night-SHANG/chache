@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {runRasterSetCases,returnRasterSetListToFirstPage} from '../scripts/raster-set-host-runtime.mjs';
 import {RASTER_PRIOR_CASES} from '../scripts/raster-art-host-protocol.mjs';
 
-test('prepared package matrix retains thirteen prior shop cases and adds all ownership subsets and failure routes per policy',async()=>{
+test('archived v021 scenario-name matrix retains thirteen prior shop cases and adds all ownership subsets and failure routes per policy',async()=>{
  for(const mode of ['free','paid']){
   const names:string[]=[];
   // Enumerate scenarios only. This focused test never executes a game.js package or claims native acceptance.
@@ -18,11 +18,12 @@ test('prepared package matrix retains thirteen prior shop cases and adds all own
 });
 
 
-test('archived v21 page-return protocol retains adjacent traversal without account writes',async()=>{
+test('historical page-return helper exercises the frozen v1.0.12 set session without account writes',async()=>{
  const {sessionHost}=await import('./helpers/session-fixtures.ts');
- const {getShopControls}=await import('./helpers/archived-v021-economy-ui.ts');
+ const {getShopControls}=await import('../scripts/static-art-authoring/src/presentation/economy-ui.ts');
+ const {GameSession}=await import('../scripts/static-art-authoring/src/application/session.ts');
  for(const start of [3,2,1,0]){
-  const h=sessionHost({wallet:2000}),s=h.session; s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'selectCosmeticSetPage',page:start});
+  const h=sessionHost({wallet:2000}),s=new GameSession(h.platform,{seed:71,mode:'standard'}); s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});s.action({type:'selectCosmeticSetPage',page:start});
   const before=[...h.data],appearance=structuredClone(s.view.account?.profile.cosmetics),visited:number[]=[];h.storage.resetFault();
   const driver={get cosmeticSetPage(){return s.view.cosmeticSetPage;},action(action:{type:'selectCosmeticSetPage';page:number},options?:{disabled:boolean}){
    const control=getShopControls(s.view).find(row=>row.action.type===action.type&&row.action.page===action.page);assert.ok(control,`Actual adjacent set-page control ${action.page} must exist from ${s.view.cosmeticSetPage}`);assert.equal(!!control.disabled,!!options?.disabled);
@@ -30,4 +31,15 @@ test('archived v21 page-return protocol retains adjacent traversal without accou
   }};
   returnRasterSetListToFirstPage(driver);assert.equal(s.view.cosmeticSetPage,0);assert.deepEqual(visited,Array.from({length:start},(_,index)=>start-index-1));assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account?.profile.cosmetics,appearance);assert.equal(h.storage.operations.some(row=>row.kind==='set'||row.kind==='remove'),false);
  }
+});
+
+// Current runtime coverage is separate from the frozen historical traversal above.
+test('current sessions ignore retired set pagination without exposing set controls or writing accounts',async()=>{
+ const {sessionHost}=await import('./helpers/session-fixtures.ts');
+ const {getShopControls}=await import('../src/presentation/economy-ui.ts');
+ const h=sessionHost({wallet:2000}),s=h.session;s.action({type:'shop'});s.action({type:'selectShopTab',tab:'cosmetics'});
+ const before=[...h.data],appearance=structuredClone(s.view.account?.profile.cosmetics),view=structuredClone(s.view);h.storage.resetFault();
+ for(const page of [-1,0,1,2,3])s.action({type:'selectCosmeticSetPage',page});
+ assert.deepEqual(s.view,view);assert.ok(getShopControls(s.view).every(row=>!['selectCosmeticSetPage','previewCosmeticSet','purchaseCosmeticSet','equipCosmeticSet'].includes(row.action.type)));
+ assert.deepEqual([...h.data],before);assert.deepEqual(s.view.account?.profile.cosmetics,appearance);assert.equal(h.storage.operations.some(row=>row.kind==='set'||row.kind==='remove'),false);
 });

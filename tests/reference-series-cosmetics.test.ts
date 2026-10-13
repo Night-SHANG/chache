@@ -11,18 +11,15 @@ import { playableChecksum } from '../src/domain/playable.ts';
 import { build } from 'esbuild';
 
 const NEW = [
- ['theme', 'steam_foundry', '蒸汽工场', 900], ['theme', 'neon_depot', '霓虹货站', 900],
+ ['theme', 'steam_foundry', '蒸汽工场', 900],
  ['theme', 'lava_forge', '熔岩铸造厂', 900], ['theme', 'ocean_vault', '深海货库', 900],
- ['theme', 'royal_store', '鎏金宝库', 900], ['theme', 'field_station', '野外补给站', 900],
- ['cargo', 'steam_brass', '蒸汽机匣', 300], ['cargo', 'neon_circuit', '霓虹机匣', 300],
+ ['cargo', 'steam_brass', '蒸汽机匣', 300],
  ['cargo', 'lava_core', '熔岩石箱', 300], ['cargo', 'ocean_relic', '深海珊瑚箱', 300],
- ['cargo', 'royal_gold', '鎏金宝匣', 300], ['cargo', 'field_supply', '战术补给箱', 300],
- ['forklift', 'steam', '锅炉叉车', 600], ['forklift', 'neon', '光轨叉车', 600],
+ ['forklift', 'steam', '锅炉叉车', 600],
  ['forklift', 'lava', '耐热叉车', 600], ['forklift', 'diving', '潜航叉车', 600],
- ['forklift', 'royal', '礼装叉车', 600], ['forklift', 'field', '越野叉车', 600],
 ] as const;
 
-function setup(wallet = 10800) {
+function setup(wallet = 5400) {
  const storage = new FaultStorage(), raw = encodeAccount(makeAccountFixture({ wallet }));
  storage.values.set(ACCOUNT_KEYS.a, raw); storage.values.set(ACCOUNT_KEYS.b, raw);
  const service = createAccountService(storage, { status: 'held', release() {} }, () => 0);
@@ -31,13 +28,13 @@ function setup(wallet = 10800) {
  return { storage, service, transact, raw };
 }
 
-test('six image-reference sets append 18 independently priced cosmetics without removing old entitlements', () => {
+test('three remaining image-reference sets retain nine independently priced cosmetics without removing old entitlements', () => {
  const original47 = HISTORICAL_COSMETIC_CATALOG.slice(0, 47);
  assert.equal(original47.length, 47);
  assert.equal(new Set(original47.map(item => item.key)).size, 47);
  assert.deepEqual(['theme', 'cargo', 'forklift'].map(kind => original47.filter(item => item.kind === kind).length), [15, 16, 16]);
- assert.equal(COSMETIC_CATALOG.length, 50);
- assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 50);
+ assert.equal(COSMETIC_CATALOG.length, 38);
+ assert.equal(new Set(COSMETIC_CATALOG.map(item => item.key)).size, 38);
  for (const [kind, id, name, price] of NEW) {
   const item = getCosmetic(kind, id);
   assert.ok(item, `${kind}.${id}`); assert.equal(item.name, name); assert.equal(item.price, price);
@@ -45,7 +42,7 @@ test('six image-reference sets append 18 independently priced cosmetics without 
  }
  assert.deepEqual(FREE_COSMETICS, ['cargo.classic', 'cargo.outline', 'forklift.yellow', 'theme.day', 'theme.night']);
  for (const [kind, ids] of [
-  ['theme', ['day', 'night', 'harbor', 'cold_chain', 'rail_freight', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
+  ['theme', ['day', 'night', 'cold_chain', 'rail_freight', 'toy_workshop', 'paper_warehouse', 'space_cargo']],
   ['cargo', ['classic', 'outline', 'wood', 'insulated', 'reinforced', 'toy_brick', 'paper_fold', 'space_case', 'ice_crystal']],
   ['forklift', ['yellow', 'blue', 'red', 'white', 'electric', 'heavy', 'toy', 'paper', 'space']],
  ] as const) assert.deepEqual(COSMETIC_CATALOG.filter(item => item.kind === kind).slice(0, ids.length).map(item => item.id), ids);
@@ -61,7 +58,7 @@ test('all reference cosmetics buy once, equip separately, retain mixed ownership
   assert.equal(transact({ type: 'purchaseCosmetic', kind, id }).status, 'acknowledged');
   assert.equal(service.getSnapshot()!.wallet, wallet - price);
  }
- for (const [kind, id] of [['theme', 'ocean_vault'], ['cargo', 'royal_gold'], ['forklift', 'steam']] as const) {
+ for (const [kind, id] of [['theme', 'ocean_vault'], ['cargo', 'lava_core'], ['forklift', 'steam']] as const) {
   assert.equal(transact({ type: 'setCosmetic', kind, id }).status, 'acknowledged');
  }
  assert.equal(transact({ type: 'setCargoOutline', enabled: true }).status, 'acknowledged');
@@ -70,7 +67,7 @@ test('all reference cosmetics buy once, equip separately, retain mixed ownership
  assert.equal(reloaded.getStatus(), 'ready'); assert.deepEqual(reloaded.getSnapshot(), service.getSnapshot());
  assert.equal(reloaded.getSnapshot()!.wallet, 0);
  assert.deepEqual(reloaded.getSnapshot()!.profile.cosmetics, { theme: 'ocean_vault', cargo: 'classic', forklift: 'steam' });
- assert.equal(accountCosmeticState(reloaded.getSnapshot()).ownedCosmetics.length, FREE_COSMETICS.length + 18);
+ assert.equal(accountCosmeticState(reloaded.getSnapshot()).ownedCosmetics.length, FREE_COSMETICS.length + 9);
  assert.equal(reloaded.getSnapshot()!.profile.cargoOutline, true);
  assert.equal(storage.values.get(ACCOUNT_KEYS.a), storage.values.get(ACCOUNT_KEYS.b));
 });
@@ -106,7 +103,7 @@ test('paginated reference tiles remain preview-only on the same screen and prese
   session.action(card.action);
   const controls = getShopControls(session.view), buy = controls.find(control => control.action.type === 'purchaseCosmetic');
   assert.equal(session.view.shopItemDetail, undefined); assert.equal(selectedShopCosmetic(session.view).key, `${kind}.${id}`);
-  assert.equal(controls.filter(control => control.action.type === 'selectShopSection').length, 4);assert.equal(controls.some(control => control.action.type === 'closeShopDetail'), false);
+  assert.equal(controls.filter(control => control.action.type === 'selectShopSection').length, 3);assert.equal(controls.some(control => control.action.type === 'closeShopDetail'), false);
   assert.deepEqual(buy?.action, { type: 'purchaseCosmetic', kind, id });
   for (const [index, control] of controls.entries()) {
    assert.ok(control.rect.w / 3 >= 44 && control.rect.h / 3 >= 44);
@@ -139,7 +136,7 @@ test('compiled free-playtest grants every new set without spending and paid-buil
 });
 
 test('a failed mirror never exposes newly claimed reference rights and repairing each category charges once', () => {
- for (const [kind, id, , price] of [NEW[0], NEW[6], NEW[12]]) {
+ for (const [kind, id, , price] of [NEW[0], NEW[3], NEW[6]]) {
   const { storage, service } = setup(), set = storage.set.bind(storage);
   storage.set = (key, value) => { if (key === ACCOUNT_KEYS.a) throw Error('mirror offline'); set(key, value); };
   const request: AccountRequest = { type: 'purchaseCosmetic', operationId: 'reference.retry', kind, id };
@@ -148,7 +145,7 @@ test('a failed mirror never exposes newly claimed reference rights and repairing
   const restored = createAccountService(storage, { status: 'held', release() {} }, () => 0);
   assert.equal(restored.getSnapshot(), null); storage.set = set;
   assert.equal(restored.retryPending('reference.retry').status, 'acknowledged');
-  assert.equal(restored.getSnapshot()!.wallet, 10800 - price);
-  assert.equal(restored.transact(request, 0).status, 'acknowledged'); assert.equal(restored.getSnapshot()!.wallet, 10800 - price);
+  assert.equal(restored.getSnapshot()!.wallet, 5400 - price);
+  assert.equal(restored.transact(request, 0).status, 'acknowledged'); assert.equal(restored.getSnapshot()!.wallet, 5400 - price);
  }
 });
