@@ -1,0 +1,22 @@
+✔ all 12 original WAVs retain complete mono PCM headers and their exact short durations (35.628541ms)
+✔ 12 legacy cues retain silent endpoints, smooth attack/release and moderate unclipped peaks (26.395426ms)
+✔ audio asset loading is byte-deterministic, independent of order and distinct for each cue (36.253991ms)
+✔ chain family keeps bell harmonics while ascending in pitch and adding layers (8.999354ms)
+✔ forklift movement remains lighter than shipment and chain signals (10.305947ms)
+✔ licensed UI click uses the approved effective 0.24 peak while pick is unchanged and place uses its approved 2dB gain (3.624586ms)
+✔ UI click is the selected short source recording in 44.1kHz stereo PCM (2.08279ms)
+✔ both build targets contain the 13 verified platform-specific local WAVs on repeated builds (11200.123567ms)
+✔ v110 attenuates normal and paused music by exactly 2dB without restarting the same handle (1.53713ms)
+✔ v110 place gains 2dB only in PCM, with exact header/duration/tone and no clipped samples (8.71807ms)
+✔ v110 preserves all other cue bytes, selected UI gain and unchanged BGM asset (64.07605ms)
+✔ v110 WeChat keeps legal per-handle volumes and reuses place at master 1 (1.274035ms)
+✔ WeChat action cues gain exactly 2dB in PCM while retaining headers and unclipped endpoints (96.569639ms)
+✔ explicit browser and Android audio remain byte-identical to the unmodified common loader (54.956907ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11464.081649

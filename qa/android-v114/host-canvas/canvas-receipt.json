@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "kind": "Exact Android bundle in Node VM with real Canvas",
-  "generatedAt": "2026-10-12T22:53:26.745Z",
-  "bundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f",
+  "generatedAt": "2026-10-13T04:30:46.308Z",
+  "bundleSha256": "5e053104a3689ea5498acbd08935bd90fa1ff662a0a933c8d71d5e219feb7857",
   "browserAcceptance": "NOT RUN",
   "cssAcceptance": "NOT RUN",
   "nativeAndroidAcceptance": "NOT RUN",
   "phoneAcceptance": "NOT RUN",
   "status": "PASS",
-  "assertions": 27,
+  "assertions": 52,
   "cases": [
     {
       "name": "delayed-native-and-asset-first-frame-input-and-resume",
@@ -63,6 +63,7 @@
           {
             "number": 1,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -70,6 +71,7 @@
           {
             "number": 2,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -77,6 +79,7 @@
           {
             "number": 3,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -84,6 +87,7 @@
           {
             "number": 4,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -91,6 +95,7 @@
           {
             "number": 5,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -98,6 +103,7 @@
           {
             "number": 6,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -105,6 +111,7 @@
           {
             "number": 7,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -112,6 +119,7 @@
           {
             "number": 8,
             "texts": [],
+            "textPositions": [],
             "images": [],
             "coverBefore": true,
             "coverAfter": true
@@ -136,7 +144,133 @@
               "设置",
               "五班或加急首次出货，解锁蓝色叉车"
             ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 393,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 670,
+                "clientX": 270,
+                "clientY": 335
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 816.5,
+                "clientX": 270,
+                "clientY": 408.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 863.5,
+                "clientX": 270,
+                "clientY": 431.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1054.5,
+                "clientX": 270,
+                "clientY": 527.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1101.5,
+                "clientX": 270,
+                "clientY": 550.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1292,
+                "clientX": 270,
+                "clientY": 646
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1486,
+                "clientX": 184.5,
+                "clientY": 743
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1486,
+                "clientX": 355.5,
+                "clientY": 743
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1650,
+                "clientX": 270,
+                "clientY": 825
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png",
               "assets/static-art/forklift-base.png"
             ],
@@ -163,7 +297,133 @@
               "设置",
               "五班或加急首次出货，解锁蓝色叉车"
             ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 393,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 670,
+                "clientX": 270,
+                "clientY": 335
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 816.5,
+                "clientX": 270,
+                "clientY": 408.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 863.5,
+                "clientX": 270,
+                "clientY": 431.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1054.5,
+                "clientX": 270,
+                "clientY": 527.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1101.5,
+                "clientX": 270,
+                "clientY": 550.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1292,
+                "clientX": 270,
+                "clientY": 646
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1486,
+                "clientX": 184.5,
+                "clientY": 743
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1486,
+                "clientX": 355.5,
+                "clientY": 743
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1650,
+                "clientX": 270,
+                "clientY": 825
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png",
               "assets/static-art/forklift-base.png"
             ],
@@ -184,7 +444,91 @@
               "重置成绩记录",
               "返回"
             ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 81.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 197.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 255
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 345
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 435
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 525
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 615
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 705
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png"
             ],
             "coverBefore": false,
@@ -204,7 +548,91 @@
               "重置成绩记录",
               "返回"
             ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 81.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 197.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 255
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 345
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 435
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 525
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 615
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 705
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png"
             ],
             "coverBefore": false,
@@ -268,6 +696,18 @@
             "五班或加急首次出货，解锁蓝色叉车"
           ],
           "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
             "assets/static-art/scene-day.png",
             "assets/static-art/forklift-base.png"
           ]
@@ -344,7 +784,133 @@
               "设置",
               "五班或加急首次出货，解锁蓝色叉车"
             ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 393,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 670,
+                "clientX": 270,
+                "clientY": 335
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 816.5,
+                "clientX": 270,
+                "clientY": 408.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 863.5,
+                "clientX": 270,
+                "clientY": 431.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1054.5,
+                "clientX": 270,
+                "clientY": 527.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1101.5,
+                "clientX": 270,
+                "clientY": 550.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1292,
+                "clientX": 270,
+                "clientY": 646
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1486,
+                "clientX": 184.5,
+                "clientY": 743
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1486,
+                "clientX": 355.5,
+                "clientY": 743
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1650,
+                "clientX": 270,
+                "clientY": 825
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png",
               "assets/static-art/forklift-base.png"
             ],
@@ -409,6 +975,18 @@
             "五班或加急首次出货，解锁蓝色叉车"
           ],
           "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
             "assets/static-art/scene-day.png",
             "assets/static-art/forklift-base.png"
           ]
@@ -480,6 +1058,36 @@
               "无法加载美术资源：tools.core",
               "重试加载"
             ],
+            "textPositions": [
+              {
+                "text": "画面资源加载失败",
+                "logicalX": 540,
+                "logicalY": 735,
+                "clientX": 270,
+                "clientY": 367.5
+              },
+              {
+                "text": "已保留原有外观与游戏进度，请重试。",
+                "logicalX": 540,
+                "logicalY": 835,
+                "clientX": 270,
+                "clientY": 417.5
+              },
+              {
+                "text": "无法加载美术资源：tools.core",
+                "logicalX": 540,
+                "logicalY": 925,
+                "clientX": 270,
+                "clientY": 462.5
+              },
+              {
+                "text": "重试加载",
+                "logicalX": 540,
+                "logicalY": 1160,
+                "clientX": 270,
+                "clientY": 580
+              }
+            ],
             "images": [],
             "coverBefore": true,
             "coverAfter": false
@@ -504,7 +1112,133 @@
               "设置",
               "五班或加急首次出货，解锁蓝色叉车"
             ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 393,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 670,
+                "clientX": 270,
+                "clientY": 335
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 816.5,
+                "clientX": 270,
+                "clientY": 408.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 863.5,
+                "clientX": 270,
+                "clientY": 431.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1054.5,
+                "clientX": 270,
+                "clientY": 527.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1101.5,
+                "clientX": 270,
+                "clientY": 550.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1292,
+                "clientX": 270,
+                "clientY": 646
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1486,
+                "clientX": 184.5,
+                "clientY": 743
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1486,
+                "clientX": 355.5,
+                "clientY": 743
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1650,
+                "clientX": 270,
+                "clientY": 825
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png",
               "assets/static-art/forklift-base.png"
             ],
@@ -629,7 +1363,133 @@
               "设置",
               "五班或加急首次出货，解锁蓝色叉车"
             ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": -120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 33,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 27,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 27,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 153,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 147,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 147,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 567.1428571428571,
+                "clientX": 270,
+                "clientY": 403.57142857142856
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 782.2142857142858,
+                "clientX": 270,
+                "clientY": 511.1071428571429
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 829.2142857142858,
+                "clientX": 270,
+                "clientY": 534.6071428571429
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1088.7857142857142,
+                "clientX": 270,
+                "clientY": 664.3928571428571
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1135.7857142857142,
+                "clientX": 270,
+                "clientY": 687.8928571428571
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1394.857142857143,
+                "clientX": 270,
+                "clientY": 817.4285714285714
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1657.4285714285716,
+                "clientX": 184.5,
+                "clientY": 948.7142857142858
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1657.4285714285716,
+                "clientX": 355.5,
+                "clientY": 948.7142857142858
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1890,
+                "clientX": 270,
+                "clientY": 1065
+              }
+            ],
             "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
               "assets/static-art/scene-day.png",
               "assets/static-art/forklift-base.png"
             ],
@@ -695,6 +1555,2316 @@
           ],
           "drawImages": [
             "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-16x9",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 120,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 393,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 387,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 670,
+                "clientX": 270,
+                "clientY": 335
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 816.5,
+                "clientX": 270,
+                "clientY": 408.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 863.5,
+                "clientX": 270,
+                "clientY": 431.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1054.5,
+                "clientX": 270,
+                "clientY": 527.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1101.5,
+                "clientX": 270,
+                "clientY": 550.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1292,
+                "clientX": 270,
+                "clientY": 646
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1486,
+                "clientX": 184.5,
+                "clientY": 743
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1486,
+                "clientX": 355.5,
+                "clientY": 743
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1650,
+                "clientX": 270,
+                "clientY": 825
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 81.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 78.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 197.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 255
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 345
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 435
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 525
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 615
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 705
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-18x9",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": 0,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 153,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 147,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 147,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 273,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 267,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 618.5714285714286,
+                "clientX": 270,
+                "clientY": 369.2857142857143
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 799.3571428571429,
+                "clientX": 270,
+                "clientY": 459.67857142857144
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 846.3571428571429,
+                "clientX": 270,
+                "clientY": 483.17857142857144
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1071.642857142857,
+                "clientX": 270,
+                "clientY": 595.8214285714286
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1118.642857142857,
+                "clientX": 270,
+                "clientY": 619.3214285714286
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1343.4285714285713,
+                "clientX": 270,
+                "clientY": 731.7142857142857
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1571.7142857142858,
+                "clientX": 184.5,
+                "clientY": 845.8571428571429
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1571.7142857142858,
+                "clientX": 355.5,
+                "clientY": 845.8571428571429
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1770,
+                "clientX": 270,
+                "clientY": 945
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 141.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 138.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 138.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 257.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 315
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 405
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 495
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 585
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 675
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 765
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-20x9-insets",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": -30,
+                "clientX": 270,
+                "clientY": 110
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": 123,
+                "clientX": 271,
+                "clientY": 186.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 117,
+                "clientX": 270,
+                "clientY": 183.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": 117,
+                "clientX": 270,
+                "clientY": 183.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 243,
+                "clientX": 271,
+                "clientY": 246.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 237,
+                "clientX": 270,
+                "clientY": 243.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 237,
+                "clientX": 270,
+                "clientY": 243.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 605.7142857142857,
+                "clientX": 270,
+                "clientY": 427.85714285714283
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 795.0714285714286,
+                "clientX": 270,
+                "clientY": 522.5357142857142
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 842.0714285714286,
+                "clientX": 270,
+                "clientY": 546.0357142857142
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1075.9285714285716,
+                "clientX": 270,
+                "clientY": 662.9642857142858
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1122.9285714285716,
+                "clientX": 270,
+                "clientY": 686.4642857142858
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1356.2857142857142,
+                "clientX": 270,
+                "clientY": 803.1428571428571
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1593.142857142857,
+                "clientX": 184.5,
+                "clientY": 921.5714285714286
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1593.142857142857,
+                "clientX": 355.5,
+                "clientY": 921.5714285714286
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1800,
+                "clientX": 270,
+                "clientY": 1025
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 206.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 203.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 203.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 322.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 380
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 470
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 560
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 650
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 740
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 830
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-21x9-asymmetric",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": -182.1428571428571,
+                "clientX": 264.0000010728836,
+                "clientY": 107.99999963811467
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": -29.14285714285711,
+                "clientX": 264.9333344101906,
+                "clientY": 179.39999994209836
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -35.14285714285711,
+                "clientX": 264.0000010728836,
+                "clientY": 176.59999993017743
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -35.14285714285711,
+                "clientX": 264.0000010728836,
+                "clientY": 176.59999993017743
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 90.85714285714289,
+                "clientX": 264.9333344101906,
+                "clientY": 235.40000018051694
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 84.85714285714289,
+                "clientX": 264.0000010728836,
+                "clientY": 232.600000168596
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 84.85714285714289,
+                "clientX": 264.0000010728836,
+                "clientY": 232.600000168596
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 540.5102040816327,
+                "clientX": 264.0000010728836,
+                "clientY": 445.23809631199254
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 773.3367346938776,
+                "clientX": 264.0000010728836,
+                "clientY": 553.8904777269582
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 820.3367346938776,
+                "clientX": 264.0000010728836,
+                "clientY": 575.8238111536722
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1097.6632653061224,
+                "clientX": 264.0000010728836,
+                "clientY": 705.2428593237181
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1144.6632653061224,
+                "clientX": 264.0000010728836,
+                "clientY": 727.176192750432
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1421.4897959183672,
+                "clientX": 264.0000010728836,
+                "clientY": 856.3619075861512
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1701.816326530612,
+                "clientX": 184.20000073313713,
+                "clientY": 987.1809557621575
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1701.816326530612,
+                "clientX": 343.8000014126301,
+                "clientY": 987.1809557621575
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1952.1428571428573,
+                "clientX": 264.0000010728836,
+                "clientY": 1104.0000038785595
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 264.9333344101906,
+                "clientY": 269.06666699051857
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 264.0000010728836,
+                "clientY": 266.26666697859764
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 264.0000010728836,
+                "clientY": 266.26666697859764
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 74.06666693091393,
+                "clientY": 377.3333341181278
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 264.0000010728836,
+                "clientY": 431.00000101327896
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 264.0000010728836,
+                "clientY": 515.0000013709068
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 264.0000010728836,
+                "clientY": 599.0000017285347
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 264.0000010728836,
+                "clientY": 683.0000020861626
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 264.0000010728836,
+                "clientY": 767.0000024437904
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 264.0000010728836,
+                "clientY": 851.0000028014183
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-phone-photo-ratio",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": -226.17100371747205,
+                "clientX": 460.50001215934753,
+                "clientY": 157.66665140137803
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": -73.17100371747205,
+                "clientX": 461.9944566488266,
+                "clientY": 271.9916548465265
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -79.17100371747205,
+                "clientX": 460.50001215934753,
+                "clientY": 267.5083213780893
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -79.17100371747205,
+                "clientX": 460.50001215934753,
+                "clientY": 267.5083213780893
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": 46.82899628252795,
+                "clientX": 461.9944566488266,
+                "clientY": 361.6583242152704
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 40.82899628252795,
+                "clientX": 460.50001215934753,
+                "clientY": 357.1749907468332
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": 40.82899628252795,
+                "clientX": 460.50001215934753,
+                "clientY": 357.1749907468332
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 521.6409984067977,
+                "clientX": 460.50001215934753,
+                "clientY": 716.4484142718388
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 767.0469994689327,
+                "clientX": 460.50001215934753,
+                "clientY": 899.8212372580394
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 814.0469994689327,
+                "clientX": 460.50001215934753,
+                "clientY": 934.9406827607975
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1103.9530005310676,
+                "clientX": 460.50001215934753,
+                "clientY": 1151.5648956379073
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1150.9530005310676,
+                "clientX": 460.50001215934753,
+                "clientY": 1186.6843411406653
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1440.3590015932023,
+                "clientX": 460.50001215934753,
+                "clientY": 1402.9349428954051
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 1733.2650026553372,
+                "clientX": 332.7250083088875,
+                "clientY": 1621.8008225067333
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 1733.2650026553372,
+                "clientX": 588.2750160098076,
+                "clientY": 1621.8008225067333
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 1996.171003717472,
+                "clientX": 460.50001215934753,
+                "clientY": 1818.2500347758757
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 461.9944566488266,
+                "clientY": 448.4638823866844
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 460.50001215934753,
+                "clientY": 443.9805489182472
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 460.50001215934753,
+                "clientY": 443.9805489182472
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 156.38055855035782,
+                "clientY": 621.819443166256
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 460.50001215934753,
+                "clientY": 707.7500013113022
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 460.50001215934753,
+                "clientY": 842.250005364418
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 460.50001215934753,
+                "clientY": 976.7500094175339
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 460.50001215934753,
+                "clientY": 1111.2500134706497
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 460.50001215934753,
+                "clientY": 1245.7500175237656
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 460.50001215934753,
+                "clientY": 1380.2500215768814
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/forklift-base.png"
+          ]
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "real-rendered-settings-hit-extended-hit-boundary",
+      "status": "PASS",
+      "trace": {
+        "imageLoads": [
+          {
+            "path": "assets/static-art/scene-day.png",
+            "status": "loaded",
+            "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4",
+            "width": 1205,
+            "height": 1920
+          },
+          {
+            "path": "assets/static-art/cargo-core.png",
+            "status": "loaded",
+            "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565",
+            "width": 1792,
+            "height": 256
+          },
+          {
+            "path": "assets/static-art/forklift-base.png",
+            "status": "loaded",
+            "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2",
+            "width": 1024,
+            "height": 192
+          },
+          {
+            "path": "assets/static-art/frame-classic.png",
+            "status": "loaded",
+            "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389",
+            "width": 1024,
+            "height": 272
+          },
+          {
+            "path": "assets/board-materials.png",
+            "status": "loaded",
+            "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5",
+            "width": 512,
+            "height": 512
+          },
+          {
+            "path": "assets/static-art/tools-core.png",
+            "status": "loaded",
+            "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9",
+            "width": 1024,
+            "height": 256
+          }
+        ],
+        "frames": [
+          {
+            "number": 1,
+            "texts": [
+              "WAREHOUSE  /  LAST SLOT",
+              "货箱",
+              "货箱",
+              "货箱",
+              "最后一格",
+              "最后一格",
+              "最后一格",
+              "金币 0",
+              "入库模式",
+              "按订单配货",
+              "出库模式",
+              "同色连出口",
+              "玩法说明",
+              "商店",
+              "设置",
+              "五班或加急首次出货，解锁蓝色叉车"
+            ],
+            "textPositions": [
+              {
+                "text": "WAREHOUSE  /  LAST SLOT",
+                "logicalX": 540,
+                "logicalY": -720,
+                "clientX": 270,
+                "clientY": 60
+              },
+              {
+                "text": "货箱",
+                "logicalX": 542,
+                "logicalY": -567,
+                "clientX": 271,
+                "clientY": 136.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -573,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "货箱",
+                "logicalX": 540,
+                "logicalY": -573,
+                "clientX": 270,
+                "clientY": 133.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 542,
+                "logicalY": -447,
+                "clientX": 271,
+                "clientY": 196.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": -453,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "最后一格",
+                "logicalX": 540,
+                "logicalY": -453,
+                "clientX": 270,
+                "clientY": 193.5
+              },
+              {
+                "text": "金币 0",
+                "logicalX": 540,
+                "logicalY": 310,
+                "clientX": 270,
+                "clientY": 575
+              },
+              {
+                "text": "入库模式",
+                "logicalX": 540,
+                "logicalY": 696.5,
+                "clientX": 270,
+                "clientY": 768.25
+              },
+              {
+                "text": "按订单配货",
+                "logicalX": 540,
+                "logicalY": 743.5,
+                "clientX": 270,
+                "clientY": 791.75
+              },
+              {
+                "text": "出库模式",
+                "logicalX": 540,
+                "logicalY": 1174.5,
+                "clientX": 270,
+                "clientY": 1007.25
+              },
+              {
+                "text": "同色连出口",
+                "logicalX": 540,
+                "logicalY": 1221.5,
+                "clientX": 270,
+                "clientY": 1030.75
+              },
+              {
+                "text": "玩法说明",
+                "logicalX": 540,
+                "logicalY": 1652,
+                "clientX": 270,
+                "clientY": 1246
+              },
+              {
+                "text": "商店",
+                "logicalX": 369,
+                "logicalY": 2086,
+                "clientX": 184.5,
+                "clientY": 1463
+              },
+              {
+                "text": "设置",
+                "logicalX": 711,
+                "logicalY": 2086,
+                "clientX": 355.5,
+                "clientY": 1463
+              },
+              {
+                "text": "五班或加急首次出货，解锁蓝色叉车",
+                "logicalX": 540,
+                "logicalY": 2490,
+                "clientX": 270,
+                "clientY": 1665
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/forklift-base.png"
+            ],
+            "coverBefore": true,
+            "coverAfter": false
+          },
+          {
+            "number": 2,
+            "texts": [
+              "设置",
+              "设置",
+              "设置",
+              "游玩设置",
+              "音乐：开",
+              "音效：开",
+              "震动：开",
+              "简化动效：关",
+              "重置成绩记录",
+              "返回"
+            ],
+            "textPositions": [
+              {
+                "text": "设置",
+                "logicalX": 542,
+                "logicalY": 163,
+                "clientX": 271,
+                "clientY": 501.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 498.5
+              },
+              {
+                "text": "设置",
+                "logicalX": 540,
+                "logicalY": 157,
+                "clientX": 270,
+                "clientY": 498.5
+              },
+              {
+                "text": "游玩设置",
+                "logicalX": 133,
+                "logicalY": 395,
+                "clientX": 66.5,
+                "clientY": 617.5
+              },
+              {
+                "text": "音乐：开",
+                "logicalX": 540,
+                "logicalY": 510,
+                "clientX": 270,
+                "clientY": 675
+              },
+              {
+                "text": "音效：开",
+                "logicalX": 540,
+                "logicalY": 690,
+                "clientX": 270,
+                "clientY": 765
+              },
+              {
+                "text": "震动：开",
+                "logicalX": 540,
+                "logicalY": 870,
+                "clientX": 270,
+                "clientY": 855
+              },
+              {
+                "text": "简化动效：关",
+                "logicalX": 540,
+                "logicalY": 1050,
+                "clientX": 270,
+                "clientY": 945
+              },
+              {
+                "text": "重置成绩记录",
+                "logicalX": 540,
+                "logicalY": 1230,
+                "clientX": 270,
+                "clientY": 1035
+              },
+              {
+                "text": "返回",
+                "logicalX": 540,
+                "logicalY": 1410,
+                "clientX": 270,
+                "clientY": 1125
+              }
+            ],
+            "images": [
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png",
+              "assets/static-art/scene-day.png"
+            ],
+            "coverBefore": false,
+            "coverAfter": false
+          }
+        ],
+        "coverWrites": [
+          {
+            "value": true,
+            "time": 16,
+            "frame": 1
+          }
+        ],
+        "bridgeCalls": [
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "state"
+            }
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "getState"
+          },
+          {
+            "plugin": "WarehouseHost",
+            "method": "addListener",
+            "options": {
+              "eventName": "backButton"
+            }
+          }
+        ],
+        "storageWrites": [],
+        "firstReveal": {
+          "frame": 1,
+          "decodedImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/cargo-core.png",
+            "assets/static-art/forklift-base.png",
+            "assets/static-art/frame-classic.png",
+            "assets/board-materials.png",
+            "assets/static-art/tools-core.png"
+          ],
+          "texts": [
+            "WAREHOUSE  /  LAST SLOT",
+            "货箱",
+            "货箱",
+            "货箱",
+            "最后一格",
+            "最后一格",
+            "最后一格",
+            "金币 0",
+            "入库模式",
+            "按订单配货",
+            "出库模式",
+            "同色连出口",
+            "玩法说明",
+            "商店",
+            "设置",
+            "五班或加急首次出货，解锁蓝色叉车"
+          ],
+          "drawImages": [
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
+            "assets/static-art/scene-day.png",
             "assets/static-art/forklift-base.png"
           ]
         },
@@ -705,7 +3875,7 @@
   "screenshots": [
     {
       "path": "artifacts/android-v114-startup/01-first-complete-game-before-cover-hide.png",
-      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "sha256": "e930f00e7aa1c51bd903607d21ed5abf3b0e02c6a8e8085dc0c64979b5779da3",
       "viewport": {
         "width": 540,
         "height": 960
@@ -714,7 +3884,7 @@
     },
     {
       "path": "artifacts/android-v114-startup/02-held-cover-touch-released-no-action.png",
-      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "sha256": "e930f00e7aa1c51bd903607d21ed5abf3b0e02c6a8e8085dc0c64979b5779da3",
       "viewport": {
         "width": 540,
         "height": 960
@@ -723,7 +3893,7 @@
     },
     {
       "path": "artifacts/android-v114-startup/03-fresh-touch-opens-settings.png",
-      "sha256": "2658d594197a984caccedf60492a6708c16b565e77f53babe9beabb2163a82b5",
+      "sha256": "c9542468dfebfdcea481fc6adaaa367b43d44a71cd29e7cf8ef49457868357a8",
       "viewport": {
         "width": 540,
         "height": 960
@@ -732,7 +3902,7 @@
     },
     {
       "path": "artifacts/android-v114-startup/04-resume-existing-settings-no-cover.png",
-      "sha256": "2658d594197a984caccedf60492a6708c16b565e77f53babe9beabb2163a82b5",
+      "sha256": "c9542468dfebfdcea481fc6adaaa367b43d44a71cd29e7cf8ef49457868357a8",
       "viewport": {
         "width": 540,
         "height": 960
@@ -741,7 +3911,7 @@
     },
     {
       "path": "artifacts/android-v114-startup/05-fast-assets-first-frame.png",
-      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "sha256": "e930f00e7aa1c51bd903607d21ed5abf3b0e02c6a8e8085dc0c64979b5779da3",
       "viewport": {
         "width": 540,
         "height": 960
@@ -759,7 +3929,7 @@
     },
     {
       "path": "artifacts/android-v114-startup/07-asset-failure-retry-recovered.png",
-      "sha256": "a398b50bbf1fc6665ec9223eef20d01a2b84f22d895ee99deedf3cbf7e9285e7",
+      "sha256": "e930f00e7aa1c51bd903607d21ed5abf3b0e02c6a8e8085dc0c64979b5779da3",
       "viewport": {
         "width": 540,
         "height": 960
@@ -768,13 +3938,67 @@
     },
     {
       "path": "artifacts/android-v114-startup/08-20x9-first-complete-menu.png",
-      "sha256": "9858628bcd38e5bf8b2a328845bce01a07b4aede6509a1433b543d57374cbccb",
+      "sha256": "ceb6e2b3bb487d88a923f153076e12d69de93ad1bd5439405849929cc352239b",
       "viewport": {
         "width": 540,
         "height": 1200
       },
       "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-16x9-menu.png",
+      "sha256": "e930f00e7aa1c51bd903607d21ed5abf3b0e02c6a8e8085dc0c64979b5779da3",
+      "viewport": {
+        "width": 540,
+        "height": 960
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-18x9-menu.png",
+      "sha256": "0521500b289a40d6cb42b30bccd075e1606b9c0cfe59a7fe24a706675dd204fd",
+      "viewport": {
+        "width": 540,
+        "height": 1080
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-20x9-insets-menu.png",
+      "sha256": "0f0aa3a81f0ef8e151aa98f9b4d77ee3982f561fdc104a4cd70d9dd16364b1aa",
+      "viewport": {
+        "width": 540,
+        "height": 1200
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-21x9-asymmetric-menu.png",
+      "sha256": "79c379e0011178a012e7623df544afa0fde73bfa547c540afea2b2309d5eaf8f",
+      "viewport": {
+        "width": 540,
+        "height": 1260
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-phone-photo-ratio-menu.png",
+      "sha256": "ffbae57c86f4474817a8576dd3c53622fed7eb9730eee4fbd182218115178452",
+      "viewport": {
+        "width": 921,
+        "height": 2048
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
+    },
+    {
+      "path": "artifacts/android-v114-startup/matrix-extended-hit-boundary-menu.png",
+      "sha256": "54ddf11575e6d6b46807f04ef2ce432187c012fc918a2fb5fe8d73b81fd6dba8",
+      "viewport": {
+        "width": 540,
+        "height": 1800
+      },
+      "source": "Actual unchanged Android app.js painted through @napi-rs/canvas; not a browser screenshot"
     }
   ],
-  "finalBundleSha256": "a02cbf627bdbe240b0e1d56a3dab16ddc305cadad0492fa9ad8e8f6257ef155f"
+  "finalBundleSha256": "5e053104a3689ea5498acbd08935bd90fa1ff662a0a933c8d71d5e219feb7857"
 }

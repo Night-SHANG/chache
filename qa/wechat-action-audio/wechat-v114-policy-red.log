@@ -1,0 +1,144 @@
+✔ production build rejects explicit free-shop before writing an artifact (596.513675ms)
+✔ production build rejects diagnostics before writing an artifact (536.574138ms)
+✖ default builds both actual targets with explicit matching shop and audio policy (9763.405013ms)
+✖ production builds both actual targets with explicit matching shop and audio policy (11133.785067ms)
+✖ free playtest builds both actual targets with explicit matching shop and audio policy (9276.824418ms)
+✖ diagnostic playtest builds both actual targets with explicit matching shop and audio policy (9944.242031ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 2
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41815.482292
+
+✖ failing tests:
+
+test at tests/playtest-build-policy.test.ts:15:286
+✖ default builds both actual targets with explicit matching shop and audio policy (9763.405013ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      browserVolume: 0.45,
+  +   wechatAdditionalAssetGainDb: 2,
+  +   wechatBoostedCues: [
+  +     'place',
+  +     'route_ready',
+  +     'forklift',
+  +     'ship',
+  +     'chain2',
+  +     'chain3',
+  +     'chain4',
+  +     'shift'
+  +   ],
+      wechatVolume: 1
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/wechat-v114-sfx-work/tests/playtest-build-policy.test.ts:18:288)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { browserVolume: 0.45, wechatVolume: 1, wechatAdditionalAssetGainDb: 2, wechatBoostedCues: [ 'place', 'route_ready', 'forklift', 'ship', 'chain2', 'chain3', 'chain4', 'shift' ] },
+    expected: { browserVolume: 0.45, wechatVolume: 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/playtest-build-policy.test.ts:15:286
+✖ production builds both actual targets with explicit matching shop and audio policy (11133.785067ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      browserVolume: 0.45,
+  +   wechatAdditionalAssetGainDb: 2,
+  +   wechatBoostedCues: [
+  +     'place',
+  +     'route_ready',
+  +     'forklift',
+  +     'ship',
+  +     'chain2',
+  +     'chain3',
+  +     'chain4',
+  +     'shift'
+  +   ],
+      wechatVolume: 1
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/wechat-v114-sfx-work/tests/playtest-build-policy.test.ts:18:288)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { browserVolume: 0.45, wechatVolume: 1, wechatAdditionalAssetGainDb: 2, wechatBoostedCues: [ 'place', 'route_ready', 'forklift', 'ship', 'chain2', 'chain3', 'chain4', 'shift' ] },
+    expected: { browserVolume: 0.45, wechatVolume: 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/playtest-build-policy.test.ts:15:286
+✖ free playtest builds both actual targets with explicit matching shop and audio policy (9276.824418ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      browserVolume: 0.45,
+  +   wechatAdditionalAssetGainDb: 2,
+  +   wechatBoostedCues: [
+  +     'place',
+  +     'route_ready',
+  +     'forklift',
+  +     'ship',
+  +     'chain2',
+  +     'chain3',
+  +     'chain4',
+  +     'shift'
+  +   ],
+      wechatVolume: 1
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/wechat-v114-sfx-work/tests/playtest-build-policy.test.ts:18:288)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { browserVolume: 0.45, wechatVolume: 1, wechatAdditionalAssetGainDb: 2, wechatBoostedCues: [ 'place', 'route_ready', 'forklift', 'ship', 'chain2', 'chain3', 'chain4', 'shift' ] },
+    expected: { browserVolume: 0.45, wechatVolume: 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/playtest-build-policy.test.ts:15:286
+✖ diagnostic playtest builds both actual targets with explicit matching shop and audio policy (9944.242031ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      browserVolume: 0.45,
+  +   wechatAdditionalAssetGainDb: 2,
+  +   wechatBoostedCues: [
+  +     'place',
+  +     'route_ready',
+  +     'forklift',
+  +     'ship',
+  +     'chain2',
+  +     'chain3',
+  +     'chain4',
+  +     'shift'
+  +   ],
+      wechatVolume: 1
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/wechat-v114-sfx-work/tests/playtest-build-policy.test.ts:18:288)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { browserVolume: 0.45, wechatVolume: 1, wechatAdditionalAssetGainDb: 2, wechatBoostedCues: [ 'place', 'route_ready', 'forklift', 'ship', 'chain2', 'chain3', 'chain4', 'shift' ] },
+    expected: { browserVolume: 0.45, wechatVolume: 1 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

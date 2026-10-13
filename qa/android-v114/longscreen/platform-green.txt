@@ -1,0 +1,31 @@
+✔ Android host shares safe content geometry with presentation and enables extended input only on home (144.097093ms)
+✔ Android input inverse matches the rendering transform at DPR 1, 2 and 3 (4.465861ms)
+✔ system edges and contain bars do not start a gesture or capture a pointer (0.351277ms)
+✔ every active pointer is cancelled once on inset changes and stale moves or ups are ignored (0.473502ms)
+✔ CSS resize, window resize, focus loss and native hide each cancel captured input (0.441573ms)
+✔ invalid geometry cancels input and fails closed until valid native geometry is received (0.681914ms)
+✔ unowned and released hosts never allow input or manufacture a held lease (0.311618ms)
+✔ normal capture release preserves tap selection and placement through the safe viewport (46.637516ms)
+✔ Android uses shared local audio levels, cached effects, ducking and optional haptics (4.659963ms)
+✔ native lifecycle deduplicates hide/show, stops audio before callbacks, and keeps paused settings (0.583918ms)
+✔ malformed host updates cancel active input and reject without restoring stale geometry (0.436366ms)
+✔ native state snapshots detect a changed physical window even when the resulting CSS transform is identical (0.324688ms)
+✔ captured dragging outside the interaction area emits no hittable point and loses capture exactly once (0.200081ms)
+✔ touches before input subscription cannot capture or start music during startup (0.093511ms)
+✔ Android preserves touch, mouse and pen source for placement adaptation (0.239971ms)
+✔ Android lifted touch drag resize cannot commit a stale release (6.558836ms)
+✔ Android lifted touch drag hide cannot commit a stale release (7.055362ms)
+✔ only opted-in Android home accepts the safe tall area; system insets still reject and resize cancels (0.28628ms)
+✔ Android uses native safe area once and centers the 1080 by 1920 interaction rectangle (2.174528ms)
+✔ native physical pixels convert to actual offset CSS canvas independently of DPR (0.522475ms)
+✔ side cutouts and a wide window contain the full logical area inside every safe edge (0.350296ms)
+✔ zero, nonfinite, negative and consumed dimensions are rejected rather than becoming a clickable viewport (0.975877ms)
+✔ Android exposes the exact safe area in logical coordinates without changing board transform (0.482105ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 351.98525

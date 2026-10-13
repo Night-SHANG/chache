@@ -15,6 +15,10 @@ test('production build rejects diagnostics before writing an artifact',()=>{cons
 for(const [name,flags,pricingMode,diagnostics] of [['default',[],'paid',false],['production',['--production'],'paid',false],['free playtest',['--playtest-free-shop'],'playtest-free',false],['diagnostic playtest',['--playtest-free-shop','--diagnostics'],'playtest-free',true]] as const)test(`${name} builds both actual targets with explicit matching shop and audio policy`,async()=>{
  const result=run(...flags);assert.equal(result.status,0,result.stderr);
  const manifests=await Promise.all(['browser','wechat'].map(async target=>JSON.parse(await readFile(join(workspace,'build',target,'build-manifest.json'),'utf8'))));
- for(const manifest of manifests){assert.equal(manifest.shopPricingMode,pricingMode);assert.equal(manifest.developerDiagnostics,diagnostics);assert.equal(manifest.backgroundMusic.defaultVolume,0.18*10**(-2/20));assert.equal(manifest.backgroundMusic.pausedVolume,0.12*10**(-2/20));assert.deepEqual(manifest.soundEffects,{browserVolume:0.45,wechatVolume:1});}
- assert.deepEqual(manifests[0],manifests[1]);
+ for(const manifest of manifests){assert.equal(manifest.shopPricingMode,pricingMode);assert.equal(manifest.developerDiagnostics,diagnostics);assert.equal(manifest.backgroundMusic.defaultVolume,0.18*10**(-2/20));assert.equal(manifest.backgroundMusic.pausedVolume,0.12*10**(-2/20));assert.equal(manifest.soundEffects.browserVolume,0.45);assert.equal(manifest.soundEffects.wechatVolume,1);}
+ assert.deepEqual(manifests[0].soundEffects,{browserVolume:0.45,wechatVolume:1});
+ assert.deepEqual(manifests[1].soundEffects,{browserVolume:0.45,wechatVolume:1,wechatAdditionalAssetGainDb:2,wechatBoostedCues:['place','route_ready','forklift','ship','chain2','chain3','chain4','shift']});
+ assert.deepEqual(manifests[0].placeSound,{src:'assets/place.wav',assetGain:10**(2/20),gainDb:2});
+ assert.deepEqual(manifests[1].placeSound,{src:'assets/place.wav',assetGain:10**(2/20)*10**(2/20),gainDb:4});
+ assert.deepEqual({...manifests[1],placeSound:manifests[0].placeSound,soundEffects:manifests[0].soundEffects},manifests[0],'all remaining metadata stays identical across targets');
 });

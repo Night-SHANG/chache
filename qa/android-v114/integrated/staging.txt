@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.14 verify:android
+> node scripts/verify-android-build.mjs staging
+
+{ phase: 'bootstrap', publishApk: false }

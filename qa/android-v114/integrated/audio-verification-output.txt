@@ -1,0 +1,396 @@
+{
+  "scope": "WeChat-only +2 dB for eight positive action cues; physical device listening NOT RUN",
+  "rows": [
+    {
+      "name": "pick",
+      "browserSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "androidSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "wechatSha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "bytes": 3792,
+      "boosted": false,
+      "before": {
+        "peak": 0.160003662109375,
+        "peakDb": -15.91740154491989,
+        "rmsDb": -24.724376735758323,
+        "clipped": 0,
+        "bytes": 3792,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 1874
+      },
+      "after": {
+        "peak": 0.160003662109375,
+        "peakDb": -15.91740154491989,
+        "rmsDb": -24.724376735758323,
+        "clipped": 0,
+        "bytes": 3792,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 1874
+      },
+      "rmsGainDb": 0
+    },
+    {
+      "name": "place",
+      "browserSha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+      "androidSha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+      "wechatSha256": "0e700e33c233cb5f7da2483c3a9d6b1e14e166b1e0b9ac9c6b5be2264bc6e320",
+      "bytes": 5116,
+      "boosted": true,
+      "before": {
+        "peak": 0.2769775390625,
+        "peakDb": -11.15110895493639,
+        "rmsDb": -20.022778101523176,
+        "clipped": 0,
+        "bytes": 5116,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 2536
+      },
+      "after": {
+        "peak": 0.34869384765625,
+        "peakDb": -9.151114304703754,
+        "rmsDb": -18.022781773090912,
+        "clipped": 0,
+        "bytes": 5116,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 2536
+      },
+      "rmsGainDb": 1.999996328432264
+    },
+    {
+      "name": "invalid",
+      "browserSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "androidSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "wechatSha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "bytes": 6218,
+      "boosted": false,
+      "before": {
+        "peak": 0.16998291015625,
+        "peakDb": -15.39189479571978,
+        "rmsDb": -24.22071932440911,
+        "clipped": 0,
+        "bytes": 6218,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 3087
+      },
+      "after": {
+        "peak": 0.16998291015625,
+        "peakDb": -15.39189479571978,
+        "rmsDb": -24.22071932440911,
+        "clipped": 0,
+        "bytes": 6218,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 3087
+      },
+      "rmsGainDb": 0
+    },
+    {
+      "name": "route_ready",
+      "browserSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "androidSha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "wechatSha256": "f5d8529e9c13a9c4c5bc49189ee2c065caa878072c9e566f3dfd172861034066",
+      "bytes": 7542,
+      "boosted": true,
+      "before": {
+        "peak": 0.17999267578125,
+        "peakDb": -14.894903334878773,
+        "rmsDb": -25.125056339707452,
+        "clipped": 0,
+        "bytes": 7542,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 3749
+      },
+      "after": {
+        "peak": 0.226593017578125,
+        "peakDb": -12.89506953940936,
+        "rmsDb": -23.125054894389855,
+        "clipped": 0,
+        "bytes": 7542,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 3749
+      },
+      "rmsGainDb": 2.000001445317597
+    },
+    {
+      "name": "forklift",
+      "browserSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "androidSha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "wechatSha256": "7d24c2bc55a1ef757aecf4216e63c987ea51ce27b43d04a2d2ac847ddd2f670f",
+      "bytes": 11952,
+      "boosted": true,
+      "before": {
+        "peak": 0.06500244140625,
+        "peakDb": -23.741406630419604,
+        "rmsDb": -33.203604587955134,
+        "clipped": 0,
+        "bytes": 11952,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5954
+      },
+      "after": {
+        "peak": 0.08184814453125,
+        "peakDb": -21.739823228882756,
+        "rmsDb": -31.203671804473704,
+        "clipped": 0,
+        "bytes": 11952,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5954
+      },
+      "rmsGainDb": 1.9999327834814302
+    },
+    {
+      "name": "ship",
+      "browserSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "androidSha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "wechatSha256": "2c805ae56f26400f9e5ab26e34f8b5f5882c6af7815a4813558495cd0cb08d5e",
+      "bytes": 11510,
+      "boosted": true,
+      "before": {
+        "peak": 0.259979248046875,
+        "peakDb": -11.701226334307924,
+        "rmsDb": -21.904478051768727,
+        "clipped": 0,
+        "bytes": 11510,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5733
+      },
+      "after": {
+        "peak": 0.327301025390625,
+        "peakDb": -9.701052682059121,
+        "rmsDb": -19.904459594504495,
+        "clipped": 0,
+        "bytes": 11510,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5733
+      },
+      "rmsGainDb": 2.0000184572642326
+    },
+    {
+      "name": "chain2",
+      "browserSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "androidSha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "wechatSha256": "4b7b93f608994e4fbd5d0dc17c103a488420a672e00ba76164c3edae1d77e091",
+      "bytes": 12392,
+      "boosted": true,
+      "before": {
+        "peak": 0.239990234375,
+        "peakDb": -12.396128602712775,
+        "rmsDb": -21.450132388280746,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "after": {
+        "peak": 0.3021240234375,
+        "peakDb": -10.396294807243361,
+        "rmsDb": -19.45014003054583,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "rmsGainDb": 1.999992357734918
+    },
+    {
+      "name": "chain3",
+      "browserSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "androidSha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "wechatSha256": "d32adfa913dfafc25de3adface1d9005ba2e2449740ecce4d2bead2b8a27adaf",
+      "bytes": 12392,
+      "boosted": true,
+      "before": {
+        "peak": 0.259979248046875,
+        "peakDb": -11.701226334307924,
+        "rmsDb": -22.223348863740373,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "after": {
+        "peak": 0.327301025390625,
+        "peakDb": -9.701052682059121,
+        "rmsDb": -20.223336613666717,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "rmsGainDb": 2.000012250073656
+    },
+    {
+      "name": "chain4",
+      "browserSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "androidSha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "wechatSha256": "7f7204821ff8c7ff9fc1637da4d9a1dea99032b1a312ce0cc44d3b96e336fee3",
+      "bytes": 12392,
+      "boosted": true,
+      "before": {
+        "peak": 0.279998779296875,
+        "peakDb": -11.05687724071182,
+        "rmsDb": -21.10141137147048,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "after": {
+        "peak": 0.352508544921875,
+        "peakDb": -9.056607022107526,
+        "rmsDb": -19.10141098130007,
+        "clipped": 0,
+        "bytes": 12392,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6174
+      },
+      "rmsGainDb": 2.0000003901704098
+    },
+    {
+      "name": "upgrade",
+      "browserSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "androidSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "wechatSha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "bytes": 13274,
+      "boosted": false,
+      "before": {
+        "peak": 0.25,
+        "peakDb": -12.041199826559248,
+        "rmsDb": -21.896053279850456,
+        "clipped": 0,
+        "bytes": 13274,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6615
+      },
+      "after": {
+        "peak": 0.25,
+        "peakDb": -12.041199826559248,
+        "rmsDb": -21.896053279850456,
+        "clipped": 0,
+        "bytes": 13274,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 6615
+      },
+      "rmsGainDb": 0
+    },
+    {
+      "name": "shift",
+      "browserSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "androidSha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "wechatSha256": "1ad81081eb2ace8c375a26f298b149eec5acb31f8d0f22bdfce9ff7ee9e36b85",
+      "bytes": 16802,
+      "boosted": true,
+      "before": {
+        "peak": 0.269989013671875,
+        "peakDb": -11.373078153765148,
+        "rmsDb": -22.87222242528863,
+        "clipped": 0,
+        "bytes": 16802,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 8379
+      },
+      "after": {
+        "peak": 0.33990478515625,
+        "peakDb": -9.372854428119554,
+        "rmsDb": -20.872238948173116,
+        "clipped": 0,
+        "bytes": 16802,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 8379
+      },
+      "rmsGainDb": 1.9999834771155136
+    },
+    {
+      "name": "fail",
+      "browserSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "androidSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "wechatSha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "bytes": 11070,
+      "boosted": false,
+      "before": {
+        "peak": 0.16998291015625,
+        "peakDb": -15.39189479571978,
+        "rmsDb": -23.867897109156342,
+        "clipped": 0,
+        "bytes": 11070,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5513
+      },
+      "after": {
+        "peak": 0.16998291015625,
+        "peakDb": -15.39189479571978,
+        "rmsDb": -23.867897109156342,
+        "clipped": 0,
+        "bytes": 11070,
+        "channels": 1,
+        "sampleRate": 22050,
+        "frames": 5513
+      },
+      "rmsGainDb": 0
+    },
+    {
+      "name": "ui_click",
+      "browserSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "androidSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "wechatSha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "bytes": 33056,
+      "boosted": false,
+      "before": {
+        "peak": 0.9881591796875,
+        "peakDb": -0.10346181084725992,
+        "rmsDb": -12.84810773094309,
+        "clipped": 0,
+        "bytes": 33056,
+        "channels": 2,
+        "sampleRate": 44100,
+        "frames": 8253
+      },
+      "after": {
+        "peak": 0.9881591796875,
+        "peakDb": -0.10346181084725992,
+        "rmsDb": -12.84810773094309,
+        "clipped": 0,
+        "bytes": 33056,
+        "channels": 2,
+        "sampleRate": 44100,
+        "frames": 8253
+      },
+      "rmsGainDb": 0
+    },
+    {
+      "name": "bgm",
+      "browserSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "androidSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "wechatSha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "bytes": 1563002,
+      "boosted": false
+    }
+  ],
+  "package": {
+    "mainBytes": 3034540,
+    "cosmeticsBytes": 2728095,
+    "totalBytes": 5762635,
+    "processedWechatIdeSize": "NOT RUN"
+  }
+}

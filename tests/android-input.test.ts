@@ -19,7 +19,7 @@ test('Android input inverse matches the rendering transform at DPR 1, 2 and 3',(
    assert.equal(f.canvas.width,1080);assert.equal(f.canvas.height,2400);assert.deepEqual(f.fills[f.fills.length-1],[0,0,1080,2400]);assert.deepEqual(f.transforms[f.transforms.length-1],[1,0,0,1,0,250]);
    f.pointer('pointerdown',17+540/dpr,31+1210/dpr);f.pointer('pointerup',17+540/dpr,31+1210/dpr);
    assert.deepEqual(events.map(event=>event.type),['down','up']);for(const event of events){assert.ok(Math.abs(event.point.x-540)<1e-9);assert.ok(Math.abs(event.point.y-960)<1e-9);}assert.equal(f.captured.size,0);
-   assert.deepEqual(f.platform.overlayBounds?.(),{x:0,y:-250,w:1080,h:2400});assert.deepEqual(f.platform.backgroundBounds?.(),{x:0,y:0,w:1080,h:1920});assert.equal(f.platform.storage,f.storage);assert.equal(f.platform.writerLease,f.lease);
+   assert.deepEqual(f.platform.overlayBounds?.(),{x:0,y:-250,w:1080,h:2400});assert.deepEqual(f.platform.backgroundBounds?.(),{x:0,y:-250,w:1080,h:2400});assert.deepEqual(f.platform.contentBounds?.(),{x:0,y:-150,w:1080,h:2220});assert.equal(f.platform.storage,f.storage);assert.equal(f.platform.writerLease,f.lease);
   }finally{f.restore();}
  }
 });
@@ -124,5 +124,17 @@ for(const interrupt of ['resize','hide'] as const)test(`Android lifted touch dra
   emit('pointerdown',rect.x+rect.w/2,rect.y+rect.h/2);emit('pointermove',finger.x,finger.y);assert.deepEqual(s.view.hoverOrigin,move.origin);
   f.updateHost(interrupt==='resize'?{...androidHost,insetsPx:{...androidHost.insetsPx,top:150}}:{...androidHost,active:false});
   assert.equal(s.view.selectedPieceId,null);emit('pointerup',finger.x,finger.y);assert.equal(s.state.commandIndex,before);
+ }finally{f.restore();}
+});
+
+
+test('only opted-in Android home accepts the safe tall area; system insets still reject and resize cancels',()=>{
+ let home=true;const f=androidFixture({useHomeBounds:()=>home});try{
+  const events:PointerEvent[]=[];f.platform.onPointer(event=>events.push(event));
+  f.pointer('pointerdown',540,150);f.pointer('pointerup',540,150);assert.deepEqual(events.map(e=>e.point.y),[-100,-100]);
+  f.pointer('pointerdown',540,2250);assert.equal(events[events.length-1]?.point.y,2000);
+  f.updateHost({...androidHost,insetsPx:{...androidHost.insetsPx,bottom:150}});assert.equal(events[events.length-1]?.type,'cancel');
+  const count=events.length;f.pointer('pointerup',540,2250);for(const y of [0,99,2399]){f.pointer('pointerdown',540,y);f.pointer('pointerup',540,y);}assert.equal(events.length,count);
+  home=false;f.pointer('pointerdown',540,150);f.pointer('pointerup',540,150);assert.equal(events.length,count);
  }finally{f.restore();}
 });

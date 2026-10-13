@@ -21,7 +21,7 @@ test('production texture packages are fresh, fully local, verified and correctly
   const inventory=await files('');assert.ok(!inventory.includes('assets/stale.png'));
   assert.ok(inventory.includes('cosmetics/game.js'));assert.ok(!inventory.includes('assets/themed-forklifts.png'));assert.ok(!inventory.includes('UI_SOUND_LICENSE.pdf'));
   for(const required of ['UI_SOUND_CC0.txt','UI_SOUND_NOTICE.txt','MUSIC_LICENSE.txt','assets/bgm.mp3'])assert.ok(inventory.includes(required),required);
-  const manifest=JSON.parse((await read('build-manifest.json')).toString());assert.equal(manifest.version,'1.0.13');
+  const manifest=JSON.parse((await read('build-manifest.json')).toString());assert.equal(manifest.version,'1.0.14');
   const spec=manifest.staticArt;assert.ok(spec.resources.length>=78);assert.equal(spec.offlineAuthoring,true);assert.equal(spec.runtimeOffscreenStaticArt,false);
   for(const resource of spec.resources){
    const bytes=await read(resource.src);assert.equal(createHash('sha256').update(bytes).digest('hex'),resource.sha256,resource.key);

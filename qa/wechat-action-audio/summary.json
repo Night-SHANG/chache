@@ -1,0 +1,134 @@
+{
+  "status": "audio_only_candidate_verified_not_device_accepted",
+  "baseCommit": "4aefaa7ce6c0f0498e075ed78c9617869ed3f27a",
+  "version": "1.0.13",
+  "sourceSha256": "4f71b842f772503064d620f22fc40ae6a6de39458d6262876f1bd6a7768bf4dd",
+  "boostedCues": [
+    "place",
+    "route_ready",
+    "forklift",
+    "ship",
+    "chain2",
+    "chain3",
+    "chain4",
+    "shift"
+  ],
+  "additionalWechatGainDb": 2,
+  "fullTests": {
+    "tests": 3272,
+    "pass": 3270,
+    "fail": 2,
+    "exit": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "knownMissingSources": [
+      "artifacts/v0200-art-source/cargo-wood-generated.png",
+      "artifacts/v0210-art-source/cargo-harbor_container-generated.png"
+    ]
+  },
+  "focusedAudioTests": 14,
+  "buildPolicyTests": 6,
+  "formalBuildTests": 1,
+  "lint": "pass",
+  "typecheck": "pass",
+  "preflight": "pass",
+  "independentReview": "no remaining blockers after exact per-target manifest assertions",
+  "browserAndroidBaselineMatches": "13 WAVs + BGM each, byte for byte",
+  "protectedWechatMatches": [
+    "pick",
+    "invalid",
+    "fail",
+    "upgrade",
+    "ui_click",
+    "bgm"
+  ],
+  "allRuntimeAndSourceMediaFilesChanged": false,
+  "audioByteIncrease": 0,
+  "maxBoostedPeak": 0.352508544921875,
+  "package": {
+    "mainBytes": 3031803,
+    "cosmeticsBytes": 2728095,
+    "totalBytes": 5759898,
+    "processedWechatIdeSize": "NOT RUN"
+  },
+  "notPerformed": [
+    "native APK build",
+    "signing",
+    "CI dispatch",
+    "WeChat upload",
+    "WeChat IDE package processing",
+    "physical-device listening"
+  ],
+  "logs": [
+    {
+      "path": "wechat-v114-baseline.log",
+      "sha256": "8739aac840d3b092ee99228eeabcc194805712273f9a1b57db0bdafb2e3333bb",
+      "bytes": 360755
+    },
+    {
+      "path": "wechat-v114-build-red2.log",
+      "sha256": "edae2561f4628c5ca8de5ea9187a34d52be849be1b6276ffee249479d5221639",
+      "bytes": 85018
+    },
+    {
+      "path": "wechat-v114-final-build.log",
+      "sha256": "1c565322a5391481e73fb119077ba57cb1a9a7528a377b45b60e145293ec1a61",
+      "bytes": 418
+    },
+    {
+      "path": "wechat-v114-final-tests.log",
+      "sha256": "742e46651c952b4df55843f9b4c1ec43cf597a274931130c646cd3328b133993",
+      "bytes": 358043
+    },
+    {
+      "path": "wechat-v114-final2-tests.log",
+      "sha256": "ea566d272d56e3ce72634ec6ec74e06e88a448ad5bce8859f22c130d79719285",
+      "bytes": 353359
+    },
+    {
+      "path": "wechat-v114-final3-tests.log",
+      "sha256": "cbe252b285b5b4768a13551335ee6da1285c01bffbacc53b121655327197b2b3",
+      "bytes": 345225
+    },
+    {
+      "path": "wechat-v114-formal-green.log",
+      "sha256": "a5f627e03c07446cddf6d26d504aca9ba84b1d2addc1adc91cbb8e6cb7627859",
+      "bytes": 221
+    },
+    {
+      "path": "wechat-v114-green.log",
+      "sha256": "cc24d651b2c86f9e14137fac98dd761d68776ad9b435355612f7b72000ccbfa7",
+      "bytes": 1560
+    },
+    {
+      "path": "wechat-v114-lint.log",
+      "sha256": "e06d5070bf83917ea5432fbf0302c16270269421f9516c8961f9c684dec67359",
+      "bytes": 370
+    },
+    {
+      "path": "wechat-v114-policy-green.log",
+      "sha256": "78b2bedaa67045b64c4e1e7a9bda157d0764ee1a359982c16873698226bb4097",
+      "bytes": 711
+    },
+    {
+      "path": "wechat-v114-policy-red.log",
+      "sha256": "f5af5bfb66ee1ae126323ab0c4c1739285d782a477007803eb0ddf82e483725e",
+      "bytes": 5486
+    },
+    {
+      "path": "wechat-v114-preflight.log",
+      "sha256": "68a9e457defa54cb343c4e95e32191e1f39f5fe55ca5653b688222c249b4e1a9",
+      "bytes": 384
+    },
+    {
+      "path": "wechat-v114-red.log",
+      "sha256": "4913c3db1774db7d3f3c640e3af77e79441e07c0eecf4c30feadfc3c7e48644d",
+      "bytes": 1106
+    },
+    {
+      "path": "wechat-v114-typecheck.log",
+      "sha256": "79b865f2dcc636e90b5f0d0e9b3a3dd22a75ccefb3b8a546c142bb5921903876",
+      "bytes": 363
+    }
+  ]
+}

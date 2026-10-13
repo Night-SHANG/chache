@@ -1,0 +1,31 @@
+✖ WeChat action cues gain exactly 2dB in PCM while retaining headers and unclipped endpoints (64.055256ms)
+✔ explicit browser and Android audio remain byte-identical to the unmodified common loader (145.763273ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 436.815285
+
+✖ failing tests:
+
+test at tests/wechat-action-audio.test.ts:8:1
+✖ WeChat action cues gain exactly 2dB in PCM while retaining headers and unclipped endpoints (64.055256ms)
+  AssertionError [ERR_ASSERTION]: place sample 72
+  
+  3 !== 4
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/wechat-v114-sfx-work/tests/wechat-action-audio.test.ts:17:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

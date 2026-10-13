@@ -1,0 +1,42 @@
+✔ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (404.021276ms)
+✔ non-Android retains every original scene pixel even when given tall background bounds (357.059764ms)
+✔ Android retains exact 16:9 authored pixels when source and target outer frame coincide (357.171226ms)
+✔ Android composition stays finite, uses only static blits, and restores drawing state (122.141888ms)
+✔ invalid Android bounds use the unchanged original scene (73.331588ms)
+✔ Android static bands have no transparent seam at fractional native viewport scale (9.92769ms)
+✔ classic spotlight and both upper rack rows remain one undistorted authored composition (0.993994ms)
+✖ older Canvas hosts without transform introspection still render the complete Android scene (5.051088ms)
+✔ all source bands are visited once and protected glyphs survive the smallest supported portrait width (12.850426ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1789.625204
+
+✖ failing tests:
+
+test at tests/android-warehouse-background.test.ts:78:1
+✖ older Canvas hosts without transform introspection still render the complete Android scene (5.051088ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "ctx.getTransform is not a function"
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:81:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: ctx.getTransform is not a function
+        at drawAndroidWarehouse (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/src/presentation/android-warehouse-background.ts:65:56)
+        at drawWarehouse (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/src/presentation/warehouse-art.ts:10:50)
+        at file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:81:26
+        at getActual (node:assert:611:5)
+        at strict.doesNotThrow (node:assert:779:32)
+        at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:81:9)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }

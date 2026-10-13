@@ -1,0 +1,46 @@
+✖ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (21.12637ms)
+✔ non-Android retains every original scene pixel even when given tall background bounds (361.330788ms)
+✔ Android retains exact 16:9 authored pixels when source and target outer frame coincide (266.687545ms)
+✖ Android composition stays finite, uses only static blits, and restores drawing state (10.773045ms)
+✔ invalid Android bounds use the unchanged original scene (57.499582ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1154.887197
+
+✖ failing tests:
+
+test at tests/android-warehouse-background.test.ts:19:1
+✖ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (21.12637ms)
+  AssertionError [ERR_ASSERTION]: day: real scene reaches bottom
+
+  0 !== 255
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:24:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/android-warehouse-background.test.ts:48:1
+✖ Android composition stays finite, uses only static blits, and restores drawing state (10.773045ms)
+  AssertionError [ERR_ASSERTION]: day: 1 finite blits
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:55:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

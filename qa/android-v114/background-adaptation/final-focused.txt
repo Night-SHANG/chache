@@ -1,0 +1,30 @@
+✔ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (415.353407ms)
+✔ non-Android retains every original scene pixel even when given tall background bounds (350.51209ms)
+✔ Android retains exact 16:9 authored pixels when source and target outer frame coincide (387.909491ms)
+✔ Android composition stays finite, uses only static blits, and restores drawing state (142.463027ms)
+✔ invalid Android bounds use the unchanged original scene (73.44217ms)
+✔ Android static bands have no transparent seam at fractional native viewport scale (9.287054ms)
+✔ classic spotlight and both upper rack rows remain one undistorted authored composition (1.022656ms)
+✔ older Canvas hosts without transform introspection still render the complete Android scene (13.136339ms)
+✔ all source bands are visited once and protected glyphs survive the smallest supported portrait width (13.477321ms)
+✔ runtime static artwork uses ready-image composition without painter or surface cache fallback (1.801467ms)
+✔ preview architecture selects only the four exact authored aspect families (1.130989ms)
+✔ all 17 finite scenes preserve native source pixels, transparency and caller state with one image blit (1543.892428ms)
+✔ all 53 preview background variants retain native aspect-dependent architecture and clipping (543.922644ms)
+✔ all 19 complete vehicles retain silhouettes, forward forks and rotation anchors at five sizes and 32 headings (2671.182444ms)
+✔ classic cargo preserves opaque color and translucent geometry with live waste/countdowns and final outline (201.211192ms)
+✔ all 15 retained premium cargo bodies keep original image crops, semantic glyphs and live rush digits (1021.525397ms)
+✔ translucent classic body uses explicit group-image alpha and keeps outline as a separate final layer (10.47547ms)
+✔ day/night packed frames and every material floor preserve all 7/8/9 native board pixels (1631.324692ms)
+✔ current composite previews reuse exact variants and selected sprites without surface allocation (221.874208ms)
+✔ actual renderer keeps finite scenery, usable safe-area clips and full-screen pause coverage (891.274043ms)
+✔ every live tool item, including wildcard, and toolbox produces one complete ready-image blit (9.443309ms)
+✔ missing decoded static art never invokes a procedural fallback or paints a substitute selection (1.554946ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9531.656881

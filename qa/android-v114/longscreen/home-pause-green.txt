@@ -1,0 +1,22 @@
+✔ Android host shares safe content geometry with presentation and enables extended input only on home (168.184411ms)
+✔ Android homepage spreads extra safe height between fixed-size groups while legacy geometry is exact (3.063903ms)
+✔ Android homepage drawing uses the same shifted controls and keeps all text inside its safe height (14.507052ms)
+✔ pure homepage layout never compresses the authored groups and preserves the title and forklift shapes (0.335044ms)
+✔ homepage controls remain clickable beyond the old 1920 boundary and invalidate moved held controls (0.954654ms)
+✔ Android metadata leaves other screen controls and legacy homepage glyph sizes and text unchanged (6.179983ms)
+✔ Android standard pause shades actual 1920 viewport and preserves safe board controls (56.365889ms)
+✔ Android standard pause shades actual 2160 viewport and preserves safe board controls (37.20769ms)
+✔ Android standard pause shades actual 2400 viewport and preserves safe board controls (28.601834ms)
+✔ Android standard pause shades actual 2520 viewport and preserves safe board controls (27.288861ms)
+✔ Android endless pause shades actual 1920 viewport and preserves safe board controls (26.788691ms)
+✔ Android endless pause shades actual 2160 viewport and preserves safe board controls (26.529271ms)
+✔ Android endless pause shades actual 2400 viewport and preserves safe board controls (28.484527ms)
+✔ Android endless pause shades actual 2520 viewport and preserves safe board controls (28.80545ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 869.123976

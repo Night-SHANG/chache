@@ -231,11 +231,11 @@ test('Android verifier accepts genuine hashed production staging but keeps its b
  try{assert.deepEqual(await verifier.verifyStaging(dir),{phase:'bootstrap',publishApk:false});}finally{await rm(dir,{recursive:true,force:true});}
 });
 
-test('Android staging identity requires v1.0.14 with unchanged v1.0.13 source content',async()=>{
+test('Android staging identity requires matching v1.0.14 release and source content',async()=>{
  assert.ok(verifier,'Android staging verifier is missing');
  for(const identity of [
-  {version:'1.0.13',sourceContentVersion:'1.0.13'},
-  {version:'1.0.14',sourceContentVersion:'1.0.14'},
+  {version:'1.0.13',sourceContentVersion:'1.0.14'},
+  {version:'1.0.14',sourceContentVersion:'1.0.13'},
   {version:'1.0.14',sourceContentVersion:undefined}
  ]){
   const dir=await stagingFixture();
@@ -243,7 +243,7 @@ test('Android staging identity requires v1.0.14 with unchanged v1.0.13 source co
    const path=join(dir,'build/android/build-manifest.json');
    const manifest=JSON.parse(await readFile(path,'utf8'));
    await writeFile(path,JSON.stringify({...manifest,...identity}));
-   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.14 with v1\.0\.13 paid production content/);
+   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.14 with v1\.0\.14 paid production content/);
   }finally{await rm(dir,{recursive:true,force:true});}
  }
 });

@@ -1,0 +1,14 @@
+✔ production build rejects explicit free-shop before writing an artifact (327.362186ms)
+✔ production build rejects diagnostics before writing an artifact (308.150035ms)
+✔ default builds both actual targets with explicit matching shop and audio policy (5884.243662ms)
+✔ production builds both actual targets with explicit matching shop and audio policy (5629.624617ms)
+✔ free playtest builds both actual targets with explicit matching shop and audio policy (5889.221507ms)
+✔ diagnostic playtest builds both actual targets with explicit matching shop and audio policy (5697.278992ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23992.071857

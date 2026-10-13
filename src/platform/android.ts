@@ -8,7 +8,7 @@ import {createMusicController} from './music.ts';
 import {FRAME_BACKDROP,SOUND_NAMES,type Platform,type PointerEvent,type SoundName} from './types.ts';
 import type {WriterLease} from './writer-lease.ts';
 
-export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePort,lease:WriterLease,state:NativeHostState):{platform:Platform;updateHost(next:NativeHostState):void} {
+export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePort,lease:WriterLease,state:NativeHostState,options:{useHomeBounds?:()=>boolean}={}):{platform:Platform;updateHost(next:NativeHostState):void} {
  const ctx=canvas.getContext('2d');if(!ctx)throw Error('无法创建2D画布');
  let host=state,rect:Rect={x:0,y:0,w:0,h:0},viewport:AndroidViewport|undefined,dpr=1,visible=false,rejectedHost=false;
  const pointers=new Set<number>(),pointerCallbacks:((event:PointerEvent)=>void)[]=[],hideCallbacks:(()=>void)[]=[],showCallbacks:(()=>void)[]=[];
@@ -51,7 +51,8 @@ export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePo
  window.addEventListener('blur',cancelAll);
  const point=(event:globalThis.PointerEvent)=>{
   if(!viewport)return null;const logical={x:(event.clientX-viewport.origin.x)/viewport.scale,y:(event.clientY-viewport.origin.y)/viewport.scale};
-  return hitTestPoint(logical,{x:0,y:0,w:L.width,h:L.height})?logical:null;
+  const bounds=options.useHomeBounds?.()?viewport.content:{x:0,y:0,w:L.width,h:L.height};
+  return hitTestPoint(logical,bounds)?logical:null;
  };
  for(const [name,type] of [['pointerdown','down'],['pointermove','move'],['pointerup','up'],['pointercancel','cancel']] as const)canvas.addEventListener(name,event=>{
   const e=event as globalThis.PointerEvent;e.preventDefault();if(!pointerCallbacks.length||!usable())return;
@@ -74,7 +75,8 @@ export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePo
   frameBackdrop:FRAME_BACKDROP,
   createCanvasSurface:()=>{const surface=document.createElement('canvas');if(surface===canvas)throw Error('Preview surface must be offscreen');return surface;},
   beginFrame:()=>{const view=measure();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=FRAME_BACKDROP;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.setTransform(view.scale*dpr,0,0,view.scale*dpr,(view.origin.x-rect.x)*dpr,(view.origin.y-rect.y)*dpr);return ctx;},
-  backgroundBounds:()=>viewport?{x:viewport.overlay.x,y:0,w:viewport.overlay.w,h:L.height}:undefined,
+  backgroundBounds:()=>viewport?{...viewport.overlay}:undefined,
+  contentBounds:()=>viewport?{...viewport.content}:undefined,
   overlayBounds:()=>viewport?{...viewport.overlay}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{pointerCallbacks.push(callback);},onHide:callback=>{hideCallbacks.push(callback);},onShow:callback=>{showCallbacks.push(callback);},

@@ -35,3 +35,13 @@ test('zero, nonfinite, negative and consumed dimensions are rejected rather than
  for(const rect of [{x:0,y:0,w:0,h:2400},{x:NaN,y:0,w:1080,h:2400},{x:0,y:0,w:1080,h:Infinity},{x:0,y:0,w:-1,h:2400}])assert.throws(()=>computeAndroidViewport(rect,host),/viewport|dimension/i);
  for(const state of [{...host,widthPx:0},{...host,heightPx:NaN},{...host,insetsPx:{...host.insetsPx,left:-1}},{...host,insetsPx:{...host.insetsPx,right:Infinity}},{...host,insetsPx:{...host.insetsPx,left:1080}},{...host,insetsPx:{...host.insetsPx,bottom:2300}}])assert.throws(()=>computeAndroidViewport({x:0,y:0,w:1080,h:2400},state),/viewport|dimension|inset/i);
 });
+
+test('Android exposes the exact safe area in logical coordinates without changing board transform',()=>{
+ for(const height of [1920,2160,2400,2520])for(const insets of [{top:0,right:0,bottom:0,left:0},{top:100,right:57,bottom:80,left:35}]){
+  const state={...host,heightPx:height,insetsPx:insets},v=computeAndroidViewport({x:17,y:31,w:540,h:height/2},state);
+  assert.ok(v.content.h>=1920-1e-9);assert.ok(v.content.w>=1080-1e-9);
+  assert.ok(Math.abs(v.origin.x+v.content.x*v.scale-v.safeRect.x)<1e-8);assert.ok(Math.abs(v.origin.y+v.content.y*v.scale-v.safeRect.y)<1e-8);
+  assert.ok(Math.abs(v.content.w*v.scale-v.safeRect.w)<1e-8);assert.ok(Math.abs(v.content.h*v.scale-v.safeRect.h)<1e-8);
+  assert.ok(v.content.y>=v.overlay.y);assert.ok(v.content.y+v.content.h<=v.overlay.y+v.overlay.h+1e-8);
+ }
+});

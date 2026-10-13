@@ -23,8 +23,10 @@ export interface Platform {
  storage:StoragePort;
  writerLease?:WriterLease;
  beginFrame():CanvasRenderingContext2D;
- /** Logical horizontal extent of the safe viewport; never changes input geometry. */
+ /** Scenery bounds in logical coordinates; Android may extend finite static scenery to the full viewport. */
  backgroundBounds?():Rect|undefined;
+ /** Optional native safe content area, in the same logical coordinates as drawing and input. */
+ contentBounds?():Rect|undefined;
  /** Full screen canvas in logical coordinates, separate from finite scenery bounds. */
  overlayBounds?():Rect|undefined;
  frame(callback:(now:number)=>void):number;

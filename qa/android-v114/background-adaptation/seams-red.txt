@@ -1,0 +1,33 @@
+✔ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (575.014296ms)
+✔ non-Android retains every original scene pixel even when given tall background bounds (365.242597ms)
+✔ Android retains exact 16:9 authored pixels when source and target outer frame coincide (406.136057ms)
+✔ Android composition stays finite, uses only static blits, and restores drawing state (177.897053ms)
+✔ invalid Android bounds use the unchanged original scene (59.280133ms)
+✖ Android static bands have no transparent seam at fractional native viewport scale (13.350066ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2084.952951
+
+✖ failing tests:
+
+test at tests/android-warehouse-background.test.ts:64:1
+✖ Android static bands have no transparent seam at fractional native viewport scale (13.350066ms)
+  AssertionError [ERR_ASSERTION]: opaque continuous scene at native row 51
+
+  252 !== 255
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-warehouse-background.test.ts:70:32)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 252,
+    expected: 255,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

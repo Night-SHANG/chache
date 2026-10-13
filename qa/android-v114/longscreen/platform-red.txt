@@ -1,0 +1,96 @@
+✖ Android input inverse matches the rendering transform at DPR 1, 2 and 3 (4.554776ms)
+✔ system edges and contain bars do not start a gesture or capture a pointer (0.689867ms)
+✔ every active pointer is cancelled once on inset changes and stale moves or ups are ignored (0.582666ms)
+✔ CSS resize, window resize, focus loss and native hide each cancel captured input (0.674104ms)
+✔ invalid geometry cancels input and fails closed until valid native geometry is received (0.857509ms)
+✔ unowned and released hosts never allow input or manufacture a held lease (0.411608ms)
+✔ normal capture release preserves tap selection and placement through the safe viewport (48.810672ms)
+✔ Android uses shared local audio levels, cached effects, ducking and optional haptics (6.815795ms)
+✔ native lifecycle deduplicates hide/show, stops audio before callbacks, and keeps paused settings (0.794895ms)
+✔ malformed host updates cancel active input and reject without restoring stale geometry (0.460843ms)
+✔ native state snapshots detect a changed physical window even when the resulting CSS transform is identical (0.324348ms)
+✔ captured dragging outside the interaction area emits no hittable point and loses capture exactly once (0.274022ms)
+✔ touches before input subscription cannot capture or start music during startup (0.148183ms)
+✔ Android preserves touch, mouse and pen source for placement adaptation (0.520974ms)
+✔ Android lifted touch drag resize cannot commit a stale release (11.536271ms)
+✔ Android lifted touch drag hide cannot commit a stale release (8.196471ms)
+✖ only opted-in Android home accepts the safe tall area; system insets still reject and resize cancels (0.563257ms)
+✔ Android uses native safe area once and centers the 1080 by 1920 interaction rectangle (1.532513ms)
+✔ native physical pixels convert to actual offset CSS canvas independently of DPR (0.45289ms)
+✔ side cutouts and a wide window contain the full logical area inside every safe edge (0.335665ms)
+✔ zero, nonfinite, negative and consumed dimensions are rejected rather than becoming a clickable viewport (0.626321ms)
+✖ Android exposes the exact safe area in logical coordinates without changing board transform (0.375845ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 19
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 360.797262
+
+✖ failing tests:
+
+test at tests/android-input.test.ts:15:1
+✖ Android input inverse matches the rendering transform at DPR 1, 2 and 3 (4.554776ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    {
+  +   h: 1920,
+  -   h: 2400,
+      w: 1080,
+      x: 0,
+  +   y: 0
+  -   y: -250
+    }
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-input.test.ts:22:85)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { x: 0, y: 0, w: 1080, h: 1920 },
+    expected: { x: 0, y: -250, w: 1080, h: 2400 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/android-input.test.ts:131:1
+✖ only opted-in Android home accepts the safe tall area; system insets still reject and resize cancels (0.563257ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+  + []
+  - [
+  -   -100,
+  -   -100
+  - ]
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-input.test.ts:134:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ -100, -100 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/android-viewport.test.ts:39:1
+✖ Android exposes the exact safe area in logical coordinates without changing board transform (0.375845ms)
+  TypeError: Cannot read properties of undefined (reading 'h')
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-v114-startup-work/tests/android-viewport.test.ts:42:23)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

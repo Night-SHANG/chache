@@ -92,14 +92,18 @@ export async function startAndroidSession(canvas:HTMLCanvasElement,host:AndroidH
  const lease:WriterLease={status:'held',release(){this.status='busy';}};
  let native=initial,disposed=false;
  const merged=()=>({...native,active:native.active&&!visibility.hidden});
- const adapter=createAndroidPlatform(canvas,storage,lease,merged()),platform=adapter.platform;
+ let useHomeBounds=()=>false;
+ const adapter=createAndroidPlatform(canvas,storage,lease,merged(),{useHomeBounds:()=>useHomeBounds()}),platform=adapter.platform;
  const session=new GameSession(platform,{seed:20261005,mode:'standard',developerMode:false});
- platform.onPointer(event=>{if(presentation.onPointer?.(event))return;if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
+ const syncContentBounds=()=>{session.view.androidContentBounds=platform.contentBounds?.();};
+ useHomeBounds=()=>session.view.screen==='menu'&&!session.view.needsResume&&!session.view.confirmation&&!session.view.accountBlocked;
+ syncContentBounds();
+ platform.onPointer(event=>{syncContentBounds();if(presentation.onPointer?.(event))return;if(event.type==='cancel')session.input.cancel(event.id);else if(event.type==='down')session.input.down(event.point,event.id,event.pointerType);else session.input[event.type](event.point,event.id);});
  let sessionVisible=merged().active,painter:((context:CanvasRenderingContext2D)=>void)|undefined,scheduled:number|null=null,frameEpoch=0;
  const frame=(now:number,paint:(context:CanvasRenderingContext2D)=>void):boolean=>{
   if(disposed||!native.active||visibility.hidden||lease.status!=='held')return false;
   let context:CanvasRenderingContext2D;try{context=platform.beginFrame();}catch{return false;}
-  session.tick(now,presentation.isBlocked?.()??false);paint(context);return true;
+  syncContentBounds();session.tick(now,presentation.isBlocked?.()??false);paint(context);return true;
  };
  const cancelFrames=()=>{frameEpoch++;if(scheduled!==null){window.cancelAnimationFrame(scheduled);scheduled=null;}};
  const scheduleFrame=()=>{

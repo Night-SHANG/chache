@@ -24,12 +24,12 @@ const report={schemaVersion:1,kind:'Exact Android bundle in Node VM with real Ca
  status:'RUNNING',assertions:0,cases:[],screenshots:[]};
 const check=(condition,message)=>{assert.ok(condition,message);report.assertions++;};
 
-async function makeHost({width=540,height=960,holdHost=false,holdImage=null,failImage=null}={}){
+async function makeHost({width=540,height=960,holdHost=false,holdImage=null,failImage=null,insets={top:0,right:0,bottom:0,left:0}}={}){
  let now=0,nextFrame=0,nextListener=0,frameNumber=0,currentFrame,hostRelease,hostHeld=holdHost,failed=false;
  const canvas=createCanvas(width,height),context=canvas.getContext('2d'),frames=new Map(),nativeListeners=new Map();
  const canvasEvents=new Map(),documentEvents=new Map(),windowEvents=new Map(),storage=new Map(),captures=new Set(),assetJobs=new Map();
  const trace={imageLoads:[],frames:[],coverWrites:[],bridgeCalls:[],storageWrites:[],firstReveal:null,errors:[]};
- let state={active:true,owner:true,widthPx:width,heightPx:height,insetsPx:{top:0,right:0,bottom:0,left:0}};
+ let state={active:true,owner:true,widthPx:width,heightPx:height,insetsPx:{...insets}};
  const bind=map=>(name,callback)=>{if(!map.has(name))map.set(name,new Set());map.get(name).add(callback);};
  const unbind=map=>(name,callback)=>map.get(name)?.delete(callback);
  Object.assign(canvas,{id:'game',getBoundingClientRect:()=>({left:0,top:0,width,height}),
@@ -38,7 +38,7 @@ async function makeHost({width=540,height=960,holdHost=false,holdImage=null,fail
  for(const method of ['fillText','strokeText','drawImage']){
   const native=context[method].bind(context);
   context[method]=(...args)=>{
-   if(currentFrame){if(method==='drawImage')currentFrame.images.push(typeof args[0].src==='string'?args[0].src:'(offscreen canvas)');else currentFrame.texts.push(String(args[0]));}
+   if(currentFrame){if(method==='drawImage')currentFrame.images.push(typeof args[0].src==='string'?args[0].src:'(offscreen canvas)');else{currentFrame.texts.push(String(args[0]));const m=context.getTransform();currentFrame.textPositions.push({text:String(args[0]),logicalX:args[1],logicalY:args[2],clientX:m.a*args[1]+m.c*args[2]+m.e,clientY:m.b*args[1]+m.d*args[2]+m.f});}}
    return native(...args);
   };
  }
@@ -106,19 +106,20 @@ async function makeHost({width=540,height=960,holdHost=false,holdImage=null,fail
  await pump(()=>trace.bridgeCalls.some(row=>row.method==='getState'),'Native getState was never reached');
  const frame=()=>{
   const batch=[...frames.values()];frames.clear();now+=16;frameNumber++;
-  currentFrame={number:frameNumber,texts:[],images:[],coverBefore:!cover.hidden};
+  currentFrame={number:frameNumber,texts:[],textPositions:[],images:[],coverBefore:!cover.hidden};
   for(const callback of batch)callback(now);
   currentFrame.coverAfter=!cover.hidden;trace.frames.push(currentFrame);currentFrame=null;
  };
  const pointer=(type,x,y,id=1)=>{
-  const scale=Math.min(width/1080,height/1920),ox=(width-1080*scale)/2,oy=(height-1920*scale)/2;
+  const sx=state.insetsPx.left*width/state.widthPx,sy=state.insetsPx.top*height/state.heightPx,sw=width-(state.insetsPx.left+state.insetsPx.right)*width/state.widthPx,sh=height-(state.insetsPx.top+state.insetsPx.bottom)*height/state.heightPx;
+  const scale=Math.min(sw/1080,sh/1920),ox=sx+(sw-1080*scale)/2,oy=sy+(sh-1920*scale)/2;
   for(const callback of canvasEvents.get(`pointer${type}`)??[])callback({preventDefault(){},clientX:ox+x*scale,clientY:oy+y*scale,pointerId:id,pointerType:'touch'});
  };
  return {canvas,cover,trace,frame,pump,storage,viewport:{width,height},
   pendingFrames:()=>frames.size,storageSnapshot:()=>JSON.stringify([...storage.entries()].sort()),
   releaseHost(){hostHeld=false;hostRelease?.();},
   async releaseImage(){const job=assetJobs.get(holdImage);check(Boolean(job),'Delayed image must actually be pending');assetJobs.delete(holdImage);holdImage=null;await job();},
-  pointer,tap(x,y){pointer('down',x,y);pointer('up',x,y);},
+  pointer,tapClient(x,y){for(const type of ['down','up'])for(const callback of canvasEvents.get(`pointer${type}`)??[])callback({preventDefault(){},clientX:x,clientY:y,pointerId:91,pointerType:'touch'});},tap(x,y){pointer('down',x,y);pointer('up',x,y);},
   emitHost(patch){state={...state,...patch};for(const listener of nativeListeners.values())if(listener.event==='state')listener.callback(structuredClone(state));},
  };
 }
@@ -186,6 +187,25 @@ try{
  const tall=await makeHost({width:540,height:1200});await waitImages(tall);tall.frame();
  check(tall.cover.hidden&&tall.trace.firstReveal.texts.some(text=>text.includes('WAREHOUSE')),'20:9 viewport must reveal a complete frame');
  await capture(tall,'08-20x9-first-complete-menu.png');saveCase('20-to-9-first-frame',tall);
+ for(const spec of [
+  {name:'16x9',width:540,height:960},
+  {name:'18x9',width:540,height:1080},
+  {name:'20x9-insets',width:540,height:1200,insets:{top:50,right:0,bottom:40,left:0}},
+  {name:'21x9-asymmetric',width:540,height:1260,insets:{top:52,right:24,bottom:30,left:12}},
+  {name:'phone-photo-ratio',width:921,height:2048,insets:{top:68,right:57,bottom:28,left:57}},
+  {name:'extended-hit-boundary',width:540,height:1800},
+ ]){
+  const host=await makeHost(spec);await waitImages(host);host.frame();
+  const label=host.trace.frames.at(-1).textPositions.find(row=>row.text==='设置');
+  check(Boolean(label),`${spec.name}: settings must be drawn`);
+  if(spec.name==='extended-hit-boundary')check(label.logicalY>1920,'Actual drawn settings is beyond old native hit limit');
+  const inset=spec.insets??{top:0,right:0,bottom:0,left:0};
+  check(label.clientY>inset.top&&label.clientY<spec.height-inset.bottom,`${spec.name}: drawn target stays inside native safe height`);
+  await capture(host,`matrix-${spec.name}-menu.png`);
+  host.tapClient(label.clientX,label.clientY);host.frame();
+  check(host.trace.frames.at(-1).texts.includes('游玩设置'),`${spec.name}: tapping actual rendered settings pixels must work through native input`);
+  saveCase(`real-rendered-settings-hit-${spec.name}`,host);
+ }
  report.status='PASS';
 }catch(error){report.status='FAIL';report.error=error.stack??String(error);process.exitCode=1;}
 finally{

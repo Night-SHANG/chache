@@ -16,6 +16,7 @@ import type { ViewState } from './view-types.ts';
 import { L, verticalStackRects, type Rect } from './layout.ts';
 import type { UiAction } from './ui-types.ts';
 import {modeMenuStartRect} from './mode-menu-layout.ts';
+import {homeLayout} from './home-layout.ts';
 
 export interface UiControl { rect: Rect; action: UiAction; label: string; disabled?: boolean; selected?: boolean; buttonRole?: 'primary'|'secondary' }
 const wide = (y: number, h = 114): Rect => ({ x: 210, y, w: 660, h });
@@ -72,13 +73,16 @@ export function getUiControls(state: GameRun, view: ViewState): UiControl[] {
   }
   if (view.screen === 'toolsHelp') return [control(wide(1600,144),'返回',{type:'helpBack'})];
   if (view.screen === 'helpDetails') return [control(wide(1600,144),'返回玩法说明',{type:'help'})];
-  if (view.screen === 'menu') return [
-    control(wide(752,176),'入库模式\n按订单配货',{type:'chooseInbound'}),
-    control(wide(990,176),'出库模式\n同色连出口',{type:'chooseColorTier'}),
-    control(wide(1220,144),'玩法说明',{type:'helpMenu'}),
-    control({x:210,y:1420,w:318,h:132},'商店',{type:'shop'}),
-    control({x:552,y:1420,w:318,h:132},'设置',{type:'settings'}),
-  ];
+  if (view.screen === 'menu') {
+    const home=homeLayout(view.androidContentBounds);
+    return [
+      control(home.inbound,'入库模式\n按订单配货',{type:'chooseInbound'}),
+      control(home.outbound,'出库模式\n同色连出口',{type:'chooseColorTier'}),
+      control(home.help,'玩法说明',{type:'helpMenu'}),
+      control(home.shop,'商店',{type:'shop'}),
+      control(home.settings,'设置',{type:'settings'}),
+    ];
+  }
   if (view.screen === 'inboundMenu') {
     const selectedDifficulty=isInboundDifficultyV18(view.inboundDifficulty)?view.inboundDifficulty:'hard';
     return [

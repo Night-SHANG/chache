@@ -10,7 +10,7 @@ export class AndroidAudio {
  pause(){this.pauses++;this.audible=false;if(this.failPause)throw Error('pause unavailable');}
  addEventListener(name:string,callback:()=>void){if(name==='error')this.error=callback;}
 }
-export function androidFixture(options:{dpr?:number;rect?:Rect;host?:NativeHostState}={}){
+export function androidFixture(options:{dpr?:number;rect?:Rect;host?:NativeHostState;useHomeBounds?:()=>boolean}={}){
  const previous=['window','document','Audio','navigator'].map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)] as const);
  const events=new Map<string,((event:unknown)=>void)[]>(),captured=new Set<number>(),audio:AndroidAudio[]=[],transforms:number[][]=[],fills:number[][]=[],store=new Map<string,string>();
  let rect=options.rect??{x:0,y:0,w:1080,h:2400};
@@ -24,6 +24,6 @@ export function androidFixture(options:{dpr?:number;rect?:Rect;host?:NativeHostS
  let vibrations=0;Object.defineProperty(globalThis,'navigator',{configurable:true,value:{vibrate:()=>{vibrations++;return true;}}});
  const storage={get:(key:string)=>store.get(key)??null,set:(key:string,value:string)=>{store.set(key,value);},remove:(key:string)=>{store.delete(key);},listKeys:(prefix:string)=>[...store.keys()].filter(key=>key.startsWith(prefix)).sort()};
  const lease:WriterLease={status:'held',release(){this.status='busy';}};
- const adapter=createAndroidPlatform(canvas,storage,lease,options.host??androidHost);
+ const adapter=createAndroidPlatform(canvas,storage,lease,options.host??androidHost,{useHomeBounds:options.useHomeBounds});
  return {...adapter,canvas,storage,lease,audio,captured,transforms,fills,emit,get vibrations(){return vibrations;},setRect:(next:Rect)=>{rect=next;},pointer:(type:string,x:number,y:number,id=1)=>emit(type,{clientX:x,clientY:y,pointerId:id,preventDefault:()=>{}}),restore:()=>{for(const [name,descriptor] of previous){if(descriptor)Object.defineProperty(globalThis,name,descriptor);else Reflect.deleteProperty(globalThis,name);}}};
 }

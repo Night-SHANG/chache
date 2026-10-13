@@ -35,10 +35,10 @@ test('Android shell has a fixed offline identity and pinned Capacitor toolchain'
  assert.equal(lock.version,'1.0.14');
  assert.equal(lock.packages[''].version,'1.0.14');
  const rootPkg=await json('package.json');
- assert.equal(rootPkg.version,'1.0.13');
+ assert.equal(rootPkg.version,'1.0.14');
  const rootLock=await json('package-lock.json');
- assert.equal(rootLock.version,'1.0.13');
- assert.equal(rootLock.packages[''].version,'1.0.13');
+ assert.equal(rootLock.version,'1.0.14');
+ assert.equal(rootLock.packages[''].version,'1.0.14');
  assert.equal(rootPkg.scripts['build:android'],'node scripts/build-android.mjs');
  for(const name of ['@capacitor/core','@capacitor/android','@capacitor/cli'])assert.equal(rootPkg.dependencies?.[name]??rootPkg.devDependencies?.[name],undefined);
  assert.equal(existsSync('capacitor.config.json'),false,'Root Capacitor config must not shadow isolated shell config');
@@ -57,8 +57,8 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   const manifest=JSON.parse(await readFile(join(dir,'build/android/build-manifest.json'),'utf8'));
   const formal=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
   assert.equal(manifest.version,'1.0.14');
-  assert.equal(manifest.sourceContentVersion,'1.0.13');
-  assert.equal(formal.version,'1.0.13');
+  assert.equal(manifest.sourceContentVersion,'1.0.14');
+  assert.equal(formal.version,'1.0.14');
   assert.equal(manifest.shopPricingMode,'paid');
   assert.equal(manifest.developerDiagnostics,false);
   assert.equal(manifest.platform,'android');

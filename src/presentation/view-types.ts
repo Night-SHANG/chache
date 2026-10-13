@@ -17,6 +17,8 @@ export type ShopSection='sets'|'theme'|'cargo'|'forklift';
 
 /** Ephemeral presentation state. Nothing here participates in a saved run. */
 export interface ViewState {
+  /** Android-only safe area in logical coordinates; derived from the current native viewport. */
+  androidContentBounds?:Rect;
   pressedControl?:{rect:Rect;visible:boolean}|null;
   shopTab?:'tools'|'cosmetics';
   shopSection?:ShopSection;

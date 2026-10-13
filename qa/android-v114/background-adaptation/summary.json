@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-10-13T04:31:51.504Z",
+  "baselineCommit": "56485e7",
+  "scope": "Android-only theme-aware static background bands",
+  "sourceSha256": {
+    "src/presentation/warehouse-art.ts": "1c119df7a1bec4139347f4c90e538d38443a670d4994a16bb4a6470426cdb3e5",
+    "src/presentation/android-warehouse-background.ts": "78518ea87ebc86e95ea090207f8c5c5f5cc05bc3bc1328051aecca56e68eef8a",
+    "tests/android-warehouse-background.test.ts": "04071b9fc3d066c70bd2f18026d45ea910645ef973b2756a09a37ec549325e5f",
+    "qa/android-v114/background-adaptation/render.ts": "b8cc73c4b42d1b0535cf44a82790f3d8e580a449c80b1902c7714d881d31b26e"
+  },
+  "focusedTests": {
+    "command": "node --test tests/android-warehouse-background.test.ts tests/static-art-composition.test.ts",
+    "passed": 22,
+    "failed": 0,
+    "newBackgroundTests": 9
+  },
+  "renderChecks": {
+    "screens": 816,
+    "themes": 17,
+    "ratios": [
+      "16:9",
+      "18:9",
+      "20:9",
+      "21:9"
+    ],
+    "insets": [
+      "none",
+      "symmetric",
+      "asymmetric"
+    ],
+    "boardCropChecks": 204,
+    "boardCropEqual": 204
+  },
+  "mosaicSha256": {
+    "artifacts/android-v114/background-adaptation/all-17-16by9.png": "4845aec6ee0388e916acdc14cc51ef5cd4c3e675e8b9196077dd3fc5fcb99742",
+    "artifacts/android-v114/background-adaptation/all-17-18by9.png": "a6f92ee89b5cd41319a51390a588b18be3d0319ced9a2a5fbaa934090f9995fe",
+    "artifacts/android-v114/background-adaptation/all-17-20by9.png": "6d2d2d6ac13d4a1bb943173a1d2631aa8c069ad20a9eb47703fe3e896f6b7df7",
+    "artifacts/android-v114/background-adaptation/all-17-21by9.png": "b32d0e9a7aa261ee5575067a3a9474ca7c572d5bf1a5fa0cb8995844e82cf351"
+  },
+  "limitations": [
+    "Canvas2D host rendering evidence, not a physical-device acceptance claim.",
+    "Portrait adaptation only; short/wide invalid adaptation bounds retain the original drawing path.",
+    "Pixel snapping is optional on older Canvas implementations without getTransform; these hosts retain safe rendering.",
+    "Root owns final visual sign-off and integrated full regression/build."
+  ],
+  "assetsChanged": false,
+  "generatorChanged": false,
+  "buildScriptsChanged": false
+}

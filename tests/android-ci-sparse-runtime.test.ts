@@ -31,7 +31,7 @@ else console.log("package: name='io.github.nightshang.chache"+(test?".test":"")+
   await writeFile(join(tools,'zipalign'),'#!/bin/sh\nexit 0\n',{mode:0o755});
   const payload=join(root,'build/android-ci/handoff');await mkdir(join(payload,'apks'),{recursive:true});await mkdir(join(payload,'evidence'));
   const zip=run(root,'python',['-c',`import zipfile,sys,json,hashlib,pathlib
-p=pathlib.Path(sys.argv[1]);assets={'app.js':b'formal paid fixture','build-manifest.json':json.dumps({'platform':'android','version':'1.0.14','sourceContentVersion':'1.0.13','shopPricingMode':'paid','developerDiagnostics':False}).encode()}
+p=pathlib.Path(sys.argv[1]);assets={'app.js':b'formal paid fixture','build-manifest.json':json.dumps({'platform':'android','version':'1.0.14','sourceContentVersion':'1.0.14','shopPricingMode':'paid','developerDiagnostics':False}).encode()}
 sums=''.join(hashlib.sha256(v).hexdigest()+'  '+k+'\\n' for k,v in sorted(assets.items()));assets['SHA256SUMS']=sums.encode()
 for name in ['warehouse-vc1-temporary-debug.apk','warehouse-vc2-temporary-debug.apk']:
  with zipfile.ZipFile(p/'apks'/name,'w') as z:

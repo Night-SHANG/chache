@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> warehouse-last-slot@1.0.14 build:production
+> node scripts/build.mjs --production
+
+Built browser + real WeChat game.js/game.json (681772 B JS; main 3034540 B, cosmetics 2728095 B raw). Source a823908bb3dd. WeChat runtime NOT RUN.

@@ -1,0 +1,17 @@
+✔ Android theme caps and side identity fill tall bounds rather than retain a 1920-high center picture (366.083765ms)
+✔ non-Android retains every original scene pixel even when given tall background bounds (329.26094ms)
+✔ Android retains exact 16:9 authored pixels when source and target outer frame coincide (346.170671ms)
+✔ Android composition stays finite, uses only static blits, and restores drawing state (133.539782ms)
+✔ invalid Android bounds use the unchanged original scene (65.973752ms)
+✔ Android static bands have no transparent seam at fractional native viewport scale (8.597908ms)
+✔ classic spotlight and both upper rack rows remain one undistorted authored composition (1.252542ms)
+✔ older Canvas hosts without transform introspection still render the complete Android scene (13.857398ms)
+✔ all source bands are visited once and protected glyphs survive the smallest supported portrait width (11.231313ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1741.104414

@@ -15,7 +15,7 @@ const manifest=`  E: manifest (line=2)
       A: android:name(0x01010003)="androidx.test.runner.AndroidJUnitRunner"
       A: android:targetPackage(0x01010021)="io.github.nightshang.chache"
 `;
-async function fixture(){
+async function fixture(sourceContentVersion='1.0.14'){
  const root=await mkdtemp(join(tmpdir(),'test-apk-metadata-')),payload=join(root,'handoff'),sdk=join(root,'sdk'),tools=join(sdk,'build-tools/35.0.0');
  await mkdir(join(payload,'apks'),{recursive:true});await mkdir(tools,{recursive:true});
  const config=Object.fromEntries(Object.entries(names).map(([kind,name])=>[name,{badging:`package: name='io.github.nightshang.chache${kind==='test'?'.test':''}' versionCode='${kind==='test'?'':kind==='vc1'?'1':'2'}' versionName='${kind==='test'?'':'1.0.14'}'\napplication-label:'货箱最后一格'\n`,manifest,certificate}]));
@@ -29,14 +29,14 @@ else if(tool==='apksigner')process.stdout.write('Signer #1 certificate SHA-256 d
 `;
  for(const name of ['aapt','apksigner','zipalign'])await writeFile(join(tools,name),tool,{mode:0o755});
  const zipped=spawnSync('python',['-c',String.raw`import sys,json,pathlib,zipfile,hashlib
-p=pathlib.Path(sys.argv[1]);names=json.loads(sys.argv[2])
+p=pathlib.Path(sys.argv[1]);names=json.loads(sys.argv[2]);source_version=sys.argv[3]
 for kind,name in names.items():
  with zipfile.ZipFile(p/name,'w') as z:
   if kind=='test': z.writestr('assets/acceptance.js','fixture driver');continue
-  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.14','sourceContentVersion':'1.0.13','shopPricingMode':'paid','developerDiagnostics':False})}
+  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.14','sourceContentVersion':source_version,'shopPricingMode':'paid','developerDiagnostics':False})}
   for key,value in assets.items():z.writestr('assets/public/'+key,value)
   z.writestr('assets/public/SHA256SUMS',''.join(hashlib.sha256(value.encode()).hexdigest()+'  '+key+'\n' for key,value in assets.items()))
-`,join(payload,'apks'),JSON.stringify(names)],{encoding:'utf8'});assert.equal(zipped.status,0,zipped.stderr);
+`,join(payload,'apks'),JSON.stringify(names),sourceContentVersion],{encoding:'utf8'});assert.equal(zipped.status,0,zipped.stderr);
  const old=process.env.ANDROID_HOME;process.env.ANDROID_HOME=sdk;
  return {root,payload,config,configure,inspect:()=>inspectHandoffApks(payload),cleanup:async()=>{if(old===undefined)delete process.env.ANDROID_HOME;else process.env.ANDROID_HOME=old;await rm(root,{recursive:true,force:true});}};
 }
@@ -46,6 +46,10 @@ test('AGP instrumentation template without version metadata stays exact and does
   const apks=await f.inspect();assert.deepEqual(apks.test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:null,versionName:''});assert.equal(apks.vc1.identity.versionCode,1);assert.equal(apks.vc2.identity.versionCode,2);assert.equal(apks.vc2.identity.versionName,'1.0.14');
   f.config[names.test].badging=f.config[names.test].badging.replace("versionCode='' versionName=''","versionCode='17' versionName='suite-17'");await f.configure();assert.deepEqual((await f.inspect()).test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:17,versionName:'suite-17'});
  }finally{await f.cleanup();}
+});
+test('product APK handoff rejects stale source content even with valid embedded checksums',async()=>{
+ const f=await fixture('1.0.13');
+ try{await assert.rejects(f.inspect(),/Product content must be Android v1\.0\.14 with formal paid v1\.0\.14 source content/);}finally{await f.cleanup();}
 });
 test('test APK wrong package target runner certificate and malformed metadata fail closed after raw diagnostics',async()=>{
  const changes=[['badging',"package: name='other.test' versionCode='' versionName=''\n"],['badging',"package: name='io.github.nightshang.chache.test' versionCode='bad' versionName=''\n"],['manifest',manifest.replace('io.github.nightshang.chache','other.app')],['manifest',manifest.replace('AndroidJUnitRunner','OtherRunner')],['manifest',manifest+manifest],['certificate','e'.repeat(64)]];

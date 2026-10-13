@@ -6,6 +6,7 @@ import {accountCosmeticState,getCosmetic} from '../application/cosmetics.ts';
 import {drawCosmeticSetPreview,drawCosmeticPreview} from './cosmetic-art.ts';
 import {drawWarehouse} from './warehouse-art.ts';
 import {MODE_MENU_CARD} from './mode-menu-layout.ts';
+import {homeLayout} from './home-layout.ts';
 import {shopItemPreviewOptions} from './shop-art.ts';
 import {drawReservedEntryMarkers} from './board-entry-markers.ts';
 import {drawThemedGateShell} from './scene-frame-atlas.ts';
@@ -618,17 +619,18 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
 }
 
 function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
-  if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, 120, 22, '#b7b098', 'center', 600);
-  outlinedText(ctx, '货箱', 540, 267, 151, CREAM, 'center');
-  outlinedText(ctx, '最后一格', 540, 387, 79, '#ffe3a3', 'center');
-  hazard(ctx, { x: 314, y: 448, w: 452, h: 14 });
-  ctx.fillStyle = 'rgba(255,230,159,.07)'; ctx.beginPath(); ctx.ellipse(540, 601, 180, 33, 0, 0, Math.PI * 2); ctx.fill();
-  forklift(ctx, 540, 565, 160, -.12, view.profile?.cosmetics.forklift);
-  text(ctx,`金币 ${view.account?.wallet??0}`,540,670,29,'#ffe3a3','center');
+  const home=homeLayout(view.androidContentBounds);
+  if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, home.eyebrowY, 22, '#b7b098', 'center', 600);
+  outlinedText(ctx, '货箱', 540, home.titleY, 151, CREAM, 'center');
+  outlinedText(ctx, '最后一格', 540, home.subtitleY, 79, '#ffe3a3', 'center');
+  hazard(ctx, home.stripe);
+  ctx.fillStyle = 'rgba(255,230,159,.07)'; ctx.beginPath(); ctx.ellipse(540, home.shadowY, 180, 33, 0, 0, Math.PI * 2); ctx.fill();
+  forklift(ctx, 540, home.forkliftY, 160, -.12, view.profile?.cosmetics.forklift);
+  text(ctx,`金币 ${view.account?.wallet??0}`,540,home.walletY,29,'#ffe3a3','center');
   drawControls(ctx, state, view);
   const unlocked = ACHIEVEMENTS.filter(item => view.profile?.achievements.includes(item.id));
-  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '五班或加急首次出货，解锁蓝色叉车', 540, 1650, 26, '#c4d2d6', 'center', 500);
-  drawPersistenceWarnings(ctx,view,1760);
+  text(ctx, unlocked.length ? unlocked.slice(0, 2).map(item => item.name).join('  ·  ') : '五班或加急首次出货，解锁蓝色叉车', 540, home.footerY, 26, '#c4d2d6', 'center', 500);
+  drawPersistenceWarnings(ctx,view,home.warningsY);
 }
 
 function drawRecord(ctx:Context,value:string,x:number,y:number,size:number,color:string,weight:number,right:number):void {
