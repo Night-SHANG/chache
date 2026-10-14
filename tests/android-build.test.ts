@@ -8,6 +8,8 @@ import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {build} from 'esbuild';
 import ts from 'typescript';
+import {ANDROID_EFFECT_GAIN_DB,loadSoundAsset} from '../scripts/sound-assets.ts';
+import {SOUND_NAMES,type SoundName} from '../src/platform/types.ts';
 import {runInNewContext} from 'node:vm';
 
 const root=process.cwd();
@@ -31,20 +33,20 @@ test('Android shell has a fixed offline identity and pinned Capacitor toolchain'
   assert.equal(pkg.dependencies?.[name]??pkg.devDependencies?.[name],'8.5.3');
   assert.equal(lock.packages[`node_modules/${name}`].version,'8.5.3');
  }
- assert.equal(pkg.version,'1.0.20');
- assert.equal(lock.version,'1.0.20');
- assert.equal(lock.packages[''].version,'1.0.20');
+ assert.equal(pkg.version,'1.0.21');
+ assert.equal(lock.version,'1.0.21');
+ assert.equal(lock.packages[''].version,'1.0.21');
  const rootPkg=await json('package.json');
- assert.equal(rootPkg.version,'1.0.20');
+ assert.equal(rootPkg.version,'1.0.21');
  const rootLock=await json('package-lock.json');
- assert.equal(rootLock.version,'1.0.20');
- assert.equal(rootLock.packages[''].version,'1.0.20');
+ assert.equal(rootLock.version,'1.0.21');
+ assert.equal(rootLock.packages[''].version,'1.0.21');
  assert.equal(rootPkg.scripts['build:android'],'node scripts/build-android.mjs');
  for(const name of ['@capacitor/core','@capacitor/android','@capacitor/cli'])assert.equal(rootPkg.dependencies?.[name]??rootPkg.devDependencies?.[name],undefined);
  assert.equal(existsSync('capacitor.config.json'),false,'Root Capacitor config must not shadow isolated shell config');
 });
 
-test('Android production staging is fresh, offline and byte-identical to formal assets',async()=>{
+test('Android production staging preserves formal media except its calibrated effect WAVs',async()=>{
  assert.ok(existsSync('scripts/build-android.mjs'),'Android staging build is missing');
  const dir=await mkdtemp(join(tmpdir(),'warehouse-android-build-'));
  try{
@@ -56,9 +58,9 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   assert.equal(existsSync(join(dir,'build/android/stale-remote.js')),false);
   const manifest=JSON.parse(await readFile(join(dir,'build/android/build-manifest.json'),'utf8'));
   const formal=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.20');
-  assert.equal(manifest.sourceContentVersion,'1.0.20');
-  assert.equal(formal.version,'1.0.20');
+  assert.equal(manifest.version,'1.0.21');
+  assert.equal(manifest.sourceContentVersion,'1.0.21');
+  assert.equal(formal.version,'1.0.21');
   assert.equal(manifest.shopPricingMode,'paid');
   assert.equal(manifest.developerDiagnostics,false);
   assert.equal(manifest.platform,'android');
@@ -72,6 +74,13 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   assert.equal(manifest.uiClick.sha256,formal.uiClick.sha256);
   assert.equal(manifest.soundEffects.androidVolume,.45);
   assert.equal(formal.soundEffects.androidVolume,undefined);
+  assert.ok(manifest.soundEffects.androidAdditionalAssetGainDb,'Android staging must declare its build-time per-cue gains');
+  assert.deepEqual(manifest.soundEffects.androidAdditionalAssetGainDb,ANDROID_EFFECT_GAIN_DB);
+  assert.deepEqual(Object.keys(manifest.soundEffects.androidAdditionalAssetGainDb).sort(),SOUND_NAMES.filter(name=>name!=='ui_click').sort());
+  assert.equal(formal.soundEffects.androidAdditionalAssetGainDb,undefined);
+  assert.equal(manifest.placeSound.androidAdditionalAssetGainDb,manifest.soundEffects.androidAdditionalAssetGainDb.place);
+  assert.equal(manifest.placeSound.assetGain,formal.placeSound.assetGain*10**(manifest.placeSound.androidAdditionalAssetGainDb/20));
+  assert.equal(manifest.placeSound.gainDb,formal.placeSound.gainDb+manifest.placeSound.androidAdditionalAssetGainDb);
   assert.equal(manifest.androidShellLockSha256,createHash('sha256').update(await read('android-shell/package-lock.json')).digest('hex'));
   assert.ok(existsSync(join(dir,'build/android/CAPACITOR_LICENSE.txt')),'Android staging must include the native runtime MIT license');
   for(const name of ['core','android'])assert.equal(await readFile(join(dir,'build/android/CAPACITOR_LICENSE.txt'),'utf8'),await read(`android-shell/node_modules/@capacitor/${name}/LICENSE`));
@@ -99,7 +108,8 @@ test('Android production staging is fresh, offline and byte-identical to formal 
   for(const path of formalAssets){
    const androidPath=path.replace('build/browser/','build/android/');
    const hash=(bytes:Buffer)=>createHash('sha256').update(bytes).digest('hex');
-   assert.equal(hash(await readFile(join(dir,androidPath))),hash(await readFile(join(dir,path))),androidPath);
+   const expected=path.endsWith('.wav')?loadSoundAsset(path.substring(path.lastIndexOf('/')+1).replace('.wav','') as SoundName,'android'):await readFile(join(dir,path));
+   assert.equal(hash(await readFile(join(dir,androidPath))),hash(expected),androidPath);
   }
   for(const key of ['cargoAtlas','sceneMaterialAtlas','boardMaterialAtlas','staticArt','backgroundMusic'])assert.deepEqual(manifest[key],formal[key]);
   const checksumText=await readFile(join(dir,'build/android/SHA256SUMS'),'utf8');
@@ -109,13 +119,18 @@ test('Android production staging is fresh, offline and byte-identical to formal 
    const hash=createHash('sha256').update(await readFile(join(dir,path))).digest('hex');
    assert.ok(checksumText.includes(`${hash}  ${path.slice('build/android/'.length)}\n`),path);
   }
+  const firstAssets=new Map(await Promise.all((await walk('build/android/assets')).map(async path=>[path,await readFile(join(dir,path))] as const)));
+  await writeFile(join(dir,'build/android/assets/place.wav'),'stale amplified asset');
+  const rebuilt=spawnSync(process.execPath,['scripts/build-android.mjs'],{cwd:dir,encoding:'utf8',timeout:120000});
+  assert.equal(rebuilt.status,0,rebuilt.stdout+rebuilt.stderr);
+  for(const [path,bytes] of firstAssets)assert.deepEqual(await readFile(join(dir,path)),bytes,`${path}: regeneration never compounds gain`);
  }finally{await rm(dir,{recursive:true,force:true});}
 });
 
 test('Android public Capacitor imports resolve through real production bundle and TypeScript options',async()=>{
  assert.ok(existsSync('scripts/android-bundle-options.ts'),'Shared production Android bundle options are missing');
  const {androidBundleOptions}=await import('../scripts/android-bundle-options.ts');
- assert.equal(androidBundleOptions(root).define?.__APP_VERSION__,JSON.stringify('1.0.20'));
+ assert.equal(androidBundleOptions(root).define?.__APP_VERSION__,JSON.stringify('1.0.21'));
  const bundled=await build({...androidBundleOptions(root),stdin:{contents:"import {Capacitor} from '@capacitor/core'; globalThis.resolvedPlatform=Capacitor.getPlatform();",resolveDir:resolve(root,'src'),loader:'ts'},write:false,metafile:true});
  assert.ok(Object.keys(bundled.metafile?.inputs??{}).some(path=>path.includes('android-shell/node_modules/@capacitor/core/')));
  const context:{resolvedPlatform?:string}={};
@@ -138,7 +153,7 @@ test('official Android project fixes version, SDK, Gradle and offline WebView re
  const app=await read('android/app/build.gradle');
  assert.match(app,/applicationId ['"]io\.github\.nightshang\.chache['"]/);
  assert.match(app,/versionCode 1\b/);
- assert.match(app,/versionName ['"]1\.0\.20['"]/);
+ assert.match(app,/versionName ['"]1\.0\.21['"]/);
  assert.match(app,/buildToolsVersion ['"]35\.0\.0['"]/);
  const vars=await read('android/variables.gradle');
  assert.match(vars,/minSdkVersion = 24/);

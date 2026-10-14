@@ -1,0 +1,19 @@
+✔ release vc11 is explicit while debug acceptance versions retain their original defaults (1.120665ms)
+✔ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (0.24922ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.301457ms)
+✔ release handoff rejects identity source archive and asset mismatches (6.568658ms)
+✔ signing refuses missing secrets before touching runner files (3.846399ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.321708ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (35.311783ms)
+✔ fresh signing runner compares exact package and version values (39.140776ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.85789ms)
+✔ current project version leaves the complete v109 dependency graph and resolved identities unchanged (2.202702ms)
+✔ shared renderer remains within the unchanged strict source budget (0.311933ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.930392

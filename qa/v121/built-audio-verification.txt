@@ -1,0 +1,28 @@
+{
+  "output": "qa/v121/built-audio-verification.json",
+  "platformIsolation": {
+    "audioFilesChecked": 42,
+    "unchangedFiles": 30,
+    "onlyChangedFiles": [
+      "android/pick.wav",
+      "android/place.wav",
+      "android/invalid.wav",
+      "android/route_ready.wav",
+      "android/forklift.wav",
+      "android/ship.wav",
+      "android/chain2.wav",
+      "android/chain3.wav",
+      "android/chain4.wav",
+      "android/upgrade.wav",
+      "android/shift.wav",
+      "android/fail.wav"
+    ]
+  },
+  "loaderRegenerationIdempotence": {
+    "passes": 5,
+    "targetCueComparisons": 195,
+    "heldBuffersUnchanged": 195,
+    "allMatchStagedAssets": true
+  },
+  "minRegularBoundHeadroomDb": 0.6793199971052956
+}

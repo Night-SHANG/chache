@@ -49,7 +49,7 @@ TEST_CLASS=io.github.nightshang.chache.DeviceAcceptanceTest
 for pair in "1:$APK1" "2:$APK2"; do
   code="${pair%%:*}"; file="${pair#*:}"
   "$AAPT" dump badging "$file" >"$OUT/apk-vc$code-badging.txt"
-  grep -E "^package: name='$PKG' versionCode='$code' versionName='1[.]0[.]20'" "$OUT/apk-vc$code-badging.txt" >/dev/null || fail "APK vc$code identity/version mismatch"
+  grep -E "^package: name='$PKG' versionCode='$code' versionName='1[.]0[.]21'" "$OUT/apk-vc$code-badging.txt" >/dev/null || fail "APK vc$code identity/version mismatch"
   "$SIGNER" verify --print-certs "$file" >"$OUT/apk-vc$code-signature.txt"
   [ "$(grep -c '^Signer #[0-9][0-9]* certificate SHA-256 digest:' "$OUT/apk-vc$code-signature.txt")" = 1 ] || fail 'Product APK must have exactly one verified signer'
   unzip -Z1 "$file" >"$OUT/apk-vc$code-files.txt"

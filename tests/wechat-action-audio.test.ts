@@ -23,10 +23,10 @@ test('WeChat action cues gain exactly 2dB in PCM while retaining headers and unc
   assert.deepEqual(loadSoundAsset(name,'wechat'),actual,`${name} never compounds gain`);
  }
 });
-test('explicit browser and Android audio remain byte-identical to the unmodified common loader',()=>{
+test('explicit browser audio and the Android button retain the unmodified common bytes',()=>{
  for(const name of SOUND_NAMES){
   const baseline=loadSoundAsset(name);
   assert.deepEqual(loadSoundAsset(name,'browser'),baseline,name);
-  assert.deepEqual(loadSoundAsset(name,'android'),baseline,name);
+  if(name==='ui_click')assert.deepEqual(loadSoundAsset(name,'android'),baseline,name);
  }
 });

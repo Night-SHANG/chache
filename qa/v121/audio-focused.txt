@@ -1,0 +1,27 @@
+✔ Android shell has a fixed offline identity and pinned Capacitor toolchain (6.67099ms)
+✔ Android production staging preserves formal media except its calibrated effect WAVs (6592.938159ms)
+✔ Android public Capacitor imports resolve through real production bundle and TypeScript options (572.004228ms)
+✔ official Android project fixes version, SDK, Gradle and offline WebView restrictions (5.302267ms)
+✔ Android supported Insets and worker policy survive the official native config copy (211.838516ms)
+✔ Android real Java asset policy rejects file routes, foreign origins and traversal (478.276657ms)
+✔ Android app declares its directly imported WebKit API at the pinned Capacitor version (1.506788ms)
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (84.550344ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (193.602066ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (35.315453ms)
+✔ Android uses the reviewed per-cue gains and short-window level reference without raising its button (52.103892ms)
+✔ Android raises only ui_click by 6dB at playback and never compounds gain on reuse (5.732415ms)
+✔ Android retains the chosen PCM bytes and keeps its boosted click below full scale (9.716414ms)
+✔ browser and WeChat retain their existing click and other cue volumes (1.033916ms)
+✔ Android click leaves normal, paused and disabled BGM levels and playback untouched (0.442498ms)
+✔ Android boosted click stops on hide or owner loss and never replays on show (0.295168ms)
+✔ Android settings mute and reload still suppress boosted button clicks (20.567924ms)
+✔ WeChat action cues gain exactly 2dB in PCM while retaining headers and unclipped endpoints (108.887829ms)
+✔ explicit browser audio and the Android button retain the unmodified common bytes (33.969233ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8219.473448

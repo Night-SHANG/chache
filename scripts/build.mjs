@@ -43,7 +43,7 @@ for(const bundle of bundles)if(Object.keys(bundle.metafile.inputs).some(path=>pa
 await writeFile(`${out}/browser/index.html`,'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><title>货箱最后一格'+(developerDiagnostics?' · v'+app.version+' 开发版':'')+'</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0c131c;touch-action:none}main{position:fixed;top:env(safe-area-inset-top,0);right:env(safe-area-inset-right,0);bottom:env(safe-area-inset-bottom,0);left:env(safe-area-inset-left,0)}canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}</style></head><body><main><canvas id="game" aria-label="货箱最后一格。选择底部货物后点棋盘，或拖动货物。" tabindex="0"></canvas></main><script src="app.js"></script></body></html>');
 await writeFile(`${out}/wechat/game.json`,JSON.stringify({deviceOrientation:'portrait',showStatusBar:false},null,2)+'\n');
 await writeFile(`${out}/wechat/project.config.json`,JSON.stringify({description:'本地开发版。导入微信开发者工具后填写自己的小游戏AppID，尚未真机验证。',projectname:'warehouse-last-slot-dev',compileType:'game',appid:'',setting:{es6:true,minified:true}},null,2)+'\n');
-// Only WeChat action feedback gets additional build-time PCM gain; browser/Android retain common bytes.
+// Browser retains common bytes; WeChat uses its approved action gain. Android staging applies its own per-cue gains separately.
 for(const name of SOUND_NAMES){
  const audio=loadSoundAsset(name);await writeFile(`${out}/browser/assets/${name}.wav`,audio);await writeFile(`${out}/wechat/assets/${name}.wav`,loadSoundAsset(name,'wechat'));
 }

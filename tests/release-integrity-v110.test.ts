@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 // A patch release may update the two project version fields, never a transitive dependency by text substitution.
 test('current project version leaves the complete v109 dependency graph and resolved identities unchanged',()=>{
  const lock=JSON.parse(readFileSync('package-lock.json','utf8'));
- assert.equal(lock.version,'1.0.20');assert.equal(lock.packages[''].version,'1.0.20');
+ assert.equal(lock.version,'1.0.21');assert.equal(lock.packages[''].version,'1.0.21');
  delete lock.version;delete lock.packages[''].version;
  assert.equal(createHash('sha256').update(JSON.stringify(lock)).digest('hex'),'dab9cb97684bd5bfd3a0537ffbc2a85f4eeff2213f50d69c734ca6967e7fa7fe');
 });

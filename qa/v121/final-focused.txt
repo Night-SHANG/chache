@@ -1,0 +1,19 @@
+✔ Android shell has a fixed offline identity and pinned Capacitor toolchain (7.252797ms)
+✔ Android production staging preserves formal media except its calibrated effect WAVs (7582.63141ms)
+✔ Android public Capacitor imports resolve through real production bundle and TypeScript options (703.220284ms)
+✔ official Android project fixes version, SDK, Gradle and offline WebView restrictions (7.748478ms)
+✔ Android supported Insets and worker policy survive the official native config copy (204.264683ms)
+✔ Android real Java asset policy rejects file routes, foreign origins and traversal (477.388909ms)
+✔ Android app declares its directly imported WebKit API at the pinned Capacitor version (1.714918ms)
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (72.586113ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (171.171939ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (34.979936ms)
+✔ Android uses the reviewed per-cue gains and short-window level reference without raising its button (56.188599ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9332.311316

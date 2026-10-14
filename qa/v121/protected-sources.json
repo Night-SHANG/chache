@@ -1,0 +1,32 @@
+{
+  "baseCommit": "062979c495592ad3eacf75b8df3fc57758bb326b",
+  "protectedDirectories": {
+    "src": {
+      "gitDiffEmpty": true,
+      "baseTree": "b8f8c7c87aa95d9a29646f439f7e275949e67c77"
+    },
+    "assets": {
+      "gitDiffEmpty": true,
+      "baseTree": "ef69126130b605e064567aec42c4acf73bc1abed"
+    },
+    "android/app/src/main": {
+      "gitDiffEmpty": true,
+      "baseTree": "2bfb0cde0442e63edf37b20fd669eeabfb2fe259"
+    }
+  },
+  "locks": {
+    "package-lock.json": {
+      "dependencyGraphUnchanged": true,
+      "currentLockSha256": "b8c00cf1ef2c1e3c902eca136cc0ef4c2cb7473c3938a04940cd3ba5dd3a08a3"
+    },
+    "android-shell/package-lock.json": {
+      "dependencyGraphUnchanged": true,
+      "currentLockSha256": "41e91bf18294d4adf96e4135812b6f88fda3f57c74f822f0b64c735d2c2ae893"
+    }
+  },
+  "runtimeCodeChanged": false,
+  "originalMediaChanged": false,
+  "nativeProductionSourceChanged": false,
+  "versionName": "1.0.21",
+  "releaseVersionCode": 11
+}

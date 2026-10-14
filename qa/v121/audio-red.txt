@@ -1,0 +1,51 @@
+✖ Android raises every non-button effect only by unclipped scalar PCM gain (6.267992ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (174.402154ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (33.409081ms)
+✖ Android uses the reviewed per-cue gains and short-window level reference without raising its button (5.73522ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 330.204922
+
+✖ failing tests:
+
+test at tests/android-effect-audio-v121.test.ts:15:1
+✖ Android raises every non-button effect only by unclipped scalar PCM gain (6.267992ms)
+  AssertionError [ERR_ASSERTION]: pick: Android asset must be louder
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-placement-audio-v121/tests/android-effect-audio-v121.test.ts:22:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/android-effect-audio-v121.test.ts:61:1
+✖ Android uses the reviewed per-cue gains and short-window level reference without raising its button (5.73522ms)
+  AssertionError [ERR_ASSERTION]: pick: exact approved scalar gain
+
+  1 !== 3
+
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-placement-audio-v121/tests/android-effect-audio-v121.test.ts:66:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

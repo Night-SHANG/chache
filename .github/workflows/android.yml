@@ -158,7 +158,7 @@ jobs:
         with:
           name: android-private-candidate-pending-review-${{ github.sha }}
           path: |
-            build/android-ci/candidate/warehouse-last-slot-1.0.20-vc*-temporary-debug-candidate-*.apk
+            build/android-ci/candidate/warehouse-last-slot-1.0.21-vc*-temporary-debug-candidate-*.apk
             build/android-ci/candidate/android-build-receipt.json
             build/android-ci/candidate/SHA256SUMS
           if-no-files-found: error
