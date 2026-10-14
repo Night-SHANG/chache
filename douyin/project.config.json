@@ -1,0 +1,10 @@
+{
+  "appid": "ttfa0f8cb26476311702",
+  "projectname": "warehouse-last-slot-douyin",
+  "description": "抖音独立适配开发包；抖音 IDE 与真机验收待完成。",
+  "compileType": "game",
+  "setting": {
+    "es6": true,
+    "minified": true
+  }
+}
