@@ -1,0 +1,245 @@
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (96.434877ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (173.909531ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (35.863901ms)
+✔ Android uses the reviewed per-cue gains and short-window level reference without raising its button (56.099328ms)
+✖ Android place plays at volume 1 on every reuse while all other cue volumes stay unchanged (3.298269ms)
+✔ Android full-volume place preserves music gain, position and playback (0.537007ms)
+✔ Android full-volume place still stops on hide or owner loss and never replays on show (0.460605ms)
+✔ release vc12 is explicit while debug acceptance versions retain their original defaults (1.375553ms)
+✖ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (2.229342ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.394546ms)
+✔ release handoff rejects identity source archive and asset mismatches (19.507491ms)
+✔ signing refuses missing secrets before touching runner files (3.979205ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.381847ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (42.304909ms)
+✔ fresh signing runner compares exact package and version values (42.25177ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (2.185737ms)
+✔ Android retains the ui_click playback boost and never compounds cue gains on reuse (5.874025ms)
+✔ Android retains the chosen PCM bytes and keeps its boosted click below full scale (10.589199ms)
+✔ browser and WeChat retain their existing click and other cue volumes (1.153092ms)
+✔ Android click leaves normal, paused and disabled BGM levels and playback untouched (0.431781ms)
+✔ Android boosted click stops on hide or owner loss and never replays on show (0.36354ms)
+✔ Android settings mute and reload still suppress boosted button clicks (20.972943ms)
+✔ current project version leaves the complete v109 dependency graph and resolved identities unchanged (2.727632ms)
+✔ shared renderer remains within the unchanged strict source budget (0.29624ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 22
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 503.116419
+
+✖ failing tests:
+
+test at tests/android-place-volume-v122.test.ts:8:1
+✖ Android place plays at volume 1 on every reuse while all other cue volumes stay unchanged (3.298269ms)
+  AssertionError [ERR_ASSERTION]: ui_click
+  + actual - expected
+  
+  + 0.21806883213217862
+  - 0.21806883213217865
+                      ^
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-place-volume-v122/tests/android-place-volume-v122.test.ts:12:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0.21806883213217862,
+    expected: 0.21806883213217865,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/android-release-signing.test.ts:15:1
+✖ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (2.229342ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /putString\("lastBinaryVersionCode", "1"\)\.putString\("lastBinaryVersionName", "1\.0\.22"\)/. Input:
+  
+  'package io.github.nightshang.chache;\n' +
+    '\n' +
+    'import static org.junit.Assert.*;\n' +
+    '\n' +
+    'import android.app.Instrumentation;\n' +
+    'import android.content.Context;\n' +
+    'import android.content.Intent;\n' +
+    'import android.content.SharedPreferences;\n' +
+    'import android.net.Uri;\n' +
+    'import android.webkit.ServiceWorkerController;\n' +
+    'import android.webkit.WebResourceRequest;\n' +
+    'import android.webkit.WebResourceResponse;\n' +
+    'import androidx.test.ext.junit.runners.AndroidJUnit4;\n' +
+    'import androidx.test.platform.app.InstrumentationRegistry;\n' +
+    'import androidx.webkit.WebViewFeature;\n' +
+    'import com.getcapacitor.Bridge;\n' +
+    'import java.io.File;\n' +
+    'import java.io.FileOutputStream;\n' +
+    'import java.lang.reflect.Field;\n' +
+    'import java.nio.charset.StandardCharsets;\n' +
+    'import java.util.Collections;\n' +
+    'import java.util.Map;\n' +
+    'import java.util.UUID;\n' +
+    'import java.util.concurrent.CountDownLatch;\n' +
+    'import java.util.concurrent.TimeUnit;\n' +
+    'import java.util.concurrent.atomic.AtomicReference;\n' +
+    'import org.json.JSONObject;\n' +
+    'import org.json.JSONTokener;\n' +
+    'import org.junit.Test;\n' +
+    'import org.junit.runner.RunWith;\n' +
+    '\n' +
+    '/** Real Android callbacks, plugin dispatch, asset serving and CSP; pending device CI. */\n' +
+    '@RunWith(AndroidJUnit4.class)\n' +
+    'public class ShellBoundaryInstrumentedTest {\n' +
+    '    @Test(timeout = 45000)\n' +
+    '    public void initialLoadRejectsServerRootMutationAndPrivateFileReads() throws Exception {\n' +
+    '        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();\n' +
+    '        Context context = instrumentation.getTargetContext();\n' +
+    '        File marker = new File(context.getFilesDir(), "shell-probe-" + UUID.randomUUID() + ".txt");\n' +
+    '        String privateBytes = "app-private-shell-marker-" + UUID.randomUUID();\n' +
+    '        try (FileOutputStream output = new FileOutputStream(marker)) {\n' +
+    '            output.write(privateBytes.getBytes(StandardCharsets.UTF_8));\n' +
+    '        }\n' +
+    '        SharedPreferences prefs = context.getSharedPreferences("CapWebViewSettings", Context.MODE_PRIVATE);\n' +
+    '        String oldPath = prefs.getString("serverBasePath", null);\n' +
+    '        String oldCode = prefs.getString("lastBinaryVersionCode", null);\n' +
+    '        String oldName = prefs.getString("lastBinaryVersionName", null);\n' +
+    '        assertTrue(prefs.edit().putString("serverBasePath", marker.getParent())\n' +
+    '            .putString("lastBinaryVersionCode", "1").putString("lastBinaryVersionName", "1.0.21").commit());\n' +
+    '        MainActivity activity = null;\n' +
+    '        try {\n' +
+    '            activity = (MainActivity) instrumentation.startActivitySync(\n' +
+    '                new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));\n' +
+    '            MainActivity launched = activity;\n' +
+    '            Bridge bridge = activity.getBridge();\n' +
+    '            assertEquals(FixedAssetWebViewPlugin.class, bridge.getPlugin("WebView").getPluginClass());\n' +
+    '            assertEquals("public", bridge.getServerBasePath());\n' +
+    '            assertEquals("disable", bridge.getConfig().getPluginConfiguration("SystemBars").getString("insetsHandling", "css"));\n' +
+    '            Object bars = bridge.getPlugin("SystemBars").getInstance();\n' +
+    '            Field handling = bars.getClass().getDeclaredField("insetsHandling");\n' +
+    '            handling.setAccessible(true);\n' +
+    '            assertEquals("disable", handling.get(bars));\n' +
+    '            Field listener = bars.getClass().getDeclaredField("webViewListener");\n' +
+    '            listener.setAccessible(true);\n' +
+    '            assertNull("SystemBars must not own another Insets listener", listener.get(bars));\n' +
+    '            assertFalse(bridge.getConfig().isResolveServiceWorkerRequests());\n' +
+    '            waitForJavascript(instrumentation, launched, "Boolean(window.Capacitor && window.Capacitor.nativePromise)");\n' +
+    '            String path = JSONObject.quote(marker.getParent());\n' +
+    '            String file = JSONObject.quote(marker.getName());\n' +
+    '            evaluate(instrumentation, launched, "(async()=>{const attempts=[];"\n' +
+    `                + "for(const method of ['setServerBasePath','setServerAssetPath','persistServerBasePath']){"\n` +
+    `                + "try{await Capacitor.nativePromise('WebView',method,{path:" + path + "});attempts.push('RESOLVED')}"\n` +
+    '                + "catch(error){attempts.push(error.code)}}"\n' +
+    `                + "const response=await fetch('/'+" + file + ");const body=await response.text();"\n` +
+    `                + "let workerError='RESOLVED';try{new Worker(URL.createObjectURL(new Blob(['self.postMessage(1)'],{type:'text/javascript'})))}catch(error){workerError=error.name}"\n` +
+    `                + "let serviceWorkerError='RESOLVED';try{await navigator.serviceWorker.register('/app.js')}catch(error){serviceWorkerError=error.name}"\n` +
+    '                + "window.__shellBoundaryProbe={attempts,body,workerError,serviceWorkerError};"\n' +
+    '                + "})().catch(error=>{window.__shellBoundaryProbe={fatal:String(error)}})");\n' +
+    '            JSONObject probe = waitForProbe(instrumentation, launched);\n' +
+    '            assertFalse(probe.has("fatal"));\n' +
+    '            for (int i = 0; i < 3; i++) assertEquals("ASSET_ROOT_IMMUTABLE", probe.getJSONArray("attempts").getString(i));\n' +
+    '            assertFalse("A normal localhost path must not serve an app-private file", probe.getString("body").contains(privateBytes));\n' +
+    '            assertEquals("SecurityError", probe.getString("workerError"));\n' +
+    '            assertEquals("SecurityError", probe.getString("serviceWorkerError"));\n' +
+    '            assertEquals("public", bridge.getServerBasePath());\n' +
+    '            assertEquals("Rejected persistence must not mutate preferences", marker.getParent(), prefs.getString("serverBasePath", null));\n' +
+    '            for (String url : new String[]{\n' +
+    '                "https://localhost/_capacitor_file_" + marker.getAbsolutePath(),\n' +
+    '                "https://localhost/%5Fcapacitor%5Ffile%5F" + marker.getAbsolutePath(),\n' +
+    '                "https://localhost/_capacitor_content_/private", "https://localhost:8443/app.js"\n' +
+    '            }) {\n' +
+    '                WebResourceResponse response = bridge.getWebViewClient().shouldInterceptRequest(bridge.getWebView(), new Request(url));\n' +
+    '                assertEquals(url, 403, response.getStatusCode());\n' +
+    '                assertEquals(-1, response.getData().read());\n' +
+    '            }\n' +
+    '        } finally {\n' +
+    '            if (activity != null) {\n' +
+    '                MainActivity launched = activity;\n' +
+    '                instrumentation.runOnMainSync(launched::finish);\n' +
+    '            }\n' +
+    '            SharedPreferences.Editor restore = prefs.edit();\n' +
+    '            restore(restore, "serverBasePath", oldPath);\n' +
+    '            restore(restore, "lastBinaryVersionCode", oldCode);\n' +
+    '            restore(restore, "lastBinaryVersionName", oldName);\n' +
+    '            assertTrue(restore.commit());\n' +
+    '            assertTrue(marker.delete());\n' +
+    '        }\n' +
+    '    }\n' +
+    '\n' +
+    '    @Test\n' +
+    '    public void workerCallbackNeverDelegatesToNativeAssetOrFileServer() throws Exception {\n' +
+    '        AtomicReference<boolean[]> settings = new AtomicReference<>();\n' +
+    '        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {\n' +
+    '            OfflineServiceWorkerClient.install();\n' +
+    '            settings.set(new boolean[]{\n' +
+    '                WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_BASIC_USAGE),\n' +
+    '                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getBlockNetworkLoads(),\n' +
+    '                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getAllowFileAccess(),\n' +
+    '                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getAllowContentAccess()\n' +
+    '            });\n' +
+    '        });\n' +
+    '        assertTrue("The CI device must exercise worker callback support", settings.get()[0]);\n' +
+    '        assertTrue(settings.get()[1]);\n' +
+    '        assertFalse(settings.get()[2]);\n' +
+    '        assertFalse(settings.get()[3]);\n' +
+    '        OfflineServiceWorkerClient client = new OfflineServiceWorkerClient();\n' +
+    '        for (String url : new String[]{"https://localhost/app.js", "https://localhost/_capacitor_file_/data/private.txt", "https://localhost/_capacitor_content_/private", "https://example.com/app.js"}) {\n' +
+    '            WebResourceResponse response = client.shouldInterceptRequest(new Request(url));\n' +
+    '            assertEquals(url, 403, response.getStatusCode());\n' +
+    '            assertEquals(-1, response.getData().read());\n' +
+    '        }\n' +
+    '    }\n' +
+    '\n' +
+    '    private static void restore(SharedPreferences.Editor editor, String key, String value) {\n' +
+    '        if (value == null) editor.remove(key); else editor.putString(key, value);\n' +
+    '    }\n' +
+    '\n' +
+    '    private static String evaluate(Instrumentation instrumentation, MainActivity activity, String script) throws Exception {\n' +
+    '        CountDownLatch completed = new CountDownLatch(1);\n' +
+    '        AtomicReference<String> result = new AtomicReference<>();\n' +
+    '        instrumentation.runOnMainSync(() -> activity.getBridge().getWebView().evaluateJavascript(script, value -> {\n' +
+    '            result.set(value);\n' +
+    '            completed.countDown();\n' +
+    '        }));\n' +
+    '        assertTrue("JavaScript callback timed out", completed.await(5, TimeUnit.SECONDS));\n' +
+    '        return result.get();\n' +
+    '    }\n' +
+    '\n' +
+    '    private static void waitForJavascript(Instrumentation instrumentation, MainActivity activity, String script) throws Exception {\n' +
+    '        long until = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);\n' +
+    '        do {\n' +
+    '            if ("true".equals(evaluate(instrumentation, activity, script))) return;\n' +
+    '            Thread.sleep(25);\n' +
+    '        } while (System.nanoTime() < until);\n' +
+    '        fail("Native bridge never became available on initial asset load");\n' +
+    '    }\n' +
+    '\n' +
+    '    private static JSONObject waitForProbe(Instrumentation instrumentation, MainActivity activity) throws Exception {\n' +
+    '        long until = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);\n' +
+    '        do {\n' +
+    '            Object value = new JSONTokener(evaluate(instrumentation, activity, "JSON.stringify(window.__shellBoundaryProbe||null)")).nextValue();\n' +
+    '            if (value instanceof String && !"null".equals(value)) return new JSONObject((String) value);\n' +
+    '            Thread.sleep(25);\n' +
+    '        } while (System.nanoTime() < until);\n' +
+    '        throw new AssertionError("Shell boundary probe did not finish");\n' +
+    '    }\n' +
+    '\n' +
+    '    private static final class Request implements WebResourceRequest {\n' +
+    '        private final'... 483 more characters
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-place-volume-v122/tests/android-release-signing.test.ts:19:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `package io.github.nightshang.chache;\n\nimport static org.junit.Assert.*;\n\nimport android.app.Instrumentation;\nimport android.content.Context;\nimport android.content.Intent;\nimport android.content.SharedPreferences;\nimport android.net.Uri;\nimport android.webkit.ServiceWorkerController;\nimport android.webkit.WebResourceRequest;\nimport android.webkit.WebResourceResponse;\nimport androidx.test.ext.junit.runners.AndroidJUnit4;\nimport androidx.test.platform.app.InstrumentationRegistry;\nimport androidx.webkit.WebViewFeature;\nimport com.getcapacitor.Bridge;\nimport java.io.File;\nimport java.io.FileOutputStream;\nimport java.lang.reflect.Field;\nimport java.nio.charset.StandardCharsets;\nimport java.util.Collections;\nimport java.util.Map;\nimport java.util.UUID;\nimport java.util.concurrent.CountDownLatch;\nimport java.util.concurrent.TimeUnit;\nimport java.util.concurrent.atomic.AtomicReference;\nimport org.json.JSONObject;\nimport org.json.JSONTokener;\nimport org.junit.Test;\nimport org.junit.runner.RunWith;\n\n/** Real Android callbacks, plugin dispatch, asset serving and CSP; pending device CI. */\n@RunWith(AndroidJUnit4.class)\npublic class ShellBoundaryInstrumentedTest {\n    @Test(timeout = 45000)\n    public void initialLoadRejectsServerRootMutationAndPrivateFileReads() throws Exception {\n        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();\n        Context context = instrumentation.getTargetContext();\n        File marker = new File(context.getFilesDir(), "shell-probe-" + UUID.randomUUID() + ".txt");\n        String privateBytes = "app-private-shell-marker-" + UUID.randomUUID();\n        try (FileOutputStream output = new FileOutputStream(marker)) {\n            output.write(privateBytes.getBytes(StandardCharsets.UTF_8));\n        }\n        SharedPreferences prefs = context.getSharedPreferences("CapWebViewSettings", Context.MODE_PRIVATE);\n        String oldPath = prefs.getString("serverBasePath", null);\n        String oldCode = prefs.getString("lastBinaryVersionCode", null);\n        String oldName = prefs.getString("lastBinaryVersionName", null);\n        assertTrue(prefs.edit().putString("serverBasePath", marker.getParent())\n            .putString("lastBinaryVersionCode", "1").putString("lastBinaryVersionName", "1.0.21").commit());\n        MainActivity activity = null;\n        try {\n            activity = (MainActivity) instrumentation.startActivitySync(\n                new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));\n            MainActivity launched = activity;\n            Bridge bridge = activity.getBridge();\n            assertEquals(FixedAssetWebViewPlugin.class, bridge.getPlugin("WebView").getPluginClass());\n            assertEquals("public", bridge.getServerBasePath());\n            assertEquals("disable", bridge.getConfig().getPluginConfiguration("SystemBars").getString("insetsHandling", "css"));\n            Object bars = bridge.getPlugin("SystemBars").getInstance();\n            Field handling = bars.getClass().getDeclaredField("insetsHandling");\n            handling.setAccessible(true);\n            assertEquals("disable", handling.get(bars));\n            Field listener = bars.getClass().getDeclaredField("webViewListener");\n            listener.setAccessible(true);\n            assertNull("SystemBars must not own another Insets listener", listener.get(bars));\n            assertFalse(bridge.getConfig().isResolveServiceWorkerRequests());\n            waitForJavascript(instrumentation, launched, "Boolean(window.Capacitor && window.Capacitor.nativePromise)");\n            String path = JSONObject.quote(marker.getParent());\n            String file = JSONObject.quote(marker.getName());\n            evaluate(instrumentation, launched, "(async()=>{const attempts=[];"\n                + "for(const method of ['setServerBasePath','setServerAssetPath','persistServerBasePath']){"\n                + "try{await Capacitor.nativePromise('WebView',method,{path:" + path + "});attempts.push('RESOLVED')}"\n                + "catch(error){attempts.push(error.code)}}"\n                + "const response=await fetch('/'+" + file + ");const body=await response.text();"\n                + "let workerError='RESOLVED';try{new Worker(URL.createObjectURL(new Blob(['self.postMessage(1)'],{type:'text/javascript'})))}catch(error){workerError=error.name}"\n                + "let serviceWorkerError='RESOLVED';try{await navigator.serviceWorker.register('/app.js')}catch(error){serviceWorkerError=error.name}"\n                + "window.__shellBoundaryProbe={attempts,body,workerError,serviceWorkerError};"\n                + "})().catch(error=>{window.__shellBoundaryProbe={fatal:String(error)}})");\n            JSONObject probe = waitForProbe(instrumentation, launched);\n            assertFalse(probe.has("fatal"));\n            for (int i = 0; i < 3; i++) assertEquals("ASSET_ROOT_IMMUTABLE", probe.getJSONArray("attempts").getString(i));\n            assertFalse("A normal localhost path must not serve an app-private file", probe.getString("body").contains(privateBytes));\n            assertEquals("SecurityError", probe.getString("workerError"));\n            assertEquals("SecurityError", probe.getString("serviceWorkerError"));\n            assertEquals("public", bridge.getServerBasePath());\n            assertEquals("Rejected persistence must not mutate preferences", marker.getParent(), prefs.getString("serverBasePath", null));\n            for (String url : new String[]{\n                "https://localhost/_capacitor_file_" + marker.getAbsolutePath(),\n                "https://localhost/%5Fcapacitor%5Ffile%5F" + marker.getAbsolutePath(),\n                "https://localhost/_capacitor_content_/private", "https://localhost:8443/app.js"\n            }) {\n                WebResourceResponse response = bridge.getWebViewClient().shouldInterceptRequest(bridge.getWebView(), new Request(url));\n                assertEquals(url, 403, response.getStatusCode());\n                assertEquals(-1, response.getData().read());\n            }\n        } finally {\n            if (activity != null) {\n                MainActivity launched = activity;\n                instrumentation.runOnMainSync(launched::finish);\n            }\n            SharedPreferences.Editor restore = prefs.edit();\n            restore(restore, "serverBasePath", oldPath);\n            restore(restore, "lastBinaryVersionCode", oldCode);\n            restore(restore, "lastBinaryVersionName", oldName);\n            assertTrue(restore.commit());\n            assertTrue(marker.delete());\n        }\n    }\n\n    @Test\n    public void workerCallbackNeverDelegatesToNativeAssetOrFileServer() throws Exception {\n        AtomicReference<boolean[]> settings = new AtomicReference<>();\n        InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {\n            OfflineServiceWorkerClient.install();\n            settings.set(new boolean[]{\n                WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_BASIC_USAGE),\n                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getBlockNetworkLoads(),\n                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getAllowFileAccess(),\n                ServiceWorkerController.getInstance().getServiceWorkerWebSettings().getAllowContentAccess()\n            });\n        });\n        assertTrue("The CI device must exercise worker callback support", settings.get()[0]);\n        assertTrue(settings.get()[1]);\n        assertFalse(settings.get()[2]);\n        assertFalse(settings.get()[3]);\n        OfflineServiceWorkerClient client = new OfflineServiceWorkerClient();\n        for (String url : new String[]{"https://localhost/app.js", "https://localhost/_capacitor_file_/data/private.txt", "https://localhost/_capacitor_content_/private", "https://example.com/app.js"}) {\n            WebResourceResponse response = client.shouldInterceptRequest(new Request(url));\n            assertEquals(url, 403, response.getStatusCode());\n            assertEquals(-1, response.getData().read());\n        }\n    }\n\n    private static void restore(SharedPreferences.Editor editor, String key, String value) {\n        if (value == null) editor.remove(key); else editor.putString(key, value);\n    }\n\n    private static String evaluate(Instrumentation instrumentation, MainActivity activity, String script) throws Exception {\n        CountDownLatch completed = new CountDownLatch(1);\n        AtomicReference<String> result = new AtomicReference<>();\n        instrumentation.runOnMainSync(() -> activity.getBridge().getWebView().evaluateJavascript(script, value -> {\n            result.set(value);\n            completed.countDown();\n        }));\n        assertTrue("JavaScript callback timed out", completed.await(5, TimeUnit.SECONDS));\n        return result.get();\n    }\n\n    private static void waitForJavascript(Instrumentation instrumentation, MainActivity activity, String script) throws Exception {\n        long until = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);\n        do {\n            if ("true".equals(evaluate(instrumentation, activity, script))) return;\n            Thread.sleep(25);\n        } while (System.nanoTime() < until);\n        fail("Native bridge never became available on initial asset load");\n    }\n\n    private static JSONObject waitForProbe(Instrumentation instrumentation, MainActivity activity) throws Exception {\n        long until = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);\n        do {\n            Object value = new JSONTokener(evaluate(instrumentation, activity, "JSON.stringify(window.__shellBoundaryProbe||null)")).nextValue();\n            if (value instanceof String && !"null".equals(value)) return new JSONObject((String) value);\n            Thread.sleep(25);\n        } while (System.nanoTime() < until);\n        throw new AssertionError("Shell boundary probe did not finish");\n    }\n\n    private static final class Request implements WebResourceRequest {\n        private final`... 483 more characters,
+    expected: /putString\("lastBinaryVersionCode", "1"\)\.putString\("lastBinaryVersionName", "1\.0\.22"\)/,
+    operator: 'match',
+    diff: 'simple'
+  }

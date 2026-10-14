@@ -1,0 +1,71 @@
+{
+  "decision": "Approved requested final scalar implementation; no blocking findings",
+  "scope": "Android successful placement only: preserve v121 asset +6 dB; runtime 0.45 * 10**(4.5/20); net +3.5642502755 dB vs common pre-Android asset, exactly 1 dB above pick",
+  "baselineCommit": "64987c3b1685d55ee5e31fa3d65d469e4ba0a325",
+  "reviewedSourceSha256": {
+    "src/platform/android.ts": "fc35a2bd4581b31f02f5484eb6f3d31726fb6c68774a95de5786fdb2062c98d0",
+    "src/shared/android-place-level.ts": "e680c858aa0d72b11738000e811efb6671c60b94f730370f09e8af8a7fe26429",
+    "src/shared/audio-levels.ts": "b99427464d2d528ca4cdfec20f278b42ae2dbb932007b9809e6e24993af44dcb",
+    "scripts/sound-assets.ts": "d07622fa2ded209a3c29fa94b4bca080ac6329325f6ec575ce41feeb2a0e7592",
+    "scripts/build-android.mjs": "2897fa2fce22b201689bfdb1f23a5350a45369532f9d19ccefdbf45a937613ab",
+    "tests/android-place-volume-v122.test.ts": "6241b475c4adeb8c8285282aadb3ca6f87cfb87afb8a20889bb31543eceb3aaa",
+    "tests/android-ui-click-audio-v119.test.ts": "55f650388075f4356d4af24c864adba52d1ce405052ac910d490929a8febfc89",
+    "tests/android-effect-audio-v121.test.ts": "0f359f63c37a1a9fc4f05bb0e1189426877db3b36c8f173a8dc6ed5710dc566d"
+  },
+  "independentVerification": {
+    "focusedTests": {
+      "tests": 36,
+      "passed": 36,
+      "failed": 0,
+      "evidence": "independent-focused.txt"
+    },
+    "runtimeAndStagedMedia": {
+      "exit": 0,
+      "evidence": "independent-audio-verification.json",
+      "script": "verify-independent-audio.py",
+      "actualPlaceRuntime": 0.7554618081551522,
+      "unchangedMediaFiles": 93,
+      "audioFiles": 42,
+      "actualSessionTraces": 2
+    },
+    "protectedFilesCompared": 319,
+    "onlyAllowedProductionSourceChanges": [
+      "src/platform/android.ts",
+      "src/shared/android-place-level.ts"
+    ],
+    "sharedAudioLevelFileRestoredExactly": true,
+    "assetGeneratorUnchanged": true,
+    "browserAndWechatBundlesIdenticalAfterVersionOnlyNormalization": true
+  },
+  "reviewedImplementerLogs": {
+    "fullSuite": {
+      "tests": 3287,
+      "passed": 3285,
+      "failed": 2,
+      "exit": 1,
+      "knownFailures": [
+        "missing cargo-wood-generated.png",
+        "missing cargo-harbor_container-generated.png"
+      ],
+      "independentlyRerun": false,
+      "evidence": "full-suite.txt"
+    },
+    "lintTypecheckPreflightAndroidBuildAndStagingVerifyExitZero": true
+  },
+  "mixLimits": {
+    "originalTwelveFixedSchedules": {
+      "clippedSfxSamples": 0,
+      "maxAligned4xTruePeakPlusAnyBgmBound": 0.8271892273539465
+    },
+    "constructed328_9msNegativeControl": {
+      "provenGameplayReachable": false,
+      "sfxSamplePeak": 0.9631782890238065,
+      "clippedSfxSamples": 0,
+      "aligned4xTruePeakPlusAnyBgmBound": 1.0287579352592193,
+      "interpretation": "Conservative BGM bound exceeds full scale; not demonstrated decoded-BGM clipping, not a verified actual gameplay failure."
+    },
+    "arbitraryOverlapOrHostLatencySafetyProven": false,
+    "physicalPhoneListeningVerified": false,
+    "apkCompilationSigningAndRuntimeCiIncluded": false
+  }
+}

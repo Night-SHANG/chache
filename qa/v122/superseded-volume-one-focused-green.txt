@@ -1,0 +1,32 @@
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (88.115119ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (173.394894ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (35.869474ms)
+✔ Android retains v121 asset gains and their frozen 0.45 short-window calibration reference (51.107054ms)
+✔ Android place plays at volume 1 on every reuse while all other cue volumes stay unchanged (6.52145ms)
+✔ Android full-volume place preserves music gain, position and playback (0.671188ms)
+✔ Android full-volume place still stops on hide or owner loss and never replays on show (0.41752ms)
+✔ release vc12 is explicit while debug acceptance versions retain their original defaults (1.389435ms)
+✔ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (0.410941ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.414075ms)
+✔ release handoff rejects identity source archive and asset mismatches (7.43041ms)
+✔ signing refuses missing secrets before touching runner files (4.478434ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.399032ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (51.723349ms)
+✔ fresh signing runner compares exact package and version values (39.709519ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.813715ms)
+✔ Android retains the ui_click playback boost and never compounds cue gains on reuse (6.91864ms)
+✔ Android retains the chosen PCM bytes and keeps its boosted click below full scale (8.790281ms)
+✔ browser and WeChat retain their existing click and other cue volumes (1.142428ms)
+✔ Android click leaves normal, paused and disabled BGM levels and playback untouched (0.441827ms)
+✔ Android boosted click stops on hide or owner loss and never replays on show (0.353906ms)
+✔ Android settings mute and reload still suppress boosted button clicks (20.719144ms)
+✔ current project version leaves the complete v109 dependency graph and resolved identities unchanged (2.42302ms)
+✔ shared renderer remains within the unchanged strict source budget (0.231824ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 497.448267

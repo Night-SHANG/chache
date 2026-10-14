@@ -1,0 +1,16 @@
+{
+  "baseCommit": "64987c3b1685d55ee5e31fa3d65d469e4ba0a325",
+  "onlyChangedProtectedSourceFiles": [
+    "src/platform/android.ts"
+  ],
+  "originalAssetsUnchanged": true,
+  "nativeProductionSourcesUnchanged": true,
+  "dependencyGraphs": {
+    "package-lock.json": "unchanged except root version metadata",
+    "android-shell/package-lock.json": "unchanged except root version metadata"
+  },
+  "onlyAddedRuntimeSourceFiles": [
+    "src/shared/android-place-level.ts"
+  ],
+  "legacySharedAudioLevelsByteIdentical": true
+}

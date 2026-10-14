@@ -1,0 +1,15 @@
+# v1.0.22 / Android versionCode 12: placement playback volume
+
+Only Android successful crate placement (`place.wav`) changes playback volume: **0.45 → 0.7554618082**, an amplitude factor of 1.678804 and +4.5 dB relative to v1.0.21 playback. With the retained additional Android +6 dB asset gain, this gives **+3.56425 dB relative to the common asset before Android-specific gain**, exactly 1 dB above pick’s +2.56425 dB net gain. The shared asset already includes place’s older common +2 dB, so that historical gain is not counted again in this comparison. It retains v1.0.21's exact asset bytes, including its additional Android +6 dB asset gain and prior common +2 dB. This is not a phone sound-pressure measurement or a guarantee of perceived loudness.
+
+The Android button retains actual playback volume approximately 0.2180688321 (0.45 × its existing coefficient). Every other Android effect stays at 0.45. Browser/WeChat audio, background music, all media bytes, triggers, timing, gameplay, timbre and lifecycle controls are unchanged. No limiter, EQ, compressor, ducking or additional processing is introduced.
+
+`ANDROID_PLACE_VOLUME` is applied only in the Android adapter and described in Android staging metadata as `placeSound.playbackVolume` and `soundEffects.androidVolumeOverrides.place`. The ordinary Android base volume remains 0.45. All current package, build, staging, signing and release checks advance together to 1.0.22/vc12; debug upgrade acceptance codes remain 1 and 2. Dependency graphs, secrets isolation, permissions and private-delivery gates are unchanged.
+
+## Verification and limits
+
+The initial volume-1 proposal was superseded by the user before completion. Final-target runtime regressions fail at actual volume 1, then verify place=0.7554618082 on repeated playback, all other cue volumes, music continuity, and hide/owner-loss behavior. Existing browser/WeChat isolation and per-sample asset-calibration checks remain in force. The v121 0.45 RMS-parity test is explicitly a frozen asset-calibration reference, not a claim about current Android place loudness.
+
+The final approved playback gain is checked using actual staged source bytes and runtime adapter values. All 93 media files are byte-identical to v121. The twelve established finite schedules have zero clipped SFX samples and a worst aligned 4× true-peak-plus-BGM bound of 0.82719. A constructed, unproven-reachable timing negative control has zero SFX clipping but a conservative SFX-plus-BGM bound of 1.02876. Passing finite fixed schedules do not prove safety for arbitrary overlap or host timing. Conservative phase-independent bounds and explicitly artificial negative controls are reported separately. No physical phone loudness or speaker measurement is implied.
+
+See `qa/v122/README.md` for final raw command outcomes, exact asset comparisons and reproducible mix metrics. Signed APK compilation, signing, packaged-byte checks and Android runtime CI require their own receipts. Physical-phone listening remains unverified.

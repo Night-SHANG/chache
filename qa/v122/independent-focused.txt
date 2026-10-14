@@ -1,0 +1,44 @@
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (268.212444ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (330.192631ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (48.513461ms)
+✔ Android retains v121 asset gains and their frozen 0.45 short-window calibration reference (117.67756ms)
+✔ Android place plays at the approved common-source +3.56dB level on every reuse while all other cue volumes stay unchanged (11.745238ms)
+✔ Android approved-volume place preserves music gain, position and playback (0.499061ms)
+✔ Android approved-volume place still stops on hide or owner loss and never replays on show (0.381807ms)
+✔ Android retains the ui_click playback boost and never compounds cue gains on reuse (10.698203ms)
+✔ Android retains the chosen PCM bytes and keeps its boosted click below full scale (6.496831ms)
+✔ browser and WeChat retain their existing click and other cue volumes (1.699074ms)
+✔ Android click leaves normal, paused and disabled BGM levels and playback untouched (0.375458ms)
+✔ Android boosted click stops on hide or owner loss and never replays on show (0.400655ms)
+✔ Android settings mute and reload still suppress boosted button clicks (55.207556ms)
+✔ browser caches at most the 13 known local audio cues and ignores unknown runtime names (7.394891ms)
+✔ browser explicit stopSounds stops and rewinds every cached cue without replay on show (1.397837ms)
+✔ browser setup failures reuse one bounded handle and recover only on an explicit retry (0.661152ms)
+✔ browser a failing stop cannot block other sounds or the hide lifecycle callback (4.5843ms)
+✔ browser play, callback, and creation failures never escape audio calls (21.354294ms)
+✔ wechat caches at most the 13 known local audio cues and ignores unknown runtime names (7.540201ms)
+✔ wechat explicit stopSounds stops and rewinds every cached cue without replay on show (0.395808ms)
+✔ wechat setup failures reuse one bounded handle and recover only on an explicit retry (0.339745ms)
+✔ wechat a failing stop cannot block other sounds or the hide lifecycle callback (0.296631ms)
+✔ wechat play, callback, and creation failures never escape audio calls (1.450534ms)
+✔ browser pagehide stops all cached sounds even when one pause fails (0.413815ms)
+✔ pick and route-ready feedback is debounced while repeated preview never changes the run (46.916088ms)
+✔ invalid drop uses bounce and sound but cancel never emits an invalid cue or command (6.478084ms)
+✔ shipment cues use route move delivery phases once and presentation clock never changes checksum (2.906588ms)
+✔ chain delivery selects a capped higher cue and hide discards pending replay audio (49.415161ms)
+✔ reduced motion retains delivery feedback with no forklift stage and finishes in 80ms (13.150866ms)
+✔ mute stops currently playing sounds and suppresses subsequent input and dispatch cues (3.791152ms)
+✔ new failure briefly presents a neutral bounce before result and never repeats on restore (32.363669ms)
+✔ background interrupt during forklift movement stops audio and drops remaining delivery cues (10.692154ms)
+✔ shift feedback is deferred until the shipment ends and never repeats on further ticks (1.803369ms)
+✔ carried shipment remains input-locked and background or settings discards only presentation (23.158124ms)
+✔ WeChat action cues gain exactly 2dB in PCM while retaining headers and unclipped endpoints (262.763343ms)
+✔ explicit browser audio and the Android button retain the unmodified common bytes (78.219728ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1149.667605

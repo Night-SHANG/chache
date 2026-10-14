@@ -1,0 +1,61 @@
+{
+  "output": "qa/v122/independent-audio-verification.json",
+  "volume": 0.7554618081551522,
+  "netGainDb": 3.564250275506874,
+  "gainAbovePickDb": 1.0000000000000004,
+  "audioFilesCompared": 42,
+  "allAssetFilesCompared": 93,
+  "worstOriginalNonExtreme4xBound": 0.8271892273539465,
+  "negativeControl": {
+    "scenario": "constructed unproven-reachable 328.9ms failure negative control",
+    "events": [
+      [
+        "place",
+        0
+      ],
+      [
+        "route_ready",
+        0
+      ],
+      [
+        "ship",
+        16
+      ],
+      [
+        "chain2",
+        96
+      ],
+      [
+        "chain3",
+        176
+      ],
+      [
+        "route_ready",
+        240
+      ],
+      [
+        "chain4",
+        256
+      ],
+      [
+        "pick",
+        320
+      ],
+      [
+        "place",
+        328.9
+      ],
+      [
+        "fail",
+        328.9
+      ]
+    ],
+    "coverage": "constructed timing-sensitivity check; existing four-chain fixture ends in upgrade and cannot validate immediate next placement",
+    "sampleSfxPeak": 0.9631782890238065,
+    "peakPlusAnyBgmBound": 1.028065834506374,
+    "estimated4xTruePeakPlusAnyBgmBound": 1.0287579352592193,
+    "headroomDbFor4xBound": -0.2462639627248768,
+    "absoluteSumPlusBgmBound": 1.0287253552999798,
+    "clippedSfxSamples": 0
+  }
+}

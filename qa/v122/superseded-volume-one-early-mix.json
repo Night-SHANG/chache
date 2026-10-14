@@ -1,0 +1,1005 @@
+{
+  "method": "Actual staged WAVs; exact PCM16 scalar compare to hash-frozen browser baseline; 4x polyphase TP estimate; 44.1kHz scheduled mixes; BGM conservative maximum applies only to verified frozen BGM hash. No speaker, OS, host-latency or perceived-loudness model.",
+  "gainDb": {
+    "pick": 9.5,
+    "place": 6,
+    "invalid": 9,
+    "route_ready": 9,
+    "forklift": 14.5,
+    "ship": 5.5,
+    "chain2": 3.5,
+    "chain3": 4.5,
+    "chain4": 4,
+    "upgrade": 6,
+    "shift": 7,
+    "fail": 8,
+    "ui_click": 0
+  },
+  "buttonEffective50msReferenceDbfs": -20.34441027453694,
+  "baselineFixtureSha256": "26b163f039f15304c1cd816bdff96d82129fc24feb9a168407ca152e6af3999c",
+  "platformIsolation": {
+    "audioFilesChecked": 42,
+    "unchangedFiles": 30,
+    "onlyChangedFiles": [
+      "android/pick.wav",
+      "android/place.wav",
+      "android/invalid.wav",
+      "android/route_ready.wav",
+      "android/forklift.wav",
+      "android/ship.wav",
+      "android/chain2.wav",
+      "android/chain3.wav",
+      "android/chain4.wav",
+      "android/upgrade.wav",
+      "android/shift.wav",
+      "android/fail.wav"
+    ]
+  },
+  "assets": {
+    "pick": {
+      "gainDb": 9.5,
+      "gain": 2.9853826189179595,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 84.98866213151928,
+      "sourceSamplePeak": 0.4776611328125,
+      "source4xTruePeakEstimate": 0.4789128311306626,
+      "effectiveSamplePeak": 0.21494750976562502,
+      "effectiveFullRmsDbfs": -22.160112568087477,
+      "effectiveMax50msRmsDbfs": -19.97192371718452,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.37248655735242053
+    },
+    "place": {
+      "gainDb": 6,
+      "gain": 1.9952623149688795,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 115.01133786848072,
+      "sourceSamplePeak": 0.552642822265625,
+      "source4xTruePeakEstimate": 0.5529946153930276,
+      "effectiveSamplePeak": 0.552642822265625,
+      "effectiveFullRmsDbfs": -14.022781938783941,
+      "effectiveMax50msRmsDbfs": -10.877362067383078,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 9.467048207153862
+    },
+    "invalid": {
+      "gainDb": 9,
+      "gain": 2.8183829312644537,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 140.0,
+      "sourceSamplePeak": 0.47906494140625,
+      "source4xTruePeakEstimate": 0.4793698974233667,
+      "effectiveSamplePeak": 0.2155792236328125,
+      "effectiveFullRmsDbfs": -22.156462014077775,
+      "effectiveMax50msRmsDbfs": -18.53192960052267,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 1.812480674014271
+    },
+    "route_ready": {
+      "gainDb": 9,
+      "gain": 2.8183829312644537,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 170.02267573696145,
+      "sourceSamplePeak": 0.507293701171875,
+      "source4xTruePeakEstimate": 0.509363496056776,
+      "effectiveSamplePeak": 0.22828216552734376,
+      "effectiveFullRmsDbfs": -23.060809240864177,
+      "effectiveMax50msRmsDbfs": -20.115124323704062,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.22928595083287817
+    },
+    "forklift": {
+      "gainDb": 14.5,
+      "gain": 5.3088444423098835,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 270.02267573696145,
+      "sourceSamplePeak": 0.3450927734375,
+      "source4xTruePeakEstimate": 0.3453124474495752,
+      "effectiveSamplePeak": 0.155291748046875,
+      "effectiveFullRmsDbfs": -25.639360336704794,
+      "effectiveMax50msRmsDbfs": -20.137950611365632,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.2064596631713087
+    },
+    "ship": {
+      "gainDb": 5.5,
+      "gain": 1.8836490894898006,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 260.0,
+      "sourceSamplePeak": 0.489715576171875,
+      "source4xTruePeakEstimate": 0.4900273120112604,
+      "effectiveSamplePeak": 0.22037200927734377,
+      "effectiveFullRmsDbfs": -23.340223043070978,
+      "effectiveMax50msRmsDbfs": -20.302301092034174,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.04210918250276663
+    },
+    "chain2": {
+      "gainDb": 3.5,
+      "gain": 1.4962356560944334,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 280.0,
+      "sourceSamplePeak": 0.35906982421875,
+      "source4xTruePeakEstimate": 0.36126149998390855,
+      "effectiveSamplePeak": 0.1615814208984375,
+      "effectiveFullRmsDbfs": -24.88588163161278,
+      "effectiveMax50msRmsDbfs": -20.16562674558642,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.17878352895052174
+    },
+    "chain3": {
+      "gainDb": 4.5,
+      "gain": 1.6788040181225603,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 280.0,
+      "sourceSamplePeak": 0.43646240234375,
+      "source4xTruePeakEstimate": 0.4387827994752727,
+      "effectiveSamplePeak": 0.19640808105468752,
+      "effectiveFullRmsDbfs": -24.659092380646793,
+      "effectiveMax50msRmsDbfs": -20.336786614156384,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.007623660380556174
+    },
+    "chain4": {
+      "gainDb": 4,
+      "gain": 1.5848931924611136,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 280.0,
+      "sourceSamplePeak": 0.443756103515625,
+      "source4xTruePeakEstimate": 0.44516498272541466,
+      "effectiveSamplePeak": 0.19969024658203124,
+      "effectiveFullRmsDbfs": -24.037168934371923,
+      "effectiveMax50msRmsDbfs": -20.175543916965047,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.1688663575718934
+    },
+    "upgrade": {
+      "gainDb": 6,
+      "gain": 1.9952623149688795,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 300.0,
+      "sourceSamplePeak": 0.498809814453125,
+      "source4xTruePeakEstimate": 0.4991273393671123,
+      "effectiveSamplePeak": 0.22446441650390625,
+      "effectiveFullRmsDbfs": -22.83180458878895,
+      "effectiveMax50msRmsDbfs": -20.168197680046646,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.1762125944902948
+    },
+    "shift": {
+      "gainDb": 7,
+      "gain": 2.2387211385683394,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 380.0,
+      "sourceSamplePeak": 0.60443115234375,
+      "source4xTruePeakEstimate": 0.6053094374707162,
+      "effectiveSamplePeak": 0.2719940185546875,
+      "effectiveFullRmsDbfs": -22.80797096817174,
+      "effectiveMax50msRmsDbfs": -19.9446967550422,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.399713519494739
+    },
+    "fail": {
+      "gainDb": 8,
+      "gain": 2.51188643150958,
+      "sourceRate": 22050,
+      "channels": 1,
+      "durationMs": 250.02267573696147,
+      "sourceSamplePeak": 0.426971435546875,
+      "source4xTruePeakEstimate": 0.4272432306567922,
+      "effectiveSamplePeak": 0.19213714599609374,
+      "effectiveFullRmsDbfs": -22.803648176072144,
+      "effectiveMax50msRmsDbfs": -18.492772032076076,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 1.851638242460865
+    },
+    "ui_click": {
+      "gainDb": 0,
+      "gain": 1.0,
+      "sourceRate": 44100,
+      "channels": 2,
+      "durationMs": 187.14285714285714,
+      "sourceSamplePeak": 0.9881591796875,
+      "source4xTruePeakEstimate": 0.9887882073237746,
+      "effectiveSamplePeak": 0.2154867182751448,
+      "effectiveFullRmsDbfs": -26.07623577657147,
+      "effectiveMax50msRmsDbfs": -20.34441027453694,
+      "pcm16FullscaleSamples": 0,
+      "exactScalarMatch": true,
+      "headerAndDurationUnchanged": true,
+      "loudest50msDeltaFromButtonDb": 0.0
+    }
+  },
+  "inventory": [
+    {
+      "platform": "browser",
+      "name": "chain2",
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "browser",
+      "name": "chain3",
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "browser",
+      "name": "chain4",
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "browser",
+      "name": "fail",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "baselineUnchanged": true,
+      "bytes": 11070
+    },
+    {
+      "platform": "browser",
+      "name": "forklift",
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827",
+      "baselineUnchanged": true,
+      "bytes": 11952
+    },
+    {
+      "platform": "browser",
+      "name": "invalid",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "baselineUnchanged": true,
+      "bytes": 6218
+    },
+    {
+      "platform": "browser",
+      "name": "pick",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "baselineUnchanged": true,
+      "bytes": 3792
+    },
+    {
+      "platform": "browser",
+      "name": "place",
+      "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc",
+      "baselineUnchanged": true,
+      "bytes": 5116
+    },
+    {
+      "platform": "browser",
+      "name": "route_ready",
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f",
+      "baselineUnchanged": true,
+      "bytes": 7542
+    },
+    {
+      "platform": "browser",
+      "name": "shift",
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f",
+      "baselineUnchanged": true,
+      "bytes": 16802
+    },
+    {
+      "platform": "browser",
+      "name": "ship",
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1",
+      "baselineUnchanged": true,
+      "bytes": 11510
+    },
+    {
+      "platform": "browser",
+      "name": "ui_click",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "baselineUnchanged": true,
+      "bytes": 33056
+    },
+    {
+      "platform": "browser",
+      "name": "upgrade",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "baselineUnchanged": true,
+      "bytes": 13274
+    },
+    {
+      "platform": "browser",
+      "name": "bgm",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "baselineUnchanged": true,
+      "bytes": 1563002
+    },
+    {
+      "platform": "wechat",
+      "name": "chain2",
+      "sha256": "4b7b93f608994e4fbd5d0dc17c103a488420a672e00ba76164c3edae1d77e091",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "wechat",
+      "name": "chain3",
+      "sha256": "d32adfa913dfafc25de3adface1d9005ba2e2449740ecce4d2bead2b8a27adaf",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "wechat",
+      "name": "chain4",
+      "sha256": "7f7204821ff8c7ff9fc1637da4d9a1dea99032b1a312ce0cc44d3b96e336fee3",
+      "baselineUnchanged": true,
+      "bytes": 12392
+    },
+    {
+      "platform": "wechat",
+      "name": "fail",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa",
+      "baselineUnchanged": true,
+      "bytes": 11070
+    },
+    {
+      "platform": "wechat",
+      "name": "forklift",
+      "sha256": "7d24c2bc55a1ef757aecf4216e63c987ea51ce27b43d04a2d2ac847ddd2f670f",
+      "baselineUnchanged": true,
+      "bytes": 11952
+    },
+    {
+      "platform": "wechat",
+      "name": "invalid",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb",
+      "baselineUnchanged": true,
+      "bytes": 6218
+    },
+    {
+      "platform": "wechat",
+      "name": "pick",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9",
+      "baselineUnchanged": true,
+      "bytes": 3792
+    },
+    {
+      "platform": "wechat",
+      "name": "place",
+      "sha256": "0e700e33c233cb5f7da2483c3a9d6b1e14e166b1e0b9ac9c6b5be2264bc6e320",
+      "baselineUnchanged": true,
+      "bytes": 5116
+    },
+    {
+      "platform": "wechat",
+      "name": "route_ready",
+      "sha256": "f5d8529e9c13a9c4c5bc49189ee2c065caa878072c9e566f3dfd172861034066",
+      "baselineUnchanged": true,
+      "bytes": 7542
+    },
+    {
+      "platform": "wechat",
+      "name": "shift",
+      "sha256": "1ad81081eb2ace8c375a26f298b149eec5acb31f8d0f22bdfce9ff7ee9e36b85",
+      "baselineUnchanged": true,
+      "bytes": 16802
+    },
+    {
+      "platform": "wechat",
+      "name": "ship",
+      "sha256": "2c805ae56f26400f9e5ab26e34f8b5f5882c6af7815a4813558495cd0cb08d5e",
+      "baselineUnchanged": true,
+      "bytes": 11510
+    },
+    {
+      "platform": "wechat",
+      "name": "ui_click",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "baselineUnchanged": true,
+      "bytes": 33056
+    },
+    {
+      "platform": "wechat",
+      "name": "upgrade",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5",
+      "baselineUnchanged": true,
+      "bytes": 13274
+    },
+    {
+      "platform": "wechat",
+      "name": "bgm",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "baselineUnchanged": true,
+      "bytes": 1563002
+    },
+    {
+      "platform": "android",
+      "name": "chain2",
+      "sha256": "6f1b350cefd894c06292883d25c73621a545466c96df60104559ffbfcf0b7e65",
+      "baselineUnchanged": false,
+      "bytes": 12392
+    },
+    {
+      "platform": "android",
+      "name": "chain3",
+      "sha256": "d9d8e9b47bfa8d2b9bd62933960fc8d5160b36deedd6ef64b599fa5d7d21faab",
+      "baselineUnchanged": false,
+      "bytes": 12392
+    },
+    {
+      "platform": "android",
+      "name": "chain4",
+      "sha256": "9296c9437a1a580508f68c5e317bbaa2e69f0f5e608ccbfffe906c54e0d01b16",
+      "baselineUnchanged": false,
+      "bytes": 12392
+    },
+    {
+      "platform": "android",
+      "name": "fail",
+      "sha256": "2c3981ba6eeccd72502c4620164e89dba250cf9391e76286ccaf90e7b4fb849f",
+      "baselineUnchanged": false,
+      "bytes": 11070
+    },
+    {
+      "platform": "android",
+      "name": "forklift",
+      "sha256": "33928debdf3789087b7600940fae5c9269c6b55eba0db7274e45895cea1a001b",
+      "baselineUnchanged": false,
+      "bytes": 11952
+    },
+    {
+      "platform": "android",
+      "name": "invalid",
+      "sha256": "06e985182494912d6d53ab7e9b0d83519785fa631ed28bf8de00e7560f04c96e",
+      "baselineUnchanged": false,
+      "bytes": 6218
+    },
+    {
+      "platform": "android",
+      "name": "pick",
+      "sha256": "abf9e5abd547bb2ae7eca5f68346ecbc4f235f59699c2655001a091db0deb166",
+      "baselineUnchanged": false,
+      "bytes": 3792
+    },
+    {
+      "platform": "android",
+      "name": "place",
+      "sha256": "2eae27e4a813196678c34f9aef41da3409b9d75748192293a3aaff1f70d7a36c",
+      "baselineUnchanged": false,
+      "bytes": 5116
+    },
+    {
+      "platform": "android",
+      "name": "route_ready",
+      "sha256": "dda38abd8d5e2a561dbaeabb61f4c2076d170920e14ef3858891a8b2c4ceb355",
+      "baselineUnchanged": false,
+      "bytes": 7542
+    },
+    {
+      "platform": "android",
+      "name": "shift",
+      "sha256": "8aec32d64bc012e954e23aa63f05df1a1de7b20a117d6233700d588dd80136b3",
+      "baselineUnchanged": false,
+      "bytes": 16802
+    },
+    {
+      "platform": "android",
+      "name": "ship",
+      "sha256": "c29c0420040a69c779c17a84af3947731cb5fe7acf24125047eccfa279a3e24a",
+      "baselineUnchanged": false,
+      "bytes": 11510
+    },
+    {
+      "platform": "android",
+      "name": "ui_click",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512",
+      "baselineUnchanged": true,
+      "bytes": 33056
+    },
+    {
+      "platform": "android",
+      "name": "upgrade",
+      "sha256": "9568a11819d617ac214b6d962c7a774ce393d0ad8024505511379d48e7076e10",
+      "baselineUnchanged": false,
+      "bytes": 13274
+    },
+    {
+      "platform": "android",
+      "name": "bgm",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da",
+      "baselineUnchanged": true,
+      "bytes": 1563002
+    }
+  ],
+  "scheduledMixes": [
+    {
+      "scenario": "ordinary placement and route",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7216328557486111,
+      "boundHeadroomDb": 2.8336740341149147,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "ordinary full shipment",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          100
+        ],
+        [
+          "ship",
+          860
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7216328557486111,
+      "boundHeadroomDb": 2.8336740341149147,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "ordinary two shipments",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          100
+        ],
+        [
+          "ship",
+          860
+        ],
+        [
+          "route_ready",
+          1000
+        ],
+        [
+          "forklift",
+          1100
+        ],
+        [
+          "chain2",
+          1860
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7216328557486111,
+      "boundHeadroomDb": 2.8336740341149147,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "reduced first frame at 16ms",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7424230274322311,
+      "boundHeadroomDb": 2.5869713249095563,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "reduced four chain at 16ms ticks",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "shift",
+          320
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7424230274322311,
+      "boundHeadroomDb": 2.5869713249095563,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "place then immediate fail",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "fail",
+          0
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.7169143693345432,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7818019148171107,
+      "boundHeadroomDb": 2.1380654042589424,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.782337252555974,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "ordinary chain4 stage end",
+      "events": [
+        [
+          "chain4",
+          0
+        ],
+        [
+          "shift",
+          140
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.2721347674615938,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.3370223129441613,
+      "boundHeadroomDb": 9.446826904369335,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.33738460912288193,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "ordinary conveyor chain4 stage end",
+      "events": [
+        [
+          "chain4",
+          0
+        ],
+        [
+          "shift",
+          39.2
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.31443266659830416,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.42949043441874357,
+      "boundHeadroomDb": 7.340930086033937,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.37959934401876666,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "observed ordinary shipment at 16ms frames",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          112
+        ],
+        [
+          "ship",
+          864
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7216328557486111,
+      "boundHeadroomDb": 2.8336740341149147,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "reduced chain tail then immediate next input stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "pick",
+          320
+        ],
+        [
+          "place",
+          336
+        ],
+        [
+          "ship",
+          352
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.7927832620863886,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 1.0376141777106236,
+      "boundHeadroomDb": -0.32071794423874067,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.8582544407962949,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "reduced chain shift then upgrade stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "shift",
+          320
+        ],
+        [
+          "upgrade",
+          336
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.6282744693402228,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 0.7424230274322311,
+      "boundHeadroomDb": 2.5869713249095563,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.6936409274958149,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "reduced chain tail then failed placement stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "pick",
+          320
+        ],
+        [
+          "place",
+          336
+        ],
+        [
+          "fail",
+          336
+        ]
+      ],
+      "alignedSfxSamplePeak": 0.8705388084174237,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 1.2163053413728642,
+      "boundHeadroomDb": -1.7008522787831535,
+      "aligned4xTruePeakEstimatePlusBgmBound": 0.9360594835936091,
+      "clippedSfxSamples": 0,
+      "regularSafetyAssertion": true
+    },
+    {
+      "scenario": "extreme all 13 voices, not claimed reachable",
+      "events": [
+        [
+          "pick",
+          0
+        ],
+        [
+          "place",
+          0
+        ],
+        [
+          "invalid",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          0
+        ],
+        [
+          "ship",
+          0
+        ],
+        [
+          "chain2",
+          0
+        ],
+        [
+          "chain3",
+          0
+        ],
+        [
+          "chain4",
+          0
+        ],
+        [
+          "upgrade",
+          0
+        ],
+        [
+          "shift",
+          0
+        ],
+        [
+          "fail",
+          0
+        ],
+        [
+          "ui_click",
+          0
+        ]
+      ],
+      "alignedSfxSamplePeak": 1.423845911476017,
+      "fixedScheduleAbsoluteSampleSumPlusBgmBound": 2.1003605897140054,
+      "boundHeadroomDb": -6.445877215435863,
+      "aligned4xTruePeakEstimatePlusBgmBound": 1.489718802637567,
+      "clippedSfxSamples": 160,
+      "regularSafetyAssertion": false
+    }
+  ],
+  "loaderRegenerationIdempotence": {
+    "passes": 5,
+    "targetCueComparisons": 195,
+    "heldBuffersUnchanged": 195,
+    "allMatchStagedAssets": true
+  },
+  "scopeLimits": [
+    "The artificial all-13-voices fixture clips and is not claimed reachable through the ordinary UI.",
+    "Source-informed rapid-input schedules are constructed stress tests, not full gameplay replays.",
+    "Loader regeneration is tested here; repeated whole-build hash comparison is separately recorded by the build owner.",
+    "No device listening test is performed."
+  ]
+}

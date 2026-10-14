@@ -15,10 +15,10 @@ const manifest=`  E: manifest (line=2)
       A: android:name(0x01010003)="androidx.test.runner.AndroidJUnitRunner"
       A: android:targetPackage(0x01010021)="io.github.nightshang.chache"
 `;
-async function fixture(sourceContentVersion='1.0.21'){
+async function fixture(sourceContentVersion='1.0.22'){
  const root=await mkdtemp(join(tmpdir(),'test-apk-metadata-')),payload=join(root,'handoff'),sdk=join(root,'sdk'),tools=join(sdk,'build-tools/35.0.0');
  await mkdir(join(payload,'apks'),{recursive:true});await mkdir(tools,{recursive:true});
- const config=Object.fromEntries(Object.entries(names).map(([kind,name])=>[name,{badging:`package: name='io.github.nightshang.chache${kind==='test'?'.test':''}' versionCode='${kind==='test'?'':kind==='vc1'?'1':'2'}' versionName='${kind==='test'?'':'1.0.21'}'\napplication-label:'货箱最后一格'\n`,manifest,certificate}]));
+ const config=Object.fromEntries(Object.entries(names).map(([kind,name])=>[name,{badging:`package: name='io.github.nightshang.chache${kind==='test'?'.test':''}' versionCode='${kind==='test'?'':kind==='vc1'?'1':'2'}' versionName='${kind==='test'?'':'1.0.22'}'\napplication-label:'货箱最后一格'\n`,manifest,certificate}]));
  const configure=()=>writeFile(join(sdk,'config.json'),JSON.stringify(config));await configure();
  // Only SDK process boundaries are fixtures. Real inspector parsing, file hashes,
  // ZIP assets and failure diagnostics run unchanged; this is not signing evidence.
@@ -33,7 +33,7 @@ p=pathlib.Path(sys.argv[1]);names=json.loads(sys.argv[2]);source_version=sys.arg
 for kind,name in names.items():
  with zipfile.ZipFile(p/name,'w') as z:
   if kind=='test': z.writestr('assets/acceptance.js','fixture driver');continue
-  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.21','sourceContentVersion':source_version,'shopPricingMode':'paid','developerDiagnostics':False})}
+  assets={'app.js':'formal product','build-manifest.json':json.dumps({'platform':'android','version':'1.0.22','sourceContentVersion':source_version,'shopPricingMode':'paid','developerDiagnostics':False})}
   for key,value in assets.items():z.writestr('assets/public/'+key,value)
   z.writestr('assets/public/SHA256SUMS',''.join(hashlib.sha256(value.encode()).hexdigest()+'  '+key+'\n' for key,value in assets.items()))
 `,join(payload,'apks'),JSON.stringify(names),sourceContentVersion],{encoding:'utf8'});assert.equal(zipped.status,0,zipped.stderr);
@@ -43,13 +43,13 @@ for kind,name in names.items():
 test('AGP instrumentation template without version metadata stays exact and does not invent product versions',async()=>{
  const template=await read('tests/fixtures/android-agp-8.13.0-test-manifest.xml');assert.doesNotMatch(template,/android:versionCode|android:versionName/);assert.match(template,/android:targetPackage="#TESTEDPACKAGE#"/);
  const f=await fixture();try{
-  const apks=await f.inspect();assert.deepEqual(apks.test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:null,versionName:''});assert.equal(apks.vc1.identity.versionCode,1);assert.equal(apks.vc2.identity.versionCode,2);assert.equal(apks.vc2.identity.versionName,'1.0.21');
+  const apks=await f.inspect();assert.deepEqual(apks.test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:null,versionName:''});assert.equal(apks.vc1.identity.versionCode,1);assert.equal(apks.vc2.identity.versionCode,2);assert.equal(apks.vc2.identity.versionName,'1.0.22');
   f.config[names.test].badging=f.config[names.test].badging.replace("versionCode='' versionName=''","versionCode='17' versionName='suite-17'");await f.configure();assert.deepEqual((await f.inspect()).test.identity,{applicationId:'io.github.nightshang.chache.test',versionCode:17,versionName:'suite-17'});
  }finally{await f.cleanup();}
 });
 test('product APK handoff rejects stale source content even with valid embedded checksums',async()=>{
  const f=await fixture('1.0.13');
- try{await assert.rejects(f.inspect(),/Product content must be Android v1\.0\.21 with formal paid v1\.0\.21 source content/);}finally{await f.cleanup();}
+ try{await assert.rejects(f.inspect(),/Product content must be Android v1\.0\.22 with formal paid v1\.0\.22 source content/);}finally{await f.cleanup();}
 });
 test('test APK wrong package target runner certificate and malformed metadata fail closed after raw diagnostics',async()=>{
  const changes=[['badging',"package: name='other.test' versionCode='' versionName=''\n"],['badging',"package: name='io.github.nightshang.chache.test' versionCode='bad' versionName=''\n"],['manifest',manifest.replace('io.github.nightshang.chache','other.app')],['manifest',manifest.replace('AndroidJUnitRunner','OtherRunner')],['manifest',manifest+manifest],['certificate','e'.repeat(64)]];

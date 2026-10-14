@@ -1,0 +1,14 @@
+{
+  "fixture": "tests/economy-v2-legacy-proof.test.ts: legacy daily9 four-order chain",
+  "shipmentChains": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "phaseAfterChain": "upgrade",
+  "nextPlacementError": "当前阶段不能入库",
+  "nextPlacementEvents": [],
+  "provesConstructedFourChainThenImmediatePlaceFail": false,
+  "limit": "This existing four-chain fixture requires an upgrade before another placement. No existing full-session fixture was found establishing the constructed four-chain then immediate place+fail schedule."
+}

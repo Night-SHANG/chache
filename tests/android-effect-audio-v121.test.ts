@@ -58,7 +58,9 @@ function max50msRms(wav:Buffer):number {
  for(let i=window;i<power.length;i++){running+=power[i]-power[i-window];maximum=Math.max(maximum,running);}
  return Math.sqrt(maximum/window);
 }
-test('Android uses the reviewed per-cue gains and short-window level reference without raising its button',()=>{
+// This is the frozen v121 asset-calibration reference at 0.45, not current Android
+// playback loudness: v122 place uses its separate approved gain, verified by android-place-volume-v122.test.ts.
+test('Android retains v121 asset gains and their frozen 0.45 short-window calibration reference',()=>{
  const click=loadSoundAsset('ui_click','android'),reference=max50msRms(click)*.45*.2428740327036814*10**(6/20);
  for(const name of SOUND_NAMES){
   if(name==='ui_click')continue;

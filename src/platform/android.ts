@@ -1,3 +1,4 @@
+import {ANDROID_PLACE_VOLUME} from '../shared/android-place-level.ts';
 import type {StoragePort} from '../application/save.ts';
 import {L,hitTestPoint,type Rect} from '../presentation/layout.ts';
 import {AUDIO_LEVELS} from '../shared/audio-levels.ts';
@@ -80,7 +81,7 @@ export function createAndroidPlatform(canvas:HTMLCanvasElement,storage:StoragePo
   overlayBounds:()=>viewport?{...viewport.overlay}:undefined,
   frame:callback=>window.requestAnimationFrame(callback),now:()=>performance.now(),wallTime:()=>Date.now(),
   onPointer:callback=>{pointerCallbacks.push(callback);},onHide:callback=>{hideCallbacks.push(callback);},onShow:callback=>{showCallbacks.push(callback);},
-  playSound:name=>{if(!usable()||!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=AUDIO_LEVELS.browserEffects*(name==='ui_click'?ANDROID_UI_CLICK_GAIN:1);audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio never gates gameplay. */}},
+  playSound:name=>{if(!usable()||!SOUND_NAMES.includes(name))return;try{let audio=sounds.get(name);if(!audio){audio=new Audio(`assets/${name}.wav`);sounds.set(name,audio);}audio.volume=name==='place'?ANDROID_PLACE_VOLUME:AUDIO_LEVELS.browserEffects*(name==='ui_click'?ANDROID_UI_CLICK_GAIN:1);audio.currentTime=0;void audio.play().catch(()=>{});}catch{/* Optional audio never gates gameplay. */}},
   stopSounds,setMusicState:music.setState,
   vibrate:()=>{if(!usable())return;try{navigator.vibrate?.(15);}catch{/* Optional host haptics. */}},
   loadImage:path=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=path;}),

@@ -42,7 +42,7 @@ test('strict actual game host uses only its screen canvas and does not install c
  const folder=await mkdtemp(join(tmpdir(),'warehouse-current-game-host-'));
  try{
   const bundlePath=join(folder,'game.js');
-  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.21')}});
+  await build({entryPoints:['src/wechat-main.ts'],outfile:bundlePath,bundle:true,format:'iife',platform:'neutral',target:'es2018',minify:true,define:{__DEV_DIAGNOSTICS__:'false',__PLAYTEST_FREE_SHOP__:'false',__APP_VERSION__:JSON.stringify('1.0.22')}});
   for(const resource of Object.values(STATIC_ART_RESOURCES)){const target=join(folder,resource.src);await mkdir(dirname(target),{recursive:true});await cp(resource.sourcePath,target);}
   const report=await probeBuiltHost({bundlePath});
   assert.equal(report.status,'PASS',report.error);assert.equal(report.canvasCount,1);

@@ -33,14 +33,14 @@ test('Android shell has a fixed offline identity and pinned Capacitor toolchain'
   assert.equal(pkg.dependencies?.[name]??pkg.devDependencies?.[name],'8.5.3');
   assert.equal(lock.packages[`node_modules/${name}`].version,'8.5.3');
  }
- assert.equal(pkg.version,'1.0.21');
- assert.equal(lock.version,'1.0.21');
- assert.equal(lock.packages[''].version,'1.0.21');
+ assert.equal(pkg.version,'1.0.22');
+ assert.equal(lock.version,'1.0.22');
+ assert.equal(lock.packages[''].version,'1.0.22');
  const rootPkg=await json('package.json');
- assert.equal(rootPkg.version,'1.0.21');
+ assert.equal(rootPkg.version,'1.0.22');
  const rootLock=await json('package-lock.json');
- assert.equal(rootLock.version,'1.0.21');
- assert.equal(rootLock.packages[''].version,'1.0.21');
+ assert.equal(rootLock.version,'1.0.22');
+ assert.equal(rootLock.packages[''].version,'1.0.22');
  assert.equal(rootPkg.scripts['build:android'],'node scripts/build-android.mjs');
  for(const name of ['@capacitor/core','@capacitor/android','@capacitor/cli'])assert.equal(rootPkg.dependencies?.[name]??rootPkg.devDependencies?.[name],undefined);
  assert.equal(existsSync('capacitor.config.json'),false,'Root Capacitor config must not shadow isolated shell config');
@@ -58,9 +58,9 @@ test('Android production staging preserves formal media except its calibrated ef
   assert.equal(existsSync(join(dir,'build/android/stale-remote.js')),false);
   const manifest=JSON.parse(await readFile(join(dir,'build/android/build-manifest.json'),'utf8'));
   const formal=JSON.parse(await readFile(join(dir,'build/browser/build-manifest.json'),'utf8'));
-  assert.equal(manifest.version,'1.0.21');
-  assert.equal(manifest.sourceContentVersion,'1.0.21');
-  assert.equal(formal.version,'1.0.21');
+  assert.equal(manifest.version,'1.0.22');
+  assert.equal(manifest.sourceContentVersion,'1.0.22');
+  assert.equal(formal.version,'1.0.22');
   assert.equal(manifest.shopPricingMode,'paid');
   assert.equal(manifest.developerDiagnostics,false);
   assert.equal(manifest.platform,'android');
@@ -73,6 +73,10 @@ test('Android production staging preserves formal media except its calibrated ef
   assert.equal(manifest.uiClick.assetGain,formal.uiClick.assetGain);
   assert.equal(manifest.uiClick.sha256,formal.uiClick.sha256);
   assert.equal(manifest.soundEffects.androidVolume,.45);
+  assert.equal(manifest.placeSound.playbackVolume,.45*10**(4.5/20));
+  assert.deepEqual(manifest.soundEffects.androidVolumeOverrides,{place:.45*10**(4.5/20)});
+  assert.equal(formal.placeSound.playbackVolume,undefined);
+  assert.equal(formal.soundEffects.androidVolumeOverrides,undefined);
   assert.equal(formal.soundEffects.androidVolume,undefined);
   assert.ok(manifest.soundEffects.androidAdditionalAssetGainDb,'Android staging must declare its build-time per-cue gains');
   assert.deepEqual(manifest.soundEffects.androidAdditionalAssetGainDb,ANDROID_EFFECT_GAIN_DB);
@@ -130,7 +134,7 @@ test('Android production staging preserves formal media except its calibrated ef
 test('Android public Capacitor imports resolve through real production bundle and TypeScript options',async()=>{
  assert.ok(existsSync('scripts/android-bundle-options.ts'),'Shared production Android bundle options are missing');
  const {androidBundleOptions}=await import('../scripts/android-bundle-options.ts');
- assert.equal(androidBundleOptions(root).define?.__APP_VERSION__,JSON.stringify('1.0.21'));
+ assert.equal(androidBundleOptions(root).define?.__APP_VERSION__,JSON.stringify('1.0.22'));
  const bundled=await build({...androidBundleOptions(root),stdin:{contents:"import {Capacitor} from '@capacitor/core'; globalThis.resolvedPlatform=Capacitor.getPlatform();",resolveDir:resolve(root,'src'),loader:'ts'},write:false,metafile:true});
  assert.ok(Object.keys(bundled.metafile?.inputs??{}).some(path=>path.includes('android-shell/node_modules/@capacitor/core/')));
  const context:{resolvedPlatform?:string}={};
@@ -153,7 +157,7 @@ test('official Android project fixes version, SDK, Gradle and offline WebView re
  const app=await read('android/app/build.gradle');
  assert.match(app,/applicationId ['"]io\.github\.nightshang\.chache['"]/);
  assert.match(app,/versionCode 1\b/);
- assert.match(app,/versionName ['"]1\.0\.21['"]/);
+ assert.match(app,/versionName ['"]1\.0\.22['"]/);
  assert.match(app,/buildToolsVersion ['"]35\.0\.0['"]/);
  const vars=await read('android/variables.gradle');
  assert.match(vars,/minSdkVersion = 24/);

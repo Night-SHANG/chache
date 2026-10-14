@@ -1,0 +1,17 @@
+{
+  "mediaFilesChecked": 93,
+  "changedMediaFiles": [],
+  "allMediaIdenticalToV121": true,
+  "browserWechatBundles": {
+    "browser": {
+      "baselineBytes": 681316,
+      "finalBytes": 681316,
+      "identicalAfterVersionOnlyNormalization": true
+    },
+    "wechat": {
+      "baselineBytes": 680660,
+      "finalBytes": 680660,
+      "identicalAfterVersionOnlyNormalization": true
+    }
+  }
+}

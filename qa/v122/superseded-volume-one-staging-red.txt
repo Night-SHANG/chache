@@ -1,0 +1,28 @@
+✖ Android production staging preserves formal media except its calibrated effect WAVs (3369.69711ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3733.662244
+
+✖ failing tests:
+
+test at tests/android-build.test.ts:49:1
+✖ Android production staging preserves formal media except its calibrated effect WAVs (3369.69711ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/e6b59ff34222/android-place-volume-v122/tests/android-build.test.ts:76:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

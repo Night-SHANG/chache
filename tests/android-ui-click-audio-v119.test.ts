@@ -16,11 +16,11 @@ const sha=(bytes:Buffer)=>createHash('sha256').update(bytes).digest('hex');
 
 // Regression targets: use the old level, boost every cue, exceed volume=1,
 // compound gain on cached handles, change shared assets, or bypass saved mute.
-test('Android raises only ui_click by 6dB at playback and never compounds gain on reuse',()=>{
+test('Android retains the ui_click playback boost and never compounds cue gains on reuse',()=>{
  const f=androidFixture();try{
   for(let pass=0;pass<30;pass++)for(const name of SOUND_NAMES){
    f.platform.playSound(name);const audio=f.audio.find(audio=>audio.src===`assets/${name}.wav`);assert.ok(audio);
-   const expected=name==='ui_click'?androidClickVolume:.45;
+   const expected=name==='ui_click'?androidClickVolume:name==='place'?.45*10**(4.5/20):.45;
    assert.ok(Math.abs(audio.volume-expected)<1e-12,`${name}: volume ${audio.volume}, expected ${expected}`);
    assert.ok(audio.volume>=0&&audio.volume<=1);assert.equal(audio.currentTime,0);assert.equal(audio.plays,pass+1);audio.currentTime=.06;
   }

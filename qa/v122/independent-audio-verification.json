@@ -1,0 +1,1463 @@
+{
+  "root": "/workspace/scratch/e6b59ff34222/android-place-volume-v122",
+  "preliminary": false,
+  "placeRuntimeVolume": 0.7554618081551522,
+  "netGainDbVsCommonPreAndroid": 3.564250275506874,
+  "gainAbovePickDb": 1.0000000000000004,
+  "actualAndroidAdapterRuntime": {
+    "pick": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "place": {
+      "volume": 0.7554618081551522,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "invalid": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "route_ready": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "forklift": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "ship": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "chain2": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "chain3": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "chain4": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "upgrade": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "shift": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "fail": {
+      "volume": 0.45,
+      "plays": 30,
+      "currentTime": 0
+    },
+    "ui_click": {
+      "volume": 0.21806883213217862,
+      "plays": 30,
+      "currentTime": 0
+    }
+  },
+  "observedSessionTraces": [
+    {
+      "reducedMotion": false,
+      "events": [
+        {
+          "name": "place",
+          "time": 0,
+          "volume": 0.7554618081551522
+        },
+        {
+          "name": "place",
+          "time": 100,
+          "volume": 0.7554618081551522
+        },
+        {
+          "name": "route_ready",
+          "time": 100,
+          "volume": 0.45
+        },
+        {
+          "name": "forklift",
+          "time": 212,
+          "volume": 0.45
+        },
+        {
+          "name": "ship",
+          "time": 964,
+          "volume": 0.45
+        }
+      ],
+      "animationSettled": true
+    },
+    {
+      "reducedMotion": true,
+      "events": [
+        {
+          "name": "place",
+          "time": 0,
+          "volume": 0.7554618081551522
+        },
+        {
+          "name": "place",
+          "time": 100,
+          "volume": 0.7554618081551522
+        },
+        {
+          "name": "route_ready",
+          "time": 100,
+          "volume": 0.45
+        },
+        {
+          "name": "ship",
+          "time": 116,
+          "volume": 0.45
+        }
+      ],
+      "animationSettled": true
+    }
+  ],
+  "audioFilesCompared": 42,
+  "allAudioUnchangedFromV121": true,
+  "allAssetFilesCompared": 93,
+  "allAssetsUnchangedFromV121": true,
+  "allAssetInventory": [
+    {
+      "platform": "browser",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "platform": "browser",
+      "name": "board-materials.png",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    {
+      "platform": "browser",
+      "name": "cargo-materials.png",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    {
+      "platform": "browser",
+      "name": "chain2.wav",
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd"
+    },
+    {
+      "platform": "browser",
+      "name": "chain3.wav",
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1"
+    },
+    {
+      "platform": "browser",
+      "name": "chain4.wav",
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489"
+    },
+    {
+      "platform": "browser",
+      "name": "fail.wav",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "platform": "browser",
+      "name": "forklift.wav",
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827"
+    },
+    {
+      "platform": "browser",
+      "name": "invalid.wav",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "platform": "browser",
+      "name": "pick.wav",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "platform": "browser",
+      "name": "place.wav",
+      "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc"
+    },
+    {
+      "platform": "browser",
+      "name": "route_ready.wav",
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f"
+    },
+    {
+      "platform": "browser",
+      "name": "scene-materials.png",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    {
+      "platform": "browser",
+      "name": "shift.wav",
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f"
+    },
+    {
+      "platform": "browser",
+      "name": "ship.wav",
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/cargo-core.png",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/forklift-base.png",
+      "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/forklift-styled.png",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/frame-classic.png",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-cold_chain.png",
+      "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-day.png",
+      "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-night.png",
+      "sha256": "082adccb330b0e155581c36a3cee50f63c0777e9fefb591b1634e0db21dfddfa"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-ocean_vault.png",
+      "sha256": "b74e8b622b695de192a35c669d0702f5326d3d3ea44ada80ea76418950465832"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-paper_warehouse.png",
+      "sha256": "63a1eae6d9d46b779714e2ad205f4c83c92f091d9db51e43cf4c256ea81c8080"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-rail_freight.png",
+      "sha256": "3d1b338dc1c73c01ffc655029fa9e0e2481c84bd8703ffdf82f56c88fe171db7"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-space_cargo.png",
+      "sha256": "d4d7025d55b9a8ee343aca8c94e1dcaf2674a8a65fdc985b71468939ca0ff9c8"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-steam_foundry.png",
+      "sha256": "23a730cda63862ec65d6da8510047b5a6927cd6dae7a76670e4ab1a8aa300e00"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/scene-toy_workshop.png",
+      "sha256": "30c6ab8c65cb5afff963181a0752c1e65186e220efef97cc54e22d2c670336b9"
+    },
+    {
+      "platform": "browser",
+      "name": "static-art/tools-core.png",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9"
+    },
+    {
+      "platform": "browser",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "browser",
+      "name": "upgrade.wav",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "platform": "wechat",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "platform": "wechat",
+      "name": "board-materials.png",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    {
+      "platform": "wechat",
+      "name": "cargo-materials.png",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain2.wav",
+      "sha256": "4b7b93f608994e4fbd5d0dc17c103a488420a672e00ba76164c3edae1d77e091"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain3.wav",
+      "sha256": "d32adfa913dfafc25de3adface1d9005ba2e2449740ecce4d2bead2b8a27adaf"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain4.wav",
+      "sha256": "7f7204821ff8c7ff9fc1637da4d9a1dea99032b1a312ce0cc44d3b96e336fee3"
+    },
+    {
+      "platform": "wechat",
+      "name": "fail.wav",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "platform": "wechat",
+      "name": "forklift.wav",
+      "sha256": "7d24c2bc55a1ef757aecf4216e63c987ea51ce27b43d04a2d2ac847ddd2f670f"
+    },
+    {
+      "platform": "wechat",
+      "name": "invalid.wav",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "platform": "wechat",
+      "name": "pick.wav",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "platform": "wechat",
+      "name": "place.wav",
+      "sha256": "0e700e33c233cb5f7da2483c3a9d6b1e14e166b1e0b9ac9c6b5be2264bc6e320"
+    },
+    {
+      "platform": "wechat",
+      "name": "route_ready.wav",
+      "sha256": "f5d8529e9c13a9c4c5bc49189ee2c065caa878072c9e566f3dfd172861034066"
+    },
+    {
+      "platform": "wechat",
+      "name": "scene-materials.png",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    {
+      "platform": "wechat",
+      "name": "shift.wav",
+      "sha256": "1ad81081eb2ace8c375a26f298b149eec5acb31f8d0f22bdfce9ff7ee9e36b85"
+    },
+    {
+      "platform": "wechat",
+      "name": "ship.wav",
+      "sha256": "2c805ae56f26400f9e5ab26e34f8b5f5882c6af7815a4813558495cd0cb08d5e"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/cargo-core.png",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/forklift-base.png",
+      "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/forklift-styled.png",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/frame-classic.png",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-cold_chain.png",
+      "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-day.png",
+      "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-night.png",
+      "sha256": "082adccb330b0e155581c36a3cee50f63c0777e9fefb591b1634e0db21dfddfa"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-ocean_vault.png",
+      "sha256": "b74e8b622b695de192a35c669d0702f5326d3d3ea44ada80ea76418950465832"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-paper_warehouse.png",
+      "sha256": "63a1eae6d9d46b779714e2ad205f4c83c92f091d9db51e43cf4c256ea81c8080"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-rail_freight.png",
+      "sha256": "3d1b338dc1c73c01ffc655029fa9e0e2481c84bd8703ffdf82f56c88fe171db7"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-space_cargo.png",
+      "sha256": "d4d7025d55b9a8ee343aca8c94e1dcaf2674a8a65fdc985b71468939ca0ff9c8"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-steam_foundry.png",
+      "sha256": "23a730cda63862ec65d6da8510047b5a6927cd6dae7a76670e4ab1a8aa300e00"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/scene-toy_workshop.png",
+      "sha256": "30c6ab8c65cb5afff963181a0752c1e65186e220efef97cc54e22d2c670336b9"
+    },
+    {
+      "platform": "wechat",
+      "name": "static-art/tools-core.png",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9"
+    },
+    {
+      "platform": "wechat",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "wechat",
+      "name": "upgrade.wav",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "platform": "android",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "platform": "android",
+      "name": "board-materials.png",
+      "sha256": "5c2bc5fc4d6fbdda2df46e09995a8b5b269cdae16aa763a50b5ed02c03ea66f5"
+    },
+    {
+      "platform": "android",
+      "name": "cargo-materials.png",
+      "sha256": "3de912ee3a92184cf1b5c215790854645cd25dded1ec5d1cf4c690b642fe9a65"
+    },
+    {
+      "platform": "android",
+      "name": "chain2.wav",
+      "sha256": "6f1b350cefd894c06292883d25c73621a545466c96df60104559ffbfcf0b7e65"
+    },
+    {
+      "platform": "android",
+      "name": "chain3.wav",
+      "sha256": "d9d8e9b47bfa8d2b9bd62933960fc8d5160b36deedd6ef64b599fa5d7d21faab"
+    },
+    {
+      "platform": "android",
+      "name": "chain4.wav",
+      "sha256": "9296c9437a1a580508f68c5e317bbaa2e69f0f5e608ccbfffe906c54e0d01b16"
+    },
+    {
+      "platform": "android",
+      "name": "fail.wav",
+      "sha256": "2c3981ba6eeccd72502c4620164e89dba250cf9391e76286ccaf90e7b4fb849f"
+    },
+    {
+      "platform": "android",
+      "name": "forklift.wav",
+      "sha256": "33928debdf3789087b7600940fae5c9269c6b55eba0db7274e45895cea1a001b"
+    },
+    {
+      "platform": "android",
+      "name": "invalid.wav",
+      "sha256": "06e985182494912d6d53ab7e9b0d83519785fa631ed28bf8de00e7560f04c96e"
+    },
+    {
+      "platform": "android",
+      "name": "pick.wav",
+      "sha256": "abf9e5abd547bb2ae7eca5f68346ecbc4f235f59699c2655001a091db0deb166"
+    },
+    {
+      "platform": "android",
+      "name": "place.wav",
+      "sha256": "2eae27e4a813196678c34f9aef41da3409b9d75748192293a3aaff1f70d7a36c"
+    },
+    {
+      "platform": "android",
+      "name": "route_ready.wav",
+      "sha256": "dda38abd8d5e2a561dbaeabb61f4c2076d170920e14ef3858891a8b2c4ceb355"
+    },
+    {
+      "platform": "android",
+      "name": "scene-materials.png",
+      "sha256": "b394aad384c59e08f2d3893f80be7bc6d12d3ae568633b98717191ed00cc0c7e"
+    },
+    {
+      "platform": "android",
+      "name": "shift.wav",
+      "sha256": "8aec32d64bc012e954e23aa63f05df1a1de7b20a117d6233700d588dd80136b3"
+    },
+    {
+      "platform": "android",
+      "name": "ship.wav",
+      "sha256": "c29c0420040a69c779c17a84af3947731cb5fe7acf24125047eccfa279a3e24a"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/cargo-core.png",
+      "sha256": "30493b705eb1d274cb1e23cfd2bd4ce6a8944ccb0011d2549f9b9988c3884565"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/forklift-base.png",
+      "sha256": "eaf116188e9fb4e87cdee81cff8d026f4bd35197bcf707b40ab741839cc1c7c2"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/forklift-styled.png",
+      "sha256": "9360d4c00757f97c4b5cd9a72c2ac95115d92e4f0955eb684507efca262ae956"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/frame-classic.png",
+      "sha256": "d7e8fd0899e994e760493f0f08728d740586b6f76b2c66922a0956d3d4e4c389"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-cold_chain.png",
+      "sha256": "8ee00f7cc34400f568e374c822f7a0bed88ab70236f4e400c37d09b74f7069f4"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-day.png",
+      "sha256": "d08dd77122d077f096eafc897e9ca95c91fbab559b05a66de11933461be9c6b4"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-night.png",
+      "sha256": "082adccb330b0e155581c36a3cee50f63c0777e9fefb591b1634e0db21dfddfa"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-ocean_vault.png",
+      "sha256": "b74e8b622b695de192a35c669d0702f5326d3d3ea44ada80ea76418950465832"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-paper_warehouse.png",
+      "sha256": "63a1eae6d9d46b779714e2ad205f4c83c92f091d9db51e43cf4c256ea81c8080"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-rail_freight.png",
+      "sha256": "3d1b338dc1c73c01ffc655029fa9e0e2481c84bd8703ffdf82f56c88fe171db7"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-space_cargo.png",
+      "sha256": "d4d7025d55b9a8ee343aca8c94e1dcaf2674a8a65fdc985b71468939ca0ff9c8"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-steam_foundry.png",
+      "sha256": "23a730cda63862ec65d6da8510047b5a6927cd6dae7a76670e4ab1a8aa300e00"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/scene-toy_workshop.png",
+      "sha256": "30c6ab8c65cb5afff963181a0752c1e65186e220efef97cc54e22d2c670336b9"
+    },
+    {
+      "platform": "android",
+      "name": "static-art/tools-core.png",
+      "sha256": "e228efd8a5b081102910fbc7137968417e921189a4ec16dbf59bd09cc33a27a9"
+    },
+    {
+      "platform": "android",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "android",
+      "name": "upgrade.wav",
+      "sha256": "9568a11819d617ac214b6d962c7a774ce393d0ad8024505511379d48e7076e10"
+    }
+  ],
+  "inventory": [
+    {
+      "platform": "browser",
+      "name": "chain2.wav",
+      "sha256": "6a5fcf6ed91ae4783058c21acda3d70f74b6a58c83f6880432d5d58589a6d4cd"
+    },
+    {
+      "platform": "browser",
+      "name": "chain3.wav",
+      "sha256": "b370a841043e70631c46819b8fa1d4825cbba5c109122a4d9ce2e78da2b531b1"
+    },
+    {
+      "platform": "browser",
+      "name": "chain4.wav",
+      "sha256": "72c42b9e2352cece8911062dde57a0294bb8d6a7a50dd7b3788670d15222a489"
+    },
+    {
+      "platform": "browser",
+      "name": "fail.wav",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "platform": "browser",
+      "name": "forklift.wav",
+      "sha256": "6fdf435144f0c24c071f8fff08bec93a4e075ff020fec691a15398ba7631c827"
+    },
+    {
+      "platform": "browser",
+      "name": "invalid.wav",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "platform": "browser",
+      "name": "pick.wav",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "platform": "browser",
+      "name": "place.wav",
+      "sha256": "568f7a73096f5b5c35e87644b8123dab5595364666308a925923900c643241dc"
+    },
+    {
+      "platform": "browser",
+      "name": "route_ready.wav",
+      "sha256": "d3f2aed7b95215b7282e2bb03521f3cd0a5d63d6c1be2c96e36b7e309821618f"
+    },
+    {
+      "platform": "browser",
+      "name": "shift.wav",
+      "sha256": "ba1e4105c46a18e4923913051440f7ffe5d67f37a7d291c0c58be370e3f6f50f"
+    },
+    {
+      "platform": "browser",
+      "name": "ship.wav",
+      "sha256": "3b67823f908c01654c8bd0c1df82dcd91d132b0313a4d97e85474514e1b738b1"
+    },
+    {
+      "platform": "browser",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "browser",
+      "name": "upgrade.wav",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "platform": "browser",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain2.wav",
+      "sha256": "4b7b93f608994e4fbd5d0dc17c103a488420a672e00ba76164c3edae1d77e091"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain3.wav",
+      "sha256": "d32adfa913dfafc25de3adface1d9005ba2e2449740ecce4d2bead2b8a27adaf"
+    },
+    {
+      "platform": "wechat",
+      "name": "chain4.wav",
+      "sha256": "7f7204821ff8c7ff9fc1637da4d9a1dea99032b1a312ce0cc44d3b96e336fee3"
+    },
+    {
+      "platform": "wechat",
+      "name": "fail.wav",
+      "sha256": "eef75e011cef9a201c061116b63196263ae2cb072130abec2dbf7e91ba041afa"
+    },
+    {
+      "platform": "wechat",
+      "name": "forklift.wav",
+      "sha256": "7d24c2bc55a1ef757aecf4216e63c987ea51ce27b43d04a2d2ac847ddd2f670f"
+    },
+    {
+      "platform": "wechat",
+      "name": "invalid.wav",
+      "sha256": "978ce70e1c4a6d0f52b3301909eabfbf78af5f74e658770b642595f9a57a2cfb"
+    },
+    {
+      "platform": "wechat",
+      "name": "pick.wav",
+      "sha256": "bf08a4a37f514606b6371841f9f24387743cb1e79f8dd78e7f2794de4237abb9"
+    },
+    {
+      "platform": "wechat",
+      "name": "place.wav",
+      "sha256": "0e700e33c233cb5f7da2483c3a9d6b1e14e166b1e0b9ac9c6b5be2264bc6e320"
+    },
+    {
+      "platform": "wechat",
+      "name": "route_ready.wav",
+      "sha256": "f5d8529e9c13a9c4c5bc49189ee2c065caa878072c9e566f3dfd172861034066"
+    },
+    {
+      "platform": "wechat",
+      "name": "shift.wav",
+      "sha256": "1ad81081eb2ace8c375a26f298b149eec5acb31f8d0f22bdfce9ff7ee9e36b85"
+    },
+    {
+      "platform": "wechat",
+      "name": "ship.wav",
+      "sha256": "2c805ae56f26400f9e5ab26e34f8b5f5882c6af7815a4813558495cd0cb08d5e"
+    },
+    {
+      "platform": "wechat",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "wechat",
+      "name": "upgrade.wav",
+      "sha256": "3d0ee8f036cb67fb87b2d4dbce66ff48256e67e3aec1129ad6fe3978b97b2eb5"
+    },
+    {
+      "platform": "wechat",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    },
+    {
+      "platform": "android",
+      "name": "chain2.wav",
+      "sha256": "6f1b350cefd894c06292883d25c73621a545466c96df60104559ffbfcf0b7e65"
+    },
+    {
+      "platform": "android",
+      "name": "chain3.wav",
+      "sha256": "d9d8e9b47bfa8d2b9bd62933960fc8d5160b36deedd6ef64b599fa5d7d21faab"
+    },
+    {
+      "platform": "android",
+      "name": "chain4.wav",
+      "sha256": "9296c9437a1a580508f68c5e317bbaa2e69f0f5e608ccbfffe906c54e0d01b16"
+    },
+    {
+      "platform": "android",
+      "name": "fail.wav",
+      "sha256": "2c3981ba6eeccd72502c4620164e89dba250cf9391e76286ccaf90e7b4fb849f"
+    },
+    {
+      "platform": "android",
+      "name": "forklift.wav",
+      "sha256": "33928debdf3789087b7600940fae5c9269c6b55eba0db7274e45895cea1a001b"
+    },
+    {
+      "platform": "android",
+      "name": "invalid.wav",
+      "sha256": "06e985182494912d6d53ab7e9b0d83519785fa631ed28bf8de00e7560f04c96e"
+    },
+    {
+      "platform": "android",
+      "name": "pick.wav",
+      "sha256": "abf9e5abd547bb2ae7eca5f68346ecbc4f235f59699c2655001a091db0deb166"
+    },
+    {
+      "platform": "android",
+      "name": "place.wav",
+      "sha256": "2eae27e4a813196678c34f9aef41da3409b9d75748192293a3aaff1f70d7a36c"
+    },
+    {
+      "platform": "android",
+      "name": "route_ready.wav",
+      "sha256": "dda38abd8d5e2a561dbaeabb61f4c2076d170920e14ef3858891a8b2c4ceb355"
+    },
+    {
+      "platform": "android",
+      "name": "shift.wav",
+      "sha256": "8aec32d64bc012e954e23aa63f05df1a1de7b20a117d6233700d588dd80136b3"
+    },
+    {
+      "platform": "android",
+      "name": "ship.wav",
+      "sha256": "c29c0420040a69c779c17a84af3947731cb5fe7acf24125047eccfa279a3e24a"
+    },
+    {
+      "platform": "android",
+      "name": "ui_click.wav",
+      "sha256": "64417ece36e1f91639f61ebac38634245cd251829bc0ee67805c42c41b9ce512"
+    },
+    {
+      "platform": "android",
+      "name": "upgrade.wav",
+      "sha256": "9568a11819d617ac214b6d962c7a774ce393d0ad8024505511379d48e7076e10"
+    },
+    {
+      "platform": "android",
+      "name": "bgm.mp3",
+      "sha256": "63ae1249b7da1931cc536cac435ff2738ec55718eee0d10e579c8c650b88c1da"
+    }
+  ],
+  "metrics": {
+    "pick": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.21494750976562502,
+      "estimated4xTruePeak": 0.21551077400879814
+    },
+    "place": {
+      "runtimeVolume": 0.7554618081551522,
+      "samplePeak": 0.41750054577275547,
+      "estimated4xTruePeak": 0.41776631204487963
+    },
+    "invalid": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.2155792236328125,
+      "estimated4xTruePeak": 0.21571645384051502
+    },
+    "route_ready": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.22828216552734376,
+      "estimated4xTruePeak": 0.22921357322554914
+    },
+    "forklift": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.155291748046875,
+      "estimated4xTruePeak": 0.15539060135230884
+    },
+    "ship": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.22037200927734377,
+      "estimated4xTruePeak": 0.2205122904050672
+    },
+    "chain2": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.1615814208984375,
+      "estimated4xTruePeak": 0.16256767499275887
+    },
+    "chain3": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.19640808105468752,
+      "estimated4xTruePeak": 0.1974522597638727
+    },
+    "chain4": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.19969024658203124,
+      "estimated4xTruePeak": 0.20032424222643658
+    },
+    "upgrade": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.22446441650390625,
+      "estimated4xTruePeak": 0.22460730271520055
+    },
+    "shift": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.2719940185546875,
+      "estimated4xTruePeak": 0.27238924686182225
+    },
+    "fail": {
+      "runtimeVolume": 0.45,
+      "samplePeak": 0.19213714599609374,
+      "estimated4xTruePeak": 0.19225945379555648
+    },
+    "ui_click": {
+      "runtimeVolume": 0.21806883213217862,
+      "samplePeak": 0.21548671827514476,
+      "estimated4xTruePeak": 0.21562388959716605
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": "ordinary placement and route",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5040605258284071,
+      "peakPlusAnyBgmBound": 0.5689480713109746,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5693479137239785,
+      "headroomDbFor4xBound": 4.892445328148971,
+      "absoluteSumPlusBgmBound": 0.5898583792497045,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "ordinary full shipment",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          100
+        ],
+        [
+          "ship",
+          860
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5040605258284071,
+      "peakPlusAnyBgmBound": 0.5689480713109746,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5693479137239785,
+      "headroomDbFor4xBound": 4.892445328148971,
+      "absoluteSumPlusBgmBound": 0.5898583792497045,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "ordinary two shipments",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          100
+        ],
+        [
+          "ship",
+          860
+        ],
+        [
+          "route_ready",
+          1000
+        ],
+        [
+          "forklift",
+          1100
+        ],
+        [
+          "chain2",
+          1860
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5040605258284071,
+      "peakPlusAnyBgmBound": 0.5689480713109746,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5693479137239785,
+      "headroomDbFor4xBound": 4.892445328148971,
+      "absoluteSumPlusBgmBound": 0.5898583792497045,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "reduced first frame at 16ms",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5284318796055701,
+      "peakPlusAnyBgmBound": 0.5933194250881376,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5937347814541305,
+      "headroomDbFor4xBound": 4.528150180274519,
+      "absoluteSumPlusBgmBound": 0.6407133412986681,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "reduced four chain at 16ms ticks",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "shift",
+          320
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5284318796055701,
+      "peakPlusAnyBgmBound": 0.5933194250881376,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5937347814541305,
+      "headroomDbFor4xBound": 4.528150180274519,
+      "absoluteSumPlusBgmBound": 0.6407133412986681,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "place then immediate fail",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "fail",
+          0
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5834866721383334,
+      "peakPlusAnyBgmBound": 0.6483742176209009,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.6488246199458083,
+      "headroomDbFor4xBound": 3.75745357964502,
+      "absoluteSumPlusBgmBound": 0.6483742176209009,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "ordinary chain4 stage end",
+      "events": [
+        [
+          "chain4",
+          0
+        ],
+        [
+          "shift",
+          140
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.2721347674615938,
+      "peakPlusAnyBgmBound": 0.3370223129441613,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.33738460912288193,
+      "headroomDbFor4xBound": 9.437494660513547,
+      "absoluteSumPlusBgmBound": 0.3370223129441613,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "ordinary conveyor chain4 stage end",
+      "events": [
+        [
+          "chain4",
+          0
+        ],
+        [
+          "shift",
+          39.2
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.31443266659830416,
+      "peakPlusAnyBgmBound": 0.37932021208087163,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.37959934401876666,
+      "headroomDbFor4xBound": 8.413490934867292,
+      "absoluteSumPlusBgmBound": 0.42949043441874357,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "observed ordinary shipment at 16ms frames",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          112
+        ],
+        [
+          "ship",
+          864
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5040605258284071,
+      "peakPlusAnyBgmBound": 0.5689480713109746,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5693479137239785,
+      "headroomDbFor4xBound": 4.892445328148971,
+      "absoluteSumPlusBgmBound": 0.5898583792497045,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "reduced chain tail then immediate next input stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "pick",
+          320
+        ],
+        [
+          "place",
+          336
+        ],
+        [
+          "ship",
+          352
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.6713617264115597,
+      "peakPlusAnyBgmBound": 0.7362492718941271,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.7371286007994972,
+      "headroomDbFor4xBound": 2.6491347544768717,
+      "absoluteSumPlusBgmBound": 0.907993476052353,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "reduced chain shift then upgrade stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "shift",
+          320
+        ],
+        [
+          "upgrade",
+          336
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.5284318796055701,
+      "peakPlusAnyBgmBound": 0.5933194250881376,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5937347814541305,
+      "headroomDbFor4xBound": 4.528150180274519,
+      "absoluteSumPlusBgmBound": 0.6407133412986681,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "reduced chain tail then failed placement stress",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "pick",
+          320
+        ],
+        [
+          "place",
+          336
+        ],
+        [
+          "fail",
+          336
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 0.7617378110943177,
+      "peakPlusAnyBgmBound": 0.8266253565768852,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.8271892273539465,
+      "headroomDbFor4xBound": 1.6479026022947458,
+      "absoluteSumPlusBgmBound": 1.0866846397145935,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "extreme all 13 voices, not claimed reachable",
+      "events": [
+        [
+          "pick",
+          0
+        ],
+        [
+          "place",
+          0
+        ],
+        [
+          "invalid",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "forklift",
+          0
+        ],
+        [
+          "ship",
+          0
+        ],
+        [
+          "chain2",
+          0
+        ],
+        [
+          "chain3",
+          0
+        ],
+        [
+          "chain4",
+          0
+        ],
+        [
+          "upgrade",
+          0
+        ],
+        [
+          "shift",
+          0
+        ],
+        [
+          "fail",
+          0
+        ],
+        [
+          "ui_click",
+          0
+        ]
+      ],
+      "coverage": "fixed source-informed schedule; not universal phase or physical-device verification",
+      "sampleSfxPeak": 1.3363659651672855,
+      "peakPlusAnyBgmBound": 1.401253510649853,
+      "estimated4xTruePeakPlusAnyBgmBound": 1.402183169649018,
+      "headroomDbFor4xBound": -2.93609499974182,
+      "absoluteSumPlusBgmBound": 1.9860323916463856,
+      "clippedSfxSamples": 92
+    },
+    {
+      "scenario": "actual GameSession tutorial two-placement trace, reducedMotion=False",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "place",
+          100
+        ],
+        [
+          "route_ready",
+          100
+        ],
+        [
+          "forklift",
+          212
+        ],
+        [
+          "ship",
+          964
+        ]
+      ],
+      "coverage": "Actual GameSession dispatch through Android adapter with 16ms ticks; simulated HTMLAudio host, not physical listening",
+      "sampleSfxPeak": 0.5040605258284071,
+      "peakPlusAnyBgmBound": 0.5689480713109746,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5693479137239785,
+      "headroomDbFor4xBound": 4.892445328148971,
+      "absoluteSumPlusBgmBound": 0.5898583792497045,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "actual GameSession tutorial two-placement trace, reducedMotion=True",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "place",
+          100
+        ],
+        [
+          "route_ready",
+          100
+        ],
+        [
+          "ship",
+          116
+        ]
+      ],
+      "coverage": "Actual GameSession dispatch through Android adapter with 16ms ticks; simulated HTMLAudio host, not physical listening",
+      "sampleSfxPeak": 0.5284318796055701,
+      "peakPlusAnyBgmBound": 0.5933194250881376,
+      "estimated4xTruePeakPlusAnyBgmBound": 0.5937347814541305,
+      "headroomDbFor4xBound": 4.528150180274519,
+      "absoluteSumPlusBgmBound": 0.6407133412986681,
+      "clippedSfxSamples": 0
+    },
+    {
+      "scenario": "constructed unproven-reachable 328.9ms failure negative control",
+      "events": [
+        [
+          "place",
+          0
+        ],
+        [
+          "route_ready",
+          0
+        ],
+        [
+          "ship",
+          16
+        ],
+        [
+          "chain2",
+          96
+        ],
+        [
+          "chain3",
+          176
+        ],
+        [
+          "route_ready",
+          240
+        ],
+        [
+          "chain4",
+          256
+        ],
+        [
+          "pick",
+          320
+        ],
+        [
+          "place",
+          328.9
+        ],
+        [
+          "fail",
+          328.9
+        ]
+      ],
+      "coverage": "constructed timing-sensitivity check; existing four-chain fixture ends in upgrade and cannot validate immediate next placement",
+      "sampleSfxPeak": 0.9631782890238065,
+      "peakPlusAnyBgmBound": 1.028065834506374,
+      "estimated4xTruePeakPlusAnyBgmBound": 1.0287579352592193,
+      "headroomDbFor4xBound": -0.2462639627248768,
+      "absoluteSumPlusBgmBound": 1.0287253552999798,
+      "clippedSfxSamples": 0
+    }
+  ],
+  "limits": [
+    "No phone listening or perceived loudness verification.",
+    "BGM bound exceeding full scale is not proof of actual decoded BGM-phase clipping.",
+    "Constructed timing checks do not establish gameplay reachability.",
+    "Not a guarantee for arbitrary mix phases or host latency."
+  ]
+}

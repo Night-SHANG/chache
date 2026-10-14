@@ -1,0 +1,32 @@
+✔ Android raises every non-button effect only by unclipped scalar PCM gain (83.019481ms)
+✔ Android regeneration never compounds gain or mutates the retained source buffer (179.188298ms)
+✔ all browser and WeChat WAVs, the chosen button recording and music retain v120 bytes (33.654802ms)
+✔ Android retains v121 asset gains and their frozen 0.45 short-window calibration reference (59.397079ms)
+✔ Android place plays at the approved common-source +3.56dB level on every reuse while all other cue volumes stay unchanged (8.21826ms)
+✔ Android approved-volume place preserves music gain, position and playback (0.569787ms)
+✔ Android approved-volume place still stops on hide or owner loss and never replays on show (0.603837ms)
+✔ release vc12 is explicit while debug acceptance versions retain their original defaults (0.996651ms)
+✔ native upgrade probes use the Android release version while retaining vc1 to vc2 evidence (0.266847ms)
+✔ signed workflow isolates existing secrets from build and uploads only bounded outputs (0.344252ms)
+✔ release handoff rejects identity source archive and asset mismatches (6.238189ms)
+✔ signing refuses missing secrets before touching runner files (4.278246ms)
+✔ signing keeps temporary keys out of artifacts and cleans on failure paths (0.412693ms)
+✔ fresh signing-runner Python rejects extra acceptance files and private key formats (47.6592ms)
+✔ fresh signing runner compares exact package and version values (38.938889ms)
+✔ Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arbitrary file exception (1.580368ms)
+✔ Android retains the ui_click playback boost and never compounds cue gains on reuse (7.941229ms)
+✔ Android retains the chosen PCM bytes and keeps its boosted click below full scale (6.738862ms)
+✔ browser and WeChat retain their existing click and other cue volumes (1.132533ms)
+✔ Android click leaves normal, paused and disabled BGM levels and playback untouched (0.420184ms)
+✔ Android boosted click stops on hide or owner loss and never replays on show (0.406885ms)
+✔ Android settings mute and reload still suppress boosted button clicks (20.596531ms)
+✔ current project version leaves the complete v109 dependency graph and resolved identities unchanged (2.478823ms)
+✔ shared renderer remains within the unchanged strict source budget (0.281308ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 517.351874
