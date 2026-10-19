@@ -37,12 +37,6 @@ jobs:
           npm run typecheck 2>&1 | tee artifacts/browser-i18n-ci/typecheck.log
           npm run preflight 2>&1 | tee artifacts/browser-i18n-ci/preflight.log
           node --test tests/browser-i18n.test.ts tests/browser-locale-dom.test.ts tests/browser-i18n-render.test.ts 2>&1 | tee artifacts/browser-i18n-ci/i18n-tests.log
-      - name: Complete regression suite (failure remains a final gate)
-        id: regression
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          npm test -- --test-concurrency=4 2>&1 | tee artifacts/browser-i18n-ci/full-tests.log
       - name: Build production runtime
         run: |
           set -o pipefail
@@ -86,6 +80,20 @@ jobs:
             artifacts/browser-i18n-ci/
             artifacts/browser-i18n-browser/
           if-no-files-found: error
+          retention-days: 14
+      - name: Complete regression suite (failure remains a final gate)
+        id: regression
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm test -- --test-concurrency=4 2>&1 | tee artifacts/browser-i18n-ci/full-tests.log
+      - name: Preserve complete regression log
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: browser-i18n-regression-${{ github.sha }}
+          path: artifacts/browser-i18n-ci/full-tests.log
+          if-no-files-found: warn
           retention-days: 14
       - name: Enforce full regression result
         if: always() && steps.regression.outcome != 'success'
