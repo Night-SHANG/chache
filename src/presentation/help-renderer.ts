@@ -1,3 +1,4 @@
+import {translate,locale,wrapLocalizedText} from './i18n.ts';
 import type {GameRun} from '../domain/playable.ts';
 import {isInboundRun,isInboundV9,isInboundV11,isInboundV14,isInboundV15,isTieredInbound,isOutboundToolsRun} from '../domain/playable.ts';
 import type {ViewState} from './view-types.ts';
@@ -76,7 +77,7 @@ function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState,drawControls:D
       '双倍箱：占1格，计2件；万能可连接订单货类。',
       '危险品：按货类凑单，可正常出货。',
     ];
-    shared.forEach((line,index)=>text(ctx,line,150,405+index*91,27,'#d5e7df','left',500));
+    shared.forEach((line,index)=>locale()==='en'?wrap(ctx,line,150,405+index*91,780,27,36):text(ctx,line,150,405+index*91,27,'#d5e7df','left',500));
     text(ctx,'加急模式',150,680,33,'#ffe3a3','left',800);
     const rush=[
       '开局选择清扫：每完成2单，或每成功放置6次。',
@@ -108,16 +109,13 @@ function drawHelpDetails(ctx:Context,state:GameRun,view:ViewState,drawControls:D
     '额外清理不计分；减量升级只影响后续新单。',
     '每次放置检查原有订单，新单等下一次放置。',
   ];
-  rules.forEach((line,index)=>text(ctx,line,150,415+index*103,27,'#d5e7df','left',500));
+  rules.forEach((line,index)=>locale()==='en'?wrap(ctx,line,150,415+index*103,780,27,36):text(ctx,line,150,415+index*103,27,'#d5e7df','left',500));
   drawControls(ctx,state,view);
 }
 
 function wrap(ctx: Context, value: string, x: number, y: number, width: number, fontSize = 27, lineHeight = 43): void {
-  let line = '', lineY = y;
+  value=translate(value);
   ctx.font = `500 ${fontSize}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
-  for (const char of value) {
-    if (char === '\n' || ctx.measureText(line + char).width > width) { text(ctx, line, x, lineY, fontSize, '#d5dce1', 'left', 500); line = char === '\n' ? '' : char; lineY += lineHeight; }
-    else line += char;
-  }
-  if (line) text(ctx, line, x, lineY, fontSize, '#d5dce1', 'left', 500);
+  const lines=wrapLocalizedText(value,value=>ctx.measureText(value).width,width);
+  lines.forEach((line,index)=>text(ctx,line,x,y+index*lineHeight,fontSize,'#d5dce1','left',500));
 }

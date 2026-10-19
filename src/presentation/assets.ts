@@ -1,3 +1,4 @@
+import {translate,locale} from './i18n.ts';
 import type { CargoId, CellTrait } from '../domain/types.ts';
 import type { CargoStyleId, ForkliftId } from '../application/profile.ts';
 import type { Rect } from './layout.ts';
@@ -34,14 +35,18 @@ export function gradient(ctx: Context, x: number, y: number, h: number, top: str
 }
 
 export function text(ctx: Context, value: string, x: number, y: number, size: number, color = CREAM,
-  align: CanvasTextAlign = 'left', weight = 700): void {
+  align: CanvasTextAlign = 'left', weight = 700, maxWidth?:number): void {
+  value=translate(value);
   ctx.fillStyle = color; ctx.font = `${weight} ${size}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
+  if(locale()==='en'&&maxWidth){const measured=ctx.measureText(value).width;if(measured>maxWidth)ctx.font=`${weight} ${size*maxWidth/measured}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;}
   ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.fillText(value, x, y);
 }
 
 export function outlinedText(ctx: Context, value: string, x: number, y: number, size: number,
-  color = CREAM, align: CanvasTextAlign = 'left'): void {
+  color = CREAM, align: CanvasTextAlign = 'left', maxWidth?:number): void {
+  value=translate(value);
   ctx.font = `900 ${size}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
+  if(locale()==='en'&&maxWidth){const measured=ctx.measureText(value).width;if(measured>maxWidth)ctx.font=`900 ${size*maxWidth/measured}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;}
   ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
   ctx.strokeStyle = '#0c131d'; ctx.lineWidth = Math.max(8, size * .13); ctx.strokeText(value, x + 2, y + 6);
   ctx.strokeStyle = '#453026'; ctx.lineWidth = Math.max(3, size * .045); ctx.strokeText(value, x, y);
@@ -69,7 +74,7 @@ export function button(ctx: Context, rect: Rect, label: string, primary = true):
   roundedPath(ctx, x, y, w, h, 20); ctx.fillStyle = gradient(ctx, x, y, h, primary ? '#ffdf65' : '#4a627c', primary ? '#eda92c' : '#263c53'); ctx.fill();
   ctx.lineWidth = 5; ctx.strokeStyle = primary ? '#925619' : '#13212f'; ctx.stroke();
   roundedPath(ctx, x + 5, y + 5, w - 10, h - 10, 16); ctx.lineWidth = 2; ctx.strokeStyle = primary ? '#fff2aa' : '#90a5ba'; ctx.stroke();
-  text(ctx, label, x + w / 2, y + h / 2, 40, primary ? '#493016' : CREAM, 'center', 900);
+  text(ctx, label, x + w / 2, y + h / 2, 40, primary ? '#493016' : CREAM, 'center', 900, w-40);
 }
 
 export function hazard(ctx: Context, rect: Rect, vertical = false): void {
@@ -145,7 +150,7 @@ export function cargoBox(ctx: Context, cargo: CargoId, x: number, y: number, siz
   const waste=trait?.kind==='waste',classic=style==='classic'||style==='outline';
   if(waste){
     if(!drawStaticArtSprite(ctx,STATIC_ART_CARGO.waste))drawCargoBodyFallback(ctx,cargo,true);
-    text(ctx,'废弃箱',54,87,20,'#f2f0df','center',900);
+    text(ctx,'废弃箱',54,87,20,'#f2f0df','center',900,94);
   }else if(classic){
     if(!drawStaticArtSprite(ctx,STATIC_ART_CARGO[cargo]))drawCargoBodyFallback(ctx,cargo);
   }else if(CARGO_ATLAS.styles.includes(style)&&!getStaticArtImage('material.cargo'))drawCargoBodyFallback(ctx,cargo);
@@ -183,7 +188,7 @@ function drawTraitBadge(ctx: Context, trait: CellTrait, largeRushCountdown = fal
   const label = kind === 'pallet' ? '×2' : kind === 'rush' ? large?String(trait.remaining??'?'):`余${trait.remaining ?? '?'}次` : kind === 'hazard' ? '危险' : '万能';
   const color = kind === 'rush' && trait.remaining === 1 ? '#ffb392' : kind === 'wildcard' ? '#ddd0ff' : '#ffe393';
   roundedPath(ctx, large?32:14, large?4:7, large?48:84, large?40:29, 5); ctx.fillStyle = '#1b2633'; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
-  text(ctx, label, 56, large?25:22, large?34:kind === 'rush' ? 22 : 24, color, 'center', 900);
+  text(ctx, label, 56, large?25:22, large?34:kind === 'rush' ? 22 : 24, color, 'center', 900, large?40:76);
   if (kind === 'hazard') {
     ctx.fillStyle = '#ffdb75'; ctx.strokeStyle = '#4a321f'; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.moveTo(88, 69); ctx.lineTo(105, 96); ctx.lineTo(71, 96); ctx.closePath(); ctx.fill(); ctx.stroke();

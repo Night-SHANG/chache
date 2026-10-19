@@ -1,0 +1,94 @@
+name: Browser i18n verification
+
+on:
+  push:
+    branches: [dev/browser-i18n]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-i18n-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24.19.0'
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm --prefix android-shell ci --ignore-scripts
+          npm --prefix browser-ci ci --ignore-scripts
+          node browser-ci/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Static checks and browser localization unit tests
+        run: |
+          mkdir -p artifacts/browser-i18n-ci
+          set -o pipefail
+          npm run lint 2>&1 | tee artifacts/browser-i18n-ci/lint.log
+          npm run typecheck 2>&1 | tee artifacts/browser-i18n-ci/typecheck.log
+          npm run preflight 2>&1 | tee artifacts/browser-i18n-ci/preflight.log
+          node --test tests/browser-i18n.test.ts tests/browser-locale-dom.test.ts tests/browser-i18n-render.test.ts 2>&1 | tee artifacts/browser-i18n-ci/i18n-tests.log
+      - name: Complete regression suite (failure remains a final gate)
+        id: regression
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm test -- --test-concurrency=4 2>&1 | tee artifacts/browser-i18n-ci/full-tests.log
+      - name: Build production runtime
+        run: |
+          set -o pipefail
+          npm run build:production 2>&1 | tee artifacts/browser-i18n-ci/build.log
+      - name: Package browser HTML5 upload
+        run: |
+          python3 - <<'PY'
+          import pathlib, zipfile, hashlib, json
+          root = pathlib.Path('build/browser')
+          output = pathlib.Path('artifacts/browser-i18n-ci/warehouse-browser-i18n-html5.zip')
+          with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+              for file in sorted(root.rglob('*')):
+                  if file.is_file():
+                      archive.write(file, file.relative_to(root).as_posix())
+          with zipfile.ZipFile(output) as archive:
+              assert 'index.html' in archive.namelist()
+              assert archive.testzip() is None
+          receipt = {'file': output.name, 'bytes': output.stat().st_size, 'sha256': hashlib.sha256(output.read_bytes()).hexdigest()}
+          pathlib.Path('artifacts/browser-i18n-ci/package-receipt.json').write_text(json.dumps(receipt, indent=2))
+          PY
+      - name: Real Chromium desktop and mobile smoke
+        env:
+          PLAYWRIGHT_MODULE: ${{ github.workspace }}/browser-ci/node_modules/playwright/index.mjs
+          WAREHOUSE_URL: http://127.0.0.1:4173/
+        run: |
+          set -o pipefail
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory build/browser > artifacts/browser-i18n-ci/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/browser-i18n-smoke.mjs 2>&1 | tee artifacts/browser-i18n-ci/browser-smoke.log
+      - name: Preserve screenshots, runtime ZIP and all verification logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: browser-i18n-${{ github.sha }}
+          path: |
+            artifacts/browser-i18n-ci/
+            artifacts/browser-i18n-browser/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Enforce full regression result
+        if: always() && steps.regression.outcome != 'success'
+        run: |
+          echo 'Full regression did not pass. Inspect full-tests.log; inherited failures are not silently waived.'
+          exit 1

@@ -1,0 +1,40 @@
+/** Independent offscreen renderer audit. Never mutates player storage. */
+import {createCanvas,GlobalFonts,loadImage} from '@napi-rs/canvas';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import {render} from '../src/presentation/renderer.ts';
+import {configureLocale,untranslatedText} from '../src/presentation/i18n.ts';
+import {COSMETIC_CATALOG} from '../src/application/cosmetics.ts';
+import {EN} from '../src/presentation/en.ts';
+import {sessionHost,startInbound} from '../tests/helpers/session-fixtures.ts';
+import {prepareViewArt} from '../tests/helpers/static-art-fixture.ts';
+import {createRunV12} from '../src/domain/v12/engine.ts';
+import type {ViewState} from '../src/presentation/view-types.ts';
+import type {GameRun} from '../src/domain/playable.ts';
+const out=resolve('artifacts/browser-i18n-audit');await mkdir(out,{recursive:true});GlobalFonts.loadSystemFonts();
+const {session}=sessionHost({wallet:99999,inventory:{rotate:9,clear:9,wildcard:9}});startInbound(session);const state=session.state,view={...session.view,needsResume:false,paused:false};
+const cases:{name:string;state:GameRun;view:ViewState}[]=[];
+const add=(name:string,patch:Partial<ViewState>={},s:GameRun=state)=>cases.push({name,state:s,view:{...view,...patch}});
+for(const screen of ['menu','settings','helpMenu','inboundMenu','colorTiers','helpDetails','toolsHelp','legacyRuns'] as const)add(screen,{screen,helpFromHome:true});
+for(const topic of ['inbound','outbound'] as const)add('help-'+topic,{screen:'colorIntro',helpTopic:topic,helpFromHome:true});
+add('game',{screen:'game'});add('pause',{screen:'game',paused:true});add('recovery',{screen:'game',needsResume:true});
+for(const section of ['sets','theme','cargo','forklift'] as const)add('shop-'+section,{screen:'shop',shopTab:'cosmetics',shopSection:section});
+add('shop-tools',{screen:'shop',shopTab:'tools'});
+for(const kind of ['leaveRun','newRun','resetProfile','finishEndless','purchase','purchaseCosmetic','purchaseCosmeticSet'] as const)add('confirm-'+kind,{confirmation:{kind,item:'rotate',quantity:9,cosmeticKind:'theme',cosmeticId:'cold_chain',cosmeticSetId:'cold_chain'}});
+for(const difficulty of ['normal','hard','expert'] as const){const s=createRunV12(71,difficulty);add('outbound-'+difficulty,{screen:'game'},s);add('outbound-help-'+difficulty,{screen:'colorIntro',helpTopic:'outbound'},s);}
+add('dynamic-progress',{screen:'game',message:'本局金币 +123 · 余额 99999'}, {...state,completedOrders:17,shift:4,lastChain:12,maxChain:12});
+add('result',{screen:'game'}, {...state,phase:'result',result:'won',completedOrders:30});
+add('blocked-save',{screen:'game',accountBlocked:true,readOnlyReason:'记录已达保存上限，暂时无法保存。'});
+add('prepare-tools',{screen:'prepareTools',prepareIntent:{spec:{family:'inbound'},items:[],mode:'standard',inboundDifficulty:'hard'} as ViewState['prepareIntent']});
+const {session:rush}=sessionHost({wallet:99999});startInbound(rush,'rush');add('rush-game',{...rush.view,screen:'game'},rush.state);
+for(const item of COSMETIC_CATALOG)add('cosmetic-'+item.kind+'-'+item.id,{screen:'shop',shopTab:'cosmetics',shopSection:item.kind,cosmeticPreview:{[item.kind]:item.id}});
+const baselineRoot=resolve('../warehouse-itch-v118');
+const baseline=await import(baselineRoot+'/src/presentation/renderer.ts');
+const baselineArt=await import(baselineRoot+'/src/presentation/static-art-resources.ts');
+const baselineRequirements=await import(baselineRoot+'/src/presentation/static-art-requirements.ts');
+baselineArt.configureStaticArt((path:string)=>loadImage(resolve(baselineRoot,path)));
+const baselineComparisons:object[]=[];
+const report={baselineComparisons,kind:'Offscreen native Canvas renderer; not browser/device evidence',screens:[] as object[]};
+for(const c of cases){await prepareViewArt(c.view);for(const language of ['zh','en'] as const){configureLocale(language,EN);const canvas=createCanvas(1080,1920),ctx=canvas.getContext('2d'),texts:{value:string;left:number;right:number;top:number;font:string}[]=[];const original=ctx.fillText.bind(ctx);ctx.fillText=(value:string,x:number,y:number,maxWidth?:number)=>{const m=ctx.measureText(value),t=ctx.getTransform(),width=Math.min(m.width,maxWidth??Infinity),left=x-(ctx.textAlign==='center'?width/2:ctx.textAlign==='right'||ctx.textAlign==='end'?width:0);texts.push({value,font:ctx.font,left:t.a*left+t.c*y+t.e,right:t.a*(left+width)+t.c*y+t.e,top:t.b*x+t.d*y+t.f});original(value,x,y,maxWidth);};render(ctx as unknown as CanvasRenderingContext2D,c.state,c.view);const bytes=canvas.toBuffer('image/png');if(language==='zh'){await baselineArt.prepareStaticArt(baselineRequirements.staticArtRequirementsForView(c.view));const old=createCanvas(1080,1920);baseline.render(old.getContext('2d'),c.state,c.view);const a=ctx.getImageData(0,0,1080,1920).data,b=old.getContext('2d').getImageData(0,0,1080,1920).data;let different=0;for(let i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2]||a[i+3]!==b[i+3])different++;baselineComparisons.push({name:c.name,differentPixels:different});}await writeFile(resolve(out,`${language}-${c.name}.png`),bytes);report.screens.push({name:c.name,language,sha256:createHash('sha256').update(bytes).digest('hex'),missing:untranslatedText(),outsideCanvas:texts.filter(t=>t.left < -2||t.right>1082),texts});}}
+await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2));console.log('Captured '+report.screens.length+' renders');

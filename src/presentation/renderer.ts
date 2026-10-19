@@ -1,3 +1,4 @@
+import {translate,locale,wrapLocalizedText} from './i18n.ts';
 import {shade} from './overlay.ts';
 import {toolPurchaseQuote} from '../application/tool-purchase.ts';
 import {PLAYTEST_FREE_SHOP,shopPrice} from '../shared/build-policy.ts';
@@ -125,8 +126,8 @@ function renderScene(ctx: Context, state: GameRun, view: ViewState, backgroundBo
 
 function drawHeader(ctx: Context, state: GameRun, view: ViewState): void {
   if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 58, 35, 16, '#b6aa90', 'left', 600);
-  outlinedText(ctx, '货箱', 49, 112, 115);
-  outlinedText(ctx, '最后一格', 63, 206, 57);
+  outlinedText(ctx, locale()==='en'?'WAREHOUSE':'货箱', 49, 112, locale()==='en'?45:115,CREAM,'left',285);
+  outlinedText(ctx, '最后一格', 63, 206, locale()==='en'?40:57,CREAM,'left',285);
   hazard(ctx, { x: 55, y: 249, w: 425, h: 15 });
   if(!view.practice&&isToolRun(state))drawToolboxEntry(ctx,state,view);
   else forklift(ctx,427,177,88,-.12,view.profile?.cosmetics.forklift);
@@ -487,13 +488,10 @@ function drawRecovery(ctx: Context, state:GameRun, view:ViewState, overlayBounds
 }
 
 function wrap(ctx: Context, value: string, x: number, y: number, width: number, fontSize = 27, lineHeight = 43): void {
-  let line = '', lineY = y;
+  value=translate(value);
   ctx.font = `500 ${fontSize}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
-  for (const char of value) {
-    if (char === '\n' || ctx.measureText(line + char).width > width) { text(ctx, line, x, lineY, fontSize, '#d5dce1', 'left', 500); line = char === '\n' ? '' : char; lineY += lineHeight; }
-    else line += char;
-  }
-  if (line) text(ctx, line, x, lineY, fontSize, '#d5dce1', 'left', 500);
+  const lines=wrapLocalizedText(value,value=>ctx.measureText(value).width,width);
+  lines.forEach((line,index)=>text(ctx,line,x,y+index*lineHeight,fontSize,'#d5dce1','left',500));
 }
 
 function drawUpgrades(ctx: Context, state: RunState, overlayBounds?:Rect): void {
@@ -567,7 +565,7 @@ function drawResult(ctx: Context, state: GameRun, view: ViewState, overlayBounds
   const selected=isInboundV9(state)?UPGRADES_V9.filter(u=>state.levels[u.id]>0).map(u=>`${u.title} ${state.levels[u.id]}层`):'upgrades' in state?[...new Set(state.upgrades)].map(id=>UPGRADES.find(upgrade=>upgrade.id===id)?.title??id):[];
   ctx.font='500 23px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';
   let shown=Math.min(2,selected.length),upgradeSummary=selected.length?`关键升级  ${selected.slice(0,shown).join(' / ')}${selected.length>shown?` 等${selected.length}项`:''}`:'关键升级  无';
-  while(shown>0&&ctx.measureText(upgradeSummary).width>646){shown--;upgradeSummary=`关键升级  ${selected.slice(0,shown).join(' / ')}${shown?' · ':''}共${selected.length}项`;}
+  while(shown>0&&ctx.measureText(translate(upgradeSummary)).width>646){shown--;upgradeSummary=`关键升级  ${selected.slice(0,shown).join(' / ')}${shown?' · ':''}共${selected.length}项`;}
   if(!isInboundV11(state)&&!isInboundV14(state)&&!isInboundV15(state)&&!isTieredInbound(state))text(ctx,upgradeSummary,240,reward?1016:1041,23,'#d4dcdd','left',500);
   if(reward)text(ctx,`本局金币 +${number(reward.earnedCoins)} · 余额 ${number(reward.wallet)}`,540,1060,26,'#ffe3a3','center');
   if(tutorial)text(ctx,'正式值班：每班6单，共5班',540,1118,25,'#e7e8cf','center',600);
@@ -606,7 +604,8 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
   ctx.strokeStyle = disabled ? '#526271' : warm ? '#bd8d38' : '#7890a3'; ctx.lineWidth = 3; ctx.stroke();
   roundedPath(ctx, r.x + 6, r.y + 6, r.w - 12, r.h - 12, 13); ctx.strokeStyle = disabled ? '#455565' : warm ? '#fff0ba' : '#526e85'; ctx.lineWidth = 1.5; ctx.stroke();
   if (selected) { roundedPath(ctx, r.x + 12, r.y + 22, 7, r.h - 44, 3); ctx.fillStyle = '#654016'; ctx.fill(); }
-  const lines = control.action.type==='purchase'?control.label.split(' · '):control.label.split('\n');
+  const label=translate(control.label);
+  const lines = control.action.type==='purchase'?label.split(' · '):label.split('\n');
   lines.forEach((line, index) => {
     let size = ['purchaseCosmeticSet','purchaseCosmetic'].includes(control.action.type)?42:lines.length > 1 ? index ? 28 : 36 : r.w < 420 ? 32 : 36;
     ctx.font = `800 ${size}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
@@ -620,8 +619,8 @@ function drawControl(ctx: Context, control: UiControl, primary: boolean): void {
 function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
   const home=homeLayout(view.androidContentBounds);
   if(!view.practice)text(ctx, 'WAREHOUSE  /  LAST SLOT', 540, home.eyebrowY, 22, '#b7b098', 'center', 600);
-  outlinedText(ctx, '货箱', 540, home.titleY, 151, CREAM, 'center');
-  outlinedText(ctx, '最后一格', 540, home.subtitleY, 79, '#ffe3a3', 'center');
+  outlinedText(ctx, locale()==='en'?'WAREHOUSE':'货箱', 540, home.titleY, locale()==='en'?106:151, CREAM, 'center',920);
+  outlinedText(ctx, '最后一格', 540, home.subtitleY, 79, '#ffe3a3', 'center',880);
   hazard(ctx, home.stripe);
   ctx.fillStyle = 'rgba(255,230,159,.07)'; ctx.beginPath(); ctx.ellipse(540, home.shadowY, 180, 33, 0, 0, Math.PI * 2); ctx.fill();
   forklift(ctx, 540, home.forkliftY, 160, -.12, view.profile?.cosmetics.forklift);
@@ -633,6 +632,7 @@ function drawMenu(ctx: Context, state: GameRun, view: ViewState): void {
 }
 
 function drawRecord(ctx:Context,value:string,x:number,y:number,size:number,color:string,weight:number,right:number):void {
+  value=translate(value);
   ctx.font=`${weight} ${size}px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif`;
   const measured=ctx.measureText(value).width,available=right-x-2;
   text(ctx,value,x,y,measured>available?size*available/measured:size,color,'left',weight);
@@ -725,7 +725,7 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState,overlayBounds
   shade(ctx,overlayBounds);panel(ctx,{x:140,y:595,w:800,h:765},'#344859','#c5b98f',28);hazard(ctx,{x:170,y:627,w:740,h:16});
   const confirmation=view.confirmation,kind=confirmation?.kind,cosmetic=confirmation?.cosmeticKind&&confirmation.cosmeticId?getCosmetic(confirmation.cosmeticKind,confirmation.cosmeticId):undefined;
   const title=kind==='startPractice'?'结束本局并进入教学练习？':kind==='purchaseCosmetic'&&cosmetic?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${cosmetic.name}？`:kind==='purchase'&&confirmation?.item?`${PLAYTEST_FREE_SHOP?'领取':'购买'}${ITEM_NAMES[confirmation.item]}？`:kind==='resetProfile'?'重置成绩记录？':kind==='finishOvertime'||kind==='finishEndless'?'结束并结算？':kind==='leaveRun'?confirmation?.nextScreen==='colorTiers'?'结束本局并选择难度？':'结束本局并返回主页？':kind==='switchMode'?'保留进度并切换？':'重新开始？';
-  outlinedText(ctx,title,540,747,kind==='purchaseCosmeticSet'||kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center');
+  outlinedText(ctx,title,540,747,kind==='purchaseCosmeticSet'||kind==='startPractice'?46:kind==='leaveRun'?51:56,CREAM,'center',740);
   if(kind==='purchase'&&confirmation?.item){
     const quantity=confirmation.quantity??1,quote=toolPurchaseQuote(view.account,confirmation.item,quantity);
     text(ctx,PLAYTEST_FREE_SHOP?`免费领取 ${quantity} 件`:`单价 ${quote.unitPrice} 金币 · 合计 ${quote.total} 金币`,540,845,27,'#d1dde1','center',500);
@@ -740,7 +740,7 @@ function drawConfirmation(ctx:Context,state:GameRun,view:ViewState,overlayBounds
     :kind==='finishOvertime'||kind==='finishEndless'?['将记录当前分数。','结束后不能继续本局。']
     :view.recoveryError?['本局进度将丢失。','原存档仅留作恢复备份。','历史成绩和设置会保留。']
     :view.accountRunId?['本局将结束，放弃的进度不计入成绩。','已获金币保留，未用道具退回。','历史成绩和设置会保留。']:['本局进度将丢失。','历史成绩和设置会保留。'];
-  lines.forEach((line,index)=>{ctx.font='500 27px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';if(ctx.measureText(line).width>740)wrap(ctx,line,170,858+index*64,740,27,36);else text(ctx,line,540,858+index*64,27,'#d1dde1','center',500);});
+  lines.map(translate).forEach((line,index)=>{ctx.font='500 27px "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif';if(ctx.measureText(line).width>740)wrap(ctx,line,170,858+index*64,740,27,36);else text(ctx,line,540,858+index*64,27,'#d1dde1','center',500);});
   drawControls(ctx,state,view);
 }
 
@@ -763,9 +763,10 @@ function drawShopToolCards(ctx:Context,view:ViewState):void {
   panel(ctx,r,selected?'#3b493e':'#293f51',selected?'#edc76b':'#718d98',20);rivet(ctx,r.x+16,r.y+17);rivet(ctx,r.x+r.w-16,r.y+17);
   drawToolIcon(ctx,item,r.x+28,r.y+48,160);text(ctx,ITEM_NAMES[item],r.x+210,r.y+57,40,'#ffe8b4');
   text(ctx,`库存 ${view.account?.inventory[item]??0}`,r.x+r.w-30,r.y+57,27,'#c6d8d4','right');
-  const outbound=view.prepareIntent?.spec.family==='outbound',effectLines=(outbound&&item==='wildcard'?'单格 · 自选货类':ITEM_EFFECTS[item]).split('\n'),twoLines=effectLines.length>1;
-  effectLines.forEach((line,index)=>text(ctx,line,r.x+210,r.y+118+index*43,34,'#e3e5d8','left',500));
-  text(ctx,item==='rotate'?'顺时针改变朝向':item==='clear'?'自选目标，确认使用':screen==='shop'?'入库万能箱；出库自选货类':outbound?'食品 / 机械 / 化工':'占1格，可代替任意货类',r.x+210,r.y+(twoLines?205:163),24,'#a9c0c9','left',500);
+  const outbound=view.prepareIntent?.spec.family==='outbound',effectLines=translate(outbound&&item==='wildcard'?'单格 · 自选货类':ITEM_EFFECTS[item]).split('\n'),twoLines=effectLines.length>1;
+  effectLines.forEach((line,index)=>text(ctx,line,r.x+210,r.y+118+index*43,34,'#e3e5d8','left',500,326));
+  const subtitle=translate(item==='rotate'?'顺时针改变朝向':item==='clear'?'自选目标，确认使用':screen==='shop'?'入库万能箱；出库自选货类':outbound?'食品 / 机械 / 化工':'占1格，可代替任意货类');
+  subtitle.split('\n').forEach((line,index)=>text(ctx,line,r.x+210,r.y+(twoLines?205:163)+index*30,24,'#a9c0c9','left',500,326));
   if(selected)text(ctx,'已选择',r.x+210,r.y+(twoLines?249:224),27,'#ffe3a3');
  });
 }
