@@ -81,8 +81,18 @@ jobs:
             artifacts/browser-i18n-browser/
           if-no-files-found: error
           retention-days: 14
+      - name: Install existing full-suite Java prerequisite
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+        with:
+          distribution: temurin
+          java-version: '21'
+          check-latest: false
+          overwrite-settings: false
+      - name: Restore existing pinned frozen-render font prerequisite
+        run: bash scripts/setup-android-ci-fonts.sh
       - name: Complete regression suite (failure remains a final gate)
         id: regression
+        timeout-minutes: 12
         continue-on-error: true
         run: |
           set -o pipefail
