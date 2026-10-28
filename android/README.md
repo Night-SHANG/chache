@@ -7,7 +7,7 @@ template. It is isolated from the existing browser and WeChat entry points.
 
 - Application: 货箱最后一格
 - Package: `io.github.nightshang.chache`
-- Android version: `1.0.23`; signed release version code `12`
+- Android version: `1.0.23`; signed release version code `13`
 - Debug acceptance builds retain version codes `1` and `2`
 - Browser/WeChat and source content use the same `1.0.23` release
 - Node `24.19.0`, npm `11.9.0`, JDK `21`
