@@ -60,7 +60,7 @@ test('candidate preservation stays gated on verified receipt and never implies d
  assert.match(workflow,/id: receipt/);
  const candidate=workflow.slice(workflow.indexOf('Preserve private phone candidate'));
  assert.match(candidate,/steps\.receipt\.outcome == 'success'/);
- assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.22-vc\*-temporary-debug-candidate-\*\.apk/);
+ assert.match(candidate,/build\/android-ci\/candidate\/warehouse-last-slot-1\.0\.23-vc\*-temporary-debug-candidate-\*\.apk/);
  assert.doesNotMatch(candidate,/\.jks|\.keystore|acceptance-apks|androidTest|release upload/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.json/);
  assert.match(workflow,/build\/android-ci\/device-acceptance\/\*\.txt/);
@@ -231,33 +231,33 @@ test('Android verifier accepts genuine hashed production staging but keeps its b
  try{assert.deepEqual(await verifier.verifyStaging(dir),{phase:'bootstrap',publishApk:false});}finally{await rm(dir,{recursive:true,force:true});}
 });
 
-test('Android staging identity requires matching v1.0.22 release and source content',async()=>{
+test('Android staging identity requires matching v1.0.23 release and source content',async()=>{
  assert.ok(verifier,'Android staging verifier is missing');
  for(const identity of [
-  {version:'1.0.21',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.21'},
-  {version:'1.0.20',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.20'},
-  {version:'1.0.19',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.19'},
-  {version:'1.0.18',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.18'},
-  {version:'1.0.17',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.17'},
-  {version:'1.0.16',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.16'},
-  {version:'1.0.15',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.15'},
-  {version:'1.0.13',sourceContentVersion:'1.0.22'},
-  {version:'1.0.22',sourceContentVersion:'1.0.13'},
-  {version:'1.0.22',sourceContentVersion:undefined}
+  {version:'1.0.21',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.21'},
+  {version:'1.0.20',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.20'},
+  {version:'1.0.19',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.19'},
+  {version:'1.0.18',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.18'},
+  {version:'1.0.17',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.17'},
+  {version:'1.0.16',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.16'},
+  {version:'1.0.15',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.15'},
+  {version:'1.0.13',sourceContentVersion:'1.0.23'},
+  {version:'1.0.23',sourceContentVersion:'1.0.13'},
+  {version:'1.0.23',sourceContentVersion:undefined}
  ]){
   const dir=await stagingFixture();
   try{
    const path=join(dir,'build/android/build-manifest.json');
    const manifest=JSON.parse(await readFile(path,'utf8'));
    await writeFile(path,JSON.stringify({...manifest,...identity}));
-   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.22 with v1\.0\.22 paid production content/);
+   await assert.rejects(verifier.verifyStaging(dir),/Android staging must use v1\.0\.23 with v1\.0\.23 paid production content/);
   }finally{await rm(dir,{recursive:true,force:true});}
  }
 });
@@ -332,3 +332,4 @@ test('product cold-launch capture is bounded and preserves acceptance failure be
  const denied=spawnSync('bash',[join(root,'scripts/android-product-smoke.sh')],{env:{...process.env,ANDROID_SERIAL:'physical-phone'},encoding:'utf8',timeout:5000});
  assert.equal(denied.status,1);assert.match(denied.stderr,/disposable emulator/);
 });
+

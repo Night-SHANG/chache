@@ -21,7 +21,7 @@ test('production texture packages are fresh, fully local, verified and explicitl
   const inventory=await files('');assert.ok(!inventory.includes('assets/stale.png'));
   assert.ok(inventory.every(path=>!path.startsWith('cosmetics/')));assert.equal(inventory.filter(path=>path.endsWith('.png')).length,17);assert.ok(inventory.every(path=>!/preview-.+-(item|card|set|classic)\.png|(?:scene|preview)-(express_sorting|neon_depot|field_station|harbor|royal_store|ice_vault|forest_depot|lava_forge)(?:-item)?\.png/.test(path)));assert.ok(!inventory.includes('assets/themed-forklifts.png'));assert.ok(!inventory.includes('UI_SOUND_LICENSE.pdf'));
   for(const required of ['UI_SOUND_CC0.txt','UI_SOUND_NOTICE.txt','MUSIC_LICENSE.txt','assets/bgm.mp3'])assert.ok(inventory.includes(required),required);
-  const manifest=JSON.parse((await read('build-manifest.json')).toString());assert.equal(manifest.version,'1.0.22');
+  const manifest=JSON.parse((await read('build-manifest.json')).toString());assert.equal(manifest.version,'1.0.23');
   const spec=manifest.staticArt;assert.equal(spec.resources.length,17);assert.equal(spec.offlineAuthoring,true);assert.equal(spec.runtimeOffscreenStaticArt,false);
   for(const resource of spec.resources){
    const bytes=await read(resource.src);assert.equal(createHash('sha256').update(bytes).digest('hex'),resource.sha256,resource.key);
@@ -41,3 +41,4 @@ test('production texture packages are fresh, fully local, verified and explicitl
   const budget=JSON.parse((await readFile(join(dir,'build/wechat-package-sizes.json'))).toString());assert.equal(budget.mainBytes,main);assert.equal(budget.totalBytes,main);assert.equal(budget.packaging,'single');assert.deepEqual(budget.subpackageBytes,{});assert.equal(budget.rawMainPackageOverLimit,overLimit);assert.equal(budget.rawMainPackageOverLimitBytes,Math.max(0,main-4*1024*1024));assert.equal(budget.processedIdeBytes,null);assert.match(budget.processedIdeStatus,/NOT RUN/);assert.deepEqual(budget.inventory,sizes);
  }finally{await rm(dir,{recursive:true,force:true});}
 });
+

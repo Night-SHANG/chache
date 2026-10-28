@@ -31,7 +31,10 @@ final class WarehouseLaunchHandoff {
     private boolean destroyed;
     private volatile boolean revealed;
     private final Runnable watchdog = () -> {
-        if (!destroyed && state.deadline(SystemClock.uptimeMillis())) showFailure(FAILURE);
+        if (destroyed) return;
+        // Snapshot before deadline() clears the pending request. This is a stage, not a cause.
+        String stage = state.waitingStage();
+        if (state.deadline(SystemClock.uptimeMillis())) showFailure(FAILURE + "\n启动阶段：" + stage);
     };
 
     WarehouseLaunchHandoff(MainActivity activity) {
@@ -48,13 +51,18 @@ final class WarehouseLaunchHandoff {
         view.addJavascriptInterface(new LaunchBridge(), "WarehouseLaunch");
     }
     void onSplashExit(SplashScreenViewProvider provider) {
-        if (destroyed) { provider.remove();return; }
+        // Embedded hosts can omit the system splash or deliver its exit after reveal.
+        if (destroyed || state.isFailed()) { provider.remove();return; }
+        if (state.isReady()) {
+            // API 31/32 may restore decorFits before this late listener too. Keep our
+            // window policy, but never retain an overlay over an already confirmed game.
+            activity.restoreImmersiveAfterSplash();provider.remove();return;
+        }
         overlay = provider;
         state.overlayAttached();
         // core-splashscreen 1.2.0 restores decorFits on API 31/32 immediately before this
         // listener. Reapply our existing host policy, then measure fresh Insets under cover.
         activity.restoreImmersiveAfterSplash();
-        if (state.isFailed()) removeOverlay();
     }
     long updateHost(boolean active, boolean owner, int width, int height, WarehouseHostGeometry.Insets safe) {
         return state.updateHost(active, owner, width, height, safe.top, safe.right, safe.bottom, safe.left);

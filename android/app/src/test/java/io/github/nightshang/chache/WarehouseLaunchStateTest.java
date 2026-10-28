@@ -13,7 +13,10 @@ public final class WarehouseLaunchStateTest {
     public static void main(String[] args) {
         WarehouseLaunchState early = new WarehouseLaunchState();
         early.resume(0);early.updateHost(true, true, 1080, 2400, 30, 0, 40, 0);
-        check(early.requestFrame(early.snapshot()) == 0, "No success before system splash exit can restore window geometry");
+        long earlyRequest = early.requestFrame(early.snapshot());
+        check(earlyRequest > 0, "Optional system splash does not gate valid frame confirmation");
+        check(!early.isReady(), "Missing splash never bypasses native visual confirmation");
+        check(early.visualReady(earlyRequest), "Native visual callback can confirm a no-splash launch");
         WarehouseLaunchState state = start();
         WarehouseLaunchState.Snapshot original = state.snapshot();
         long request = state.requestFrame(original);
@@ -77,3 +80,4 @@ public final class WarehouseLaunchStateTest {
     }
     private static void check(boolean condition, String message) { assertions++;if (!condition) throw new AssertionError(message); }
 }
+

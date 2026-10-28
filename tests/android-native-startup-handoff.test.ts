@@ -9,10 +9,12 @@ const root='android/app/src',java='java/io/github/nightshang/chache';
 test('native startup controller rejects stale frames and releases only a current visual-state callback on the real JVM',()=>{
  const out=mkdtempSync(join(tmpdir(),'warehouse-launch-'));
  try{
-  const compile=spawnSync('java',['-m','jdk.compiler/com.sun.tools.javac.Main','-d',out,`${root}/main/${java}/WarehouseLaunchState.java`,`${root}/test/${java}/WarehouseLaunchStateTest.java`],{encoding:'utf8'});
+  const compile=spawnSync('java',['-m','jdk.compiler/com.sun.tools.javac.Main','-d',out,`${root}/main/${java}/WarehouseLaunchState.java`,`${root}/test/${java}/WarehouseLaunchStateTest.java`,`${root}/test/${java}/WarehouseOptionalSplashTest.java`],{encoding:'utf8'});
   assert.equal(compile.status,0,compile.stderr||compile.stdout);
   const run=spawnSync('java',['-cp',out,'io.github.nightshang.chache.WarehouseLaunchStateTest'],{encoding:'utf8'});
   assert.equal(run.status,0,run.stderr||run.stdout);assert.match(run.stdout,/assertions passed/);
+  const optional=spawnSync('java',['-cp',out,'io.github.nightshang.chache.WarehouseOptionalSplashTest'],{encoding:'utf8'});
+  assert.equal(optional.status,0,optional.stderr||optional.stdout);assert.match(optional.stdout,/assertions passed/);
  }finally{rmSync(out,{recursive:true,force:true});}
 });
 

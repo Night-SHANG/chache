@@ -14,10 +14,10 @@ android {
         if (acceptanceCode == '2') versionCode 2
         def releaseCode = providers.gradleProperty('warehouseReleaseVersionCode').orNull
         if (releaseCode != null) {
-            if (releaseCode != '12' || acceptanceCode != '1') throw new GradleException('Release version code must be 12 and cannot be combined with acceptance upgrade')
-            versionCode 12
+            if (releaseCode != '13' || acceptanceCode != '1') throw new GradleException('Release version code must be 13 and cannot be combined with acceptance upgrade')
+            versionCode 13
         }
-        versionName "1.0.22"
+        versionName "1.0.23"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

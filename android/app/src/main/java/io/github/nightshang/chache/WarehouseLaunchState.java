@@ -5,7 +5,7 @@ public final class WarehouseLaunchState {
     public static final long WATCHDOG_MS = 15000;
     private enum Phase { WAITING, READY, FAILED, DESTROYED }
     private Phase phase = Phase.WAITING;
-    private boolean foreground, overlay, blockedGesture;
+    private boolean foreground, blockedGesture;
     private long generation, requestSequence, pendingRequest, pendingGeneration;
     private long foregroundStarted, foregroundElapsed;
     private Snapshot host = new Snapshot(0, false, false, 0, 0, 0, 0, 0, 0);
@@ -35,7 +35,9 @@ public final class WarehouseLaunchState {
     }
     public Snapshot snapshot() { return new Snapshot(generation, host.active, host.owner, host.width, host.height, host.top, host.right, host.bottom, host.left); }
     public void invalidate() { generation++;pendingRequest = 0; }
-    public void overlayAttached() { overlay = true;invalidate(); }
+    // A system splash is optional (embedded/container launches may omit it).
+    // When it does arrive during startup, revalidate geometry after its window-policy changes.
+    public void overlayAttached() { if (phase == Phase.WAITING) invalidate(); }
     public void resume(long now) {
         if (phase != Phase.WAITING || foreground) return;
         foreground = true;foregroundStarted = now;invalidate();
@@ -45,18 +47,25 @@ public final class WarehouseLaunchState {
         foregroundElapsed += Math.max(0, now - foregroundStarted);foreground = false;invalidate();
     }
     public long remaining(long now) { return Math.max(0, WATCHDOG_MS - foregroundElapsed - (foreground ? Math.max(0, now - foregroundStarted) : 0)); }
+    /** Last waiting stage only, not a diagnosis; contains no save data or device identifiers. */
+    String waitingStage() {
+        if (!foreground || !host.active) return "HOST";
+        if (!host.owner) return "OWNER";
+        if (!host.usable()) return "GEOMETRY";
+        return pendingRequest != 0 ? "VISUAL" : "FRAME";
+    }
     public boolean deadline(long now) {
         if (phase != Phase.WAITING || !foreground || remaining(now) > 0) return false;
         return failed();
     }
     public long requestFrame(Snapshot expected) {
-        if (phase != Phase.WAITING || !foreground || !overlay || pendingRequest != 0 || !host.usable()
+        if (phase != Phase.WAITING || !foreground || pendingRequest != 0 || !host.usable()
             || expected == null || expected.generation != generation || !host.sameGeometry(expected)) return 0;
         pendingRequest = ++requestSequence;pendingGeneration = generation;return pendingRequest;
     }
     public void cancelVisual(long request) { if (pendingRequest == request) pendingRequest = 0; }
     public boolean visualReady(long request) {
-        if (phase != Phase.WAITING || !foreground || !overlay || !host.usable() || request == 0 || request != pendingRequest || pendingGeneration != generation) return false;
+        if (phase != Phase.WAITING || !foreground || !host.usable() || request == 0 || request != pendingRequest || pendingGeneration != generation) return false;
         phase = Phase.READY;pendingRequest = 0;return true;
     }
     public boolean failed() {
