@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'Night-SHANG/chache' && github.event.repository.private == true
+    if: github.repository == 'Night-SHANG/chache' && github.event_name == 'push' && github.ref == 'refs/heads/dev/android-v114-startup'
     outputs:
       unsigned-artifact-id: ${{ steps.upload-unsigned.outputs.artifact-id }}
       unsigned-artifact-digest: ${{ steps.upload-unsigned.outputs.artifact-digest }}
@@ -350,7 +350,7 @@ jobs:
           archive: true
 
   sign:
-    if: github.repository == 'Night-SHANG/chache' && github.event.repository.private == true
+    if: github.repository == 'Night-SHANG/chache' && github.event_name == 'push' && github.ref == 'refs/heads/dev/android-v114-startup'
     needs: build
     runs-on: ubuntu-24.04
     timeout-minutes: 15

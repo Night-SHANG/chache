@@ -90,3 +90,11 @@ test('Capacitor 8.5.3 empty bridge stubs are exact packaged assets, never an arb
  assert.throws(()=>releaseAssetManifest({'cordova.js':'b'.repeat(64)}));
 });
 
+
+test('public repository release still permits only the exact owner push branch and isolated signing',()=>{
+ const workflow=read('.github/workflows/android-release.yml');
+ const gate="if: github.repository == 'Night-SHANG/chache' && github.event_name == 'push' && github.ref == 'refs/heads/dev/android-v114-startup'";
+ assert.equal(workflow.split(gate).length-1,2);
+ assert.doesNotMatch(workflow,/github\.event\.repository\.private/);
+ assert.doesNotMatch(workflow,/pull_request_target|workflow_dispatch/);
+});
